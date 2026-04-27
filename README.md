@@ -13,7 +13,7 @@
 </p>
 
 > [!NOTE]
-> Monospace is currently in _**early access**_ and should not be relied on for production workloads yet. APIs, internal architecture, and developer workflows may change in every release.
+> Monospace is currently in **developer preview** and should not be relied on for production workloads yet. APIs, internal architecture, and developer workflows may change in every release.
 
 ## Overview
 
