@@ -21,6 +21,8 @@ Monospace is the backend platform for organizations with complex data ecosystems
 
 Modern organizations run on data spread across databases, SaaS tools, internal apps, and operational systems. Monospace brings those fragmented systems together behind a single governed access layer, making it easier to build secure backends, internal tools, and AI-powered workflows on top of the systems you already have.
 
+<img width="3840" height="1936" alt="monospace" src="https://github.com/user-attachments/assets/932028f9-8723-4cb6-94c7-ebd04f2f7038" />
+
 
 ## Getting Started
 
