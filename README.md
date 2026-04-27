@@ -48,7 +48,7 @@ curl -fL https://docs.monospace.io/quick-start | docker compose -f - up
 
 ## Feedback & Issues
 
-This repository is the primary place to report bugs, share feedback, and track known issues during the private preview.
+This repository is the primary place to report bugs, share feedback, and track known issues during the preview period.
 
 **Before opening an issue:**
 - Search existing issues to avoid duplicates
@@ -62,7 +62,7 @@ This repository is the primary place to report bugs, share feedback, and track k
 
 → [Open an Issue](../../issues/new/choose)
 
-> **Note:** This repository does not contain source code. Pull requests will not be accepted here.
+> **Note:** This repository does not contain source code.
 
 ---
 
