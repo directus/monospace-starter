@@ -79,4 +79,4 @@ Our public roadmap is hosted on Productlane — this is where you can see what's
 
 ## Support
 
-If you have a question that isn't a bug or feature request, reach out via [add your support channel here — email, Discord, etc.].
+If you have a question that isn't a bug or feature request, reach out via [Discord Channel?].
