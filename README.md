@@ -49,7 +49,7 @@ curl -fL https://docs.monospace.io/quick-start | docker compose -f - up
 | Environment Variables | [docs.monospace.io/en/reference/environment-variables](https://docs.monospace.io/en/reference/environment-variables) |
 
 
-## Feedback & Issues
+## Reporting Bugs
 
 This repository is the primary place to report bugs, share feedback, and track known issues during the preview period.
 
