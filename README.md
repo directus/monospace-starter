@@ -29,6 +29,23 @@ This repository holds the public resources for building with Monospace. It does 
 | [`starters/`](starters) | Templates, starters, and reference projects |
 | [`extensions/`](extensions) | Custom extensions, including data connectors |
 
+### Related Repositories
+
+| Repository | Contents |
+|---|---|
+| [`directus/monospace-agent-skills`](https://github.com/directus/monospace-agent-skills) | Official [Agent Skills](https://agentskills.io) package — teaches your agent the REST API, the typed SDK, codegen, and the MCP tools |
+
+Install it into Claude Code, or into any agent that supports the open standard:
+
+```bash
+# Claude Code
+claude plugin marketplace add directus/monospace-agent-skills
+claude plugin install monospace@monospace-agent-skills
+
+# Other agents
+npx skills add directus/monospace-agent-skills
+```
+
 ## Quickstart
 
 Start Monospace with a single command. The only prerequisite is [Docker Compose](https://docs.docker.com/compose/install/).
