@@ -71,7 +71,7 @@ Both start the same stack:
 
 Open the Studio at <http://localhost:8100> once the containers are healthy. The first run takes 1–2 minutes.
 
-Without a license key, the instance runs on the Starter plan. To apply a license, set `MONOSPACE_LICENSE__KEY` and restart. See [Licensing](https://docs.monospace.io/en/reference/licensing).
+Without a license, the instance runs on the Starter plan. To apply a license, set `MONOSPACE_LICENSE__KEY` in `docker-compose.yml` to your Monospace license key and run `docker compose up -d`. The instance validates the key with the Monospace licensing service on every startup and does not start if validation fails. See [Licensing](https://docs.monospace.io/en/reference/licensing).
 
 See the [Quickstart guide](https://docs.monospace.io/en/getting-started/installation) to create your first workspace, connect a data source, and add collections.
 
