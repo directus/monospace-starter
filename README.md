@@ -13,6 +13,14 @@ Monospace connects the systems your organization already runs and serves them th
 
 <img width="3810" height="2280" alt="Monospace Studio" src="monospace-hero.png" />
 
+## Overview
+
+Monospace sits between your data sources and the agents, applications, and teams that use them. Data stays in the source systems, and every caller goes through the same permissions.
+
+<img width="3810" height="2280" alt="Monospace architecture: agents, applications, and teams connect through the Build, Secure, Govern, and Federate layers to databases, services, internal APIs, and SaaS applications" src="monospace-overview.png" />
+
+## Repository Contents
+
 This repository holds the public resources for building with Monospace. It does not contain the Monospace source code.
 
 | Path | Contents |
