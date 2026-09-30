@@ -1,5 +1,8 @@
 blank_issues_enabled: false
 contact_links:
-  - name: Feature Request / Roadmap
-    url: https://monospace.productlane.com/roadmap
-    about: Vote on upcoming features and submit new ideas via our public roadmap.
+  - name: Report an Issue
+    url: https://monospace.productlane.com/support
+    about: Report a bug or problem with Monospace or the documentation, or get help from the Monospace team.
+  - name: Request a Feature
+    url: https://monospace.productlane.com/request
+    about: Submit a feature request or vote on existing ones.
