@@ -1,0 +1,38 @@
+packages:
+  - apps/*
+  - infra/aws
+  - connectors/*/extension
+  - connectors/*/frontend
+
+catalog:
+  vite: npm:@voidzero-dev/vite-plus-core@0.3.0
+  vitest: 4.1.11
+  vite-plus: 0.3.0
+
+overrides:
+  vite: 'catalog:'
+  vitest: 'catalog:'
+
+peerDependencyRules:
+  allowAny:
+    - vite
+    - vitest
+  allowedVersions:
+    vite: '*'
+    vitest: '*'
+
+allowBuilds:
+  esbuild: true
+  lightningcss: true
+  unrs-resolver: true
+  msw: false
+  workerd: false
+
+minimumReleaseAgeExclude:
+  - '@monospace/sdk@1.0.0'
+  - '@monospace/sdk@0.8.0' # @monospace/cli 0.2.1 depends on it
+  - '@monospace/cli@0.2.1'
+  - '@monospace/extension-kit@0.3.0'
+
+patchedDependencies:
+  alchemy@2.0.0-beta.79: patches/alchemy@2.0.0-beta.79.patch

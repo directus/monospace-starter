@@ -1,0 +1,9 @@
+:80 {
+  handle /api/* {
+    reverse_proxy monospace:8100
+  }
+
+  handle {
+    reverse_proxy app:3000
+  }
+}

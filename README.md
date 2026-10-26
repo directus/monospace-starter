@@ -79,6 +79,18 @@ See the [Quickstart guide](https://docs.monospace.io/en/getting-started/installa
 
 Starters are complete projects built on Monospace. Each one includes its data model and a working application, so you can run it locally and adapt it to your own data.
 
+| Starter | Contents |
+|---|---|
+| [`monoerp`](starters/monoerp) | A modular CRM app built with TanStack Start. Monospace joins PostgreSQL, an optional read-only MySQL demo, and Stripe through one API. Includes piece manifests, setup scripts, tests, and an AWS deploy |
+
+Download one starter on its own, without the rest of this repository:
+
+```bash
+npx giget@latest gh:directus/monospace-starter/starters/monoerp monoerp
+```
+
+Each starter runs its own Monospace. Stop the stack from this repository's `docker-compose.yml` before starting one, since both use port 8100. Starters carry their own license; monoERP is MIT.
+
 ## Extensions
 
 Extensions add capabilities to a Monospace instance. Data connector extensions connect APIs and other systems as data sources.

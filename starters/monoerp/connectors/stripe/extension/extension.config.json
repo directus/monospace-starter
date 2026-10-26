@@ -1,0 +1,29 @@
+{
+  "id": "monoerp/stripe",
+  "version": "0.1.0",
+  "name": "Stripe for monoERP",
+  "description": "Adds a Stripe data connector.",
+  "icon": "simple-icons:stripe",
+  "iconBackground": "#635BFF",
+  "entries": [
+    {
+      "type": "dataConnector",
+      "id": "monoerp/stripe-data-connector",
+      "version": "0.1.0",
+      "name": "Stripe",
+      "icon": "simple-icons:stripe",
+      "iconBackground": "#635BFF",
+      "engine": {
+        "capabilities": { "query": ["insertReturning", "updateReturning", "deleteReturning"] },
+        "entrypoint": "./src/data-connectors/stripe/index.ts",
+        "permissions": [
+          {
+            "permission": "net:api.stripe.com:443",
+            "reason": "Read and write Stripe customers, products, and prices"
+          }
+        ]
+      },
+      "description": "Stripe customers, products, prices, payment intents, and charges. For the local Stripe, paste { \"apiKey\": \"sk_test_monoerp\", \"apiBase\": \"http://stripe:4010\" }. For Stripe itself, { \"apiKey\": \"sk_test_…\" } with your own key."
+    }
+  ]
+}

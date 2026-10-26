@@ -1,0 +1,185 @@
+import { Link } from '@tanstack/react-router'
+import type { ReactNode } from 'react'
+
+import { EntityAvatar } from '@/components/ui/entity-avatar'
+import { cn } from '@/lib/utils'
+import { crmCopy } from '@/modules/crm/crm.copy'
+import { organizationLogo } from '@/modules/crm/entity-options'
+import type { Uuid } from '@/generated/monospace'
+
+// Organizations and contacts share their avatars and labels across CRM screens.
+// Every list, card, and picker renders them through here so they look the same everywhere.
+
+export type OrganizationLike = { id?: Uuid | null; name?: string | null; domain?: string | null }
+
+export type ContactLike = {
+  id?: Uuid | null
+  firstName?: string | null
+  lastName?: string | null
+  email?: string | null
+}
+
+type Size = 'sm' | 'default' | 'lg'
+
+const textSize: Record<Size, string> = { sm: 'text-sm', default: 'text-sm', lg: 'text-base' }
+
+export function organizationName(organization: OrganizationLike | null | undefined) {
+  return organization?.name ?? crmCopy.organizations.restricted
+}
+
+export function contactName(contact: ContactLike | null | undefined) {
+  const name = `${contact?.firstName ?? ''} ${contact?.lastName ?? ''}`.trim()
+
+  return name || `${crmCopy.contacts.restrictedName.first} ${crmCopy.contacts.restrictedName.last}`
+}
+
+export function OrganizationAvatar({
+  organization,
+  size = 'default',
+  className,
+}: {
+  organization: OrganizationLike | null | undefined
+  size?: Size
+  className?: string
+}) {
+  return (
+    <EntityAvatar
+      label={organizationName(organization)}
+      image={organizationLogo(organization?.domain)}
+      visual="organization"
+      size={size}
+      className={className}
+    />
+  )
+}
+
+export function ContactAvatar({
+  contact,
+  size = 'default',
+  className,
+}: {
+  contact: ContactLike | null | undefined
+  size?: Size
+  className?: string
+}) {
+  return (
+    <EntityAvatar label={contactName(contact)} visual="contact" size={size} className={className} />
+  )
+}
+
+function Label({
+  avatar,
+  primary,
+  secondary,
+  size,
+  link,
+  className,
+}: {
+  avatar: ReactNode
+  primary: string
+  secondary?: string | null
+  size: Size
+  link?: (children: ReactNode, className: string) => ReactNode
+  className?: string
+}) {
+  const body = (
+    <>
+      {avatar}
+      <span className="min-w-0">
+        <span
+          className={cn(
+            'block truncate font-medium',
+            textSize[size],
+            link && 'group-hover/entity:underline',
+          )}
+        >
+          {primary}
+        </span>
+        {secondary ? (
+          <span className="block truncate text-xs text-muted-foreground">{secondary}</span>
+        ) : null}
+      </span>
+    </>
+  )
+
+  const classes = cn(
+    'group/entity inline-flex max-w-full min-w-0 items-center gap-2 align-middle',
+    className,
+  )
+
+  return link ? link(body, classes) : <span className={classes}>{body}</span>
+}
+
+export function OrganizationLabel({
+  organization,
+  size = 'default',
+  secondary,
+  link = true,
+  className,
+}: {
+  organization: OrganizationLike | null | undefined
+  size?: Size
+  secondary?: string | null
+  link?: boolean
+  className?: string
+}) {
+  const id = organization?.id
+
+  return (
+    <Label
+      avatar={<OrganizationAvatar organization={organization} size={size} />}
+      primary={organizationName(organization)}
+      secondary={secondary}
+      size={size}
+      link={
+        link && id
+          ? (children, classes) => (
+              <Link
+                to="/crm/organizations/$organizationId"
+                params={{ organizationId: id }}
+                className={classes}
+              >
+                {children}
+              </Link>
+            )
+          : undefined
+      }
+      className={className}
+    />
+  )
+}
+
+export function ContactLabel({
+  contact,
+  size = 'default',
+  secondary,
+  link = true,
+  className,
+}: {
+  contact: ContactLike | null | undefined
+  size?: Size
+  secondary?: string | null
+  link?: boolean
+  className?: string
+}) {
+  const id = contact?.id
+
+  return (
+    <Label
+      avatar={<ContactAvatar contact={contact} size={size} />}
+      primary={contactName(contact)}
+      secondary={secondary === undefined ? contact?.email : secondary}
+      size={size}
+      link={
+        link && id
+          ? (children, classes) => (
+              <Link to="/crm/contacts/$contactId" params={{ contactId: id }} className={classes}>
+                {children}
+              </Link>
+            )
+          : undefined
+      }
+      className={className}
+    />
+  )
+}

@@ -1,0 +1,28 @@
+diff --git a/lib/AWS/RDS/DBInstance.js b/lib/AWS/RDS/DBInstance.js
+index c53b40700c8dc18ec79cdcf21af8676765041591..f77fbf4202213be2277df88f05f94ef8baf78c98 100644
+--- a/lib/AWS/RDS/DBInstance.js
++++ b/lib/AWS/RDS/DBInstance.js
+@@ -643,7 +643,8 @@ export const DBInstanceProvider = () => Provider.effect(DBInstance, Effect.gen(f
+     const waitForInstance = Effect.fn(function* (instanceId, { requireAvailable = true } = {}) {
+         const readinessPolicy = Schedule.max([
+             Schedule.fixed("10 seconds"),
+-            Schedule.recurs(60),
++            // Patched: Multi-AZ creates take longer than 10 minutes.
++            Schedule.recurs(180),
+         ]);
+         return yield* readInstance(instanceId).pipe(Effect.flatMap((instance) => {
+             if (!instance?.DBInstanceArn) {
+diff --git a/src/AWS/RDS/DBInstance.ts b/src/AWS/RDS/DBInstance.ts
+index 3f99e1a77b8eb1042274abd1164c2ea9f2522e37..054931f2eb260e140298a4bc4a7a07f2f34192d3 100644
+--- a/src/AWS/RDS/DBInstance.ts
++++ b/src/AWS/RDS/DBInstance.ts
+@@ -1292,7 +1292,8 @@ export const DBInstanceProvider = () =>
+       ) {
+         const readinessPolicy = Schedule.max([
+           Schedule.fixed("10 seconds"),
+-          Schedule.recurs(60),
++          // Patched: Multi-AZ creates take longer than 10 minutes.
++          Schedule.recurs(180),
+         ]);
+         return yield* readInstance(instanceId).pipe(
+           Effect.flatMap((instance) => {

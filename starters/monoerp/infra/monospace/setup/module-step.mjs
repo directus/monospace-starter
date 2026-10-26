@@ -1,0 +1,20 @@
+import { readPieces, repository, selectConnectors, selectSetupStep } from '../../pieces.mjs'
+import { runSetupStep } from './lib.mjs'
+
+if (process.argv.length !== 3) throw new Error('Supply one owner-qualified setup step')
+
+const selector = process.argv[2]
+
+const pieces = readPieces()
+
+const selected = selectConnectors(pieces, process.env.OPTIONAL_SOURCES).map((piece) => piece.id)
+
+const step = selectSetupStep(selector, pieces, selected)
+
+if (step) {
+  const directory = step.owner.kind === 'module' ? step.owner.infra : `connectors/${step.owner.id}`
+  await runSetupStep(
+    step.title,
+    () => import(new URL(`${directory}/monospace/setup/${step.script}`, repository)),
+  )
+} else console.log(`${selector}: skipped, owning piece or required connector is absent or disabled`)

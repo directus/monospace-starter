@@ -1,0 +1,42 @@
+export const crmSettingsCopy = {
+  stages: {
+    title: 'Pipeline stages',
+    description: 'Shape the steps your team takes from first conversation to closed deal.',
+    add: 'Add stage',
+    edit: 'Edit stage',
+    preview: 'Your pipeline',
+    previewDescription: 'The order and colors your team sees across deals.',
+    listTitle: 'Stages',
+    listDescription: 'Drag to reorder your stages.',
+    emptyTitle: 'Every deal starts somewhere',
+    emptyDescription: 'Add your first stage to start building your pipeline.',
+    readOnly:
+      'You can view this pipeline. Editing requires permission to update pipeline stages in Monospace.',
+    permissionError:
+      'Could not check your permissions. Editing is unavailable until we can verify access.',
+    permissionRetry: 'Retry permissions',
+    name: 'Stage name',
+    color: 'Color',
+    outcome: 'Outcome',
+    open: 'Open',
+    won: 'Won',
+    lost: 'Lost',
+    outcomeHelp: 'Open stages keep deals active. Won and lost stages close them.',
+    outcomeWarning:
+      'Changing this outcome also changes the status of every deal currently in this stage.',
+    acknowledge: 'Apply the new outcome to existing deals',
+    save: 'Save changes',
+    saving: 'Saving…',
+    saved: 'Stage updated',
+    created: 'Stage added',
+    deleted: 'Stage deleted',
+    cancel: 'Cancel',
+    delete: 'Delete stage',
+    deleteDescription:
+      'This cannot be undone. Stages with deals cannot be deleted. Move those deals to another stage first.',
+    deleteFailed:
+      'Could not delete this stage. If it contains deals, move them to another stage first.',
+    saveFailed: 'Could not save the stage. Check your permissions and try again.',
+    restricted: 'Restricted stage',
+  },
+} as const

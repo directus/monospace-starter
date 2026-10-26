@@ -1,0 +1,78 @@
+{
+  "kind": "connector",
+  "id": "portal",
+  "label": "Portal",
+  "description": "Read-only external MySQL customer platform. Local portal demo database",
+  "provides": ["Read-only external MySQL customer platform", "Local portal demo database"],
+  "ownedPaths": ["connectors/portal"],
+  "requires": [],
+  "optional": [],
+  "env": [
+    "CUSTOMER_MYSQL_HOST",
+    "CUSTOMER_MYSQL_INTERNAL_PORT",
+    "CUSTOMER_MYSQL_PORT",
+    "CUSTOMER_MYSQL_ROOT_PASSWORD",
+    "PORTAL_READER_PASSWORD",
+    "MONOSPACE_PORTAL_SOURCE",
+    "DB_SSL_MODE",
+    "DB_ADMIN_USER",
+    "MYSQL_ADMIN_PASSWORD",
+    "SEED_DEMO_DATA"
+  ],
+  "compose": "connectors/portal/compose.yml",
+  "schemaFiles": ["connectors/portal/monospace/schema/portal.json"],
+  "source": {
+    "apiName": {
+      "env": "MONOSPACE_PORTAL_SOURCE",
+      "default": "Portal"
+    },
+    "provider": "mysql",
+    "host": {
+      "env": "CUSTOMER_MYSQL_HOST",
+      "default": "customer-mysql"
+    },
+    "port": {
+      "env": "CUSTOMER_MYSQL_INTERNAL_PORT",
+      "default": 3306
+    },
+    "user": "monospace_reader",
+    "password": {
+      "env": "PORTAL_READER_PASSWORD",
+      "default": "monospace"
+    },
+    "dbname": "customer_portal",
+    "ssl": {
+      "when": "DB_SSL_MODE",
+      "value": {
+        "mode": {
+          "env": "DB_SSL_MODE"
+        }
+      }
+    }
+  },
+  "setup": {
+    "beforeSchema": [
+      {
+        "title": "Portal relation names",
+        "script": "portal-source-relations.mjs"
+      }
+    ],
+    "afterSchema": []
+  },
+  "migrate": "emulator/migrate.sh",
+  "provision": "emulator/provision.sh",
+  "composeProfiles": {
+    "bench": "connectors/portal/compose.bench.yml"
+  },
+  "frontend": [
+    {
+      "module": "crm",
+      "requires": [],
+      "order": 10,
+      "collections": ["accounts", "users", "plans", "subscriptions", "tickets", "events"],
+      "schemas": [],
+      "path": "connectors/portal/frontend/crm",
+      "slot": "organization-panel"
+    }
+  ]
+}

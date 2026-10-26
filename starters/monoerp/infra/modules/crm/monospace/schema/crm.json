@@ -1,0 +1,1186 @@
+{
+  "source": "CRM",
+  "collections": {
+    "attachments": {
+      "meta": {
+        "displayTemplate": "{file_name}",
+        "displayName": "Attachments",
+        "description": "Files linked to CRM records.",
+        "icon": "lucide:paperclip",
+        "isHidden": true,
+        "color": "#78716c"
+      },
+      "order": [
+        "file_name",
+        "content_type",
+        "size_bytes",
+        "url",
+        "contacts",
+        "organizations",
+        "opportunities",
+        "interactions"
+      ],
+      "fields": {
+        "asset_id": {
+          "isHidden": true
+        },
+        "contact_id": {
+          "isHidden": true
+        },
+        "content_type": {
+          "displayName": "Type",
+          "isHidden": false
+        },
+        "created_at": {
+          "isHidden": true
+        },
+        "created_by": {
+          "apiName": "createdById",
+          "defaultValue": {
+            "source": "engineManaged",
+            "onCreate": {
+              "kind": "currentUser"
+            }
+          },
+          "isHidden": true
+        },
+        "file_name": {
+          "displayName": "File",
+          "isHidden": false
+        },
+        "id": {
+          "isHidden": true
+        },
+        "interaction_id": {
+          "isHidden": true
+        },
+        "opportunity_id": {
+          "isHidden": true
+        },
+        "organization_id": {
+          "isHidden": true
+        },
+        "size_bytes": {
+          "displayName": "Size",
+          "isHidden": false
+        },
+        "url": {
+          "displayName": "URL",
+          "isHidden": false
+        }
+      },
+      "relations": {
+        "contacts": {
+          "displayName": "Contact",
+          "isHidden": false
+        },
+        "interactions": {
+          "displayName": "Activity",
+          "isHidden": false
+        },
+        "opportunities": {
+          "displayName": "Deal",
+          "isHidden": false
+        },
+        "organizations": {
+          "displayName": "Organization",
+          "isHidden": false
+        }
+      }
+    },
+    "contact_organizations": {
+      "meta": {
+        "displayTemplate": "{contacts.first_name} {contacts.last_name} \u00b7 {organizations.name}",
+        "displayName": "Affiliations",
+        "description": "Which people belong to which organizations.",
+        "icon": "lucide:link",
+        "isHidden": true,
+        "color": "#64748b"
+      },
+      "order": [
+        "title",
+        "contact_id",
+        "role",
+        "is_primary",
+        "created_at",
+        "started_at",
+        "created_by",
+        "ended_at",
+        "id",
+        "contacts",
+        "organizations",
+        "organization_id",
+        "updated_at",
+        "updated_by"
+      ],
+      "fields": {
+        "contact_id": {
+          "isHidden": true
+        },
+        "created_at": {
+          "isHidden": true
+        },
+        "created_by": {
+          "apiName": "createdById",
+          "defaultValue": {
+            "source": "engineManaged",
+            "onCreate": {
+              "kind": "currentUser"
+            }
+          },
+          "isHidden": true
+        },
+        "ended_at": {
+          "displayName": "Ended",
+          "isHidden": false
+        },
+        "id": {
+          "isHidden": true
+        },
+        "is_primary": {
+          "displayName": "Primary",
+          "isHidden": false
+        },
+        "organization_id": {
+          "isHidden": true
+        },
+        "role": {
+          "displayName": "Role",
+          "typeTemplateId": "select",
+          "typeOptions": {
+            "multiple": false,
+            "options": [
+              {
+                "color": "#10b981",
+                "label": "Decision maker",
+                "value": "Decision maker"
+              },
+              {
+                "color": "#a855f7",
+                "label": "Executive sponsor",
+                "value": "Executive sponsor"
+              },
+              {
+                "color": "#0ea5e9",
+                "label": "Technical evaluator",
+                "value": "Technical evaluator"
+              },
+              {
+                "color": "#14b8a6",
+                "label": "Procurement lead",
+                "value": "Procurement lead"
+              },
+              {
+                "color": "#f59e0b",
+                "label": "Advisor",
+                "value": "Advisor"
+              },
+              {
+                "color": "#64748b",
+                "label": "Former contact",
+                "value": "Former contact"
+              }
+            ]
+          },
+          "inputId": "$builtin:InputSelect",
+          "displayId": "$builtin:DisplayLabels",
+          "isHidden": false
+        },
+        "started_at": {
+          "displayName": "Started",
+          "isHidden": false
+        },
+        "title": {
+          "displayName": "Job title",
+          "isHidden": false
+        },
+        "updated_at": {
+          "isHidden": true
+        },
+        "updated_by": {
+          "apiName": "updatedById",
+          "defaultValue": {
+            "source": "engineManaged",
+            "onCreate": {
+              "kind": "currentUser"
+            },
+            "onUpdate": {
+              "kind": "currentUser"
+            }
+          },
+          "isHidden": true
+        }
+      },
+      "relations": {
+        "contacts": {
+          "displayName": "Contact",
+          "typeTemplateId": "relation",
+          "isHidden": false
+        },
+        "organizations": {
+          "displayName": "Organization",
+          "typeTemplateId": "relation",
+          "isHidden": false
+        }
+      }
+    },
+    "contacts": {
+      "meta": {
+        "displayTemplate": "{first_name} {last_name}",
+        "displayName": "Contacts",
+        "description": "People at the organizations you work with.",
+        "icon": "lucide:user-round",
+        "isHidden": false,
+        "color": "#8b5cf6"
+      },
+      "order": [
+        "first_name",
+        "attachments",
+        "last_name",
+        "email",
+        "created_at",
+        "phone",
+        "created_by",
+        "status",
+        "owner_user_id",
+        "owner",
+        "notes",
+        "id",
+        "contact_organizations",
+        "opportunities",
+        "interactions",
+        "updated_at",
+        "updated_by"
+      ],
+      "fields": {
+        "created_at": {
+          "isHidden": true
+        },
+        "created_by": {
+          "apiName": "createdById",
+          "defaultValue": {
+            "source": "engineManaged",
+            "onCreate": {
+              "kind": "currentUser"
+            }
+          },
+          "isHidden": true
+        },
+        "email": {
+          "displayName": "Email",
+          "isHidden": false
+        },
+        "first_name": {
+          "displayName": "First name",
+          "isHidden": false
+        },
+        "id": {
+          "isHidden": true
+        },
+        "last_name": {
+          "displayName": "Last name",
+          "isHidden": false
+        },
+        "notes": {
+          "displayName": "Notes",
+          "typeTemplateId": "text",
+          "inputId": "$builtin:InputTextarea",
+          "inputOptions": {
+            "autoresize": true,
+            "placeholder": "Notes about this contact"
+          },
+          "isHidden": false
+        },
+        "owner_user_id": {
+          "displayName": "Owner",
+          "isHidden": true
+        },
+        "phone": {
+          "displayName": "Phone",
+          "isHidden": false
+        },
+        "status": {
+          "displayName": "Status",
+          "typeTemplateId": "select",
+          "typeOptions": {
+            "multiple": false,
+            "options": [
+              {
+                "color": "#10b981",
+                "icon": "lucide:circle-check",
+                "label": "Active",
+                "value": "active"
+              },
+              {
+                "color": "#64748b",
+                "icon": "lucide:circle-slash",
+                "label": "Former",
+                "value": "former"
+              }
+            ]
+          },
+          "inputId": "$builtin:InputSelect",
+          "displayId": "$builtin:DisplayLabels",
+          "isHidden": false
+        },
+        "updated_at": {
+          "isHidden": true
+        },
+        "updated_by": {
+          "apiName": "updatedById",
+          "defaultValue": {
+            "source": "engineManaged",
+            "onCreate": {
+              "kind": "currentUser"
+            },
+            "onUpdate": {
+              "kind": "currentUser"
+            }
+          },
+          "isHidden": true
+        }
+      },
+      "relations": {
+        "attachments": {
+          "isHidden": true
+        },
+        "contact_organizations": {
+          "displayName": "Organizations",
+          "isHidden": false
+        },
+        "interactions": {
+          "displayName": "Activity",
+          "isHidden": false
+        },
+        "opportunities": {
+          "displayName": "Deals",
+          "typeTemplateId": "relation",
+          "isHidden": false
+        },
+        "owner": {
+          "displayName": "Owner",
+          "typeTemplateId": "user",
+          "inputId": "$builtin:InputUserM2O",
+          "isHidden": false
+        }
+      },
+      "optionalRelations": {
+        "portalUser": {
+          "source": "Portal",
+          "collection": "users",
+          "piece": "portal"
+        }
+      }
+    },
+    "interactions": {
+      "meta": {
+        "displayTemplate": "{type} {subject}",
+        "displayName": "Activity",
+        "description": "Calls, emails, meetings and tasks.",
+        "icon": "lucide:message-circle",
+        "isHidden": false,
+        "color": "#f59e0b"
+      },
+      "order": [
+        "subject",
+        "attachments",
+        "type",
+        "direction",
+        "status",
+        "contact_id",
+        "occurred_at",
+        "due_at",
+        "created_at",
+        "created_by",
+        "completed_at",
+        "owner_user_id",
+        "owner",
+        "body",
+        "id",
+        "organizations",
+        "contacts",
+        "opportunities",
+        "opportunity_id",
+        "organization_id",
+        "updated_at",
+        "updated_by"
+      ],
+      "fields": {
+        "body": {
+          "displayName": "Details",
+          "typeTemplateId": "text",
+          "inputId": "$builtin:InputTextarea",
+          "inputOptions": {
+            "autoresize": true,
+            "placeholder": "What was discussed"
+          },
+          "isHidden": false
+        },
+        "completed_at": {
+          "displayName": "Completed",
+          "isHidden": false
+        },
+        "contact_id": {
+          "isHidden": true
+        },
+        "created_at": {
+          "isHidden": true
+        },
+        "created_by": {
+          "apiName": "createdById",
+          "defaultValue": {
+            "source": "engineManaged",
+            "onCreate": {
+              "kind": "currentUser"
+            }
+          },
+          "isHidden": true
+        },
+        "direction": {
+          "displayName": "Direction",
+          "typeTemplateId": "select",
+          "typeOptions": {
+            "multiple": false,
+            "options": [
+              {
+                "color": "#10b981",
+                "icon": "lucide:arrow-down-left",
+                "label": "Inbound",
+                "value": "inbound"
+              },
+              {
+                "color": "#0ea5e9",
+                "icon": "lucide:arrow-up-right",
+                "label": "Outbound",
+                "value": "outbound"
+              },
+              {
+                "color": "#64748b",
+                "icon": "lucide:building",
+                "label": "Internal",
+                "value": "internal"
+              }
+            ]
+          },
+          "inputId": "$builtin:InputSelect",
+          "displayId": "$builtin:DisplayLabels",
+          "isHidden": false
+        },
+        "due_at": {
+          "displayName": "Due",
+          "isHidden": false
+        },
+        "id": {
+          "isHidden": true
+        },
+        "occurred_at": {
+          "displayName": "Occurred",
+          "isHidden": false
+        },
+        "opportunity_id": {
+          "isHidden": true
+        },
+        "organization_id": {
+          "isHidden": true
+        },
+        "owner_user_id": {
+          "displayName": "Owner",
+          "isHidden": true
+        },
+        "status": {
+          "displayName": "Status",
+          "typeTemplateId": "select",
+          "typeOptions": {
+            "multiple": false,
+            "options": [
+              {
+                "color": "#f59e0b",
+                "icon": "lucide:circle-dot",
+                "label": "Open",
+                "value": "open"
+              },
+              {
+                "color": "#10b981",
+                "icon": "lucide:circle-check",
+                "label": "Completed",
+                "value": "completed"
+              }
+            ]
+          },
+          "inputId": "$builtin:InputSelect",
+          "displayId": "$builtin:DisplayLabels",
+          "isHidden": false
+        },
+        "subject": {
+          "displayName": "Subject",
+          "isHidden": false
+        },
+        "type": {
+          "displayName": "Type",
+          "typeTemplateId": "select",
+          "typeOptions": {
+            "multiple": false,
+            "options": [
+              {
+                "color": "#0ea5e9",
+                "icon": "lucide:phone",
+                "label": "Call",
+                "value": "call"
+              },
+              {
+                "color": "#a855f7",
+                "icon": "lucide:mail",
+                "label": "Email",
+                "value": "email"
+              },
+              {
+                "color": "#f59e0b",
+                "icon": "lucide:users",
+                "label": "Meeting",
+                "value": "meeting"
+              },
+              {
+                "color": "#64748b",
+                "icon": "lucide:sticky-note",
+                "label": "Note",
+                "value": "note"
+              }
+            ]
+          },
+          "inputId": "$builtin:InputSelect",
+          "displayId": "$builtin:DisplayLabels",
+          "isHidden": false
+        },
+        "updated_at": {
+          "isHidden": true
+        },
+        "updated_by": {
+          "apiName": "updatedById",
+          "defaultValue": {
+            "source": "engineManaged",
+            "onCreate": {
+              "kind": "currentUser"
+            },
+            "onUpdate": {
+              "kind": "currentUser"
+            }
+          },
+          "isHidden": true
+        }
+      },
+      "relations": {
+        "attachments": {
+          "isHidden": true
+        },
+        "contacts": {
+          "displayName": "Contact",
+          "isHidden": false
+        },
+        "opportunities": {
+          "displayName": "Deal",
+          "typeTemplateId": "relation",
+          "isHidden": false
+        },
+        "organizations": {
+          "displayName": "Organization",
+          "isHidden": false
+        },
+        "owner": {
+          "displayName": "Owner",
+          "typeTemplateId": "user",
+          "inputId": "$builtin:InputUserM2O",
+          "isHidden": false
+        }
+      }
+    },
+    "opportunities": {
+      "meta": {
+        "displayTemplate": "{title} \u00b7 {organizations.name} \u00b7 {value_amount}",
+        "displayName": "Deals",
+        "description": "Deals moving through the pipeline.",
+        "icon": "lucide:target",
+        "isHidden": false,
+        "color": "#10b981"
+      },
+      "order": [
+        "title",
+        "value_amount",
+        "currency",
+        "status",
+        "attachments",
+        "stage_id",
+        "expected_close_date",
+        "contact_id",
+        "owner_user_id",
+        "owner",
+        "created_by",
+        "notes",
+        "organizations",
+        "contacts",
+        "id",
+        "pipeline_stages",
+        "interactions",
+        "organization_id",
+        "updated_at",
+        "updated_by",
+        "created_at"
+      ],
+      "fields": {
+        "contact_id": {
+          "typeTemplateId": "identifier",
+          "typeOptions": {},
+          "inputId": "$builtin:InputUuid",
+          "isHidden": true
+        },
+        "created_at": {
+          "isHidden": true
+        },
+        "created_by": {
+          "apiName": "createdById",
+          "defaultValue": {
+            "source": "engineManaged",
+            "onCreate": {
+              "kind": "currentUser"
+            }
+          },
+          "typeTemplateId": "identifier",
+          "typeOptions": {},
+          "inputId": "$builtin:InputUuid",
+          "isHidden": true
+        },
+        "currency": {
+          "displayName": "Currency",
+          "typeTemplateId": "select",
+          "typeOptions": {
+            "multiple": false,
+            "options": [
+              {
+                "color": "#64748b",
+                "label": "USD",
+                "value": "USD"
+              }
+            ]
+          },
+          "inputId": "$builtin:InputSelect",
+          "displayId": "$builtin:DisplayLabels",
+          "isHidden": false
+        },
+        "expected_close_date": {
+          "displayName": "Expected close",
+          "typeTemplateId": "datetime",
+          "typeOptions": {},
+          "inputId": "$builtin:InputDate",
+          "isHidden": false
+        },
+        "id": {
+          "typeTemplateId": "select",
+          "typeOptions": {
+            "multiple": false
+          },
+          "inputId": "$builtin:InputRadio",
+          "isHidden": true
+        },
+        "notes": {
+          "displayName": "Notes",
+          "typeTemplateId": "text",
+          "inputId": "$builtin:InputTextarea",
+          "inputOptions": {
+            "autoresize": true,
+            "placeholder": "Context, next steps, risks"
+          },
+          "isHidden": false
+        },
+        "organization_id": {
+          "isHidden": true
+        },
+        "owner_user_id": {
+          "displayName": "Owner",
+          "isHidden": true
+        },
+        "stage_id": {
+          "displayName": "Stage",
+          "isHidden": false
+        },
+        "status": {
+          "displayName": "Status",
+          "typeTemplateId": "select",
+          "typeOptions": {
+            "multiple": false,
+            "options": [
+              {
+                "color": "#0ea5e9",
+                "icon": "lucide:circle-dot",
+                "label": "Open",
+                "value": "open"
+              },
+              {
+                "color": "#10b981",
+                "icon": "lucide:trophy",
+                "label": "Won",
+                "value": "won"
+              },
+              {
+                "color": "#ef4444",
+                "icon": "lucide:circle-x",
+                "label": "Lost",
+                "value": "lost"
+              }
+            ]
+          },
+          "inputId": "$builtin:InputSelect",
+          "displayId": "$builtin:DisplayLabels",
+          "isHidden": false
+        },
+        "title": {
+          "displayName": "Deal",
+          "isHidden": false
+        },
+        "updated_at": {
+          "isHidden": true
+        },
+        "updated_by": {
+          "apiName": "updatedById",
+          "defaultValue": {
+            "source": "engineManaged",
+            "onCreate": {
+              "kind": "currentUser"
+            },
+            "onUpdate": {
+              "kind": "currentUser"
+            }
+          },
+          "isHidden": true
+        },
+        "value_amount": {
+          "displayName": "Value",
+          "displayId": "$builtin:DisplayFormattedValue",
+          "displayOptions": {
+            "icon": "lucide:dollar-sign",
+            "weight": "medium"
+          },
+          "isHidden": false
+        }
+      },
+      "relations": {
+        "attachments": {
+          "isHidden": true
+        },
+        "contacts": {
+          "displayName": "Primary contact",
+          "isHidden": false
+        },
+        "interactions": {
+          "displayName": "Activity",
+          "isHidden": false
+        },
+        "organizations": {
+          "displayName": "Organization",
+          "isHidden": false
+        },
+        "owner": {
+          "displayName": "Owner",
+          "typeTemplateId": "user",
+          "inputId": "$builtin:InputUserM2O",
+          "isHidden": false
+        },
+        "pipeline_stages": {
+          "displayName": "Stage",
+          "isHidden": false
+        }
+      }
+    },
+    "organizations": {
+      "meta": {
+        "displayTemplate": "{name}",
+        "displayName": "Organizations",
+        "description": "Companies and accounts you sell to.",
+        "icon": "lucide:building-2",
+        "isHidden": false,
+        "color": "#6366f1"
+      },
+      "order": [
+        "name",
+        "domain",
+        "industry",
+        "status",
+        "owner_user_id",
+        "owner",
+        "notes",
+        "created_by",
+        "portal_account_id",
+        "contact_organizations",
+        "opportunities",
+        "attachments",
+        "interactions",
+        "updated_at",
+        "updated_by",
+        "id",
+        "created_at"
+      ],
+      "fields": {
+        "created_at": {
+          "isHidden": true
+        },
+        "created_by": {
+          "apiName": "createdById",
+          "defaultValue": {
+            "source": "engineManaged",
+            "onCreate": {
+              "kind": "currentUser"
+            }
+          },
+          "isHidden": true
+        },
+        "domain": {
+          "displayName": "Domain",
+          "isHidden": false
+        },
+        "id": {
+          "isHidden": true
+        },
+        "industry": {
+          "displayName": "Industry",
+          "typeTemplateId": "select",
+          "typeOptions": {
+            "multiple": false,
+            "options": [
+              {
+                "color": "#0ea5e9",
+                "label": "Technology",
+                "value": "Technology"
+              },
+              {
+                "color": "#14b8a6",
+                "label": "Financial Services",
+                "value": "Financial Services"
+              },
+              {
+                "color": "#10b981",
+                "label": "Healthcare",
+                "value": "Healthcare"
+              },
+              {
+                "color": "#f59e0b",
+                "label": "Energy",
+                "value": "Energy"
+              },
+              {
+                "color": "#64748b",
+                "label": "Automotive",
+                "value": "Automotive"
+              },
+              {
+                "color": "#a855f7",
+                "label": "Retail",
+                "value": "Retail"
+              },
+              {
+                "color": "#fb923c",
+                "label": "Consumer Goods",
+                "value": "Consumer Goods"
+              },
+              {
+                "color": "#6366f1",
+                "label": "Logistics",
+                "value": "Logistics"
+              },
+              {
+                "color": "#f43f5e",
+                "label": "Media & Telecom",
+                "value": "Media & Telecom"
+              },
+              {
+                "color": "#78716c",
+                "label": "Conglomerate",
+                "value": "Conglomerate"
+              }
+            ]
+          },
+          "inputId": "$builtin:InputSelect",
+          "displayId": "$builtin:DisplayLabels",
+          "isHidden": false
+        },
+        "name": {
+          "displayName": "Name",
+          "isHidden": false
+        },
+        "notes": {
+          "displayName": "Notes",
+          "typeTemplateId": "text",
+          "typeOptions": {},
+          "inputId": "$builtin:InputTextarea",
+          "inputOptions": {
+            "autoresize": true,
+            "placeholder": "Notes about this organization"
+          },
+          "isHidden": false
+        },
+        "owner_user_id": {
+          "displayName": "Owner",
+          "isHidden": true
+        },
+        "portal_account_id": {
+          "displayName": "Portal account ID",
+          "isHidden": false
+        },
+        "status": {
+          "displayName": "Status",
+          "typeTemplateId": "select",
+          "typeOptions": {
+            "multiple": false,
+            "options": [
+              {
+                "color": "#10b981",
+                "icon": "lucide:circle-check",
+                "label": "Active",
+                "value": "active"
+              },
+              {
+                "color": "#0ea5e9",
+                "icon": "lucide:circle-dashed",
+                "label": "Prospect",
+                "value": "prospect"
+              },
+              {
+                "color": "#64748b",
+                "icon": "lucide:circle-slash",
+                "label": "Inactive",
+                "value": "inactive"
+              }
+            ]
+          },
+          "inputId": "$builtin:InputSelect",
+          "displayId": "$builtin:DisplayLabels",
+          "isHidden": false
+        },
+        "updated_at": {
+          "isHidden": true
+        },
+        "updated_by": {
+          "apiName": "updatedById",
+          "defaultValue": {
+            "source": "engineManaged",
+            "onCreate": {
+              "kind": "currentUser"
+            },
+            "onUpdate": {
+              "kind": "currentUser"
+            }
+          },
+          "isHidden": true
+        }
+      },
+      "relations": {
+        "attachments": {
+          "isHidden": true
+        },
+        "contact_organizations": {
+          "displayName": "People",
+          "isHidden": false
+        },
+        "interactions": {
+          "displayName": "Activity",
+          "isHidden": false
+        },
+        "opportunities": {
+          "displayName": "Deals",
+          "isHidden": false
+        },
+        "owner": {
+          "displayName": "Owner",
+          "typeTemplateId": "user",
+          "inputId": "$builtin:InputUserM2O",
+          "isHidden": false
+        }
+      },
+      "optionalRelations": {
+        "portalAccount": {
+          "source": "Portal",
+          "collection": "accounts",
+          "piece": "portal"
+        }
+      }
+    },
+    "pipeline_stages": {
+      "meta": {
+        "displayTemplate": "{name}",
+        "displayName": "Pipeline Stages",
+        "description": "Stages an opportunity moves through.",
+        "icon": "lucide:columns-3",
+        "isHidden": false,
+        "color": "#a855f7"
+      },
+      "order": ["name", "position", "status", "color", "is_won", "is_closed", "opportunities"],
+      "fields": {
+        "color": {
+          "displayName": "Color",
+          "typeTemplateId": "color",
+          "typeOptions": {},
+          "inputId": "$builtin:InputColor",
+          "isHidden": false
+        },
+        "id": {
+          "isHidden": true
+        },
+        "is_closed": {
+          "displayName": "Closed",
+          "isHidden": false
+        },
+        "is_won": {
+          "displayName": "Won",
+          "isHidden": false
+        },
+        "name": {
+          "displayName": "Stage",
+          "isHidden": false
+        },
+        "position": {
+          "displayName": "Order",
+          "typeTemplateId": "number",
+          "typeOptions": {
+            "stepSnapping": false
+          },
+          "inputId": "$builtin:InputNumber",
+          "isHidden": true
+        },
+        "status": {
+          "displayName": "Status",
+          "typeTemplateId": "select",
+          "typeOptions": {
+            "multiple": false,
+            "options": [
+              {
+                "color": "#0ea5e9",
+                "icon": "lucide:circle-dot",
+                "label": "Open",
+                "value": "open"
+              },
+              {
+                "color": "#10b981",
+                "icon": "lucide:trophy",
+                "label": "Won",
+                "value": "won"
+              },
+              {
+                "color": "#ef4444",
+                "icon": "lucide:circle-x",
+                "label": "Lost",
+                "value": "lost"
+              }
+            ]
+          },
+          "inputId": "$builtin:InputSelect",
+          "displayId": "$builtin:DisplayLabels",
+          "isHidden": false
+        }
+      },
+      "relations": {
+        "opportunities": {
+          "displayName": "Deals",
+          "isHidden": false
+        }
+      }
+    },
+    "saved_views": {
+      "meta": {
+        "displayTemplate": "{name}",
+        "displayName": "Saved Views",
+        "description": "Saved filters and column layouts.",
+        "icon": "lucide:bookmark",
+        "isHidden": true,
+        "color": "#94a3b8"
+      },
+      "order": [
+        "name",
+        "target_resource",
+        "visibility",
+        "owner_user_id",
+        "filters",
+        "sorting",
+        "visible_columns"
+      ],
+      "fields": {
+        "created_at": {
+          "isHidden": true
+        },
+        "created_by": {
+          "apiName": "createdById",
+          "defaultValue": {
+            "source": "engineManaged",
+            "onCreate": {
+              "kind": "currentUser"
+            }
+          },
+          "isHidden": true
+        },
+        "filters": {
+          "displayName": "Filters",
+          "isHidden": false
+        },
+        "id": {
+          "isHidden": true
+        },
+        "name": {
+          "displayName": "Name",
+          "isHidden": false
+        },
+        "owner_user_id": {
+          "displayName": "Owner",
+          "isHidden": false
+        },
+        "sorting": {
+          "displayName": "Sorting",
+          "isHidden": false
+        },
+        "target_resource": {
+          "displayName": "Applies to",
+          "isHidden": false
+        },
+        "updated_at": {
+          "isHidden": true
+        },
+        "updated_by": {
+          "apiName": "updatedById",
+          "defaultValue": {
+            "source": "engineManaged",
+            "onCreate": {
+              "kind": "currentUser"
+            },
+            "onUpdate": {
+              "kind": "currentUser"
+            }
+          },
+          "isHidden": true
+        },
+        "visibility": {
+          "displayName": "Visibility",
+          "typeTemplateId": "select",
+          "typeOptions": {
+            "multiple": false,
+            "options": [
+              {
+                "color": "#0ea5e9",
+                "icon": "lucide:users",
+                "label": "Workspace",
+                "value": "workspace"
+              },
+              {
+                "color": "#64748b",
+                "icon": "lucide:lock",
+                "label": "Private",
+                "value": "private"
+              }
+            ]
+          },
+          "inputId": "$builtin:InputSelect",
+          "displayId": "$builtin:DisplayLabels",
+          "isHidden": false
+        },
+        "visible_columns": {
+          "displayName": "Columns",
+          "isHidden": false
+        }
+      }
+    }
+  }
+}

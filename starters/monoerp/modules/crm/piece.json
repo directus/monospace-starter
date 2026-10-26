@@ -1,0 +1,61 @@
+{
+  "kind": "module",
+  "id": "crm",
+  "label": "CRM",
+  "description": "Customer relationships, deals, and activity",
+  "ownedPaths": [
+    "modules/crm",
+    "apps/web/src/modules/crm",
+    "infra/modules/crm",
+    "apps/web/src/routes/_app/crm",
+    "apps/web/src/routes/_app/settings.crm.pipeline-stages.tsx"
+  ],
+  "app": "apps/web/src/modules/crm",
+  "infra": "infra/modules/crm",
+  "settings": ["apps/web/src/routes/_app/settings.crm.pipeline-stages.tsx"],
+  "order": 10,
+  "collections": [
+    "organizations",
+    "contacts",
+    "contactOrganizations",
+    "opportunities",
+    "pipelineStages",
+    "interactions",
+    "attachments"
+  ],
+  "schemas": [
+    "attachments",
+    "contactOrganizations",
+    "contacts",
+    "interactions",
+    "opportunities",
+    "organizations"
+  ],
+  "requires": [],
+  "optional": ["portal", "stripe"],
+  "auditTables": {
+    "organizations": ["owner_user_id", "created_by", "updated_by"],
+    "contacts": ["owner_user_id", "created_by", "updated_by"],
+    "contact_organizations": ["created_by", "updated_by"],
+    "opportunities": ["owner_user_id", "created_by", "updated_by"],
+    "interactions": ["owner_user_id", "created_by", "updated_by"],
+    "attachments": ["created_by"],
+    "saved_views": ["owner_user_id", "created_by", "updated_by"]
+  },
+  "setup": {
+    "beforeSchema": [
+      {
+        "title": "Portal relations",
+        "script": "portal-relations.mjs",
+        "requires": ["portal"]
+      }
+    ],
+    "afterSchema": [
+      {
+        "title": "Activity owners",
+        "script": "backfill-owners.mjs"
+      }
+    ]
+  },
+  "schemaFiles": ["infra/modules/crm/monospace/schema/crm.json"]
+}

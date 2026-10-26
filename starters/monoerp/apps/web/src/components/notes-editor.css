@@ -1,0 +1,401 @@
+/* BlockNote copies the view class onto its portal root, keeping menus in this skin. */
+.notes-editor.bn-root {
+  --bn-colors-editor-text: var(--foreground);
+  --bn-colors-editor-background: transparent;
+  --bn-colors-menu-text: var(--popover-foreground);
+  --bn-colors-menu-background: var(--popover);
+  --bn-colors-tooltip-text: var(--background);
+  --bn-colors-tooltip-background: var(--foreground);
+  --bn-colors-hovered-text: var(--accent-foreground);
+  --bn-colors-hovered-background: var(--accent);
+  --bn-colors-selected-text: var(--accent-foreground);
+  --bn-colors-selected-background: var(--accent);
+  --bn-colors-disabled-text: var(--muted-foreground);
+  --bn-colors-disabled-background: var(--muted);
+  --bn-colors-border: var(--border);
+  --bn-colors-side-menu: var(--muted-foreground);
+  --bn-colors-shadow: color-mix(in oklab, var(--foreground) 10%, transparent);
+  --bn-font-family: var(--font-sans);
+  --bn-border-radius: var(--radius);
+  font-size: 0.875rem;
+}
+
+.notes-editor.bn-container {
+  padding-block: 0.75rem;
+}
+
+.notes-editor .bn-editor {
+  min-height: 14rem;
+  background: transparent;
+  padding-inline: 3.5rem 1.25rem;
+}
+
+/* BlockNote copies this class onto the drag preview, which lives on <body> outside .notes-editor. */
+.notes-content {
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.notes-content .bn-block-content {
+  padding-block: 0.25rem;
+}
+
+.notes-content .bn-block-content:has(.ProseMirror-trailingBreak:only-child)::after {
+  color: var(--muted-foreground);
+  font-style: normal;
+}
+
+.notes-content [data-content-type='heading'] {
+  --level: 1.25rem;
+  padding-top: 1rem;
+}
+
+.notes-content [data-content-type='heading'][data-level='2'] {
+  --level: 1.0625rem;
+  padding-top: 0.75rem;
+}
+
+.notes-content [data-content-type='heading'][data-level='3'] {
+  --level: 0.9375rem;
+  padding-top: 0.5rem;
+}
+
+.notes-content :is(h1, h2, h3, h4, h5, h6) {
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.notes-editor
+  .bn-editor
+  > .bn-block-group
+  > .bn-block-outer:first-child
+  > .bn-block
+  > [data-content-type='heading'] {
+  padding-top: 0.25rem;
+}
+
+.notes-content .bn-block-group .bn-block-group {
+  margin-left: 1.5rem;
+}
+
+.notes-editor
+  .bn-editor
+  .bn-block-group
+  .bn-block
+  .bn-block-group
+  .bn-block-outer:not([data-prev-depth-changed])::before {
+  border-left-color: var(--border);
+}
+
+.notes-content [data-content-type='divider'] hr {
+  border: 0;
+  border-top: 1px solid var(--border);
+  margin-block: 0.75rem;
+}
+
+.notes-content [data-content-type='quote'] blockquote {
+  border-left: 2px solid var(--border);
+  padding-left: 0.75rem;
+  color: var(--muted-foreground);
+}
+
+.notes-content a {
+  color: var(--foreground);
+  text-decoration: underline;
+  text-decoration-color: var(--muted-foreground);
+  text-underline-offset: 3px;
+}
+
+.notes-content a:hover {
+  text-decoration-color: currentColor;
+}
+
+.notes-content :not(pre) > code {
+  padding: 0.125rem 0.25rem;
+  border-radius: var(--radius-sm);
+  background: var(--muted);
+  color: var(--foreground);
+  font-size: 0.8125rem;
+}
+
+.notes-content [data-content-type='codeBlock'] {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--muted);
+  color: var(--foreground);
+  font-size: 0.8125rem;
+}
+
+.notes-content [data-content-type='codeBlock'] > pre {
+  padding: 0.75rem;
+}
+
+.notes-content [data-content-type='codeBlock'] .bn-inline-content {
+  white-space: pre;
+}
+
+.notes-content [data-content-type='checkListItem'] > div:has(> input) {
+  display: flex;
+  align-items: center;
+  height: 1.3125rem;
+}
+
+.notes-content [data-content-type='checkListItem'] > div > input {
+  width: 0.875rem;
+  height: 0.875rem;
+  margin-inline: 0.25rem 0.375rem;
+  accent-color: var(--primary);
+}
+
+.notes-content [data-content-type='checkListItem'][data-checked='true'] .bn-inline-content {
+  color: var(--muted-foreground);
+}
+
+.notes-content [data-content-type='table'] :is(th, td) {
+  border-color: var(--border);
+  padding: 0.375rem 0.625rem;
+}
+
+.notes-content [data-content-type='table'] th {
+  background: var(--muted);
+  font-weight: 500;
+}
+
+.notes-content .selectedCell::after {
+  background: color-mix(in oklab, var(--ring) 15%, transparent);
+}
+
+.notes-editor .bn-table-drop-cursor {
+  background: var(--ring);
+}
+
+.notes-editor
+  .bn-editor
+  :is(
+    .bn-block-content.ProseMirror-selectednode > *,
+    .ProseMirror-selectednode > .bn-block-content > *,
+    .bn-block-content .ProseMirror-selectednode,
+    .bn-inline-content .ProseMirror-selectednode
+  )::after {
+  border-radius: var(--radius-sm);
+  background: color-mix(in oklab, var(--ring) 10%, transparent);
+  box-shadow: inset 0 0 0 1px var(--ring);
+}
+
+.notes-editor :is(.bn-table-handle, .bn-extend-button) {
+  border-radius: var(--radius-sm);
+  color: var(--muted-foreground);
+}
+
+.notes-editor :is(.bn-table-handle, .bn-extend-button):hover {
+  background: var(--accent);
+  color: var(--accent-foreground);
+}
+
+.notes-editor .bn-side-menu {
+  height: 1.5rem;
+  gap: 0.125rem;
+  padding-right: 0.25rem;
+}
+
+.notes-editor.bn-shadcn .bn-side-menu .bn-button {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: var(--radius-sm);
+  color: var(--muted-foreground);
+}
+
+.notes-editor
+  :is(
+    .bn-toolbar,
+    .bn-suggestion-menu,
+    .bn-drag-handle-menu,
+    .bn-table-handle-menu,
+    .bn-select,
+    .bn-form-popover
+  ) {
+  @apply rounded-lg bg-popover text-popover-foreground shadow-md ring-1 ring-foreground/10;
+  border: 0;
+  padding: 0.25rem;
+  max-width: calc(100vw - 1.5rem);
+}
+
+.notes-editor .bn-toolbar {
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.125rem;
+  width: max-content;
+}
+
+.notes-editor .bn-toolbar :is(button, [role='combobox']) {
+  height: 1.75rem;
+  min-width: 1.75rem;
+  padding: 0.25rem;
+  border: 0;
+  border-radius: var(--radius-md);
+  box-shadow: none;
+  font-size: 0.875rem;
+}
+
+.notes-editor .bn-toolbar [role='combobox'] {
+  gap: 0.375rem;
+  padding-inline: 0.5rem;
+}
+
+.notes-editor
+  :is(.bn-side-menu, .bn-toolbar, .bn-suggestion-menu, .bn-drag-handle-menu, .bn-select)
+  svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.notes-editor :is(.bn-suggestion-menu-item, [role='menuitem'], [role='option']) {
+  min-height: 1.75rem;
+  padding: 0.25rem 0.375rem;
+  gap: 0.375rem;
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+}
+
+/* Tighter rows than the toolbar menus, with a hairline of space between choices. */
+.notes-editor .bn-suggestion-menu-item {
+  min-height: 1.5rem;
+  font-size: 0.8125rem;
+}
+
+.notes-editor .bn-suggestion-menu-item + .bn-suggestion-menu-item {
+  margin-top: 0.125rem;
+}
+
+.notes-editor .bn-suggestion-menu .bn-suggestion-menu-item svg {
+  width: 0.875rem;
+  height: 0.875rem;
+}
+
+/* Item icons ship as fixed-size SVGs in a plain block wrapper, so they sit high next to the
+   label. Center both columns on the row's text box. */
+.notes-editor .bn-suggestion-menu-item > [data-position='left'] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+  width: 0.875rem;
+  height: 1.125rem;
+}
+
+.notes-editor .bn-suggestion-menu-item > [data-position='left'] > svg {
+  display: block;
+}
+
+.notes-editor .bn-suggestion-menu-item > .flex-1 {
+  display: flex;
+  align-items: center;
+  min-height: 1.125rem;
+  line-height: 1.125rem;
+}
+
+.notes-editor :is(.bn-suggestion-menu-label, [data-slot='dropdown-menu-label']) {
+  padding: 0.25rem 0.375rem;
+  color: var(--muted-foreground);
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.notes-editor :is([data-slot='dropdown-menu-separator'], [data-slot='select-separator']) {
+  height: 1px;
+  margin: 0.25rem -0.25rem;
+  background: var(--border);
+}
+
+.notes-editor
+  :is(.bn-side-menu, .bn-toolbar)
+  button:is(:hover, [aria-pressed='true'], [aria-expanded='true']):not(:disabled) {
+  background: var(--accent);
+  color: var(--accent-foreground);
+}
+
+.notes-editor :is(button, input, select):focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+.notes-editor
+  :is(button, [role='option'], [role='menuitem']):is(
+    :disabled,
+    [aria-disabled='true'],
+    [data-disabled]
+  ) {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.notes-editor .bn-drag-handle-menu [role='menuitem'],
+.notes-editor .bn-drag-handle-menu [role='menuitem'] svg {
+  color: var(--destructive);
+}
+
+.notes-editor .bn-drag-handle-menu [role='menuitem']:is(:focus, :hover, [data-highlighted]) {
+  background: color-mix(in oklab, var(--destructive) 10%, transparent);
+}
+
+.notes-editor[data-color-scheme='dark']
+  .bn-drag-handle-menu
+  [role='menuitem']:is(:focus, :hover, [data-highlighted]) {
+  background: color-mix(in oklab, var(--destructive) 20%, transparent);
+}
+
+.notes-editor .bn-form-popover {
+  width: 20rem;
+}
+
+.notes-editor .bn-form-popover .bn-text-input {
+  height: 2.25rem;
+  border: 0;
+  box-shadow: none;
+  padding-inline: 0.625rem;
+  color: var(--muted-foreground);
+}
+
+.notes-editor .bn-form-popover .bn-text-input input {
+  color: var(--foreground);
+  box-shadow: none;
+}
+
+@media (max-width: 639px) {
+  /* 16px keeps iOS Safari from zooming in when the editor takes focus. */
+  .notes-content {
+    font-size: 1rem;
+  }
+
+  .notes-editor .bn-editor {
+    padding-inline: 3.375rem 0.75rem;
+  }
+
+  /* Room under the last line for the save status, which moves to the bottom on a phone. */
+  .notes-editor.bn-container {
+    padding-bottom: 2rem;
+  }
+}
+
+/* The side menu follows the mouse, so touch screens never get it; drop its gutter. */
+@media (max-width: 639px) and (pointer: coarse) {
+  .notes-editor .bn-editor {
+    padding-inline: 0.75rem;
+  }
+
+  .notes-editor .bn-side-menu {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .notes-editor *,
+  .notes-editor *::before,
+  .notes-editor *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
