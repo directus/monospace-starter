@@ -227,7 +227,8 @@ export function removePiece(id, { root = repository, dryRun = false } = {}) {
 
   console.log(
     'For a removed connector, remove its relations and source in Studio first if it was connected.\n' +
-      'Next commands:\n  pnpm pieces:check\n  pnpm compose:sync\n  pnpm install\n' +
+      'Update README.md, AGENTS.md, and docs/ for the removed piece.\n' +
+      'Next commands:\n  pnpm install\n  pnpm pieces:check\n' +
       '  docker compose up -d --wait --wait-timeout 180 --remove-orphans\n' +
       '  pnpm setup:all\n  pnpm generate:routes\n  pnpm generate',
   )

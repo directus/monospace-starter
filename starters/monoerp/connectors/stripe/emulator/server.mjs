@@ -1,4 +1,4 @@
-// A local Stripe for the stack: Vercel's emulate Stripe API, seeded at start with the billing that
+// A local Stripe for the stack: @emulators/stripe (https://www.npmjs.com/package/@emulators/stripe), seeded at start with the billing that
 // matches the customer portal (billing.json). It keeps everything in memory, so writes last until
 // the container restarts, like a test-mode account you reset.
 import { readFileSync } from 'node:fs'

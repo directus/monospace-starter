@@ -25,7 +25,7 @@ The database has the `vector` extension (pgvector) but no embedding columns yet.
 
 ### Owners and audit fields
 
-Most tables have `owner_user_id`, `created_by`, and `updated_by`. They're plain UUID columns in SQL. `pnpm setup:monospace` (`infra/monospace/setup/audit-user-relations.mjs`) turns them into relations to Monospace's `MonospaceSystemUser`, exposed as `owner`, `createdBy`, and `updatedBy`. Monospace fills `created_by` on create and `updated_by` on every write with the signed-in user, so the app never sends them.
+Most tables have `owner_user_id`, `created_by`, and `updated_by`. They're plain UUID columns in SQL. `pnpm setup:audit-relations` (`infra/monospace/setup/audit-user-relations.mjs`) turns them into relations to Monospace's `MonospaceSystemUser`, exposed as `owner`, `createdBy`, and `updatedBy`. Monospace fills `created_by` on create and `updated_by` on every write with the signed-in user, so the app never sends them.
 
 Users live in Monospace, not in the CRM database. There's no CRM user or role table.
 
@@ -62,7 +62,7 @@ Amounts are in cents, sent as strings. The emulator has no invoices or subscript
 
 ## How they connect
 
-`pnpm setup:portal` draws two CRM-to-Portal relations in `infra/modules/crm/monospace/setup/portal-relations.mjs` and the Portal-to-Stripe relation in `connectors/stripe/monospace/setup/portal-stripe-relation.mjs`:
+`pnpm setup:all` draws two CRM-to-Portal relations in `infra/modules/crm/monospace/setup/portal-relations.mjs` and the Portal-to-Stripe relation in `connectors/stripe/monospace/setup/portal-stripe-relation.mjs`:
 
 ```text
 organizations.portal_account_id -> accounts.id   (organizations.portalAccount, accounts.organization)
@@ -100,4 +100,4 @@ The portal has `connectors/portal/emulator/migrations/` too, for changes "the ot
 - Dates are fixed around one anchor day (2026-08-21) instead of `now()`, so the data is the same on every machine. As real time passes, "days ago" labels grow.
 - CRM IDs are fixed UUIDs (`00000000-0000-4000-8KKK-NNNNNNNNNNNN`, where `KKK` is the table and `N` the row), so links and tests can point at a known record.
 - The Stripe emulator seeds itself from `connectors/stripe/emulator/billing.json` each time it starts: a customer per portal account (`cus_MonoErp0001` for `acct-0001`), a product and monthly price per plan, and a charge for every month of each paid subscription. Past-due accounts' latest charge failed; trials have none yet. It keeps changes in memory, so a restart resets it.
-- Owners aren't in the seed. `pnpm setup:owners` gives unowned activity an owner, round-robin across the workspace's users.
+- Owners aren't in the seed. `pnpm setup:all` gives unowned activity an owner, round-robin across the workspace's users.

@@ -121,7 +121,7 @@ services:
       MONOSPACE_HOST: '0.0.0.0'
       # Loads connector builds as `pnpm build:extensions` writes them, without a restart.
       MONOSPACE_EXTENSIONS__AUTO_RELOAD: 'true'
-      # Single node. Newer nightlies default to clustered mode, which rejects local file storage.
+      # Clustered mode rejects local file storage; this stack runs one node.
       MONOSPACE_CLUSTER__ENABLED: 'false'
       MONOSPACE_PORT: '8100'
       # Studio serves the invite and password reset pages; monoERP has no auth routes yet.
@@ -154,7 +154,7 @@ services:
       MONOSPACE_SYSTEM_EMAILER__PROVIDER: 'smtp'
       MONOSPACE_SYSTEM_EMAILER__HOST: 'mailpit'
       MONOSPACE_SYSTEM_EMAILER__PORT: '1025'
-      # Docs list TLS_OFF, but the nightly image reads TLS.
+      # v1.0.0 reads TLS, not the documented TLS_OFF.
       MONOSPACE_SYSTEM_EMAILER__TLS: 'false'
       # Required fields; Mailpit accepts any credentials.
       MONOSPACE_SYSTEM_EMAILER__USERNAME: 'mailpit'

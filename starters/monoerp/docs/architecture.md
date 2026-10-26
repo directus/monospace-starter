@@ -47,7 +47,7 @@ The app only reads the rules to shape the UI: `apps/web/src/lib/permissions.ts` 
 
 ## Three sources, one API
 
-Core, modules, and external connectors have separate folders. `modules/<id>/piece.json` declares module ownership, collections, setup, and required/optional connectors; `connectors/<id>/piece.json` does the same for each connector. `core/piece.json` lists shared paths. Each `connectors/<id>/` owns its source config, schema settings, local service, and any custom extension. Portal is an external-source piece with a built-in MySQL provider, so another starter can use it without copying CRM. Run `pnpm compose:sync` after changing piece folders; root Compose includes the generated file. Optional services never appear in core's `depends_on`.
+Core, modules, and external connectors have separate folders. `modules/<id>/piece.json` declares module ownership, collections, setup, and required/optional connectors; `connectors/<id>/piece.json` does the same for each connector. `core/piece.json` lists shared paths. Each `connectors/<id>/` owns its source config, schema settings, local service, and any custom extension. Portal is an external-source piece with a built-in MySQL provider, so another starter can use it without copying CRM. `pnpm install`, dev, and setup discover local services automatically. Optional services never appear in core's `depends_on`.
 
 The workspace has three data sources:
 

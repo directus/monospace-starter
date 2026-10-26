@@ -19,9 +19,8 @@ You need Node 24, pnpm, and Docker.
 npx giget@latest gh:directus/monospace-starter/starters/monoerp monoerp
 cd monoerp
 cp .env.example .env    # local defaults; change nothing to start
-node infra/compose-sync.mjs # discover installed pieces
-docker compose up -d --wait --wait-timeout 180 # Monospace, both databases, a local Stripe, RabbitMQ, Mailpit
 pnpm install
+docker compose up -d --wait --wait-timeout 180 # Monospace, both databases, a local Stripe, RabbitMQ, Mailpit
 pnpm setup:all          # creates and configures the Monospace workspace
 pnpm dev
 ```
@@ -32,21 +31,21 @@ Open http://localhost:3000 and sign in as `admin@example.com` / `monospace`.
 
 What's running:
 
-| Service          | Where (default port)  | What it is                                                                 |
-| ---------------- | --------------------- | -------------------------------------------------------------------------- |
-| The app          | http://localhost:3000 | TanStack Start, React, Tailwind, shadcn/ui                                 |
-| Monospace Studio | http://localhost:8100 | Monospace's admin UI: data model, content, users, roles                    |
-| `crm-postgres`   | port 5433             | The CRM's database. The app reads and writes it                            |
-| `customer-mysql` | port 3306             | A stand-in for another team's product database. Monospace can only read it |
-| `stripe`         | port 4010             | A local Stripe (Vercel's emulate) with billing history for each account    |
-| Mailpit          | http://localhost:8025 | Catches invite and password reset mail                                     |
+| Service          | Where (default port)  | What it is                                                                                                                    |
+| ---------------- | --------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| The app          | http://localhost:3000 | TanStack Start, React, Tailwind, shadcn/ui                                                                                    |
+| Monospace Studio | http://localhost:8100 | Monospace's admin UI: data model, content, users, roles                                                                       |
+| `crm-postgres`   | port 5433             | The CRM's database. The app reads and writes it                                                                               |
+| `customer-mysql` | port 3307             | A stand-in for another team's product database. Monospace can only read it                                                    |
+| `stripe`         | port 4010             | A local Stripe ([`@emulators/stripe`](https://www.npmjs.com/package/@emulators/stripe)) with billing history for each account |
+| Mailpit          | http://localhost:8025 | Catches invite and password reset mail                                                                                        |
 
 A few things to know on the first run:
 
 - The first `docker compose up` loads the demo data, which takes a minute or two. The `keygen` container creates Monospace's keys and exits; that's expected. `pnpm setup:all` waits for Monospace to be ready.
 - `pnpm setup:all` is safe to rerun. Run it again whenever you pull changes.
 - The first time you open Studio, it asks you to accept its terms and then to create a workspace, even though `crm` already exists. Open Studio in a new tab to get past that.
-- No license key is needed. Without one, Monospace runs on its free Starter tier: 1 workspace, 3 users, no custom roles, required usage telemetry. The CRM quickstart works without skipped features. Add a license key when you need more seats or custom policies.
+- No license key is needed. Without one, Monospace runs on its free tier: 1 workspace, 3 users, no custom roles, required usage telemetry. The CRM quickstart works without skipped features. Add a license key when you need more seats or custom policies.
 - monoERP runs its own Monospace. If another app uses port 8100, choose different ports as described below.
 - Every port is in `.env`. To run a second copy next to the first, change them all and add `COMPOSE_PROJECT_NAME=<something new>` to its `.env` before running `docker compose`. In `.env` rather than exported, so every terminal (and `pnpm setup:all`) uses it.
 
@@ -110,6 +109,30 @@ More in [`architecture.md`](architecture.md).
 
 To build on monoERP, give it a repo of its own: `git init` in the folder `giget` made (or copy `starters/monoerp` out of a `monospace-starter` clone first). Then run `pnpm install` again to enable the pre-commit hook. Its CI workflow (`.github/workflows/check.yml`) runs from a repo root. AWS deployment is optional and run explicitly.
 
+### Rename it
+
+Start with the display name; keep existing workspace, database, and resource IDs unless you are planning a data migration.
+
+1. Change `appName` and the description in `apps/web/src/lib/app.copy.ts`, plus your README and brand assets. The root route reads its page metadata from that copy.
+2. Choose package and deployment names before your first deployment. Use the table below to find the related settings.
+3. Run `pnpm install` and `pnpm verify`. If you change workspace or source names on a new install, also run setup and regenerate the SDK before building.
+
+| Name                                                      | Where to change it                                                                                                                                                                                        | Existing install?                                                                                                                                 |
+| --------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Product name and copy                                     | `apps/web/src/lib/app.copy.ts`, module copy files, `routes/__root.tsx`, README and `.github/assets/`                                                                                                      | Safe; changes labels, not stored data                                                                                                             |
+| Package names (`monoerp`, `@monoerp/*`, emulator package) | Root, `apps/web`, `infra/aws`, and connector package files; matching `--filter` commands and Docker build filters; run install to update the lockfile                                                     | Safe for app data; update every reference together                                                                                                |
+| Compose project `monoerp`                                 | Prefer `COMPOSE_PROJECT_NAME` in `.env`; default in `docker-compose.yml`                                                                                                                                  | Creates a separate set of containers and volumes. It does not rename or copy your existing data                                                   |
+| Database/service `crm`, `crm-postgres`                    | Shared PostgreSQL service, credentials, mounts, and health checks in `docker-compose.yml`; `CRM_DB_*` defaults in `infra/monospace/setup/sources.mjs`; migration scripts and AWS database settings        | Keep on an existing install. Changing environment names does not rename a database, user, Docker DNS name, or volume; migrate those explicitly    |
+| Workspace `crm`                                           | `MONOSPACE_WORKSPACE` for setup/generation and `VITE_MONOSPACE_WORKSPACE` for the app; workspace asset proxy in `apps/web/vite.config.ts`                                                                 | Setup creates a new workspace under a new name; it does not migrate the old one. On a new install, update the proxy path and regenerate the SDK   |
+| Source names `CRM`, `Portal`, `Stripe`                    | `MONOSPACE_CRM_SOURCE`, `MONOSPACE_PORTAL_SOURCE`, `MONOSPACE_STRIPE_SOURCE`; module/connector schema files, `optionalRelations` targets, and source references in setup steps                            | Keep on an existing install unless migrating sources and relations. Overrides alone do not rename connected sources or rewrite schema settings    |
+| Module ID `crm` and `/crm` pages                          | `modules/crm/piece.json`, UI/infra/route folders and imports, UI entry, settings routes, connector feature targets, and generated routes                                                                  | A module identity, separate from the shared workspace/database. Renaming changes URLs and saved links; keep the shared database names independent |
+| Sender name/address                                       | `MONOSPACE_SYSTEM_EMAILER__FROM_NAME` and `FROM_ADDRESS` in `docker-compose.yml` and `infra/aws/services.ts`                                                                                              | Safe for stored data; use a verified sender for real email                                                                                        |
+| Stripe extension/provider IDs                             | `connectors/stripe/extension/extension.config.json` (`monoerp/stripe`, `monoerp/stripe-data-connector`), `piece.json` (`source.provider`, `extension.installed: monoerp__stripe`), extension package name | Keep for connected sources. Renaming needs a rebuilt extension and recreated source/relations; display labels can change separately               |
+| AWS names and DNS                                         | Stack/resource IDs in `infra/aws/`, including `services.ts` (`monoerp.internal`, sender), `data.ts` (database/final snapshot names), and deployment state                                                 | Review `pnpm aws:plan` first. Identity changes can create replacements; back up and migrate data before applying them                             |
+| Demo IDs and credentials                                  | SQL seeds, `connectors/stripe/emulator/billing.json`, local defaults                                                                                                                                      | Change before creating demo volumes. Existing data and cross-source IDs need a coordinated migration; replace credentials for shared environments |
+
+All modules use the shared workspace and PostgreSQL database even though their historical defaults are called `crm`. Adding a new module does not require renaming either.
+
 ### Add a field
 
 Say organizations need an employee count.
@@ -163,7 +186,7 @@ Preview with `pnpm pieces:remove portal --dry-run`, then remove Portal or Stripe
 
 To keep a connector's code without connecting its source, use `OPTIONAL_SOURCES` instead.
 
-The shared PostgreSQL source is required. Installed modules declare their external connector IDs. `OPTIONAL_SOURCES`, when set, replaces that selection; the example `.env` leaves this unset so installed modules choose. Leave an ID out, and setup skips it and everything that depends on it. A missing `connectors/<id>/` folder always skips that source too. After copying or deleting a piece, run `pnpm compose:sync` before `docker compose up -d --remove-orphans`. Disabled connector features disappear from the app. A selected connector whose backend source is missing shows "isn't set up" instead of a retry error.
+The shared PostgreSQL source is required. Installed modules declare their external connector IDs. `OPTIONAL_SOURCES`, when set, replaces that selection; the example `.env` leaves this unset so installed modules choose. Leave an ID out, and setup skips it and everything that depends on it. A missing `connectors/<id>/` folder always skips that source too. After copying or deleting a piece, run `pnpm install` before `docker compose up -d --remove-orphans`. Disabled connector features disappear from the app. A selected connector whose backend source is missing shows "isn't set up" instead of a retry error.
 
 On a workspace that already has the source, also delete it in Studio. [`monospace.md`](monospace.md) has the details, including how to take it out of the code entirely.
 
@@ -186,7 +209,7 @@ Invite people in Studio, and they sign in to the app with their own Monospace ac
 The repo is set up for AI coding agents as well as people. [`AGENTS.md`](../AGENTS.md) is the map an agent reads first: how to get a working stack, the rules, and which doc covers which area. One command tells anyone, agent or not, whether a change is done:
 
 ```bash
-pnpm check && pnpm typecheck && pnpm test
+pnpm verify
 ```
 
 For component work, also run `pnpm --filter @monoerp/web test:browser` ([`testing.md`](testing.md)).
@@ -195,7 +218,7 @@ For component work, also run `pnpm --filter @monoerp/web test:browser` ([`testin
 
 `pnpm aws:deploy --stage staging` builds a full stage on AWS: network, databases, Monospace, the app, CloudFront, and alarms. [The AWS guide](../infra/aws/README.md) covers setup and costs.
 
-AWS runs the same Monospace release, but nothing installs the Stripe connector there yet. Setup leaves Stripe out, and the Billing tab says it isn't set up.
+AWS runs the same Monospace release, but does not install the Stripe extension yet. Billing is unavailable there.
 
 ## Rough edges
 

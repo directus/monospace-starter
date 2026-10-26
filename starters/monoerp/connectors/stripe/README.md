@@ -1,29 +1,29 @@
 # Stripe connector
 
-A Monospace data connector for the Stripe API. It exposes five Stripe objects as collections with four relations, and writes customers, products, and prices. It only offers the filters and sorts Stripe answers itself, so every query costs a few predictable Stripe requests and nothing is scanned.
+The optional Stripe extension exposes customers, products, prices, payment intents, and charges as Monospace collections. Locally it uses [`@emulators/stripe`](https://www.npmjs.com/package/@emulators/stripe), seeded with the Portal demo's billing history. No Stripe account is needed.
 
-It's built on Monospace v1.0.0 and `@monospace/extension-kit` 0.3.0. The extension started as Monospace's own example connector and keeps that structure, so `extension/src/` is excluded from this repo's extra lint rules. Frontend code follows the app's normal checks.
+## Use Stripe
 
-## How it runs locally
+1. Keep or copy the whole `connectors/stripe` folder. Add `stripe` to a module's connector declarations, or include it in `OPTIONAL_SOURCES` if you use an override. CRM Billing also needs selected Portal.
+2. For the local demo, keep the defaults. For real Stripe, set `STRIPE_API_KEY` and `STRIPE_API_BASE=https://api.stripe.com` in `.env`. Portal account Stripe IDs must match your real customer IDs.
+3. Run the [shared setup commands](../README.md#add-a-connector). Setup builds and installs the extension, creates its source, and joins Portal accounts to Stripe customers.
+4. Run `pnpm verify` and browser tests for any UI changes. To rebuild Stripe alone, run `pnpm --dir connectors/stripe/extension build` from the repo root.
 
-- `pnpm build:extensions` (also the first step of `pnpm setup:all`) bundles it with rolldown and installs it into `infra/monospace/extensions/monoerp__stripe/`. Compose mounts that folder into Monospace, which loads new builds on its own (see the next point for the exception).
-- `pnpm setup:all` creates the `Stripe` data source against the local Stripe (the `stripe` compose service, `connectors/stripe/emulator`), and approves the network hosts the connector asks for.
-- `extension/extension.config.json` declares `insertReturning`, `updateReturning`, and `deleteReturning`, because every write answers with the records it wrote. Without them Monospace makes extra reads around each write, and refuses the data source unless the collections declare those reads. Monospace only reads them when it builds the workspace: after changing them, existing Stripe calls fail with a 503 until `docker compose restart monospace`.
-- The build is the Monospace CLI's `monospace extension build --install-to ../../../infra/monospace/extensions`, which swaps the new build in whole, so Monospace never loads a half-written one.
+If the source already exists, remove Portal's `stripeCustomer` relation and the Stripe source in Studio before changing its connection settings and running setup again. To remove Stripe entirely, follow the [shared removal steps](../README.md#remove-a-piece).
 
-The extension package is `extension/`; its emulator is `emulator/`. `piece.json` lists its environment names, source config, and build location. Remove it with `pnpm pieces:remove stripe` or restore this whole folder, then follow [piece setup](../README.md). From the repo root, `pnpm --dir connectors/stripe/extension build` builds just Stripe.
+## Stripe contract
 
-## Portal relation
+| Path                                         | Purpose                                                                                         |
+| -------------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| `piece.json`                                 | Source settings, environment names, installed extension ID, and optional CRM feature            |
+| `extension/`                                 | Monospace extension package, built with `@monospace/extension-kit` 0.3.0 for Monospace v1.0.0   |
+| `extension/extension.config.json`            | Extension/provider IDs, capabilities, and host permissions                                      |
+| `emulator/`                                  | Local Stripe API and matching demo billing data                                                 |
+| `monospace/schema/stripe.json`               | Collection names and Studio presentation                                                        |
+| `monospace/setup/portal-stripe-relation.mjs` | Portal-to-Stripe join when both sources are selected, including without CRM                     |
+| `frontend/crm/`                              | Billing tab, queries, copy, helpers, and tests; active only with CRM and selected Portal/Stripe |
 
-Stripe owns `monospace/setup/portal-stripe-relation.mjs`, declared in `piece.json` before schema presentation with `requires: ['portal']`. It creates `accounts.stripeCustomer` and the reverse `customers.portalAccount` whenever Portal and Stripe are selected, including installs without CRM. Portal holds the constraint because extension sources cannot be edited. Reruns leave an existing join in place and reject a join pointing at the wrong collection.
-
-## CRM billing feature
-
-`frontend/crm/` owns the Billing tab, billing read/type, copy, display helpers, and unit/browser tests. `piece.json` declares a `frontend` entry for module `crm`, slot `organization-panel`, contributing `stripeCustomers` and `stripeCharges` only while CRM, Stripe, and Portal are installed and both connectors are selected. `feature.tsx` supplies the organization-panel contract (`id`, `title`, component taking `portalAccountId`) from core; it imports no CRM files. Core discovers features rather than registering Stripe by name. See the [feature contract](../../docs/modules.md#optional-connector-ui).
-
-The `frontend/` workspace package supplies runtime/test dependencies and an editor tsconfig. Run the repo's normal checks; the app's typecheck and unit/browser configurations include active connector features. Source outage, missing backend setup, and retry states remain unchanged while the feature is selected.
-
-Deleting this whole connector folder also removes its collection requirements, query code, tests, and Billing tab. Generate the client from the corresponding no-Stripe workspace, then typecheck/test/build normally. CRM's Portal tab remains. Restore the folder, `pnpm install`, and regenerate to add billing back. Disabling selection hides the feature too; existing Monospace sources are not automatically deleted.
+Builds are installed atomically into `infra/monospace/extensions/monoerp__stripe/`; Monospace reloads them automatically. Changing `engine.capabilities` requires `docker compose restart monospace`. Changing extension collections requires recreating the data source. Keep the extension ID, installed folder, and provider name together when [renaming](../../docs/getting-started.md#rename-it).
 
 ## Configuration
 
@@ -94,3 +94,7 @@ Offsets use cursors because Stripe documents only cursors and the local Stripe i
 - Updates and deletes resolve the filter with the same requests as a read, then write each id (four at a time). This isn't atomic: a failure can leave earlier records changed.
 - Stripe can't delete prices; archive them by setting `active` to `false`. Deleting a product that still has prices fails as a foreign-key violation.
 - The local Stripe has no update or delete endpoints for products and prices, so those only work against real Stripe.
+
+## How pieces:check works
+
+Stripe owns its entire folder. Removing it also removes the Billing feature and its SDK collection requirements. See [the shared validator rules](../../docs/modules.md#how-piecescheck-works).

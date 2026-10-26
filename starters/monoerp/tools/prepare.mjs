@@ -1,5 +1,9 @@
 import { execFileSync } from 'node:child_process'
 
+import { syncCompose } from '../infra/compose-sync.mjs'
+
+await syncCompose()
+
 // Hooks affect the whole Git repo, so only install them when this app is its root.
 let atRoot = false
 

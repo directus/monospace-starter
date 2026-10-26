@@ -4,17 +4,19 @@ How to check your work, where tests go, and what the lint rules want from you.
 
 ## The checks
 
-Run these before calling a change done. CI runs the same ones.
+Run `pnpm verify` before calling a change done. CI runs that same command: piece checks, formatting/lint, typecheck, unit tests, and production build. Browser tests and AWS typechecks are additional checks for those areas.
 
-| Command                                   | What it runs                                                                                          |
-| ----------------------------------------- | ----------------------------------------------------------------------------------------------------- |
-| `pnpm pieces:check`                       | Piece schema, required dependencies, existing paths, and exclusive source ownership                   |
-| `pnpm check`                              | `vp check`: Oxfmt formatting, then Oxlint with type-aware rules and the extra rules in `tools/oxlint` |
-| `pnpm typecheck`                          | `tsc --noEmit` for `apps/web`                                                                         |
-| `pnpm test`                               | Vitest unit tests (`*.test.ts`, `*.test.tsx`)                                                         |
-| `pnpm --filter @monoerp/web test:browser` | Vitest browser tests (`*.browser.tsx`) in headless Chromium                                           |
-| `pnpm --filter @monoerp/infra typecheck`  | TypeScript for `infra/aws`                                                                            |
-| `pnpm format`                             | Fixes formatting. `pnpm check` only reports it                                                        |
+| Command                                   | What it runs                                                                                                                 |
+| ----------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| `pnpm pieces:check`                       | Piece schema, required dependencies, existing paths, and exclusive source ownership                                          |
+| `pnpm verify`                             | `pnpm check && pnpm typecheck && pnpm test && pnpm build`                                                                    |
+| `pnpm build`                              | Production app build                                                                                                         |
+| `pnpm check`                              | Piece validation, then `vp check`: Oxfmt formatting, then Oxlint with type-aware rules and the extra rules in `tools/oxlint` |
+| `pnpm typecheck`                          | `tsc --noEmit` for `apps/web`                                                                                                |
+| `pnpm test`                               | Vitest unit tests (`*.test.ts`, `*.test.tsx`)                                                                                |
+| `pnpm --filter @monoerp/web test:browser` | Vitest browser tests (`*.browser.tsx`) in headless Chromium                                                                  |
+| `pnpm --filter @monoerp/infra typecheck`  | TypeScript for `infra/aws`                                                                                                   |
+| `pnpm format`                             | Fixes formatting. `pnpm check` only reports it                                                                               |
 
 Lint and format settings live in the root `vite.config.ts`. Generated files (`apps/web/src/generated`, `routeTree.gen.ts`) and the Stripe connector's source (`connectors/stripe/extension/src`, which keeps the structure of Monospace's example connector) are skipped by the linter.
 
@@ -109,8 +111,8 @@ All of these are errors, so `pnpm check` fails on them. They come from `tools/ox
 
 ## Pre-commit hook
 
-When monoERP is the root of its git repo, `pnpm install` turns on a pre-commit hook (`.vite-hooks/pre-commit`; see `tools/prepare.mjs`) that runs `vp check --fix` on staged files with `--fail-on-changes`. If it reformats or fixes anything, the commit stops. Stage the fixed files and commit again. Lint errors it can't fix stop the commit too.
+When this folder is a Git repo root, `pnpm install` turns on a pre-commit hook (`.vite-hooks/pre-commit`; see `tools/prepare.mjs`) that runs `vp check --fix` on staged files with `--fail-on-changes`. If it reformats or fixes anything, the commit stops. Stage the fixed files and commit again. Lint errors it can't fix stop the commit too.
 
 ## CI
 
-`.github/workflows/check.yml` runs on pull requests and pushes to `main`: frozen install, formatting/lint and piece checks, typecheck, unit tests, and production build. Copy this starter into its own Git repository to enable CI. Browser and AWS typechecks remain available locally; AWS deployment is an explicit opt-in command in the [deployment guide](../infra/aws/README.md).
+`.github/workflows/check.yml` runs on pull requests and pushes to `main`: frozen install, then `pnpm verify`. Copy this starter into its own Git repository to enable CI. Browser and AWS typechecks remain available locally; AWS deployment is an explicit opt-in command in the [deployment guide](../infra/aws/README.md).

@@ -10,9 +10,7 @@ dist-ssr
 *.pem
 .nitro
 .tanstack
-.wrangler
 .output
-.vinxi
 .vitest-attachments
 .vite-hooks/_
 __unconfig*

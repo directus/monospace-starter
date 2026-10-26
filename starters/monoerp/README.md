@@ -46,9 +46,8 @@ You need Node 24, pnpm, and Docker.
 npx giget@latest gh:directus/monospace-starter/starters/monoerp monoerp
 cd monoerp
 cp .env.example .env    # local defaults; change nothing to start
-node infra/compose-sync.mjs # discover installed pieces
-docker compose up -d --wait --wait-timeout 180 # Monospace, both databases, a local Stripe, RabbitMQ, Mailpit
 pnpm install
+docker compose up -d --wait --wait-timeout 180 # Monospace, both databases, a local Stripe, RabbitMQ, Mailpit
 pnpm setup:all          # creates and configures the Monospace workspace
 pnpm dev
 ```
@@ -69,7 +68,7 @@ New here? [The getting started guide](docs/getting-started.md) shows you around 
 - The first time you open Studio, it asks you to accept its terms and then to create a workspace, even though `crm` already exists. Open Studio in a new tab to skip that.
 - monoERP runs its own Monospace. If another app uses port 8100, choose different ports as described below.
 - **Ports** are in `.env`, and everything follows them, including `pnpm dev`. To run a second copy next to the first, change all the ports and set its own Docker project name with `COMPOSE_PROJECT_NAME=monoerp-2` in its `.env`, or the two share containers and data. Put it in `.env` rather than exporting it, so every terminal (and `pnpm setup:all`) uses it.
-- **License key:** optional. Without one, Monospace runs on its free Starter tier, and the CRM quickstart works without skipped features. Starter allows 1 workspace and 3 users, with no custom roles, service accounts, or SSO, and it sends usage telemetry. To use a key, set `MONOSPACE_LICENSE__KEY` in `.env`. Without one, leave that line commented out: Monospace refuses to start with an empty key.
+- **License key:** optional. Without one, Monospace runs on its free tier, and the CRM quickstart works without skipped features. The free tier allows 1 workspace and 3 users, with no custom roles, service accounts, or SSO, and it sends usage telemetry. To use a key, set `MONOSPACE_LICENSE__KEY` in `.env`. Without one, leave that line commented out: Monospace refuses to start with an empty key.
 
 </details>
 
@@ -77,8 +76,8 @@ New here? [The getting started guide](docs/getting-started.md) shows you around 
 
 This repo is set up for working with AI coding agents like Claude Code, Codex, and Cursor, as well as by hand.
 
-- **[`AGENTS.md`](AGENTS.md)** is a short map: how to get a working stack, the rules, and which doc in [`docs/`](docs) to read for the area you're changing. The docs describe how things actually work, with file paths to jump to. It's tested: a fresh agent went from a clean clone to a working, signed-in app using only the docs.
-- **One command checks everything:** `pnpm check && pnpm typecheck && pnpm test`. An agent knows when it's done.
+- **[`AGENTS.md`](AGENTS.md)** is a short map: how to get a working stack, the rules, and which doc in [`docs/`](docs) to read for the area you're changing. The docs describe how things actually work, with file paths to jump to.
+- **One command checks everything:** `pnpm verify`. An agent knows when it's done.
 - **Lint rules catch sloppy code:** casts without a reason, `unknown` types, and module mocks all fail the build (`tools/oxlint`).
 - **Access rules live in one place.** Monospace decides permissions on every request, and the app's API client is generated from the schema, so there's no hand-written data layer for an agent to get wrong.
 
@@ -87,12 +86,12 @@ This repo is set up for working with AI coding agents like Claude Code, Codex, a
 | Command                                       | What it does                                                          |
 | --------------------------------------------- | --------------------------------------------------------------------- |
 | `pnpm dev`                                    | The app with hot reload                                               |
+| `pnpm verify`                                 | Check, typecheck, unit tests, and production build                    |
 | `pnpm check`                                  | Format and lint (what the pre-commit hook runs)                       |
 | `pnpm typecheck`                              | TypeScript                                                            |
 | `pnpm test`                                   | Unit tests                                                            |
 | `pnpm --filter @monoerp/web test:browser`     | Browser tests in Chromium, no server needed                           |
 | `pnpm format`                                 | Fix formatting                                                        |
-| `pnpm compose:sync`                           | Regenerate Compose includes after adding or deleting pieces           |
 | `pnpm setup:all`                              | Configure the Monospace workspace. Safe to rerun after pulling        |
 | `pnpm build:extensions`                       | Rebuild selected connectors; Monospace picks them up on its own       |
 | `pnpm generate`                               | Rebuild the typed Monospace client after a schema change              |
@@ -104,18 +103,21 @@ This repo is set up for working with AI coding agents like Claude Code, Codex, a
 
 The browser only talks to the app's own address. The app's server proxies `/api/*` to Monospace, so the Monospace session cookie stays same-origin. Screens call Monospace straight from the browser with the generated SDK and TanStack Query. There's no app database and no API layer of our own.
 
-| Path                | What                                                                      |
-| ------------------- | ------------------------------------------------------------------------- |
-| `apps/web`          | The app. Modules are in `src/modules`, pages in `src/routes`              |
-| `core/`             | Shared piece ownership manifest                                           |
-| `modules/`          | Module piece manifests                                                    |
-| `infra/modules`     | Module schemas, migrations, demo data, and Monospace setup                |
-| `connectors/portal` | Read-only customer platform source and its local stand-in                 |
-| `infra/monospace`   | The `pnpm setup:*` scripts and Monospace settings for each source         |
-| `connectors`        | Optional sources: extension, emulator, schema settings, compose, manifest |
-| `connectors/stripe` | API connectors and their local emulators                                  |
-| `infra/aws`         | AWS deploy                                                                |
-| `tools/oxlint`      | Extra lint rules                                                          |
+A module is four folders: manifest, UI, infrastructure, and routes. See [the module layout](docs/modules.md#add-a-module).
+
+| Area       | Path                                                                | Purpose                                              |
+| ---------- | ------------------------------------------------------------------- | ---------------------------------------------------- |
+| Core       | `core/piece.json`                                                   | Shared ownership manifest                            |
+| Core       | `apps/web/src/shell`, `apps/web/src/lib`, `apps/web/src/components` | Shell, authentication, and shared UI                 |
+| Core       | `infra/monospace`, `infra/postgres`                                 | Shared workspace setup and PostgreSQL service        |
+| Core       | `infra/aws`, `tools/oxlint`                                         | Optional deployment and code checks                  |
+| Modules    | `modules/<id>`                                                      | Piece manifest                                       |
+| Modules    | `apps/web/src/modules/<id>`                                         | UI entry, copy, reads, and writes                    |
+| Modules    | `infra/modules/<id>`                                                | SQL, demo data, schema settings, and setup           |
+| Modules    | `apps/web/src/routes/_app/<id>`                                     | Pages                                                |
+| Connectors | `connectors/<id>`                                                   | Removable external sources and their local stand-ins |
+| Connectors | `connectors/portal`                                                 | Read-only MySQL demo and Portal UI                   |
+| Connectors | `connectors/stripe`                                                 | Stripe API extension, local emulator, and Billing UI |
 
 To change the CRM schema, add a migration in `infra/modules/crm/postgres/migrations`, make the same change in `infra/modules/crm/postgres/init/001_schema.sql`, then run `pnpm db:migrate`, `pnpm setup:introspect`, and `pnpm generate`. [`docs/data-model.md`](docs/data-model.md) has the details.
 
@@ -136,7 +138,7 @@ To change the CRM schema, add a migration in `infra/modules/crm/postgres/migrati
 
 One command builds a stage: network, PostgreSQL, MySQL, Valkey, RabbitMQ, Monospace, the app, CloudFront, a firewall, alarms, and autoscaling. AWS deployment is optional. The included GitHub Actions workflow checks and builds the app without an AWS account.
 
-Needs a Monospace license key.
+Needs a Monospace license key. AWS does not install the Stripe extension yet, so Billing is unavailable there.
 
 ```bash
 pnpm aws:deploy --stage staging

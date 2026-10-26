@@ -1,46 +1,61 @@
 # Connectors and external sources
 
-Each `connectors/<id>/` is a removable piece shared by starters. Stripe uses a custom Monospace extension. Portal uses Monospace's built-in MySQL provider; its emulator is the demo stand-in for another team's read-only database, not CRM-owned storage.
-
-| Path in a piece           | Purpose                                                                                                            |
-| ------------------------- | ------------------------------------------------------------------------------------------------------------------ |
-| `piece.json`              | `id`, `provides`, supported `env`, source config; optional extension, migration/provision scripts, and setup steps |
-| `compose.yml`             | Local services, with paths relative to this folder                                                                 |
-| `extension/`              | Custom Monospace extension, when needed                                                                            |
-| `emulator/`               | Local stand-in and its data                                                                                        |
-| `monospace/schema/*.json` | Source API names and Studio presentation settings                                                                  |
-
-Modules declare required and optional connector IDs in `modules/<id>/piece.json`. Setup selects the installed modules' connectors by default. If set, `OPTIONAL_SOURCES` replaces that selection (comma-separated IDs; empty means none), including explicit sources no installed module uses. A missing folder always wins: source connection, schema settings, and dependent setup steps skip it. `requires: ['portal']` on a module setup step declares such a dependency. Connector manifests can also contribute `beforeSchema`/`afterSchema` steps; Portal owns its native relation names.
-
-Each manifest is the single source for `id`, label and description, `provides`, ownership, Compose, source configuration, setup, and optional `frontend` entries (target module, slot, collections, and conditional connector requirements). `schemaFiles` lists source presentation JSON. Connector-local `extension.directory`, `migrate`, and `provision` paths are relative to the connector folder; setup scripts are relative to `monospace/setup/`. Other paths are repository-relative. The shared schema and ownership checks are described in [modules](../docs/modules.md#piece-manifests).
-
-Source configuration is plain data. `{ "env": "NAME", "default": "value" }` reads an environment variable, preserving an explicit empty string; numeric defaults convert port values to numbers. `emptyUsesDefault: true` treats an empty value as unset. `{ "when": "NAME", "value": {...}, "otherwise": {...} }` selects a branch when the variable is nonempty, omitting the field if no other branch is given. This supports local-versus-hosted configurations and Portal's optional TLS settings. Only setup resolves these values; frontend discovery imports the data reader and shared selection function, never setup runtime. Vite receives only paths for the current CRM organization-panel slot.
+A connector is a removable external source. Portal uses Monospace's built-in MySQL provider; Stripe uses a custom extension.
 
 ## Add a connector
 
-1. Copy `connectors/portal` for a built-in database provider, or `connectors/stripe` for a custom extension, into `connectors/<id>`. Keep only the demo and frontend features your source needs.
-2. Update `piece.json`: `id`, label, `ownedPaths`, `compose`, `source`, `env`, schema files, and setup scripts. Rename Compose services/ports and schema source names. For a custom extension, also change its package name, extension ID, `extension.installed`, and `source.provider` together.
-3. Add the ID to a module's `requires` or `optional`. Leave `OPTIONAL_SOURCES` unset to use those declarations. If you set an override in `.env`, include the new ID or unset the override; otherwise setup and frontend discovery disable it.
-4. Run `pnpm pieces:check`, `pnpm compose:sync`, `pnpm install`, `docker compose up -d --wait --wait-timeout 180`, `pnpm setup:all`, `pnpm generate:routes`, and `pnpm generate`. Built-in providers need no extension build; setup builds custom extensions. Give real external databases a read-only login.
-
-## Remove a piece
-
-Use `pnpm pieces:remove <id> --dry-run` to preview, then remove without the flag. Required dependents prevent removal. The command deletes only existing owned source paths and prints the commands below. Missing `.github` or `.vscode` folders do not block it. If a connector was already connected, remove its relations and data source in Studio before continuing; source files do not retire backend metadata. It does not modify Docker, Monospace, or environment files. Declared `packageEntries` are removed from their package.json files. After copying or removing a piece, run:
+1. Copy `connectors/portal` for a database provider, or `connectors/stripe` for an API extension, to `connectors/<id>`. Keep only the demo services and frontend features you need.
+2. Edit `piece.json`: change the ID, owned paths, source configuration, schema files, environment names, and setup steps. Rename local services and host ports in `compose.yml`. For extensions, update the package name, extension ID, installed directory, and provider ID together.
+3. Add the connector ID to a module's `requires` or `optional`. Leave `OPTIONAL_SOURCES` unset to use that selection. Give real external databases a read-only login.
+4. Run the commands below, then `pnpm verify` and browser tests for any frontend components. Setup builds selected extensions automatically.
 
 ```sh
-pnpm pieces:check
-pnpm compose:sync
 pnpm install
+pnpm pieces:check
 docker compose up -d --wait --wait-timeout 180 --remove-orphans
 pnpm setup:all
 pnpm generate:routes
 pnpm generate
 ```
 
-`compose:sync` reads `compose` and optional `composeProfiles` paths from every installed piece manifest and writes the ignored, generated `compose.pieces.yml`. Root Compose includes it. Run `node infra/compose-sync.mjs` before the first `pnpm install`; `pnpm dev` and setup also sync. Included paths resolve relative to their own compose file ([Docker include reference](https://docs.docker.com/reference/compose-file/include/)). Core services own the shared network; optional services must not become core `depends_on` entries.
+Install, dev, and setup regenerate `compose.pieces.yml` automatically. If you edit piece folders or Compose declarations without running those commands, run `pnpm compose:sync` before starting Docker. Included Compose paths resolve relative to their own file. Keep optional services out of core's `depends_on`.
 
-Compose runs services for folders that exist; `OPTIONAL_SOURCES` controls source connection, not container startup. Removing a folder and resyncing removes its service from the model; `--remove-orphans` also stops any already-running container. Removing source files does not erase its stored volume or remove a source already registered in Monospace. Disconnect those sources/relations in Studio when retiring them. Setup skips introspection of inactive sources and removes stale generated extension builds.
+## Remove a piece
 
-`pnpm build:extensions` builds selected extension packages into `infra/monospace/extensions/`. That directory is generated output, not another source folder to copy. Keep package names stable when moving a connector. Run `pnpm install` after changing workspace packages.
+1. Preview with `pnpm pieces:remove <id> --dry-run`. If the source is already connected, remove its cross-source relations and data source in Studio first. For Stripe, delete Portal's `stripeCustomer` relation before deleting the Stripe source.
+2. Run `pnpm pieces:remove <id>`. Required dependencies prevent removal. Update `README.md`, `AGENTS.md`, and `docs/` to drop descriptions of the removed piece; shared prose is not rewritten automatically.
+3. Run the same follow-up commands above. `--remove-orphans` retires the removed local service. Source-file removal does not erase existing Docker volumes or external data.
 
-See [Stripe](stripe/README.md) and [Portal](portal/README.md) for configuration.
+To restore a piece, copy its whole folder back, restore any declared package entries, and run those commands again. To keep code but disable a source, set `OPTIONAL_SOURCES` instead.
+
+## Connector contract
+
+| Path or manifest field                       | Purpose                                                                                                                        |
+| -------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| `piece.json`                                 | ID, label, ownership, dependencies, supported environment variables, and source configuration                                  |
+| `compose.yml` / `compose`, `composeProfiles` | Optional local services and overlays                                                                                           |
+| `source`                                     | Provider and connection settings, resolved only by backend setup                                                               |
+| `schemaFiles`                                | API names and Studio presentation settings in `monospace/schema/*.json`                                                        |
+| `setup.beforeSchema`, `setup.afterSchema`    | Ordered steps relative to `monospace/setup/`; a step's `requires` selects dependencies                                         |
+| `extension.directory`, `extension.installed` | Extension package and generated install directory                                                                              |
+| `migrate`, `provision`                       | Optional scripts relative to the connector folder                                                                              |
+| `frontend`                                   | Optional module features, collections, and connector dependencies; see [UI contract](../docs/modules.md#optional-connector-ui) |
+| `packageEntries`                             | Root package scripts or dependencies removed with this piece                                                                   |
+
+Other manifest paths are repository-relative. `pnpm build:extensions` writes selected builds to `infra/monospace/extensions/` and removes stale builds for absent or disabled connectors. Copy extension source, not that generated folder.
+
+| Source value                                             | Meaning                                                                                                   |
+| -------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| `{ "env": "NAME", "default": "value" }`                  | Read an environment variable; preserve an explicit empty value; numeric defaults convert ports to numbers |
+| `emptyUsesDefault: true`                                 | Treat an empty value as unset                                                                             |
+| `{ "when": "NAME", "value": {...}, "otherwise": {...} }` | Choose a value when the variable is nonempty, with an optional fallback                                   |
+
+## Source selection
+
+Unset `OPTIONAL_SOURCES` selects installed modules' required and optional connector IDs. An explicit comma-separated list replaces that selection; empty selects none. Missing folders are always excluded. Compose follows installed folders, so disabling a source does not stop its local service. Removing a backend source in Studio and removing its code are separate actions.
+
+## How pieces:check works
+
+The validator checks source ownership, dependencies, and referenced files before a piece can be removed. See [the shared validator rules](../docs/modules.md#how-piecescheck-works).
+
+For complete examples, see [Portal](portal/README.md) and [Stripe](stripe/README.md).

@@ -12,7 +12,10 @@ COPY patches patches
 COPY apps/web/package.json apps/web/package.json
 # Optional frontend packages need their workspace dependency links before the app builds.
 COPY connectors connectors
-# The root package's prepare script runs during install.
+# Prepare discovers pieces before the full build source is copied.
+COPY core core
+COPY modules modules
+COPY infra/compose-sync.mjs infra/pieces.mjs infra/
 COPY tools/prepare.mjs tools/prepare.mjs
 RUN pnpm install --frozen-lockfile
 
