@@ -1,7 +1,6 @@
 import { execFileSync } from 'node:child_process'
 
-// Git hooks are set for a whole repo. Inside monospace-starter, monoERP's pre-commit hook would
-// run on every commit in that repo, so it's only installed when monoERP is the repo root.
+// Hooks affect the whole Git repo, so only install them when this app is its root.
 let atRoot = false
 
 try {

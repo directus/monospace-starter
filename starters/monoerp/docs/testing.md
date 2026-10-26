@@ -20,6 +20,8 @@ Lint and format settings live in the root `vite.config.ts`. Generated files (`ap
 
 ## Unit tests
 
+Discovery skips `.pnpm-store`: pnpm can cache project source files there, including copies of tests.
+
 Vitest, next to the code they test: `activity.ts` and `activity.test.ts` sit side by side. Use them for logic: parsing, filters, mapping, formatting. Components can be tested here too with Testing Library, by putting `// @vitest-environment jsdom` on the first line (see `apps/web/src/components/data-table.test.tsx`).
 
 Tests for a connector's source defaults live in `connectors/<id>/piece.test.mjs`, inside that piece's owned folder. Shared tests must use fixtures rather than assume optional modules or connectors are installed.
@@ -107,7 +109,7 @@ All of these are errors, so `pnpm check` fails on them. They come from `tools/ox
 
 ## Pre-commit hook
 
-When monoERP is the root of its git repo, `pnpm install` turns on a pre-commit hook (`.vite-hooks/pre-commit`; inside `monospace-starter` it doesn't, see `tools/prepare.mjs`) that runs `vp check --fix` on staged files with `--fail-on-changes`. If it reformats or fixes anything, the commit stops. Stage the fixed files and commit again. Lint errors it can't fix stop the commit too.
+When monoERP is the root of its git repo, `pnpm install` turns on a pre-commit hook (`.vite-hooks/pre-commit`; see `tools/prepare.mjs`) that runs `vp check --fix` on staged files with `--fail-on-changes`. If it reformats or fixes anything, the commit stops. Stage the fixed files and commit again. Lint errors it can't fix stop the commit too.
 
 ## CI
 

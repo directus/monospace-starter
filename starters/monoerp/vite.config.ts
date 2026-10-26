@@ -103,6 +103,7 @@ export default defineConfig({
     exclude: [
       '**/node_modules/**',
       '**/.git/**',
+      '**/.pnpm-store/**',
       ...frontendFeatures.inactive.map((feature) => `${feature.path}/**`),
     ],
   },

@@ -47,7 +47,7 @@ A few things to know on the first run:
 - `pnpm setup:all` is safe to rerun. Run it again whenever you pull changes.
 - The first time you open Studio, it asks you to accept its terms and then to create a workspace, even though `crm` already exists. Open Studio in a new tab to get past that.
 - No license key is needed. Without one, Monospace runs on its free Starter tier: 1 workspace, 3 users, no custom roles, required usage telemetry. The CRM quickstart works without skipped features. Add a license key when you need more seats or custom policies.
-- monoERP runs its own Monospace. If the starter repo's root `docker compose` is running too, stop it first (`docker compose down` in the repo root): both want port 8100.
+- monoERP runs its own Monospace. If another app uses port 8100, choose different ports as described below.
 - Every port is in `.env`. To run a second copy next to the first, change them all and add `COMPOSE_PROJECT_NAME=<something new>` to its `.env` before running `docker compose`. In `.env` rather than exported, so every terminal (and `pnpm setup:all`) uses it.
 
 ## 2. Look around
@@ -108,7 +108,7 @@ More in [`architecture.md`](architecture.md).
 
 ## 4. Make it yours
 
-To build on monoERP, give it a repo of its own: `git init` in the folder `giget` made (or copy `starters/monoerp` out of a `monospace-starter` clone first). Its CI workflow (`.github/workflows/check.yml`) runs from a repo root. AWS deployment is optional and run explicitly.
+To build on monoERP, give it a repo of its own: `git init` in the folder `giget` made (or copy `starters/monoerp` out of a `monospace-starter` clone first). Then run `pnpm install` again to enable the pre-commit hook. Its CI workflow (`.github/workflows/check.yml`) runs from a repo root. AWS deployment is optional and run explicitly.
 
 ### Add a field
 
@@ -138,7 +138,7 @@ Labels, field order, and icons live in each module or connector’s `monospace/s
 The two databases are stand-ins. `infra/monospace/setup/sources.mjs` creates the data sources, and reads their connection details from `.env`:
 
 - **Your CRM database:** `CRM_DB_HOST`, `CRM_DB_INTERNAL_PORT`, `CRM_DB_USER`, `CRM_DB_PASSWORD`, `CRM_DB_NAME`, and `DB_SSL_MODE=require` for managed databases like RDS.
-- **Your product database:** `CUSTOMER_MYSQL_HOST`, `CUSTOMER_MYSQL_INTERNAL_PORT`, and `PORTAL_READER_PASSWORD`. The user and database name (`monospace_reader`, `customer_portal`) are set in `sources.mjs`, so change them there. Give Monospace a login that can only read; that's what keeps another team's data safe, whatever anyone clicks in Studio.
+- **Your product database:** `CUSTOMER_MYSQL_HOST`, `CUSTOMER_MYSQL_INTERNAL_PORT`, and `PORTAL_READER_PASSWORD`. The user and database name (`monospace_reader`, `customer_portal`) are set in `connectors/portal/piece.json` under `source.user` and `source.dbname`, so change them there. Give Monospace a login that can only read; that's what keeps another team's data safe, whatever anyone clicks in Studio.
 
 Monospace connects from inside Docker, so a database on your machine is `host.docker.internal` (on Docker Desktop), not `localhost`.
 
