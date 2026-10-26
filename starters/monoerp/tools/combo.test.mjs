@@ -18,6 +18,7 @@ it('derives module selections and removes dependents before their required conne
   const combos = combinations(pieces)
   expect(combos.map((combo) => combo.name)).toEqual([
     'everything',
+    'core-only',
     'sales-only',
     'sales-without-billing',
     'hiring-only',
@@ -51,7 +52,7 @@ it('drops absent modules and optional connectors from the public repo matrix', (
   const pieces = fixture().filter((piece) => !['hiring', 'checks', 'billing'].includes(piece.id))
   expect(combinations(pieces)).toEqual([
     { name: 'everything', remove: [] },
-    { name: 'sales-only', remove: [] },
+    { name: 'core-only', remove: ['sales', 'portal'] },
   ])
 })
 
@@ -74,31 +75,27 @@ it('rejects cycles in the removal graph before any removal runs', () => {
   expect(() => combinations(pieces)).toThrow('Circular required piece dependencies')
 })
 
-it('includes requested Portal proofs before and after CRM makes Portal optional', () => {
+it('derives all-optional removal and keeps each source selection only once', () => {
   const pieces = fixture()
   const module = pieces.find((piece) => piece.id === 'sales')
   module.id = 'crm'
   pieces.find((piece) => piece.id === 'billing').id = 'stripe'
-  module.optional = ['stripe']
-  const before = combinations(pieces)
-  expect(before.find((combo) => combo.name === 'crm-without-portal').remove).toEqual([
-    'portal',
-    'hiring',
-    'checks',
-  ])
-  expect(before.find((combo) => combo.name === 'crm-without-portal-stripe').remove).toEqual([
+  module.requires = []
+  module.optional = ['portal', 'stripe']
+  const combos = combinations(pieces)
+  expect(combos.find((combo) => combo.name === 'crm-without-portal-stripe').remove).toEqual([
     'stripe',
     'portal',
     'hiring',
     'checks',
   ])
-  module.requires = []
-  module.optional = ['portal', 'stripe']
-  expect(combinations(pieces).filter((combo) => combo.name === 'crm-without-portal')).toHaveLength(
-    1,
+  expect(combos.find((combo) => combo.name === 'core-only').remove).toContain('crm')
+
+  const keys = combos.map((combo) =>
+    [...combo.remove].sort((left, right) => left.localeCompare(right)).join(','),
   )
-  const publicPieces = pieces.filter((piece) => !['portal', 'stripe'].includes(piece.id))
-  expect(combinations(publicPieces).some((combo) => combo.name.startsWith('crm-without-'))).toBe(
-    false,
-  )
+
+  expect(new Set(keys).size).toBe(keys.length)
+  const publicPieces = pieces.filter((piece) => !['hiring', 'checks'].includes(piece.id))
+  expect(combinations(publicPieces).map((combo) => combo.name)).not.toContain('crm-only')
 })

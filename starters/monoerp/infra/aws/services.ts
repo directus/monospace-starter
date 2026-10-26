@@ -501,7 +501,11 @@ export const Setup = (
     return yield* OneOffTask('Setup', {
       image: image.imageUri,
       environment: data.portalMysql
-        ? { ...environment, CUSTOMER_MYSQL_HOST: data.portalMysql.endpointAddress }
+        ? {
+            ...environment,
+            CUSTOMER_MYSQL_HOST: data.portalMysql.endpointAddress,
+            PORTAL_DEMO_DATABASE: '1',
+          }
         : environment,
       secrets:
         data.mysqlAdmin && data.portalReader

@@ -16,13 +16,22 @@ Each manifest is the single source for `id`, picker metadata, `provides`, owners
 
 Source configuration is plain data. `{ "env": "NAME", "default": "value" }` reads an environment variable, preserving an explicit empty string; numeric defaults convert port values to numbers. `emptyUsesDefault: true` treats an empty value as unset. `{ "when": "NAME", "value": {...}, "otherwise": {...} }` selects a branch when the variable is nonempty, omitting the field if no other branch is given. This supports local-versus-hosted configurations and Portal's optional TLS settings. Only setup resolves these values; frontend discovery imports the data reader and shared selection function, never setup runtime. Vite receives only paths for the current CRM organization-panel slot.
 
-Use `pnpm pieces:remove <id> --dry-run` to preview, then remove without the flag. Required dependents prevent removal. The command deletes only owned source paths and prints regeneration commands. It does not modify Docker, Monospace, environment files, or workspace metadata. After copying or removing a piece, run:
+## Add a connector
+
+1. Copy `connectors/portal` for a built-in database provider, or `connectors/stripe` for a custom extension, into `connectors/<id>`. Keep only the demo and frontend features your source needs.
+2. Update `piece.json`: `id`, label, `ownedPaths`, `compose`, `source`, `env`, schema files, and setup scripts. Rename Compose services/ports and schema source names. For a custom extension, also change its package name, extension ID, `extension.installed`, and `source.provider` together.
+3. Add the ID to a module's `requires` or `optional`. Leave `OPTIONAL_SOURCES` unset to use those declarations. If you set an override in `.env`, include the new ID or unset the override; otherwise setup and frontend discovery disable it.
+4. Run `pnpm pieces:check`, `pnpm compose:sync`, `pnpm install`, `docker compose up -d --wait --wait-timeout 180`, `pnpm setup:all`, `pnpm generate:routes`, and `pnpm generate`. Built-in providers need no extension build; setup builds custom extensions. Give real external databases a read-only login.
+
+## Remove a piece
+
+Use `pnpm pieces:remove <id> --dry-run` to preview, then remove without the flag. Required dependents prevent removal. The command deletes only existing owned source paths and prints the commands below. Missing `.github` or `.vscode` folders do not block it. If a connector was already connected, remove its relations and data source in Studio before continuing; source files do not retire backend metadata. It does not modify Docker, Monospace, environment files, or workspace metadata. After copying or removing a piece, run:
 
 ```sh
 pnpm pieces:check
 pnpm compose:sync
 pnpm install
-docker compose up -d --remove-orphans
+docker compose up -d --wait --wait-timeout 180 --remove-orphans
 pnpm setup:all
 pnpm generate:routes
 pnpm generate

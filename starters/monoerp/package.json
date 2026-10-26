@@ -40,7 +40,7 @@
     "format": "vp fmt",
     "format:check": "vp fmt --check",
     "test": "vp test",
-    "check": "vp check",
+    "check": "node tools/pieces.mjs check && vp check",
     "prepare": "node tools/prepare.mjs",
     "compose:sync": "node infra/compose-sync.mjs",
     "pieces:check": "node tools/pieces.mjs check",

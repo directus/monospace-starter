@@ -34,9 +34,6 @@ export default defineConfig({
       'apps/web/test/public/mockServiceWorker.js',
       // Vendored from Monospace's example Stripe connector; kept close to upstream.
       'connectors/stripe/extension/src/**',
-      // Written as a standalone extension and not yet ported to these rules: it narrows Checkr's
-      // JSON with typeof checks. Remove once its config and responses are decoded with zod.
-      'connectors/checkr/extension/src/**',
       '.claude/**',
       'tools/oxlint/anti-slop/**',
     ],

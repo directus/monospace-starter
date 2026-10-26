@@ -1,8 +1,9 @@
-import { createClient } from '@/generated/monospace'
-import type { Uuid } from '@/generated/monospace'
+import { createClient } from '@monospace/sdk'
+import type { Schema, Uuid } from '@/generated/monospace'
 import { authenticatedHttp } from '@/lib/monospace-http'
 
-export const monospace = createClient({
+// The generated Schema exists even when the CLI omits its empty-workspace client factory.
+export const monospace = createClient<Schema>({
   url: '',
   http: authenticatedHttp,
   workspace: import.meta.env.VITE_MONOSPACE_WORKSPACE ?? 'crm',

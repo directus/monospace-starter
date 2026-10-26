@@ -1,5 +1,5 @@
-import { execFileSync } from 'node:child_process'
-import { existsSync, lstatSync, rmSync } from 'node:fs'
+import { execFileSync, spawnSync } from 'node:child_process'
+import { existsSync, lstatSync, readdirSync, rmSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 
 import { readPieces, repository } from '../infra/pieces.mjs'
@@ -16,12 +16,17 @@ function safePath(root, path) {
     prefix += `${part}/`
     const url = new URL(prefix.slice(0, -1), root)
 
-    if (lstatSync(url).isSymbolicLink())
-      throw new Error(`${path}: symlinks cannot be owned or traversed`)
+    const stat = lstatSync(url, { throwIfNoEntry: false })
+
+    if (!stat) return false
+
+    if (stat.isSymbolicLink()) throw new Error(`${path}: symlinks cannot be owned or traversed`)
   }
+
+  return true
 }
 
-export function checkPieces(root = repository) {
+function validatePieces(root = repository) {
   const pieces = readPieces(root).map((piece) => pieceSchema.parse(piece))
   const ids = pieces.map((piece) => piece.id)
 
@@ -113,36 +118,57 @@ export function checkPieces(root = repository) {
     for (const path of references) {
       if (!piece.ownedPaths.some((owned) => contains(owned, path)))
         throw new Error(`${piece.id}: referenced path is not owned: ${path}`)
-      safePath(root, path)
+
+      if (!safePath(root, path)) throw new Error(`${piece.id}: ${path} is listed but missing`)
     }
   }
 
-  // Git excludes generated builds, dependencies, and local secrets, but includes new source files.
-  const files = execFileSync(
-    'git',
-    [
-      'ls-files',
-      '--cached',
-      '--others',
-      '--exclude-standard',
-      '-z',
-      '--',
-      'apps/web/src/routes',
-      'infra/modules',
-      'connectors',
-    ],
-    { cwd: fileURLToPath(root), encoding: 'utf8' },
-  )
-    .split('\0')
-    .filter(Boolean)
+  return { pieces, owners }
+}
+
+const ownedTrees = ['apps/web/src/routes', 'apps/web/src/modules', 'infra/modules', 'connectors']
+
+function sourceFiles(root) {
+  const cwd = fileURLToPath(root)
+
+  const git = spawnSync('git', ['rev-parse', '--is-inside-work-tree'], {
+    cwd,
+    encoding: 'utf8',
+    stdio: ['ignore', 'pipe', 'ignore'],
+  })
+
+  if (git.status === 0 && git.stdout.trim() === 'true') {
+    return execFileSync(
+      'git',
+      ['ls-files', '--cached', '--others', '--exclude-standard', '-z', '--', ...ownedTrees],
+      { cwd, encoding: 'utf8' },
+    )
+      .split('\0')
+      .filter(Boolean)
+  }
+
+  const ignored = new Set(['node_modules', 'dist', '.output', '.git', '.pnpm-store', '.cache'])
+
+  function walk(path) {
+    if (!existsSync(new URL(path, root))) return []
+
+    return readdirSync(new URL(`${path}/`, root), { withFileTypes: true }).flatMap((entry) => {
+      if (ignored.has(entry.name)) return []
+      const child = `${path}/${entry.name}`
+
+      return entry.isDirectory() ? walk(child) : [child]
+    })
+  }
+
+  return ownedTrees.flatMap(walk)
+}
+
+export function checkPieces(root = repository) {
+  const { pieces, owners } = validatePieces(root)
+  const files = sourceFiles(root)
 
   for (const path of files) {
-    if (
-      !['apps/web/src/routes/', 'infra/modules/', 'connectors/'].some((prefix) =>
-        path.startsWith(prefix),
-      ) ||
-      !existsSync(new URL(path, root))
-    )
+    if (!ownedTrees.some((tree) => path.startsWith(`${tree}/`)) || !existsSync(new URL(path, root)))
       continue
     const matches = owners.filter((owner) => contains(owner.path, path))
 
@@ -154,7 +180,7 @@ export function checkPieces(root = repository) {
 }
 
 export function removePiece(id, { root = repository, dryRun = false } = {}) {
-  const pieces = checkPieces(root)
+  const { pieces } = validatePieces(root)
   const piece = pieces.find((candidate) => candidate.id === id)
 
   if (!piece) throw new Error(`Unknown piece: ${id}`)
@@ -168,12 +194,18 @@ export function removePiece(id, { root = repository, dryRun = false } = {}) {
     )
 
   for (const path of piece.ownedPaths) {
+    if (!existsSync(new URL(path, root))) continue
     console.log(`${dryRun ? 'Would remove' : 'Removing'} ${path}`)
 
     if (!dryRun) rmSync(new URL(path, root), { recursive: true })
   }
 
-  console.log('Next commands:\n  pnpm compose:sync\n  pnpm generate:routes\n  pnpm generate')
+  console.log(
+    'For a removed connector, remove its relations and source in Studio first if it was connected.\n' +
+      'Next commands:\n  pnpm pieces:check\n  pnpm compose:sync\n  pnpm install\n' +
+      '  docker compose up -d --wait --wait-timeout 180 --remove-orphans\n' +
+      '  pnpm setup:all\n  pnpm generate:routes\n  pnpm generate',
+  )
 
   return piece.ownedPaths
 }

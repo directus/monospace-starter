@@ -226,6 +226,9 @@ export function generateZodSchemaSource(
   document: OpenApiDocument,
   collections: readonly string[] = schemaCollections,
 ) {
+  if (collections.length === 0)
+    return '// Generated from the Monospace OpenAPI document. No write collections installed.\nexport {}\n'
+
   const inputs = collections.flatMap((collection) =>
     OPERATIONS.map((operation) => ({
       collection,

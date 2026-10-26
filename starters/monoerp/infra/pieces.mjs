@@ -13,7 +13,12 @@ export function readPieces(root = repository) {
     for (const entry of readdirSync(directory, { withFileTypes: true }).sort((a, b) =>
       a.name.localeCompare(b.name),
     )) {
-      if (entry.isDirectory()) paths.push(`${base}/${entry.name}/piece.json`)
+      if (!entry.isDirectory()) continue
+      const path = `${base}/${entry.name}/piece.json`
+
+      if (existsSync(new URL(path, root))) paths.push(path)
+      else
+        console.warn(`${base}/${entry.name}: ignored, no piece.json (remove the leftover folder)`)
     }
   }
 

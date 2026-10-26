@@ -1,3 +1,5 @@
+import { existsSync } from 'node:fs'
+
 // Sizing per stage. Scaling lean prod is one line here, then `pnpm aws:deploy --stage prod`.
 export interface StageConfig {
   nat: 'single' | 'per-az'
@@ -46,8 +48,8 @@ const staging: StageConfig = {
 const prod: StageConfig = {
   nat: 'single',
   postgres: { instanceClass: 'db.t4g.small', multiAz: true, storageGb: 20 },
-  // An empty stand-in so the CRM's portal joins work. A real rollout points the Portal source
-  // at the other team's existing database instead.
+  // Demo database only. For a real Portal source, remove portalMysql and configure the
+  // source host separately; never pass a real database to demo provisioning.
   portalMysql: { instanceClass: 'db.t4g.micro', storageGb: 20 },
   valkey: { nodeType: 'cache.t4g.micro', replicas: 1 },
   broker: { instanceType: 'mq.m7g.medium', mode: 'SINGLE_INSTANCE' },
@@ -69,5 +71,10 @@ export const stageConfig = (stage: string) => {
   if (!config)
     throw new Error(`Unknown stage "${stage}". Use one of: ${[...stages.keys()].join(', ')}`)
 
-  return config
+  return {
+    ...config,
+    portalMysql: existsSync(new URL('../../connectors/portal/piece.json', import.meta.url))
+      ? config.portalMysql
+      : undefined,
+  }
 }

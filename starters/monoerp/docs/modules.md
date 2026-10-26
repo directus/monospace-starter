@@ -4,7 +4,7 @@ monoERP is built so that more modules can sit next to the CRM. A module is a set
 
 ## Piece manifests
 
-Each installed piece has one plain JSON manifest: `modules/<id>/piece.json`, `connectors/<id>/piece.json`, or `core/piece.json`. App and infra folders stay where they are. Node readers share `infra/pieces.mjs`, without importing React or needing a TypeScript loader. `tools/piece-schema.mjs` defines the Zod schema used by `pnpm pieces:check` and `pnpm pieces:remove`.
+Each installed piece has one plain JSON manifest: `modules/<id>/piece.json`, `connectors/<id>/piece.json`, or `core/piece.json`. Node readers share `infra/pieces.mjs`, without importing React or needing a TypeScript loader. `tools/piece-schema.mjs` defines the Zod schema used by `pnpm pieces:check` and `pnpm pieces:remove`.
 
 Every manifest declares `kind`, `id`, picker `label`/`description`, `ownedPaths`, `requires`, and `optional`. Paths are literal, repository-relative files or folders, not globs. A folder owns its contents. The manifest itself must be owned. Core lists the shared app/infra paths and routes and is always installed.
 
@@ -18,7 +18,7 @@ Module manifests also declare:
 
 `requires` prevents removal of dependencies. CRM lists Portal and Stripe as optional because their UI and collection requirements live in conditional connector features. Portal stays selected by default as the MySQL demo. Stripe's CRM feature also requires selected Portal; without Portal, Billing stays inactive. Unset `OPTIONAL_SOURCES` selects installed modules' required and optional connectors; an explicit value still replaces setup selection. Conditional feature dependencies do not make their host module or sources mandatory for the connector itself.
 
-`pnpm pieces:check` validates every manifest, checks owned and referenced paths, rejects overlapping ownership, and requires exactly one owner for every source file under `apps/web/src/routes`, `infra/modules`, and `connectors`. It includes untracked source files and excludes Git-ignored builds, dependencies, and local files. Removing a piece validates the entire installation before any deletion. Symlink paths and ancestors are refused.
+`pnpm pieces:check` validates every manifest, checks owned and referenced paths, rejects overlapping ownership, and requires exactly one owner for every source file under `apps/web/src/routes`, `apps/web/src/modules`, `infra/modules`, and `connectors`. In a Git checkout it includes untracked source files and excludes Git-ignored files. Without Git, it walks those trees while skipping dependency/build folders. Missing owned dotfolders are allowed; referenced manifests, entry files, schemas, and scripts remain required. Removal validates manifest dependencies, ownership boundaries, and required referenced paths before any deletion. The unowned-file scan belongs to `pnpm pieces:check`. Symlink paths and ancestors are refused.
 
 ## The UI contract
 
@@ -76,22 +76,27 @@ All user-facing text for a module lives in `modules/<id>/<id>.copy.ts` (`crmCopy
 
 ## Add a module
 
-Say the new module is `inventory`.
+Say the new module is `inventory`. Its four locations have different jobs:
+
+| Path                                  | Purpose                                         |
+| ------------------------------------- | ----------------------------------------------- |
+| `modules/inventory/piece.json`        | Ownership, dependencies, collections, and setup |
+| `apps/web/src/modules/inventory/`     | UI entry, copy, reads, and mutations            |
+| `infra/modules/inventory/`            | Database SQL and Monospace setup                |
+| `apps/web/src/routes/_app/inventory/` | Pages discovered by the router                  |
 
 1. **Data first.** Put module SQL under `infra/modules/inventory/postgres/{init,migrations}/`, Monospace settings under `monospace/schema/`, and setup steps under `monospace/setup/`. Create `modules/inventory/piece.json` using an existing module manifest, declaring owned folders/routes, required and optional connectors, schema files, audit tables, and ordered steps. Connector source configs and schema settings belong in `connectors/<id>/`; see [connector pieces](../connectors/README.md). A setup step can declare `requires: ['portal']` to skip when that connector is absent or disabled. Setup and migrations discover these folders without registration. The module's tables live in a database Monospace can reach, either a new source or new tables in an existing one. See [`data-model.md`](data-model.md) for schema changes and [`monospace.md`](monospace.md) for `pnpm setup:all`.
 2. **Generated client.** Set `order`, `collections`, and `schemas` in `modules/inventory/piece.json`. Run `pnpm generate`. Only present modules contribute collections.
-3. **The id.** In the manifest, augment `ModuleRegistry` in `@/modules/types` with `inventory: true`. No core list changes.
-4. **Copy.** Create `apps/web/src/modules/inventory/inventory.copy.ts` with at least `module: { label, description }` and titles for each page.
-5. **UI entry.** Create `apps/web/src/modules/inventory/module.ts` with a default-exported `ModuleManifest`, `id: 'inventory'`, `order` imported from the piece, and `basePath: '/inventory'`. Leave `search` out until there's something to search.
-6. **Discovery.** The manifest glob picks up the folder automatically. Choose `order` relative to existing modules (CRM uses 10).
-7. **Pages.** Add routes under `apps/web/src/routes/_app/inventory/`:
+3. **Copy.** Create `apps/web/src/modules/inventory/inventory.copy.ts` with at least `module: { label, description }` and titles for each page.
+4. **UI entry.** Create `apps/web/src/modules/inventory/module.ts` with a default-exported `ModuleManifest`, `id: 'inventory'`, `order` imported from the piece, and `basePath: '/inventory'`. Augment `ModuleRegistry` in `@/modules/types` with `inventory: true` in this UI entry. The glob discovers it automatically, with no core list change. Leave `search` out until there's something to search.
+5. **Pages.** Add routes under `apps/web/src/routes/_app/inventory/`:
    - `index.tsx` for `/inventory`, with `staticData.page` set to `module: 'inventory'` and a `nav` number.
    - List pages like `items.tsx`, with `nav`. Detail pages like `items_.$itemId.tsx` (the trailing `_` keeps it out of the list page's layout), with `parent: '/inventory/items'` and no `nav`.
    - `routeTree.gen.ts` updates on its own when the dev server or `pnpm generate:routes` runs.
-8. **Data and mutations.** Put query options and fetchers in `modules/inventory/data.ts` and mutation hooks in `modules/inventory/mutations.ts`, following the CRM's files (see `docs/frontend.md`).
-9. **Search (optional).** Add `modules/inventory/search.ts` and set `search` in the manifest.
-10. **Settings (optional).** Settings routes are `routes/_app/settings.<area>.<page>.tsx` with components, copy, and tests in `apps/web/src/modules/<id>/settings/`. Add `settings: { title, pages: [{ title, to, icon }] }` to the manifest. Settings nav uses those groups; `/settings` opens the first module settings page in manifest order, falling back to `/settings/account` when none exist.
-11. **Check.** `pnpm check && pnpm typecheck && pnpm test`, then open the app: the module should have a sidebar group, a home card, breadcrumbs, and palette entries.
+6. **Data and mutations.** Put query options and fetchers in `modules/inventory/data.ts` and mutation hooks in `modules/inventory/mutations.ts`, following the CRM's files (see `docs/frontend.md`).
+7. **Search (optional).** Add `modules/inventory/search.ts` and set `search` in the manifest.
+8. **Settings (optional).** Settings routes are `routes/_app/settings.<area>.<page>.tsx` with components, copy, and tests in `apps/web/src/modules/<id>/settings/`. Add `settings: { title, pages: [{ title, to, icon }] }` to the manifest. Settings nav uses those groups; `/settings` opens the first module settings page in manifest order, falling back to `/settings/account` when none exist.
+9. **Check.** `pnpm check && pnpm typecheck && pnpm test`, then open the app: the module should have a sidebar group, a home card, breadcrumbs, and palette entries.
 
 ## Removing a module
 
@@ -100,10 +105,9 @@ Preview the exact deletion set, then remove it:
 ```sh
 pnpm pieces:remove crm --dry-run
 pnpm pieces:remove crm
-pnpm compose:sync
-pnpm generate:routes
-pnpm generate
 ```
+
+Then follow the [shared removal steps](../connectors/README.md#remove-a-piece).
 
 The command deletes only `ownedPaths`, including the piece manifest, module folders, settings routes, and public routes. It refuses core and any dependency required by an installed piece. Connectors remain independent pieces: removing CRM leaves Portal and Stripe installed; remove it separately if unused. `pnpm pieces:remove stripe` removes its whole folder and optional UI without changing CRM. Removing Portal leaves CRM working and hides Portal UI and the dependent Billing feature. No package, environment, database, or generated-file edits happen during removal; the printed commands regenerate derived files. Run `pnpm install` after workspace packages change.
 
@@ -119,4 +123,4 @@ Feature code imports only its own frontend files, core helpers, and generated SD
 
 `pnpm typecheck` generates a temporary `apps/web/tsconfig.check.json` containing core plus active features, runs TypeScript, then removes it. Lint and unit/browser test discovery also skip inactive features. Vite receives only selected paths as public build metadata, never connector source configuration or secrets. Tailwind scans connector frontend folders too.
 
-Deleting `connectors/stripe/` removes the Billing tab, its query/types/tests, and its collection requirements. Regenerate the client against the matching backend; CRM and Portal no longer require Stripe types. Restoring the folder and reinstalling workspace packages restores the feature. Deleting `connectors/portal/` removes its panels, list filters/columns, deal summary, history queries, tests, and collection requirements. It also makes the installed Stripe CRM feature inactive. The CRM keeps its stored `portalAccountId` field, so restoring Portal can reconnect existing records.
+Deleting `connectors/stripe/` removes the Billing tab, its query/types/tests, and its collection requirements. Follow the [shared removal steps](../connectors/README.md#remove-a-piece); CRM and Portal no longer require Stripe types. Restoring the folder and reinstalling workspace packages restores the feature. Deleting `connectors/portal/` removes its panels, list filters/columns, deal summary, history queries, tests, and collection requirements. It also makes the installed Stripe CRM feature inactive. The CRM keeps its stored `portalAccountId` field, so restoring Portal can reconnect existing records.

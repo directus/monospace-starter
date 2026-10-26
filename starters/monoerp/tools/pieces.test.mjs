@@ -126,9 +126,11 @@ it('rejects missing dependencies and paths before deleting anything', () => {
   save(root, 'modules/sales/piece.json', piece)
   expect(() => removePiece('sales', { root })).toThrow('required piece missing is absent')
   piece.requires = []
-  piece.ownedPaths.push('missing')
+  piece.schemaFiles = ['infra/modules/sales/missing.json']
   save(root, 'modules/sales/piece.json', piece)
-  expect(() => removePiece('sales', { root })).toThrow('ENOENT')
+  expect(() => removePiece('sales', { root })).toThrow(
+    'sales: infra/modules/sales/missing.json is listed but missing',
+  )
   expect(existsSync(new URL('apps/web/src/routes/sales.tsx', root))).toBe(true)
 })
 
@@ -235,4 +237,34 @@ it('resolves connector defaults and environment branches without changing the ma
     resolveSource(sources.stripe, { STRIPE_API_KEY: '', STRIPE_API_BASE: 'http://example.test' })
       .config,
   ).toEqual({ apiKey: '', apiBase: 'http://example.test' })
+})
+
+it('checks and previews removal in a download without Git metadata', () => {
+  const { root, piece } = fixture()
+  rmSync(new URL('.git/', root), { recursive: true })
+  expect(checkPieces(root)).toHaveLength(2)
+  expect(removePiece('sales', { root, dryRun: true })).toEqual(piece.ownedPaths)
+  write(root, 'connectors/leftover/node_modules/package/index.js')
+  write(root, 'connectors/leftover/dist/extension.js')
+  expect(checkPieces(root)).toHaveLength(2)
+  expect(removePiece('sales', { root, dryRun: true })).toEqual(piece.ownedPaths)
+  write(root, 'apps/web/src/routes/unowned.tsx')
+  expect(() => checkPieces(root)).toThrow('unowned.tsx: expected one owner, found 0')
+  expect(removePiece('sales', { root, dryRun: true })).toEqual(piece.ownedPaths)
+})
+
+it('allows missing owned dotfolders while keeping referenced files required', () => {
+  const { root, piece } = fixture()
+  const corePath = new URL('core/piece.json', root)
+  const core = JSON.parse(readFileSync(corePath, 'utf8'))
+  core.ownedPaths.push('.github', '.vscode')
+  writeFileSync(corePath, JSON.stringify(core))
+  piece.ownedPaths.push('already-removed')
+  save(root, 'modules/sales/piece.json', piece)
+  expect(checkPieces(root)).toHaveLength(2)
+  expect(removePiece('sales', { root, dryRun: true })).toEqual(piece.ownedPaths)
+  rmSync(new URL('apps/web/src/modules/sales/module.ts', root))
+  expect(() => checkPieces(root)).toThrow(
+    'sales: apps/web/src/modules/sales/module.ts is listed but missing',
+  )
 })

@@ -1,12 +1,18 @@
 import * as AWS from 'alchemy/AWS'
 import { envValue } from './secrets.ts'
 
-// The role GitHub Actions assumes to deploy this stage. Only workflow jobs in the repo named by
-// GITHUB_OIDC_SUBJECT that run in the GitHub environment named after the stage can use it, so
-// prod's rules (set on the environment in GitHub) guard prod's role. GITHUB_OIDC_SUBJECT is the
-// repo's subject prefix as GitHub reports it: `repo:owner/name`, or with IDs
-// (`repo:owner@123/name@456`) for repos on immutable subjects. Needs `pnpm aws:github-oidc` once
-// per account. Skipped when GITHUB_OIDC_SUBJECT isn't set.
+// The custom GitHub subject includes repo, environment context, and ref. Legacy environment-only
+// subjects cannot assume these admin roles. See the required claim setup in README.md.
+export function deploySubject(subject: string, stage: string) {
+  if (!/^repo:[A-Za-z0-9_.@-]+\/[A-Za-z0-9_.@-]+$/.test(subject))
+    throw new Error('GITHUB_OIDC_SUBJECT must be an exact repo subject prefix')
+
+  if (stage !== 'staging' && stage !== 'prod') throw new Error(`Unknown deploy stage: ${stage}`)
+  const ref = stage === 'prod' ? 'refs/tags/v*' : 'refs/heads/main'
+
+  return `${subject}:environment:${stage}:ref:${ref}`
+}
+
 export const GithubDeployRole = (stage: string) => {
   const subject = envValue('GITHUB_OIDC_SUBJECT')
   const account = process.env.AWS_ACCOUNT_ID
@@ -27,7 +33,9 @@ export const GithubDeployRole = (stage: string) => {
           Condition: {
             StringEquals: {
               'token.actions.githubusercontent.com:aud': 'sts.amazonaws.com',
-              'token.actions.githubusercontent.com:sub': `${subject}:environment:${stage}`,
+            },
+            StringLike: {
+              'token.actions.githubusercontent.com:sub': deploySubject(subject, stage),
             },
           },
         },

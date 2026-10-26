@@ -1,6 +1,6 @@
 # monoERP for agents
 
-monoERP is a business app on Monospace. The app is TanStack Start in `apps/web`. Its first module is a CRM. Data lives in two databases and Stripe, which Monospace joins into one API: the CRM's PostgreSQL (read and write), a customer platform's MySQL (read-only), and Stripe through a custom data connector.
+monoERP is a business app on Monospace. The app is TanStack Start in `apps/web`. Its first module is a CRM. Data lives in two databases and Stripe, which Monospace joins into one API: the CRM's PostgreSQL (read and write), a customer platform's MySQL (read-only), and Stripe through a custom data connector. Portal and Stripe are optional demo connectors; see `docs/modules.md`.
 
 This file is a map. The details live in `docs/`. Read the doc for the area you're changing before you change it.
 

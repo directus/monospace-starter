@@ -29,7 +29,8 @@ if (existing.some((provider) => provider.Arn === arn)) {
 }
 
 console.log(
-  'Next: set GITHUB_OIDC_SUBJECT in .env to the output of\n' +
+  'Next: configure the required repo, context, ref subject template and environment deployment rules\n' +
+    'in infra/aws/README.md, then set GITHUB_OIDC_SUBJECT in .env to the output of\n' +
     '  gh api repos/<owner>/<repo>/actions/oidc/customization/sub --jq \'.sub_claim_prefix // "repo:<owner>/<repo>"\'\n' +
     'then deploy each stage to create its deploy role.',
 )

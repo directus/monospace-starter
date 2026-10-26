@@ -21,6 +21,7 @@ export default defineConfig(({ mode }) => {
   return {
     envDir,
     resolve: {
+      dedupe: ['react', 'react-dom', '@tanstack/react-query', '@tanstack/react-router'],
       tsconfigPaths: true,
       alias: {
         '@': fileURLToPath(new URL('./src/', import.meta.url)),

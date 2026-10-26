@@ -3,7 +3,7 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { pathToFileURL } from 'node:url'
 
-import { afterEach, describe, expect, it } from 'vitest'
+import { afterEach, describe, expect, it, vi } from 'vitest'
 
 import {
   readFrontendFeatures,
@@ -47,6 +47,9 @@ function addConnector(root: URL, id: string) {
 }
 
 afterEach(() => {
+  vi.restoreAllMocks()
+  vi.unstubAllEnvs()
+
   for (const directory of temporaryDirectories.splice(0)) rmSync(directory, { recursive: true })
 })
 
@@ -224,4 +227,35 @@ it('drops Portal and conditional Stripe collections when Portal is removed', () 
     'contacts',
   ])
   expect(readFrontendFeatures(root, ['portal', 'stripe']).active).toEqual([])
+})
+
+it('explains when connector selection disables a frontend feature', () => {
+  const root = fixture()
+  addModule(root, 'crm', 10, ['organizations'], [])
+  addConnector(root, 'portal')
+  writeFileSync(
+    new URL('connectors/portal/piece.json', root),
+    JSON.stringify({
+      kind: 'connector',
+      id: 'portal',
+      frontend: [
+        {
+          module: 'crm',
+          slot: 'organization-panel',
+          path: 'connectors/portal/frontend/crm',
+          requires: [],
+          order: 10,
+          collections: ['accounts'],
+          schemas: [],
+        },
+      ],
+    }),
+  )
+  vi.stubEnv('OPTIONAL_SOURCES', undefined)
+  const log = vi.spyOn(console, 'log').mockImplementation(() => {})
+  expect(readFrontendFeatures(root, []).active).toEqual([])
+  expect(log).not.toHaveBeenCalled()
+  vi.stubEnv('OPTIONAL_SOURCES', '')
+  expect(readFrontendFeatures(root, []).active).toEqual([])
+  expect(log).toHaveBeenCalledWith('portal: skipped, disabled in OPTIONAL_SOURCES')
 })

@@ -46,7 +46,7 @@ A few things to know on the first run:
 - The first `docker compose up` loads the demo data, which takes a minute or two. The `keygen` container creates Monospace's keys and exits; that's expected. `pnpm setup:all` waits for Monospace to be ready.
 - `pnpm setup:all` is safe to rerun. Run it again whenever you pull changes.
 - The first time you open Studio, it asks you to accept its terms and then to create a workspace, even though `crm` already exists. Open Studio in a new tab to get past that.
-- No license key is needed. Without one, Monospace runs on its free Starter tier: 1 workspace, 3 users, no custom roles. The CRM quickstart works without skipped features. Add a license key when you need more seats or custom policies.
+- No license key is needed. Without one, Monospace runs on its free Starter tier: 1 workspace, 3 users, no custom roles, required usage telemetry. The CRM quickstart works without skipped features. Add a license key when you need more seats or custom policies.
 - monoERP runs its own Monospace. If the starter repo's root `docker compose` is running too, stop it first (`docker compose down` in the repo root): both want port 8100.
 - Every port is in `.env`. To run a second copy next to the first, change them all and add `COMPOSE_PROJECT_NAME=<something new>` to its `.env` before running `docker compose`. In `.env` rather than exported, so every terminal (and `pnpm setup:all`) uses it.
 
@@ -96,6 +96,8 @@ Where things live:
 | `apps/web/src/routes`        | Pages. File names are URLs                                         |
 | `apps/web/src/modules`       | Each module's reads (`data.ts`), writes (`mutations.ts`), and copy |
 | `apps/web/src/generated`     | The typed Monospace client. Generated; don't edit                  |
+| `core/`                      | Shared piece ownership manifest                                    |
+| `modules/`                   | Module piece manifests                                             |
 | `infra/modules`              | The Module schemas, migrations, demo data, and Monospace setup     |
 | `connectors/portal/emulator` | The portal stand-in's schema and demo data                         |
 | `infra/monospace`            | The `pnpm setup:*` scripts, and names and labels for each source   |
@@ -140,7 +142,7 @@ The two databases are stand-ins. `infra/monospace/setup/sources.mjs` creates the
 
 Monospace connects from inside Docker, so a database on your machine is `host.docker.internal` (on Docker Desktop), not `localhost`.
 
-Then update what depends on the demo schema: the cross-database relations in `infra/modules/crm/monospace/setup/portal-relations.mjs` (which column links an organization to an account), the names and labels in `connectors/portal/monospace/schema/portal.json`, the collections declared in `modules/<id>/piece.json`, and the pages that use them.
+Then update what depends on the demo schema: the cross-database relations in `infra/modules/crm/monospace/setup/portal-relations.mjs` (which column links an organization to an account), the names and labels in `connectors/portal/monospace/schema/portal.json`, the collections declared in `connectors/portal/piece.json`, and the pages that use them.
 
 ### Use real Stripe
 
@@ -157,7 +159,11 @@ Portal accounts link to Stripe customers by `stripe_customer_id`, so those IDs n
 
 ### Drop a source
 
-The shared PostgreSQL source is required. Installed modules declare their external connector IDs. `OPTIONAL_SOURCES`, when set, replaces that selection; the example `.env` selects `portal,stripe`. Leave an ID out, and setup skips it and everything that depends on it. A missing `connectors/<id>/` folder always skips that source too. After copying or deleting a piece, run `pnpm compose:sync` before `docker compose up -d --remove-orphans`. The app shows "isn't set up" where that data would be, instead of an error.
+Preview with `pnpm pieces:remove portal --dry-run`, then remove Portal or Stripe with `pnpm pieces:remove portal` or `pnpm pieces:remove stripe`. Follow the [shared removal steps](../connectors/README.md#remove-a-piece) to retire an existing source and regenerate the app.
+
+To keep a connector's code without connecting its source, use `OPTIONAL_SOURCES` instead.
+
+The shared PostgreSQL source is required. Installed modules declare their external connector IDs. `OPTIONAL_SOURCES`, when set, replaces that selection; the example `.env` leaves this unset so installed modules choose. Leave an ID out, and setup skips it and everything that depends on it. A missing `connectors/<id>/` folder always skips that source too. After copying or deleting a piece, run `pnpm compose:sync` before `docker compose up -d --remove-orphans`. Disabled connector features disappear from the app. A selected connector whose backend source is missing shows "isn't set up" instead of a retry error.
 
 On a workspace that already has the source, also delete it in Studio. [`monospace.md`](monospace.md) has the details, including how to take it out of the code entirely.
 

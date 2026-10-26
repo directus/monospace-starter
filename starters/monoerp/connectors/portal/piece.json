@@ -17,6 +17,7 @@
     "DB_SSL_MODE",
     "DB_ADMIN_USER",
     "MYSQL_ADMIN_PASSWORD",
+    "PORTAL_DEMO_DATABASE",
     "SEED_DEMO_DATA"
   ],
   "compose": "connectors/portal/compose.yml",

@@ -4,7 +4,7 @@ Monospace is the backend. It holds users, roles, and permissions, connects to bo
 
 ## The workspace
 
-Everything lives in one workspace, `crm`, with four data sources:
+Everything lives in one workspace, `crm`, with three data sources:
 
 | Source   | Database                            | Access                                              |
 | -------- | ----------------------------------- | --------------------------------------------------- |
@@ -16,7 +16,7 @@ The names can be changed with `MONOSPACE_WORKSPACE`, `MONOSPACE_CRM_SOURCE`, `MO
 
 ### Running without the portal or Stripe
 
-The shared PostgreSQL source is required; CRM uses it. By default setup selects the connector IDs declared by installed modules: CRM uses `portal,stripe`. If set, `OPTIONAL_SOURCES` replaces that list (empty disables all); it can also select a connector no installed module uses. The example `.env` selects both. A connector folder must exist before setup will connect its source, apply its schema, or run dependent module steps. Remove `connectors/<id>/`, then `pnpm compose:sync`, to leave that piece out of the local stack too. AWS selects only Portal, since nothing installs the custom extensions there yet.
+The shared PostgreSQL source is required; CRM uses it. By default setup selects the connector IDs declared by installed modules: CRM uses `portal,stripe`. If set, `OPTIONAL_SOURCES` replaces that list (empty disables all); it can also select a connector no installed module uses. The example `.env` leaves this unset so installed modules choose. A connector folder must exist before setup will connect its source, apply its schema, or run dependent module steps. Use `pnpm pieces:remove <id>` and the [shared removal steps](../connectors/README.md#remove-a-piece) to remove its code and local service too. AWS selects only Portal, since nothing installs the custom extensions there yet.
 
 Taking a source out of `OPTIONAL_SOURCES` doesn't remove one that's already connected. Delete it in Studio (Data Model > Sources). Delete the portal's `stripeCustomer` relation before the Stripe source: Monospace won't delete a source while a constrained relation points at it.
 
@@ -87,11 +87,13 @@ With a key, Monospace checks in with `licensing.monospace.io` at startup. An onl
 
 ## Known Monospace issues and workarounds
 
+**Empty workspaces:** CLI 0.2.1 emits an unused private type namespace when there are no collection mappings. `patches/@monospace__cli@0.2.1.patch` exports that namespace only for the empty case. Remove the patch when the CLI fixes this upstream. Core creates its client with the SDK factory and the generated `Schema`, which exists even without collections. Our write-schema generator emits an empty module when there are no write collections.
+
 Each of these has a workaround in the code. When a fix ships in Monospace, remove the workaround.
 
 **Filters can't be checked against the generated filter types.** List pages build filters at runtime from the URL (`apps/web/src/lib/filters.tsx`), so TypeScript can't check their shape. The fix would be to validate them with schemas generated from the OpenAPI filter types, but those reject valid filters: relation filters use `oneOf` where both options match, and date-time fields reject plain dates that the server accepts. Workaround: each list route casts the clause, with a `SAFETY` comment (`clauseFor` in `apps/web/src/routes/_app/crm/{organizations,contacts,deals,activity}.tsx`).
 
-**Select fields are typed as plain strings.** A field with fixed options (activity `type` and `status`, portal statuses and event types) comes through the SDK as `string`, because the OpenAPI output doesn't list the options as an `enum`. Workaround: casts with `SAFETY` comments that fall back to the raw value (`apps/web/src/modules/crm/portal.ts`, `modules/crm/components/activity-detail.tsx`, `activity-form.tsx`).
+**Select fields are typed as plain strings.** A field with fixed options (activity `type` and `status`, portal statuses and event types) comes through the SDK as `string`, because the OpenAPI output doesn't list the options as an `enum`. Workaround: casts with `SAFETY` comments that fall back to the raw value (`connectors/portal/frontend/crm/portal.ts`, `modules/crm/components/activity-detail.tsx`, `activity-form.tsx`).
 
 **A failed field rule nulls the whole field, including `id`.** When a conditional field rule fails, Monospace returns the field as `null`, the primary key too. Workaround: `keyed()` in `apps/web/src/modules/crm/data.ts` drops rows without an `id`, since they can't be opened or edited.
 
@@ -99,7 +101,7 @@ Each of these has a workaround in the code. When a fix ships in Monospace, remov
 
 **Queries that include a system user are never cached.** Anything that includes `owner`, `createdBy`, or `updatedBy` (relations to `MonospaceSystemUser`) skips the result cache. Workaround: CRM reads never include them. `usersById` in `apps/web/src/modules/crm/data.ts` looks up owners and uploaders by ID in a separate request, keeps them for 5 minutes, and fills in `owner` and `createdBy` on each row, so every other read stays cacheable.
 
-**64-bit integers come through as strings.** Since v0.7.0, Postgres `bigint` columns (an attachment's `size_bytes`) and Stripe amounts are strings in the API and the generated client, where v0.6.0 sent numbers. Workaround: convert where they're shown (`formatBytes` in `apps/web/src/lib/assets.ts`, `apps/web/src/modules/crm/billing.ts`).
+**64-bit integers come through as strings.** Since v0.7.0, Postgres `bigint` columns (an attachment's `size_bytes`) and Stripe amounts are strings in the API and the generated client, where v0.6.0 sent numbers. Workaround: convert where they're shown (`formatBytes` in `apps/web/src/lib/assets.ts`, `connectors/stripe/frontend/crm/billing.ts`).
 
 **A relation into an extension source needs the other side to hold the key.** A relation pair with both sides unconstrained counts as editing the extension's data model and is refused. Workaround: the portal-to-Stripe relation marks the portal side constrained (`isConstrained: true` in `connectors/stripe/monospace/setup/portal-stripe-relation.mjs`). It's metadata only; MySQL gets no foreign key.
 

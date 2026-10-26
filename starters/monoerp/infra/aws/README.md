@@ -112,17 +112,26 @@ GitHub only runs workflows from the root of a repo, so this one is off while mon
 
 `.github/workflows/deploy.yml` checks every push and pull request (format, lint, types, tests). A push to `main` then deploys `staging`; pushing a version tag (`git tag v1.2.3 && git push origin v1.2.3`) deploys `prod`. GitHub signs in to AWS with short-lived credentials through a role per stage; no AWS keys are stored in GitHub.
 
+The deploy role has **AWS AdministratorAccess**. Anyone who can assume it controls the account. Before enabling automatic deploys, configure both the ref-bound trust below and GitHub environment deployment rules.
+
 One-time setup:
 
-1. `pnpm aws:github-oidc`: lets GitHub sign in to the account (one per account, shared by all stages).
-2. Set `GITHUB_OIDC_SUBJECT` in `.env` to the repo's subject prefix, which is how AWS recognizes it. Newer repos include the owner and repo IDs, so look it up rather than typing it:
+1. `pnpm aws:github-oidc`: creates the account's GitHub identity provider.
+2. Configure this repository's OIDC subject template to include `repo`, `context`, and `ref`, in that order:
+   ```sh
+   gh api --method PUT repos/<owner>/<repo>/actions/oidc/customization/sub --input - <<'JSON'
+   {"use_default":false,"include_claim_keys":["repo","context","ref"]}
+   JSON
+   ```
+   This is a repository-wide setting. Update any other deploy-role trust policies that use this repository before changing it. See [GitHub's OIDC claim documentation](https://docs.github.com/en/actions/reference/security/oidc#customizing-the-token-claims).
+3. Set `GITHUB_OIDC_SUBJECT` in `.env` to the exact repo subject prefix. Look it up rather than guessing, especially for repos with immutable IDs:
    ```sh
    gh api repos/<owner>/<repo>/actions/oidc/customization/sub --jq '.sub_claim_prefix // "repo:<owner>/<repo>"'
    ```
-3. `pnpm aws:deploy --stage staging` (and `prod`): creates the stage's `GithubDeployRole` and prints its ARN as `githubDeployRoleArn`. It only trusts workflow jobs in the GitHub environment with the stage's name.
-4. In the repo's settings, or with `gh`:
-   - Environments `staging` and `prod`, each with a variable `AWS_DEPLOY_ROLE_ARN` set to that stage's role ARN. On a paid GitHub plan, add required reviewers to `prod` so tag deploys wait for approval.
-   - Repository variables `ALARM_EMAIL` and `OIDC_SUBJECT` (the same value as `GITHUB_OIDC_SUBJECT`), and secrets `LOGO_DEV_TOKEN` and `MONOSPACE_LICENSE__KEY` (the license is only read on a stage's first deploy). Copy them from `.env` without printing them, for example `grep '^LOGO_DEV_TOKEN=' .env | cut -d= -f2- | gh secret set LOGO_DEV_TOKEN`.
+   Staging trusts only `<prefix>:environment:staging:ref:refs/heads/main`. Prod trusts only `<prefix>:environment:prod:ref:refs/tags/v*`. A branch requesting `environment: prod` cannot assume the prod role, and the old environment-only subject is refused.
+4. In repository Settings > Environments, create `staging` and `prod`. Under **Deployment branches and tags**, choose **Selected branches and tags**. For `staging`, allow only the `main` branch. For `prod`, allow only tags matching `v*`, with no branch rule. These rules are required; add required reviewers to prod where your plan supports them.
+5. Run the initial `pnpm aws:deploy --stage staging` (and `prod`) using your local AWS credentials. This creates the ref-bound `GithubDeployRole` and prints `githubDeployRoleArn`. Set each environment's `AWS_DEPLOY_ROLE_ARN` variable to its stage's ARN.
+6. Set repository variables `ALARM_EMAIL` and `OIDC_SUBJECT` (the same prefix as `GITHUB_OIDC_SUBJECT`), and secrets `LOGO_DEV_TOKEN` and `MONOSPACE_LICENSE__KEY`. Copy secrets from `.env` without printing them. The license is only read on a stage's first deploy.
 
 The stack reads `ALARM_EMAIL`, `LOGO_DEV_TOKEN`, and `GITHUB_OIDC_SUBJECT` on every deploy, from GitHub in CI and from `.env` locally. Keep them the same in both: a deploy without one removes what it configures (the alarm email subscription, the logo token, the deploy role).
 
@@ -208,3 +217,5 @@ A destroy that fails partway is safe to rerun. Don't run `pnpm aws:deploy` to "f
 | `*.mjs`          | The `pnpm aws:*` commands                                                               |
 
 Alchemy's state (what it created) lives in an S3 bucket in the account, `alchemy-state-<account>-<region>-an`, so anyone with access to the account can deploy the same stages.
+
+CloudFront-to-load-balancer traffic uses plain HTTP in this starter. Browser-to-CloudFront traffic is HTTPS. For end-to-end HTTPS, add a domain and ACM certificate to an HTTPS listener on the load balancer before changing the origin policy.

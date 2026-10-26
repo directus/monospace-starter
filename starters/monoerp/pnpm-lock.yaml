@@ -214,6 +214,7 @@ overrides:
   vitest: 4.1.11
 
 patchedDependencies:
+  '@monospace/cli@0.2.1': a148fa6163d0e93e2fc3bb459bcca838a9c7f532bcb041c7724d0f28f4038cfe
   alchemy@2.0.0-beta.79: feed102c7f7224beff73bee7215e9948e05627d28664731b6ed7e9725a8f62c9
 
 importers:
@@ -358,7 +359,7 @@ importers:
     devDependencies:
       '@monospace/cli':
         specifier: 0.2.1
-        version: 0.2.1(typescript@6.0.3)
+        version: 0.2.1(patch_hash=a148fa6163d0e93e2fc3bb459bcca838a9c7f532bcb041c7724d0f28f4038cfe)(typescript@6.0.3)
       '@tanstack/devtools-vite':
         specifier: 0.8.5
         version: 0.8.5(@emnapi/core@1.10.0)(@emnapi/runtime@1.11.3)(@voidzero-dev/vite-plus-core@0.3.0(@types/node@24.10.13)(jiti@2.7.0)(typescript@6.0.3)(yaml@2.9.1))
@@ -462,7 +463,7 @@ importers:
     devDependencies:
       '@monospace/cli':
         specifier: 0.2.1
-        version: 0.2.1(typescript@6.0.3)
+        version: 0.2.1(patch_hash=a148fa6163d0e93e2fc3bb459bcca838a9c7f532bcb041c7724d0f28f4038cfe)(typescript@6.0.3)
       rolldown:
         specifier: 1.2.6
         version: 1.2.6
@@ -6459,7 +6460,7 @@ snapshots:
   '@libsql/win32-x64-msvc@0.5.29':
     optional: true
 
-  '@monospace/cli@0.2.1(typescript@6.0.3)':
+  '@monospace/cli@0.2.1(patch_hash=a148fa6163d0e93e2fc3bb459bcca838a9c7f532bcb041c7724d0f28f4038cfe)(typescript@6.0.3)':
     dependencies:
       '@clack/prompts': 1.8.1
       '@humanwhocodes/momoa': 3.3.13

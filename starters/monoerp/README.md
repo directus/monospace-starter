@@ -29,8 +29,8 @@
 Most business data doesn't live in one place. The sales team's records are in one database, and the product's customer data is in another, owned by another team. monoERP shows what building on top of that looks like, without copying data around.
 
 - **CRM module:** organizations, contacts, deals, and activity, stored in PostgreSQL.
-- **Portal (optional demo):** a demo of Monospace's MySQL connector, installed by default to show read-only joins across databases. Remove it with `pnpm pieces:remove portal`, then `pnpm compose:sync`, `pnpm install`, `pnpm generate:routes`, and `pnpm generate` against the matching backend. CRM still works; Portal UI and the dependent Billing tab disappear. See [Portal setup](connectors/portal/README.md).
-- **Stripe:** billing, read through a custom Monospace data connector (`connectors/stripe`). Locally it runs against a Stripe emulator, so no Stripe account is needed.
+- **Portal (optional demo):** a demo of Monospace's MySQL connector, installed by default to show read-only joins across databases. Remove it with `pnpm pieces:remove portal`, then follow the [shared removal steps](connectors/README.md#remove-a-piece). CRM still works; Portal UI and the dependent Billing tab disappear. See [Portal setup](connectors/portal/README.md).
+- **Stripe (optional demo):** billing, read through a custom Monospace data connector (`connectors/stripe`). Locally it runs against a Stripe emulator, so no Stripe account is needed.
 - **Monospace** joins all three into one typed API with one set of permissions. An organization's page shows its CRM record next to its plan, seats, support tickets, and payments, and it doesn't feel like three systems.
 
 More modules can plug in next to the CRM. The app is TanStack Start, React, Tailwind, and shadcn/ui.
@@ -107,6 +107,8 @@ The browser only talks to the app's own address. The app's server proxies `/api/
 | Path                | What                                                                      |
 | ------------------- | ------------------------------------------------------------------------- |
 | `apps/web`          | The app. Modules are in `src/modules`, pages in `src/routes`              |
+| `core/`             | Shared piece ownership manifest                                           |
+| `modules/`          | Module piece manifests                                                    |
 | `infra/modules`     | Module schemas, migrations, demo data, and Monospace setup                |
 | `connectors/portal` | Read-only customer platform source and its local stand-in                 |
 | `infra/monospace`   | The `pnpm setup:*` scripts and Monospace settings for each source         |
@@ -135,6 +137,8 @@ To change the CRM schema, add a migration in `infra/modules/crm/postgres/migrati
 ## Deploy to AWS
 
 One command builds a stage: network, PostgreSQL, MySQL, Valkey, RabbitMQ, Monospace, the app, CloudFront, a firewall, alarms, and autoscaling. Once monoERP is the root of its own repo, the included GitHub Actions workflow can deploy staging on every push to `main` and prod on a version tag.
+
+Needs a Monospace license key.
 
 ```bash
 pnpm aws:deploy --stage staging

@@ -17,9 +17,19 @@ import { readPieces, repository } from '../infra/pieces.mjs'
 
 export function combinations(pieces) {
   const byId = new Map(pieces.map((piece) => [piece.id, piece]))
-  const result = [{ name: 'everything', remove: [] }]
+  const result = []
+  const selections = new Set()
 
-  function selection(module, omitted = [], requireComplete = true) {
+  function add(name, remove) {
+    if (!remove) return
+    const key = [...remove].sort((left, right) => left.localeCompare(right)).join(',')
+
+    if (selections.has(key)) return
+    selections.add(key)
+    result.push({ name, remove })
+  }
+
+  function selection(module, omitted = []) {
     const kept = new Set(['core'])
 
     function keep(id) {
@@ -31,13 +41,10 @@ export function combinations(pieces) {
       for (const dependency of [...piece.requires, ...piece.optional]) keep(dependency)
     }
 
-    keep(module.id)
+    if (module) keep(module.id)
 
     // A required dependency cannot be switched off as an optional variation.
-    if (
-      requireComplete &&
-      pieces.some((piece) => kept.has(piece.id) && piece.requires.some((id) => !kept.has(id)))
-    )
+    if (pieces.some((piece) => kept.has(piece.id) && piece.requires.some((id) => !kept.has(id))))
       return undefined
 
     const pending = pieces.filter((piece) => !kept.has(piece.id))
@@ -55,29 +62,17 @@ export function combinations(pieces) {
     return remove
   }
 
+  add('everything', [])
+  add('core-only', selection())
+
   for (const module of pieces.filter((piece) => piece.kind === 'module')) {
-    result.push({ name: `${module.id}-only`, remove: selection(module) })
+    add(`${module.id}-only`, selection(module))
+    const optional = module.optional.filter((id) => byId.has(id))
 
-    for (const optional of module.optional) {
-      if (!byId.has(optional)) continue
-      const remove = selection(module, [optional])
+    for (const id of optional) add(`${module.id}-without-${id}`, selection(module, [id]))
 
-      if (remove) result.push({ name: `${module.id}-without-${optional}`, remove })
-    }
-  }
-
-  // Keep the requested Portal proofs in CI while CRM's optional-Portal change lands.
-  for (const omitted of [['portal'], ['portal', 'stripe']]) {
-    const module = byId.get('crm')
-    const name = `crm-without-${omitted.join('-')}`
-
-    if (
-      !module ||
-      !omitted.every((id) => byId.has(id)) ||
-      result.some((combo) => combo.name === name)
-    )
-      continue
-    result.push({ name, remove: selection(module, omitted, false) })
+    if (optional.length > 1)
+      add(`${module.id}-without-${optional.join('-')}`, selection(module, optional))
   }
 
   return result
@@ -238,8 +233,8 @@ async function runCombination(name, pieces) {
   let serverExit
 
   try {
-    run('git', ['init', '--quiet'])
     run('pnpm', ['install', '--frozen-lockfile'])
+    run('pnpm', ['pieces:check'])
 
     for (const id of combo.remove) run('pnpm', ['pieces:remove', id])
     run('pnpm', ['install', '--frozen-lockfile'])
