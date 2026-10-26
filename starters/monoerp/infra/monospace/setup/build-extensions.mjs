@@ -12,7 +12,7 @@ export function buildExtensions() {
   const extensions = connectors.filter((connector) => connector.extension)
   const active = new Set(extensions.map((connector) => connector.extension.installed))
 
-  // This directory contains generated builds only. Removed pieces must stop being loaded too.
+  // This directory contains generated builds only. Removed manifests must stop being loaded too.
   for (const entry of readdirSync(builds, { withFileTypes: true })) {
     if (entry.isDirectory() && !active.has(entry.name)) {
       rmSync(new URL(entry.name, builds), { recursive: true })

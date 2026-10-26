@@ -3,7 +3,7 @@ import { loadEnvFile } from 'node:process'
 
 import { z } from 'zod'
 
-const piecesModule = await import(new URL('../../../infra/pieces.mjs', import.meta.url).href)
+const manifestReader = await import(new URL('../../../infra/manifests.mjs', import.meta.url).href)
 
 const repository = new URL('../../../', import.meta.url)
 
@@ -36,10 +36,10 @@ const featureConfig = z.object({
   schemas: z.array(z.string()),
 })
 
-const piecesConfig = z.array(
+const manifestConfigs = z.array(
   z.discriminatedUnion('kind', [
-    z.object({ kind: z.literal('core'), id: z.string() }),
-    z.object({ kind: z.literal('tooling'), id: z.string() }),
+    z.object({ kind: z.literal('starter'), id: z.string() }),
+    z.object({ kind: z.literal('workshop'), id: z.string() }),
     z.object({
       kind: z.literal('module'),
       id: z.string(),
@@ -58,14 +58,14 @@ const piecesConfig = z.array(
   ]),
 )
 
-function readPieces(root: URL) {
-  return piecesConfig.parse(piecesModule.readPieces(root))
+function readManifests(root: URL) {
+  return manifestConfigs.parse(manifestReader.readManifests(root))
 }
 
 function selectedConnectorIds(root: URL, override: string | undefined) {
   return z
     .array(z.object({ id: z.string() }))
-    .parse(piecesModule.selectConnectors(readPieces(root), override))
+    .parse(manifestReader.selectConnectors(readManifests(root), override))
     .map(({ id }) => id)
 }
 
@@ -73,22 +73,25 @@ export function readFrontendFeatures(
   root = repository,
   selected = selectedConnectorIds(root, process.env.OPTIONAL_SOURCES),
 ) {
-  const pieces = readPieces(root)
+  const manifests = readManifests(root)
 
   const installed = new Set(
-    pieces.flatMap((piece) =>
-      piece.kind === 'module' && existsSync(new URL(`${piece.app}/`, root)) ? [piece.id] : [],
+    manifests.flatMap((manifest) =>
+      manifest.kind === 'module' && existsSync(new URL(`${manifest.app}/`, root))
+        ? [manifest.id]
+        : [],
     ),
   )
 
   const enabled = (id: string) =>
-    selected.includes(id) && pieces.some((piece) => piece.kind === 'connector' && piece.id === id)
+    selected.includes(id) &&
+    manifests.some((manifest) => manifest.kind === 'connector' && manifest.id === id)
 
-  const features = pieces
-    .flatMap((piece) =>
-      piece.kind === 'connector'
-        ? (piece.frontend ?? []).map((feature) =>
-            featureConfig.parse({ ...feature, connector: piece.id }),
+  const features = manifests
+    .flatMap((manifest) =>
+      manifest.kind === 'connector'
+        ? (manifest.frontend ?? []).map((feature) =>
+            featureConfig.parse({ ...feature, connector: manifest.id }),
           )
         : [],
     )
@@ -117,7 +120,7 @@ export function readFrontendFeatures(
         ? [feature.connector, ...feature.requires].filter(
             (id) =>
               !selected.includes(id) &&
-              pieces.some((piece) => piece.kind === 'connector' && piece.id === id),
+              manifests.some((manifest) => manifest.kind === 'connector' && manifest.id === id),
           )
         : [],
     ),
@@ -134,8 +137,8 @@ export function readModuleCollections(
   root = repository,
   selected = selectedConnectorIds(root, process.env.OPTIONAL_SOURCES),
 ) {
-  const configs = readPieces(root).flatMap((piece) =>
-    piece.kind === 'module' ? [collectionConfig.parse(piece)] : [],
+  const configs = readManifests(root).flatMap((manifest) =>
+    manifest.kind === 'module' ? [collectionConfig.parse(manifest)] : [],
   )
 
   configs.push(

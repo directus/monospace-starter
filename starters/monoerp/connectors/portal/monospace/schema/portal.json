@@ -111,12 +111,12 @@
         "organization": {
           "source": "CRM",
           "collection": "organizations",
-          "piece": "crm"
+          "owner": "crm"
         },
         "stripeCustomer": {
           "source": "Stripe",
           "collection": "customers",
-          "piece": "stripe"
+          "owner": "stripe"
         }
       }
     },
@@ -691,7 +691,7 @@
         "contacts": {
           "source": "CRM",
           "collection": "contacts",
-          "piece": "crm"
+          "owner": "crm"
         }
       }
     }

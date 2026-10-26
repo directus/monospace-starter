@@ -16,7 +16,7 @@ New installations can use different names; follow [Rename it](getting-started.md
 
 ### Running without the portal or Stripe
 
-The shared PostgreSQL source is required; CRM uses it. By default setup selects the connector IDs declared by installed modules: CRM uses `portal,stripe`. If set, `OPTIONAL_SOURCES` replaces that list (empty disables all); it can also select a connector no installed module uses. The example `.env` leaves this unset so installed modules choose. A connector folder must exist before setup will connect its source, apply its schema, or run dependent module steps. Use `pnpm pieces:remove <id>` and the [shared removal steps](../connectors/README.md#remove-a-piece) to remove its code and local service too. AWS selects only Portal, since it does not install custom extensions yet; Billing is unavailable there.
+The shared PostgreSQL source is required; CRM uses it. By default setup selects the connector IDs declared by installed modules: CRM uses `portal,stripe`. If set, `OPTIONAL_SOURCES` replaces that list (empty disables all); it can also select a connector no installed module uses. The example `.env` leaves this unset so installed modules choose. A connector folder must exist before setup will connect its source, apply its schema, or run dependent module steps. Use `pnpm app:remove <id>` and the [shared removal steps](../connectors/README.md#remove-a-module-or-connector) to remove its code and local service too. AWS selects only Portal, since it does not install custom extensions yet; Billing is unavailable there.
 
 Taking a source out of `OPTIONAL_SOURCES` doesn't remove one that's already connected. Delete it in Studio (Data Model > Sources). Delete the portal's `stripeCustomer` relation before the Stripe source: Monospace won't delete a source while a constrained relation points at it.
 
@@ -31,25 +31,25 @@ With a connector's code still selected, an unavailable backend shows the existin
 
 Setup (`infra/monospace/setup/setup.mjs`) runs these stages in order:
 
-1. Discover installed pieces, wait for Monospace, and build selected extensions.
+1. Discover installed modules and connectors, wait for Monospace, and build selected extensions.
 2. Sign in as `MONOSPACE_ADMIN_EMAIL`, create the shared workspace/source and selected connector sources, and introspect their tables.
-3. Link owner/audit fields to Monospace users, then run each piece's steps declared before schema application.
+3. Link owner/audit fields to Monospace users, then run each module or connector's steps declared before schema application.
 4. Apply collection/field names, defaults, and Studio presentation, then run after-schema steps such as assigning demo activity owners.
 
-| Command / contract                                                   | Purpose                                                                       |
-| -------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
-| `pnpm build:extensions`                                              | Build selected connector packages into `infra/monospace/extensions/`          |
-| `pnpm setup:sources`                                                 | Create workspace and data sources; approve extension hosts                    |
-| `pnpm setup:introspect`                                              | Reread connected sources after migrations, without writing to their databases |
-| `pnpm setup:audit-relations`                                         | Configure owner and audit-user relations                                      |
-| `pnpm setup:schema`                                                  | Apply module and connector `monospace/schema/*.json`                          |
-| `setup.beforeSchema`, `setup.afterSchema`                            | Piece steps run only for installed owners and selected dependencies           |
-| `node infra/monospace/setup/module-step.mjs crm/backfill-owners.mjs` | Rerun one owner-qualified step; use the script name in its manifest           |
-| `connector-step.mjs migrate` / `provision`                           | Dispatch installed connectors' migration or provisioning scripts              |
+| Command / contract                                                   | Purpose                                                                            |
+| -------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| `pnpm build:extensions`                                              | Build selected connector packages into `infra/monospace/extensions/`               |
+| `pnpm setup:sources`                                                 | Create workspace and data sources; approve extension hosts                         |
+| `pnpm setup:introspect`                                              | Reread connected sources after migrations, without writing to their databases      |
+| `pnpm setup:audit-relations`                                         | Configure owner and audit-user relations                                           |
+| `pnpm setup:schema`                                                  | Apply module and connector `monospace/schema/*.json`                               |
+| `setup.beforeSchema`, `setup.afterSchema`                            | Module and connector steps run only for installed owners and selected dependencies |
+| `node infra/monospace/setup/module-step.mjs crm/backfill-owners.mjs` | Rerun one owner-qualified step; use the script name in its manifest                |
+| `connector-step.mjs migrate` / `provision`                           | Dispatch installed connectors' migration or provisioning scripts                   |
 
 The PostgreSQL `ops` schema holds migration bookkeeping and is excluded from the API. On local keyless installs, a licensed step refused with HTTP 402 logs an explanation and setup continues; other failures still stop setup. A configured key or production run makes licensing refusals fatal.
 
-For the manifest contract and validator details, see [piece manifests](modules.md#piece-manifests) and [How pieces:check works](modules.md#how-piecescheck-works). With several Monospace replicas, setup retries a newly created workspace until replicas can see it.
+For the manifest contract and validator details, see [module or connector manifests](modules.md#starter-module-and-connector-manifests) and [How app:doctor works](modules.md#how-appdoctor-works). With several Monospace replicas, setup retries a newly created workspace until replicas can see it.
 
 ## Schema settings
 
@@ -58,7 +58,7 @@ One file per owning module or connector and source. Connector files live in `con
 - To change these settings in code: edit the JSON, then `pnpm setup:schema`.
 - If you changed them in Studio: run `pnpm schema:export` to write them back to their owning module or connector JSON, then commit it. When adding a collection, first add its database name to that owner's JSON so export knows who owns it. Otherwise the next fresh install loses them.
 
-The `optionalRelations` map keys optional relation names to their target `source`, database `collection`, and owning `piece` ID (module or connector). Apply logs and skips a missing entry only when that source is absent or its piece is absent or disabled. Required relations and optional joins whose source and piece are present still fail when missing, including when a target table is missing. This also handles Portal reverse joins when CRM tables are absent from the shared PostgreSQL source. Export keeps the dependency map and presentation metadata for later reattachment.
+The `optionalRelations` map keys optional relation names to their target `source`, database `collection`, and `owner` ID (module or connector). Apply logs and skips a missing entry only when that source is absent or its module or connector is absent or disabled. Required relations and optional joins whose source and module or connector are present still fail when missing, including when a target table is missing. This also handles Portal reverse joins when CRM tables are absent from the shared PostgreSQL source. Export keeps the dependency map and presentation metadata for later reattachment.
 
 Cross-source relation creation isn't in the JSON. Audit joins live in `audit-user-relations.mjs`, CRM-to-Portal joins in CRM's `portal-relations.mjs`, and the Portal-to-Stripe join in Stripe's `portal-stripe-relation.mjs`. Stripe declares that step before schema presentation with `requires: ['portal']`, so it also runs without CRM.
 
@@ -66,7 +66,7 @@ Cross-source relation creation isn't in the JSON. Audit joins live in `audit-use
 
 The app talks to Monospace through a client generated from the workspace's OpenAPI document. Never edit `apps/web/src/generated/` by hand.
 
-1. `apps/web/scripts/fetch-openapi.ts` downloads the OpenAPI document and trims it to the collections declared by present modules in `modules/*/piece.json` plus active `frontend` entries in `connectors/*/piece.json`. Feature selection uses installed modules and backend connector selection, including required connectors. The full document (every system collection, plus both databases joined) makes types so deep that `tsc` fails with "Excessive stack depth". When a new optional feature reads a collection, declare it in the feature, not its host module.
+1. `apps/web/scripts/fetch-openapi.ts` downloads the OpenAPI document and trims it to the collections declared by present modules in `modules/*/module.json` plus active `frontend` entries in `connectors/*/connector.json`. Feature selection uses installed modules and backend connector selection, including required connectors. The full document (every system collection, plus both databases joined) makes types so deep that `tsc` fails with "Excessive stack depth". When a new optional feature reads a collection, declare it in the feature, not its host module.
 2. `monospace sdk generate` (`@monospace/cli`, configured in `apps/web/monospace.config.ts`) writes the typed client to `apps/web/src/generated/monospace/index.ts`.
 3. `apps/web/scripts/generate-zod-schemas.ts` writes Zod create and update schemas (`organizationsCreateSchema` and so on) to `schemas.ts`, using Zod's `fromJSONSchema()`. Forms and mutations validate with them. Each module or active feature's `schemas` array selects its write schemas.
 
@@ -74,7 +74,7 @@ Both scripts use `MONOSPACE_API_KEY` if it's set, and otherwise sign in with the
 
 ## Data connector extensions
 
-Monospace can read APIs as well as databases through data connector extensions: JavaScript bundles it runs in a sandbox. This repo has the Stripe extension package in `connectors/stripe/extension`, next to its emulator, schema settings, manifest, and compose file. Portal lives in `connectors/portal` and uses the built-in MySQL provider. Each module declares its connectors in `modules/<id>/piece.json`.
+Monospace can read APIs as well as databases through data connector extensions: JavaScript bundles it runs in a sandbox. This repo has the Stripe extension package in `connectors/stripe/extension`, next to its emulator, schema settings, manifest, and compose file. Portal lives in `connectors/portal` and uses the built-in MySQL provider. Each module declares its connectors in `modules/<id>/module.json`.
 
 - `pnpm build:extensions` also removes stale generated builds for absent or disabled connectors. This keeps a deleted folder from leaving a loaded extension behind.
 - Compose mounts `infra/monospace/extensions/` into Monospace, with automatic reloading on. `pnpm build:extensions` writes builds there, and Monospace loads them in a second or two, no restart. The exception is a change to the connector's declared capabilities (`engine.capabilities` in `extension.config.json`), which needs `docker compose restart monospace`.

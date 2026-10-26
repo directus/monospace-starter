@@ -2,10 +2,24 @@ import { existsSync, readdirSync, readFileSync } from 'node:fs'
 
 export const repository = new URL('../', import.meta.url)
 
-export function readPieces(root = repository) {
-  const paths = existsSync(new URL('core/piece.json', root)) ? ['core/piece.json'] : []
+export function manifestPath(manifest) {
+  if (manifest.kind === 'starter') return 'starter.json'
 
-  for (const base of ['modules', 'connectors', 'tooling']) {
+  if (manifest.kind === 'workshop') return 'tooling/workshop/workshop.json'
+
+  return `${manifest.kind === 'module' ? 'modules' : 'connectors'}/${manifest.id}/${manifest.kind}.json`
+}
+
+export function readManifests(root = repository) {
+  const paths = existsSync(new URL('starter.json', root)) ? ['starter.json'] : []
+  const workshop = 'tooling/workshop/workshop.json'
+
+  if (existsSync(new URL(workshop, root))) paths.push(workshop)
+
+  for (const [base, kind] of [
+    ['modules', 'module'],
+    ['connectors', 'connector'],
+  ]) {
     const directory = new URL(`${base}/`, root)
 
     if (!existsSync(directory)) continue
@@ -14,25 +28,21 @@ export function readPieces(root = repository) {
       a.name.localeCompare(b.name),
     )) {
       if (!entry.isDirectory()) continue
-      const path = `${base}/${entry.name}/piece.json`
+      const path = `${base}/${entry.name}/${kind}.json`
 
       if (existsSync(new URL(path, root))) paths.push(path)
       else
-        console.warn(`${base}/${entry.name}: ignored, no piece.json (remove the leftover folder)`)
+        console.warn(`${base}/${entry.name}: ignored, no ${kind}.json (remove the leftover folder)`)
     }
   }
 
   return paths.map((path) => {
-    const piece = JSON.parse(readFileSync(new URL(path, root), 'utf8'))
+    const manifest = JSON.parse(readFileSync(new URL(path, root), 'utf8'))
 
-    const expected =
-      piece.kind === 'core'
-        ? 'core/piece.json'
-        : `${piece.kind === 'module' ? 'modules' : piece.kind === 'tooling' ? 'tooling' : 'connectors'}/${piece.id}/piece.json`
+    if (path !== manifestPath(manifest))
+      throw new Error(`${path}: kind and id must match the manifest location`)
 
-    if (path !== expected) throw new Error(`${path}: kind and id must match the manifest location`)
-
-    return piece
+    return manifest
   })
 }
 
@@ -73,22 +83,22 @@ export function resolveSource(value, env = process.env) {
   )
 }
 
-export function selectConnectors(pieces, override) {
+export function selectConnectors(manifests, override) {
   const requested = requestedConnectors(
-    pieces.filter((piece) => piece.kind === 'module'),
+    manifests.filter((manifest) => manifest.kind === 'module'),
     override,
   )
 
-  return pieces.filter((piece) => piece.kind === 'connector' && requested.has(piece.id))
+  return manifests.filter((manifest) => manifest.kind === 'connector' && requested.has(manifest.id))
 }
 
-export function selectSetupStep(selector, pieces, selected) {
+export function selectSetupStep(selector, manifests, selected) {
   if (!/^[a-z][a-z0-9-]*\/[a-zA-Z0-9_/-]+\.mjs$/.test(selector) || selector.includes('..')) {
     throw new Error('Setup steps must be owner-qualified, for example crm/backfill-owners.mjs')
   }
 
   const separator = selector.indexOf('/')
-  const owner = pieces.find((piece) => piece.id === selector.slice(0, separator))
+  const owner = manifests.find((manifest) => manifest.id === selector.slice(0, separator))
 
   if (!owner) return undefined
   const script = selector.slice(separator + 1)

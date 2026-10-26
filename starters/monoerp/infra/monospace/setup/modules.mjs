@@ -1,20 +1,22 @@
 import { readFile } from 'node:fs/promises'
 
-import { readPieces, repository } from '../../pieces.mjs'
+import { readManifests, repository } from '../../manifests.mjs'
 
-export const modules = readPieces().flatMap((piece) =>
-  piece.kind === 'module' ? [{ ...piece, directory: new URL(`${piece.infra}/`, repository) }] : [],
+export const modules = readManifests().flatMap((manifest) =>
+  manifest.kind === 'module'
+    ? [{ ...manifest, directory: new URL(`${manifest.infra}/`, repository) }]
+    : [],
 )
 
 export async function readSchemas() {
   const schemas = []
   const { connectors } = await import('./connectors.mjs')
 
-  for (const piece of [...modules, ...connectors]) {
-    for (const path of piece.schemaFiles) {
+  for (const manifest of [...modules, ...connectors]) {
+    for (const path of manifest.schemaFiles) {
       const url = new URL(path, repository)
       const schema = JSON.parse(await readFile(url, 'utf8'))
-      schemas.push({ file: `${piece.id}/${path.split('/').at(-1)}`, url, schema })
+      schemas.push({ file: `${manifest.id}/${path.split('/').at(-1)}`, url, schema })
     }
   }
 

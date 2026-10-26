@@ -2,9 +2,9 @@ import { spawnSync } from 'node:child_process'
 import { fileURLToPath } from 'node:url'
 import { expect, it } from 'vitest'
 
-import { selectSetupStep } from '../../pieces.mjs'
+import { selectSetupStep } from '../../manifests.mjs'
 
-const pieces = ['sales', 'hiring'].map((id) => ({
+const manifests = ['sales', 'hiring'].map((id) => ({
   kind: 'module',
   id,
   setup: {
@@ -14,20 +14,20 @@ const pieces = ['sales', 'hiring'].map((id) => ({
 }))
 
 it('qualifies identical setup filenames by their owner', () => {
-  expect(selectSetupStep('sales/seed.mjs', pieces, ['portal']).title).toBe('sales seed')
-  expect(selectSetupStep('hiring/seed.mjs', pieces, ['portal']).title).toBe('hiring seed')
+  expect(selectSetupStep('sales/seed.mjs', manifests, ['portal']).title).toBe('sales seed')
+  expect(selectSetupStep('hiring/seed.mjs', manifests, ['portal']).title).toBe('hiring seed')
 })
 
 it('fails unknown or unqualified steps for installed owners, even when disabled', () => {
-  expect(() => selectSetupStep('sales/typo.mjs', pieces, [])).toThrow('Unknown setup step')
-  expect(() => selectSetupStep('seed.mjs', pieces, ['portal'])).toThrow('owner-qualified')
-  expect(() => selectSetupStep(undefined, pieces, [])).toThrow('owner-qualified')
+  expect(() => selectSetupStep('sales/typo.mjs', manifests, [])).toThrow('Unknown setup step')
+  expect(() => selectSetupStep('seed.mjs', manifests, ['portal'])).toThrow('owner-qualified')
+  expect(() => selectSetupStep(undefined, manifests, [])).toThrow('owner-qualified')
 })
 
 it('skips absent owners, disabled connectors, and steps with missing dependencies', () => {
-  expect(selectSetupStep('absent/seed.mjs', pieces, ['portal'])).toBeUndefined()
-  expect(selectSetupStep('sales/seed.mjs', pieces, [])).toBeUndefined()
-  const connector = { ...pieces[0], kind: 'connector' }
+  expect(selectSetupStep('absent/seed.mjs', manifests, ['portal'])).toBeUndefined()
+  expect(selectSetupStep('sales/seed.mjs', manifests, [])).toBeUndefined()
+  const connector = { ...manifests[0], kind: 'connector' }
   expect(selectSetupStep('sales/seed.mjs', [connector], ['portal'])).toBeUndefined()
   expect(selectSetupStep('sales/seed.mjs', [connector], ['portal', 'sales']).owner.id).toBe('sales')
 })

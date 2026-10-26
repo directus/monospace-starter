@@ -1,20 +1,20 @@
 import './lib.mjs'
 import {
-  readPieces,
+  readManifests,
   repository,
   requestedConnectors,
   resolveSource,
   selectConnectors,
-} from '../../pieces.mjs'
+} from '../../manifests.mjs'
 import { modules, moduleSteps } from './modules.mjs'
 
 const requested = requestedConnectors(modules, process.env.OPTIONAL_SOURCES)
 
-export const connectors = selectConnectors(readPieces(), process.env.OPTIONAL_SOURCES).map(
-  (piece) => ({
-    ...piece,
-    source: resolveSource(piece.source),
-    directory: new URL(`connectors/${piece.id}/`, repository),
+export const connectors = selectConnectors(readManifests(), process.env.OPTIONAL_SOURCES).map(
+  (connector) => ({
+    ...connector,
+    source: resolveSource(connector.source),
+    directory: new URL(`connectors/${connector.id}/`, repository),
   }),
 )
 

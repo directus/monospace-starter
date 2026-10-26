@@ -5,7 +5,7 @@ import { pathToFileURL } from 'node:url'
 import { afterEach, expect, it } from 'vitest'
 
 import { syncCompose } from './compose-sync.mjs'
-import { requestedConnectors } from './pieces.mjs'
+import { requestedConnectors } from './manifests.mjs'
 
 const directories = []
 
@@ -13,8 +13,8 @@ afterEach(async () => {
   await Promise.all(directories.splice(0).map((directory) => rm(directory, { recursive: true })))
 })
 
-it('uses manifest compose paths and overlays, dropping removed pieces', async () => {
-  const directory = await mkdtemp(join(tmpdir(), 'monoerp-pieces-'))
+it('uses manifest compose paths and overlays, dropping removed manifests', async () => {
+  const directory = await mkdtemp(join(tmpdir(), 'monoerp-manifests-'))
   directories.push(directory)
   const root = pathToFileURL(`${directory}/`)
 
@@ -25,7 +25,7 @@ it('uses manifest compose paths and overlays, dropping removed pieces', async ()
     const folder = new URL(`${base}/${id}/`, root)
     await mkdir(folder, { recursive: true })
     await writeFile(
-      new URL('piece.json', folder),
+      new URL(`${kind}.json`, folder),
       JSON.stringify({ kind, id, compose, composeProfiles: { bench: `${base}/${id}/bench.yml` } }),
     )
   }
@@ -35,17 +35,17 @@ it('uses manifest compose paths and overlays, dropping removed pieces', async ()
     'connectors/stripe/local.yml',
   ])
   await syncCompose(root, 'bench')
-  expect(await readFile(new URL('compose.pieces.yml', root), 'utf8')).toContain(
+  expect(await readFile(new URL('compose.app.yml', root), 'utf8')).toContain(
     'connectors/stripe/bench.yml',
   )
 
   await rm(new URL('connectors/stripe/', root), { recursive: true })
   expect(await syncCompose(root)).toEqual(['infra/modules/inventory/compose.yml'])
-  expect(await readFile(new URL('compose.pieces.yml', root), 'utf8')).not.toContain('stripe')
+  expect(await readFile(new URL('compose.app.yml', root), 'utf8')).not.toContain('stripe')
 
   await rm(new URL('modules/inventory/', root), { recursive: true })
   expect(await syncCompose(root)).toEqual([])
-  expect(await readFile(new URL('compose.pieces.yml', root), 'utf8')).toContain('include: []')
+  expect(await readFile(new URL('compose.app.yml', root), 'utf8')).toContain('include: []')
 })
 
 it('uses required and optional module connectors unless OPTIONAL_SOURCES overrides them', () => {
@@ -61,14 +61,16 @@ it('uses required and optional module connectors unless OPTIONAL_SOURCES overrid
 })
 
 it('selects only installed connectors, preserving unset and empty overrides', async () => {
-  const { selectConnectors } = await import('./pieces.mjs')
+  const { selectConnectors } = await import('./manifests.mjs')
 
-  const pieces = [
+  const manifests = [
     { kind: 'module', id: 'sales', requires: ['portal'], optional: ['stripe', 'absent'] },
     ...['portal', 'stripe', 'demo'].map((id) => ({ kind: 'connector', id })),
   ]
 
-  expect(selectConnectors(pieces).map((piece) => piece.id)).toEqual(['portal', 'stripe'])
-  expect(selectConnectors(pieces, '').map((piece) => piece.id)).toEqual([])
-  expect(selectConnectors(pieces, 'demo,absent').map((piece) => piece.id)).toEqual(['demo'])
+  expect(selectConnectors(manifests).map((manifest) => manifest.id)).toEqual(['portal', 'stripe'])
+  expect(selectConnectors(manifests, '').map((manifest) => manifest.id)).toEqual([])
+  expect(selectConnectors(manifests, 'demo,absent').map((manifest) => manifest.id)).toEqual([
+    'demo',
+  ])
 })

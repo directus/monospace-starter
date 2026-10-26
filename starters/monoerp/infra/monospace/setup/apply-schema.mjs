@@ -61,7 +61,7 @@ const connected = new Set(collections.map((collection) => collection.source))
 
 const schemas = []
 
-const pieceAvailable = (id) => connectorAvailable(id) || modules.some((module) => module.id === id)
+const ownerAvailable = (id) => connectorAvailable(id) || modules.some((module) => module.id === id)
 
 for (const { file, schema } of await readSchemas()) {
   if (connected.has(schema.source)) {
@@ -251,7 +251,7 @@ for (const { file, schema } of schemas) {
         apiName,
         definition.optionalRelations?.[apiName],
         collections,
-        pieceAvailable,
+        ownerAvailable,
       )
 
       const meta = definition.relations?.[apiName]

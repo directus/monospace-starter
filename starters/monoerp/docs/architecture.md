@@ -47,7 +47,7 @@ The app only reads the rules to shape the UI: `apps/web/src/lib/permissions.ts` 
 
 ## Three sources, one API
 
-Core, modules, and external connectors have separate folders. `modules/<id>/piece.json` declares module ownership, collections, setup, and required/optional connectors; `connectors/<id>/piece.json` does the same for each connector. `core/piece.json` lists shared paths. Each `connectors/<id>/` owns its source config, schema settings, local service, and any custom extension. Portal is an external-source piece with a built-in MySQL provider, so another starter can use it without copying CRM. `pnpm install`, dev, and setup discover local services automatically. Optional services never appear in core's `depends_on`.
+Core, modules, and external connectors have separate folders. `modules/<id>/module.json` declares module ownership, collections, setup, and required/optional connectors; `connectors/<id>/connector.json` does the same for each connector. `starter.json` lists shared paths. Each `connectors/<id>/` owns its source config, schema settings, local service, and any custom extension. Portal is a connector with a built-in MySQL provider, so another starter can use it without copying CRM. `pnpm install`, dev, and setup discover local services automatically. Optional services never appear in core's `depends_on`.
 
 The workspace has three data sources:
 
@@ -74,7 +74,7 @@ The CRM half of the app never waits on the other team's database. When MySQL is 
 - **The organization list:** each page of rows is read from the CRM, then `portalSummaries` reads those organizations' portal accounts in one more request. If that fails, the rows still show and the Plan column says "Portal unavailable".
 - **Deal pages:** `portalSummaryQuery` for the current plan.
 
-Portal is selected by default but optional. Removing its piece drops its collection requirements and screen contributions; CRM keeps only its stored account link. Stripe works the same way. The organization page's Billing tab reads it with `billingQuery`, on its own, and shows an error with a retry button when Stripe is down.
+Portal is selected by default but optional. Removing its connector drops its collection requirements and screen contributions; CRM keeps only its stored account link. Stripe works the same way. The organization page's Billing tab reads it with `billingQuery`, on its own, and shows an error with a retry button when Stripe is down.
 
 Errors never take the whole app down. The router's `defaultErrorComponent` (`RouteError` in `components/data-state.tsx`) gives every route its own error boundary, so a failed loader or a crash shows an error and a retry in the page's place, inside the app shell. Without it, TanStack Router only catches at the root and replaces everything. Inside a page, `SectionBoundary` wraps the portal and Stripe panels and the deal's current plan, so a crash there costs only that panel. The organization list's loader prefetches instead of awaiting, so a failed portal filter shows up under the filters, where it can be removed.
 

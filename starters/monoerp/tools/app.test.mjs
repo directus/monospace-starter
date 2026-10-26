@@ -13,8 +13,8 @@ import { join } from 'node:path'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 import { afterEach, expect, it } from 'vitest'
 
-import { resolveSource } from '../infra/pieces.mjs'
-import { checkPieces, removePiece } from './pieces.mjs'
+import { resolveSource } from '../infra/manifests.mjs'
+import { checkApp, removeInstalled } from './app.mjs'
 
 const directories = []
 
@@ -24,8 +24,8 @@ function write(root, path, value = '') {
   writeFileSync(url, value)
 }
 
-function save(root, path, piece) {
-  write(root, path, JSON.stringify(piece))
+function save(root, path, manifest) {
+  write(root, path, JSON.stringify(manifest))
 }
 
 function fixture() {
@@ -33,17 +33,17 @@ function fixture() {
   directories.push(directory)
   execFileSync('git', ['init', '--quiet'], { cwd: directory })
   const root = pathToFileURL(`${directory}/`)
-  save(root, 'core/piece.json', {
-    kind: 'core',
-    id: 'core',
+  save(root, 'starter.json', {
+    kind: 'starter',
+    id: 'starter',
     label: 'Core',
     description: 'Shared',
-    ownedPaths: ['core'],
+    ownedPaths: ['starter.json'],
     requires: [],
     optional: [],
   })
 
-  const piece = {
+  const manifest = {
     kind: 'module',
     id: 'sales',
     label: 'Sales',
@@ -67,35 +67,35 @@ function fixture() {
     setup: { beforeSchema: [], afterSchema: [] },
   }
 
-  save(root, 'modules/sales/piece.json', piece)
+  save(root, 'modules/sales/module.json', manifest)
   write(root, 'apps/web/src/modules/sales/module.ts')
   write(root, 'infra/modules/sales/schema.sql')
   write(root, 'apps/web/src/routes/sales.tsx')
 
-  return { root, piece }
+  return { root, manifest }
 }
 
 afterEach(() => {
   for (const directory of directories.splice(0)) rmSync(directory, { recursive: true, force: true })
 })
 
-it('previews without writes, then removes only declared paths and leaves a valid core', () => {
-  const { root, piece } = fixture()
+it('previews without writes, then removes only declared paths and leaves a valid starter', () => {
+  const { root, manifest } = fixture()
   write(root, 'keep.txt', 'keep')
-  expect(removePiece('sales', { root, dryRun: true })).toEqual(piece.ownedPaths)
-  expect(existsSync(new URL('modules/sales/piece.json', root))).toBe(true)
-  removePiece('sales', { root })
-  expect(piece.ownedPaths.every((path) => !existsSync(new URL(path, root)))).toBe(true)
+  expect(removeInstalled('sales', { root, dryRun: true })).toEqual(manifest.ownedPaths)
+  expect(existsSync(new URL('modules/sales/module.json', root))).toBe(true)
+  removeInstalled('sales', { root })
+  expect(manifest.ownedPaths.every((path) => !existsSync(new URL(path, root)))).toBe(true)
   expect(readFileSync(new URL('keep.txt', root), 'utf8')).toBe('keep')
-  expect(checkPieces(root).map((piece) => piece.id)).toEqual(['core'])
+  expect(checkApp(root).map((manifest) => manifest.id)).toEqual(['starter'])
 })
 
-it('refuses removal of required pieces, core, and unknown ids before writing', () => {
-  const { root, piece } = fixture()
-  piece.requires = ['core']
-  save(root, 'modules/sales/piece.json', piece)
-  expect(() => removePiece('core', { root })).toThrow('Core is always installed')
-  expect(() => removePiece('missing', { root })).toThrow('Unknown piece')
+it('refuses removal of required modules and connectors, starter, and unknown ids before writing', () => {
+  const { root, manifest } = fixture()
+  manifest.requires = ['starter']
+  save(root, 'modules/sales/module.json', manifest)
+  expect(() => removeInstalled('starter', { root })).toThrow('Starter is always installed')
+  expect(() => removeInstalled('missing', { root })).toThrow('Unknown module or connector')
 
   const dependency = {
     kind: 'connector',
@@ -112,42 +112,44 @@ it('refuses removal of required pieces, core, and unknown ids before writing', (
     setup: { beforeSchema: [], afterSchema: [] },
   }
 
-  save(root, 'connectors/billing/piece.json', dependency)
-  piece.requires = ['billing']
-  piece.optional = []
-  save(root, 'modules/sales/piece.json', piece)
-  expect(() => removePiece('billing', { root })).toThrow('billing is required by sales')
-  expect(existsSync(new URL('connectors/billing/piece.json', root))).toBe(true)
+  save(root, 'connectors/billing/connector.json', dependency)
+  manifest.requires = ['billing']
+  manifest.optional = []
+  save(root, 'modules/sales/module.json', manifest)
+  expect(() => removeInstalled('billing', { root })).toThrow('billing is required by sales')
+  expect(existsSync(new URL('connectors/billing/connector.json', root))).toBe(true)
 })
 
 it('rejects missing dependencies and paths before deleting anything', () => {
-  const { root, piece } = fixture()
-  piece.requires = ['missing']
-  save(root, 'modules/sales/piece.json', piece)
-  expect(() => removePiece('sales', { root })).toThrow('required piece missing is absent')
-  piece.requires = []
-  piece.schemaFiles = ['infra/modules/sales/missing.json']
-  save(root, 'modules/sales/piece.json', piece)
-  expect(() => removePiece('sales', { root })).toThrow(
+  const { root, manifest } = fixture()
+  manifest.requires = ['missing']
+  save(root, 'modules/sales/module.json', manifest)
+  expect(() => removeInstalled('sales', { root })).toThrow(
+    'required module or connector missing is absent',
+  )
+  manifest.requires = []
+  manifest.schemaFiles = ['infra/modules/sales/missing.json']
+  save(root, 'modules/sales/module.json', manifest)
+  expect(() => removeInstalled('sales', { root })).toThrow(
     'sales: infra/modules/sales/missing.json is listed but missing',
   )
   expect(existsSync(new URL('apps/web/src/routes/sales.tsx', root))).toBe(true)
 })
 
-it('rejects overlapping ownership even within a single piece', () => {
-  const { root, piece } = fixture()
-  piece.ownedPaths.push('apps/web/src/routes')
-  save(root, 'modules/sales/piece.json', piece)
-  expect(() => checkPieces(root)).toThrow('Overlapping ownership')
+it('rejects overlapping ownership even within a single manifest', () => {
+  const { root, manifest } = fixture()
+  manifest.ownedPaths.push('apps/web/src/routes')
+  save(root, 'modules/sales/module.json', manifest)
+  expect(() => checkApp(root)).toThrow('Overlapping ownership')
 })
 
 it('finds new unowned source files and ignores generated files', () => {
   const { root } = fixture()
   write(root, '.gitignore', 'infra/modules/sales/generated/\n')
   write(root, 'infra/modules/sales/generated/build.js')
-  expect(checkPieces(root)).toHaveLength(2)
+  expect(checkApp(root)).toHaveLength(2)
   write(root, 'apps/web/src/routes/new.tsx')
-  expect(() => checkPieces(root)).toThrow('new.tsx: expected one owner, found 0')
+  expect(() => checkApp(root)).toThrow('new.tsx: expected one owner, found 0')
 })
 
 it.each([
@@ -159,30 +161,30 @@ it.each([
   'node_modules/demo',
   'apps/%2e%2e/escape',
 ])('rejects unsafe ownership %s', (path) => {
-  const { root, piece } = fixture()
-  piece.ownedPaths.push(path)
-  save(root, 'modules/sales/piece.json', piece)
-  expect(() => removePiece('sales', { root })).toThrow()
-  expect(existsSync(new URL('modules/sales/piece.json', root))).toBe(true)
+  const { root, manifest } = fixture()
+  manifest.ownedPaths.push(path)
+  save(root, 'modules/sales/module.json', manifest)
+  expect(() => removeInstalled('sales', { root })).toThrow()
+  expect(existsSync(new URL('modules/sales/module.json', root))).toBe(true)
 })
 
 it('refuses symlink ownership and symlink ancestors', () => {
-  const { root, piece } = fixture()
+  const { root, manifest } = fixture()
   symlinkSync(fileURLToPath(new URL('apps/web/src/modules/sales/', root)), new URL('linked', root))
-  piece.ownedPaths.push('linked/module.ts')
-  save(root, 'modules/sales/piece.json', piece)
-  expect(() => removePiece('sales', { root })).toThrow('symlinks cannot be owned or traversed')
+  manifest.ownedPaths.push('linked/module.ts')
+  save(root, 'modules/sales/module.json', manifest)
+  expect(() => removeInstalled('sales', { root })).toThrow('symlinks cannot be owned or traversed')
 })
 
 it('rejects schema drift and references outside owned paths', () => {
-  const { root, piece } = fixture()
-  piece.schemas = ['missing']
-  save(root, 'modules/sales/piece.json', piece)
-  expect(() => checkPieces(root)).toThrow('schemas missing from collections: missing')
-  piece.schemas = []
-  piece.settings = ['core/piece.json']
-  save(root, 'modules/sales/piece.json', piece)
-  expect(() => checkPieces(root)).toThrow('referenced path is not owned')
+  const { root, manifest } = fixture()
+  manifest.schemas = ['missing']
+  save(root, 'modules/sales/module.json', manifest)
+  expect(() => checkApp(root)).toThrow('schemas missing from collections: missing')
+  manifest.schemas = []
+  manifest.settings = ['starter.json']
+  save(root, 'modules/sales/module.json', manifest)
+  expect(() => checkApp(root)).toThrow('referenced path is not owned')
 })
 
 it('resolves connector defaults and environment branches without changing the manifests', () => {
@@ -240,37 +242,37 @@ it('resolves connector defaults and environment branches without changing the ma
 })
 
 it('checks and previews removal in a download without Git metadata', () => {
-  const { root, piece } = fixture()
+  const { root, manifest } = fixture()
   rmSync(new URL('.git/', root), { recursive: true })
-  expect(checkPieces(root)).toHaveLength(2)
-  expect(removePiece('sales', { root, dryRun: true })).toEqual(piece.ownedPaths)
+  expect(checkApp(root)).toHaveLength(2)
+  expect(removeInstalled('sales', { root, dryRun: true })).toEqual(manifest.ownedPaths)
   write(root, 'connectors/leftover/node_modules/package/index.js')
   write(root, 'connectors/leftover/dist/extension.js')
-  expect(checkPieces(root)).toHaveLength(2)
-  expect(removePiece('sales', { root, dryRun: true })).toEqual(piece.ownedPaths)
+  expect(checkApp(root)).toHaveLength(2)
+  expect(removeInstalled('sales', { root, dryRun: true })).toEqual(manifest.ownedPaths)
   write(root, 'apps/web/src/routes/unowned.tsx')
-  expect(() => checkPieces(root)).toThrow('unowned.tsx: expected one owner, found 0')
-  expect(removePiece('sales', { root, dryRun: true })).toEqual(piece.ownedPaths)
+  expect(() => checkApp(root)).toThrow('unowned.tsx: expected one owner, found 0')
+  expect(removeInstalled('sales', { root, dryRun: true })).toEqual(manifest.ownedPaths)
 })
 
 it('allows missing owned dotfolders while keeping referenced files required', () => {
-  const { root, piece } = fixture()
-  const corePath = new URL('core/piece.json', root)
-  const core = JSON.parse(readFileSync(corePath, 'utf8'))
-  core.ownedPaths.push('.github', '.vscode')
-  writeFileSync(corePath, JSON.stringify(core))
-  piece.ownedPaths.push('already-removed')
-  save(root, 'modules/sales/piece.json', piece)
-  expect(checkPieces(root)).toHaveLength(2)
-  expect(removePiece('sales', { root, dryRun: true })).toEqual(piece.ownedPaths)
+  const { root, manifest } = fixture()
+  const starterPath = new URL('starter.json', root)
+  const starter = JSON.parse(readFileSync(starterPath, 'utf8'))
+  starter.ownedPaths.push('.github', '.vscode')
+  writeFileSync(starterPath, JSON.stringify(starter))
+  manifest.ownedPaths.push('already-removed')
+  save(root, 'modules/sales/module.json', manifest)
+  expect(checkApp(root)).toHaveLength(2)
+  expect(removeInstalled('sales', { root, dryRun: true })).toEqual(manifest.ownedPaths)
   rmSync(new URL('apps/web/src/modules/sales/module.ts', root))
-  expect(() => checkPieces(root)).toThrow(
+  expect(() => checkApp(root)).toThrow(
     'sales: apps/web/src/modules/sales/module.ts is listed but missing',
   )
 })
 
 it('removes declared package entries and keeps unrelated commands and dependencies', () => {
-  const { root, piece } = fixture()
+  const { root, manifest } = fixture()
   write(
     root,
     'package.json',
@@ -281,24 +283,24 @@ it('removes declared package entries and keeps unrelated commands and dependenci
     'apps/web/package.json',
     JSON.stringify({ dependencies: { shared: '1.0.0', widget: '1.0.0' } }),
   )
-  piece.packageEntries = [
+  manifest.packageEntries = [
     { path: 'package.json', section: 'scripts', names: ['setup:sales'] },
     { path: 'apps/web/package.json', section: 'dependencies', names: ['widget'] },
   ]
-  save(root, 'modules/sales/piece.json', piece)
-  removePiece('sales', { root, dryRun: true })
+  save(root, 'modules/sales/module.json', manifest)
+  removeInstalled('sales', { root, dryRun: true })
   expect(
     JSON.parse(readFileSync(new URL('package.json', root), 'utf8')).scripts['setup:sales'],
   ).toBe('setup')
   expect(
     JSON.parse(readFileSync(new URL('apps/web/package.json', root), 'utf8')).dependencies.widget,
   ).toBe('1.0.0')
-  removePiece('sales', { root })
+  removeInstalled('sales', { root })
   expect(JSON.parse(readFileSync(new URL('package.json', root), 'utf8')).scripts).toEqual({
     check: 'check',
   })
   expect(
     JSON.parse(readFileSync(new URL('apps/web/package.json', root), 'utf8')).dependencies,
   ).toEqual({ shared: '1.0.0' })
-  expect(checkPieces(root).map((piece) => piece.id)).toEqual(['core'])
+  expect(checkApp(root).map((manifest) => manifest.id)).toEqual(['starter'])
 })

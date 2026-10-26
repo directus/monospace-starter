@@ -33,7 +33,7 @@ const namespaceIds = new Map(namespaces.map((namespace) => [namespace.id, namesp
 
 for (const source of sources.filter((candidate) => candidate.apiName !== '_system')) {
   if (!selected.has(source.apiName)) {
-    console.log(`${source.apiName}: skipped, source piece is absent or disabled`)
+    console.log(`${source.apiName}: skipped, source manifest is absent or disabled`)
     continue
   }
 

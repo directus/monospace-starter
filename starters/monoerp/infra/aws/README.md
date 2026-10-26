@@ -4,7 +4,7 @@ This folder deploys monoERP and Monospace to your own AWS account with [Alchemy]
 
 ## What you get
 
-| Piece                                                         | Staging                                                                     | Prod                                                                               |
+| Service                                                       | Staging                                                                     | Prod                                                                               |
 | ------------------------------------------------------------- | --------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
 | Monospace                                                     | 2 to 3 tasks, 0.5 vCPU / 1 GB                                               | 2 to 4 tasks, 1 vCPU / 2 GB                                                        |
 | monoERP app                                                   | 1 task, 0.25 vCPU / 0.5 GB                                                  | same                                                                               |

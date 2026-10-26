@@ -12,8 +12,8 @@ WORKDIR /app
 COPY infra/postgres infra/postgres
 COPY infra/modules infra/modules
 COPY modules modules
-COPY core core
-COPY infra/pieces.mjs infra/pieces.mjs
+COPY starter.json starter.json
+COPY infra/manifests.mjs infra/manifests.mjs
 COPY connectors connectors
 COPY infra/monospace infra/monospace
 COPY infra/compose-sync.mjs infra/compose-sync.mjs

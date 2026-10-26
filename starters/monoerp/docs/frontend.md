@@ -22,9 +22,9 @@ Copy `routes/_app/crm/organizations.tsx`. A list page's route file defines every
 - **Search params:** `validateSearch: listSearchSchema` (`lib/list-search.ts`) gives every list `q`, `sort`, `filters`, and `display`. All list state lives in the URL, so it survives reloads and can be shared. Update it with `navigate({ search: (previous) => ({ ...previous, ... }) })`.
 - **Paging:** lists load in pages with `useInfiniteQuery`. `DataTable` loads the next page as you scroll (`hasMore`, `onLoadMore`).
 
-The page is put together from shared pieces in `components/`:
+The page is put together from shared components in `components/`:
 
-| Piece                                        | Does                                                                                        |
+| Component                                    | Does                                                                                        |
 | -------------------------------------------- | ------------------------------------------------------------------------------------------- |
 | `ListWorkspace`                              | Page frame: title and controls on top, the table filling the rest                           |
 | `ListFilters`, `FilterTrigger`, `FilterWell` | Filter state, the Filter button, and the row of active filter chips                         |
@@ -89,7 +89,7 @@ Put user-facing text in copy files, not in components. Shell and shared text is 
 
 - `components/ui/` is shadcn/ui on Base UI (style `base-nova`, set in `apps/web/components.json`). Add a component with the shadcn CLI from `apps/web`, then adjust it here. Base UI composes with a `render` prop rather than Radix's `asChild`.
 - `components/reui/` is ours: ported from ReUI (MIT, `components/reui/LICENSE`; what changed is in `UPSTREAM.md`), trimmed to what monoERP uses, and linted like the rest of the app. It holds the data grid, the filter builder, and the cascader. `DataTable` and `ListFilters` wrap them; use the wrappers. Each filter operator names the Monospace operator it runs as (`clause` in `filters/filters-operators.tsx`), so a new operator goes there.
-- `components/` itself holds the app's shared pieces (lists, forms, inline fields, page header).
+- `components/` itself holds the app's shared components (lists, forms, inline fields, page header).
 - Module-specific components live in `modules/<id>/components/`.
 
 ## Styling and icons

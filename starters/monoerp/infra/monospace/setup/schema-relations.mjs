@@ -1,4 +1,4 @@
-export function schemaRelation(file, collection, apiName, optional, collections, pieceAvailable) {
+export function schemaRelation(file, collection, apiName, optional, collections, ownerAvailable) {
   const relation = collection.relationFields.find((field) => field.apiName === apiName)
 
   if (relation) return relation
@@ -6,7 +6,7 @@ export function schemaRelation(file, collection, apiName, optional, collections,
   if (optional) {
     const sourcePresent = collections.some((candidate) => candidate.source === optional.source)
 
-    if (!sourcePresent || !pieceAvailable(optional.piece)) {
+    if (!sourcePresent || !ownerAvailable(optional.owner)) {
       console.log(
         `${file}: ${collection.dbName}.${apiName} skipped, optional target ${optional.source}.${optional.collection} isn't connected or selected`,
       )

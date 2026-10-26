@@ -11,12 +11,14 @@ const root = fileURLToPath(new URL('../../../../', import.meta.url))
 
 const connectors = join(root, 'connectors')
 
-const piecesModule = await import(new URL('../../../../infra/pieces.mjs', import.meta.url).href)
+const manifestReader = await import(
+  new URL('../../../../infra/manifests.mjs', import.meta.url).href
+)
 
 const routeOwners = z
   .array(z.object({ kind: z.string(), id: z.string(), ownedPaths: z.array(z.string()) }))
-  .parse(piecesModule.readPieces())
-  .filter((piece) => piece.kind === 'module')
+  .parse(manifestReader.readManifests())
+  .filter((manifest) => manifest.kind === 'module')
 
 type RouteOwner = { id: string; ownedPaths: string[] }
 

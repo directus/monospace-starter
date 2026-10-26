@@ -1,4 +1,4 @@
-import piece from '../../../../../modules/crm/piece.json'
+import moduleConfig from '../../../../../modules/crm/module.json'
 import { Handshake, ListFilter } from 'lucide-react'
 
 import { crmSearch } from '@/modules/crm/search'
@@ -14,7 +14,7 @@ declare module '@/modules/types' {
 
 const crmModule: ModuleManifest = {
   id: 'crm',
-  order: piece.order,
+  order: moduleConfig.order,
   label: crmCopy.module.label,
   description: crmCopy.module.description,
   icon: Handshake,

@@ -26,7 +26,7 @@ function addModule(root: URL, id: string, order: number, collections: string[], 
   mkdirSync(directory, { recursive: true })
   mkdirSync(new URL(`${app}/`, root), { recursive: true })
   writeFileSync(
-    new URL('piece.json', directory),
+    new URL('module.json', directory),
     JSON.stringify({
       kind: 'module',
       id,
@@ -43,7 +43,7 @@ function addModule(root: URL, id: string, order: number, collections: string[], 
 function addConnector(root: URL, id: string) {
   const directory = new URL(`connectors/${id}/`, root)
   mkdirSync(directory, { recursive: true })
-  writeFileSync(new URL('piece.json', directory), JSON.stringify({ kind: 'connector', id }))
+  writeFileSync(new URL('connector.json', directory), JSON.stringify({ kind: 'connector', id }))
 }
 
 afterEach(() => {
@@ -90,7 +90,7 @@ describe('module collection discovery', () => {
     addConnector(root, 'portal')
     addConnector(root, 'stripe')
     writeFileSync(
-      new URL('connectors/stripe/piece.json', root),
+      new URL('connectors/stripe/connector.json', root),
       JSON.stringify({
         kind: 'connector',
         id: 'stripe',
@@ -173,7 +173,7 @@ it('keeps an installed inventory-targeted feature out of the CRM organization sl
     }
 
     writeFileSync(
-      new URL(`connectors/${connector}/piece.json`, root),
+      new URL(`connectors/${connector}/connector.json`, root),
       JSON.stringify({ kind: 'connector', id: connector, frontend: [feature] }),
     )
     mkdirSync(new URL(`${path}/`, root), { recursive: true })
@@ -195,7 +195,7 @@ it('drops Portal and conditional Stripe collections when Portal is removed', () 
     mkdirSync(new URL(`${path}/`, root), { recursive: true })
     writeFileSync(new URL(`${path}/feature.tsx`, root), '')
     writeFileSync(
-      new URL(`connectors/${connector}/piece.json`, root),
+      new URL(`connectors/${connector}/connector.json`, root),
       JSON.stringify({
         kind: 'connector',
         id: connector,
@@ -234,7 +234,7 @@ it('explains when connector selection disables a frontend feature', () => {
   addModule(root, 'crm', 10, ['organizations'], [])
   addConnector(root, 'portal')
   writeFileSync(
-    new URL('connectors/portal/piece.json', root),
+    new URL('connectors/portal/connector.json', root),
     JSON.stringify({
       kind: 'connector',
       id: 'portal',

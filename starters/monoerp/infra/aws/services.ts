@@ -8,7 +8,7 @@ import { ports, servicePorts } from './network.ts'
 import { Credential, type Secrets } from './secrets.ts'
 import type { StageConfig } from './stages.ts'
 
-const piecesModule = await import(new URL('../pieces.mjs', import.meta.url).href)
+const manifestReader = await import(new URL('../manifests.mjs', import.meta.url).href)
 
 // Same pinned release as docker-compose.yml.
 const monospaceImage =
@@ -480,7 +480,7 @@ export const Setup = (
   Effect.gen(function* () {
     const credentials = z
       .array(z.object({ demoUserCredential: z.string().optional() }))
-      .parse(piecesModule.readPieces())
+      .parse(manifestReader.readManifests())
       .flatMap(({ demoUserCredential }) => (demoUserCredential ? [demoUserCredential] : []))
 
     if (credentials.length > 1) throw new Error('Setup supports one shared demo-user credential')

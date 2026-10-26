@@ -368,7 +368,7 @@
         "portalUser": {
           "source": "Portal",
           "collection": "users",
-          "piece": "portal"
+          "owner": "portal"
         }
       }
     },
@@ -997,7 +997,7 @@
         "portalAccount": {
           "source": "Portal",
           "collection": "accounts",
-          "piece": "portal"
+          "owner": "portal"
         }
       }
     },

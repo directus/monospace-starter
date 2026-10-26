@@ -71,10 +71,10 @@ const common = {
     .optional(),
 }
 
-export const pieceSchema = z
+export const manifestSchema = z
   .discriminatedUnion('kind', [
-    z.strictObject({ ...common, kind: z.literal('core'), id: z.literal('core') }),
-    z.strictObject({ ...common, kind: z.literal('tooling') }),
+    z.strictObject({ ...common, kind: z.literal('starter'), id: z.literal('starter') }),
+    z.strictObject({ ...common, kind: z.literal('workshop'), id: z.literal('workshop') }),
     z.strictObject({
       ...common,
       ...collections,
@@ -114,9 +114,13 @@ export const pieceSchema = z
         .optional(),
     }),
   ])
-  .superRefine((piece, context) => {
+  .superRefine((manifest, context) => {
     const configs =
-      piece.kind === 'module' ? [piece] : piece.kind === 'connector' ? (piece.frontend ?? []) : []
+      manifest.kind === 'module'
+        ? [manifest]
+        : manifest.kind === 'connector'
+          ? (manifest.frontend ?? [])
+          : []
 
     for (const config of configs) {
       const missing = config.schemas.filter((name) => !config.collections.includes(name))
@@ -128,7 +132,7 @@ export const pieceSchema = z
         })
     }
 
-    if (piece.requires.some((dependency) => piece.optional.includes(dependency))) {
+    if (manifest.requires.some((dependency) => manifest.optional.includes(dependency))) {
       context.addIssue({
         code: 'custom',
         message: 'A dependency cannot be both required and optional',

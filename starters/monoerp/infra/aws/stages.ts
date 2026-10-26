@@ -73,7 +73,7 @@ export const stageConfig = (stage: string) => {
 
   return {
     ...config,
-    portalMysql: existsSync(new URL('../../connectors/portal/piece.json', import.meta.url))
+    portalMysql: existsSync(new URL('../../connectors/portal/connector.json', import.meta.url))
       ? config.portalMysql
       : undefined,
   }

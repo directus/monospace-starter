@@ -1,7 +1,7 @@
 name: monoerp
 
 include:
-  - compose.pieces.yml
+  - compose.app.yml
 
 services:
   system-postgres:

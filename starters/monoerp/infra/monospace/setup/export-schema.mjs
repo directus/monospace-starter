@@ -3,7 +3,7 @@
 // defaults, and presentation meta (labels, icons, colors, select options, display templates,
 // field order, hidden flags). Keyed by dbName so it applies to any install; apply-schema.mjs
 // pushes it back. Cross-source relations are not exported: they live in
-// audit-user-relations.mjs and the owning pieces' relation setup scripts.
+// audit-user-relations.mjs and the owning modules' and connectors' relation setup scripts.
 import { writeFile } from 'node:fs/promises'
 import { authenticate, canonicalJson, metaPaths, readCollections, request } from './lib.mjs'
 

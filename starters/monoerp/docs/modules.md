@@ -8,13 +8,13 @@ Use CRM as the working example for a new `inventory` module:
 
 | Copy from                      | New location                         | Contains                                   |
 | ------------------------------ | ------------------------------------ | ------------------------------------------ |
-| `modules/crm`                  | `modules/inventory`                  | Piece manifest                             |
+| `modules/crm`                  | `modules/inventory`                  | Module manifest                            |
 | `apps/web/src/modules/crm`     | `apps/web/src/modules/inventory`     | UI entry, copy, reads, writes, and tests   |
 | `infra/modules/crm`            | `infra/modules/inventory`            | SQL, demo data, schema settings, and setup |
 | `apps/web/src/routes/_app/crm` | `apps/web/src/routes/_app/inventory` | Pages                                      |
 
 1. Replace the copied CRM IDs, imports, tables, demo records, queries, and tests with your module's data. Put SQL in `infra/modules/inventory/postgres/{init,migrations}/` and schema settings in `monospace/schema/`. Use the existing shared database; see [schema changes](data-model.md#changing-the-schema).
-2. Edit `modules/inventory/piece.json`: change the ID, owned paths, `app`, `infra`, collections, write schemas, audit columns, and setup scripts. Remove optional connectors you do not use, and clear settings entries unless you copy those route files too. Include every route owned by your module, including settings routes outside its route folder.
+2. Edit `modules/inventory/module.json`: change the ID, owned paths, `app`, `infra`, collections, write schemas, audit columns, and setup scripts. Remove optional connectors you do not use, and clear settings entries unless you copy those route files too. Include every route owned by your module, including settings routes outside its route folder.
 3. Rename `crm.copy.ts` to `inventory.copy.ts` and edit it with `module.ts`. Export a `ModuleManifest`, use `id: 'inventory'` and `basePath: '/inventory'`, and add `inventory: true` to `ModuleRegistry` through declaration merging. The registry discovers `modules/*/module.ts` automatically.
 4. Update each page's `createFileRoute` path and links, then set `staticData.page`: set `module`, `title`, and `icon`; add `nav` for sidebar pages and `parent` for detail pages. Use `index.tsx` for `/inventory` and `items_.$itemId.tsx` for a detail page outside the list layout. Follow [frontend conventions](frontend.md).
 5. Add search or settings only if needed. Copy `crm/search.ts` for search; settings routes use `routes/_app/settings.inventory.<page>.tsx` and the manifest's `settings` entries.
@@ -23,26 +23,28 @@ Use CRM as the working example for a new `inventory` module:
 
 ## Remove a module
 
-Preview with `pnpm pieces:remove crm --dry-run`, then run `pnpm pieces:remove crm` and the [shared removal steps](../connectors/README.md#remove-a-piece). Connectors remain installed until removed separately.
+Preview with `pnpm app:remove crm --dry-run`, then run `pnpm app:remove crm` and the [shared removal steps](../connectors/README.md#remove-a-module-or-connector). Connectors remain installed until removed separately.
 
-## Piece manifests
+## Starter, module, and connector manifests
 
-Each piece has one manifest: `core/piece.json`, `modules/<id>/piece.json`, or `connectors/<id>/piece.json`. Core owns the shared shell and services and is always installed.
+The starter declares shared ownership in root `starter.json`. Each module uses `modules/<id>/module.json`; each connector uses `connectors/<id>/connector.json`. The starter owns the shared shell and services and cannot be removed.
 
-| Field                                     | Contract                                                                                     |
-| ----------------------------------------- | -------------------------------------------------------------------------------------------- |
-| `kind`, `id`, `label`, `description`      | Piece type, stable ID, and installable-piece description                                     |
-| `ownedPaths`                              | Literal repository-relative paths; a folder owns its contents, including its manifest        |
-| `requires`, `optional`                    | Required dependencies block removal; optional connector IDs are selected by default          |
-| `packageEntries`                          | Package file, section, and entry names deleted with the piece                                |
-| `app`, `infra`, `settings`                | Module UI/infra folders and settings route files                                             |
-| `order`, `collections`, `schemas`         | Module order, required API collections, and collections needing write schemas                |
-| `schemaFiles`, `auditTables`              | Schema settings files and SQL columns linked to Monospace users                              |
-| `setup.beforeSchema`, `setup.afterSchema` | Ordered steps; each has a title and script relative to the piece's `monospace/setup/` folder |
-| Setup step `requires`                     | Skip that step unless its connector IDs are selected                                         |
-| `compose`, `composeProfiles`              | Optional Compose file and profile overlays, relative to the repo root                        |
+| Field                                     | Contract                                                                                                   |
+| ----------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| `kind`, `id`, `label`, `description`      | Kind (`starter`, `module`, or `connector`), stable ID, label, and description                              |
+| `ownedPaths`                              | Literal repository-relative paths; a folder owns its contents, including its manifest                      |
+| `requires`, `optional`                    | Required dependencies block removal; optional connector IDs are selected by default                        |
+| `packageEntries`                          | Package file, section, and entry names deleted with the module or connector                                |
+| `app`, `infra`, `settings`                | Module UI/infra folders and settings route files                                                           |
+| `order`, `collections`, `schemas`         | Module order, required API collections, and collections needing write schemas                              |
+| `schemaFiles`, `auditTables`              | Schema settings files and SQL columns linked to Monospace users                                            |
+| `setup.beforeSchema`, `setup.afterSchema` | Ordered steps; each has a title and script relative to the module or connector's `monospace/setup/` folder |
+| Setup step `requires`                     | Skip that step unless its connector IDs are selected                                                       |
+| `compose`, `composeProfiles`              | Optional Compose file and profile overlays, relative to the repo root                                      |
 
 Leave `OPTIONAL_SOURCES` unset to use installed modules' connector declarations. Set it to a comma-separated list to override them, or empty to select none. A connector folder must exist to be selected. See [connector setup](../connectors/README.md).
+
+Until the Monospace CLI ships `monospace doctor` and `monospace remove <id>`, use `pnpm app:doctor` and `pnpm app:remove <id>`. The `app:` prefix avoids pnpm's built-in add/remove/doctor commands. `pnpm check` and `pnpm verify` include the doctor check. Adding folders is manual today; `monospace add <id>` comes later.
 
 ## The UI contract
 
@@ -61,7 +63,7 @@ A module UI entry is a `ModuleManifest` (`apps/web/src/modules/types.ts`):
 
 `apps/web/src/modules/index.ts` discovers default exports from `./*/module.ts` with an eager Vite glob, sorted by `order`. It exports `modules` and `moduleById`. Each UI entry adds its own key to `ModuleRegistry` through TypeScript declaration merging; `ModuleId` is `keyof ModuleRegistry`. Deleting the module folder removes both its runtime registration and its ID type. The CRM's UI entry is `apps/web/src/modules/crm/module.ts`.
 
-The UI entry reads `order` from its piece manifest. Its label and description are app copy; the JSON label and description describe the installable piece. CRM owns only its PostgreSQL collections. Portal's optional feature owns its MySQL collections; Stripe's optional feature owns its Stripe collections.
+The UI entry reads `order` from its module manifest. Its label and description are app copy; the JSON label and description describe the installable module. CRM owns only its PostgreSQL collections. Portal's optional feature owns its MySQL collections; Stripe's optional feature owns its Stripe collections.
 
 ## Page metadata
 
@@ -103,7 +105,7 @@ All user-facing text for a module lives in `modules/<id>/<id>.copy.ts` (`crmCopy
 To add UI from a connector without importing it into CRM:
 
 1. Create `connectors/<id>/frontend/crm/feature.tsx`, using Portal or Stripe as an example. Keep queries, copy, display helpers, and tests in that feature folder.
-2. Add a `frontend` entry to the connector's `piece.json`, using the contract below.
+2. Add a `frontend` entry to the connector's `connector.json`, using the contract below.
 3. Export the feature's contributions from `feature.tsx`. Import the shared types from `@/modules/types`, core helpers, and generated SDK types. Keep module-specific code in its own module.
 4. Run `pnpm install`, configure the source with `pnpm setup:all`, regenerate the SDK with `pnpm generate`, and run `pnpm verify` plus browser tests.
 
@@ -124,8 +126,8 @@ To add UI from a connector without importing it into CRM:
 
 The registry in `modules/organization-panels.ts` discovers selected features. Portal supplies all four contributions; Stripe supplies Billing as an organization panel and requires Portal. Removing Portal hides both features; removing Stripe hides Billing. CRM retains its stored Portal account link so restoring the connector can reconnect records. Follow the shared removal steps when retiring either source.
 
-## How pieces:check works
+## How app:doctor works
 
-`pnpm pieces:check` validates manifests, dependencies, referenced files, and exclusive ownership under `apps/web/src/routes`, `apps/web/src/modules`, `infra/modules`, and `connectors`. In Git it checks tracked and untracked source files while respecting ignores; without Git it walks source trees and skips dependencies/build output. Owned dotfolders may be absent, but referenced manifests, entry files, schemas, and scripts must exist. Ownership cannot overlap or traverse symlinks. Removal validates paths and dependencies before deleting anything. The implementation is in `tools/piece-schema.mjs` and `tools/pieces.mjs`.
+`pnpm app:doctor` validates manifests, dependencies, referenced files, and exclusive ownership under `apps/web/src/routes`, `apps/web/src/modules`, `infra/modules`, and `connectors`. In Git it checks tracked and untracked source files while respecting ignores; without Git it walks source trees and skips dependencies/build output. Owned dotfolders may be absent, but referenced manifests, entry files, schemas, and scripts must exist. Ownership cannot overlap or traverse symlinks. Removal validates paths and dependencies before deleting anything. The implementation is in `tools/manifest-schema.mjs` and `tools/app.mjs`.
 
 The import-boundary tests also reject imports between modules or from a module into connector code. Shared registries are the documented entry points. Feature-aware typecheck creates and removes `apps/web/tsconfig.check.json`; lint and unit/browser tests exclude inactive features. Frontend discovery exposes only selected feature paths, never source credentials.

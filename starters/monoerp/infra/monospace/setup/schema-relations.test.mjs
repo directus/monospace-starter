@@ -4,7 +4,7 @@ import { schemaRelation } from './schema-relations.mjs'
 
 const collection = { source: 'CRM', dbName: 'organizations', relationFields: [] }
 
-const optional = { source: 'Portal', collection: 'accounts', piece: 'portal' }
+const optional = { source: 'Portal', collection: 'accounts', owner: 'portal' }
 
 const portal = { source: 'Portal', dbName: 'accounts' }
 
@@ -39,7 +39,7 @@ describe('schema relation presentation', () => {
         'portal.json',
         { ...portal, relationFields: [] },
         'organization',
-        { source: 'CRM', collection: 'organizations', piece: 'crm' },
+        { source: 'CRM', collection: 'organizations', owner: 'crm' },
         [{ source: 'CRM', dbName: 'jobs' }],
         () => false,
       ),

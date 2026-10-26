@@ -1,7 +1,7 @@
 {
-  "kind": "core",
-  "id": "core",
-  "label": "monoERP core",
+  "kind": "starter",
+  "id": "starter",
+  "label": "monoERP starter",
   "description": "Shared app shell, authentication, database, and setup",
   "ownedPaths": [
     ".dockerignore",
@@ -49,7 +49,7 @@
     "apps/web/vite.config.ts",
     "apps/web/vitest.browser.config.ts",
     "connectors/README.md",
-    "core",
+    "starter.json",
     "docker-compose.yml",
     "docs",
     "infra/aws",
@@ -57,7 +57,7 @@
     "infra/compose-sync.mjs",
     "infra/compose-sync.test.mjs",
     "infra/monospace",
-    "infra/pieces.mjs",
+    "infra/manifests.mjs",
     "infra/postgres",
     "infra/setup",
     "package.json",

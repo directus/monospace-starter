@@ -6,16 +6,16 @@ This file is a map. The details live in `docs/`. Read the doc for the area you'r
 
 ## Before you change anything
 
-| If you're working on                                             | Read                                           |
-| ---------------------------------------------------------------- | ---------------------------------------------- |
-| Anything, the first time                                         | [`docs/architecture.md`](docs/architecture.md) |
-| Pages, lists, forms, components, copy, styling                   | [`docs/frontend.md`](docs/frontend.md)         |
-| Piece manifests, ownership/removal, modules, or shell navigation | [`docs/modules.md`](docs/modules.md)           |
-| Tables, columns, migrations, demo data, the portal database      | [`docs/data-model.md`](docs/data-model.md)     |
-| Setup scripts, the generated client, Studio, Monospace bugs      | [`docs/monospace.md`](docs/monospace.md)       |
-| Connectors or local external-source stand-ins                    | [`connectors/README.md`](connectors/README.md) |
-| Tests, lint rules, `SAFETY` comments, CI                         | [`docs/testing.md`](docs/testing.md)           |
-| AWS                                                              | [`infra/aws/README.md`](infra/aws/README.md)   |
+| If you're working on                                        | Read                                           |
+| ----------------------------------------------------------- | ---------------------------------------------- |
+| Anything, the first time                                    | [`docs/architecture.md`](docs/architecture.md) |
+| Pages, lists, forms, components, copy, styling              | [`docs/frontend.md`](docs/frontend.md)         |
+| Manifests, ownership/removal, modules, or shell navigation  | [`docs/modules.md`](docs/modules.md)           |
+| Tables, columns, migrations, demo data, the portal database | [`docs/data-model.md`](docs/data-model.md)     |
+| Setup scripts, the generated client, Studio, Monospace bugs | [`docs/monospace.md`](docs/monospace.md)       |
+| Connectors or local external-source stand-ins               | [`connectors/README.md`](connectors/README.md) |
+| Tests, lint rules, `SAFETY` comments, CI                    | [`docs/testing.md`](docs/testing.md)           |
+| AWS                                                         | [`infra/aws/README.md`](infra/aws/README.md)   |
 
 If a doc is wrong or missing something you had to find in the code, fix the doc in the same change.
 
@@ -49,7 +49,7 @@ For component work, also run `pnpm --filter @monoerp/web test:browser`. If the p
 - **Permissions belong to Monospace.** The app only hides or disables UI. Don't add a role table or a proxy that goes around Monospace.
 - **Generated files are generated:** `apps/web/src/generated/` (from `pnpm generate`) and `routeTree.gen.ts`. Never edit them by hand.
 - **Every `as` cast needs a `// SAFETY:` comment** saying why it's true. Parse data where it enters the app instead.
-- **Piece ownership:** give every file under `apps/web/src/routes`, `apps/web/src/modules`, `infra/modules`, and `connectors` exactly one owner in a `piece.json`, including settings routes.
+- **Ownership:** give every file under `apps/web/src/routes`, `apps/web/src/modules`, `infra/modules`, and `connectors` exactly one owner in `starter.json`, `module.json`, or `connector.json`, including settings routes.
 - **Import boundaries:** modules use core and their own code; keep other modules and connector code behind the shared feature contracts (see `docs/modules.md`).
 - **Match what's there.** Search for an existing helper before writing one. Keep diffs small.
 

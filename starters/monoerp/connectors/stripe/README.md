@@ -9,13 +9,13 @@ The optional Stripe extension exposes customers, products, prices, payment inten
 3. Run the [shared setup commands](../README.md#add-a-connector). Setup builds and installs the extension, creates its source, and joins Portal accounts to Stripe customers.
 4. Run `pnpm verify` and browser tests for any UI changes. To rebuild Stripe alone, run `pnpm --dir connectors/stripe/extension build` from the repo root.
 
-If the source already exists, remove Portal's `stripeCustomer` relation and the Stripe source in Studio before changing its connection settings and running setup again. To remove Stripe entirely, follow the [shared removal steps](../README.md#remove-a-piece).
+If the source already exists, remove Portal's `stripeCustomer` relation and the Stripe source in Studio before changing its connection settings and running setup again. To remove Stripe entirely, follow the [shared removal steps](../README.md#remove-a-module-or-connector).
 
 ## Stripe contract
 
 | Path                                         | Purpose                                                                                         |
 | -------------------------------------------- | ----------------------------------------------------------------------------------------------- |
-| `piece.json`                                 | Source settings, environment names, installed extension ID, and optional CRM feature            |
+| `connector.json`                             | Source settings, environment names, installed extension ID, and optional CRM feature            |
 | `extension/`                                 | Monospace extension package, built with `@monospace/extension-kit` 0.3.0 for Monospace v1.0.0   |
 | `extension/extension.config.json`            | Extension/provider IDs, capabilities, and host permissions                                      |
 | `emulator/`                                  | Local Stripe API and matching demo billing data                                                 |
@@ -95,6 +95,6 @@ Offsets use cursors because Stripe documents only cursors and the local Stripe i
 - Stripe can't delete prices; archive them by setting `active` to `false`. Deleting a product that still has prices fails as a foreign-key violation.
 - The local Stripe has no update or delete endpoints for products and prices, so those only work against real Stripe.
 
-## How pieces:check works
+## How app:doctor works
 
-Stripe owns its entire folder. Removing it also removes the Billing feature and its SDK collection requirements. See [the shared validator rules](../../docs/modules.md#how-piecescheck-works).
+Stripe owns its entire folder. Removing it also removes the Billing feature and its SDK collection requirements. See [the shared validator rules](../../docs/modules.md#how-appdoctor-works).

@@ -1,9 +1,9 @@
 import { readFileSync } from 'node:fs'
 import { expect, it } from 'vitest'
 
-import { resolveSource } from '../../infra/pieces.mjs'
+import { resolveSource } from '../../infra/manifests.mjs'
 
-const { source } = JSON.parse(readFileSync(new URL('piece.json', import.meta.url), 'utf8'))
+const { source } = JSON.parse(readFileSync(new URL('connector.json', import.meta.url), 'utf8'))
 
 it('preserves an explicitly empty Stripe key and the configured API address', () => {
   expect(
