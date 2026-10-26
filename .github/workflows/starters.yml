@@ -1,0 +1,52 @@
+name: Check starters
+
+on:
+  push:
+    branches: [main]
+    paths: ['starters/**', '.github/workflows/starters.yml']
+  pull_request:
+    paths: ['starters/**', '.github/workflows/starters.yml']
+
+permissions:
+  contents: read
+
+jobs:
+  discover:
+    runs-on: ubuntu-24.04-arm
+    outputs:
+      starters: ${{ steps.starters.outputs.names }}
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+      - id: starters
+        run: |
+          node --input-type=module <<'NODE' >> "$GITHUB_OUTPUT"
+          import { readdirSync, existsSync } from 'node:fs';
+          const names = readdirSync('starters', { withFileTypes: true })
+            .filter(entry => entry.isDirectory() && existsSync(`starters/${entry.name}/package.json`))
+            .map(entry => entry.name)
+            .sort();
+          console.log(`names=${JSON.stringify(names)}`);
+          NODE
+
+  check:
+    needs: discover
+    strategy:
+      fail-fast: false
+      matrix:
+        starter: ${{ fromJSON(needs.discover.outputs.starters) }}
+    runs-on: ubuntu-24.04-arm
+    defaults:
+      run:
+        working-directory: starters/${{ matrix.starter }}
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1 # v4
+        with:
+          package_json_file: starters/${{ matrix.starter }}/package.json
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
+        with:
+          node-version-file: starters/${{ matrix.starter }}/.node-version
+          cache: pnpm
+          cache-dependency-path: starters/${{ matrix.starter }}/pnpm-lock.yaml
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm verify

@@ -79,6 +79,8 @@ See the [Quickstart guide](https://docs.monospace.io/en/getting-started/installa
 
 Starters are complete projects built on Monospace. Each one includes its data model and a working application, so you can run it locally and adapt it to your own data.
 
+The root [starter workflow](.github/workflows/starters.yml) installs and runs `pnpm verify` for each starter on pull requests and pushes to `main` that change starter files.
+
 | Starter | Contents |
 |---|---|
 | [`monoerp`](starters/monoerp) | A modular CRM app built with TanStack Start. Monospace joins PostgreSQL, an optional read-only MySQL demo, and Stripe through one API. Includes piece manifests, setup scripts, tests, and an AWS deploy |
