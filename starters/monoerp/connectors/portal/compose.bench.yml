@@ -1,5 +1,0 @@
-services:
-  customer-mysql:
-    cpus: 1
-    mem_limit: 1g
-    command: ['--max-connections=${MYSQL_MAX_CONNECTIONS:-1000}']

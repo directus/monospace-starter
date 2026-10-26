@@ -104,17 +104,17 @@ Where things live:
 | `connectors/stripe`          | The Stripe data connector                                          |
 | `connectors/stripe/emulator` | The local Stripe and its billing data                              |
 
-More in [`architecture.md`](architecture.md) and [`decisions.md`](decisions.md).
+More in [`architecture.md`](architecture.md).
 
 ## 4. Make it yours
 
-To build on monoERP, give it a repo of its own: `git init` in the folder `giget` made (or copy `starters/monoerp` out of a `monospace-starter` clone first). Its CI and deploy workflow (`.github/workflows`) only run from a repo root.
+To build on monoERP, give it a repo of its own: `git init` in the folder `giget` made (or copy `starters/monoerp` out of a `monospace-starter` clone first). Its CI workflow (`.github/workflows/check.yml`) runs from a repo root. AWS deployment is optional and run explicitly.
 
 ### Add a field
 
 Say organizations need an employee count.
 
-1. Add a migration, `infra/modules/crm/postgres/migrations/003_employee_count.sql`:
+1. Add a migration, `infra/modules/crm/postgres/migrations/<next>_employee_count.sql`:
 
    ```sql
    ALTER TABLE organizations ADD COLUMN employee_count integer;
@@ -199,7 +199,7 @@ AWS runs the same Monospace release, but nothing installs the Stripe connector t
 
 ## Rough edges
 
-These come from Monospace features that are still landing, and should go away as they do:
+Current limitations:
 
 - **Connector settings are one JSON box.** Studio has no form for a connector's settings yet, so the Stripe source takes them as JSON.
 - **Big numbers are strings.** Monospace sends 64-bit integers (Stripe amounts, file sizes) as strings. The app converts them where it shows them.

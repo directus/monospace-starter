@@ -22,9 +22,6 @@
     "aws:mail": "vp run --filter @monoerp/infra mail",
     "aws:restore-test": "vp run --filter @monoerp/infra restore-test",
     "aws:github-oidc": "vp run --filter @monoerp/infra github-oidc",
-    "bench:up": "sh infra/bench/bench.sh up",
-    "bench:run": "sh infra/bench/bench.sh run",
-    "bench:down": "sh infra/bench/bench.sh down",
     "setup:sources": "node infra/monospace/setup/sources.mjs",
     "setup:monospace": "node infra/monospace/setup/audit-user-relations.mjs",
     "setup:introspect": "node infra/monospace/setup/introspect-sources.mjs",
@@ -44,8 +41,7 @@
     "prepare": "node tools/prepare.mjs",
     "compose:sync": "node infra/compose-sync.mjs",
     "pieces:check": "node tools/pieces.mjs check",
-    "pieces:remove": "node tools/pieces.mjs remove",
-    "pieces:combo": "node tools/combo.mjs"
+    "pieces:remove": "node tools/pieces.mjs remove"
   },
   "devDependencies": {
     "@oxlint/plugins": "1.79.0",

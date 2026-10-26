@@ -9,7 +9,6 @@ This file is a map. The details live in `docs/`. Read the doc for the area you'r
 | If you're working on                                             | Read                                           |
 | ---------------------------------------------------------------- | ---------------------------------------------- |
 | Anything, the first time                                         | [`docs/architecture.md`](docs/architecture.md) |
-| Why something is built the way it is (before you change that)    | [`docs/decisions.md`](docs/decisions.md)       |
 | Pages, lists, forms, components, copy, styling                   | [`docs/frontend.md`](docs/frontend.md)         |
 | Piece manifests, ownership/removal, modules, or shell navigation | [`docs/modules.md`](docs/modules.md)           |
 | Tables, columns, migrations, demo data, the portal database      | [`docs/data-model.md`](docs/data-model.md)     |
@@ -25,7 +24,7 @@ If a doc is wrong or missing something you had to find in the code, fix the doc 
 ```bash
 cp -n .env.example .env   # never overwrite an existing .env
 node infra/compose-sync.mjs # discover installed pieces
-docker compose up -d
+docker compose up -d --wait --wait-timeout 180
 pnpm install
 pnpm setup:all            # never `pnpm setup`: that's pnpm's own command and edits shell profiles
 pnpm dev                  # http://localhost:3000, admin@example.com / monospace
@@ -35,10 +34,10 @@ Check `docker compose ps` first: someone else may already be using the stack. To
 
 ## Check your work
 
-All three must pass before you say you're done:
+Run the checks before completing a change:
 
 ```bash
-pnpm check && pnpm typecheck && pnpm test
+pnpm check && pnpm typecheck && pnpm test && pnpm build
 ```
 
 For component work, also run `pnpm --filter @monoerp/web test:browser`. If the pre-commit hook reformats files, it fails the commit: stage the changes and commit again.

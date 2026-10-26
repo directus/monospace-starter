@@ -7,7 +7,7 @@ export interface StageConfig {
   // Stand-in for another team's database. Prod connects to existing databases instead.
   portalMysql?: { instanceClass: string; storageGb: number }
   valkey: { nodeType: `cache.${string}`; replicas: number }
-  // Staging runs RabbitMQ as a Fargate task (phase 3), so no broker here.
+  // Staging runs RabbitMQ as a Fargate task, so no managed broker is needed.
   broker?: { instanceType: string; mode: 'SINGLE_INSTANCE' | 'CLUSTER_MULTI_AZ' }
   // Fargate sizes: cpu in units (1024 = 1 vCPU), memory in MB. Monospace autoscales from
   // count to maxCount.

@@ -1,5 +1,5 @@
 #!/bin/sh
-# Core first, then module-local migrations. Old bare filenames remain valid applied names.
+# Core first, then module-local migrations.
 set -eu
 export PGHOST="${PGHOST:-crm-postgres}"
 export PGUSER="${PGUSER:-${POSTGRES_USER:-crm}}"
@@ -29,12 +29,6 @@ for dir in "$infra_dir/postgres/core/migrations" "$infra_dir"/modules/*/postgres
     name="$owner/$legacy"
     applied=$(echo "SELECT 1 FROM ops.schema_migrations WHERE name = :'name';" | psql -tAq -v name="$name")
     [ "$applied" != 1 ] || continue
-    # Only the original migration filenames have legacy aliases. New module-local numbers
-    # may overlap with other modules, so never treat an arbitrary bare name as applied.
-    case "$name" in
-      crm/001_fractional_stage_positions.sql|crm/002_portal_account_id.sql)
-        applied=$(echo "SELECT 1 FROM ops.schema_migrations WHERE name = :'name';" | psql -tAq -v name="$legacy") ;;
-    esac
     if [ "$applied" != 1 ]; then
       echo "Applying $name"
       psql -v ON_ERROR_STOP=1 -q -f "$file"

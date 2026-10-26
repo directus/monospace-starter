@@ -5,7 +5,7 @@ export const repository = new URL('../', import.meta.url)
 export function readPieces(root = repository) {
   const paths = existsSync(new URL('core/piece.json', root)) ? ['core/piece.json'] : []
 
-  for (const base of ['modules', 'connectors']) {
+  for (const base of ['modules', 'connectors', 'tooling']) {
     const directory = new URL(`${base}/`, root)
 
     if (!existsSync(directory)) continue
@@ -28,7 +28,7 @@ export function readPieces(root = repository) {
     const expected =
       piece.kind === 'core'
         ? 'core/piece.json'
-        : `${piece.kind === 'module' ? 'modules' : 'connectors'}/${piece.id}/piece.json`
+        : `${piece.kind === 'module' ? 'modules' : piece.kind === 'tooling' ? 'tooling' : 'connectors'}/${piece.id}/piece.json`
 
     if (path !== expected) throw new Error(`${path}: kind and id must match the manifest location`)
 

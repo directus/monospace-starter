@@ -6,7 +6,6 @@
   "ownedPaths": [
     ".dockerignore",
     ".env.example",
-    ".github",
     ".gitignore",
     ".node-version",
     ".npmrc",
@@ -54,7 +53,6 @@
     "docker-compose.yml",
     "docs",
     "infra/aws",
-    "infra/bench",
     "infra/caddy",
     "infra/compose-sync.mjs",
     "infra/compose-sync.test.mjs",
@@ -67,7 +65,9 @@
     "pnpm-lock.yaml",
     "pnpm-workspace.yaml",
     "tools",
-    "vite.config.ts"
+    "vite.config.ts",
+    ".github/workflows/check.yml",
+    ".github/assets"
   ],
   "requires": [],
   "optional": []

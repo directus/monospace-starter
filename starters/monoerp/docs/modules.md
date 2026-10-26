@@ -6,7 +6,7 @@ monoERP is built so that more modules can sit next to the CRM. A module is a set
 
 Each installed piece has one plain JSON manifest: `modules/<id>/piece.json`, `connectors/<id>/piece.json`, or `core/piece.json`. Node readers share `infra/pieces.mjs`, without importing React or needing a TypeScript loader. `tools/piece-schema.mjs` defines the Zod schema used by `pnpm pieces:check` and `pnpm pieces:remove`.
 
-Every manifest declares `kind`, `id`, picker `label`/`description`, `ownedPaths`, `requires`, and `optional`. Paths are literal, repository-relative files or folders, not globs. A folder owns its contents. The manifest itself must be owned. Core lists the shared app/infra paths and routes and is always installed.
+Every manifest declares `kind`, `id`, `label`/`description`, `ownedPaths`, `requires`, and `optional`. Paths are literal, repository-relative files or folders, not globs. A folder owns its contents. The manifest itself must be owned. Core lists the shared app/infra paths and routes and is always installed.
 
 Module manifests also declare:
 
@@ -37,7 +37,7 @@ A module UI entry is a `ModuleManifest` (`apps/web/src/modules/types.ts`):
 
 `apps/web/src/modules/index.ts` discovers default exports from `./*/module.ts` with an eager Vite glob, sorted by `order`. It exports `modules` and `moduleById`. Each UI entry adds its own key to `ModuleRegistry` through TypeScript declaration merging; `ModuleId` is `keyof ModuleRegistry`. Deleting the module folder removes both its runtime registration and its ID type. The CRM's UI entry is `apps/web/src/modules/crm/module.ts`.
 
-The UI entry reads `order` from its piece manifest. Its label and description are app copy; the JSON label and description describe the piece in a future CLI picker. CRM owns only its PostgreSQL collections. Portal's optional feature owns its MySQL collections; Stripe's optional feature owns its Stripe collections.
+The UI entry reads `order` from its piece manifest. Its label and description are app copy; the JSON label and description describe the installable piece. CRM owns only its PostgreSQL collections. Portal's optional feature owns its MySQL collections; Stripe's optional feature owns its Stripe collections.
 
 ## Page metadata
 
@@ -109,7 +109,7 @@ pnpm pieces:remove crm
 
 Then follow the [shared removal steps](../connectors/README.md#remove-a-piece).
 
-The command deletes only `ownedPaths`, including the piece manifest, module folders, settings routes, and public routes. It refuses core and any dependency required by an installed piece. Connectors remain independent pieces: removing CRM leaves Portal and Stripe installed; remove it separately if unused. `pnpm pieces:remove stripe` removes its whole folder and optional UI without changing CRM. Removing Portal leaves CRM working and hides Portal UI and the dependent Billing feature. No package, environment, database, or generated-file edits happen during removal; the printed commands regenerate derived files. Run `pnpm install` after workspace packages change.
+The command deletes `ownedPaths` and declared package entries, including the piece manifest, module folders, settings routes, and public routes. It refuses core and any dependency required by an installed piece. Connectors remain independent pieces: removing CRM leaves Portal and Stripe installed; remove it separately if unused. `pnpm pieces:remove stripe` removes its whole folder and optional UI without changing CRM. Removing Portal leaves CRM working and hides Portal UI and the dependent Billing feature. Piece-owned `packageEntries` declare package paths, sections (`scripts`, `dependencies`, or `devDependencies`), and names to remove. No environment, database, or generated-file edits happen during removal; the printed commands regenerate derived files. Run `pnpm install` after workspace packages change.
 
 Routes stay under `src/routes`, where TanStack already discovers them. The manifest is the ownership list for routes outside a module folder. Setup and migrations still use the existing infra folders. After syncing Compose, `docker compose up -d --remove-orphans` reconciles services; retiring a source in Monospace and its stored data is separate from removing source files.
 

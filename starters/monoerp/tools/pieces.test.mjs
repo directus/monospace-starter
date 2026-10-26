@@ -268,3 +268,37 @@ it('allows missing owned dotfolders while keeping referenced files required', ()
     'sales: apps/web/src/modules/sales/module.ts is listed but missing',
   )
 })
+
+it('removes declared package entries and keeps unrelated commands and dependencies', () => {
+  const { root, piece } = fixture()
+  write(
+    root,
+    'package.json',
+    JSON.stringify({ scripts: { check: 'check', 'setup:sales': 'setup' } }),
+  )
+  write(
+    root,
+    'apps/web/package.json',
+    JSON.stringify({ dependencies: { shared: '1.0.0', widget: '1.0.0' } }),
+  )
+  piece.packageEntries = [
+    { path: 'package.json', section: 'scripts', names: ['setup:sales'] },
+    { path: 'apps/web/package.json', section: 'dependencies', names: ['widget'] },
+  ]
+  save(root, 'modules/sales/piece.json', piece)
+  removePiece('sales', { root, dryRun: true })
+  expect(
+    JSON.parse(readFileSync(new URL('package.json', root), 'utf8')).scripts['setup:sales'],
+  ).toBe('setup')
+  expect(
+    JSON.parse(readFileSync(new URL('apps/web/package.json', root), 'utf8')).dependencies.widget,
+  ).toBe('1.0.0')
+  removePiece('sales', { root })
+  expect(JSON.parse(readFileSync(new URL('package.json', root), 'utf8')).scripts).toEqual({
+    check: 'check',
+  })
+  expect(
+    JSON.parse(readFileSync(new URL('apps/web/package.json', root), 'utf8')).dependencies,
+  ).toEqual({ shared: '1.0.0' })
+  expect(checkPieces(root).map((piece) => piece.id)).toEqual(['core'])
+})

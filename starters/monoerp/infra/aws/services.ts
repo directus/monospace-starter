@@ -1,11 +1,14 @@
+import { z } from 'zod'
 import * as AWS from 'alchemy/AWS'
 import * as Output from 'alchemy/Output'
 import * as Effect from 'effect/Effect'
 import type { Data } from './data.ts'
 import type { Network } from './network.ts'
 import { ports, servicePorts } from './network.ts'
-import type { Secrets } from './secrets.ts'
+import { Credential, type Secrets } from './secrets.ts'
 import type { StageConfig } from './stages.ts'
+
+const piecesModule = await import(new URL('../pieces.mjs', import.meta.url).href)
 
 // Same pinned release as docker-compose.yml.
 const monospaceImage =
@@ -202,6 +205,7 @@ export const Services = (
 
           return {
             host: 'mailpit.monoerp.internal',
+            url: `http://mailpit.monoerp.internal:${servicePorts.mailpit}`,
             serviceName: service.serviceName,
           }
         })
@@ -471,15 +475,26 @@ export const Setup = (
   url: Output.Output<string>,
   data: Effect.Success<ReturnType<typeof Data>>,
   secrets: Effect.Success<ReturnType<typeof Secrets>>,
+  mailpitUrl: string | undefined,
 ) =>
   Effect.gen(function* () {
+    const credentials = z
+      .array(z.object({ demoUserCredential: z.string().optional() }))
+      .parse(piecesModule.readPieces())
+      .flatMap(({ demoUserCredential }) => (demoUserCredential ? [demoUserCredential] : []))
+
+    if (credentials.length > 1) throw new Error('Setup supports one shared demo-user credential')
+
+    const demoUsers =
+      mailpitUrl && credentials[0] ? yield* Credential(credentials[0], 'Demo users') : undefined
+
     const image = yield* AWS.ECR.Image('SetupImage', {
       context: repoRoot,
       dockerfile: 'infra/setup/Dockerfile',
       platform: 'linux/arm64',
     })
 
-    const environment = {
+    const baseEnvironment = {
       SEED_DEMO_DATA: String(config.seedDemoData),
       DB_SSL_MODE: 'require',
       DB_ADMIN_USER: data.postgresAdmin.username,
@@ -492,11 +507,19 @@ export const Setup = (
       OPTIONAL_SOURCES: data.portalMysql ? 'portal' : '',
     }
 
-    const setupSecrets = {
+    const environment = mailpitUrl
+      ? { ...baseEnvironment, MAILPIT_URL: mailpitUrl }
+      : baseEnvironment
+
+    const baseSecrets = {
       POSTGRES_ADMIN_PASSWORD: data.postgresAdmin.secret.secretArn,
       CRM_DB_PASSWORD: data.crmDb.secret.secretArn,
       MONOSPACE_ADMIN_PASSWORD: secrets.admin.secret.secretArn,
     }
+
+    const setupSecrets = demoUsers
+      ? { ...baseSecrets, DEMO_USER_PASSWORD: demoUsers.secret.secretArn }
+      : baseSecrets
 
     return yield* OneOffTask('Setup', {
       image: image.imageUri,

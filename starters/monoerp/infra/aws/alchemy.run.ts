@@ -31,7 +31,9 @@ export default Alchemy.Stack(
         ? undefined
         : yield* Services(cluster, config, network, data, secrets, yield* Firewall(config))
 
-    const setup = services ? yield* Setup(config, services.url, data, secrets) : undefined
+    const setup = services
+      ? yield* Setup(config, services.url, data, secrets, services.mailpit?.url)
+      : undefined
 
     const operations = services
       ? yield* Operations(stage, config, cluster, services, data)

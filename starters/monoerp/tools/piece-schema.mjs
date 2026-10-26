@@ -60,15 +60,26 @@ const common = {
   ownedPaths: z.array(path).min(1),
   requires: ids,
   optional: ids,
+  packageEntries: z
+    .array(
+      z.strictObject({
+        path,
+        section: z.enum(['scripts', 'dependencies', 'devDependencies']),
+        names,
+      }),
+    )
+    .optional(),
 }
 
 export const pieceSchema = z
   .discriminatedUnion('kind', [
     z.strictObject({ ...common, kind: z.literal('core'), id: z.literal('core') }),
+    z.strictObject({ ...common, kind: z.literal('tooling') }),
     z.strictObject({
       ...common,
       ...collections,
       kind: z.literal('module'),
+      demoUserCredential: z.string().min(1).optional(),
       app: path,
       infra: path,
       settings: z.array(path),

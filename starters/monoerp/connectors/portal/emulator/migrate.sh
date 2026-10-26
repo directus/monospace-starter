@@ -6,6 +6,7 @@ set -eu
 cd "$(dirname "$0")/../../.."
 
 for file in connectors/portal/emulator/migrations/*.sql; do
+  [ -f "$file" ] || continue
   echo "Applying portal $(basename "$file")"
   docker compose exec -T customer-mysql sh -c 'MYSQL_PWD="$MYSQL_ROOT_PASSWORD" mysql -uroot customer_portal' < "$file"
 done

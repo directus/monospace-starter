@@ -1,6 +1,6 @@
 # Architecture
 
-How a request gets from the browser to the data, and where each rule lives. For why things are this way, see [`decisions.md`](decisions.md).
+How a request gets from the browser to the data, and where each rule lives.
 
 ## The request path
 
@@ -96,3 +96,7 @@ Both are nitro routes rather than TanStack Start routes for that same image-requ
 - **Local:** `docker compose up -d` runs Monospace, both databases, the Stripe emulator, RabbitMQ, and Mailpit. `pnpm dev` runs the app on the host.
 - **Containers:** `docker compose --profile full up -d --build` adds the app (`apps/web/Dockerfile`) and Caddy.
 - **AWS:** Monospace and the app run as Fargate services behind one load balancer, with CloudFront in front. AWS doesn't run Stripe yet. Studio gets its own CloudFront address because it needs the site root. See [`infra/aws/README.md`](../infra/aws/README.md).
+
+## Development constraints
+
+Use the generated REST SDK for collection reads and writes. Monospace enforces permissions; the app shapes its UI from those policies. Keep API requests same-origin through `/api/*`, with session cookies. Multi-request workflows are not atomic; make them safe to retry. Keep `strictExecutionOrder` in the server build so module-level schemas initialize in order.

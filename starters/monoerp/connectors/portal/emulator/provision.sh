@@ -20,6 +20,7 @@ if [ "$empty" = 1 ]; then
   fi
 fi
 for file in connectors/portal/emulator/migrations/*.sql; do
+  [ -f "$file" ] || continue
   portal customer_portal < "$file"
 done
 # Same user as connectors/portal/emulator/init/003_reader.sh, with the password kept in sync.

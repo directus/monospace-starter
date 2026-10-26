@@ -62,9 +62,6 @@
   },
   "migrate": "emulator/migrate.sh",
   "provision": "emulator/provision.sh",
-  "composeProfiles": {
-    "bench": "connectors/portal/compose.bench.yml"
-  },
   "frontend": [
     {
       "module": "crm",

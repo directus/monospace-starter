@@ -79,12 +79,12 @@ Portal's own relations are renamed to singular names (`tickets.account`, `subscr
 `init/` builds a fresh database. `migrations/` updates an existing one. Every change goes in both:
 
 1. Add a numbered file to `infra/modules/<id>/postgres/migrations/`.
-2. Make the same change in `infra/modules/crm/postgres/init/001_schema.sql`, so fresh databases start current.
+2. Make the same change in `infra/modules/<id>/postgres/init/001_schema.sql`, so fresh databases start current.
 3. Run `pnpm db:migrate`, then `pnpm setup:introspect` so Monospace sees it, then `pnpm generate` for the typed client.
 
-A migration must be safe to run against a database that already has the change, because a fresh database gets the change from `init/` and then the runner records the migration as applied. `infra/modules/crm/postgres/migrations/002_portal_account_id.sql` shows the pattern: check first, then change.
+A migration must be safe to run against a database that already has the change, because a fresh database gets the change from `init/` and then the runner records the migration as applied. Use `IF NOT EXISTS` or an equivalent schema check before changing an object.
 
-`pnpm db:migrate` runs `infra/postgres/migrate.sh`. It discovers module folders, runs core first, then modules in folder-name order, and records names like `crm/002_portal_account_id.sql` in `ops.schema_migrations`. The original CRM bare filenames are recognized and recorded under their new names without rerunning their SQL. Shared setup (`ops`, `vector`, and `set_updated_at`) lives in `infra/postgres/core/`. Fresh database setup uses `infra/postgres/init.sh` to load core and module SQL in that same order. The `ops` schema (`infra/postgres/core/init/000_ops.sql`) is excluded from Monospace, so that table never shows up as a collection.
+`pnpm db:migrate` runs `infra/postgres/migrate.sh`. It discovers module folders, runs core first, then modules in folder-name order, and records owner-qualified filenames in `ops.schema_migrations`. The baseline schema is current; add new numbered migrations for your changes. Shared setup (`ops`, `vector`, and `set_updated_at`) lives in `infra/postgres/core/`. Fresh database setup uses `infra/postgres/init.sh` to load core and module SQL in that same order. The `ops` schema (`infra/postgres/core/init/000_ops.sql`) is excluded from Monospace, so that table never shows up as a collection.
 
 Docker only runs `init/` when a volume is first created. Editing an init file does nothing to a running stack; that's what migrations are for.
 

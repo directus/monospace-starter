@@ -1,5 +1,5 @@
 import { execFileSync, spawnSync } from 'node:child_process'
-import { existsSync, lstatSync, readdirSync, rmSync } from 'node:fs'
+import { existsSync, lstatSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 
 import { readPieces, repository } from '../infra/pieces.mjs'
@@ -50,15 +50,28 @@ function validatePieces(root = repository) {
     }
   }
 
+  const scripts = new Set()
+
   for (const piece of pieces) {
+    for (const entry of piece.packageEntries ?? []) {
+      if (!safePath(root, entry.path)) throw new Error(`${piece.id}: missing package ${entry.path}`)
+
+      for (const name of entry.names) {
+        const key = `${entry.path}:${entry.section}:${name}`
+
+        if (scripts.has(key)) throw new Error(`Overlapping package entry ownership: ${key}`)
+        scripts.add(key)
+      }
+    }
+
     const manifest =
       piece.kind === 'core'
         ? 'core/piece.json'
-        : `${piece.kind === 'module' ? 'modules' : 'connectors'}/${piece.id}/piece.json`
+        : `${piece.kind === 'module' ? 'modules' : piece.kind === 'tooling' ? 'tooling' : 'connectors'}/${piece.id}/piece.json`
 
     const references = [manifest]
 
-    if (piece.kind !== 'core') {
+    if (piece.kind === 'module' || piece.kind === 'connector') {
       const scripts = [...piece.setup.beforeSchema, ...piece.setup.afterSchema].map(
         (step) => step.script,
       )
@@ -86,7 +99,7 @@ function validatePieces(root = repository) {
       if (dependency === piece.id) throw new Error(`${piece.id}: cannot require itself`)
     }
 
-    if (piece.kind !== 'core') {
+    if (piece.kind === 'module' || piece.kind === 'connector') {
       references.push(...piece.schemaFiles)
 
       if (piece.compose) references.push(piece.compose)
@@ -192,6 +205,18 @@ export function removePiece(id, { root = repository, dryRun = false } = {}) {
     throw new Error(
       `${id} is required by ${dependents.map((candidate) => candidate.id).join(', ')}`,
     )
+
+  for (const entry of piece.packageEntries ?? []) {
+    const path = new URL(entry.path, root)
+    const manifest = JSON.parse(readFileSync(path, 'utf8'))
+
+    for (const name of entry.names) {
+      console.log(`${dryRun ? 'Would remove' : 'Removing'} ${entry.path} ${entry.section}.${name}`)
+      delete manifest[entry.section]?.[name]
+    }
+
+    if (!dryRun) writeFileSync(path, `${JSON.stringify(manifest, null, 2)}\n`)
+  }
 
   for (const path of piece.ownedPaths) {
     if (!existsSync(new URL(path, root))) continue

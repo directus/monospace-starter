@@ -115,7 +115,6 @@ The browser only talks to the app's own address. The app's server proxies `/api/
 | `connectors`        | Optional sources: extension, emulator, schema settings, compose, manifest |
 | `connectors/stripe` | API connectors and their local emulators                                  |
 | `infra/aws`         | AWS deploy                                                                |
-| `infra/bench`       | Local load test                                                           |
 | `tools/oxlint`      | Extra lint rules                                                          |
 
 To change the CRM schema, add a migration in `infra/modules/crm/postgres/migrations`, make the same change in `infra/modules/crm/postgres/init/001_schema.sql`, then run `pnpm db:migrate`, `pnpm setup:introspect`, and `pnpm generate`. [`docs/data-model.md`](docs/data-model.md) has the details.
@@ -126,7 +125,6 @@ To change the CRM schema, add a migration in `infra/modules/crm/postgres/migrati
 | ----------------------------------------------- | -------------------------------------------------------------------------- |
 | [`getting-started.md`](docs/getting-started.md) | Run it, look around, and make it yours: fields, databases, Stripe, modules |
 | [`architecture.md`](docs/architecture.md)       | How a request flows, sign-in, permissions, the three sources               |
-| [`decisions.md`](docs/decisions.md)             | Choices already made, and why                                              |
 | [`frontend.md`](docs/frontend.md)               | How screens are built: lists, forms, inline editing, copy, styling         |
 | [`modules.md`](docs/modules.md)                 | The module contract and how to add one                                     |
 | [`data-model.md`](docs/data-model.md)           | The tables, how the databases connect, schema changes, demo data           |
@@ -136,7 +134,7 @@ To change the CRM schema, add a migration in `infra/modules/crm/postgres/migrati
 
 ## Deploy to AWS
 
-One command builds a stage: network, PostgreSQL, MySQL, Valkey, RabbitMQ, Monospace, the app, CloudFront, a firewall, alarms, and autoscaling. Once monoERP is the root of its own repo, the included GitHub Actions workflow can deploy staging on every push to `main` and prod on a version tag.
+One command builds a stage: network, PostgreSQL, MySQL, Valkey, RabbitMQ, Monospace, the app, CloudFront, a firewall, alarms, and autoscaling. AWS deployment is optional. The included GitHub Actions workflow checks and builds the app without an AWS account.
 
 Needs a Monospace license key.
 
@@ -144,7 +142,7 @@ Needs a Monospace license key.
 pnpm aws:deploy --stage staging
 ```
 
-[The AWS guide](infra/aws/README.md) covers setup, costs, alarms, backups, and teardown. `pnpm bench:up` load tests a local copy capped to the same sizes (`infra/bench`).
+[The AWS guide](infra/aws/README.md) covers setup, alarms, backups, and teardown.
 
 ## License
 

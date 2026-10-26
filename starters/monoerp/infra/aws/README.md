@@ -16,9 +16,8 @@ This folder deploys monoERP and Monospace to your own AWS account with [Alchemy]
 | HTTPS                                                         | CloudFront (the app and Studio each get a `*.cloudfront.net` address)       | same until a domain is added                                                       |
 | Protection                                                    | WAF on both CloudFront addresses; the load balancer only accepts CloudFront | same                                                                               |
 | Alarms                                                        | emailed to `ALARM_EMAIL`                                                    | same                                                                               |
-| Rough monthly cost                                            | about $180                                                                  | about $320                                                                         |
 
-Costs are us-east-1 on-demand list prices, before data transfer and logs. `stages.ts` holds every size; changing one is a one-line edit and a deploy.
+`stages.ts` holds the example sizes. Review them and estimate costs for your account before deploying.
 
 Everything runs in private subnets. The databases, cache, and broker only accept connections from the ECS tasks.
 
@@ -36,7 +35,7 @@ Everything runs in private subnets. The databases, cache, and broker only accept
    - `ALARM_EMAIL`: optional. Where alarms are sent.
    - `LOGO_DEV_TOKEN`: optional. Company logos in the app.
 
-   Those three are the only `.env` values the AWS deploy reads. Everything else in `.env` (ports, local passwords, `MONOSPACE_URL`, `MONOSPACE_ADMIN_EMAIL`, and so on) is for the local Docker stack and doesn't affect AWS.
+   The optional `GITHUB_OIDC_SUBJECT` setting also configures a deploy role. Everything else in `.env` (ports, local passwords, `MONOSPACE_URL`, `MONOSPACE_ADMIN_EMAIL`, and so on) is for the local Docker stack and doesn't affect AWS.
 
 4. `pnpm install` at the repo root.
 
@@ -48,7 +47,7 @@ Deploys go to `us-east-1`. Another region needs two changes: the CloudFront pref
 pnpm aws:deploy --stage staging
 ```
 
-Takes about 15 minutes (measured on a fresh `staging`; prod's Multi-AZ database and Amazon MQ add more). RDS, Valkey, and CloudFront print nothing while they wait; that's normal. In CI or other non-interactive shells, add `--no-input --yes`. `alchemy.sh` runs a stage's first deploy in this order:
+RDS, Amazon MQ, and CloudFront creation can take several minutes. RDS, Valkey, and CloudFront print nothing while they wait; that's normal. In CI or other non-interactive shells, add `--no-input --yes`. `alchemy.sh` runs a stage's first deploy in this order:
 
 1. **Pass 1:** the network and data layer (about 6 minutes).
 2. **Between passes:** Monospace's JWT keys and KMS master key are generated into Secrets Manager (`pnpm aws:keys`), the license is copied from `.env` (`pnpm aws:license`), and the database users are created (`pnpm aws:db-init`).
@@ -106,13 +105,9 @@ Logs are in CloudWatch, one log group per service, kept 30 days.
 
 Staging sends every email (invites, password resets) to a Mailpit task, like `docker compose` locally. It has no public address: anyone who could read it could follow a reset link. `pnpm aws:mail --stage staging` opens it at http://localhost:8025 through an SSM tunnel. Mail lives in the task's memory, so a restart empties the inbox.
 
-## Automatic deploys (GitHub Actions)
+## Optional automation
 
-GitHub only runs workflows from the root of a repo, so this one is off while monoERP sits in `monospace-starter`. Copy `starters/monoerp` into a repo of its own to use it.
-
-`.github/workflows/deploy.yml` checks every push and pull request (format, lint, types, tests). A push to `main` then deploys `staging`; pushing a version tag (`git tag v1.2.3 && git push origin v1.2.3`) deploys `prod`. GitHub signs in to AWS with short-lived credentials through a role per stage; no AWS keys are stored in GitHub.
-
-The deploy role has **AWS AdministratorAccess**. Anyone who can assume it controls the account. Before enabling automatic deploys, configure both the ref-bound trust below and GitHub environment deployment rules.
+The included CI workflow runs checks and builds without AWS credentials. Deploy explicitly with `pnpm aws:deploy --stage staging` or `--stage prod`. To automate deployment, configure your own workflow and GitHub environment restrictions. The optional `pnpm aws:github-oidc` helper creates the account identity provider; `GITHUB_OIDC_SUBJECT` enables a role with repo, environment, and ref-bound trust. See `github.ts` for its accepted subject format. The role has administrator access, so limit who can trigger it.
 
 One-time setup:
 
@@ -133,10 +128,6 @@ One-time setup:
 5. Run the initial `pnpm aws:deploy --stage staging` (and `prod`) using your local AWS credentials. This creates the ref-bound `GithubDeployRole` and prints `githubDeployRoleArn`. Set each environment's `AWS_DEPLOY_ROLE_ARN` variable to its stage's ARN.
 6. Set repository variables `ALARM_EMAIL` and `OIDC_SUBJECT` (the same prefix as `GITHUB_OIDC_SUBJECT`), and secrets `LOGO_DEV_TOKEN` and `MONOSPACE_LICENSE__KEY`. Copy secrets from `.env` without printing them. The license is only read on a stage's first deploy.
 
-The stack reads `ALARM_EMAIL`, `LOGO_DEV_TOKEN`, and `GITHUB_OIDC_SUBJECT` on every deploy, from GitHub in CI and from `.env` locally. Keep them the same in both: a deploy without one removes what it configures (the alarm email subscription, the logo token, the deploy role).
-
-Deploys of the same stage queue rather than overlap. The job runs on GitHub's ARM runners, so the app and setup images build natively for Fargate.
-
 ## Alarms
 
 Each alarm's email subject says what's wrong, and the first line of the body says where to look. They all live in `operations.ts`.
@@ -155,18 +146,9 @@ Each alarm also emails when it clears. AWS formats these emails; for production,
 
 ## Scaling
 
-Monospace scales out on requests per task (6,000 a minute), not CPU: in load tests, requests queued before CPU got high, so a CPU target would fire too late. Run `infra/bench` against your own stage to tune the number.
+Monospace scales out on requests per task (6,000 a minute). Tune the request target and task limits for your workload.
 
 A deploy resets the task count to the minimum; autoscaling brings it back up if the load is still there.
-
-To load test a stage:
-
-```sh
-MONOSPACE_URL=<the app address> MONOSPACE_ADMIN_EMAIL=admin@example.com MONOSPACE_ADMIN_PASSWORD=<admin password> \
-  node infra/bench/load.mjs 8,16,32,64 60
-```
-
-`pnpm bench:up` runs the same test against a local copy of the stack capped to AWS sizes (see `infra/bench/bench.sh`).
 
 ## Backups
 

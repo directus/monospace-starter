@@ -39,6 +39,7 @@ const featureConfig = z.object({
 const piecesConfig = z.array(
   z.discriminatedUnion('kind', [
     z.object({ kind: z.literal('core'), id: z.string() }),
+    z.object({ kind: z.literal('tooling'), id: z.string() }),
     z.object({
       kind: z.literal('module'),
       id: z.string(),
