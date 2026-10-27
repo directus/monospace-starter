@@ -2,7 +2,7 @@
   "kind": "connector",
   "id": "stripe",
   "label": "Stripe",
-  "description": "Stripe billing collections",
+  "description": "Billing data from Stripe",
   "provides": ["Stripe billing collections"],
   "ownedPaths": ["connectors/stripe"],
   "requires": [],

@@ -2,7 +2,7 @@
   "kind": "module",
   "id": "crm",
   "label": "CRM",
-  "description": "Customer relationships, deals, and activity",
+  "description": "Companies, contacts, deals and activity",
   "ownedPaths": [
     "modules/crm",
     "apps/web/src/modules/crm",

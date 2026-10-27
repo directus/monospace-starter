@@ -2,7 +2,7 @@
   "kind": "connector",
   "id": "portal",
   "label": "Portal",
-  "description": "Read-only external MySQL customer platform. Local portal demo database",
+  "description": "Example customer database (a MySQL demo you can remove)",
   "provides": ["Read-only external MySQL customer platform", "Local portal demo database"],
   "ownedPaths": ["connectors/portal"],
   "requires": [],
