@@ -3,7 +3,7 @@ import '@/styles.css'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { cleanup, render, screen } from '@testing-library/react'
 import { http, HttpResponse } from 'msw'
-import { afterEach, expect, it, vi } from 'vitest'
+import { afterEach, beforeEach, expect, it, vi } from 'vitest'
 
 import {
   organizationPanels,
@@ -11,7 +11,7 @@ import {
   contactPanels,
   dealSummaries,
 } from '@/modules/crm/slots'
-import { worker } from '@/test/msw'
+import { signedIn, worker } from '@/test/msw'
 import { portalCopy } from './portal.copy'
 import { PortalPanel } from './portal-panel'
 import feature from './feature'
@@ -30,9 +30,11 @@ const account = {
   events: { data: [{ id: 'evt-1', type: 'login', occurredAt: '2026-10-01T12:00:00Z' }] },
 }
 
+beforeEach(() => worker.use(...signedIn))
+
 afterEach(cleanup)
 
-it('discovers every Portal screen contribution and shares the panel/history read', async () => {
+it('refreshes an expired session and shares the Portal panel/history read', async () => {
   const requests: string[] = []
   const panel = organizationPanels.find(({ id }) => id === feature.id)
 
@@ -44,6 +46,9 @@ it('discovers every Portal screen contribution and shares the panel/history read
   worker.use(
     http.get('/api/crm/items/accounts/:id', ({ params }) => {
       requests.push(String(params.id))
+
+      if (requests.length === 1)
+        return HttpResponse.json({ message: 'Session expired' }, { status: 401 })
 
       return HttpResponse.json({ data: account })
     }),
@@ -59,7 +64,7 @@ it('discovers every Portal screen contribution and shares the panel/history read
   expect(
     await client.fetchQuery(panel.historyQuery({ portalAccountId: 'acct-0001' })),
   ).toHaveLength(1)
-  expect(requests).toEqual(['acct-0001'])
+  expect(requests).toEqual(['acct-0001', 'acct-0001'])
   expect(organizationLists.flatMap((list) => list.columns.map(({ id }) => id))).toEqual([
     'plan',
     'seats',

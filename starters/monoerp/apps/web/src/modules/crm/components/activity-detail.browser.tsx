@@ -7,6 +7,8 @@ import type { ReactNode } from 'react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { page } from 'vitest/browser'
 
+import { sessionQuery } from '@/lib/auth'
+import { collectionPermissionsQuery } from '@/lib/permissions'
 import { interactionsCreateSchema, interactionsUpdateSchema } from '@/generated/monospace/schemas'
 import { ActivityDetailDrawer } from '@/modules/crm/components/activity-detail'
 import { crmCopy } from '@/modules/crm/crm.copy'
@@ -69,10 +71,13 @@ function serve() {
   return writes
 }
 
-function renderWithClient(ui: ReactNode) {
+async function renderWithClient(ui: ReactNode) {
   const client = new QueryClient({
     defaultOptions: { queries: { retry: false }, mutations: { retry: false } },
   })
+
+  const user = await client.ensureQueryData(sessionQuery())
+  await client.ensureQueryData(collectionPermissionsQuery(user.id, 'interactions'))
 
   return render(<QueryClientProvider client={client}>{ui}</QueryClientProvider>)
 }
@@ -90,7 +95,7 @@ describe('Activity drawer layout', () => {
     await page.viewport(width, height)
     const writes = serve()
     const onOpenChange = vi.fn()
-    renderWithClient(
+    await renderWithClient(
       <ActivityDetailDrawer
         row={row}
         mode="view"
@@ -142,7 +147,7 @@ describe('Activity drawer layout', () => {
   it('keeps completed activity details scrollable with a compact reopen footer', async () => {
     await page.viewport(375, 360)
     serve()
-    renderWithClient(
+    await renderWithClient(
       <ActivityDetailDrawer
         row={{ ...row, status: 'completed', completedAt: '2026-09-04T12:00:00.000Z' }}
         mode="view"

@@ -1,6 +1,6 @@
 import { Search, X } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import type { ReactNode } from 'react'
 
 import { Input } from '@/components/ui/input'
@@ -30,18 +30,16 @@ export function ListToolbar({
   action?: ReactNode
   children?: ReactNode
 }) {
+  const [draft, setDraft] = useState({ query, value: query })
   const inputRef = useRef<HTMLInputElement>(null)
   const timeoutRef = useRef<ReturnType<typeof setTimeout>>(undefined)
 
-  useEffect(() => {
-    const input = inputRef.current
+  if (draft.query !== query) setDraft({ query, value: query })
 
-    if (input && input.value !== query) input.value = query
-
-    return () => clearTimeout(timeoutRef.current)
-  }, [query])
+  useEffect(() => () => clearTimeout(timeoutRef.current), [query])
 
   function scheduleQuery(next: string) {
+    setDraft({ query, value: next })
     clearTimeout(timeoutRef.current)
     timeoutRef.current = setTimeout(() => onQueryChange(next), SEARCH_DEBOUNCE_MS)
   }
@@ -49,7 +47,7 @@ export function ListToolbar({
   function clearQuery() {
     clearTimeout(timeoutRef.current)
 
-    if (inputRef.current) inputRef.current.value = ''
+    setDraft({ query, value: '' })
     onQueryChange('')
     inputRef.current?.focus()
   }
@@ -71,7 +69,7 @@ export function ListToolbar({
           <Search className="absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" />
           <Input
             ref={inputRef}
-            defaultValue={query}
+            value={draft.value}
             onChange={(event) => scheduleQuery(event.target.value)}
             placeholder={appCopy.list.searchPlaceholder}
             className="peer pr-8 pl-9 pointer-coarse:pr-10"

@@ -60,7 +60,9 @@ A good example is `apps/web/src/modules/crm/mutations.browser.tsx`. It renders a
 
 Browser tests fake Monospace at the network with MSW, so the real SDK client, auth, and error handling all run. `apps/web/src/test/msw.ts` starts the worker, resets handlers after each test, and fails any request that has no handler. It also exports `signedIn`, the handlers for a signed-in session.
 
-Each test declares the responses it needs:
+Each test declares the responses it needs. Connector tests register `...signedIn` before reading authenticated data: after a 401, the SDK refreshes the session and reads `/api/system/users/me` before retrying the original request. Both auth responses belong in the fixture. Exercise that path with an initial 401, then assert the successful retry. Record-layout fixtures should await session and permission queries before mounting, so a short test cannot reset handlers while auth is still in flight.
+
+For example:
 
 ```ts
 import { http, HttpResponse } from 'msw'

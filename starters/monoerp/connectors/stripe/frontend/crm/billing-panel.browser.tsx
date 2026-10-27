@@ -4,13 +4,13 @@ import { mapEngineError } from '@monospace/sdk'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { cleanup, render, screen, within } from '@testing-library/react'
 import { http, HttpResponse } from 'msw'
-import { afterEach, describe, expect, it, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { BillingPanel } from './billing-panel'
 import { billingCopy } from './billing.copy'
 import type { StripeCustomer } from './data'
 import feature from './feature'
-import { worker } from '@/test/msw'
+import { signedIn, worker } from '@/test/msw'
 import { organizationPanels } from '@/modules/crm/slots'
 
 const copy = billingCopy
@@ -42,10 +42,12 @@ const customer: StripeCustomer = {
   },
 }
 
+beforeEach(() => worker.use(...signedIn))
+
 afterEach(cleanup)
 
 describe('BillingPanel', () => {
-  it('loads billing through the connector contribution using the supplied portal account', async () => {
+  it('refreshes an expired session when loading the connector contribution', async () => {
     const requests: string[] = []
     const contribution = organizationPanels.find((panel) => panel.id === feature.id)
 
@@ -55,6 +57,9 @@ describe('BillingPanel', () => {
     worker.use(
       http.get('/api/crm/items/accounts/:id', ({ params }) => {
         requests.push(String(params.id))
+
+        if (requests.length === 1)
+          return HttpResponse.json({ message: 'Session expired' }, { status: 401 })
 
         return HttpResponse.json({ data: { id: params.id, stripeCustomer: customer } })
       }),
@@ -66,7 +71,7 @@ describe('BillingPanel', () => {
     )
 
     await expect.poll(() => screen.queryByText('Business plan, Aug 2026')).not.toBeNull()
-    expect(requests).toEqual(['acct-0001'])
+    expect(requests).toEqual(['acct-0001', 'acct-0001'])
   })
 
   it('sums paid charges and flags a failed last payment', () => {
