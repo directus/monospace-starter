@@ -6,8 +6,8 @@ import type {
   Uuid,
   attachmentsReadManyArgs,
   contactsReadManyArgs,
-  interactionsReadManyArgs,
-  opportunitiesReadManyArgs,
+  activitiesReadManyArgs,
+  dealsReadManyArgs,
   organizationsReadManyArgs,
 } from '@/generated/monospace'
 import { pagesQuery, readAllPages, sortSpec } from '@/lib/list-query'
@@ -21,7 +21,7 @@ type ContactSort = NonNullable<contactsReadManyArgs['sort']>
 
 type OrganizationSort = NonNullable<organizationsReadManyArgs['sort']>
 
-type OpportunitySort = NonNullable<opportunitiesReadManyArgs['sort']>
+type DealSort = NonNullable<dealsReadManyArgs['sort']>
 
 // Column id -> Monospace sort for that column. Columns missing here aren't sortable.
 const CONTACT_SORTS = {
@@ -39,13 +39,13 @@ const ORGANIZATION_SORTS = {
   updatedAt: (direction) => [{ updatedAt: { direction } }],
 } satisfies Sorts<OrganizationSort>
 
-const OPPORTUNITY_SORTS = {
+const DEAL_SORTS = {
   title: (direction) => [{ title: { direction } }],
   status: (direction) => [{ status: { direction } }],
   value: (direction) => [{ valueAmount: { direction } }],
   closeDate: (direction) => [{ expectedCloseDate: { direction } }],
   updatedAt: (direction) => [{ updatedAt: { direction } }],
-} satisfies Sorts<OpportunitySort>
+} satisfies Sorts<DealSort>
 
 async function withOwners<T extends { ownerUserId?: Uuid | null }>(rows: ReadonlyArray<T>) {
   return withUsers(rows, { ownerUserId: 'owner' })
@@ -67,7 +67,7 @@ export type OrganizationsFilter = NonNullable<organizationsReadManyArgs['filter'
 
 export type ContactsFilter = NonNullable<contactsReadManyArgs['filter']>
 
-export type DealsFilter = NonNullable<opportunitiesReadManyArgs['filter']>
+export type DealsFilter = NonNullable<dealsReadManyArgs['filter']>
 
 function whereAll<T>(...clauses: (T | undefined)[]) {
   return { _and: clauses.filter((clause): clause is T => clause !== undefined) }
@@ -77,9 +77,9 @@ const LIST_LIMIT = 250
 
 const RELATED_LIMIT = 100
 
-export type ActivityFilter = NonNullable<interactionsReadManyArgs['filter']>
+export type ActivityFilter = NonNullable<activitiesReadManyArgs['filter']>
 
-const INTERACTION_FIELDS = [
+const ACTIVITY_FIELDS = [
   'id',
   'type',
   'status',
@@ -92,13 +92,13 @@ const INTERACTION_FIELDS = [
   'ownerUserId',
   'organizationId',
   'contactId',
-  'opportunityId',
+  'dealId',
 ] as const
 
-const INTERACTION_INCLUDE = {
+const ACTIVITY_INCLUDE = {
   organizations: { fields: ['id', 'name', 'domain'] },
   contacts: { fields: ['id', 'firstName', 'lastName', 'email'] },
-  opportunities: {
+  deals: {
     fields: ['id', 'title', 'valueAmount', 'currency'],
     include: { pipeline_stages: { fields: ['name'] } },
   },
@@ -116,44 +116,44 @@ const ATTACHMENT_FIELDS = [
   'createdById',
   'organizationId',
   'contactId',
-  'opportunityId',
-  'interactionId',
+  'dealId',
+  'activityId',
 ] as const
 
 const ATTACHMENT_INCLUDE = {
   organizations: { fields: ['id', 'name', 'domain'] },
   contacts: { fields: ['id', 'firstName', 'lastName', 'email'] },
-  opportunities: { fields: ['id', 'title'] },
-  interactions: { fields: ['id', 'subject', 'type'] },
+  deals: { fields: ['id', 'title'] },
+  activities: { fields: ['id', 'subject', 'type'] },
 } as const
 
 // Where a file lives. Every attachment has an organization; the rest narrow it further.
 export type AttachmentTarget = {
   organizationId: Uuid
   contactId?: Uuid | null
-  opportunityId?: Uuid | null
-  interactionId?: Uuid | null
+  dealId?: Uuid | null
+  activityId?: Uuid | null
 }
 
 export type AttachmentScope =
   | { organizationId: Uuid }
   | { contactId: Uuid }
-  | { opportunityId: Uuid }
-  | { interactionId: Uuid }
+  | { dealId: Uuid }
+  | { activityId: Uuid }
 
 type AttachmentsFilter = NonNullable<attachmentsReadManyArgs['filter']>
 
 // Files attached to an activity stay on that activity; record pages only list what was put on
 // the record itself.
 function scopeFilter(scope: AttachmentScope): AttachmentsFilter {
-  if ('interactionId' in scope) return { interactionId: scope.interactionId }
-  const own = { interactionId: { _null: true } }
+  if ('activityId' in scope) return { activityId: scope.activityId }
+  const own = { activityId: { _null: true } }
 
   if ('organizationId' in scope) return { ...own, organizationId: scope.organizationId }
 
   if ('contactId' in scope) return { ...own, contactId: scope.contactId }
 
-  return { ...own, opportunityId: scope.opportunityId }
+  return { ...own, dealId: scope.dealId }
 }
 
 async function fetchAttachments(scope: AttachmentScope) {
@@ -222,7 +222,7 @@ async function fetchOrganizations({
       'updatedAt',
     ],
     include: {
-      opportunities: {
+      deals: {
         fields: ['id'],
         filter: { status: 'open' },
         limit: RELATED_LIMIT,
@@ -255,7 +255,7 @@ async function fetchContacts({
   const rows = await monospace.contacts.readMany({
     fields: ['id', 'firstName', 'lastName', 'email', 'status', 'updatedAt'],
     include: {
-      contact_organizations: {
+      affiliations: {
         fields: ['id', 'title', 'startedAt', 'endedAt', 'isPrimary'],
         include: { organizations: { fields: ['id', 'name', 'domain'] } },
         sort: [{ isPrimary: { direction: 'desc' } }],
@@ -289,7 +289,7 @@ async function fetchDeals({
   offset = 0,
   limit = LIST_LIMIT,
 }: ListParams<DealsFilter> & Page) {
-  const rows = await monospace.opportunities.readMany({
+  const rows = await monospace.deals.readMany({
     fields: [
       'id',
       'title',
@@ -307,9 +307,7 @@ async function fetchDeals({
       pipeline_stages: { fields: ['id', 'name', 'position', 'color'] },
     },
     filter: whereAll<DealsFilter>(q ? dealSearchFilter(q) : undefined, filter),
-    sort: sortSpec<OpportunitySort>(OPPORTUNITY_SORTS, sort, [
-      { updatedAt: { direction: 'desc' } },
-    ]),
+    sort: sortSpec<DealSort>(DEAL_SORTS, sort, [{ updatedAt: { direction: 'desc' } }]),
     offset,
     limit,
   })
@@ -322,15 +320,13 @@ export type DealRow = Awaited<ReturnType<typeof fetchDeals>>[number]
 // Every matching deal at once, for the board and the dashboard.
 export function dealsQuery(filters: ListParams<DealsFilter>) {
   return queryOptions({
-    queryKey: ['opportunities', filters],
+    queryKey: ['deals', filters],
     queryFn: async () => readAllPages((page) => fetchDeals({ ...filters, ...page })),
   })
 }
 
 export function dealsPagesQuery(filters: ListParams<DealsFilter>) {
-  return pagesQuery(['opportunities', 'pages', filters], (page) =>
-    fetchDeals({ ...filters, ...page }),
-  )
+  return pagesQuery(['deals', 'pages', filters], (page) => fetchDeals({ ...filters, ...page }))
 }
 
 async function fetchOrganizationDetail(organizationId: Uuid) {
@@ -349,7 +345,7 @@ async function fetchOrganizationDetail(organizationId: Uuid) {
       'updatedAt',
     ],
     include: {
-      contact_organizations: {
+      affiliations: {
         fields: ['id', 'title', 'startedAt', 'endedAt', 'isPrimary'],
         include: {
           contacts: {
@@ -359,7 +355,7 @@ async function fetchOrganizationDetail(organizationId: Uuid) {
         sort: [{ isPrimary: { direction: 'desc' } }],
         limit: RELATED_LIMIT,
       },
-      opportunities: {
+      deals: {
         fields: ['id', 'title', 'status', 'valueAmount', 'currency', 'expectedCloseDate'],
         include: {
           pipeline_stages: { fields: ['id', 'name', 'position', 'color', 'isClosed', 'isWon'] },
@@ -367,9 +363,9 @@ async function fetchOrganizationDetail(organizationId: Uuid) {
         sort: [{ updatedAt: { direction: 'desc' } }],
         limit: RELATED_LIMIT,
       },
-      interactions: {
-        fields: INTERACTION_FIELDS,
-        include: INTERACTION_INCLUDE,
+      activities: {
+        fields: ACTIVITY_FIELDS,
+        include: ACTIVITY_INCLUDE,
         sort: [{ occurredAt: { direction: 'desc' } }],
         limit: RELATED_LIMIT,
       },
@@ -379,9 +375,9 @@ async function fetchOrganizationDetail(organizationId: Uuid) {
   return {
     ...(await withOwner(detail)),
     id: organizationId,
-    contact_organizations: { data: keyed(detail.contact_organizations?.data ?? []) },
-    opportunities: { data: keyed(detail.opportunities?.data ?? []) },
-    interactions: { data: await withOwners(keyed(detail.interactions?.data ?? [])) },
+    affiliations: { data: keyed(detail.affiliations?.data ?? []) },
+    deals: { data: keyed(detail.deals?.data ?? []) },
+    activities: { data: await withOwners(keyed(detail.activities?.data ?? [])) },
   }
 }
 
@@ -410,15 +406,15 @@ async function fetchContactDetail(contactId: Uuid) {
       'updatedAt',
     ],
     include: {
-      contact_organizations: {
+      affiliations: {
         fields: ['id', 'title', 'startedAt', 'endedAt', 'isPrimary'],
         include: { organizations: { fields: ['id', 'name', 'domain', 'status'] } },
         sort: [{ startedAt: { direction: 'desc' } }],
         limit: RELATED_LIMIT,
       },
-      interactions: {
-        fields: INTERACTION_FIELDS,
-        include: INTERACTION_INCLUDE,
+      activities: {
+        fields: ACTIVITY_FIELDS,
+        include: ACTIVITY_INCLUDE,
         sort: [{ occurredAt: { direction: 'desc' } }],
         limit: RELATED_LIMIT,
       },
@@ -428,8 +424,8 @@ async function fetchContactDetail(contactId: Uuid) {
   return {
     ...(await withOwner(detail)),
     id: contactId,
-    contact_organizations: { data: keyed(detail.contact_organizations?.data ?? []) },
-    interactions: { data: await withOwners(keyed(detail.interactions?.data ?? [])) },
+    affiliations: { data: keyed(detail.affiliations?.data ?? []) },
+    activities: { data: await withOwners(keyed(detail.activities?.data ?? [])) },
   }
 }
 
@@ -485,10 +481,10 @@ export async function resolveOrganizations(ids: Array<Uuid>): Promise<Array<Rela
   })
 }
 
-export async function resolveOpportunities(ids: Array<Uuid>): Promise<Array<RelationOption>> {
+export async function resolveDeals(ids: Array<Uuid>): Promise<Array<RelationOption>> {
   if (!ids.length) return []
 
-  const rows = await monospace.opportunities.readMany({
+  const rows = await monospace.deals.readMany({
     fields: ['id', 'title'],
     filter: { id: { _in: ids } },
     limit: ids.length,
@@ -539,7 +535,7 @@ export async function lookupContacts(
     fields: ['id', 'firstName', 'lastName', 'email'],
     filter: whereAll<ContactsFilter>(
       q ? contactSearchFilter(q) : undefined,
-      organizationId ? { contact_organizations: { organizationId } } : undefined,
+      organizationId ? { affiliations: { organizationId } } : undefined,
     ),
     sort: [{ lastName: { direction: 'asc' } }, { firstName: { direction: 'asc' } }],
     limit: LOOKUP_LIMIT,
@@ -552,11 +548,11 @@ export async function lookupContacts(
   })
 }
 
-export async function lookupOpportunities(
+export async function lookupDeals(
   q: string,
   organizationId?: Uuid,
 ): Promise<Array<RelationOption>> {
-  const rows = await monospace.opportunities.readMany({
+  const rows = await monospace.deals.readMany({
     fields: ['id', 'title'],
     include: { organizations: { fields: ['name'] } },
     filter: whereAll<DealsFilter>(
@@ -574,9 +570,9 @@ export async function lookupOpportunities(
   )
 }
 
-async function fetchDealDetail(opportunityId: Uuid) {
-  const detail = await monospace.opportunities.readOne({
-    key: opportunityId,
+async function fetchDealDetail(dealId: Uuid) {
+  const detail = await monospace.deals.readOne({
+    key: dealId,
     fields: [
       'id',
       'title',
@@ -596,9 +592,9 @@ async function fetchDealDetail(opportunityId: Uuid) {
       contacts: { fields: ['id', 'firstName', 'lastName', 'email'] },
       organizations: { fields: ['id', 'name', 'domain', 'industry', 'status', 'portalAccountId'] },
       pipeline_stages: { fields: ['id', 'name', 'position', 'color'] },
-      interactions: {
-        fields: INTERACTION_FIELDS,
-        include: INTERACTION_INCLUDE,
+      activities: {
+        fields: ACTIVITY_FIELDS,
+        include: ACTIVITY_INCLUDE,
         sort: [{ occurredAt: { direction: 'desc' } }],
         limit: RELATED_LIMIT,
       },
@@ -607,19 +603,19 @@ async function fetchDealDetail(opportunityId: Uuid) {
 
   return {
     ...(await withOwner(detail)),
-    id: opportunityId,
-    interactions: { data: await withOwners(keyed(detail.interactions?.data ?? [])) },
+    id: dealId,
+    activities: { data: await withOwners(keyed(detail.activities?.data ?? [])) },
   }
 }
 
-export function dealDetailQuery(opportunityId: Uuid) {
+export function dealDetailQuery(dealId: Uuid) {
   return queryOptions({
-    queryKey: ['opportunities', opportunityId],
-    queryFn: () => fetchDealDetail(opportunityId),
+    queryKey: ['deals', dealId],
+    queryFn: () => fetchDealDetail(dealId),
   })
 }
 
-function interactionSearchFilter(q: string): ActivityFilter {
+function activitySearchFilter(q: string): ActivityFilter {
   return { _or: [{ subject: { _icontains: q } }, { body: { _icontains: q } }] }
 }
 
@@ -636,12 +632,12 @@ async function fetchActivities({
   offset = 0,
   limit = LIST_LIMIT,
 }: ListParams<ActivityFilter> & Page & { view: ActivityView }) {
-  const rows = await monospace.interactions.readMany({
-    fields: INTERACTION_FIELDS,
-    include: INTERACTION_INCLUDE,
+  const rows = await monospace.activities.readMany({
+    fields: ACTIVITY_FIELDS,
+    include: ACTIVITY_INCLUDE,
     filter: whereAll<ActivityFilter>(
       view === 'todo' ? { status: 'open' } : { status: { _neq: 'open' } },
-      q ? interactionSearchFilter(q) : undefined,
+      q ? activitySearchFilter(q) : undefined,
       filter,
     ),
     sort:
@@ -658,7 +654,7 @@ async function fetchActivities({
 export type ActivityRecord = Awaited<ReturnType<typeof fetchActivities>>[number]
 
 export function activityPagesQuery(filters: ListParams<ActivityFilter> & { view: ActivityView }) {
-  return pagesQuery(['interactions', 'pages', filters], (page) =>
+  return pagesQuery(['activities', 'pages', filters], (page) =>
     fetchActivities({ ...filters, ...page }),
   )
 }
@@ -666,13 +662,13 @@ export function activityPagesQuery(filters: ListParams<ActivityFilter> & { view:
 // Every open item's due date, for the triage counts. Cheap enough to take in one page.
 export function openDueDatesQuery(filters: ListParams<ActivityFilter>) {
   return queryOptions({
-    queryKey: ['interactions', 'open-due', filters],
+    queryKey: ['activities', 'open-due', filters],
     queryFn: () =>
-      monospace.interactions.readMany({
+      monospace.activities.readMany({
         fields: ['id', 'dueAt', 'occurredAt'],
         filter: whereAll<ActivityFilter>(
           { status: 'open' },
-          filters.q ? interactionSearchFilter(filters.q) : undefined,
+          filters.q ? activitySearchFilter(filters.q) : undefined,
           filters.filter,
         ),
         limit: 1000,
@@ -681,15 +677,15 @@ export function openDueDatesQuery(filters: ListParams<ActivityFilter>) {
 }
 
 // What happened most recently on the same organization, for context in the detail sheet.
-export function recentInteractionsQuery(organizationId: Uuid, excludeId: Uuid) {
+export function recentActivitiesQuery(organizationId: Uuid, excludeId: Uuid) {
   return queryOptions({
-    queryKey: ['interactions', 'recent', organizationId, excludeId],
+    queryKey: ['activities', 'recent', organizationId, excludeId],
     queryFn: async () =>
       withOwners(
         keyed(
-          await monospace.interactions.readMany({
-            fields: INTERACTION_FIELDS,
-            include: INTERACTION_INCLUDE,
+          await monospace.activities.readMany({
+            fields: ACTIVITY_FIELDS,
+            include: ACTIVITY_INCLUDE,
             filter: {
               _and: [{ organizationId }, { id: { _neq: excludeId } }, { status: { _neq: 'open' } }],
             },

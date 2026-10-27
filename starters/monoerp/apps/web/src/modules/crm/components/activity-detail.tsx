@@ -24,7 +24,7 @@ import { ActivityForm, activityIcons } from '@/modules/crm/components/activity-f
 import { AttachmentsPanel } from '@/modules/crm/components/files/panel'
 import type { LinkedRecord } from '@/modules/crm/components/todo-list'
 import { crmCopy } from '@/modules/crm/crm.copy'
-import { recentInteractionsQuery } from '@/modules/crm/data'
+import { recentActivitiesQuery } from '@/modules/crm/data'
 import type { ActivityRecord } from '@/modules/crm/data'
 import { ContactIcon, DealIcon, OrganizationIcon } from '@/modules/crm/icons'
 import { useCreateActivity, useUpdateActivity } from '@/modules/crm/mutations'
@@ -53,7 +53,7 @@ export function ActivityDetailDrawer({
   // when that record is the organization.
   hide?: ReadonlyArray<LinkedRecord>
 }) {
-  const access = useCollectionAccess('interactions')
+  const access = useCollectionAccess('activities')
 
   const initial =
     row && mode === 'edit' && access.canUpdate('subject') ? toActivityInitial(row) : null
@@ -92,7 +92,7 @@ export function ActivityDetailDrawer({
 }
 
 function describe(row: ActivityRecord, hide: ReadonlyArray<LinkedRecord>) {
-  // SAFETY: interactions.type only holds the select options copy.types is keyed by; unknown values
+  // SAFETY: activities.type only holds the select options copy.types is keyed by; unknown values
   // fall back to the raw type. See docs/monospace.md, known issues.
   const type = copy.types[(row.type ?? 'note') as keyof typeof copy.types] ?? row.type
 
@@ -114,14 +114,14 @@ function DetailView({
   hide: ReadonlyArray<LinkedRecord>
   onClose: () => void
 }) {
-  const access = useCollectionAccess('interactions')
+  const access = useCollectionAccess('activities')
   const update = useUpdateActivity()
   const [at] = useState(() => Date.now())
   const open = isOpen(row)
   const due = row.dueAt ?? row.occurredAt
   const overdue = open && Boolean(due) && new Date(due ?? 0).getTime() < at
   const person = contactName(row)
-  // SAFETY: interactions.status only holds the select options copy.statuses is keyed by; see
+  // SAFETY: activities.status only holds the select options copy.statuses is keyed by; see
   // docs/monospace.md, known issues.
   const status = copy.statuses[(row.status ?? 'completed') as keyof typeof copy.statuses]
 
@@ -154,15 +154,15 @@ function DetailView({
       )}
 
       <Section title={copy.sheet.linked}>
-        {row.opportunities?.id && !hide.includes('deal') ? (
+        {row.deals?.id && !hide.includes('deal') ? (
           <LinkedRow
             icon={<DealIcon />}
             to="/crm/deals/$dealId"
-            params={{ dealId: row.opportunities.id }}
-            primary={row.opportunities.title ?? crmCopy.deals.restricted}
+            params={{ dealId: row.deals.id }}
+            primary={row.deals.title ?? crmCopy.deals.restricted}
             secondary={[
-              row.opportunities.pipeline_stages?.name,
-              formatMoney(row.opportunities.valueAmount, row.opportunities.currency ?? undefined),
+              row.deals.pipeline_stages?.name,
+              formatMoney(row.deals.valueAmount, row.deals.currency ?? undefined),
             ]
               .filter(Boolean)
               .join(' · ')}
@@ -194,12 +194,12 @@ function DetailView({
         <Section title={crmCopy.files.title}>
           <AttachmentsPanel
             variant="inline"
-            scope={{ interactionId: row.id }}
+            scope={{ activityId: row.id }}
             target={{
               organizationId: row.organizations.id,
               contactId: row.contacts?.id,
-              opportunityId: row.opportunities?.id,
-              interactionId: row.id,
+              dealId: row.deals?.id,
+              activityId: row.id,
             }}
             hide={['activity', 'deal', 'contact', 'organization']}
             emptyMessage={crmCopy.files.noFiles(crmCopy.activity.singular)}
@@ -293,7 +293,7 @@ function LinkedRow({
 }
 
 function RecentSection({ organizationId, excludeId }: { organizationId: Uuid; excludeId: Uuid }) {
-  const recent = useQuery(recentInteractionsQuery(organizationId, excludeId))
+  const recent = useQuery(recentActivitiesQuery(organizationId, excludeId))
 
   return (
     <Section title={copy.sheet.recent}>
@@ -330,7 +330,7 @@ function CompleteForm({
   onDone: () => void
   children: ReactNode
 }) {
-  const access = useCollectionAccess('interactions')
+  const access = useCollectionAccess('activities')
   const update = useUpdateActivity()
   const create = useCreateActivity({ notify: false })
   const currentUser = useCurrentUser()
@@ -369,9 +369,7 @@ function CompleteForm({
         completedAt: null,
         organizations: { _connect: { key: { id: row.organizations.id } } },
         contacts: row.contacts?.id ? { _connect: { key: { id: row.contacts.id } } } : undefined,
-        opportunities: row.opportunities?.id
-          ? { _connect: { key: { id: row.opportunities.id } } }
-          : undefined,
+        deals: row.deals?.id ? { _connect: { key: { id: row.deals.id } } } : undefined,
         owner: ownerId ? { _connect: { key: { id: ownerId } } } : undefined,
       })
     }

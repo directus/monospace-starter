@@ -1,22 +1,22 @@
 # Data model
 
-monoERP reads two databases and Stripe. The CRM's PostgreSQL is ours: the app reads and writes it. The customer portal's MySQL belongs to "another team": the app only reads it. Stripe bills the portal's accounts. Monospace joins all three, so one request can return an organization with its portal account, plan, tickets, and Stripe charges.
+monoERP reads two databases and Stripe. The shared PostgreSQL is ours: the app reads and writes it. The customer portal's MySQL belongs to "another team": the app only reads it. Stripe bills the portal's accounts. Monospace joins all three, so one request can return an organization with its portal account, plan, tickets, and Stripe charges.
 
-Collection and field names in the API are camelCase versions of the table and column names (`contact_organizations` becomes `contactOrganizations`, `portal_account_id` becomes `portalAccountId`). Monospace names them that way when it reads the database; the few names set by hand are in the owning module or connector’s `monospace/schema/*.json`.
+Collection and field names in the API are camelCase versions of the table and column names (`portal_account_id` becomes `portalAccountId`). Monospace names them that way when it reads the database; the few names set by hand are in the owning module or connector’s `monospace/schema/*.json`.
 
 ## CRM (PostgreSQL)
 
 Schema: `infra/modules/crm/postgres/init/001_schema.sql`. Every table has a UUID `id` that the database generates. Timestamps are `timestamptz`, and `updated_at` is set by a trigger on update.
 
-| Table                   | What a row is                                                                                                                                                                                                                                                    |
-| ----------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `organizations`         | A company you sell to. `status` is `active`, `prospect`, or `inactive`. `portal_account_id` links it to its portal account, if it has one                                                                                                                        |
-| `contacts`              | A person. `status` is `active` or `former`. A contact isn't tied to one company directly; see the next row                                                                                                                                                       |
-| `contact_organizations` | A contact's time at a company, with title, role, and start and end dates. A contact can have several, current and past. At most one current row per contact is `is_primary`, and a row that has ended can't be primary                                           |
-| `pipeline_stages`       | The deal stages, in order. `position` is a float, so a stage can move between two others without renumbering. `is_closed` and `is_won` decide the generated `status`: `open`, `won`, or `lost`. Edited on the settings page                                      |
-| `opportunities`         | A deal (the UI calls them deals). Belongs to one organization, optionally one contact, and sits in one stage. Its `status` must match its stage's status; a trigger enforces that, and changing a stage's won or closed flags updates its deals                  |
-| `interactions`          | Activity: a `note`, `call`, `meeting`, or `email`, with a status (`open`, `completed`, `cancelled`) and a `due_at` for to-dos. Always belongs to an organization, and can also sit on a contact and a deal. A deal's activity must be on the deal's organization |
-| `attachments`           | A file or a link. `asset_id` is a Monospace file in the `monoerp` workspace; `url` is a link to somewhere else (Drive, a contract tool). Rolls up to an organization like activity does, and can sit on a contact, a deal, or one activity                       |
+| Table             | What a row is                                                                                                                                                                                                                                                    |
+| ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `organizations`   | A company you sell to. `status` is `active`, `prospect`, or `inactive`. `portal_account_id` links it to its portal account, if it has one                                                                                                                        |
+| `contacts`        | A person. `status` is `active` or `former`. A contact isn't tied to one company directly; see the next row                                                                                                                                                       |
+| `affiliations`    | A contact's time at a company, with title, role, and start and end dates. A contact can have several, current and past. At most one current row per contact is `is_primary`, and a row that has ended can't be primary                                           |
+| `pipeline_stages` | The deal stages, in order. `position` is a float, so a stage can move between two others without renumbering. `is_closed` and `is_won` decide the generated `status`: `open`, `won`, or `lost`. Edited on the settings page                                      |
+| `deals`           | A deal. Belongs to one organization, optionally one contact, and sits in one stage. Its `status` must match its stage's status; a trigger enforces that, and changing a stage's won or closed flags updates its deals                                            |
+| `activities`      | Activity: a `note`, `call`, `meeting`, or `email`, with a status (`open`, `completed`, `cancelled`) and a `due_at` for to-dos. Always belongs to an organization, and can also sit on a contact and a deal. A deal's activity must be on the deal's organization |
+| `attachments`     | A file or a link. `asset_id` is a Monospace file in the `monoerp` workspace; `url` is a link to somewhere else (Drive, a contract tool). Rolls up to an organization like activity does, and can sit on a contact, a deal, or one activity                       |
 
 Deleting is restricted on purpose. You can't delete an organization that still has contact history, deals, activity, or attachments, or a contact that still has organization history. A deal with activity can't move to another organization. Deleting a contact clears it from deals, activity, and attachments, and deleting a deal clears it from activity and attachments, rather than deleting those rows.
 
@@ -26,7 +26,7 @@ The database has the `vector` extension (pgvector) but no embedding columns yet.
 
 Most tables have `owner_user_id`, `created_by`, and `updated_by`. They're plain UUID columns in SQL. `pnpm setup:audit-relations` (`infra/monospace/setup/audit-user-relations.mjs`) turns them into relations to Monospace's `MonospaceSystemUser`, exposed as `owner`, `createdBy`, and `updatedBy`. Monospace fills `created_by` on create and `updated_by` on every write with the signed-in user, so the app never sends them.
 
-Users live in Monospace, not in the CRM database. There's no CRM user or role table.
+Users live in Monospace, not in the shared database. There's no CRM user or role table.
 
 ## Customer portal (MySQL)
 
@@ -69,7 +69,7 @@ contacts.email                  -> users.email   (contacts.portalUser, users.con
 accounts.stripe_customer_id     -> customers.id  (accounts.stripeCustomer, stripeCustomers.portalAccount)
 ```
 
-So an organization's page reads `portalAccount` with its subscriptions, plan, and tickets in one request, and its Billing tab reads the account's `stripeCustomer` with its charges in another (`connectors/stripe/frontend/crm/data.ts`). The organization timeline merges CRM `interactions` with portal `events` in the browser; nothing is copied between the databases.
+So an organization's page reads `portalAccount` with its subscriptions, plan, and tickets in one request, and its Billing tab reads the account's `stripeCustomer` with its charges in another (`connectors/stripe/frontend/crm/data.ts`). The organization timeline merges CRM `activities` with portal `events` in the browser; nothing is copied between the databases.
 
 Portal's own relations are renamed to singular names (`tickets.account`, `subscriptions.plan`, and so on) by `connectors/portal/monospace/setup/portal-source-relations.mjs`, even without the CRM module.
 

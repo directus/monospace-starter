@@ -72,7 +72,7 @@ function DealDetailPage() {
   const { dealId } = Route.useParams()
   const navigate = useNavigate()
   const dealQuery = useQuery(dealDetailQuery(dealId))
-  const access = useCollectionAccess('opportunities')
+  const access = useCollectionAccess('deals')
   const stages = useQuery(pipelineStagesQuery())
   const update = useUpdateDeal()
   const attachmentAccess = useCollectionAccess('attachments')
@@ -102,12 +102,12 @@ function DealDetailPage() {
 
   // Every file belongs to an organization, so without a readable one there's nowhere to attach.
   const attachTarget = deal.organizationId
-    ? { organizationId: deal.organizationId, contactId: deal.contactId, opportunityId: dealId }
+    ? { organizationId: deal.organizationId, contactId: deal.contactId, dealId: dealId }
     : undefined
 
   const contact = toContactOption(deal.contacts)
   const dealOption = { value: dealId, label: title }
-  const interactions = deal.interactions?.data ?? []
+  const activities = deal.activities?.data ?? []
 
   const save = async (data: Parameters<typeof update.mutateAsync>[0]['data']) => {
     await update.mutateAsync({ id: dealId, data })
@@ -263,7 +263,7 @@ function DealDetailPage() {
         <RecordTabs
           activity={
             <RecordActivity
-              interactions={interactions}
+              activities={activities}
               defaults={{ organization: organization ?? undefined, deal: dealOption }}
               emptyMessage={crmCopy.deals.noActivity}
               hide={['deal', 'organization']}
@@ -281,7 +281,7 @@ function DealDetailPage() {
           }
           files={
             <AttachmentsPanel
-              scope={{ opportunityId: dealId }}
+              scope={{ dealId: dealId }}
               target={attachTarget}
               hide={['deal', 'organization']}
               emptyMessage={crmCopy.files.noFiles(crmCopy.deals.singular)}

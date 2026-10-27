@@ -32,7 +32,7 @@ CREATE TABLE contacts (
   CONSTRAINT contacts_status_check CHECK (status IN ('active', 'former'))
 );
 
-CREATE TABLE contact_organizations (
+CREATE TABLE affiliations (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   contact_id uuid NOT NULL REFERENCES contacts(id) ON DELETE RESTRICT,
   organization_id uuid NOT NULL REFERENCES organizations(id) ON DELETE RESTRICT,
@@ -45,17 +45,17 @@ CREATE TABLE contact_organizations (
   updated_by uuid,
   created_at timestamptz NOT NULL DEFAULT now(),
   updated_at timestamptz NOT NULL DEFAULT now(),
-  CONSTRAINT contact_organizations_dates_check CHECK (ended_at IS NULL OR started_at IS NULL OR ended_at >= started_at),
-  CONSTRAINT contact_organizations_current_primary_check CHECK (ended_at IS NULL OR NOT is_primary),
-  CONSTRAINT contact_organizations_unique_period UNIQUE NULLS NOT DISTINCT (contact_id, organization_id, started_at)
+  CONSTRAINT affiliations_dates_check CHECK (ended_at IS NULL OR started_at IS NULL OR ended_at >= started_at),
+  CONSTRAINT affiliations_current_primary_check CHECK (ended_at IS NULL OR NOT is_primary),
+  CONSTRAINT affiliations_unique_period UNIQUE NULLS NOT DISTINCT (contact_id, organization_id, started_at)
 );
 
-CREATE UNIQUE INDEX contact_organizations_one_current_primary
-  ON contact_organizations(contact_id)
+CREATE UNIQUE INDEX affiliations_one_current_primary
+  ON affiliations(contact_id)
   WHERE is_primary AND ended_at IS NULL;
 
-CREATE INDEX contact_organizations_organization_idx
-  ON contact_organizations(organization_id);
+CREATE INDEX affiliations_organization_idx
+  ON affiliations(organization_id);
 
 CREATE TABLE pipeline_stages (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -76,7 +76,7 @@ CREATE TABLE pipeline_stages (
   CONSTRAINT pipeline_stages_won_closed_check CHECK (NOT is_won OR is_closed)
 );
 
-CREATE TABLE opportunities (
+CREATE TABLE deals (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   organization_id uuid NOT NULL REFERENCES organizations(id) ON DELETE RESTRICT,
   contact_id uuid REFERENCES contacts(id) ON DELETE SET NULL,
@@ -92,19 +92,19 @@ CREATE TABLE opportunities (
   updated_by uuid,
   created_at timestamptz NOT NULL DEFAULT now(),
   updated_at timestamptz NOT NULL DEFAULT now(),
-  CONSTRAINT opportunities_status_check CHECK (status IN ('open', 'won', 'lost')),
-  CONSTRAINT opportunities_value_check CHECK (value_amount IS NULL OR value_amount >= 0)
+  CONSTRAINT deals_status_check CHECK (status IN ('open', 'won', 'lost')),
+  CONSTRAINT deals_value_check CHECK (value_amount IS NULL OR value_amount >= 0)
 );
 
-CREATE INDEX opportunities_organization_idx ON opportunities(organization_id);
-CREATE INDEX opportunities_contact_idx ON opportunities(contact_id);
-CREATE INDEX opportunities_owner_idx ON opportunities(owner_user_id);
+CREATE INDEX deals_organization_idx ON deals(organization_id);
+CREATE INDEX deals_contact_idx ON deals(contact_id);
+CREATE INDEX deals_owner_idx ON deals(owner_user_id);
 
-CREATE TABLE interactions (
+CREATE TABLE activities (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   organization_id uuid NOT NULL REFERENCES organizations(id) ON DELETE RESTRICT,
   contact_id uuid REFERENCES contacts(id) ON DELETE SET NULL,
-  opportunity_id uuid REFERENCES opportunities(id) ON DELETE SET NULL,
+  deal_id uuid REFERENCES deals(id) ON DELETE SET NULL,
   type varchar(32) NOT NULL,
   status varchar(32) NOT NULL,
   direction varchar(32) NOT NULL DEFAULT 'internal',
@@ -118,26 +118,26 @@ CREATE TABLE interactions (
   updated_by uuid,
   created_at timestamptz NOT NULL DEFAULT now(),
   updated_at timestamptz NOT NULL DEFAULT now(),
-  CONSTRAINT interactions_type_check CHECK (type IN ('note', 'call', 'meeting', 'email')),
-  CONSTRAINT interactions_status_check CHECK (status IN ('open', 'completed', 'cancelled')),
-  CONSTRAINT interactions_direction_check CHECK (direction IN ('inbound', 'outbound', 'internal'))
+  CONSTRAINT activities_type_check CHECK (type IN ('note', 'call', 'meeting', 'email')),
+  CONSTRAINT activities_status_check CHECK (status IN ('open', 'completed', 'cancelled')),
+  CONSTRAINT activities_direction_check CHECK (direction IN ('inbound', 'outbound', 'internal'))
 );
 
-CREATE INDEX interactions_organization_timeline_idx
-  ON interactions(organization_id, occurred_at DESC);
-CREATE INDEX interactions_contact_idx ON interactions(contact_id);
-CREATE INDEX interactions_opportunity_idx ON interactions(opportunity_id);
+CREATE INDEX activities_organization_timeline_idx
+  ON activities(organization_id, occurred_at DESC);
+CREATE INDEX activities_contact_idx ON activities(contact_id);
+CREATE INDEX activities_deal_idx ON activities(deal_id);
 
--- Files uploaded through Monospace storage (asset_id is the MonospaceFile id in the crm
+-- Files uploaded through Monospace storage (asset_id is the MonospaceFile id in the monoerp
 -- workspace) or plain links (url), for things that live in Drive, Dropbox, or a contract
--- tool. Same ownership shape as interactions: every attachment rolls up to an organization
+-- tool. Same ownership shape as activities: every attachment rolls up to an organization
 -- and can also sit on a contact, a deal, or a single activity.
 CREATE TABLE attachments (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   organization_id uuid NOT NULL REFERENCES organizations(id) ON DELETE RESTRICT,
   contact_id uuid REFERENCES contacts(id) ON DELETE SET NULL,
-  opportunity_id uuid REFERENCES opportunities(id) ON DELETE SET NULL,
-  interaction_id uuid REFERENCES interactions(id) ON DELETE SET NULL,
+  deal_id uuid REFERENCES deals(id) ON DELETE SET NULL,
+  activity_id uuid REFERENCES activities(id) ON DELETE SET NULL,
   asset_id uuid UNIQUE,
   url text,
   file_name varchar(255) NOT NULL,
@@ -151,13 +151,13 @@ CREATE TABLE attachments (
 
 CREATE INDEX attachments_organization_idx ON attachments(organization_id, created_at DESC);
 CREATE INDEX attachments_contact_idx ON attachments(contact_id);
-CREATE INDEX attachments_opportunity_idx ON attachments(opportunity_id);
-CREATE INDEX attachments_interaction_idx ON attachments(interaction_id);
+CREATE INDEX attachments_deal_idx ON attachments(deal_id);
+CREATE INDEX attachments_activity_idx ON attachments(activity_id);
 
 CREATE INDEX organizations_owner_idx ON organizations(owner_user_id);
 CREATE INDEX contacts_owner_idx ON contacts(owner_user_id);
 
-CREATE FUNCTION enforce_opportunity_stage_status()
+CREATE FUNCTION enforce_deal_stage_status()
 RETURNS trigger
 LANGUAGE plpgsql
 AS $$
@@ -175,7 +175,7 @@ BEGIN
   END IF;
 
   IF NEW.status <> stage_status THEN
-    RAISE EXCEPTION 'opportunity status % does not match stage status %', NEW.status, stage_status
+    RAISE EXCEPTION 'deal status % does not match stage status %', NEW.status, stage_status
       USING ERRCODE = '23514';
   END IF;
 
@@ -183,9 +183,9 @@ BEGIN
 END;
 $$;
 
-CREATE TRIGGER opportunities_enforce_stage_status
-  BEFORE INSERT OR UPDATE ON opportunities
-  FOR EACH ROW EXECUTE FUNCTION enforce_opportunity_stage_status();
+CREATE TRIGGER deals_enforce_stage_status
+  BEFORE INSERT OR UPDATE ON deals
+  FOR EACH ROW EXECUTE FUNCTION enforce_deal_stage_status();
 
 CREATE FUNCTION propagate_pipeline_stage_status()
 RETURNS trigger
@@ -193,7 +193,7 @@ LANGUAGE plpgsql
 AS $$
 BEGIN
   IF NEW.status IS DISTINCT FROM OLD.status THEN
-    UPDATE opportunities
+    UPDATE deals
     SET status = NEW.status
     WHERE stage_id = NEW.id;
   END IF;
@@ -206,29 +206,29 @@ CREATE TRIGGER pipeline_stages_propagate_status
   AFTER UPDATE OF is_closed, is_won ON pipeline_stages
   FOR EACH ROW EXECUTE FUNCTION propagate_pipeline_stage_status();
 
-CREATE FUNCTION enforce_interaction_opportunity_organization()
+CREATE FUNCTION enforce_activity_deal_organization()
 RETURNS trigger
 LANGUAGE plpgsql
 AS $$
 DECLARE
-  opportunity_organization_id uuid;
+  deal_organization_id uuid;
 BEGIN
-  IF NEW.opportunity_id IS NULL THEN
+  IF NEW.deal_id IS NULL THEN
     RETURN NEW;
   END IF;
 
-  SELECT organization_id INTO opportunity_organization_id
-  FROM opportunities
-  WHERE id = NEW.opportunity_id
+  SELECT organization_id INTO deal_organization_id
+  FROM deals
+  WHERE id = NEW.deal_id
   FOR SHARE;
 
   IF NOT FOUND THEN
-    RAISE EXCEPTION 'opportunity % does not exist', NEW.opportunity_id
+    RAISE EXCEPTION 'deal % does not exist', NEW.deal_id
       USING ERRCODE = '23503';
   END IF;
 
-  IF NEW.organization_id <> opportunity_organization_id THEN
-    RAISE EXCEPTION 'interaction organization does not match opportunity organization'
+  IF NEW.organization_id <> deal_organization_id THEN
+    RAISE EXCEPTION 'activity organization does not match deal organization'
       USING ERRCODE = '23514';
   END IF;
 
@@ -236,11 +236,11 @@ BEGIN
 END;
 $$;
 
-CREATE TRIGGER interactions_enforce_opportunity_organization
-  BEFORE INSERT OR UPDATE ON interactions
-  FOR EACH ROW EXECUTE FUNCTION enforce_interaction_opportunity_organization();
+CREATE TRIGGER activities_enforce_deal_organization
+  BEFORE INSERT OR UPDATE ON activities
+  FOR EACH ROW EXECUTE FUNCTION enforce_activity_deal_organization();
 
-CREATE FUNCTION prevent_opportunity_organization_change()
+CREATE FUNCTION prevent_deal_organization_change()
 RETURNS trigger
 LANGUAGE plpgsql
 AS $$
@@ -250,12 +250,12 @@ BEGIN
   END IF;
 
   PERFORM 1
-  FROM interactions
-  WHERE opportunity_id = OLD.id
+  FROM activities
+  WHERE deal_id = OLD.id
   FOR SHARE;
 
   IF FOUND THEN
-    RAISE EXCEPTION 'cannot move an opportunity with linked interactions to another organization'
+    RAISE EXCEPTION 'cannot move a deal with linked activities to another organization'
       USING ERRCODE = '23514';
   END IF;
 
@@ -263,9 +263,9 @@ BEGIN
 END;
 $$;
 
-CREATE TRIGGER opportunities_prevent_organization_change
-  BEFORE UPDATE OF organization_id ON opportunities
-  FOR EACH ROW EXECUTE FUNCTION prevent_opportunity_organization_change();
+CREATE TRIGGER deals_prevent_organization_change
+  BEFORE UPDATE OF organization_id ON deals
+  FOR EACH ROW EXECUTE FUNCTION prevent_deal_organization_change();
 
 CREATE TRIGGER organizations_set_updated_at
   BEFORE UPDATE ON organizations
@@ -273,14 +273,14 @@ CREATE TRIGGER organizations_set_updated_at
 CREATE TRIGGER contacts_set_updated_at
   BEFORE UPDATE ON contacts
   FOR EACH ROW EXECUTE FUNCTION set_updated_at();
-CREATE TRIGGER contact_organizations_set_updated_at
-  BEFORE UPDATE ON contact_organizations
+CREATE TRIGGER affiliations_set_updated_at
+  BEFORE UPDATE ON affiliations
   FOR EACH ROW EXECUTE FUNCTION set_updated_at();
-CREATE TRIGGER opportunities_set_updated_at
-  BEFORE UPDATE ON opportunities
+CREATE TRIGGER deals_set_updated_at
+  BEFORE UPDATE ON deals
   FOR EACH ROW EXECUTE FUNCTION set_updated_at();
-CREATE TRIGGER interactions_set_updated_at
-  BEFORE UPDATE ON interactions
+CREATE TRIGGER activities_set_updated_at
+  BEFORE UPDATE ON activities
   FOR EACH ROW EXECUTE FUNCTION set_updated_at();
 
 COMMIT;

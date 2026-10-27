@@ -67,10 +67,10 @@ import { http, HttpResponse } from 'msw'
 import { worker } from '@/test/msw'
 
 worker.use(
-  http.patch('/api/monoerp/items/interactions/:id', async ({ params, request }) => {
+  http.patch('/api/monoerp/items/activities/:id', async ({ params, request }) => {
     writes.push({
       id: String(params.id),
-      data: interactionsUpdateSchema.parse(await request.json()),
+      data: activitiesUpdateSchema.parse(await request.json()),
     })
 
     return HttpResponse.json({ data: { id: params.id } })

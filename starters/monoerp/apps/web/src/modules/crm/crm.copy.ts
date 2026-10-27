@@ -1,5 +1,5 @@
 // User-facing copy for the CRM module. Shared/shell copy lives in lib/app.copy.ts.
-// Naming: "deals" not "opportunities", "activity" not "interactions" or "timeline".
+// Use deals, activities, and affiliations throughout the UI and data layer.
 
 export const crmCopy = {
   module: {
@@ -153,7 +153,7 @@ export const crmCopy = {
   deals: {
     title: 'Deals',
     singular: 'Deal',
-    keywords: ['opportunities', 'pipeline'],
+    keywords: ['deals', 'pipeline'],
     restricted: 'Restricted deal',
     restrictedStage: 'Restricted stage',
     stage: 'Stage',

@@ -25,7 +25,7 @@ import { ownerOption } from '@/lib/users'
 import { lookupUsers } from '@/lib/users'
 import { filterRelationOptions } from '@/modules/crm/activity'
 import { crmCopy } from '@/modules/crm/crm.copy'
-import { lookupContacts, lookupOpportunities, lookupOrganizations } from '@/modules/crm/data'
+import { lookupContacts, lookupDeals, lookupOrganizations } from '@/modules/crm/data'
 import { useCreateActivity, useUpdateActivity } from '@/modules/crm/mutations'
 
 const copy = crmCopy.activity
@@ -121,7 +121,7 @@ function ActivityDrawer({
 }
 
 export function LogActivityButton(props: { defaults?: ActivityDefaults }) {
-  const access = useCollectionAccess('interactions')
+  const access = useCollectionAccess('activities')
 
   if (!access.create) return null
 
@@ -154,7 +154,7 @@ export function ActivityForm({
   const currentUser = useCurrentUser()
 
   const defaultValues: ActivityValues = {
-    // SAFETY: interactions.type only holds ActivityType values, but Monospace types it as a plain
+    // SAFETY: activities.type only holds ActivityType values, but Monospace types it as a plain
     // string; see docs/monospace.md, known issues.
     type: (initial?.type ?? defaults?.type ?? 'call') as ActivityType,
     subject: initial?.subject ?? '',
@@ -196,7 +196,7 @@ export function ActivityForm({
               ...base,
               organizationId: value.organization.value,
               contactId: value.contact?.value ?? null,
-              opportunityId: value.deal?.value ?? null,
+              dealId: value.deal?.value ?? null,
               ownerUserId: value.owner?.value ?? null,
             },
           })
@@ -207,7 +207,7 @@ export function ActivityForm({
             contacts: value.contact
               ? { _connect: { key: { id: value.contact.value } } }
               : undefined,
-            opportunities: value.deal ? { _connect: { key: { id: value.deal.value } } } : undefined,
+            deals: value.deal ? { _connect: { key: { id: value.deal.value } } } : undefined,
             owner: value.owner ? { _connect: { key: { id: value.owner.value } } } : undefined,
           })
         }
@@ -225,10 +225,7 @@ export function ActivityForm({
     [organizationId],
   )
 
-  const searchDeals = useCallback(
-    (q: string) => lookupOpportunities(q, organizationId),
-    [organizationId],
-  )
+  const searchDeals = useCallback((q: string) => lookupDeals(q, organizationId), [organizationId])
 
   const searchOrganizations = useCallback(
     (q: string) => {

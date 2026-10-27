@@ -69,7 +69,7 @@ export function ActivityRow({
   when?: string
   handlers: RowHandlers
 }) {
-  const access = useCollectionAccess('interactions')
+  const access = useCollectionAccess('activities')
   const update = useUpdateActivity()
   const Icon = activityIcons[row.type ?? 'note'] ?? CalendarDays
 
@@ -186,7 +186,7 @@ export function ActivityRow({
 // already is. Two at most, and the second only once the list is wide enough. Same look for
 // every kind: small avatar or logo, then name.
 function ContextPills({ row, hide }: { row: ActivityRecord; hide: ReadonlyArray<LinkedRecord> }) {
-  const deal = row.opportunities
+  const deal = row.deals
   const organization = row.organizations
   const contact = row.contacts
 

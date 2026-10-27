@@ -29,7 +29,7 @@ export function StageStepper({
   onSelect: (stage: PipelineStage) => void
 }) {
   const open = stages.filter((stage) => !stage.isClosed)
-  const access = useCollectionAccess('opportunities')
+  const access = useCollectionAccess('deals')
   const canMove = access.canUpdate('stageId') && access.canUpdate('status')
   const current = stages.find((stage) => stage.id === currentStageId)
   const outcome = current?.isClosed ? current : undefined

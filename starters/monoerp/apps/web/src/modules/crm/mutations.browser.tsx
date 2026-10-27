@@ -5,7 +5,7 @@ import { afterEach, describe, expect, it } from 'vitest'
 import { page } from 'vitest/browser'
 
 import { Toaster } from '@/components/ui/sonner'
-import { interactionsUpdateSchema } from '@/generated/monospace/schemas'
+import { activitiesUpdateSchema } from '@/generated/monospace/schemas'
 import { useUpdateActivity } from '@/modules/crm/mutations'
 import { worker } from '@/test/msw'
 
@@ -36,10 +36,10 @@ describe('activity completion', () => {
     const writes: Array<{ id: string; data: object }> = []
 
     worker.use(
-      http.patch('/api/monoerp/items/interactions/:id', async ({ params, request }) => {
+      http.patch('/api/monoerp/items/activities/:id', async ({ params, request }) => {
         writes.push({
           id: String(params.id),
-          data: interactionsUpdateSchema.parse(await request.json()),
+          data: activitiesUpdateSchema.parse(await request.json()),
         })
 
         return HttpResponse.json({ data: { id: params.id } })

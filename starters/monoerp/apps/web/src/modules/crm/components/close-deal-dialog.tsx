@@ -40,8 +40,8 @@ export function CloseDealDialog({
     notes: string
   }) => void | Promise<void>
 }) {
-  const access = useCollectionAccess('opportunities')
-  const activityAccess = useCollectionAccess('interactions')
+  const access = useCollectionAccess('deals')
+  const activityAccess = useCollectionAccess('activities')
 
   const form = useAppForm({
     defaultValues: {

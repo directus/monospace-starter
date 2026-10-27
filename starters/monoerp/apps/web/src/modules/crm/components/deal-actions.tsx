@@ -35,7 +35,7 @@ export function DealActions({
   // Extra menu items, placed before Delete.
   children?: ReactNode
 }) {
-  const access = useCollectionAccess('opportunities')
+  const access = useCollectionAccess('deals')
   const canMove = access.canUpdate('stageId') && access.canUpdate('status')
   const current = stages.find((stage) => stage.id === currentStageId)
   const won = stages.find((stage) => stage.isWon)

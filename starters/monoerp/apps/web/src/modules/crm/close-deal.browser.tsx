@@ -6,7 +6,7 @@ import { afterEach, describe, expect, it } from 'vitest'
 import { page } from 'vitest/browser'
 import { z } from 'zod'
 
-import { interactionsCreateSchema, opportunitiesUpdateSchema } from '@/generated/monospace/schemas'
+import { activitiesCreateSchema, dealsUpdateSchema } from '@/generated/monospace/schemas'
 import { sessionQuery } from '@/lib/auth'
 import { collectionPermissions, collectionPermissionsQuery } from '@/lib/permissions'
 import { CloseDealDialog } from '@/modules/crm/components/close-deal-dialog'
@@ -56,8 +56,8 @@ describe('closing a deal', () => {
       http.get('/api/monoerp/roles/:id/policies', () =>
         HttpResponse.json({ data: [{ access: 'admin' }].map((content) => ({ content })) }),
       ),
-      http.patch('/api/monoerp/items/opportunities/:id', async ({ request }) => {
-        const data = opportunitiesUpdateSchema.parse(await request.json())
+      http.patch('/api/monoerp/items/deals/:id', async ({ request }) => {
+        const data = dealsUpdateSchema.parse(await request.json())
         expect(data).toMatchObject({
           stageId: id,
           status: 'won',
@@ -68,8 +68,8 @@ describe('closing a deal', () => {
 
         return HttpResponse.json({ data: { id } })
       }),
-      http.post('/api/monoerp/items/interactions', async ({ request }) => {
-        const [data] = z.array(interactionsCreateSchema).parse(await request.json())
+      http.post('/api/monoerp/items/activities', async ({ request }) => {
+        const [data] = z.array(activitiesCreateSchema).parse(await request.json())
         expect(data).toMatchObject({
           type: 'note',
           status: 'completed',
@@ -88,7 +88,7 @@ describe('closing a deal', () => {
       avatarId: null,
     })
 
-    for (const collection of ['opportunities', 'interactions']) {
+    for (const collection of ['deals', 'activities']) {
       client.setQueryData(
         collectionPermissionsQuery(id, collection).queryKey,
         collectionPermissions([{ access: 'admin' }], collection),

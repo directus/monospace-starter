@@ -36,7 +36,7 @@ const counts = (host) => {
             '-d',
             'app',
             '-Atc',
-            "select 'organizations=' || (select count(*) from organizations) || ' contacts=' || (select count(*) from contacts) || ' interactions=' || (select count(*) from interactions)",
+            "select 'organizations=' || (select count(*) from organizations) || ' contacts=' || (select count(*) from contacts) || ' activities=' || (select count(*) from activities)",
           ],
         },
       ],

@@ -117,7 +117,7 @@ Copy `apps/web/src/modules/crm/search.ts`: a small `readMany` per record type wi
 
 ## Copy
 
-All user-facing text for a module lives in `modules/<id>/<id>.copy.ts` (`crmCopy` in `modules/crm/crm.copy.ts`). Shell and shared text is in `lib/app.copy.ts`, shared settings text in `settings/settings.copy.ts`, and module settings text in `modules/<id>/settings/settings.copy.ts`. The app module entry uses the copy file. The JSON manifest label and description describe choices during app creation. The comment at the top of `crm.copy.ts` sets the CRM's naming ("deals", not "opportunities"); a new module should state its own.
+All user-facing text for a module lives in `modules/<id>/<id>.copy.ts` (`crmCopy` in `modules/crm/crm.copy.ts`). Shell and shared text is in `lib/app.copy.ts`, shared settings text in `settings/settings.copy.ts`, and module settings text in `modules/<id>/settings/settings.copy.ts`. The app module entry uses the copy file. The JSON manifest label and description describe choices during app creation. The comment at the top of `crm.copy.ts` sets the CRM's naming ("deals", not "deals"); a new module should state its own.
 
 ## Optional connector UI
 

@@ -10,8 +10,8 @@ describe('related record refresh', () => {
     for (const group of [
       'contacts',
       'organizations',
-      'opportunities',
-      'interactions',
+      'deals',
+      'activities',
       'attachments',
       'command-palette',
       'unrelated',
@@ -24,8 +24,8 @@ describe('related record refresh', () => {
     for (const group of [
       'contacts',
       'organizations',
-      'opportunities',
-      'interactions',
+      'deals',
+      'activities',
       'attachments',
       'command-palette',
     ]) {
@@ -38,9 +38,9 @@ describe('related record refresh', () => {
   it('refreshes board stages along with record queries after pipeline edits', async () => {
     const client = new QueryClient()
     client.setQueryData(['pipelineStages'], [])
-    client.setQueryData(['opportunities', 'pages'], [])
+    client.setQueryData(['deals', 'pages'], [])
     await refreshCrm(client, { pipelineStages: true })
     expect(client.getQueryState(['pipelineStages'])?.isInvalidated).toBe(true)
-    expect(client.getQueryState(['opportunities', 'pages'])?.isInvalidated).toBe(true)
+    expect(client.getQueryState(['deals', 'pages'])?.isInvalidated).toBe(true)
   })
 })

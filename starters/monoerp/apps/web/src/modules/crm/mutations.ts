@@ -4,27 +4,27 @@ import { toast } from 'sonner'
 import type {
   Uuid,
   attachmentsCreateOneInput,
-  contactOrganizationsCreateOneInput,
-  contactOrganizationsUpdateOneInput,
+  affiliationsCreateOneInput,
+  affiliationsUpdateOneInput,
   contactsCreateOneInput,
   contactsUpdateOneInput,
-  interactionsCreateOneInput,
-  interactionsUpdateOneInput,
-  opportunitiesCreateOneInput,
-  opportunitiesUpdateOneInput,
+  activitiesCreateOneInput,
+  activitiesUpdateOneInput,
+  dealsCreateOneInput,
+  dealsUpdateOneInput,
   organizationsCreateOneInput,
   organizationsUpdateOneInput,
 } from '@/generated/monospace'
 import {
   attachmentsCreateSchema,
-  contactOrganizationsCreateSchema,
-  contactOrganizationsUpdateSchema,
+  affiliationsCreateSchema,
+  affiliationsUpdateSchema,
   contactsCreateSchema,
   contactsUpdateSchema,
-  interactionsCreateSchema,
-  interactionsUpdateSchema,
-  opportunitiesCreateSchema,
-  opportunitiesUpdateSchema,
+  activitiesCreateSchema,
+  activitiesUpdateSchema,
+  dealsCreateSchema,
+  dealsUpdateSchema,
   organizationsCreateSchema,
   organizationsUpdateSchema,
 } from '@/generated/monospace/schemas'
@@ -43,12 +43,8 @@ function connectTarget(target: AttachmentTarget) {
   return {
     organizations: { _connect: { key: { id: target.organizationId } } },
     contacts: target.contactId ? { _connect: { key: { id: target.contactId } } } : undefined,
-    opportunities: target.opportunityId
-      ? { _connect: { key: { id: target.opportunityId } } }
-      : undefined,
-    interactions: target.interactionId
-      ? { _connect: { key: { id: target.interactionId } } }
-      : undefined,
+    deals: target.dealId ? { _connect: { key: { id: target.dealId } } } : undefined,
+    activities: target.activityId ? { _connect: { key: { id: target.activityId } } } : undefined,
   }
 }
 
@@ -238,9 +234,9 @@ export function useCreateAffiliation() {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: (input: contactOrganizationsCreateOneInput) =>
-      monospace.contactOrganizations.createOne({
-        data: contactOrganizationsCreateSchema.parse(input),
+    mutationFn: (input: affiliationsCreateOneInput) =>
+      monospace.affiliations.createOne({
+        data: affiliationsCreateSchema.parse(input),
         fields: ['id'],
       }),
     onSuccess: async () => {
@@ -254,10 +250,10 @@ export function useUpdateAffiliation() {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: ({ id, data }: Update<contactOrganizationsUpdateOneInput>) =>
-      monospace.contactOrganizations.updateOne({
+    mutationFn: ({ id, data }: Update<affiliationsUpdateOneInput>) =>
+      monospace.affiliations.updateOne({
         key: id,
-        data: contactOrganizationsUpdateSchema.parse(data),
+        data: affiliationsUpdateSchema.parse(data),
         fields: ['id'],
       }),
     onSuccess: async () => {
@@ -271,7 +267,7 @@ export function useDeleteAffiliation() {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: (id: Uuid) => monospace.contactOrganizations.deleteOne({ key: id, fields: ['id'] }),
+    mutationFn: (id: Uuid) => monospace.affiliations.deleteOne({ key: id, fields: ['id'] }),
     onSuccess: async () => {
       toast.success(appCopy.toast.deleted(crmCopy.contacts.affiliations.singular))
       await refreshCrm(queryClient)
@@ -283,9 +279,9 @@ export function useCreateDeal() {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: (input: opportunitiesCreateOneInput) =>
-      monospace.opportunities.createOne({
-        data: opportunitiesCreateSchema.parse(input),
+    mutationFn: (input: dealsCreateOneInput) =>
+      monospace.deals.createOne({
+        data: dealsCreateSchema.parse(input),
         fields: ['id'],
       }),
     onSuccess: async () => {
@@ -299,10 +295,10 @@ export function useUpdateDeal({ notify = true }: { notify?: boolean } = {}) {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: ({ id, data }: Update<opportunitiesUpdateOneInput>) =>
-      monospace.opportunities.updateOne({
+    mutationFn: ({ id, data }: Update<dealsUpdateOneInput>) =>
+      monospace.deals.updateOne({
         key: id,
-        data: opportunitiesUpdateSchema.parse(data),
+        data: dealsUpdateSchema.parse(data),
         fields: ['id'],
       }),
     onSuccess: async () => {
@@ -316,7 +312,7 @@ export function useDeleteDeal() {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: (id: Uuid) => monospace.opportunities.deleteOne({ key: id, fields: ['id'] }),
+    mutationFn: (id: Uuid) => monospace.deals.deleteOne({ key: id, fields: ['id'] }),
     onSuccess: async () => {
       toast.success(appCopy.toast.deleted(crmCopy.deals.singular))
       await refreshCrm(queryClient)
@@ -405,10 +401,10 @@ export function useUpdateManyDeals() {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: ({ ids, data }: { ids: Array<Uuid>; data: opportunitiesUpdateOneInput }) =>
-      monospace.opportunities.updateMany({
+    mutationFn: ({ ids, data }: { ids: Array<Uuid>; data: dealsUpdateOneInput }) =>
+      monospace.deals.updateMany({
         filter: { id: { _in: ids } },
-        data: opportunitiesUpdateSchema.parse(data),
+        data: dealsUpdateSchema.parse(data),
         fields: ['id'],
       }),
     onSuccess: async (_result, { ids }) => {
@@ -423,7 +419,7 @@ export function useDeleteManyDeals() {
 
   return useMutation({
     mutationFn: (ids: Array<Uuid>) =>
-      deleteEach(ids, (id) => monospace.opportunities.deleteOne({ key: id, fields: ['id'] })),
+      deleteEach(ids, (id) => monospace.deals.deleteOne({ key: id, fields: ['id'] })),
     onSuccess: async (result) => {
       reportBulkDelete(result, crmCopy.deals.title)
       await refreshCrm(queryClient)
@@ -435,9 +431,9 @@ export function useCreateActivity({ notify = true }: { notify?: boolean } = {}) 
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: (input: interactionsCreateOneInput) =>
-      monospace.interactions.createOne({
-        data: interactionsCreateSchema.parse(input),
+    mutationFn: (input: activitiesCreateOneInput) =>
+      monospace.activities.createOne({
+        data: activitiesCreateSchema.parse(input),
         fields: ['id'],
       }),
     onSuccess: async () => {
@@ -451,10 +447,10 @@ export function useUpdateActivity() {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: ({ id, data }: Update<interactionsUpdateOneInput>) =>
-      monospace.interactions.updateOne({
+    mutationFn: ({ id, data }: Update<activitiesUpdateOneInput>) =>
+      monospace.activities.updateOne({
         key: id,
-        data: interactionsUpdateSchema.parse(data),
+        data: activitiesUpdateSchema.parse(data),
         fields: ['id'],
       }),
     onSuccess: async (_result, { id, data }) => {
@@ -464,9 +460,9 @@ export function useUpdateActivity() {
             label: appCopy.toast.undo,
             onClick: async (event) => {
               try {
-                await monospace.interactions.updateOne({
+                await monospace.activities.updateOne({
                   key: id,
-                  data: interactionsUpdateSchema.parse({ status: 'open', completedAt: null }),
+                  data: activitiesUpdateSchema.parse({ status: 'open', completedAt: null }),
                   fields: ['id'],
                 })
                 await refreshCrm(queryClient)
@@ -491,7 +487,7 @@ export function useDeleteActivity() {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: (id: Uuid) => monospace.interactions.deleteOne({ key: id, fields: ['id'] }),
+    mutationFn: (id: Uuid) => monospace.activities.deleteOne({ key: id, fields: ['id'] }),
     onSuccess: async () => {
       toast.success(appCopy.toast.deleted(crmCopy.activity.singular))
       await refreshCrm(queryClient)
@@ -504,10 +500,10 @@ export function useUpdateManyActivities() {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: ({ ids, data }: { ids: Array<Uuid>; data: interactionsUpdateOneInput }) =>
-      monospace.interactions.updateMany({
+    mutationFn: ({ ids, data }: { ids: Array<Uuid>; data: activitiesUpdateOneInput }) =>
+      monospace.activities.updateMany({
         filter: { id: { _in: ids } },
-        data: interactionsUpdateSchema.parse(data),
+        data: activitiesUpdateSchema.parse(data),
         fields: ['id'],
       }),
     onSuccess: async (_result, { ids }) => {
@@ -522,7 +518,7 @@ export function useDeleteManyActivities() {
 
   return useMutation({
     mutationFn: (ids: Array<Uuid>) =>
-      monospace.interactions.deleteMany({
+      monospace.activities.deleteMany({
         filter: { id: { _in: ids } },
         fields: ['id'],
       }),
@@ -535,7 +531,7 @@ export function useDeleteManyActivities() {
 
 // The database allows one current primary affiliation per contact, so demote the rest first.
 export async function clearPrimaryAffiliation(contactId: Uuid, exceptId?: Uuid) {
-  await monospace.contactOrganizations.updateMany({
+  await monospace.affiliations.updateMany({
     filter: {
       _and: [
         { contactId: contactId },
@@ -549,7 +545,7 @@ export async function clearPrimaryAffiliation(contactId: Uuid, exceptId?: Uuid) 
 }
 
 export function useCloseDeal() {
-  const access = useCollectionAccess('opportunities')
+  const access = useCollectionAccess('deals')
   const queryClient = useQueryClient()
 
   return useMutation({
@@ -569,9 +565,9 @@ export function useCloseDeal() {
       closeDate: string
       notes: string
     }) => {
-      await monospace.opportunities.updateOne({
+      await monospace.deals.updateOne({
         key: id,
-        data: opportunitiesUpdateSchema.parse({
+        data: dealsUpdateSchema.parse({
           stageId: stage.id,
           status: statusForStage(stage),
           valueAmount: access.canUpdate('valueAmount') ? valueAmount : undefined,
@@ -583,8 +579,8 @@ export function useCloseDeal() {
       // A hidden organization leaves nowhere to file the note. The close itself still works.
       if (notes && organizationId) {
         const occurredAt = new Date().toISOString()
-        await monospace.interactions.createOne({
-          data: interactionsCreateSchema.parse({
+        await monospace.activities.createOne({
+          data: activitiesCreateSchema.parse({
             type: 'note',
             status: 'completed',
             direction: 'internal',
@@ -596,7 +592,7 @@ export function useCloseDeal() {
             completedAt: occurredAt,
             dueAt: null,
             organizations: { _connect: { key: { id: organizationId } } },
-            opportunities: { _connect: { key: { id } } },
+            deals: { _connect: { key: { id } } },
           }),
           fields: ['id'],
         })

@@ -24,10 +24,10 @@ const row: ActivityRecord = {
   owner: null,
   organizationId: null,
   contactId: null,
-  opportunityId: null,
+  dealId: null,
   organizations: null,
   contacts: null,
-  opportunities: null,
+  deals: null,
   attachments: { data: [] },
 }
 

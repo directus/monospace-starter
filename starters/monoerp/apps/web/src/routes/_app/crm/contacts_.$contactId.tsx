@@ -77,9 +77,9 @@ function ContactDetailPage() {
   const navigate = useNavigate()
   const contactQuery = useQuery(contactDetailQuery(contactId))
   const access = useCollectionAccess('contacts')
-  const affiliationAccess = useCollectionAccess('contactOrganizations')
+  const affiliationAccess = useCollectionAccess('affiliations')
   const organizationAccess = useCollectionAccess('organizations')
-  const dealAccess = useCollectionAccess('opportunities')
+  const dealAccess = useCollectionAccess('deals')
 
   const history = useQueries({
     queries: contactPanels.map((panel) => panel.historyQuery({ email: contactQuery.data?.email })),
@@ -109,8 +109,8 @@ function ContactDetailPage() {
   }
 
   const contact = contactQuery.data
-  const affiliations = contact.contact_organizations?.data ?? []
-  const interactions = contact.interactions?.data ?? []
+  const affiliations = contact.affiliations?.data ?? []
+  const activities = contact.activities?.data ?? []
   const extraEntries = history.flatMap((query) => query.data ?? [])
   const name = `${contact.firstName ?? crmCopy.contacts.restrictedName.first} ${contact.lastName ?? crmCopy.contacts.restrictedName.last}`
   const groups = groupAffiliations(affiliations, (row) => row.organizations?.id)
@@ -405,7 +405,7 @@ function ContactDetailPage() {
         <RecordTabs
           activity={
             <RecordActivity
-              interactions={interactions}
+              activities={activities}
               extraEntries={extraEntries}
               defaults={{
                 contact: contactOption,

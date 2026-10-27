@@ -97,6 +97,8 @@ With a key, Monospace checks in with `licensing.monospace.io` at startup. An onl
 
 ## Known Monospace issues and workarounds
 
+**Recursive SDK query inference can exceed the compiler depth limit.** Check a named argument object with its generated `ReadManyArgs` type, then supply `readMany<typeof args>(args)`. Portal's user lookup in `connectors/portal/frontend/crm/data.ts` demonstrates this while retaining generated argument and result checks.
+
 **Empty workspaces:** CLI 0.2.1 emits an unused private type namespace when there are no collection mappings. `patches/@monospace__cli@0.2.1.patch` exports that namespace only for the empty case. Remove the patch when the CLI fixes this upstream. Core creates its client with the SDK factory and the generated `Schema`, which exists even without collections. Our write-schema generator emits an empty module when there are no write collections.
 
 Each of these has a workaround in the code. When a fix ships in Monospace, remove the workaround.

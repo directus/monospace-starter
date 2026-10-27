@@ -134,8 +134,8 @@ function CurrencyCharts({ deals, currency }: { deals: Array<DealRow>; currency: 
 function groupPipelineByStage(deals: Array<DealRow>) {
   const stages = new Map<string, PipelineStageRow>()
 
-  for (const opportunity of deals) {
-    const stage = opportunity.pipeline_stages
+  for (const deal of deals) {
+    const stage = deal.pipeline_stages
     const id = stage?.id ?? stage?.name ?? 'restricted-stage'
 
     const existing = stages.get(id) ?? {
@@ -146,7 +146,7 @@ function groupPipelineByStage(deals: Array<DealRow>) {
       count: 0,
     }
 
-    existing.value += numericValue(opportunity.valueAmount)
+    existing.value += numericValue(deal.valueAmount)
     existing.count += 1
     stages.set(id, existing)
   }
@@ -157,10 +157,10 @@ function groupPipelineByStage(deals: Array<DealRow>) {
 function groupOpenPipelineByMonth(deals: Array<DealRow>) {
   const months = new Map<string, ForecastMonthRow>()
 
-  for (const opportunity of deals) {
-    if (opportunity.status !== 'open' || !opportunity.expectedCloseDate) continue
+  for (const deal of deals) {
+    if (deal.status !== 'open' || !deal.expectedCloseDate) continue
 
-    const id = opportunity.expectedCloseDate.slice(0, 7)
+    const id = deal.expectedCloseDate.slice(0, 7)
 
     const existing = months.get(id) ?? {
       id,
@@ -170,7 +170,7 @@ function groupOpenPipelineByMonth(deals: Array<DealRow>) {
       count: 0,
     }
 
-    existing.value += numericValue(opportunity.valueAmount)
+    existing.value += numericValue(deal.valueAmount)
     existing.count += 1
     months.set(id, existing)
   }

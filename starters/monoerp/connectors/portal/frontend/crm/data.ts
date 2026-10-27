@@ -1,5 +1,6 @@
 import { queryOptions } from '@tanstack/react-query'
 
+import type { usersReadManyArgs } from '@/generated/monospace'
 import { isMissingFromWorkspace } from '@/lib/errors'
 import { monospace } from '@/lib/monospace'
 
@@ -109,8 +110,9 @@ export function portalAccountQuery(accountId: string | null | undefined) {
 // The contact's own login in the customer portal, matched by email (the same match as the
 // `contacts.portalUser` relation). Loaded on its own for the same reason as the account: the
 // CRM half of the page never waits on MySQL.
+// Check recursive query arguments separately from SDK result inference.
 async function fetchPortalUser(email: string) {
-  const [user] = await monospace.users.readMany({
+  const args = {
     filter: { email },
     limit: 1,
     fields: ['id', 'email', 'name', 'role', 'status', 'lastLoginAt', 'createdAt', 'updatedAt'],
@@ -130,7 +132,9 @@ async function fetchPortalUser(email: string) {
         limit: RELATED_LIMIT,
       },
     },
-  })
+  } satisfies usersReadManyArgs
+
+  const [user] = await monospace.users.readMany<typeof args>(args)
 
   return user ?? null
 }

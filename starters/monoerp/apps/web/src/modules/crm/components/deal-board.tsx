@@ -74,7 +74,7 @@ export function DealBoard({
 }) {
   const update = useUpdateDeal()
   const close = useCloseDeal()
-  const access = useCollectionAccess('opportunities')
+  const access = useCollectionAccess('deals')
   const canMove = access.canUpdate('stageId') && access.canUpdate('status')
   const [closing, setClosing] = useState<{ deal: DealRow; stage: PipelineStage }>()
   const remove = useDeleteDeal()
@@ -411,7 +411,7 @@ function BoardCard({
   showOwner: boolean
   children: ReactNode
 }) {
-  const access = useCollectionAccess('opportunities')
+  const access = useCollectionAccess('deals')
 
   const { ref, isDragging } = useSortable({
     id: deal.id,

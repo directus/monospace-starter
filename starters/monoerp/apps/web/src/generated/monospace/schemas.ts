@@ -4,7 +4,7 @@
 /* eslint-disable */
 
 import * as z from 'zod'
-import type { attachmentsCreateOneInput, attachmentsUpdateOneInput, contactOrganizationsCreateOneInput, contactOrganizationsUpdateOneInput, contactsCreateOneInput, contactsUpdateOneInput, interactionsCreateOneInput, interactionsUpdateOneInput, opportunitiesCreateOneInput, opportunitiesUpdateOneInput, organizationsCreateOneInput, organizationsUpdateOneInput } from './index'
+import type { activitiesCreateOneInput, activitiesUpdateOneInput, affiliationsCreateOneInput, affiliationsUpdateOneInput, attachmentsCreateOneInput, attachmentsUpdateOneInput, contactsCreateOneInput, contactsUpdateOneInput, dealsCreateOneInput, dealsUpdateOneInput, organizationsCreateOneInput, organizationsUpdateOneInput } from './index'
 
 const definitions = {
   "accountsDeleteArguments": {
@@ -312,16 +312,22 @@ const definitions = {
   "accountsorganizationCreateRelatedWithoutTypeInput": {
     "type": "object",
     "properties": {
+      "activities": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/organizationsactivitiesCreateRelatedInput"
+        }
+      },
+      "affiliations": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/organizationsaffiliationsCreateRelatedInput"
+        }
+      },
       "attachments": {
         "type": "array",
         "items": {
           "$ref": "#/$defs/organizationsattachmentsCreateRelatedInput"
-        }
-      },
-      "contact_organizations": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/organizationscontact_organizationsCreateRelatedInput"
         }
       },
       "createdAt": {
@@ -330,6 +336,12 @@ const definitions = {
       },
       "createdBy": {
         "$ref": "#/$defs/organizationscreatedByCreateRelatedInput"
+      },
+      "deals": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/organizationsdealsCreateRelatedInput"
+        }
       },
       "domain": {
         "oneOf": [
@@ -355,12 +367,6 @@ const definitions = {
           }
         ]
       },
-      "interactions": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/organizationsinteractionsCreateRelatedInput"
-        }
-      },
       "name": {
         "type": "string"
       },
@@ -373,12 +379,6 @@ const definitions = {
             "type": "null"
           }
         ]
-      },
-      "opportunities": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/organizationsopportunitiesCreateRelatedInput"
-        }
       },
       "owner": {
         "$ref": "#/$defs/organizationsownerCreateRelatedInput"
@@ -985,385 +985,61 @@ const definitions = {
     },
     "required": []
   },
-  "attachmentscontactsConnectForwardKeyInput": {
+  "activitiesattachmentsConnectBackwardKeysInput": {
     "type": "object",
     "properties": {
+      "assetId": {
+        "type": "string",
+        "format": "uuid"
+      },
       "id": {
-        "oneOf": [
-          {
-            "type": "string",
-            "format": "uuid"
-          },
-          {
-            "type": "null"
-          }
-        ]
+        "type": "string",
+        "format": "uuid"
       }
     },
-    "required": [
-      "id"
-    ]
+    "required": []
   },
-  "attachmentscontactsConnectInput": {
+  "activitiesattachmentsConnectInput": {
     "type": "object",
     "properties": {
-      "key": {
-        "$ref": "#/$defs/attachmentscontactsConnectForwardKeyInput"
+      "keys": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/activitiesattachmentsConnectBackwardKeysInput"
+        }
       }
     },
     "required": [
-      "key"
+      "keys"
     ]
   },
-  "attachmentscontactsCreateArguments": {
+  "activitiesattachmentsCreateArguments": {
     "type": "object",
     "properties": {
       "data": {
-        "$ref": "#/$defs/attachmentscontactsCreateRelatedWithoutTypeInput"
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/activitiesattachmentsCreateRelatedWithoutTypeInput"
+        }
       }
     },
     "required": [
       "data"
     ]
   },
-  "attachmentscontactsCreateRelatedInput": {
+  "activitiesattachmentsCreateRelatedInput": {
     "type": "object",
     "properties": {
       "_connect": {
-        "$ref": "#/$defs/attachmentscontactsConnectInput"
+        "$ref": "#/$defs/activitiesattachmentsConnectInput"
       },
       "_create": {
-        "$ref": "#/$defs/attachmentscontactsCreateArguments"
+        "$ref": "#/$defs/activitiesattachmentsCreateArguments"
       }
     },
     "required": []
   },
-  "attachmentscontactsCreateRelatedWithoutTypeInput": {
-    "type": "object",
-    "properties": {
-      "contact_organizations": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/contactscontact_organizationsCreateRelatedInput"
-        }
-      },
-      "createdAt": {
-        "type": "string",
-        "format": "date-time"
-      },
-      "createdBy": {
-        "$ref": "#/$defs/contactscreatedByCreateRelatedInput"
-      },
-      "email": {
-        "oneOf": [
-          {
-            "type": "string"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "firstName": {
-        "type": "string"
-      },
-      "id": {
-        "type": "string",
-        "format": "uuid"
-      },
-      "interactions": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/contactsinteractionsCreateRelatedInput"
-        }
-      },
-      "lastName": {
-        "type": "string"
-      },
-      "notes": {
-        "oneOf": [
-          {
-            "type": "string"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "opportunities": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/contactsopportunitiesCreateRelatedInput"
-        }
-      },
-      "owner": {
-        "$ref": "#/$defs/contactsownerCreateRelatedInput"
-      },
-      "phone": {
-        "oneOf": [
-          {
-            "type": "string"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "portalUser": {
-        "$ref": "#/$defs/contactsportalUserCreateRelatedInput"
-      },
-      "status": {
-        "type": "string"
-      },
-      "updatedAt": {
-        "type": "string",
-        "format": "date-time"
-      },
-      "updatedBy": {
-        "$ref": "#/$defs/contactsupdatedByCreateRelatedInput"
-      }
-    },
-    "required": [
-      "firstName",
-      "lastName"
-    ]
-  },
-  "attachmentscontactsUpdateOneRelatedOperationsInput": {
-    "type": "object",
-    "properties": {
-      "_connect": {
-        "$ref": "#/$defs/attachmentscontactsConnectInput"
-      },
-      "_create": {
-        "$ref": "#/$defs/attachmentscontactsCreateArguments"
-      },
-      "_delete": {
-        "$ref": "#/$defs/contactsDeleteArguments"
-      },
-      "_disconnect": {
-        "$ref": "#/$defs/contactsDisconnectOneInput"
-      },
-      "_update": {
-        "$ref": "#/$defs/contactsUpdateInput"
-      }
-    },
-    "required": []
-  },
-  "attachmentscreatedByConnectForwardKeyInput": {
-    "type": "object",
-    "properties": {
-      "id": {
-        "oneOf": [
-          {
-            "type": "string",
-            "format": "uuid"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      }
-    },
-    "required": [
-      "id"
-    ]
-  },
-  "attachmentscreatedByConnectInput": {
-    "type": "object",
-    "properties": {
-      "key": {
-        "$ref": "#/$defs/attachmentscreatedByConnectForwardKeyInput"
-      }
-    },
-    "required": [
-      "key"
-    ]
-  },
-  "attachmentscreatedByCreateArguments": {
-    "type": "object",
-    "properties": {
-      "data": {
-        "$ref": "#/$defs/attachmentscreatedByCreateRelatedWithoutTypeInput"
-      }
-    },
-    "required": [
-      "data"
-    ]
-  },
-  "attachmentscreatedByCreateRelatedInput": {
-    "type": "object",
-    "properties": {
-      "_connect": {
-        "$ref": "#/$defs/attachmentscreatedByConnectInput"
-      },
-      "_create": {
-        "$ref": "#/$defs/attachmentscreatedByCreateArguments"
-      }
-    },
-    "required": []
-  },
-  "attachmentscreatedByCreateRelatedWithoutTypeInput": {
-    "type": "object",
-    "properties": {
-      "appearance": {
-        "oneOf": [
-          {
-            "type": "string"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "avatarId": {
-        "oneOf": [
-          {
-            "type": "string",
-            "format": "uuid"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "contactOrganizationsCreatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "contactOrganizationsUpdatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "contactsCreatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "contactsOwner": {
-        "type": "array",
-        "items": {}
-      },
-      "contactsUpdatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "email": {
-        "oneOf": [
-          {
-            "type": "string"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "fullName": {
-        "oneOf": [
-          {
-            "type": "string"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "id": {
-        "type": "string",
-        "format": "uuid"
-      },
-      "interactionsCreatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "interactionsOwner": {
-        "type": "array",
-        "items": {}
-      },
-      "interactionsUpdatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "isService": {
-        "type": "boolean"
-      },
-      "lastActivityAt": {
-        "oneOf": [
-          {
-            "type": "string",
-            "format": "date-time"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "opportunitiesCreatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "opportunitiesOwner": {
-        "type": "array",
-        "items": {}
-      },
-      "opportunitiesUpdatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "organizationsCreatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "organizationsOwner": {
-        "type": "array",
-        "items": {}
-      },
-      "organizationsUpdatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "roles": {
-        "type": "array",
-        "items": {}
-      },
-      "serviceOwnerId": {
-        "oneOf": [
-          {
-            "type": "string",
-            "format": "uuid"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "status": {
-        "type": "string"
-      },
-      "storageValues": {
-        "type": "array",
-        "items": {}
-      }
-    },
-    "required": [
-      "id",
-      "isService"
-    ]
-  },
-  "attachmentscreatedByUpdateOneRelatedOperationsInput": {
-    "type": "object",
-    "properties": {
-      "_connect": {
-        "$ref": "#/$defs/attachmentscreatedByConnectInput"
-      },
-      "_create": {
-        "$ref": "#/$defs/attachmentscreatedByCreateArguments"
-      },
-      "_delete": {},
-      "_disconnect": {},
-      "_update": {}
-    },
-    "required": []
-  },
-  "attachmentsCreateInput": {
+  "activitiesattachmentsCreateRelatedWithoutTypeInput": {
     "type": "object",
     "properties": {
       "assetId": {
@@ -1397,18 +1073,15 @@ const definitions = {
       "createdBy": {
         "$ref": "#/$defs/attachmentscreatedByCreateRelatedInput"
       },
+      "deals": {
+        "$ref": "#/$defs/attachmentsdealsCreateRelatedInput"
+      },
       "fileName": {
         "type": "string"
       },
       "id": {
         "type": "string",
         "format": "uuid"
-      },
-      "interactions": {
-        "$ref": "#/$defs/attachmentsinteractionsCreateRelatedInput"
-      },
-      "opportunities": {
-        "$ref": "#/$defs/attachmentsopportunitiesCreateRelatedInput"
       },
       "organizations": {
         "$ref": "#/$defs/attachmentsorganizationsCreateRelatedInput"
@@ -1439,421 +1112,28 @@ const definitions = {
       "organizations"
     ]
   },
-  "attachmentsDeleteArguments": {
-    "type": "object",
-    "properties": {
-      "filter": {
-        "$ref": "#/$defs/attachmentsFilterInput"
-      }
-    },
-    "required": []
-  },
-  "attachmentsDisconnectManyInput": {
-    "type": "object",
-    "properties": {
-      "filter": {
-        "$ref": "#/$defs/attachmentsFilterInput"
-      }
-    },
-    "required": []
-  },
-  "attachmentsFilterInput": {
-    "type": "object",
-    "properties": {
-      "_and": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/attachmentsFilterInput"
-        }
-      },
-      "_not": {
-        "$ref": "#/$defs/attachmentsFilterInput"
-      },
-      "_or": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/attachmentsFilterInput"
-        }
-      },
-      "assetId": {
-        "oneOf": [
-          {
-            "$ref": "#/$defs/UuidFilterNullablePrimitiveInput"
-          },
-          {
-            "oneOf": [
-              {
-                "type": "string",
-                "format": "uuid"
-              },
-              {
-                "type": "null"
-              }
-            ]
-          }
-        ]
-      },
-      "contactId": {
-        "oneOf": [
-          {
-            "$ref": "#/$defs/UuidFilterNullablePrimitiveInput"
-          },
-          {
-            "oneOf": [
-              {
-                "type": "string",
-                "format": "uuid"
-              },
-              {
-                "type": "null"
-              }
-            ]
-          }
-        ]
-      },
-      "contacts": {
-        "$ref": "#/$defs/contactsFilterInput"
-      },
-      "contentType": {
-        "oneOf": [
-          {
-            "$ref": "#/$defs/StringFilterNullablePrimitiveInput"
-          },
-          {
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ]
-          }
-        ]
-      },
-      "createdAt": {
-        "oneOf": [
-          {
-            "$ref": "#/$defs/DateTimeFilterPrimitiveInput"
-          },
-          {
-            "type": "string",
-            "format": "date-time"
-          }
-        ]
-      },
-      "createdBy": {},
-      "createdById": {
-        "oneOf": [
-          {
-            "$ref": "#/$defs/UuidFilterNullablePrimitiveInput"
-          },
-          {
-            "oneOf": [
-              {
-                "type": "string",
-                "format": "uuid"
-              },
-              {
-                "type": "null"
-              }
-            ]
-          }
-        ]
-      },
-      "fileName": {
-        "oneOf": [
-          {
-            "$ref": "#/$defs/StringFilterPrimitiveInput"
-          },
-          {
-            "type": "string"
-          }
-        ]
-      },
-      "id": {
-        "oneOf": [
-          {
-            "$ref": "#/$defs/UuidFilterPrimitiveInput"
-          },
-          {
-            "type": "string",
-            "format": "uuid"
-          }
-        ]
-      },
-      "interactionId": {
-        "oneOf": [
-          {
-            "$ref": "#/$defs/UuidFilterNullablePrimitiveInput"
-          },
-          {
-            "oneOf": [
-              {
-                "type": "string",
-                "format": "uuid"
-              },
-              {
-                "type": "null"
-              }
-            ]
-          }
-        ]
-      },
-      "interactions": {
-        "$ref": "#/$defs/interactionsFilterInput"
-      },
-      "opportunities": {
-        "$ref": "#/$defs/opportunitiesFilterInput"
-      },
-      "opportunityId": {
-        "oneOf": [
-          {
-            "$ref": "#/$defs/UuidFilterNullablePrimitiveInput"
-          },
-          {
-            "oneOf": [
-              {
-                "type": "string",
-                "format": "uuid"
-              },
-              {
-                "type": "null"
-              }
-            ]
-          }
-        ]
-      },
-      "organizationId": {
-        "oneOf": [
-          {
-            "$ref": "#/$defs/UuidFilterPrimitiveInput"
-          },
-          {
-            "type": "string",
-            "format": "uuid"
-          }
-        ]
-      },
-      "organizations": {
-        "$ref": "#/$defs/organizationsFilterInput"
-      },
-      "sizeBytes": {
-        "oneOf": [
-          {
-            "$ref": "#/$defs/Int64FilterNullablePrimitiveInput"
-          },
-          {
-            "oneOf": [
-              {
-                "$ref": "#/$defs/Int64Input"
-              },
-              {
-                "type": "null"
-              }
-            ]
-          }
-        ]
-      },
-      "url": {
-        "oneOf": [
-          {
-            "$ref": "#/$defs/StringFilterNullablePrimitiveInput"
-          },
-          {
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    "required": []
-  },
-  "attachmentsFilterQuantifierInput": {
-    "type": "object",
-    "properties": {
-      "_every": {
-        "$ref": "#/$defs/attachmentsFilterInput"
-      },
-      "_none": {
-        "$ref": "#/$defs/attachmentsFilterInput"
-      },
-      "_some": {
-        "$ref": "#/$defs/attachmentsFilterInput"
-      }
-    },
-    "required": []
-  },
-  "attachmentsinteractionsConnectForwardKeyInput": {
-    "type": "object",
-    "properties": {
-      "id": {
-        "oneOf": [
-          {
-            "type": "string",
-            "format": "uuid"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      }
-    },
-    "required": [
-      "id"
-    ]
-  },
-  "attachmentsinteractionsConnectInput": {
-    "type": "object",
-    "properties": {
-      "key": {
-        "$ref": "#/$defs/attachmentsinteractionsConnectForwardKeyInput"
-      }
-    },
-    "required": [
-      "key"
-    ]
-  },
-  "attachmentsinteractionsCreateArguments": {
-    "type": "object",
-    "properties": {
-      "data": {
-        "$ref": "#/$defs/attachmentsinteractionsCreateRelatedWithoutTypeInput"
-      }
-    },
-    "required": [
-      "data"
-    ]
-  },
-  "attachmentsinteractionsCreateRelatedInput": {
+  "activitiesattachmentsUpdateManyRelatedOperationsInput": {
     "type": "object",
     "properties": {
       "_connect": {
-        "$ref": "#/$defs/attachmentsinteractionsConnectInput"
+        "$ref": "#/$defs/activitiesattachmentsConnectInput"
       },
       "_create": {
-        "$ref": "#/$defs/attachmentsinteractionsCreateArguments"
-      }
-    },
-    "required": []
-  },
-  "attachmentsinteractionsCreateRelatedWithoutTypeInput": {
-    "type": "object",
-    "properties": {
-      "body": {
-        "oneOf": [
-          {
-            "type": "string"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "completedAt": {
-        "oneOf": [
-          {
-            "type": "string",
-            "format": "date-time"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "contacts": {
-        "$ref": "#/$defs/interactionscontactsCreateRelatedInput"
-      },
-      "createdAt": {
-        "type": "string",
-        "format": "date-time"
-      },
-      "createdBy": {
-        "$ref": "#/$defs/interactionscreatedByCreateRelatedInput"
-      },
-      "direction": {
-        "type": "string"
-      },
-      "dueAt": {
-        "oneOf": [
-          {
-            "type": "string",
-            "format": "date-time"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "id": {
-        "type": "string",
-        "format": "uuid"
-      },
-      "occurredAt": {
-        "type": "string",
-        "format": "date-time"
-      },
-      "opportunities": {
-        "$ref": "#/$defs/interactionsopportunitiesCreateRelatedInput"
-      },
-      "organizations": {
-        "$ref": "#/$defs/interactionsorganizationsCreateRelatedInput"
-      },
-      "owner": {
-        "$ref": "#/$defs/interactionsownerCreateRelatedInput"
-      },
-      "status": {
-        "type": "string"
-      },
-      "subject": {
-        "type": "string"
-      },
-      "type": {
-        "type": "string"
-      },
-      "updatedAt": {
-        "type": "string",
-        "format": "date-time"
-      },
-      "updatedBy": {
-        "$ref": "#/$defs/interactionsupdatedByCreateRelatedInput"
-      }
-    },
-    "required": [
-      "organizations",
-      "status",
-      "subject",
-      "type"
-    ]
-  },
-  "attachmentsinteractionsUpdateOneRelatedOperationsInput": {
-    "type": "object",
-    "properties": {
-      "_connect": {
-        "$ref": "#/$defs/attachmentsinteractionsConnectInput"
-      },
-      "_create": {
-        "$ref": "#/$defs/attachmentsinteractionsCreateArguments"
+        "$ref": "#/$defs/activitiesattachmentsCreateArguments"
       },
       "_delete": {
-        "$ref": "#/$defs/interactionsDeleteArguments"
+        "$ref": "#/$defs/attachmentsDeleteArguments"
       },
       "_disconnect": {
-        "$ref": "#/$defs/interactionsDisconnectOneInput"
+        "$ref": "#/$defs/attachmentsDisconnectManyInput"
       },
       "_update": {
-        "$ref": "#/$defs/interactionsUpdateInput"
+        "$ref": "#/$defs/attachmentsUpdateInput"
       }
     },
     "required": []
   },
-  "attachmentsopportunitiesConnectForwardKeyInput": {
+  "activitiescontactsConnectForwardKeyInput": {
     "type": "object",
     "properties": {
       "id": {
@@ -1872,517 +1152,49 @@ const definitions = {
       "id"
     ]
   },
-  "attachmentsopportunitiesConnectInput": {
+  "activitiescontactsConnectInput": {
     "type": "object",
     "properties": {
       "key": {
-        "$ref": "#/$defs/attachmentsopportunitiesConnectForwardKeyInput"
+        "$ref": "#/$defs/activitiescontactsConnectForwardKeyInput"
       }
     },
     "required": [
       "key"
     ]
   },
-  "attachmentsopportunitiesCreateArguments": {
+  "activitiescontactsCreateArguments": {
     "type": "object",
     "properties": {
       "data": {
-        "$ref": "#/$defs/attachmentsopportunitiesCreateRelatedWithoutTypeInput"
+        "$ref": "#/$defs/activitiescontactsCreateRelatedWithoutTypeInput"
       }
     },
     "required": [
       "data"
     ]
   },
-  "attachmentsopportunitiesCreateRelatedInput": {
+  "activitiescontactsCreateRelatedInput": {
     "type": "object",
     "properties": {
       "_connect": {
-        "$ref": "#/$defs/attachmentsopportunitiesConnectInput"
+        "$ref": "#/$defs/activitiescontactsConnectInput"
       },
       "_create": {
-        "$ref": "#/$defs/attachmentsopportunitiesCreateArguments"
+        "$ref": "#/$defs/activitiescontactsCreateArguments"
       }
     },
     "required": []
   },
-  "attachmentsopportunitiesCreateRelatedWithoutTypeInput": {
+  "activitiescontactsCreateRelatedWithoutTypeInput": {
     "type": "object",
     "properties": {
-      "contacts": {
-        "$ref": "#/$defs/opportunitiescontactsCreateRelatedInput"
-      },
-      "createdAt": {
-        "type": "string",
-        "format": "date-time"
-      },
-      "createdBy": {
-        "$ref": "#/$defs/opportunitiescreatedByCreateRelatedInput"
-      },
-      "currency": {
-        "type": "string"
-      },
-      "expectedCloseDate": {
-        "oneOf": [
-          {
-            "type": "string",
-            "format": "date"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "id": {
-        "type": "string",
-        "format": "uuid"
-      },
-      "interactions": {
+      "affiliations": {
         "type": "array",
         "items": {
-          "$ref": "#/$defs/opportunitiesinteractionsCreateRelatedInput"
+          "$ref": "#/$defs/contactsaffiliationsCreateRelatedInput"
         }
       },
-      "notes": {
-        "oneOf": [
-          {
-            "type": "string"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "organizations": {
-        "$ref": "#/$defs/opportunitiesorganizationsCreateRelatedInput"
-      },
-      "owner": {
-        "$ref": "#/$defs/opportunitiesownerCreateRelatedInput"
-      },
-      "pipeline_stages": {
-        "$ref": "#/$defs/opportunitiespipeline_stagesCreateRelatedInput"
-      },
-      "status": {
-        "type": "string"
-      },
-      "title": {
-        "type": "string"
-      },
-      "updatedAt": {
-        "type": "string",
-        "format": "date-time"
-      },
-      "updatedBy": {
-        "$ref": "#/$defs/opportunitiesupdatedByCreateRelatedInput"
-      },
-      "valueAmount": {
-        "oneOf": [
-          {
-            "type": "string",
-            "format": "decimal",
-            "example": "123.345"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      }
-    },
-    "required": [
-      "organizations",
-      "pipeline_stages",
-      "title"
-    ]
-  },
-  "attachmentsopportunitiesUpdateOneRelatedOperationsInput": {
-    "type": "object",
-    "properties": {
-      "_connect": {
-        "$ref": "#/$defs/attachmentsopportunitiesConnectInput"
-      },
-      "_create": {
-        "$ref": "#/$defs/attachmentsopportunitiesCreateArguments"
-      },
-      "_delete": {
-        "$ref": "#/$defs/opportunitiesDeleteArguments"
-      },
-      "_disconnect": {
-        "$ref": "#/$defs/opportunitiesDisconnectOneInput"
-      },
-      "_update": {
-        "$ref": "#/$defs/opportunitiesUpdateInput"
-      }
-    },
-    "required": []
-  },
-  "attachmentsorganizationsConnectForwardKeyInput": {
-    "type": "object",
-    "properties": {
-      "id": {
-        "type": "string",
-        "format": "uuid"
-      }
-    },
-    "required": [
-      "id"
-    ]
-  },
-  "attachmentsorganizationsConnectInput": {
-    "type": "object",
-    "properties": {
-      "key": {
-        "$ref": "#/$defs/attachmentsorganizationsConnectForwardKeyInput"
-      }
-    },
-    "required": [
-      "key"
-    ]
-  },
-  "attachmentsorganizationsCreateArguments": {
-    "type": "object",
-    "properties": {
-      "data": {
-        "$ref": "#/$defs/attachmentsorganizationsCreateRelatedWithoutTypeInput"
-      }
-    },
-    "required": [
-      "data"
-    ]
-  },
-  "attachmentsorganizationsCreateRelatedInput": {
-    "type": "object",
-    "properties": {
-      "_connect": {
-        "$ref": "#/$defs/attachmentsorganizationsConnectInput"
-      },
-      "_create": {
-        "$ref": "#/$defs/attachmentsorganizationsCreateArguments"
-      }
-    },
-    "required": []
-  },
-  "attachmentsorganizationsCreateRelatedWithoutTypeInput": {
-    "type": "object",
-    "properties": {
-      "contact_organizations": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/organizationscontact_organizationsCreateRelatedInput"
-        }
-      },
-      "createdAt": {
-        "type": "string",
-        "format": "date-time"
-      },
-      "createdBy": {
-        "$ref": "#/$defs/organizationscreatedByCreateRelatedInput"
-      },
-      "domain": {
-        "oneOf": [
-          {
-            "type": "string"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "id": {
-        "type": "string",
-        "format": "uuid"
-      },
-      "industry": {
-        "oneOf": [
-          {
-            "type": "string"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "interactions": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/organizationsinteractionsCreateRelatedInput"
-        }
-      },
-      "name": {
-        "type": "string"
-      },
-      "notes": {
-        "oneOf": [
-          {
-            "type": "string"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "opportunities": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/organizationsopportunitiesCreateRelatedInput"
-        }
-      },
-      "owner": {
-        "$ref": "#/$defs/organizationsownerCreateRelatedInput"
-      },
-      "portalAccount": {
-        "$ref": "#/$defs/organizationsportalAccountCreateRelatedInput"
-      },
-      "portalAccountId": {
-        "oneOf": [
-          {
-            "type": "string"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "status": {
-        "type": "string"
-      },
-      "updatedAt": {
-        "type": "string",
-        "format": "date-time"
-      },
-      "updatedBy": {
-        "$ref": "#/$defs/organizationsupdatedByCreateRelatedInput"
-      }
-    },
-    "required": [
-      "name"
-    ]
-  },
-  "attachmentsorganizationsUpdateOneRelatedOperationsInput": {
-    "type": "object",
-    "properties": {
-      "_connect": {
-        "$ref": "#/$defs/attachmentsorganizationsConnectInput"
-      },
-      "_create": {
-        "$ref": "#/$defs/attachmentsorganizationsCreateArguments"
-      },
-      "_update": {
-        "$ref": "#/$defs/organizationsUpdateInput"
-      }
-    },
-    "required": []
-  },
-  "attachmentsUpdateDataInput": {
-    "type": "object",
-    "properties": {
-      "assetId": {
-        "oneOf": [
-          {
-            "type": "string",
-            "format": "uuid"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "contactId": {
-        "oneOf": [
-          {
-            "type": "string",
-            "format": "uuid"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "contacts": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/attachmentscontactsUpdateOneRelatedOperationsInput"
-        }
-      },
-      "contentType": {
-        "oneOf": [
-          {
-            "type": "string"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "createdAt": {
-        "type": "string",
-        "format": "date-time"
-      },
-      "createdBy": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/attachmentscreatedByUpdateOneRelatedOperationsInput"
-        }
-      },
-      "createdById": {
-        "oneOf": [
-          {
-            "type": "string",
-            "format": "uuid"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "fileName": {
-        "type": "string"
-      },
-      "id": {
-        "type": "string",
-        "format": "uuid"
-      },
-      "interactionId": {
-        "oneOf": [
-          {
-            "type": "string",
-            "format": "uuid"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "interactions": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/attachmentsinteractionsUpdateOneRelatedOperationsInput"
-        }
-      },
-      "opportunities": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/attachmentsopportunitiesUpdateOneRelatedOperationsInput"
-        }
-      },
-      "opportunityId": {
-        "oneOf": [
-          {
-            "type": "string",
-            "format": "uuid"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "organizationId": {
-        "type": "string",
-        "format": "uuid"
-      },
-      "organizations": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/attachmentsorganizationsUpdateOneRelatedOperationsInput"
-        }
-      },
-      "sizeBytes": {
-        "oneOf": [
-          {
-            "$ref": "#/$defs/Int64Input"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "url": {
-        "oneOf": [
-          {
-            "type": "string"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      }
-    },
-    "required": []
-  },
-  "attachmentsUpdateInput": {
-    "type": "object",
-    "properties": {
-      "data": {
-        "$ref": "#/$defs/attachmentsUpdateDataInput"
-      },
-      "filter": {
-        "$ref": "#/$defs/attachmentsFilterInput"
-      }
-    },
-    "required": [
-      "data"
-    ]
-  },
-  "BooleanFilterPrimitiveInput": {
-    "type": "object",
-    "properties": {
-      "_eq": {
-        "type": "boolean"
-      },
-      "_neq": {
-        "type": "boolean"
-      }
-    },
-    "required": []
-  },
-  "contactOrganizationscontactsConnectForwardKeyInput": {
-    "type": "object",
-    "properties": {
-      "id": {
-        "type": "string",
-        "format": "uuid"
-      }
-    },
-    "required": [
-      "id"
-    ]
-  },
-  "contactOrganizationscontactsConnectInput": {
-    "type": "object",
-    "properties": {
-      "key": {
-        "$ref": "#/$defs/contactOrganizationscontactsConnectForwardKeyInput"
-      }
-    },
-    "required": [
-      "key"
-    ]
-  },
-  "contactOrganizationscontactsCreateArguments": {
-    "type": "object",
-    "properties": {
-      "data": {
-        "$ref": "#/$defs/contactOrganizationscontactsCreateRelatedWithoutTypeInput"
-      }
-    },
-    "required": [
-      "data"
-    ]
-  },
-  "contactOrganizationscontactsCreateRelatedInput": {
-    "type": "object",
-    "properties": {
-      "_connect": {
-        "$ref": "#/$defs/contactOrganizationscontactsConnectInput"
-      },
-      "_create": {
-        "$ref": "#/$defs/contactOrganizationscontactsCreateArguments"
-      }
-    },
-    "required": []
-  },
-  "contactOrganizationscontactsCreateRelatedWithoutTypeInput": {
-    "type": "object",
-    "properties": {
       "attachments": {
         "type": "array",
         "items": {
@@ -2395,6 +1207,12 @@ const definitions = {
       },
       "createdBy": {
         "$ref": "#/$defs/contactscreatedByCreateRelatedInput"
+      },
+      "deals": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/contactsdealsCreateRelatedInput"
+        }
       },
       "email": {
         "oneOf": [
@@ -2413,12 +1231,6 @@ const definitions = {
         "type": "string",
         "format": "uuid"
       },
-      "interactions": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/contactsinteractionsCreateRelatedInput"
-        }
-      },
       "lastName": {
         "type": "string"
       },
@@ -2431,12 +1243,6 @@ const definitions = {
             "type": "null"
           }
         ]
-      },
-      "opportunities": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/contactsopportunitiesCreateRelatedInput"
-        }
       },
       "owner": {
         "$ref": "#/$defs/contactsownerCreateRelatedInput"
@@ -2470,14 +1276,20 @@ const definitions = {
       "lastName"
     ]
   },
-  "contactOrganizationscontactsUpdateOneRelatedOperationsInput": {
+  "activitiescontactsUpdateOneRelatedOperationsInput": {
     "type": "object",
     "properties": {
       "_connect": {
-        "$ref": "#/$defs/contactOrganizationscontactsConnectInput"
+        "$ref": "#/$defs/activitiescontactsConnectInput"
       },
       "_create": {
-        "$ref": "#/$defs/contactOrganizationscontactsCreateArguments"
+        "$ref": "#/$defs/activitiescontactsCreateArguments"
+      },
+      "_delete": {
+        "$ref": "#/$defs/contactsDeleteArguments"
+      },
+      "_disconnect": {
+        "$ref": "#/$defs/contactsDisconnectOneInput"
       },
       "_update": {
         "$ref": "#/$defs/contactsUpdateInput"
@@ -2485,7 +1297,7 @@ const definitions = {
     },
     "required": []
   },
-  "contactOrganizationscreatedByConnectForwardKeyInput": {
+  "activitiescreatedByConnectForwardKeyInput": {
     "type": "object",
     "properties": {
       "id": {
@@ -2504,43 +1316,59 @@ const definitions = {
       "id"
     ]
   },
-  "contactOrganizationscreatedByConnectInput": {
+  "activitiescreatedByConnectInput": {
     "type": "object",
     "properties": {
       "key": {
-        "$ref": "#/$defs/contactOrganizationscreatedByConnectForwardKeyInput"
+        "$ref": "#/$defs/activitiescreatedByConnectForwardKeyInput"
       }
     },
     "required": [
       "key"
     ]
   },
-  "contactOrganizationscreatedByCreateArguments": {
+  "activitiescreatedByCreateArguments": {
     "type": "object",
     "properties": {
       "data": {
-        "$ref": "#/$defs/contactOrganizationscreatedByCreateRelatedWithoutTypeInput"
+        "$ref": "#/$defs/activitiescreatedByCreateRelatedWithoutTypeInput"
       }
     },
     "required": [
       "data"
     ]
   },
-  "contactOrganizationscreatedByCreateRelatedInput": {
+  "activitiescreatedByCreateRelatedInput": {
     "type": "object",
     "properties": {
       "_connect": {
-        "$ref": "#/$defs/contactOrganizationscreatedByConnectInput"
+        "$ref": "#/$defs/activitiescreatedByConnectInput"
       },
       "_create": {
-        "$ref": "#/$defs/contactOrganizationscreatedByCreateArguments"
+        "$ref": "#/$defs/activitiescreatedByCreateArguments"
       }
     },
     "required": []
   },
-  "contactOrganizationscreatedByCreateRelatedWithoutTypeInput": {
+  "activitiescreatedByCreateRelatedWithoutTypeInput": {
     "type": "object",
     "properties": {
+      "activitiesOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "activitiesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "affiliationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "affiliationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
       "appearance": {
         "oneOf": [
           {
@@ -2566,10 +1394,6 @@ const definitions = {
           }
         ]
       },
-      "contactOrganizationsUpdatedBy": {
-        "type": "array",
-        "items": {}
-      },
       "contactsCreatedBy": {
         "type": "array",
         "items": {}
@@ -2579,6 +1403,18 @@ const definitions = {
         "items": {}
       },
       "contactsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsUpdatedBy": {
         "type": "array",
         "items": {}
       },
@@ -2606,18 +1442,6 @@ const definitions = {
         "type": "string",
         "format": "uuid"
       },
-      "interactionsCreatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "interactionsOwner": {
-        "type": "array",
-        "items": {}
-      },
-      "interactionsUpdatedBy": {
-        "type": "array",
-        "items": {}
-      },
       "isService": {
         "type": "boolean"
       },
@@ -2631,18 +1455,6 @@ const definitions = {
             "type": "null"
           }
         ]
-      },
-      "opportunitiesCreatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "opportunitiesOwner": {
-        "type": "array",
-        "items": {}
-      },
-      "opportunitiesUpdatedBy": {
-        "type": "array",
-        "items": {}
       },
       "organizationsCreatedBy": {
         "type": "array",
@@ -2684,14 +1496,14 @@ const definitions = {
       "isService"
     ]
   },
-  "contactOrganizationscreatedByUpdateOneRelatedOperationsInput": {
+  "activitiescreatedByUpdateOneRelatedOperationsInput": {
     "type": "object",
     "properties": {
       "_connect": {
-        "$ref": "#/$defs/contactOrganizationscreatedByConnectInput"
+        "$ref": "#/$defs/activitiescreatedByConnectInput"
       },
       "_create": {
-        "$ref": "#/$defs/contactOrganizationscreatedByCreateArguments"
+        "$ref": "#/$defs/activitiescreatedByCreateArguments"
       },
       "_delete": {},
       "_disconnect": {},
@@ -2699,18 +1511,1725 @@ const definitions = {
     },
     "required": []
   },
-  "contactOrganizationsCreateInput": {
+  "activitiesCreateInput": {
     "type": "object",
     "properties": {
+      "attachments": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/activitiesattachmentsCreateRelatedInput"
+        }
+      },
+      "body": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "completedAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
       "contacts": {
-        "$ref": "#/$defs/contactOrganizationscontactsCreateRelatedInput"
+        "$ref": "#/$defs/activitiescontactsCreateRelatedInput"
       },
       "createdAt": {
         "type": "string",
         "format": "date-time"
       },
       "createdBy": {
-        "$ref": "#/$defs/contactOrganizationscreatedByCreateRelatedInput"
+        "$ref": "#/$defs/activitiescreatedByCreateRelatedInput"
+      },
+      "deals": {
+        "$ref": "#/$defs/activitiesdealsCreateRelatedInput"
+      },
+      "direction": {
+        "type": "string"
+      },
+      "dueAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "occurredAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "organizations": {
+        "$ref": "#/$defs/activitiesorganizationsCreateRelatedInput"
+      },
+      "owner": {
+        "$ref": "#/$defs/activitiesownerCreateRelatedInput"
+      },
+      "status": {
+        "type": "string"
+      },
+      "subject": {
+        "type": "string"
+      },
+      "type": {
+        "type": "string"
+      },
+      "updatedAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "updatedBy": {
+        "$ref": "#/$defs/activitiesupdatedByCreateRelatedInput"
+      }
+    },
+    "required": [
+      "organizations",
+      "status",
+      "subject",
+      "type"
+    ]
+  },
+  "activitiesdealsConnectForwardKeyInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "activitiesdealsConnectInput": {
+    "type": "object",
+    "properties": {
+      "key": {
+        "$ref": "#/$defs/activitiesdealsConnectForwardKeyInput"
+      }
+    },
+    "required": [
+      "key"
+    ]
+  },
+  "activitiesdealsCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/activitiesdealsCreateRelatedWithoutTypeInput"
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "activitiesdealsCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/activitiesdealsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/activitiesdealsCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "activitiesdealsCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "attachments": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/dealsattachmentsCreateRelatedInput"
+        }
+      },
+      "contacts": {
+        "$ref": "#/$defs/dealscontactsCreateRelatedInput"
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "createdBy": {
+        "$ref": "#/$defs/dealscreatedByCreateRelatedInput"
+      },
+      "currency": {
+        "type": "string"
+      },
+      "expectedCloseDate": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "notes": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "organizations": {
+        "$ref": "#/$defs/dealsorganizationsCreateRelatedInput"
+      },
+      "owner": {
+        "$ref": "#/$defs/dealsownerCreateRelatedInput"
+      },
+      "pipeline_stages": {
+        "$ref": "#/$defs/dealspipeline_stagesCreateRelatedInput"
+      },
+      "status": {
+        "type": "string"
+      },
+      "title": {
+        "type": "string"
+      },
+      "updatedAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "updatedBy": {
+        "$ref": "#/$defs/dealsupdatedByCreateRelatedInput"
+      },
+      "valueAmount": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "decimal",
+            "example": "123.345"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": [
+      "organizations",
+      "pipeline_stages",
+      "title"
+    ]
+  },
+  "activitiesdealsUpdateOneRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/activitiesdealsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/activitiesdealsCreateArguments"
+      },
+      "_delete": {
+        "$ref": "#/$defs/dealsDeleteArguments"
+      },
+      "_disconnect": {
+        "$ref": "#/$defs/dealsDisconnectOneInput"
+      },
+      "_update": {
+        "$ref": "#/$defs/dealsUpdateInput"
+      }
+    },
+    "required": []
+  },
+  "activitiesDeleteArguments": {
+    "type": "object",
+    "properties": {
+      "filter": {
+        "$ref": "#/$defs/activitiesFilterInput"
+      }
+    },
+    "required": []
+  },
+  "activitiesDisconnectManyInput": {
+    "type": "object",
+    "properties": {
+      "filter": {
+        "$ref": "#/$defs/activitiesFilterInput"
+      }
+    },
+    "required": []
+  },
+  "activitiesDisconnectOneInput": {
+    "type": "object",
+    "properties": {},
+    "required": []
+  },
+  "activitiesFilterInput": {
+    "type": "object",
+    "properties": {
+      "_and": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/activitiesFilterInput"
+        }
+      },
+      "_not": {
+        "$ref": "#/$defs/activitiesFilterInput"
+      },
+      "_or": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/activitiesFilterInput"
+        }
+      },
+      "attachments": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/attachmentsFilterQuantifierInput"
+          },
+          {
+            "$ref": "#/$defs/attachmentsFilterInput"
+          }
+        ]
+      },
+      "body": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "completedAt": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/DateTimeFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "contactId": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "contacts": {
+        "$ref": "#/$defs/contactsFilterInput"
+      },
+      "createdAt": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/DateTimeFilterPrimitiveInput"
+          },
+          {
+            "type": "string",
+            "format": "date-time"
+          }
+        ]
+      },
+      "createdBy": {},
+      "createdById": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "dealId": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "deals": {
+        "$ref": "#/$defs/dealsFilterInput"
+      },
+      "direction": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterPrimitiveInput"
+          },
+          {
+            "type": "string"
+          }
+        ]
+      },
+      "dueAt": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/DateTimeFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "id": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterPrimitiveInput"
+          },
+          {
+            "type": "string",
+            "format": "uuid"
+          }
+        ]
+      },
+      "occurredAt": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/DateTimeFilterPrimitiveInput"
+          },
+          {
+            "type": "string",
+            "format": "date-time"
+          }
+        ]
+      },
+      "organizationId": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterPrimitiveInput"
+          },
+          {
+            "type": "string",
+            "format": "uuid"
+          }
+        ]
+      },
+      "organizations": {
+        "$ref": "#/$defs/organizationsFilterInput"
+      },
+      "owner": {},
+      "ownerUserId": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "status": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterPrimitiveInput"
+          },
+          {
+            "type": "string"
+          }
+        ]
+      },
+      "subject": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterPrimitiveInput"
+          },
+          {
+            "type": "string"
+          }
+        ]
+      },
+      "type": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterPrimitiveInput"
+          },
+          {
+            "type": "string"
+          }
+        ]
+      },
+      "updatedAt": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/DateTimeFilterPrimitiveInput"
+          },
+          {
+            "type": "string",
+            "format": "date-time"
+          }
+        ]
+      },
+      "updatedBy": {},
+      "updatedById": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "required": []
+  },
+  "activitiesFilterQuantifierInput": {
+    "type": "object",
+    "properties": {
+      "_every": {
+        "$ref": "#/$defs/activitiesFilterInput"
+      },
+      "_none": {
+        "$ref": "#/$defs/activitiesFilterInput"
+      },
+      "_some": {
+        "$ref": "#/$defs/activitiesFilterInput"
+      }
+    },
+    "required": []
+  },
+  "activitiesorganizationsConnectForwardKeyInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "activitiesorganizationsConnectInput": {
+    "type": "object",
+    "properties": {
+      "key": {
+        "$ref": "#/$defs/activitiesorganizationsConnectForwardKeyInput"
+      }
+    },
+    "required": [
+      "key"
+    ]
+  },
+  "activitiesorganizationsCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/activitiesorganizationsCreateRelatedWithoutTypeInput"
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "activitiesorganizationsCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/activitiesorganizationsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/activitiesorganizationsCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "activitiesorganizationsCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "affiliations": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/organizationsaffiliationsCreateRelatedInput"
+        }
+      },
+      "attachments": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/organizationsattachmentsCreateRelatedInput"
+        }
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "createdBy": {
+        "$ref": "#/$defs/organizationscreatedByCreateRelatedInput"
+      },
+      "deals": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/organizationsdealsCreateRelatedInput"
+        }
+      },
+      "domain": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "industry": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "name": {
+        "type": "string"
+      },
+      "notes": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "owner": {
+        "$ref": "#/$defs/organizationsownerCreateRelatedInput"
+      },
+      "portalAccount": {
+        "$ref": "#/$defs/organizationsportalAccountCreateRelatedInput"
+      },
+      "portalAccountId": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "status": {
+        "type": "string"
+      },
+      "updatedAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "updatedBy": {
+        "$ref": "#/$defs/organizationsupdatedByCreateRelatedInput"
+      }
+    },
+    "required": [
+      "name"
+    ]
+  },
+  "activitiesorganizationsUpdateOneRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/activitiesorganizationsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/activitiesorganizationsCreateArguments"
+      },
+      "_update": {
+        "$ref": "#/$defs/organizationsUpdateInput"
+      }
+    },
+    "required": []
+  },
+  "activitiesownerConnectForwardKeyInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "activitiesownerConnectInput": {
+    "type": "object",
+    "properties": {
+      "key": {
+        "$ref": "#/$defs/activitiesownerConnectForwardKeyInput"
+      }
+    },
+    "required": [
+      "key"
+    ]
+  },
+  "activitiesownerCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/activitiesownerCreateRelatedWithoutTypeInput"
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "activitiesownerCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/activitiesownerConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/activitiesownerCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "activitiesownerCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "activitiesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "activitiesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "affiliationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "affiliationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "appearance": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "attachmentsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "avatarId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "contactsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "contactsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "contactsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "email": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "fullName": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "isService": {
+        "type": "boolean"
+      },
+      "lastActivityAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "organizationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "organizationsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "organizationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roles": {
+        "type": "array",
+        "items": {}
+      },
+      "serviceOwnerId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "status": {
+        "type": "string"
+      },
+      "storageValues": {
+        "type": "array",
+        "items": {}
+      }
+    },
+    "required": [
+      "id",
+      "isService"
+    ]
+  },
+  "activitiesownerUpdateOneRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/activitiesownerConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/activitiesownerCreateArguments"
+      },
+      "_delete": {},
+      "_disconnect": {},
+      "_update": {}
+    },
+    "required": []
+  },
+  "activitiesUpdateDataInput": {
+    "type": "object",
+    "properties": {
+      "attachments": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/activitiesattachmentsUpdateManyRelatedOperationsInput"
+        }
+      },
+      "body": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "completedAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "contactId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "contacts": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/activitiescontactsUpdateOneRelatedOperationsInput"
+        }
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "createdBy": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/activitiescreatedByUpdateOneRelatedOperationsInput"
+        }
+      },
+      "createdById": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "dealId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "deals": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/activitiesdealsUpdateOneRelatedOperationsInput"
+        }
+      },
+      "direction": {
+        "type": "string"
+      },
+      "dueAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "occurredAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "organizationId": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "organizations": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/activitiesorganizationsUpdateOneRelatedOperationsInput"
+        }
+      },
+      "owner": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/activitiesownerUpdateOneRelatedOperationsInput"
+        }
+      },
+      "ownerUserId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "status": {
+        "type": "string"
+      },
+      "subject": {
+        "type": "string"
+      },
+      "type": {
+        "type": "string"
+      },
+      "updatedAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "updatedBy": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/activitiesupdatedByUpdateOneRelatedOperationsInput"
+        }
+      },
+      "updatedById": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": []
+  },
+  "activitiesupdatedByConnectForwardKeyInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "activitiesupdatedByConnectInput": {
+    "type": "object",
+    "properties": {
+      "key": {
+        "$ref": "#/$defs/activitiesupdatedByConnectForwardKeyInput"
+      }
+    },
+    "required": [
+      "key"
+    ]
+  },
+  "activitiesupdatedByCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/activitiesupdatedByCreateRelatedWithoutTypeInput"
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "activitiesupdatedByCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/activitiesupdatedByConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/activitiesupdatedByCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "activitiesupdatedByCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "activitiesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "activitiesOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "affiliationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "affiliationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "appearance": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "attachmentsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "avatarId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "contactsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "contactsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "contactsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "email": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "fullName": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "isService": {
+        "type": "boolean"
+      },
+      "lastActivityAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "organizationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "organizationsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "organizationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roles": {
+        "type": "array",
+        "items": {}
+      },
+      "serviceOwnerId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "status": {
+        "type": "string"
+      },
+      "storageValues": {
+        "type": "array",
+        "items": {}
+      }
+    },
+    "required": [
+      "id",
+      "isService"
+    ]
+  },
+  "activitiesupdatedByUpdateOneRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/activitiesupdatedByConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/activitiesupdatedByCreateArguments"
+      },
+      "_delete": {},
+      "_disconnect": {},
+      "_update": {}
+    },
+    "required": []
+  },
+  "activitiesUpdateInput": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/activitiesUpdateDataInput"
+      },
+      "filter": {
+        "$ref": "#/$defs/activitiesFilterInput"
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "affiliationscontactsConnectForwardKeyInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "affiliationscontactsConnectInput": {
+    "type": "object",
+    "properties": {
+      "key": {
+        "$ref": "#/$defs/affiliationscontactsConnectForwardKeyInput"
+      }
+    },
+    "required": [
+      "key"
+    ]
+  },
+  "affiliationscontactsCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/affiliationscontactsCreateRelatedWithoutTypeInput"
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "affiliationscontactsCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/affiliationscontactsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/affiliationscontactsCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "affiliationscontactsCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "activities": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/contactsactivitiesCreateRelatedInput"
+        }
+      },
+      "attachments": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/contactsattachmentsCreateRelatedInput"
+        }
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "createdBy": {
+        "$ref": "#/$defs/contactscreatedByCreateRelatedInput"
+      },
+      "deals": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/contactsdealsCreateRelatedInput"
+        }
+      },
+      "email": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "firstName": {
+        "type": "string"
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "lastName": {
+        "type": "string"
+      },
+      "notes": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "owner": {
+        "$ref": "#/$defs/contactsownerCreateRelatedInput"
+      },
+      "phone": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "portalUser": {
+        "$ref": "#/$defs/contactsportalUserCreateRelatedInput"
+      },
+      "status": {
+        "type": "string"
+      },
+      "updatedAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "updatedBy": {
+        "$ref": "#/$defs/contactsupdatedByCreateRelatedInput"
+      }
+    },
+    "required": [
+      "firstName",
+      "lastName"
+    ]
+  },
+  "affiliationscontactsUpdateOneRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/affiliationscontactsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/affiliationscontactsCreateArguments"
+      },
+      "_update": {
+        "$ref": "#/$defs/contactsUpdateInput"
+      }
+    },
+    "required": []
+  },
+  "affiliationscreatedByConnectForwardKeyInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "affiliationscreatedByConnectInput": {
+    "type": "object",
+    "properties": {
+      "key": {
+        "$ref": "#/$defs/affiliationscreatedByConnectForwardKeyInput"
+      }
+    },
+    "required": [
+      "key"
+    ]
+  },
+  "affiliationscreatedByCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/affiliationscreatedByCreateRelatedWithoutTypeInput"
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "affiliationscreatedByCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/affiliationscreatedByConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/affiliationscreatedByCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "affiliationscreatedByCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "activitiesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "activitiesOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "activitiesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "affiliationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "appearance": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "attachmentsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "avatarId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "contactsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "contactsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "contactsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "email": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "fullName": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "isService": {
+        "type": "boolean"
+      },
+      "lastActivityAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "organizationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "organizationsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "organizationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roles": {
+        "type": "array",
+        "items": {}
+      },
+      "serviceOwnerId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "status": {
+        "type": "string"
+      },
+      "storageValues": {
+        "type": "array",
+        "items": {}
+      }
+    },
+    "required": [
+      "id",
+      "isService"
+    ]
+  },
+  "affiliationscreatedByUpdateOneRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/affiliationscreatedByConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/affiliationscreatedByCreateArguments"
+      },
+      "_delete": {},
+      "_disconnect": {},
+      "_update": {}
+    },
+    "required": []
+  },
+  "affiliationsCreateInput": {
+    "type": "object",
+    "properties": {
+      "contacts": {
+        "$ref": "#/$defs/affiliationscontactsCreateRelatedInput"
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "createdBy": {
+        "$ref": "#/$defs/affiliationscreatedByCreateRelatedInput"
       },
       "endedAt": {
         "oneOf": [
@@ -2731,7 +3250,7 @@ const definitions = {
         "type": "boolean"
       },
       "organizations": {
-        "$ref": "#/$defs/contactOrganizationsorganizationsCreateRelatedInput"
+        "$ref": "#/$defs/affiliationsorganizationsCreateRelatedInput"
       },
       "role": {
         "oneOf": [
@@ -2769,7 +3288,7 @@ const definitions = {
         "format": "date-time"
       },
       "updatedBy": {
-        "$ref": "#/$defs/contactOrganizationsupdatedByCreateRelatedInput"
+        "$ref": "#/$defs/affiliationsupdatedByCreateRelatedInput"
       }
     },
     "required": [
@@ -2777,31 +3296,31 @@ const definitions = {
       "organizations"
     ]
   },
-  "contactOrganizationsDeleteArguments": {
+  "affiliationsDeleteArguments": {
     "type": "object",
     "properties": {
       "filter": {
-        "$ref": "#/$defs/contactOrganizationsFilterInput"
+        "$ref": "#/$defs/affiliationsFilterInput"
       }
     },
     "required": []
   },
-  "contactOrganizationsFilterInput": {
+  "affiliationsFilterInput": {
     "type": "object",
     "properties": {
       "_and": {
         "type": "array",
         "items": {
-          "$ref": "#/$defs/contactOrganizationsFilterInput"
+          "$ref": "#/$defs/affiliationsFilterInput"
         }
       },
       "_not": {
-        "$ref": "#/$defs/contactOrganizationsFilterInput"
+        "$ref": "#/$defs/affiliationsFilterInput"
       },
       "_or": {
         "type": "array",
         "items": {
-          "$ref": "#/$defs/contactOrganizationsFilterInput"
+          "$ref": "#/$defs/affiliationsFilterInput"
         }
       },
       "contactId": {
@@ -2986,22 +3505,22 @@ const definitions = {
     },
     "required": []
   },
-  "contactOrganizationsFilterQuantifierInput": {
+  "affiliationsFilterQuantifierInput": {
     "type": "object",
     "properties": {
       "_every": {
-        "$ref": "#/$defs/contactOrganizationsFilterInput"
+        "$ref": "#/$defs/affiliationsFilterInput"
       },
       "_none": {
-        "$ref": "#/$defs/contactOrganizationsFilterInput"
+        "$ref": "#/$defs/affiliationsFilterInput"
       },
       "_some": {
-        "$ref": "#/$defs/contactOrganizationsFilterInput"
+        "$ref": "#/$defs/affiliationsFilterInput"
       }
     },
     "required": []
   },
-  "contactOrganizationsorganizationsConnectForwardKeyInput": {
+  "affiliationsorganizationsConnectForwardKeyInput": {
     "type": "object",
     "properties": {
       "id": {
@@ -3013,43 +3532,49 @@ const definitions = {
       "id"
     ]
   },
-  "contactOrganizationsorganizationsConnectInput": {
+  "affiliationsorganizationsConnectInput": {
     "type": "object",
     "properties": {
       "key": {
-        "$ref": "#/$defs/contactOrganizationsorganizationsConnectForwardKeyInput"
+        "$ref": "#/$defs/affiliationsorganizationsConnectForwardKeyInput"
       }
     },
     "required": [
       "key"
     ]
   },
-  "contactOrganizationsorganizationsCreateArguments": {
+  "affiliationsorganizationsCreateArguments": {
     "type": "object",
     "properties": {
       "data": {
-        "$ref": "#/$defs/contactOrganizationsorganizationsCreateRelatedWithoutTypeInput"
+        "$ref": "#/$defs/affiliationsorganizationsCreateRelatedWithoutTypeInput"
       }
     },
     "required": [
       "data"
     ]
   },
-  "contactOrganizationsorganizationsCreateRelatedInput": {
+  "affiliationsorganizationsCreateRelatedInput": {
     "type": "object",
     "properties": {
       "_connect": {
-        "$ref": "#/$defs/contactOrganizationsorganizationsConnectInput"
+        "$ref": "#/$defs/affiliationsorganizationsConnectInput"
       },
       "_create": {
-        "$ref": "#/$defs/contactOrganizationsorganizationsCreateArguments"
+        "$ref": "#/$defs/affiliationsorganizationsCreateArguments"
       }
     },
     "required": []
   },
-  "contactOrganizationsorganizationsCreateRelatedWithoutTypeInput": {
+  "affiliationsorganizationsCreateRelatedWithoutTypeInput": {
     "type": "object",
     "properties": {
+      "activities": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/organizationsactivitiesCreateRelatedInput"
+        }
+      },
       "attachments": {
         "type": "array",
         "items": {
@@ -3062,6 +3587,12 @@ const definitions = {
       },
       "createdBy": {
         "$ref": "#/$defs/organizationscreatedByCreateRelatedInput"
+      },
+      "deals": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/organizationsdealsCreateRelatedInput"
+        }
       },
       "domain": {
         "oneOf": [
@@ -3087,12 +3618,6 @@ const definitions = {
           }
         ]
       },
-      "interactions": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/organizationsinteractionsCreateRelatedInput"
-        }
-      },
       "name": {
         "type": "string"
       },
@@ -3105,12 +3630,6 @@ const definitions = {
             "type": "null"
           }
         ]
-      },
-      "opportunities": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/organizationsopportunitiesCreateRelatedInput"
-        }
       },
       "owner": {
         "$ref": "#/$defs/organizationsownerCreateRelatedInput"
@@ -3143,14 +3662,14 @@ const definitions = {
       "name"
     ]
   },
-  "contactOrganizationsorganizationsUpdateOneRelatedOperationsInput": {
+  "affiliationsorganizationsUpdateOneRelatedOperationsInput": {
     "type": "object",
     "properties": {
       "_connect": {
-        "$ref": "#/$defs/contactOrganizationsorganizationsConnectInput"
+        "$ref": "#/$defs/affiliationsorganizationsConnectInput"
       },
       "_create": {
-        "$ref": "#/$defs/contactOrganizationsorganizationsCreateArguments"
+        "$ref": "#/$defs/affiliationsorganizationsCreateArguments"
       },
       "_update": {
         "$ref": "#/$defs/organizationsUpdateInput"
@@ -3158,7 +3677,7 @@ const definitions = {
     },
     "required": []
   },
-  "contactOrganizationsUpdateDataInput": {
+  "affiliationsUpdateDataInput": {
     "type": "object",
     "properties": {
       "contactId": {
@@ -3168,7 +3687,7 @@ const definitions = {
       "contacts": {
         "type": "array",
         "items": {
-          "$ref": "#/$defs/contactOrganizationscontactsUpdateOneRelatedOperationsInput"
+          "$ref": "#/$defs/affiliationscontactsUpdateOneRelatedOperationsInput"
         }
       },
       "createdAt": {
@@ -3178,7 +3697,7 @@ const definitions = {
       "createdBy": {
         "type": "array",
         "items": {
-          "$ref": "#/$defs/contactOrganizationscreatedByUpdateOneRelatedOperationsInput"
+          "$ref": "#/$defs/affiliationscreatedByUpdateOneRelatedOperationsInput"
         }
       },
       "createdById": {
@@ -3217,7 +3736,7 @@ const definitions = {
       "organizations": {
         "type": "array",
         "items": {
-          "$ref": "#/$defs/contactOrganizationsorganizationsUpdateOneRelatedOperationsInput"
+          "$ref": "#/$defs/affiliationsorganizationsUpdateOneRelatedOperationsInput"
         }
       },
       "role": {
@@ -3258,7 +3777,7 @@ const definitions = {
       "updatedBy": {
         "type": "array",
         "items": {
-          "$ref": "#/$defs/contactOrganizationsupdatedByUpdateOneRelatedOperationsInput"
+          "$ref": "#/$defs/affiliationsupdatedByUpdateOneRelatedOperationsInput"
         }
       },
       "updatedById": {
@@ -3275,7 +3794,7 @@ const definitions = {
     },
     "required": []
   },
-  "contactOrganizationsupdatedByConnectForwardKeyInput": {
+  "affiliationsupdatedByConnectForwardKeyInput": {
     "type": "object",
     "properties": {
       "id": {
@@ -3294,43 +3813,59 @@ const definitions = {
       "id"
     ]
   },
-  "contactOrganizationsupdatedByConnectInput": {
+  "affiliationsupdatedByConnectInput": {
     "type": "object",
     "properties": {
       "key": {
-        "$ref": "#/$defs/contactOrganizationsupdatedByConnectForwardKeyInput"
+        "$ref": "#/$defs/affiliationsupdatedByConnectForwardKeyInput"
       }
     },
     "required": [
       "key"
     ]
   },
-  "contactOrganizationsupdatedByCreateArguments": {
+  "affiliationsupdatedByCreateArguments": {
     "type": "object",
     "properties": {
       "data": {
-        "$ref": "#/$defs/contactOrganizationsupdatedByCreateRelatedWithoutTypeInput"
+        "$ref": "#/$defs/affiliationsupdatedByCreateRelatedWithoutTypeInput"
       }
     },
     "required": [
       "data"
     ]
   },
-  "contactOrganizationsupdatedByCreateRelatedInput": {
+  "affiliationsupdatedByCreateRelatedInput": {
     "type": "object",
     "properties": {
       "_connect": {
-        "$ref": "#/$defs/contactOrganizationsupdatedByConnectInput"
+        "$ref": "#/$defs/affiliationsupdatedByConnectInput"
       },
       "_create": {
-        "$ref": "#/$defs/contactOrganizationsupdatedByCreateArguments"
+        "$ref": "#/$defs/affiliationsupdatedByCreateArguments"
       }
     },
     "required": []
   },
-  "contactOrganizationsupdatedByCreateRelatedWithoutTypeInput": {
+  "affiliationsupdatedByCreateRelatedWithoutTypeInput": {
     "type": "object",
     "properties": {
+      "activitiesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "activitiesOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "activitiesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "affiliationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
       "appearance": {
         "oneOf": [
           {
@@ -3356,10 +3891,6 @@ const definitions = {
           }
         ]
       },
-      "contactOrganizationsCreatedBy": {
-        "type": "array",
-        "items": {}
-      },
       "contactsCreatedBy": {
         "type": "array",
         "items": {}
@@ -3369,6 +3900,18 @@ const definitions = {
         "items": {}
       },
       "contactsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsUpdatedBy": {
         "type": "array",
         "items": {}
       },
@@ -3396,18 +3939,6 @@ const definitions = {
         "type": "string",
         "format": "uuid"
       },
-      "interactionsCreatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "interactionsOwner": {
-        "type": "array",
-        "items": {}
-      },
-      "interactionsUpdatedBy": {
-        "type": "array",
-        "items": {}
-      },
       "isService": {
         "type": "boolean"
       },
@@ -3421,18 +3952,6 @@ const definitions = {
             "type": "null"
           }
         ]
-      },
-      "opportunitiesCreatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "opportunitiesOwner": {
-        "type": "array",
-        "items": {}
-      },
-      "opportunitiesUpdatedBy": {
-        "type": "array",
-        "items": {}
       },
       "organizationsCreatedBy": {
         "type": "array",
@@ -3474,14 +3993,14 @@ const definitions = {
       "isService"
     ]
   },
-  "contactOrganizationsupdatedByUpdateOneRelatedOperationsInput": {
+  "affiliationsupdatedByUpdateOneRelatedOperationsInput": {
     "type": "object",
     "properties": {
       "_connect": {
-        "$ref": "#/$defs/contactOrganizationsupdatedByConnectInput"
+        "$ref": "#/$defs/affiliationsupdatedByConnectInput"
       },
       "_create": {
-        "$ref": "#/$defs/contactOrganizationsupdatedByCreateArguments"
+        "$ref": "#/$defs/affiliationsupdatedByCreateArguments"
       },
       "_delete": {},
       "_disconnect": {},
@@ -3489,19 +4008,1673 @@ const definitions = {
     },
     "required": []
   },
-  "contactOrganizationsUpdateInput": {
+  "affiliationsUpdateInput": {
     "type": "object",
     "properties": {
       "data": {
-        "$ref": "#/$defs/contactOrganizationsUpdateDataInput"
+        "$ref": "#/$defs/affiliationsUpdateDataInput"
       },
       "filter": {
-        "$ref": "#/$defs/contactOrganizationsFilterInput"
+        "$ref": "#/$defs/affiliationsFilterInput"
       }
     },
     "required": [
       "data"
     ]
+  },
+  "attachmentsactivitiesConnectForwardKeyInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "attachmentsactivitiesConnectInput": {
+    "type": "object",
+    "properties": {
+      "key": {
+        "$ref": "#/$defs/attachmentsactivitiesConnectForwardKeyInput"
+      }
+    },
+    "required": [
+      "key"
+    ]
+  },
+  "attachmentsactivitiesCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/attachmentsactivitiesCreateRelatedWithoutTypeInput"
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "attachmentsactivitiesCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/attachmentsactivitiesConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/attachmentsactivitiesCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "attachmentsactivitiesCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "body": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "completedAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "contacts": {
+        "$ref": "#/$defs/activitiescontactsCreateRelatedInput"
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "createdBy": {
+        "$ref": "#/$defs/activitiescreatedByCreateRelatedInput"
+      },
+      "deals": {
+        "$ref": "#/$defs/activitiesdealsCreateRelatedInput"
+      },
+      "direction": {
+        "type": "string"
+      },
+      "dueAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "occurredAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "organizations": {
+        "$ref": "#/$defs/activitiesorganizationsCreateRelatedInput"
+      },
+      "owner": {
+        "$ref": "#/$defs/activitiesownerCreateRelatedInput"
+      },
+      "status": {
+        "type": "string"
+      },
+      "subject": {
+        "type": "string"
+      },
+      "type": {
+        "type": "string"
+      },
+      "updatedAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "updatedBy": {
+        "$ref": "#/$defs/activitiesupdatedByCreateRelatedInput"
+      }
+    },
+    "required": [
+      "organizations",
+      "status",
+      "subject",
+      "type"
+    ]
+  },
+  "attachmentsactivitiesUpdateOneRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/attachmentsactivitiesConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/attachmentsactivitiesCreateArguments"
+      },
+      "_delete": {
+        "$ref": "#/$defs/activitiesDeleteArguments"
+      },
+      "_disconnect": {
+        "$ref": "#/$defs/activitiesDisconnectOneInput"
+      },
+      "_update": {
+        "$ref": "#/$defs/activitiesUpdateInput"
+      }
+    },
+    "required": []
+  },
+  "attachmentscontactsConnectForwardKeyInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "attachmentscontactsConnectInput": {
+    "type": "object",
+    "properties": {
+      "key": {
+        "$ref": "#/$defs/attachmentscontactsConnectForwardKeyInput"
+      }
+    },
+    "required": [
+      "key"
+    ]
+  },
+  "attachmentscontactsCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/attachmentscontactsCreateRelatedWithoutTypeInput"
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "attachmentscontactsCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/attachmentscontactsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/attachmentscontactsCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "attachmentscontactsCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "activities": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/contactsactivitiesCreateRelatedInput"
+        }
+      },
+      "affiliations": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/contactsaffiliationsCreateRelatedInput"
+        }
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "createdBy": {
+        "$ref": "#/$defs/contactscreatedByCreateRelatedInput"
+      },
+      "deals": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/contactsdealsCreateRelatedInput"
+        }
+      },
+      "email": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "firstName": {
+        "type": "string"
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "lastName": {
+        "type": "string"
+      },
+      "notes": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "owner": {
+        "$ref": "#/$defs/contactsownerCreateRelatedInput"
+      },
+      "phone": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "portalUser": {
+        "$ref": "#/$defs/contactsportalUserCreateRelatedInput"
+      },
+      "status": {
+        "type": "string"
+      },
+      "updatedAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "updatedBy": {
+        "$ref": "#/$defs/contactsupdatedByCreateRelatedInput"
+      }
+    },
+    "required": [
+      "firstName",
+      "lastName"
+    ]
+  },
+  "attachmentscontactsUpdateOneRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/attachmentscontactsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/attachmentscontactsCreateArguments"
+      },
+      "_delete": {
+        "$ref": "#/$defs/contactsDeleteArguments"
+      },
+      "_disconnect": {
+        "$ref": "#/$defs/contactsDisconnectOneInput"
+      },
+      "_update": {
+        "$ref": "#/$defs/contactsUpdateInput"
+      }
+    },
+    "required": []
+  },
+  "attachmentscreatedByConnectForwardKeyInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "attachmentscreatedByConnectInput": {
+    "type": "object",
+    "properties": {
+      "key": {
+        "$ref": "#/$defs/attachmentscreatedByConnectForwardKeyInput"
+      }
+    },
+    "required": [
+      "key"
+    ]
+  },
+  "attachmentscreatedByCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/attachmentscreatedByCreateRelatedWithoutTypeInput"
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "attachmentscreatedByCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/attachmentscreatedByConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/attachmentscreatedByCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "attachmentscreatedByCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "activitiesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "activitiesOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "activitiesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "affiliationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "affiliationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "appearance": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "avatarId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "contactsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "contactsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "contactsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "email": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "fullName": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "isService": {
+        "type": "boolean"
+      },
+      "lastActivityAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "organizationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "organizationsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "organizationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roles": {
+        "type": "array",
+        "items": {}
+      },
+      "serviceOwnerId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "status": {
+        "type": "string"
+      },
+      "storageValues": {
+        "type": "array",
+        "items": {}
+      }
+    },
+    "required": [
+      "id",
+      "isService"
+    ]
+  },
+  "attachmentscreatedByUpdateOneRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/attachmentscreatedByConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/attachmentscreatedByCreateArguments"
+      },
+      "_delete": {},
+      "_disconnect": {},
+      "_update": {}
+    },
+    "required": []
+  },
+  "attachmentsCreateInput": {
+    "type": "object",
+    "properties": {
+      "activities": {
+        "$ref": "#/$defs/attachmentsactivitiesCreateRelatedInput"
+      },
+      "assetId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "contacts": {
+        "$ref": "#/$defs/attachmentscontactsCreateRelatedInput"
+      },
+      "contentType": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "createdBy": {
+        "$ref": "#/$defs/attachmentscreatedByCreateRelatedInput"
+      },
+      "deals": {
+        "$ref": "#/$defs/attachmentsdealsCreateRelatedInput"
+      },
+      "fileName": {
+        "type": "string"
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "organizations": {
+        "$ref": "#/$defs/attachmentsorganizationsCreateRelatedInput"
+      },
+      "sizeBytes": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/Int64Input"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "url": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": [
+      "fileName",
+      "organizations"
+    ]
+  },
+  "attachmentsdealsConnectForwardKeyInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "attachmentsdealsConnectInput": {
+    "type": "object",
+    "properties": {
+      "key": {
+        "$ref": "#/$defs/attachmentsdealsConnectForwardKeyInput"
+      }
+    },
+    "required": [
+      "key"
+    ]
+  },
+  "attachmentsdealsCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/attachmentsdealsCreateRelatedWithoutTypeInput"
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "attachmentsdealsCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/attachmentsdealsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/attachmentsdealsCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "attachmentsdealsCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "activities": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/dealsactivitiesCreateRelatedInput"
+        }
+      },
+      "contacts": {
+        "$ref": "#/$defs/dealscontactsCreateRelatedInput"
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "createdBy": {
+        "$ref": "#/$defs/dealscreatedByCreateRelatedInput"
+      },
+      "currency": {
+        "type": "string"
+      },
+      "expectedCloseDate": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "notes": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "organizations": {
+        "$ref": "#/$defs/dealsorganizationsCreateRelatedInput"
+      },
+      "owner": {
+        "$ref": "#/$defs/dealsownerCreateRelatedInput"
+      },
+      "pipeline_stages": {
+        "$ref": "#/$defs/dealspipeline_stagesCreateRelatedInput"
+      },
+      "status": {
+        "type": "string"
+      },
+      "title": {
+        "type": "string"
+      },
+      "updatedAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "updatedBy": {
+        "$ref": "#/$defs/dealsupdatedByCreateRelatedInput"
+      },
+      "valueAmount": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "decimal",
+            "example": "123.345"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": [
+      "organizations",
+      "pipeline_stages",
+      "title"
+    ]
+  },
+  "attachmentsdealsUpdateOneRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/attachmentsdealsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/attachmentsdealsCreateArguments"
+      },
+      "_delete": {
+        "$ref": "#/$defs/dealsDeleteArguments"
+      },
+      "_disconnect": {
+        "$ref": "#/$defs/dealsDisconnectOneInput"
+      },
+      "_update": {
+        "$ref": "#/$defs/dealsUpdateInput"
+      }
+    },
+    "required": []
+  },
+  "attachmentsDeleteArguments": {
+    "type": "object",
+    "properties": {
+      "filter": {
+        "$ref": "#/$defs/attachmentsFilterInput"
+      }
+    },
+    "required": []
+  },
+  "attachmentsDisconnectManyInput": {
+    "type": "object",
+    "properties": {
+      "filter": {
+        "$ref": "#/$defs/attachmentsFilterInput"
+      }
+    },
+    "required": []
+  },
+  "attachmentsFilterInput": {
+    "type": "object",
+    "properties": {
+      "_and": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/attachmentsFilterInput"
+        }
+      },
+      "_not": {
+        "$ref": "#/$defs/attachmentsFilterInput"
+      },
+      "_or": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/attachmentsFilterInput"
+        }
+      },
+      "activities": {
+        "$ref": "#/$defs/activitiesFilterInput"
+      },
+      "activityId": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "assetId": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "contactId": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "contacts": {
+        "$ref": "#/$defs/contactsFilterInput"
+      },
+      "contentType": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "createdAt": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/DateTimeFilterPrimitiveInput"
+          },
+          {
+            "type": "string",
+            "format": "date-time"
+          }
+        ]
+      },
+      "createdBy": {},
+      "createdById": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "dealId": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "deals": {
+        "$ref": "#/$defs/dealsFilterInput"
+      },
+      "fileName": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterPrimitiveInput"
+          },
+          {
+            "type": "string"
+          }
+        ]
+      },
+      "id": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterPrimitiveInput"
+          },
+          {
+            "type": "string",
+            "format": "uuid"
+          }
+        ]
+      },
+      "organizationId": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterPrimitiveInput"
+          },
+          {
+            "type": "string",
+            "format": "uuid"
+          }
+        ]
+      },
+      "organizations": {
+        "$ref": "#/$defs/organizationsFilterInput"
+      },
+      "sizeBytes": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/Int64FilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "$ref": "#/$defs/Int64Input"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "url": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "required": []
+  },
+  "attachmentsFilterQuantifierInput": {
+    "type": "object",
+    "properties": {
+      "_every": {
+        "$ref": "#/$defs/attachmentsFilterInput"
+      },
+      "_none": {
+        "$ref": "#/$defs/attachmentsFilterInput"
+      },
+      "_some": {
+        "$ref": "#/$defs/attachmentsFilterInput"
+      }
+    },
+    "required": []
+  },
+  "attachmentsorganizationsConnectForwardKeyInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "attachmentsorganizationsConnectInput": {
+    "type": "object",
+    "properties": {
+      "key": {
+        "$ref": "#/$defs/attachmentsorganizationsConnectForwardKeyInput"
+      }
+    },
+    "required": [
+      "key"
+    ]
+  },
+  "attachmentsorganizationsCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/attachmentsorganizationsCreateRelatedWithoutTypeInput"
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "attachmentsorganizationsCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/attachmentsorganizationsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/attachmentsorganizationsCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "attachmentsorganizationsCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "activities": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/organizationsactivitiesCreateRelatedInput"
+        }
+      },
+      "affiliations": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/organizationsaffiliationsCreateRelatedInput"
+        }
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "createdBy": {
+        "$ref": "#/$defs/organizationscreatedByCreateRelatedInput"
+      },
+      "deals": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/organizationsdealsCreateRelatedInput"
+        }
+      },
+      "domain": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "industry": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "name": {
+        "type": "string"
+      },
+      "notes": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "owner": {
+        "$ref": "#/$defs/organizationsownerCreateRelatedInput"
+      },
+      "portalAccount": {
+        "$ref": "#/$defs/organizationsportalAccountCreateRelatedInput"
+      },
+      "portalAccountId": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "status": {
+        "type": "string"
+      },
+      "updatedAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "updatedBy": {
+        "$ref": "#/$defs/organizationsupdatedByCreateRelatedInput"
+      }
+    },
+    "required": [
+      "name"
+    ]
+  },
+  "attachmentsorganizationsUpdateOneRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/attachmentsorganizationsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/attachmentsorganizationsCreateArguments"
+      },
+      "_update": {
+        "$ref": "#/$defs/organizationsUpdateInput"
+      }
+    },
+    "required": []
+  },
+  "attachmentsUpdateDataInput": {
+    "type": "object",
+    "properties": {
+      "activities": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/attachmentsactivitiesUpdateOneRelatedOperationsInput"
+        }
+      },
+      "activityId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "assetId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "contactId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "contacts": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/attachmentscontactsUpdateOneRelatedOperationsInput"
+        }
+      },
+      "contentType": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "createdBy": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/attachmentscreatedByUpdateOneRelatedOperationsInput"
+        }
+      },
+      "createdById": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "dealId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "deals": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/attachmentsdealsUpdateOneRelatedOperationsInput"
+        }
+      },
+      "fileName": {
+        "type": "string"
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "organizationId": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "organizations": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/attachmentsorganizationsUpdateOneRelatedOperationsInput"
+        }
+      },
+      "sizeBytes": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/Int64Input"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "url": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": []
+  },
+  "attachmentsUpdateInput": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/attachmentsUpdateDataInput"
+      },
+      "filter": {
+        "$ref": "#/$defs/attachmentsFilterInput"
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "BooleanFilterPrimitiveInput": {
+    "type": "object",
+    "properties": {
+      "_eq": {
+        "type": "boolean"
+      },
+      "_neq": {
+        "type": "boolean"
+      }
+    },
+    "required": []
+  },
+  "contactsactivitiesConnectBackwardKeysInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      }
+    },
+    "required": []
+  },
+  "contactsactivitiesConnectInput": {
+    "type": "object",
+    "properties": {
+      "keys": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/contactsactivitiesConnectBackwardKeysInput"
+        }
+      }
+    },
+    "required": [
+      "keys"
+    ]
+  },
+  "contactsactivitiesCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/contactsactivitiesCreateRelatedWithoutTypeInput"
+        }
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "contactsactivitiesCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/contactsactivitiesConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/contactsactivitiesCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "contactsactivitiesCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "attachments": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/activitiesattachmentsCreateRelatedInput"
+        }
+      },
+      "body": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "completedAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "createdBy": {
+        "$ref": "#/$defs/activitiescreatedByCreateRelatedInput"
+      },
+      "deals": {
+        "$ref": "#/$defs/activitiesdealsCreateRelatedInput"
+      },
+      "direction": {
+        "type": "string"
+      },
+      "dueAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "occurredAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "organizations": {
+        "$ref": "#/$defs/activitiesorganizationsCreateRelatedInput"
+      },
+      "owner": {
+        "$ref": "#/$defs/activitiesownerCreateRelatedInput"
+      },
+      "status": {
+        "type": "string"
+      },
+      "subject": {
+        "type": "string"
+      },
+      "type": {
+        "type": "string"
+      },
+      "updatedAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "updatedBy": {
+        "$ref": "#/$defs/activitiesupdatedByCreateRelatedInput"
+      }
+    },
+    "required": [
+      "organizations",
+      "status",
+      "subject",
+      "type"
+    ]
+  },
+  "contactsactivitiesUpdateManyRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/contactsactivitiesConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/contactsactivitiesCreateArguments"
+      },
+      "_delete": {
+        "$ref": "#/$defs/activitiesDeleteArguments"
+      },
+      "_disconnect": {
+        "$ref": "#/$defs/activitiesDisconnectManyInput"
+      },
+      "_update": {
+        "$ref": "#/$defs/activitiesUpdateInput"
+      }
+    },
+    "required": []
+  },
+  "contactsaffiliationsConnectBackwardKeysInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      }
+    },
+    "required": []
+  },
+  "contactsaffiliationsConnectInput": {
+    "type": "object",
+    "properties": {
+      "keys": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/contactsaffiliationsConnectBackwardKeysInput"
+        }
+      }
+    },
+    "required": [
+      "keys"
+    ]
+  },
+  "contactsaffiliationsCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/contactsaffiliationsCreateRelatedWithoutTypeInput"
+        }
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "contactsaffiliationsCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/contactsaffiliationsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/contactsaffiliationsCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "contactsaffiliationsCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "createdBy": {
+        "$ref": "#/$defs/affiliationscreatedByCreateRelatedInput"
+      },
+      "endedAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "isPrimary": {
+        "type": "boolean"
+      },
+      "organizations": {
+        "$ref": "#/$defs/affiliationsorganizationsCreateRelatedInput"
+      },
+      "role": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "startedAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "title": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "updatedAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "updatedBy": {
+        "$ref": "#/$defs/affiliationsupdatedByCreateRelatedInput"
+      }
+    },
+    "required": [
+      "organizations"
+    ]
+  },
+  "contactsaffiliationsUpdateManyRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/contactsaffiliationsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/contactsaffiliationsCreateArguments"
+      },
+      "_delete": {
+        "$ref": "#/$defs/affiliationsDeleteArguments"
+      },
+      "_update": {
+        "$ref": "#/$defs/affiliationsUpdateInput"
+      }
+    },
+    "required": []
   },
   "contactsattachmentsConnectBackwardKeysInput": {
     "type": "object",
@@ -3560,6 +5733,9 @@ const definitions = {
   "contactsattachmentsCreateRelatedWithoutTypeInput": {
     "type": "object",
     "properties": {
+      "activities": {
+        "$ref": "#/$defs/attachmentsactivitiesCreateRelatedInput"
+      },
       "assetId": {
         "oneOf": [
           {
@@ -3588,18 +5764,15 @@ const definitions = {
       "createdBy": {
         "$ref": "#/$defs/attachmentscreatedByCreateRelatedInput"
       },
+      "deals": {
+        "$ref": "#/$defs/attachmentsdealsCreateRelatedInput"
+      },
       "fileName": {
         "type": "string"
       },
       "id": {
         "type": "string",
         "format": "uuid"
-      },
-      "interactions": {
-        "$ref": "#/$defs/attachmentsinteractionsCreateRelatedInput"
-      },
-      "opportunities": {
-        "$ref": "#/$defs/attachmentsopportunitiesCreateRelatedInput"
       },
       "organizations": {
         "$ref": "#/$defs/attachmentsorganizationsCreateRelatedInput"
@@ -3647,148 +5820,6 @@ const definitions = {
       },
       "_update": {
         "$ref": "#/$defs/attachmentsUpdateInput"
-      }
-    },
-    "required": []
-  },
-  "contactscontact_organizationsConnectBackwardKeysInput": {
-    "type": "object",
-    "properties": {
-      "id": {
-        "type": "string",
-        "format": "uuid"
-      }
-    },
-    "required": []
-  },
-  "contactscontact_organizationsConnectInput": {
-    "type": "object",
-    "properties": {
-      "keys": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/contactscontact_organizationsConnectBackwardKeysInput"
-        }
-      }
-    },
-    "required": [
-      "keys"
-    ]
-  },
-  "contactscontact_organizationsCreateArguments": {
-    "type": "object",
-    "properties": {
-      "data": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/contactscontact_organizationsCreateRelatedWithoutTypeInput"
-        }
-      }
-    },
-    "required": [
-      "data"
-    ]
-  },
-  "contactscontact_organizationsCreateRelatedInput": {
-    "type": "object",
-    "properties": {
-      "_connect": {
-        "$ref": "#/$defs/contactscontact_organizationsConnectInput"
-      },
-      "_create": {
-        "$ref": "#/$defs/contactscontact_organizationsCreateArguments"
-      }
-    },
-    "required": []
-  },
-  "contactscontact_organizationsCreateRelatedWithoutTypeInput": {
-    "type": "object",
-    "properties": {
-      "createdAt": {
-        "type": "string",
-        "format": "date-time"
-      },
-      "createdBy": {
-        "$ref": "#/$defs/contactOrganizationscreatedByCreateRelatedInput"
-      },
-      "endedAt": {
-        "oneOf": [
-          {
-            "type": "string",
-            "format": "date"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "id": {
-        "type": "string",
-        "format": "uuid"
-      },
-      "isPrimary": {
-        "type": "boolean"
-      },
-      "organizations": {
-        "$ref": "#/$defs/contactOrganizationsorganizationsCreateRelatedInput"
-      },
-      "role": {
-        "oneOf": [
-          {
-            "type": "string"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "startedAt": {
-        "oneOf": [
-          {
-            "type": "string",
-            "format": "date"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "title": {
-        "oneOf": [
-          {
-            "type": "string"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "updatedAt": {
-        "type": "string",
-        "format": "date-time"
-      },
-      "updatedBy": {
-        "$ref": "#/$defs/contactOrganizationsupdatedByCreateRelatedInput"
-      }
-    },
-    "required": [
-      "organizations"
-    ]
-  },
-  "contactscontact_organizationsUpdateManyRelatedOperationsInput": {
-    "type": "object",
-    "properties": {
-      "_connect": {
-        "$ref": "#/$defs/contactscontact_organizationsConnectInput"
-      },
-      "_create": {
-        "$ref": "#/$defs/contactscontact_organizationsCreateArguments"
-      },
-      "_delete": {
-        "$ref": "#/$defs/contactOrganizationsDeleteArguments"
-      },
-      "_update": {
-        "$ref": "#/$defs/contactOrganizationsUpdateInput"
       }
     },
     "required": []
@@ -3849,6 +5880,26 @@ const definitions = {
   "contactscreatedByCreateRelatedWithoutTypeInput": {
     "type": "object",
     "properties": {
+      "activitiesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "activitiesOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "activitiesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "affiliationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "affiliationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
       "appearance": {
         "oneOf": [
           {
@@ -3874,19 +5925,23 @@ const definitions = {
           }
         ]
       },
-      "contactOrganizationsCreatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "contactOrganizationsUpdatedBy": {
-        "type": "array",
-        "items": {}
-      },
       "contactsOwner": {
         "type": "array",
         "items": {}
       },
       "contactsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsUpdatedBy": {
         "type": "array",
         "items": {}
       },
@@ -3914,18 +5969,6 @@ const definitions = {
         "type": "string",
         "format": "uuid"
       },
-      "interactionsCreatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "interactionsOwner": {
-        "type": "array",
-        "items": {}
-      },
-      "interactionsUpdatedBy": {
-        "type": "array",
-        "items": {}
-      },
       "isService": {
         "type": "boolean"
       },
@@ -3939,18 +5982,6 @@ const definitions = {
             "type": "null"
           }
         ]
-      },
-      "opportunitiesCreatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "opportunitiesOwner": {
-        "type": "array",
-        "items": {}
-      },
-      "opportunitiesUpdatedBy": {
-        "type": "array",
-        "items": {}
       },
       "organizationsCreatedBy": {
         "type": "array",
@@ -4010,16 +6041,22 @@ const definitions = {
   "contactsCreateInput": {
     "type": "object",
     "properties": {
+      "activities": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/contactsactivitiesCreateRelatedInput"
+        }
+      },
+      "affiliations": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/contactsaffiliationsCreateRelatedInput"
+        }
+      },
       "attachments": {
         "type": "array",
         "items": {
           "$ref": "#/$defs/contactsattachmentsCreateRelatedInput"
-        }
-      },
-      "contact_organizations": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/contactscontact_organizationsCreateRelatedInput"
         }
       },
       "createdAt": {
@@ -4028,6 +6065,12 @@ const definitions = {
       },
       "createdBy": {
         "$ref": "#/$defs/contactscreatedByCreateRelatedInput"
+      },
+      "deals": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/contactsdealsCreateRelatedInput"
+        }
       },
       "email": {
         "oneOf": [
@@ -4046,12 +6089,6 @@ const definitions = {
         "type": "string",
         "format": "uuid"
       },
-      "interactions": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/contactsinteractionsCreateRelatedInput"
-        }
-      },
       "lastName": {
         "type": "string"
       },
@@ -4064,12 +6101,6 @@ const definitions = {
             "type": "null"
           }
         ]
-      },
-      "opportunities": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/contactsopportunitiesCreateRelatedInput"
-        }
       },
       "owner": {
         "$ref": "#/$defs/contactsownerCreateRelatedInput"
@@ -4103,6 +6134,168 @@ const definitions = {
       "lastName"
     ]
   },
+  "contactsdealsConnectBackwardKeysInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      }
+    },
+    "required": []
+  },
+  "contactsdealsConnectInput": {
+    "type": "object",
+    "properties": {
+      "keys": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/contactsdealsConnectBackwardKeysInput"
+        }
+      }
+    },
+    "required": [
+      "keys"
+    ]
+  },
+  "contactsdealsCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/contactsdealsCreateRelatedWithoutTypeInput"
+        }
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "contactsdealsCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/contactsdealsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/contactsdealsCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "contactsdealsCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "activities": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/dealsactivitiesCreateRelatedInput"
+        }
+      },
+      "attachments": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/dealsattachmentsCreateRelatedInput"
+        }
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "createdBy": {
+        "$ref": "#/$defs/dealscreatedByCreateRelatedInput"
+      },
+      "currency": {
+        "type": "string"
+      },
+      "expectedCloseDate": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "notes": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "organizations": {
+        "$ref": "#/$defs/dealsorganizationsCreateRelatedInput"
+      },
+      "owner": {
+        "$ref": "#/$defs/dealsownerCreateRelatedInput"
+      },
+      "pipeline_stages": {
+        "$ref": "#/$defs/dealspipeline_stagesCreateRelatedInput"
+      },
+      "status": {
+        "type": "string"
+      },
+      "title": {
+        "type": "string"
+      },
+      "updatedAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "updatedBy": {
+        "$ref": "#/$defs/dealsupdatedByCreateRelatedInput"
+      },
+      "valueAmount": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "decimal",
+            "example": "123.345"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": [
+      "organizations",
+      "pipeline_stages",
+      "title"
+    ]
+  },
+  "contactsdealsUpdateManyRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/contactsdealsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/contactsdealsCreateArguments"
+      },
+      "_delete": {
+        "$ref": "#/$defs/dealsDeleteArguments"
+      },
+      "_disconnect": {
+        "$ref": "#/$defs/dealsDisconnectManyInput"
+      },
+      "_update": {
+        "$ref": "#/$defs/dealsUpdateInput"
+      }
+    },
+    "required": []
+  },
   "contactsDeleteArguments": {
     "type": "object",
     "properties": {
@@ -4135,6 +6328,26 @@ const definitions = {
           "$ref": "#/$defs/contactsFilterInput"
         }
       },
+      "activities": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/activitiesFilterQuantifierInput"
+          },
+          {
+            "$ref": "#/$defs/activitiesFilterInput"
+          }
+        ]
+      },
+      "affiliations": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/affiliationsFilterQuantifierInput"
+          },
+          {
+            "$ref": "#/$defs/affiliationsFilterInput"
+          }
+        ]
+      },
       "attachments": {
         "oneOf": [
           {
@@ -4142,16 +6355,6 @@ const definitions = {
           },
           {
             "$ref": "#/$defs/attachmentsFilterInput"
-          }
-        ]
-      },
-      "contact_organizations": {
-        "oneOf": [
-          {
-            "$ref": "#/$defs/contactOrganizationsFilterQuantifierInput"
-          },
-          {
-            "$ref": "#/$defs/contactOrganizationsFilterInput"
           }
         ]
       },
@@ -4182,6 +6385,16 @@ const definitions = {
                 "type": "null"
               }
             ]
+          }
+        ]
+      },
+      "deals": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/dealsFilterQuantifierInput"
+          },
+          {
+            "$ref": "#/$defs/dealsFilterInput"
           }
         ]
       },
@@ -4223,16 +6436,6 @@ const definitions = {
           }
         ]
       },
-      "interactions": {
-        "oneOf": [
-          {
-            "$ref": "#/$defs/interactionsFilterQuantifierInput"
-          },
-          {
-            "$ref": "#/$defs/interactionsFilterInput"
-          }
-        ]
-      },
       "lastName": {
         "oneOf": [
           {
@@ -4257,16 +6460,6 @@ const definitions = {
                 "type": "null"
               }
             ]
-          }
-        ]
-      },
-      "opportunities": {
-        "oneOf": [
-          {
-            "$ref": "#/$defs/opportunitiesFilterQuantifierInput"
-          },
-          {
-            "$ref": "#/$defs/opportunitiesFilterInput"
           }
         ]
       },
@@ -4352,331 +6545,6 @@ const definitions = {
     },
     "required": []
   },
-  "contactsinteractionsConnectBackwardKeysInput": {
-    "type": "object",
-    "properties": {
-      "id": {
-        "type": "string",
-        "format": "uuid"
-      }
-    },
-    "required": []
-  },
-  "contactsinteractionsConnectInput": {
-    "type": "object",
-    "properties": {
-      "keys": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/contactsinteractionsConnectBackwardKeysInput"
-        }
-      }
-    },
-    "required": [
-      "keys"
-    ]
-  },
-  "contactsinteractionsCreateArguments": {
-    "type": "object",
-    "properties": {
-      "data": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/contactsinteractionsCreateRelatedWithoutTypeInput"
-        }
-      }
-    },
-    "required": [
-      "data"
-    ]
-  },
-  "contactsinteractionsCreateRelatedInput": {
-    "type": "object",
-    "properties": {
-      "_connect": {
-        "$ref": "#/$defs/contactsinteractionsConnectInput"
-      },
-      "_create": {
-        "$ref": "#/$defs/contactsinteractionsCreateArguments"
-      }
-    },
-    "required": []
-  },
-  "contactsinteractionsCreateRelatedWithoutTypeInput": {
-    "type": "object",
-    "properties": {
-      "attachments": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/interactionsattachmentsCreateRelatedInput"
-        }
-      },
-      "body": {
-        "oneOf": [
-          {
-            "type": "string"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "completedAt": {
-        "oneOf": [
-          {
-            "type": "string",
-            "format": "date-time"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "createdAt": {
-        "type": "string",
-        "format": "date-time"
-      },
-      "createdBy": {
-        "$ref": "#/$defs/interactionscreatedByCreateRelatedInput"
-      },
-      "direction": {
-        "type": "string"
-      },
-      "dueAt": {
-        "oneOf": [
-          {
-            "type": "string",
-            "format": "date-time"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "id": {
-        "type": "string",
-        "format": "uuid"
-      },
-      "occurredAt": {
-        "type": "string",
-        "format": "date-time"
-      },
-      "opportunities": {
-        "$ref": "#/$defs/interactionsopportunitiesCreateRelatedInput"
-      },
-      "organizations": {
-        "$ref": "#/$defs/interactionsorganizationsCreateRelatedInput"
-      },
-      "owner": {
-        "$ref": "#/$defs/interactionsownerCreateRelatedInput"
-      },
-      "status": {
-        "type": "string"
-      },
-      "subject": {
-        "type": "string"
-      },
-      "type": {
-        "type": "string"
-      },
-      "updatedAt": {
-        "type": "string",
-        "format": "date-time"
-      },
-      "updatedBy": {
-        "$ref": "#/$defs/interactionsupdatedByCreateRelatedInput"
-      }
-    },
-    "required": [
-      "organizations",
-      "status",
-      "subject",
-      "type"
-    ]
-  },
-  "contactsinteractionsUpdateManyRelatedOperationsInput": {
-    "type": "object",
-    "properties": {
-      "_connect": {
-        "$ref": "#/$defs/contactsinteractionsConnectInput"
-      },
-      "_create": {
-        "$ref": "#/$defs/contactsinteractionsCreateArguments"
-      },
-      "_delete": {
-        "$ref": "#/$defs/interactionsDeleteArguments"
-      },
-      "_disconnect": {
-        "$ref": "#/$defs/interactionsDisconnectManyInput"
-      },
-      "_update": {
-        "$ref": "#/$defs/interactionsUpdateInput"
-      }
-    },
-    "required": []
-  },
-  "contactsopportunitiesConnectBackwardKeysInput": {
-    "type": "object",
-    "properties": {
-      "id": {
-        "type": "string",
-        "format": "uuid"
-      }
-    },
-    "required": []
-  },
-  "contactsopportunitiesConnectInput": {
-    "type": "object",
-    "properties": {
-      "keys": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/contactsopportunitiesConnectBackwardKeysInput"
-        }
-      }
-    },
-    "required": [
-      "keys"
-    ]
-  },
-  "contactsopportunitiesCreateArguments": {
-    "type": "object",
-    "properties": {
-      "data": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/contactsopportunitiesCreateRelatedWithoutTypeInput"
-        }
-      }
-    },
-    "required": [
-      "data"
-    ]
-  },
-  "contactsopportunitiesCreateRelatedInput": {
-    "type": "object",
-    "properties": {
-      "_connect": {
-        "$ref": "#/$defs/contactsopportunitiesConnectInput"
-      },
-      "_create": {
-        "$ref": "#/$defs/contactsopportunitiesCreateArguments"
-      }
-    },
-    "required": []
-  },
-  "contactsopportunitiesCreateRelatedWithoutTypeInput": {
-    "type": "object",
-    "properties": {
-      "attachments": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/opportunitiesattachmentsCreateRelatedInput"
-        }
-      },
-      "createdAt": {
-        "type": "string",
-        "format": "date-time"
-      },
-      "createdBy": {
-        "$ref": "#/$defs/opportunitiescreatedByCreateRelatedInput"
-      },
-      "currency": {
-        "type": "string"
-      },
-      "expectedCloseDate": {
-        "oneOf": [
-          {
-            "type": "string",
-            "format": "date"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "id": {
-        "type": "string",
-        "format": "uuid"
-      },
-      "interactions": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/opportunitiesinteractionsCreateRelatedInput"
-        }
-      },
-      "notes": {
-        "oneOf": [
-          {
-            "type": "string"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "organizations": {
-        "$ref": "#/$defs/opportunitiesorganizationsCreateRelatedInput"
-      },
-      "owner": {
-        "$ref": "#/$defs/opportunitiesownerCreateRelatedInput"
-      },
-      "pipeline_stages": {
-        "$ref": "#/$defs/opportunitiespipeline_stagesCreateRelatedInput"
-      },
-      "status": {
-        "type": "string"
-      },
-      "title": {
-        "type": "string"
-      },
-      "updatedAt": {
-        "type": "string",
-        "format": "date-time"
-      },
-      "updatedBy": {
-        "$ref": "#/$defs/opportunitiesupdatedByCreateRelatedInput"
-      },
-      "valueAmount": {
-        "oneOf": [
-          {
-            "type": "string",
-            "format": "decimal",
-            "example": "123.345"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      }
-    },
-    "required": [
-      "organizations",
-      "pipeline_stages",
-      "title"
-    ]
-  },
-  "contactsopportunitiesUpdateManyRelatedOperationsInput": {
-    "type": "object",
-    "properties": {
-      "_connect": {
-        "$ref": "#/$defs/contactsopportunitiesConnectInput"
-      },
-      "_create": {
-        "$ref": "#/$defs/contactsopportunitiesCreateArguments"
-      },
-      "_delete": {
-        "$ref": "#/$defs/opportunitiesDeleteArguments"
-      },
-      "_disconnect": {
-        "$ref": "#/$defs/opportunitiesDisconnectManyInput"
-      },
-      "_update": {
-        "$ref": "#/$defs/opportunitiesUpdateInput"
-      }
-    },
-    "required": []
-  },
   "contactsownerConnectForwardKeyInput": {
     "type": "object",
     "properties": {
@@ -4733,6 +6601,26 @@ const definitions = {
   "contactsownerCreateRelatedWithoutTypeInput": {
     "type": "object",
     "properties": {
+      "activitiesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "activitiesOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "activitiesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "affiliationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "affiliationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
       "appearance": {
         "oneOf": [
           {
@@ -4758,19 +6646,23 @@ const definitions = {
           }
         ]
       },
-      "contactOrganizationsCreatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "contactOrganizationsUpdatedBy": {
-        "type": "array",
-        "items": {}
-      },
       "contactsCreatedBy": {
         "type": "array",
         "items": {}
       },
       "contactsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsUpdatedBy": {
         "type": "array",
         "items": {}
       },
@@ -4798,18 +6690,6 @@ const definitions = {
         "type": "string",
         "format": "uuid"
       },
-      "interactionsCreatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "interactionsOwner": {
-        "type": "array",
-        "items": {}
-      },
-      "interactionsUpdatedBy": {
-        "type": "array",
-        "items": {}
-      },
       "isService": {
         "type": "boolean"
       },
@@ -4823,18 +6703,6 @@ const definitions = {
             "type": "null"
           }
         ]
-      },
-      "opportunitiesCreatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "opportunitiesOwner": {
-        "type": "array",
-        "items": {}
-      },
-      "opportunitiesUpdatedBy": {
-        "type": "array",
-        "items": {}
       },
       "organizationsCreatedBy": {
         "type": "array",
@@ -5008,16 +6876,22 @@ const definitions = {
   "contactsUpdateDataInput": {
     "type": "object",
     "properties": {
+      "activities": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/contactsactivitiesUpdateManyRelatedOperationsInput"
+        }
+      },
+      "affiliations": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/contactsaffiliationsUpdateManyRelatedOperationsInput"
+        }
+      },
       "attachments": {
         "type": "array",
         "items": {
           "$ref": "#/$defs/contactsattachmentsUpdateManyRelatedOperationsInput"
-        }
-      },
-      "contact_organizations": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/contactscontact_organizationsUpdateManyRelatedOperationsInput"
         }
       },
       "createdAt": {
@@ -5041,6 +6915,12 @@ const definitions = {
           }
         ]
       },
+      "deals": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/contactsdealsUpdateManyRelatedOperationsInput"
+        }
+      },
       "email": {
         "oneOf": [
           {
@@ -5058,12 +6938,6 @@ const definitions = {
         "type": "string",
         "format": "uuid"
       },
-      "interactions": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/contactsinteractionsUpdateManyRelatedOperationsInput"
-        }
-      },
       "lastName": {
         "type": "string"
       },
@@ -5076,12 +6950,6 @@ const definitions = {
             "type": "null"
           }
         ]
-      },
-      "opportunities": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/contactsopportunitiesUpdateManyRelatedOperationsInput"
-        }
       },
       "owner": {
         "type": "array",
@@ -5199,6 +7067,26 @@ const definitions = {
   "contactsupdatedByCreateRelatedWithoutTypeInput": {
     "type": "object",
     "properties": {
+      "activitiesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "activitiesOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "activitiesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "affiliationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "affiliationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
       "appearance": {
         "oneOf": [
           {
@@ -5224,19 +7112,23 @@ const definitions = {
           }
         ]
       },
-      "contactOrganizationsCreatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "contactOrganizationsUpdatedBy": {
-        "type": "array",
-        "items": {}
-      },
       "contactsCreatedBy": {
         "type": "array",
         "items": {}
       },
       "contactsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsUpdatedBy": {
         "type": "array",
         "items": {}
       },
@@ -5264,18 +7156,6 @@ const definitions = {
         "type": "string",
         "format": "uuid"
       },
-      "interactionsCreatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "interactionsOwner": {
-        "type": "array",
-        "items": {}
-      },
-      "interactionsUpdatedBy": {
-        "type": "array",
-        "items": {}
-      },
       "isService": {
         "type": "boolean"
       },
@@ -5289,18 +7169,6 @@ const definitions = {
             "type": "null"
           }
         ]
-      },
-      "opportunitiesCreatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "opportunitiesOwner": {
-        "type": "array",
-        "items": {}
-      },
-      "opportunitiesUpdatedBy": {
-        "type": "array",
-        "items": {}
       },
       "organizationsCreatedBy": {
         "type": "array",
@@ -5664,6 +7532,1946 @@ const definitions = {
       }
     },
     "required": []
+  },
+  "dealsactivitiesConnectBackwardKeysInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      }
+    },
+    "required": []
+  },
+  "dealsactivitiesConnectInput": {
+    "type": "object",
+    "properties": {
+      "keys": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/dealsactivitiesConnectBackwardKeysInput"
+        }
+      }
+    },
+    "required": [
+      "keys"
+    ]
+  },
+  "dealsactivitiesCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/dealsactivitiesCreateRelatedWithoutTypeInput"
+        }
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "dealsactivitiesCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/dealsactivitiesConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/dealsactivitiesCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "dealsactivitiesCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "attachments": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/activitiesattachmentsCreateRelatedInput"
+        }
+      },
+      "body": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "completedAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "contacts": {
+        "$ref": "#/$defs/activitiescontactsCreateRelatedInput"
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "createdBy": {
+        "$ref": "#/$defs/activitiescreatedByCreateRelatedInput"
+      },
+      "direction": {
+        "type": "string"
+      },
+      "dueAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "occurredAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "organizations": {
+        "$ref": "#/$defs/activitiesorganizationsCreateRelatedInput"
+      },
+      "owner": {
+        "$ref": "#/$defs/activitiesownerCreateRelatedInput"
+      },
+      "status": {
+        "type": "string"
+      },
+      "subject": {
+        "type": "string"
+      },
+      "type": {
+        "type": "string"
+      },
+      "updatedAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "updatedBy": {
+        "$ref": "#/$defs/activitiesupdatedByCreateRelatedInput"
+      }
+    },
+    "required": [
+      "organizations",
+      "status",
+      "subject",
+      "type"
+    ]
+  },
+  "dealsactivitiesUpdateManyRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/dealsactivitiesConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/dealsactivitiesCreateArguments"
+      },
+      "_delete": {
+        "$ref": "#/$defs/activitiesDeleteArguments"
+      },
+      "_disconnect": {
+        "$ref": "#/$defs/activitiesDisconnectManyInput"
+      },
+      "_update": {
+        "$ref": "#/$defs/activitiesUpdateInput"
+      }
+    },
+    "required": []
+  },
+  "dealsattachmentsConnectBackwardKeysInput": {
+    "type": "object",
+    "properties": {
+      "assetId": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      }
+    },
+    "required": []
+  },
+  "dealsattachmentsConnectInput": {
+    "type": "object",
+    "properties": {
+      "keys": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/dealsattachmentsConnectBackwardKeysInput"
+        }
+      }
+    },
+    "required": [
+      "keys"
+    ]
+  },
+  "dealsattachmentsCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/dealsattachmentsCreateRelatedWithoutTypeInput"
+        }
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "dealsattachmentsCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/dealsattachmentsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/dealsattachmentsCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "dealsattachmentsCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "activities": {
+        "$ref": "#/$defs/attachmentsactivitiesCreateRelatedInput"
+      },
+      "assetId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "contacts": {
+        "$ref": "#/$defs/attachmentscontactsCreateRelatedInput"
+      },
+      "contentType": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "createdBy": {
+        "$ref": "#/$defs/attachmentscreatedByCreateRelatedInput"
+      },
+      "fileName": {
+        "type": "string"
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "organizations": {
+        "$ref": "#/$defs/attachmentsorganizationsCreateRelatedInput"
+      },
+      "sizeBytes": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/Int64Input"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "url": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": [
+      "fileName",
+      "organizations"
+    ]
+  },
+  "dealsattachmentsUpdateManyRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/dealsattachmentsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/dealsattachmentsCreateArguments"
+      },
+      "_delete": {
+        "$ref": "#/$defs/attachmentsDeleteArguments"
+      },
+      "_disconnect": {
+        "$ref": "#/$defs/attachmentsDisconnectManyInput"
+      },
+      "_update": {
+        "$ref": "#/$defs/attachmentsUpdateInput"
+      }
+    },
+    "required": []
+  },
+  "dealscontactsConnectForwardKeyInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "dealscontactsConnectInput": {
+    "type": "object",
+    "properties": {
+      "key": {
+        "$ref": "#/$defs/dealscontactsConnectForwardKeyInput"
+      }
+    },
+    "required": [
+      "key"
+    ]
+  },
+  "dealscontactsCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/dealscontactsCreateRelatedWithoutTypeInput"
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "dealscontactsCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/dealscontactsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/dealscontactsCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "dealscontactsCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "activities": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/contactsactivitiesCreateRelatedInput"
+        }
+      },
+      "affiliations": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/contactsaffiliationsCreateRelatedInput"
+        }
+      },
+      "attachments": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/contactsattachmentsCreateRelatedInput"
+        }
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "createdBy": {
+        "$ref": "#/$defs/contactscreatedByCreateRelatedInput"
+      },
+      "email": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "firstName": {
+        "type": "string"
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "lastName": {
+        "type": "string"
+      },
+      "notes": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "owner": {
+        "$ref": "#/$defs/contactsownerCreateRelatedInput"
+      },
+      "phone": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "portalUser": {
+        "$ref": "#/$defs/contactsportalUserCreateRelatedInput"
+      },
+      "status": {
+        "type": "string"
+      },
+      "updatedAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "updatedBy": {
+        "$ref": "#/$defs/contactsupdatedByCreateRelatedInput"
+      }
+    },
+    "required": [
+      "firstName",
+      "lastName"
+    ]
+  },
+  "dealscontactsUpdateOneRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/dealscontactsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/dealscontactsCreateArguments"
+      },
+      "_delete": {
+        "$ref": "#/$defs/contactsDeleteArguments"
+      },
+      "_disconnect": {
+        "$ref": "#/$defs/contactsDisconnectOneInput"
+      },
+      "_update": {
+        "$ref": "#/$defs/contactsUpdateInput"
+      }
+    },
+    "required": []
+  },
+  "dealscreatedByConnectForwardKeyInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "dealscreatedByConnectInput": {
+    "type": "object",
+    "properties": {
+      "key": {
+        "$ref": "#/$defs/dealscreatedByConnectForwardKeyInput"
+      }
+    },
+    "required": [
+      "key"
+    ]
+  },
+  "dealscreatedByCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/dealscreatedByCreateRelatedWithoutTypeInput"
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "dealscreatedByCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/dealscreatedByConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/dealscreatedByCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "dealscreatedByCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "activitiesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "activitiesOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "activitiesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "affiliationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "affiliationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "appearance": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "attachmentsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "avatarId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "contactsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "contactsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "contactsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "email": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "fullName": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "isService": {
+        "type": "boolean"
+      },
+      "lastActivityAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "organizationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "organizationsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "organizationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roles": {
+        "type": "array",
+        "items": {}
+      },
+      "serviceOwnerId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "status": {
+        "type": "string"
+      },
+      "storageValues": {
+        "type": "array",
+        "items": {}
+      }
+    },
+    "required": [
+      "id",
+      "isService"
+    ]
+  },
+  "dealscreatedByUpdateOneRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/dealscreatedByConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/dealscreatedByCreateArguments"
+      },
+      "_delete": {},
+      "_disconnect": {},
+      "_update": {}
+    },
+    "required": []
+  },
+  "dealsCreateInput": {
+    "type": "object",
+    "properties": {
+      "activities": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/dealsactivitiesCreateRelatedInput"
+        }
+      },
+      "attachments": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/dealsattachmentsCreateRelatedInput"
+        }
+      },
+      "contacts": {
+        "$ref": "#/$defs/dealscontactsCreateRelatedInput"
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "createdBy": {
+        "$ref": "#/$defs/dealscreatedByCreateRelatedInput"
+      },
+      "currency": {
+        "type": "string"
+      },
+      "expectedCloseDate": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "notes": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "organizations": {
+        "$ref": "#/$defs/dealsorganizationsCreateRelatedInput"
+      },
+      "owner": {
+        "$ref": "#/$defs/dealsownerCreateRelatedInput"
+      },
+      "pipeline_stages": {
+        "$ref": "#/$defs/dealspipeline_stagesCreateRelatedInput"
+      },
+      "status": {
+        "type": "string"
+      },
+      "title": {
+        "type": "string"
+      },
+      "updatedAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "updatedBy": {
+        "$ref": "#/$defs/dealsupdatedByCreateRelatedInput"
+      },
+      "valueAmount": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "decimal",
+            "example": "123.345"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": [
+      "organizations",
+      "pipeline_stages",
+      "title"
+    ]
+  },
+  "dealsDeleteArguments": {
+    "type": "object",
+    "properties": {
+      "filter": {
+        "$ref": "#/$defs/dealsFilterInput"
+      }
+    },
+    "required": []
+  },
+  "dealsDisconnectManyInput": {
+    "type": "object",
+    "properties": {
+      "filter": {
+        "$ref": "#/$defs/dealsFilterInput"
+      }
+    },
+    "required": []
+  },
+  "dealsDisconnectOneInput": {
+    "type": "object",
+    "properties": {},
+    "required": []
+  },
+  "dealsFilterInput": {
+    "type": "object",
+    "properties": {
+      "_and": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/dealsFilterInput"
+        }
+      },
+      "_not": {
+        "$ref": "#/$defs/dealsFilterInput"
+      },
+      "_or": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/dealsFilterInput"
+        }
+      },
+      "activities": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/activitiesFilterQuantifierInput"
+          },
+          {
+            "$ref": "#/$defs/activitiesFilterInput"
+          }
+        ]
+      },
+      "attachments": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/attachmentsFilterQuantifierInput"
+          },
+          {
+            "$ref": "#/$defs/attachmentsFilterInput"
+          }
+        ]
+      },
+      "contactId": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "contacts": {
+        "$ref": "#/$defs/contactsFilterInput"
+      },
+      "createdAt": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/DateTimeFilterPrimitiveInput"
+          },
+          {
+            "type": "string",
+            "format": "date-time"
+          }
+        ]
+      },
+      "createdBy": {},
+      "createdById": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "currency": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterPrimitiveInput"
+          },
+          {
+            "type": "string"
+          }
+        ]
+      },
+      "expectedCloseDate": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/DateFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "date"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "id": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterPrimitiveInput"
+          },
+          {
+            "type": "string",
+            "format": "uuid"
+          }
+        ]
+      },
+      "notes": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "organizationId": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterPrimitiveInput"
+          },
+          {
+            "type": "string",
+            "format": "uuid"
+          }
+        ]
+      },
+      "organizations": {
+        "$ref": "#/$defs/organizationsFilterInput"
+      },
+      "owner": {},
+      "ownerUserId": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "pipeline_stages": {
+        "$ref": "#/$defs/pipelineStagesFilterInput"
+      },
+      "stageId": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterPrimitiveInput"
+          },
+          {
+            "type": "string",
+            "format": "uuid"
+          }
+        ]
+      },
+      "status": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterPrimitiveInput"
+          },
+          {
+            "type": "string"
+          }
+        ]
+      },
+      "title": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterPrimitiveInput"
+          },
+          {
+            "type": "string"
+          }
+        ]
+      },
+      "updatedAt": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/DateTimeFilterPrimitiveInput"
+          },
+          {
+            "type": "string",
+            "format": "date-time"
+          }
+        ]
+      },
+      "updatedBy": {},
+      "updatedById": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "valueAmount": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/DecimalFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "decimal",
+                "example": "123.345"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "required": []
+  },
+  "dealsFilterQuantifierInput": {
+    "type": "object",
+    "properties": {
+      "_every": {
+        "$ref": "#/$defs/dealsFilterInput"
+      },
+      "_none": {
+        "$ref": "#/$defs/dealsFilterInput"
+      },
+      "_some": {
+        "$ref": "#/$defs/dealsFilterInput"
+      }
+    },
+    "required": []
+  },
+  "dealsorganizationsConnectForwardKeyInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "dealsorganizationsConnectInput": {
+    "type": "object",
+    "properties": {
+      "key": {
+        "$ref": "#/$defs/dealsorganizationsConnectForwardKeyInput"
+      }
+    },
+    "required": [
+      "key"
+    ]
+  },
+  "dealsorganizationsCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/dealsorganizationsCreateRelatedWithoutTypeInput"
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "dealsorganizationsCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/dealsorganizationsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/dealsorganizationsCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "dealsorganizationsCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "activities": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/organizationsactivitiesCreateRelatedInput"
+        }
+      },
+      "affiliations": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/organizationsaffiliationsCreateRelatedInput"
+        }
+      },
+      "attachments": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/organizationsattachmentsCreateRelatedInput"
+        }
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "createdBy": {
+        "$ref": "#/$defs/organizationscreatedByCreateRelatedInput"
+      },
+      "domain": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "industry": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "name": {
+        "type": "string"
+      },
+      "notes": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "owner": {
+        "$ref": "#/$defs/organizationsownerCreateRelatedInput"
+      },
+      "portalAccount": {
+        "$ref": "#/$defs/organizationsportalAccountCreateRelatedInput"
+      },
+      "portalAccountId": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "status": {
+        "type": "string"
+      },
+      "updatedAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "updatedBy": {
+        "$ref": "#/$defs/organizationsupdatedByCreateRelatedInput"
+      }
+    },
+    "required": [
+      "name"
+    ]
+  },
+  "dealsorganizationsUpdateOneRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/dealsorganizationsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/dealsorganizationsCreateArguments"
+      },
+      "_update": {
+        "$ref": "#/$defs/organizationsUpdateInput"
+      }
+    },
+    "required": []
+  },
+  "dealsownerConnectForwardKeyInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "dealsownerConnectInput": {
+    "type": "object",
+    "properties": {
+      "key": {
+        "$ref": "#/$defs/dealsownerConnectForwardKeyInput"
+      }
+    },
+    "required": [
+      "key"
+    ]
+  },
+  "dealsownerCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/dealsownerCreateRelatedWithoutTypeInput"
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "dealsownerCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/dealsownerConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/dealsownerCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "dealsownerCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "activitiesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "activitiesOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "activitiesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "affiliationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "affiliationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "appearance": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "attachmentsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "avatarId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "contactsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "contactsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "contactsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "email": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "fullName": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "isService": {
+        "type": "boolean"
+      },
+      "lastActivityAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "organizationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "organizationsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "organizationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roles": {
+        "type": "array",
+        "items": {}
+      },
+      "serviceOwnerId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "status": {
+        "type": "string"
+      },
+      "storageValues": {
+        "type": "array",
+        "items": {}
+      }
+    },
+    "required": [
+      "id",
+      "isService"
+    ]
+  },
+  "dealsownerUpdateOneRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/dealsownerConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/dealsownerCreateArguments"
+      },
+      "_delete": {},
+      "_disconnect": {},
+      "_update": {}
+    },
+    "required": []
+  },
+  "dealspipeline_stagesConnectForwardKeyInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "dealspipeline_stagesConnectInput": {
+    "type": "object",
+    "properties": {
+      "key": {
+        "$ref": "#/$defs/dealspipeline_stagesConnectForwardKeyInput"
+      }
+    },
+    "required": [
+      "key"
+    ]
+  },
+  "dealspipeline_stagesCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/dealspipeline_stagesCreateRelatedWithoutTypeInput"
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "dealspipeline_stagesCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/dealspipeline_stagesConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/dealspipeline_stagesCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "dealspipeline_stagesCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "color": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "isClosed": {
+        "type": "boolean"
+      },
+      "isWon": {
+        "type": "boolean"
+      },
+      "name": {
+        "type": "string"
+      },
+      "position": {
+        "type": "number"
+      }
+    },
+    "required": [
+      "name",
+      "position"
+    ]
+  },
+  "dealspipeline_stagesUpdateOneRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/dealspipeline_stagesConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/dealspipeline_stagesCreateArguments"
+      },
+      "_update": {
+        "$ref": "#/$defs/pipelineStagesUpdateInput"
+      }
+    },
+    "required": []
+  },
+  "dealsUpdateDataInput": {
+    "type": "object",
+    "properties": {
+      "activities": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/dealsactivitiesUpdateManyRelatedOperationsInput"
+        }
+      },
+      "attachments": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/dealsattachmentsUpdateManyRelatedOperationsInput"
+        }
+      },
+      "contactId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "contacts": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/dealscontactsUpdateOneRelatedOperationsInput"
+        }
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "createdBy": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/dealscreatedByUpdateOneRelatedOperationsInput"
+        }
+      },
+      "createdById": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "currency": {
+        "type": "string"
+      },
+      "expectedCloseDate": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "notes": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "organizationId": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "organizations": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/dealsorganizationsUpdateOneRelatedOperationsInput"
+        }
+      },
+      "owner": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/dealsownerUpdateOneRelatedOperationsInput"
+        }
+      },
+      "ownerUserId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "pipeline_stages": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/dealspipeline_stagesUpdateOneRelatedOperationsInput"
+        }
+      },
+      "stageId": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "status": {
+        "type": "string"
+      },
+      "title": {
+        "type": "string"
+      },
+      "updatedAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "updatedBy": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/dealsupdatedByUpdateOneRelatedOperationsInput"
+        }
+      },
+      "updatedById": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "valueAmount": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "decimal",
+            "example": "123.345"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": []
+  },
+  "dealsupdatedByConnectForwardKeyInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "dealsupdatedByConnectInput": {
+    "type": "object",
+    "properties": {
+      "key": {
+        "$ref": "#/$defs/dealsupdatedByConnectForwardKeyInput"
+      }
+    },
+    "required": [
+      "key"
+    ]
+  },
+  "dealsupdatedByCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/dealsupdatedByCreateRelatedWithoutTypeInput"
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "dealsupdatedByCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/dealsupdatedByConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/dealsupdatedByCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "dealsupdatedByCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "activitiesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "activitiesOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "activitiesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "affiliationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "affiliationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "appearance": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "attachmentsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "avatarId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "contactsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "contactsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "contactsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "email": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "fullName": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "isService": {
+        "type": "boolean"
+      },
+      "lastActivityAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "organizationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "organizationsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "organizationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roles": {
+        "type": "array",
+        "items": {}
+      },
+      "serviceOwnerId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "status": {
+        "type": "string"
+      },
+      "storageValues": {
+        "type": "array",
+        "items": {}
+      }
+    },
+    "required": [
+      "id",
+      "isService"
+    ]
+  },
+  "dealsupdatedByUpdateOneRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/dealsupdatedByConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/dealsupdatedByCreateArguments"
+      },
+      "_delete": {},
+      "_disconnect": {},
+      "_update": {}
+    },
+    "required": []
+  },
+  "dealsUpdateInput": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/dealsUpdateDataInput"
+      },
+      "filter": {
+        "$ref": "#/$defs/dealsFilterInput"
+      }
+    },
+    "required": [
+      "data"
+    ]
   },
   "DecimalFilterNullablePrimitiveInput": {
     "type": "object",
@@ -6450,13 +10258,9 @@ const definitions = {
     },
     "required": []
   },
-  "interactionsattachmentsConnectBackwardKeysInput": {
+  "organizationsactivitiesConnectBackwardKeysInput": {
     "type": "object",
     "properties": {
-      "assetId": {
-        "type": "string",
-        "format": "uuid"
-      },
       "id": {
         "type": "string",
         "format": "uuid"
@@ -6464,13 +10268,13 @@ const definitions = {
     },
     "required": []
   },
-  "interactionsattachmentsConnectInput": {
+  "organizationsactivitiesConnectInput": {
     "type": "object",
     "properties": {
       "keys": {
         "type": "array",
         "items": {
-          "$ref": "#/$defs/interactionsattachmentsConnectBackwardKeysInput"
+          "$ref": "#/$defs/organizationsactivitiesConnectBackwardKeysInput"
         }
       }
     },
@@ -6478,13 +10282,13 @@ const definitions = {
       "keys"
     ]
   },
-  "interactionsattachmentsCreateArguments": {
+  "organizationsactivitiesCreateArguments": {
     "type": "object",
     "properties": {
       "data": {
         "type": "array",
         "items": {
-          "$ref": "#/$defs/interactionsattachmentsCreateRelatedWithoutTypeInput"
+          "$ref": "#/$defs/organizationsactivitiesCreateRelatedWithoutTypeInput"
         }
       }
     },
@@ -6492,497 +10296,25 @@ const definitions = {
       "data"
     ]
   },
-  "interactionsattachmentsCreateRelatedInput": {
+  "organizationsactivitiesCreateRelatedInput": {
     "type": "object",
     "properties": {
       "_connect": {
-        "$ref": "#/$defs/interactionsattachmentsConnectInput"
+        "$ref": "#/$defs/organizationsactivitiesConnectInput"
       },
       "_create": {
-        "$ref": "#/$defs/interactionsattachmentsCreateArguments"
+        "$ref": "#/$defs/organizationsactivitiesCreateArguments"
       }
     },
     "required": []
   },
-  "interactionsattachmentsCreateRelatedWithoutTypeInput": {
-    "type": "object",
-    "properties": {
-      "assetId": {
-        "oneOf": [
-          {
-            "type": "string",
-            "format": "uuid"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "contacts": {
-        "$ref": "#/$defs/attachmentscontactsCreateRelatedInput"
-      },
-      "contentType": {
-        "oneOf": [
-          {
-            "type": "string"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "createdAt": {
-        "type": "string",
-        "format": "date-time"
-      },
-      "createdBy": {
-        "$ref": "#/$defs/attachmentscreatedByCreateRelatedInput"
-      },
-      "fileName": {
-        "type": "string"
-      },
-      "id": {
-        "type": "string",
-        "format": "uuid"
-      },
-      "opportunities": {
-        "$ref": "#/$defs/attachmentsopportunitiesCreateRelatedInput"
-      },
-      "organizations": {
-        "$ref": "#/$defs/attachmentsorganizationsCreateRelatedInput"
-      },
-      "sizeBytes": {
-        "oneOf": [
-          {
-            "$ref": "#/$defs/Int64Input"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "url": {
-        "oneOf": [
-          {
-            "type": "string"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      }
-    },
-    "required": [
-      "fileName",
-      "organizations"
-    ]
-  },
-  "interactionsattachmentsUpdateManyRelatedOperationsInput": {
-    "type": "object",
-    "properties": {
-      "_connect": {
-        "$ref": "#/$defs/interactionsattachmentsConnectInput"
-      },
-      "_create": {
-        "$ref": "#/$defs/interactionsattachmentsCreateArguments"
-      },
-      "_delete": {
-        "$ref": "#/$defs/attachmentsDeleteArguments"
-      },
-      "_disconnect": {
-        "$ref": "#/$defs/attachmentsDisconnectManyInput"
-      },
-      "_update": {
-        "$ref": "#/$defs/attachmentsUpdateInput"
-      }
-    },
-    "required": []
-  },
-  "interactionscontactsConnectForwardKeyInput": {
-    "type": "object",
-    "properties": {
-      "id": {
-        "oneOf": [
-          {
-            "type": "string",
-            "format": "uuid"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      }
-    },
-    "required": [
-      "id"
-    ]
-  },
-  "interactionscontactsConnectInput": {
-    "type": "object",
-    "properties": {
-      "key": {
-        "$ref": "#/$defs/interactionscontactsConnectForwardKeyInput"
-      }
-    },
-    "required": [
-      "key"
-    ]
-  },
-  "interactionscontactsCreateArguments": {
-    "type": "object",
-    "properties": {
-      "data": {
-        "$ref": "#/$defs/interactionscontactsCreateRelatedWithoutTypeInput"
-      }
-    },
-    "required": [
-      "data"
-    ]
-  },
-  "interactionscontactsCreateRelatedInput": {
-    "type": "object",
-    "properties": {
-      "_connect": {
-        "$ref": "#/$defs/interactionscontactsConnectInput"
-      },
-      "_create": {
-        "$ref": "#/$defs/interactionscontactsCreateArguments"
-      }
-    },
-    "required": []
-  },
-  "interactionscontactsCreateRelatedWithoutTypeInput": {
+  "organizationsactivitiesCreateRelatedWithoutTypeInput": {
     "type": "object",
     "properties": {
       "attachments": {
         "type": "array",
         "items": {
-          "$ref": "#/$defs/contactsattachmentsCreateRelatedInput"
-        }
-      },
-      "contact_organizations": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/contactscontact_organizationsCreateRelatedInput"
-        }
-      },
-      "createdAt": {
-        "type": "string",
-        "format": "date-time"
-      },
-      "createdBy": {
-        "$ref": "#/$defs/contactscreatedByCreateRelatedInput"
-      },
-      "email": {
-        "oneOf": [
-          {
-            "type": "string"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "firstName": {
-        "type": "string"
-      },
-      "id": {
-        "type": "string",
-        "format": "uuid"
-      },
-      "lastName": {
-        "type": "string"
-      },
-      "notes": {
-        "oneOf": [
-          {
-            "type": "string"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "opportunities": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/contactsopportunitiesCreateRelatedInput"
-        }
-      },
-      "owner": {
-        "$ref": "#/$defs/contactsownerCreateRelatedInput"
-      },
-      "phone": {
-        "oneOf": [
-          {
-            "type": "string"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "portalUser": {
-        "$ref": "#/$defs/contactsportalUserCreateRelatedInput"
-      },
-      "status": {
-        "type": "string"
-      },
-      "updatedAt": {
-        "type": "string",
-        "format": "date-time"
-      },
-      "updatedBy": {
-        "$ref": "#/$defs/contactsupdatedByCreateRelatedInput"
-      }
-    },
-    "required": [
-      "firstName",
-      "lastName"
-    ]
-  },
-  "interactionscontactsUpdateOneRelatedOperationsInput": {
-    "type": "object",
-    "properties": {
-      "_connect": {
-        "$ref": "#/$defs/interactionscontactsConnectInput"
-      },
-      "_create": {
-        "$ref": "#/$defs/interactionscontactsCreateArguments"
-      },
-      "_delete": {
-        "$ref": "#/$defs/contactsDeleteArguments"
-      },
-      "_disconnect": {
-        "$ref": "#/$defs/contactsDisconnectOneInput"
-      },
-      "_update": {
-        "$ref": "#/$defs/contactsUpdateInput"
-      }
-    },
-    "required": []
-  },
-  "interactionscreatedByConnectForwardKeyInput": {
-    "type": "object",
-    "properties": {
-      "id": {
-        "oneOf": [
-          {
-            "type": "string",
-            "format": "uuid"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      }
-    },
-    "required": [
-      "id"
-    ]
-  },
-  "interactionscreatedByConnectInput": {
-    "type": "object",
-    "properties": {
-      "key": {
-        "$ref": "#/$defs/interactionscreatedByConnectForwardKeyInput"
-      }
-    },
-    "required": [
-      "key"
-    ]
-  },
-  "interactionscreatedByCreateArguments": {
-    "type": "object",
-    "properties": {
-      "data": {
-        "$ref": "#/$defs/interactionscreatedByCreateRelatedWithoutTypeInput"
-      }
-    },
-    "required": [
-      "data"
-    ]
-  },
-  "interactionscreatedByCreateRelatedInput": {
-    "type": "object",
-    "properties": {
-      "_connect": {
-        "$ref": "#/$defs/interactionscreatedByConnectInput"
-      },
-      "_create": {
-        "$ref": "#/$defs/interactionscreatedByCreateArguments"
-      }
-    },
-    "required": []
-  },
-  "interactionscreatedByCreateRelatedWithoutTypeInput": {
-    "type": "object",
-    "properties": {
-      "appearance": {
-        "oneOf": [
-          {
-            "type": "string"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "attachmentsCreatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "avatarId": {
-        "oneOf": [
-          {
-            "type": "string",
-            "format": "uuid"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "contactOrganizationsCreatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "contactOrganizationsUpdatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "contactsCreatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "contactsOwner": {
-        "type": "array",
-        "items": {}
-      },
-      "contactsUpdatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "email": {
-        "oneOf": [
-          {
-            "type": "string"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "fullName": {
-        "oneOf": [
-          {
-            "type": "string"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "id": {
-        "type": "string",
-        "format": "uuid"
-      },
-      "interactionsOwner": {
-        "type": "array",
-        "items": {}
-      },
-      "interactionsUpdatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "isService": {
-        "type": "boolean"
-      },
-      "lastActivityAt": {
-        "oneOf": [
-          {
-            "type": "string",
-            "format": "date-time"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "opportunitiesCreatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "opportunitiesOwner": {
-        "type": "array",
-        "items": {}
-      },
-      "opportunitiesUpdatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "organizationsCreatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "organizationsOwner": {
-        "type": "array",
-        "items": {}
-      },
-      "organizationsUpdatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "roles": {
-        "type": "array",
-        "items": {}
-      },
-      "serviceOwnerId": {
-        "oneOf": [
-          {
-            "type": "string",
-            "format": "uuid"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "status": {
-        "type": "string"
-      },
-      "storageValues": {
-        "type": "array",
-        "items": {}
-      }
-    },
-    "required": [
-      "id",
-      "isService"
-    ]
-  },
-  "interactionscreatedByUpdateOneRelatedOperationsInput": {
-    "type": "object",
-    "properties": {
-      "_connect": {
-        "$ref": "#/$defs/interactionscreatedByConnectInput"
-      },
-      "_create": {
-        "$ref": "#/$defs/interactionscreatedByCreateArguments"
-      },
-      "_delete": {},
-      "_disconnect": {},
-      "_update": {}
-    },
-    "required": []
-  },
-  "interactionsCreateInput": {
-    "type": "object",
-    "properties": {
-      "attachments": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/interactionsattachmentsCreateRelatedInput"
+          "$ref": "#/$defs/activitiesattachmentsCreateRelatedInput"
         }
       },
       "body": {
@@ -7007,14 +10339,17 @@ const definitions = {
         ]
       },
       "contacts": {
-        "$ref": "#/$defs/interactionscontactsCreateRelatedInput"
+        "$ref": "#/$defs/activitiescontactsCreateRelatedInput"
       },
       "createdAt": {
         "type": "string",
         "format": "date-time"
       },
       "createdBy": {
-        "$ref": "#/$defs/interactionscreatedByCreateRelatedInput"
+        "$ref": "#/$defs/activitiescreatedByCreateRelatedInput"
+      },
+      "deals": {
+        "$ref": "#/$defs/activitiesdealsCreateRelatedInput"
       },
       "direction": {
         "type": "string"
@@ -7038,14 +10373,8 @@ const definitions = {
         "type": "string",
         "format": "date-time"
       },
-      "opportunities": {
-        "$ref": "#/$defs/interactionsopportunitiesCreateRelatedInput"
-      },
-      "organizations": {
-        "$ref": "#/$defs/interactionsorganizationsCreateRelatedInput"
-      },
       "owner": {
-        "$ref": "#/$defs/interactionsownerCreateRelatedInput"
+        "$ref": "#/$defs/activitiesownerCreateRelatedInput"
       },
       "status": {
         "type": "string"
@@ -7061,498 +10390,34 @@ const definitions = {
         "format": "date-time"
       },
       "updatedBy": {
-        "$ref": "#/$defs/interactionsupdatedByCreateRelatedInput"
+        "$ref": "#/$defs/activitiesupdatedByCreateRelatedInput"
       }
     },
     "required": [
-      "organizations",
       "status",
       "subject",
       "type"
     ]
   },
-  "interactionsDeleteArguments": {
-    "type": "object",
-    "properties": {
-      "filter": {
-        "$ref": "#/$defs/interactionsFilterInput"
-      }
-    },
-    "required": []
-  },
-  "interactionsDisconnectManyInput": {
-    "type": "object",
-    "properties": {
-      "filter": {
-        "$ref": "#/$defs/interactionsFilterInput"
-      }
-    },
-    "required": []
-  },
-  "interactionsDisconnectOneInput": {
-    "type": "object",
-    "properties": {},
-    "required": []
-  },
-  "interactionsFilterInput": {
-    "type": "object",
-    "properties": {
-      "_and": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/interactionsFilterInput"
-        }
-      },
-      "_not": {
-        "$ref": "#/$defs/interactionsFilterInput"
-      },
-      "_or": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/interactionsFilterInput"
-        }
-      },
-      "attachments": {
-        "oneOf": [
-          {
-            "$ref": "#/$defs/attachmentsFilterQuantifierInput"
-          },
-          {
-            "$ref": "#/$defs/attachmentsFilterInput"
-          }
-        ]
-      },
-      "body": {
-        "oneOf": [
-          {
-            "$ref": "#/$defs/StringFilterNullablePrimitiveInput"
-          },
-          {
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ]
-          }
-        ]
-      },
-      "completedAt": {
-        "oneOf": [
-          {
-            "$ref": "#/$defs/DateTimeFilterNullablePrimitiveInput"
-          },
-          {
-            "oneOf": [
-              {
-                "type": "string",
-                "format": "date-time"
-              },
-              {
-                "type": "null"
-              }
-            ]
-          }
-        ]
-      },
-      "contactId": {
-        "oneOf": [
-          {
-            "$ref": "#/$defs/UuidFilterNullablePrimitiveInput"
-          },
-          {
-            "oneOf": [
-              {
-                "type": "string",
-                "format": "uuid"
-              },
-              {
-                "type": "null"
-              }
-            ]
-          }
-        ]
-      },
-      "contacts": {
-        "$ref": "#/$defs/contactsFilterInput"
-      },
-      "createdAt": {
-        "oneOf": [
-          {
-            "$ref": "#/$defs/DateTimeFilterPrimitiveInput"
-          },
-          {
-            "type": "string",
-            "format": "date-time"
-          }
-        ]
-      },
-      "createdBy": {},
-      "createdById": {
-        "oneOf": [
-          {
-            "$ref": "#/$defs/UuidFilterNullablePrimitiveInput"
-          },
-          {
-            "oneOf": [
-              {
-                "type": "string",
-                "format": "uuid"
-              },
-              {
-                "type": "null"
-              }
-            ]
-          }
-        ]
-      },
-      "direction": {
-        "oneOf": [
-          {
-            "$ref": "#/$defs/StringFilterPrimitiveInput"
-          },
-          {
-            "type": "string"
-          }
-        ]
-      },
-      "dueAt": {
-        "oneOf": [
-          {
-            "$ref": "#/$defs/DateTimeFilterNullablePrimitiveInput"
-          },
-          {
-            "oneOf": [
-              {
-                "type": "string",
-                "format": "date-time"
-              },
-              {
-                "type": "null"
-              }
-            ]
-          }
-        ]
-      },
-      "id": {
-        "oneOf": [
-          {
-            "$ref": "#/$defs/UuidFilterPrimitiveInput"
-          },
-          {
-            "type": "string",
-            "format": "uuid"
-          }
-        ]
-      },
-      "occurredAt": {
-        "oneOf": [
-          {
-            "$ref": "#/$defs/DateTimeFilterPrimitiveInput"
-          },
-          {
-            "type": "string",
-            "format": "date-time"
-          }
-        ]
-      },
-      "opportunities": {
-        "$ref": "#/$defs/opportunitiesFilterInput"
-      },
-      "opportunityId": {
-        "oneOf": [
-          {
-            "$ref": "#/$defs/UuidFilterNullablePrimitiveInput"
-          },
-          {
-            "oneOf": [
-              {
-                "type": "string",
-                "format": "uuid"
-              },
-              {
-                "type": "null"
-              }
-            ]
-          }
-        ]
-      },
-      "organizationId": {
-        "oneOf": [
-          {
-            "$ref": "#/$defs/UuidFilterPrimitiveInput"
-          },
-          {
-            "type": "string",
-            "format": "uuid"
-          }
-        ]
-      },
-      "organizations": {
-        "$ref": "#/$defs/organizationsFilterInput"
-      },
-      "owner": {},
-      "ownerUserId": {
-        "oneOf": [
-          {
-            "$ref": "#/$defs/UuidFilterNullablePrimitiveInput"
-          },
-          {
-            "oneOf": [
-              {
-                "type": "string",
-                "format": "uuid"
-              },
-              {
-                "type": "null"
-              }
-            ]
-          }
-        ]
-      },
-      "status": {
-        "oneOf": [
-          {
-            "$ref": "#/$defs/StringFilterPrimitiveInput"
-          },
-          {
-            "type": "string"
-          }
-        ]
-      },
-      "subject": {
-        "oneOf": [
-          {
-            "$ref": "#/$defs/StringFilterPrimitiveInput"
-          },
-          {
-            "type": "string"
-          }
-        ]
-      },
-      "type": {
-        "oneOf": [
-          {
-            "$ref": "#/$defs/StringFilterPrimitiveInput"
-          },
-          {
-            "type": "string"
-          }
-        ]
-      },
-      "updatedAt": {
-        "oneOf": [
-          {
-            "$ref": "#/$defs/DateTimeFilterPrimitiveInput"
-          },
-          {
-            "type": "string",
-            "format": "date-time"
-          }
-        ]
-      },
-      "updatedBy": {},
-      "updatedById": {
-        "oneOf": [
-          {
-            "$ref": "#/$defs/UuidFilterNullablePrimitiveInput"
-          },
-          {
-            "oneOf": [
-              {
-                "type": "string",
-                "format": "uuid"
-              },
-              {
-                "type": "null"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    "required": []
-  },
-  "interactionsFilterQuantifierInput": {
-    "type": "object",
-    "properties": {
-      "_every": {
-        "$ref": "#/$defs/interactionsFilterInput"
-      },
-      "_none": {
-        "$ref": "#/$defs/interactionsFilterInput"
-      },
-      "_some": {
-        "$ref": "#/$defs/interactionsFilterInput"
-      }
-    },
-    "required": []
-  },
-  "interactionsopportunitiesConnectForwardKeyInput": {
-    "type": "object",
-    "properties": {
-      "id": {
-        "oneOf": [
-          {
-            "type": "string",
-            "format": "uuid"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      }
-    },
-    "required": [
-      "id"
-    ]
-  },
-  "interactionsopportunitiesConnectInput": {
-    "type": "object",
-    "properties": {
-      "key": {
-        "$ref": "#/$defs/interactionsopportunitiesConnectForwardKeyInput"
-      }
-    },
-    "required": [
-      "key"
-    ]
-  },
-  "interactionsopportunitiesCreateArguments": {
-    "type": "object",
-    "properties": {
-      "data": {
-        "$ref": "#/$defs/interactionsopportunitiesCreateRelatedWithoutTypeInput"
-      }
-    },
-    "required": [
-      "data"
-    ]
-  },
-  "interactionsopportunitiesCreateRelatedInput": {
+  "organizationsactivitiesUpdateManyRelatedOperationsInput": {
     "type": "object",
     "properties": {
       "_connect": {
-        "$ref": "#/$defs/interactionsopportunitiesConnectInput"
+        "$ref": "#/$defs/organizationsactivitiesConnectInput"
       },
       "_create": {
-        "$ref": "#/$defs/interactionsopportunitiesCreateArguments"
-      }
-    },
-    "required": []
-  },
-  "interactionsopportunitiesCreateRelatedWithoutTypeInput": {
-    "type": "object",
-    "properties": {
-      "attachments": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/opportunitiesattachmentsCreateRelatedInput"
-        }
-      },
-      "contacts": {
-        "$ref": "#/$defs/opportunitiescontactsCreateRelatedInput"
-      },
-      "createdAt": {
-        "type": "string",
-        "format": "date-time"
-      },
-      "createdBy": {
-        "$ref": "#/$defs/opportunitiescreatedByCreateRelatedInput"
-      },
-      "currency": {
-        "type": "string"
-      },
-      "expectedCloseDate": {
-        "oneOf": [
-          {
-            "type": "string",
-            "format": "date"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "id": {
-        "type": "string",
-        "format": "uuid"
-      },
-      "notes": {
-        "oneOf": [
-          {
-            "type": "string"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "organizations": {
-        "$ref": "#/$defs/opportunitiesorganizationsCreateRelatedInput"
-      },
-      "owner": {
-        "$ref": "#/$defs/opportunitiesownerCreateRelatedInput"
-      },
-      "pipeline_stages": {
-        "$ref": "#/$defs/opportunitiespipeline_stagesCreateRelatedInput"
-      },
-      "status": {
-        "type": "string"
-      },
-      "title": {
-        "type": "string"
-      },
-      "updatedAt": {
-        "type": "string",
-        "format": "date-time"
-      },
-      "updatedBy": {
-        "$ref": "#/$defs/opportunitiesupdatedByCreateRelatedInput"
-      },
-      "valueAmount": {
-        "oneOf": [
-          {
-            "type": "string",
-            "format": "decimal",
-            "example": "123.345"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      }
-    },
-    "required": [
-      "organizations",
-      "pipeline_stages",
-      "title"
-    ]
-  },
-  "interactionsopportunitiesUpdateOneRelatedOperationsInput": {
-    "type": "object",
-    "properties": {
-      "_connect": {
-        "$ref": "#/$defs/interactionsopportunitiesConnectInput"
-      },
-      "_create": {
-        "$ref": "#/$defs/interactionsopportunitiesCreateArguments"
+        "$ref": "#/$defs/organizationsactivitiesCreateArguments"
       },
       "_delete": {
-        "$ref": "#/$defs/opportunitiesDeleteArguments"
-      },
-      "_disconnect": {
-        "$ref": "#/$defs/opportunitiesDisconnectOneInput"
+        "$ref": "#/$defs/activitiesDeleteArguments"
       },
       "_update": {
-        "$ref": "#/$defs/opportunitiesUpdateInput"
+        "$ref": "#/$defs/activitiesUpdateInput"
       }
     },
     "required": []
   },
-  "interactionsorganizationsConnectForwardKeyInput": {
+  "organizationsaffiliationsConnectBackwardKeysInput": {
     "type": "object",
     "properties": {
       "id": {
@@ -7560,785 +10425,15 @@ const definitions = {
         "format": "uuid"
       }
     },
-    "required": [
-      "id"
-    ]
-  },
-  "interactionsorganizationsConnectInput": {
-    "type": "object",
-    "properties": {
-      "key": {
-        "$ref": "#/$defs/interactionsorganizationsConnectForwardKeyInput"
-      }
-    },
-    "required": [
-      "key"
-    ]
-  },
-  "interactionsorganizationsCreateArguments": {
-    "type": "object",
-    "properties": {
-      "data": {
-        "$ref": "#/$defs/interactionsorganizationsCreateRelatedWithoutTypeInput"
-      }
-    },
-    "required": [
-      "data"
-    ]
-  },
-  "interactionsorganizationsCreateRelatedInput": {
-    "type": "object",
-    "properties": {
-      "_connect": {
-        "$ref": "#/$defs/interactionsorganizationsConnectInput"
-      },
-      "_create": {
-        "$ref": "#/$defs/interactionsorganizationsCreateArguments"
-      }
-    },
     "required": []
   },
-  "interactionsorganizationsCreateRelatedWithoutTypeInput": {
-    "type": "object",
-    "properties": {
-      "attachments": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/organizationsattachmentsCreateRelatedInput"
-        }
-      },
-      "contact_organizations": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/organizationscontact_organizationsCreateRelatedInput"
-        }
-      },
-      "createdAt": {
-        "type": "string",
-        "format": "date-time"
-      },
-      "createdBy": {
-        "$ref": "#/$defs/organizationscreatedByCreateRelatedInput"
-      },
-      "domain": {
-        "oneOf": [
-          {
-            "type": "string"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "id": {
-        "type": "string",
-        "format": "uuid"
-      },
-      "industry": {
-        "oneOf": [
-          {
-            "type": "string"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "name": {
-        "type": "string"
-      },
-      "notes": {
-        "oneOf": [
-          {
-            "type": "string"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "opportunities": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/organizationsopportunitiesCreateRelatedInput"
-        }
-      },
-      "owner": {
-        "$ref": "#/$defs/organizationsownerCreateRelatedInput"
-      },
-      "portalAccount": {
-        "$ref": "#/$defs/organizationsportalAccountCreateRelatedInput"
-      },
-      "portalAccountId": {
-        "oneOf": [
-          {
-            "type": "string"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "status": {
-        "type": "string"
-      },
-      "updatedAt": {
-        "type": "string",
-        "format": "date-time"
-      },
-      "updatedBy": {
-        "$ref": "#/$defs/organizationsupdatedByCreateRelatedInput"
-      }
-    },
-    "required": [
-      "name"
-    ]
-  },
-  "interactionsorganizationsUpdateOneRelatedOperationsInput": {
-    "type": "object",
-    "properties": {
-      "_connect": {
-        "$ref": "#/$defs/interactionsorganizationsConnectInput"
-      },
-      "_create": {
-        "$ref": "#/$defs/interactionsorganizationsCreateArguments"
-      },
-      "_update": {
-        "$ref": "#/$defs/organizationsUpdateInput"
-      }
-    },
-    "required": []
-  },
-  "interactionsownerConnectForwardKeyInput": {
-    "type": "object",
-    "properties": {
-      "id": {
-        "oneOf": [
-          {
-            "type": "string",
-            "format": "uuid"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      }
-    },
-    "required": [
-      "id"
-    ]
-  },
-  "interactionsownerConnectInput": {
-    "type": "object",
-    "properties": {
-      "key": {
-        "$ref": "#/$defs/interactionsownerConnectForwardKeyInput"
-      }
-    },
-    "required": [
-      "key"
-    ]
-  },
-  "interactionsownerCreateArguments": {
-    "type": "object",
-    "properties": {
-      "data": {
-        "$ref": "#/$defs/interactionsownerCreateRelatedWithoutTypeInput"
-      }
-    },
-    "required": [
-      "data"
-    ]
-  },
-  "interactionsownerCreateRelatedInput": {
-    "type": "object",
-    "properties": {
-      "_connect": {
-        "$ref": "#/$defs/interactionsownerConnectInput"
-      },
-      "_create": {
-        "$ref": "#/$defs/interactionsownerCreateArguments"
-      }
-    },
-    "required": []
-  },
-  "interactionsownerCreateRelatedWithoutTypeInput": {
-    "type": "object",
-    "properties": {
-      "appearance": {
-        "oneOf": [
-          {
-            "type": "string"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "attachmentsCreatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "avatarId": {
-        "oneOf": [
-          {
-            "type": "string",
-            "format": "uuid"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "contactOrganizationsCreatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "contactOrganizationsUpdatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "contactsCreatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "contactsOwner": {
-        "type": "array",
-        "items": {}
-      },
-      "contactsUpdatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "email": {
-        "oneOf": [
-          {
-            "type": "string"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "fullName": {
-        "oneOf": [
-          {
-            "type": "string"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "id": {
-        "type": "string",
-        "format": "uuid"
-      },
-      "interactionsCreatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "interactionsUpdatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "isService": {
-        "type": "boolean"
-      },
-      "lastActivityAt": {
-        "oneOf": [
-          {
-            "type": "string",
-            "format": "date-time"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "opportunitiesCreatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "opportunitiesOwner": {
-        "type": "array",
-        "items": {}
-      },
-      "opportunitiesUpdatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "organizationsCreatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "organizationsOwner": {
-        "type": "array",
-        "items": {}
-      },
-      "organizationsUpdatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "roles": {
-        "type": "array",
-        "items": {}
-      },
-      "serviceOwnerId": {
-        "oneOf": [
-          {
-            "type": "string",
-            "format": "uuid"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "status": {
-        "type": "string"
-      },
-      "storageValues": {
-        "type": "array",
-        "items": {}
-      }
-    },
-    "required": [
-      "id",
-      "isService"
-    ]
-  },
-  "interactionsownerUpdateOneRelatedOperationsInput": {
-    "type": "object",
-    "properties": {
-      "_connect": {
-        "$ref": "#/$defs/interactionsownerConnectInput"
-      },
-      "_create": {
-        "$ref": "#/$defs/interactionsownerCreateArguments"
-      },
-      "_delete": {},
-      "_disconnect": {},
-      "_update": {}
-    },
-    "required": []
-  },
-  "interactionsUpdateDataInput": {
-    "type": "object",
-    "properties": {
-      "attachments": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/interactionsattachmentsUpdateManyRelatedOperationsInput"
-        }
-      },
-      "body": {
-        "oneOf": [
-          {
-            "type": "string"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "completedAt": {
-        "oneOf": [
-          {
-            "type": "string",
-            "format": "date-time"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "contactId": {
-        "oneOf": [
-          {
-            "type": "string",
-            "format": "uuid"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "contacts": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/interactionscontactsUpdateOneRelatedOperationsInput"
-        }
-      },
-      "createdAt": {
-        "type": "string",
-        "format": "date-time"
-      },
-      "createdBy": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/interactionscreatedByUpdateOneRelatedOperationsInput"
-        }
-      },
-      "createdById": {
-        "oneOf": [
-          {
-            "type": "string",
-            "format": "uuid"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "direction": {
-        "type": "string"
-      },
-      "dueAt": {
-        "oneOf": [
-          {
-            "type": "string",
-            "format": "date-time"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "id": {
-        "type": "string",
-        "format": "uuid"
-      },
-      "occurredAt": {
-        "type": "string",
-        "format": "date-time"
-      },
-      "opportunities": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/interactionsopportunitiesUpdateOneRelatedOperationsInput"
-        }
-      },
-      "opportunityId": {
-        "oneOf": [
-          {
-            "type": "string",
-            "format": "uuid"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "organizationId": {
-        "type": "string",
-        "format": "uuid"
-      },
-      "organizations": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/interactionsorganizationsUpdateOneRelatedOperationsInput"
-        }
-      },
-      "owner": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/interactionsownerUpdateOneRelatedOperationsInput"
-        }
-      },
-      "ownerUserId": {
-        "oneOf": [
-          {
-            "type": "string",
-            "format": "uuid"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "status": {
-        "type": "string"
-      },
-      "subject": {
-        "type": "string"
-      },
-      "type": {
-        "type": "string"
-      },
-      "updatedAt": {
-        "type": "string",
-        "format": "date-time"
-      },
-      "updatedBy": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/interactionsupdatedByUpdateOneRelatedOperationsInput"
-        }
-      },
-      "updatedById": {
-        "oneOf": [
-          {
-            "type": "string",
-            "format": "uuid"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      }
-    },
-    "required": []
-  },
-  "interactionsupdatedByConnectForwardKeyInput": {
-    "type": "object",
-    "properties": {
-      "id": {
-        "oneOf": [
-          {
-            "type": "string",
-            "format": "uuid"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      }
-    },
-    "required": [
-      "id"
-    ]
-  },
-  "interactionsupdatedByConnectInput": {
-    "type": "object",
-    "properties": {
-      "key": {
-        "$ref": "#/$defs/interactionsupdatedByConnectForwardKeyInput"
-      }
-    },
-    "required": [
-      "key"
-    ]
-  },
-  "interactionsupdatedByCreateArguments": {
-    "type": "object",
-    "properties": {
-      "data": {
-        "$ref": "#/$defs/interactionsupdatedByCreateRelatedWithoutTypeInput"
-      }
-    },
-    "required": [
-      "data"
-    ]
-  },
-  "interactionsupdatedByCreateRelatedInput": {
-    "type": "object",
-    "properties": {
-      "_connect": {
-        "$ref": "#/$defs/interactionsupdatedByConnectInput"
-      },
-      "_create": {
-        "$ref": "#/$defs/interactionsupdatedByCreateArguments"
-      }
-    },
-    "required": []
-  },
-  "interactionsupdatedByCreateRelatedWithoutTypeInput": {
-    "type": "object",
-    "properties": {
-      "appearance": {
-        "oneOf": [
-          {
-            "type": "string"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "attachmentsCreatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "avatarId": {
-        "oneOf": [
-          {
-            "type": "string",
-            "format": "uuid"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "contactOrganizationsCreatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "contactOrganizationsUpdatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "contactsCreatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "contactsOwner": {
-        "type": "array",
-        "items": {}
-      },
-      "contactsUpdatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "email": {
-        "oneOf": [
-          {
-            "type": "string"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "fullName": {
-        "oneOf": [
-          {
-            "type": "string"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "id": {
-        "type": "string",
-        "format": "uuid"
-      },
-      "interactionsCreatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "interactionsOwner": {
-        "type": "array",
-        "items": {}
-      },
-      "isService": {
-        "type": "boolean"
-      },
-      "lastActivityAt": {
-        "oneOf": [
-          {
-            "type": "string",
-            "format": "date-time"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "opportunitiesCreatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "opportunitiesOwner": {
-        "type": "array",
-        "items": {}
-      },
-      "opportunitiesUpdatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "organizationsCreatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "organizationsOwner": {
-        "type": "array",
-        "items": {}
-      },
-      "organizationsUpdatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "roles": {
-        "type": "array",
-        "items": {}
-      },
-      "serviceOwnerId": {
-        "oneOf": [
-          {
-            "type": "string",
-            "format": "uuid"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "status": {
-        "type": "string"
-      },
-      "storageValues": {
-        "type": "array",
-        "items": {}
-      }
-    },
-    "required": [
-      "id",
-      "isService"
-    ]
-  },
-  "interactionsupdatedByUpdateOneRelatedOperationsInput": {
-    "type": "object",
-    "properties": {
-      "_connect": {
-        "$ref": "#/$defs/interactionsupdatedByConnectInput"
-      },
-      "_create": {
-        "$ref": "#/$defs/interactionsupdatedByCreateArguments"
-      },
-      "_delete": {},
-      "_disconnect": {},
-      "_update": {}
-    },
-    "required": []
-  },
-  "interactionsUpdateInput": {
-    "type": "object",
-    "properties": {
-      "data": {
-        "$ref": "#/$defs/interactionsUpdateDataInput"
-      },
-      "filter": {
-        "$ref": "#/$defs/interactionsFilterInput"
-      }
-    },
-    "required": [
-      "data"
-    ]
-  },
-  "opportunitiesattachmentsConnectBackwardKeysInput": {
-    "type": "object",
-    "properties": {
-      "assetId": {
-        "type": "string",
-        "format": "uuid"
-      },
-      "id": {
-        "type": "string",
-        "format": "uuid"
-      }
-    },
-    "required": []
-  },
-  "opportunitiesattachmentsConnectInput": {
+  "organizationsaffiliationsConnectInput": {
     "type": "object",
     "properties": {
       "keys": {
         "type": "array",
         "items": {
-          "$ref": "#/$defs/opportunitiesattachmentsConnectBackwardKeysInput"
+          "$ref": "#/$defs/organizationsaffiliationsConnectBackwardKeysInput"
         }
       }
     },
@@ -8346,13 +10441,13 @@ const definitions = {
       "keys"
     ]
   },
-  "opportunitiesattachmentsCreateArguments": {
+  "organizationsaffiliationsCreateArguments": {
     "type": "object",
     "properties": {
       "data": {
         "type": "array",
         "items": {
-          "$ref": "#/$defs/opportunitiesattachmentsCreateRelatedWithoutTypeInput"
+          "$ref": "#/$defs/organizationsaffiliationsCreateRelatedWithoutTypeInput"
         }
       }
     },
@@ -8360,513 +10455,32 @@ const definitions = {
       "data"
     ]
   },
-  "opportunitiesattachmentsCreateRelatedInput": {
+  "organizationsaffiliationsCreateRelatedInput": {
     "type": "object",
     "properties": {
       "_connect": {
-        "$ref": "#/$defs/opportunitiesattachmentsConnectInput"
+        "$ref": "#/$defs/organizationsaffiliationsConnectInput"
       },
       "_create": {
-        "$ref": "#/$defs/opportunitiesattachmentsCreateArguments"
+        "$ref": "#/$defs/organizationsaffiliationsCreateArguments"
       }
     },
     "required": []
   },
-  "opportunitiesattachmentsCreateRelatedWithoutTypeInput": {
+  "organizationsaffiliationsCreateRelatedWithoutTypeInput": {
     "type": "object",
     "properties": {
-      "assetId": {
-        "oneOf": [
-          {
-            "type": "string",
-            "format": "uuid"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
       "contacts": {
-        "$ref": "#/$defs/attachmentscontactsCreateRelatedInput"
-      },
-      "contentType": {
-        "oneOf": [
-          {
-            "type": "string"
-          },
-          {
-            "type": "null"
-          }
-        ]
+        "$ref": "#/$defs/affiliationscontactsCreateRelatedInput"
       },
       "createdAt": {
         "type": "string",
         "format": "date-time"
       },
       "createdBy": {
-        "$ref": "#/$defs/attachmentscreatedByCreateRelatedInput"
+        "$ref": "#/$defs/affiliationscreatedByCreateRelatedInput"
       },
-      "fileName": {
-        "type": "string"
-      },
-      "id": {
-        "type": "string",
-        "format": "uuid"
-      },
-      "interactions": {
-        "$ref": "#/$defs/attachmentsinteractionsCreateRelatedInput"
-      },
-      "organizations": {
-        "$ref": "#/$defs/attachmentsorganizationsCreateRelatedInput"
-      },
-      "sizeBytes": {
-        "oneOf": [
-          {
-            "$ref": "#/$defs/Int64Input"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "url": {
-        "oneOf": [
-          {
-            "type": "string"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      }
-    },
-    "required": [
-      "fileName",
-      "organizations"
-    ]
-  },
-  "opportunitiesattachmentsUpdateManyRelatedOperationsInput": {
-    "type": "object",
-    "properties": {
-      "_connect": {
-        "$ref": "#/$defs/opportunitiesattachmentsConnectInput"
-      },
-      "_create": {
-        "$ref": "#/$defs/opportunitiesattachmentsCreateArguments"
-      },
-      "_delete": {
-        "$ref": "#/$defs/attachmentsDeleteArguments"
-      },
-      "_disconnect": {
-        "$ref": "#/$defs/attachmentsDisconnectManyInput"
-      },
-      "_update": {
-        "$ref": "#/$defs/attachmentsUpdateInput"
-      }
-    },
-    "required": []
-  },
-  "opportunitiescontactsConnectForwardKeyInput": {
-    "type": "object",
-    "properties": {
-      "id": {
-        "oneOf": [
-          {
-            "type": "string",
-            "format": "uuid"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      }
-    },
-    "required": [
-      "id"
-    ]
-  },
-  "opportunitiescontactsConnectInput": {
-    "type": "object",
-    "properties": {
-      "key": {
-        "$ref": "#/$defs/opportunitiescontactsConnectForwardKeyInput"
-      }
-    },
-    "required": [
-      "key"
-    ]
-  },
-  "opportunitiescontactsCreateArguments": {
-    "type": "object",
-    "properties": {
-      "data": {
-        "$ref": "#/$defs/opportunitiescontactsCreateRelatedWithoutTypeInput"
-      }
-    },
-    "required": [
-      "data"
-    ]
-  },
-  "opportunitiescontactsCreateRelatedInput": {
-    "type": "object",
-    "properties": {
-      "_connect": {
-        "$ref": "#/$defs/opportunitiescontactsConnectInput"
-      },
-      "_create": {
-        "$ref": "#/$defs/opportunitiescontactsCreateArguments"
-      }
-    },
-    "required": []
-  },
-  "opportunitiescontactsCreateRelatedWithoutTypeInput": {
-    "type": "object",
-    "properties": {
-      "attachments": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/contactsattachmentsCreateRelatedInput"
-        }
-      },
-      "contact_organizations": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/contactscontact_organizationsCreateRelatedInput"
-        }
-      },
-      "createdAt": {
-        "type": "string",
-        "format": "date-time"
-      },
-      "createdBy": {
-        "$ref": "#/$defs/contactscreatedByCreateRelatedInput"
-      },
-      "email": {
-        "oneOf": [
-          {
-            "type": "string"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "firstName": {
-        "type": "string"
-      },
-      "id": {
-        "type": "string",
-        "format": "uuid"
-      },
-      "interactions": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/contactsinteractionsCreateRelatedInput"
-        }
-      },
-      "lastName": {
-        "type": "string"
-      },
-      "notes": {
-        "oneOf": [
-          {
-            "type": "string"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "owner": {
-        "$ref": "#/$defs/contactsownerCreateRelatedInput"
-      },
-      "phone": {
-        "oneOf": [
-          {
-            "type": "string"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "portalUser": {
-        "$ref": "#/$defs/contactsportalUserCreateRelatedInput"
-      },
-      "status": {
-        "type": "string"
-      },
-      "updatedAt": {
-        "type": "string",
-        "format": "date-time"
-      },
-      "updatedBy": {
-        "$ref": "#/$defs/contactsupdatedByCreateRelatedInput"
-      }
-    },
-    "required": [
-      "firstName",
-      "lastName"
-    ]
-  },
-  "opportunitiescontactsUpdateOneRelatedOperationsInput": {
-    "type": "object",
-    "properties": {
-      "_connect": {
-        "$ref": "#/$defs/opportunitiescontactsConnectInput"
-      },
-      "_create": {
-        "$ref": "#/$defs/opportunitiescontactsCreateArguments"
-      },
-      "_delete": {
-        "$ref": "#/$defs/contactsDeleteArguments"
-      },
-      "_disconnect": {
-        "$ref": "#/$defs/contactsDisconnectOneInput"
-      },
-      "_update": {
-        "$ref": "#/$defs/contactsUpdateInput"
-      }
-    },
-    "required": []
-  },
-  "opportunitiescreatedByConnectForwardKeyInput": {
-    "type": "object",
-    "properties": {
-      "id": {
-        "oneOf": [
-          {
-            "type": "string",
-            "format": "uuid"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      }
-    },
-    "required": [
-      "id"
-    ]
-  },
-  "opportunitiescreatedByConnectInput": {
-    "type": "object",
-    "properties": {
-      "key": {
-        "$ref": "#/$defs/opportunitiescreatedByConnectForwardKeyInput"
-      }
-    },
-    "required": [
-      "key"
-    ]
-  },
-  "opportunitiescreatedByCreateArguments": {
-    "type": "object",
-    "properties": {
-      "data": {
-        "$ref": "#/$defs/opportunitiescreatedByCreateRelatedWithoutTypeInput"
-      }
-    },
-    "required": [
-      "data"
-    ]
-  },
-  "opportunitiescreatedByCreateRelatedInput": {
-    "type": "object",
-    "properties": {
-      "_connect": {
-        "$ref": "#/$defs/opportunitiescreatedByConnectInput"
-      },
-      "_create": {
-        "$ref": "#/$defs/opportunitiescreatedByCreateArguments"
-      }
-    },
-    "required": []
-  },
-  "opportunitiescreatedByCreateRelatedWithoutTypeInput": {
-    "type": "object",
-    "properties": {
-      "appearance": {
-        "oneOf": [
-          {
-            "type": "string"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "attachmentsCreatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "avatarId": {
-        "oneOf": [
-          {
-            "type": "string",
-            "format": "uuid"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "contactOrganizationsCreatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "contactOrganizationsUpdatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "contactsCreatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "contactsOwner": {
-        "type": "array",
-        "items": {}
-      },
-      "contactsUpdatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "email": {
-        "oneOf": [
-          {
-            "type": "string"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "fullName": {
-        "oneOf": [
-          {
-            "type": "string"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "id": {
-        "type": "string",
-        "format": "uuid"
-      },
-      "interactionsCreatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "interactionsOwner": {
-        "type": "array",
-        "items": {}
-      },
-      "interactionsUpdatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "isService": {
-        "type": "boolean"
-      },
-      "lastActivityAt": {
-        "oneOf": [
-          {
-            "type": "string",
-            "format": "date-time"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "opportunitiesOwner": {
-        "type": "array",
-        "items": {}
-      },
-      "opportunitiesUpdatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "organizationsCreatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "organizationsOwner": {
-        "type": "array",
-        "items": {}
-      },
-      "organizationsUpdatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "roles": {
-        "type": "array",
-        "items": {}
-      },
-      "serviceOwnerId": {
-        "oneOf": [
-          {
-            "type": "string",
-            "format": "uuid"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "status": {
-        "type": "string"
-      },
-      "storageValues": {
-        "type": "array",
-        "items": {}
-      }
-    },
-    "required": [
-      "id",
-      "isService"
-    ]
-  },
-  "opportunitiescreatedByUpdateOneRelatedOperationsInput": {
-    "type": "object",
-    "properties": {
-      "_connect": {
-        "$ref": "#/$defs/opportunitiescreatedByConnectInput"
-      },
-      "_create": {
-        "$ref": "#/$defs/opportunitiescreatedByCreateArguments"
-      },
-      "_delete": {},
-      "_disconnect": {},
-      "_update": {}
-    },
-    "required": []
-  },
-  "opportunitiesCreateInput": {
-    "type": "object",
-    "properties": {
-      "attachments": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/opportunitiesattachmentsCreateRelatedInput"
-        }
-      },
-      "contacts": {
-        "$ref": "#/$defs/opportunitiescontactsCreateRelatedInput"
-      },
-      "createdAt": {
-        "type": "string",
-        "format": "date-time"
-      },
-      "createdBy": {
-        "$ref": "#/$defs/opportunitiescreatedByCreateRelatedInput"
-      },
-      "currency": {
-        "type": "string"
-      },
-      "expectedCloseDate": {
+      "endedAt": {
         "oneOf": [
           {
             "type": "string",
@@ -8881,949 +10495,10 @@ const definitions = {
         "type": "string",
         "format": "uuid"
       },
-      "interactions": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/opportunitiesinteractionsCreateRelatedInput"
-        }
-      },
-      "notes": {
-        "oneOf": [
-          {
-            "type": "string"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "organizations": {
-        "$ref": "#/$defs/opportunitiesorganizationsCreateRelatedInput"
-      },
-      "owner": {
-        "$ref": "#/$defs/opportunitiesownerCreateRelatedInput"
-      },
-      "pipeline_stages": {
-        "$ref": "#/$defs/opportunitiespipeline_stagesCreateRelatedInput"
-      },
-      "status": {
-        "type": "string"
-      },
-      "title": {
-        "type": "string"
-      },
-      "updatedAt": {
-        "type": "string",
-        "format": "date-time"
-      },
-      "updatedBy": {
-        "$ref": "#/$defs/opportunitiesupdatedByCreateRelatedInput"
-      },
-      "valueAmount": {
-        "oneOf": [
-          {
-            "type": "string",
-            "format": "decimal",
-            "example": "123.345"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      }
-    },
-    "required": [
-      "organizations",
-      "pipeline_stages",
-      "title"
-    ]
-  },
-  "opportunitiesDeleteArguments": {
-    "type": "object",
-    "properties": {
-      "filter": {
-        "$ref": "#/$defs/opportunitiesFilterInput"
-      }
-    },
-    "required": []
-  },
-  "opportunitiesDisconnectManyInput": {
-    "type": "object",
-    "properties": {
-      "filter": {
-        "$ref": "#/$defs/opportunitiesFilterInput"
-      }
-    },
-    "required": []
-  },
-  "opportunitiesDisconnectOneInput": {
-    "type": "object",
-    "properties": {},
-    "required": []
-  },
-  "opportunitiesFilterInput": {
-    "type": "object",
-    "properties": {
-      "_and": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/opportunitiesFilterInput"
-        }
-      },
-      "_not": {
-        "$ref": "#/$defs/opportunitiesFilterInput"
-      },
-      "_or": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/opportunitiesFilterInput"
-        }
-      },
-      "attachments": {
-        "oneOf": [
-          {
-            "$ref": "#/$defs/attachmentsFilterQuantifierInput"
-          },
-          {
-            "$ref": "#/$defs/attachmentsFilterInput"
-          }
-        ]
-      },
-      "contactId": {
-        "oneOf": [
-          {
-            "$ref": "#/$defs/UuidFilterNullablePrimitiveInput"
-          },
-          {
-            "oneOf": [
-              {
-                "type": "string",
-                "format": "uuid"
-              },
-              {
-                "type": "null"
-              }
-            ]
-          }
-        ]
-      },
-      "contacts": {
-        "$ref": "#/$defs/contactsFilterInput"
-      },
-      "createdAt": {
-        "oneOf": [
-          {
-            "$ref": "#/$defs/DateTimeFilterPrimitiveInput"
-          },
-          {
-            "type": "string",
-            "format": "date-time"
-          }
-        ]
-      },
-      "createdBy": {},
-      "createdById": {
-        "oneOf": [
-          {
-            "$ref": "#/$defs/UuidFilterNullablePrimitiveInput"
-          },
-          {
-            "oneOf": [
-              {
-                "type": "string",
-                "format": "uuid"
-              },
-              {
-                "type": "null"
-              }
-            ]
-          }
-        ]
-      },
-      "currency": {
-        "oneOf": [
-          {
-            "$ref": "#/$defs/StringFilterPrimitiveInput"
-          },
-          {
-            "type": "string"
-          }
-        ]
-      },
-      "expectedCloseDate": {
-        "oneOf": [
-          {
-            "$ref": "#/$defs/DateFilterNullablePrimitiveInput"
-          },
-          {
-            "oneOf": [
-              {
-                "type": "string",
-                "format": "date"
-              },
-              {
-                "type": "null"
-              }
-            ]
-          }
-        ]
-      },
-      "id": {
-        "oneOf": [
-          {
-            "$ref": "#/$defs/UuidFilterPrimitiveInput"
-          },
-          {
-            "type": "string",
-            "format": "uuid"
-          }
-        ]
-      },
-      "interactions": {
-        "oneOf": [
-          {
-            "$ref": "#/$defs/interactionsFilterQuantifierInput"
-          },
-          {
-            "$ref": "#/$defs/interactionsFilterInput"
-          }
-        ]
-      },
-      "notes": {
-        "oneOf": [
-          {
-            "$ref": "#/$defs/StringFilterNullablePrimitiveInput"
-          },
-          {
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ]
-          }
-        ]
-      },
-      "organizationId": {
-        "oneOf": [
-          {
-            "$ref": "#/$defs/UuidFilterPrimitiveInput"
-          },
-          {
-            "type": "string",
-            "format": "uuid"
-          }
-        ]
-      },
-      "organizations": {
-        "$ref": "#/$defs/organizationsFilterInput"
-      },
-      "owner": {},
-      "ownerUserId": {
-        "oneOf": [
-          {
-            "$ref": "#/$defs/UuidFilterNullablePrimitiveInput"
-          },
-          {
-            "oneOf": [
-              {
-                "type": "string",
-                "format": "uuid"
-              },
-              {
-                "type": "null"
-              }
-            ]
-          }
-        ]
-      },
-      "pipeline_stages": {
-        "$ref": "#/$defs/pipelineStagesFilterInput"
-      },
-      "stageId": {
-        "oneOf": [
-          {
-            "$ref": "#/$defs/UuidFilterPrimitiveInput"
-          },
-          {
-            "type": "string",
-            "format": "uuid"
-          }
-        ]
-      },
-      "status": {
-        "oneOf": [
-          {
-            "$ref": "#/$defs/StringFilterPrimitiveInput"
-          },
-          {
-            "type": "string"
-          }
-        ]
-      },
-      "title": {
-        "oneOf": [
-          {
-            "$ref": "#/$defs/StringFilterPrimitiveInput"
-          },
-          {
-            "type": "string"
-          }
-        ]
-      },
-      "updatedAt": {
-        "oneOf": [
-          {
-            "$ref": "#/$defs/DateTimeFilterPrimitiveInput"
-          },
-          {
-            "type": "string",
-            "format": "date-time"
-          }
-        ]
-      },
-      "updatedBy": {},
-      "updatedById": {
-        "oneOf": [
-          {
-            "$ref": "#/$defs/UuidFilterNullablePrimitiveInput"
-          },
-          {
-            "oneOf": [
-              {
-                "type": "string",
-                "format": "uuid"
-              },
-              {
-                "type": "null"
-              }
-            ]
-          }
-        ]
-      },
-      "valueAmount": {
-        "oneOf": [
-          {
-            "$ref": "#/$defs/DecimalFilterNullablePrimitiveInput"
-          },
-          {
-            "oneOf": [
-              {
-                "type": "string",
-                "format": "decimal",
-                "example": "123.345"
-              },
-              {
-                "type": "null"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    "required": []
-  },
-  "opportunitiesFilterQuantifierInput": {
-    "type": "object",
-    "properties": {
-      "_every": {
-        "$ref": "#/$defs/opportunitiesFilterInput"
-      },
-      "_none": {
-        "$ref": "#/$defs/opportunitiesFilterInput"
-      },
-      "_some": {
-        "$ref": "#/$defs/opportunitiesFilterInput"
-      }
-    },
-    "required": []
-  },
-  "opportunitiesinteractionsConnectBackwardKeysInput": {
-    "type": "object",
-    "properties": {
-      "id": {
-        "type": "string",
-        "format": "uuid"
-      }
-    },
-    "required": []
-  },
-  "opportunitiesinteractionsConnectInput": {
-    "type": "object",
-    "properties": {
-      "keys": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/opportunitiesinteractionsConnectBackwardKeysInput"
-        }
-      }
-    },
-    "required": [
-      "keys"
-    ]
-  },
-  "opportunitiesinteractionsCreateArguments": {
-    "type": "object",
-    "properties": {
-      "data": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/opportunitiesinteractionsCreateRelatedWithoutTypeInput"
-        }
-      }
-    },
-    "required": [
-      "data"
-    ]
-  },
-  "opportunitiesinteractionsCreateRelatedInput": {
-    "type": "object",
-    "properties": {
-      "_connect": {
-        "$ref": "#/$defs/opportunitiesinteractionsConnectInput"
-      },
-      "_create": {
-        "$ref": "#/$defs/opportunitiesinteractionsCreateArguments"
-      }
-    },
-    "required": []
-  },
-  "opportunitiesinteractionsCreateRelatedWithoutTypeInput": {
-    "type": "object",
-    "properties": {
-      "attachments": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/interactionsattachmentsCreateRelatedInput"
-        }
-      },
-      "body": {
-        "oneOf": [
-          {
-            "type": "string"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "completedAt": {
-        "oneOf": [
-          {
-            "type": "string",
-            "format": "date-time"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "contacts": {
-        "$ref": "#/$defs/interactionscontactsCreateRelatedInput"
-      },
-      "createdAt": {
-        "type": "string",
-        "format": "date-time"
-      },
-      "createdBy": {
-        "$ref": "#/$defs/interactionscreatedByCreateRelatedInput"
-      },
-      "direction": {
-        "type": "string"
-      },
-      "dueAt": {
-        "oneOf": [
-          {
-            "type": "string",
-            "format": "date-time"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "id": {
-        "type": "string",
-        "format": "uuid"
-      },
-      "occurredAt": {
-        "type": "string",
-        "format": "date-time"
-      },
-      "organizations": {
-        "$ref": "#/$defs/interactionsorganizationsCreateRelatedInput"
-      },
-      "owner": {
-        "$ref": "#/$defs/interactionsownerCreateRelatedInput"
-      },
-      "status": {
-        "type": "string"
-      },
-      "subject": {
-        "type": "string"
-      },
-      "type": {
-        "type": "string"
-      },
-      "updatedAt": {
-        "type": "string",
-        "format": "date-time"
-      },
-      "updatedBy": {
-        "$ref": "#/$defs/interactionsupdatedByCreateRelatedInput"
-      }
-    },
-    "required": [
-      "organizations",
-      "status",
-      "subject",
-      "type"
-    ]
-  },
-  "opportunitiesinteractionsUpdateManyRelatedOperationsInput": {
-    "type": "object",
-    "properties": {
-      "_connect": {
-        "$ref": "#/$defs/opportunitiesinteractionsConnectInput"
-      },
-      "_create": {
-        "$ref": "#/$defs/opportunitiesinteractionsCreateArguments"
-      },
-      "_delete": {
-        "$ref": "#/$defs/interactionsDeleteArguments"
-      },
-      "_disconnect": {
-        "$ref": "#/$defs/interactionsDisconnectManyInput"
-      },
-      "_update": {
-        "$ref": "#/$defs/interactionsUpdateInput"
-      }
-    },
-    "required": []
-  },
-  "opportunitiesorganizationsConnectForwardKeyInput": {
-    "type": "object",
-    "properties": {
-      "id": {
-        "type": "string",
-        "format": "uuid"
-      }
-    },
-    "required": [
-      "id"
-    ]
-  },
-  "opportunitiesorganizationsConnectInput": {
-    "type": "object",
-    "properties": {
-      "key": {
-        "$ref": "#/$defs/opportunitiesorganizationsConnectForwardKeyInput"
-      }
-    },
-    "required": [
-      "key"
-    ]
-  },
-  "opportunitiesorganizationsCreateArguments": {
-    "type": "object",
-    "properties": {
-      "data": {
-        "$ref": "#/$defs/opportunitiesorganizationsCreateRelatedWithoutTypeInput"
-      }
-    },
-    "required": [
-      "data"
-    ]
-  },
-  "opportunitiesorganizationsCreateRelatedInput": {
-    "type": "object",
-    "properties": {
-      "_connect": {
-        "$ref": "#/$defs/opportunitiesorganizationsConnectInput"
-      },
-      "_create": {
-        "$ref": "#/$defs/opportunitiesorganizationsCreateArguments"
-      }
-    },
-    "required": []
-  },
-  "opportunitiesorganizationsCreateRelatedWithoutTypeInput": {
-    "type": "object",
-    "properties": {
-      "attachments": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/organizationsattachmentsCreateRelatedInput"
-        }
-      },
-      "contact_organizations": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/organizationscontact_organizationsCreateRelatedInput"
-        }
-      },
-      "createdAt": {
-        "type": "string",
-        "format": "date-time"
-      },
-      "createdBy": {
-        "$ref": "#/$defs/organizationscreatedByCreateRelatedInput"
-      },
-      "domain": {
-        "oneOf": [
-          {
-            "type": "string"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "id": {
-        "type": "string",
-        "format": "uuid"
-      },
-      "industry": {
-        "oneOf": [
-          {
-            "type": "string"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "interactions": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/organizationsinteractionsCreateRelatedInput"
-        }
-      },
-      "name": {
-        "type": "string"
-      },
-      "notes": {
-        "oneOf": [
-          {
-            "type": "string"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "owner": {
-        "$ref": "#/$defs/organizationsownerCreateRelatedInput"
-      },
-      "portalAccount": {
-        "$ref": "#/$defs/organizationsportalAccountCreateRelatedInput"
-      },
-      "portalAccountId": {
-        "oneOf": [
-          {
-            "type": "string"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "status": {
-        "type": "string"
-      },
-      "updatedAt": {
-        "type": "string",
-        "format": "date-time"
-      },
-      "updatedBy": {
-        "$ref": "#/$defs/organizationsupdatedByCreateRelatedInput"
-      }
-    },
-    "required": [
-      "name"
-    ]
-  },
-  "opportunitiesorganizationsUpdateOneRelatedOperationsInput": {
-    "type": "object",
-    "properties": {
-      "_connect": {
-        "$ref": "#/$defs/opportunitiesorganizationsConnectInput"
-      },
-      "_create": {
-        "$ref": "#/$defs/opportunitiesorganizationsCreateArguments"
-      },
-      "_update": {
-        "$ref": "#/$defs/organizationsUpdateInput"
-      }
-    },
-    "required": []
-  },
-  "opportunitiesownerConnectForwardKeyInput": {
-    "type": "object",
-    "properties": {
-      "id": {
-        "oneOf": [
-          {
-            "type": "string",
-            "format": "uuid"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      }
-    },
-    "required": [
-      "id"
-    ]
-  },
-  "opportunitiesownerConnectInput": {
-    "type": "object",
-    "properties": {
-      "key": {
-        "$ref": "#/$defs/opportunitiesownerConnectForwardKeyInput"
-      }
-    },
-    "required": [
-      "key"
-    ]
-  },
-  "opportunitiesownerCreateArguments": {
-    "type": "object",
-    "properties": {
-      "data": {
-        "$ref": "#/$defs/opportunitiesownerCreateRelatedWithoutTypeInput"
-      }
-    },
-    "required": [
-      "data"
-    ]
-  },
-  "opportunitiesownerCreateRelatedInput": {
-    "type": "object",
-    "properties": {
-      "_connect": {
-        "$ref": "#/$defs/opportunitiesownerConnectInput"
-      },
-      "_create": {
-        "$ref": "#/$defs/opportunitiesownerCreateArguments"
-      }
-    },
-    "required": []
-  },
-  "opportunitiesownerCreateRelatedWithoutTypeInput": {
-    "type": "object",
-    "properties": {
-      "appearance": {
-        "oneOf": [
-          {
-            "type": "string"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "attachmentsCreatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "avatarId": {
-        "oneOf": [
-          {
-            "type": "string",
-            "format": "uuid"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "contactOrganizationsCreatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "contactOrganizationsUpdatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "contactsCreatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "contactsOwner": {
-        "type": "array",
-        "items": {}
-      },
-      "contactsUpdatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "email": {
-        "oneOf": [
-          {
-            "type": "string"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "fullName": {
-        "oneOf": [
-          {
-            "type": "string"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "id": {
-        "type": "string",
-        "format": "uuid"
-      },
-      "interactionsCreatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "interactionsOwner": {
-        "type": "array",
-        "items": {}
-      },
-      "interactionsUpdatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "isService": {
+      "isPrimary": {
         "type": "boolean"
       },
-      "lastActivityAt": {
-        "oneOf": [
-          {
-            "type": "string",
-            "format": "date-time"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "opportunitiesCreatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "opportunitiesUpdatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "organizationsCreatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "organizationsOwner": {
-        "type": "array",
-        "items": {}
-      },
-      "organizationsUpdatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "roles": {
-        "type": "array",
-        "items": {}
-      },
-      "serviceOwnerId": {
-        "oneOf": [
-          {
-            "type": "string",
-            "format": "uuid"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "status": {
-        "type": "string"
-      },
-      "storageValues": {
-        "type": "array",
-        "items": {}
-      }
-    },
-    "required": [
-      "id",
-      "isService"
-    ]
-  },
-  "opportunitiesownerUpdateOneRelatedOperationsInput": {
-    "type": "object",
-    "properties": {
-      "_connect": {
-        "$ref": "#/$defs/opportunitiesownerConnectInput"
-      },
-      "_create": {
-        "$ref": "#/$defs/opportunitiesownerCreateArguments"
-      },
-      "_delete": {},
-      "_disconnect": {},
-      "_update": {}
-    },
-    "required": []
-  },
-  "opportunitiespipeline_stagesConnectForwardKeyInput": {
-    "type": "object",
-    "properties": {
-      "id": {
-        "type": "string",
-        "format": "uuid"
-      }
-    },
-    "required": [
-      "id"
-    ]
-  },
-  "opportunitiespipeline_stagesConnectInput": {
-    "type": "object",
-    "properties": {
-      "key": {
-        "$ref": "#/$defs/opportunitiespipeline_stagesConnectForwardKeyInput"
-      }
-    },
-    "required": [
-      "key"
-    ]
-  },
-  "opportunitiespipeline_stagesCreateArguments": {
-    "type": "object",
-    "properties": {
-      "data": {
-        "$ref": "#/$defs/opportunitiespipeline_stagesCreateRelatedWithoutTypeInput"
-      }
-    },
-    "required": [
-      "data"
-    ]
-  },
-  "opportunitiespipeline_stagesCreateRelatedInput": {
-    "type": "object",
-    "properties": {
-      "_connect": {
-        "$ref": "#/$defs/opportunitiespipeline_stagesConnectInput"
-      },
-      "_create": {
-        "$ref": "#/$defs/opportunitiespipeline_stagesCreateArguments"
-      }
-    },
-    "required": []
-  },
-  "opportunitiespipeline_stagesCreateRelatedWithoutTypeInput": {
-    "type": "object",
-    "properties": {
-      "color": {
+      "role": {
         "oneOf": [
           {
             "type": "string"
@@ -9833,94 +10508,7 @@ const definitions = {
           }
         ]
       },
-      "id": {
-        "type": "string",
-        "format": "uuid"
-      },
-      "isClosed": {
-        "type": "boolean"
-      },
-      "isWon": {
-        "type": "boolean"
-      },
-      "name": {
-        "type": "string"
-      },
-      "position": {
-        "type": "number"
-      }
-    },
-    "required": [
-      "name",
-      "position"
-    ]
-  },
-  "opportunitiespipeline_stagesUpdateOneRelatedOperationsInput": {
-    "type": "object",
-    "properties": {
-      "_connect": {
-        "$ref": "#/$defs/opportunitiespipeline_stagesConnectInput"
-      },
-      "_create": {
-        "$ref": "#/$defs/opportunitiespipeline_stagesCreateArguments"
-      },
-      "_update": {
-        "$ref": "#/$defs/pipelineStagesUpdateInput"
-      }
-    },
-    "required": []
-  },
-  "opportunitiesUpdateDataInput": {
-    "type": "object",
-    "properties": {
-      "attachments": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/opportunitiesattachmentsUpdateManyRelatedOperationsInput"
-        }
-      },
-      "contactId": {
-        "oneOf": [
-          {
-            "type": "string",
-            "format": "uuid"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "contacts": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/opportunitiescontactsUpdateOneRelatedOperationsInput"
-        }
-      },
-      "createdAt": {
-        "type": "string",
-        "format": "date-time"
-      },
-      "createdBy": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/opportunitiescreatedByUpdateOneRelatedOperationsInput"
-        }
-      },
-      "createdById": {
-        "oneOf": [
-          {
-            "type": "string",
-            "format": "uuid"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "currency": {
-        "type": "string"
-      },
-      "expectedCloseDate": {
+      "startedAt": {
         "oneOf": [
           {
             "type": "string",
@@ -9931,17 +10519,7 @@ const definitions = {
           }
         ]
       },
-      "id": {
-        "type": "string",
-        "format": "uuid"
-      },
-      "interactions": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/opportunitiesinteractionsUpdateManyRelatedOperationsInput"
-        }
-      },
-      "notes": {
+      "title": {
         "oneOf": [
           {
             "type": "string"
@@ -9950,313 +10528,36 @@ const definitions = {
             "type": "null"
           }
         ]
-      },
-      "organizationId": {
-        "type": "string",
-        "format": "uuid"
-      },
-      "organizations": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/opportunitiesorganizationsUpdateOneRelatedOperationsInput"
-        }
-      },
-      "owner": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/opportunitiesownerUpdateOneRelatedOperationsInput"
-        }
-      },
-      "ownerUserId": {
-        "oneOf": [
-          {
-            "type": "string",
-            "format": "uuid"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "pipeline_stages": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/opportunitiespipeline_stagesUpdateOneRelatedOperationsInput"
-        }
-      },
-      "stageId": {
-        "type": "string",
-        "format": "uuid"
-      },
-      "status": {
-        "type": "string"
-      },
-      "title": {
-        "type": "string"
       },
       "updatedAt": {
         "type": "string",
         "format": "date-time"
       },
       "updatedBy": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/opportunitiesupdatedByUpdateOneRelatedOperationsInput"
-        }
-      },
-      "updatedById": {
-        "oneOf": [
-          {
-            "type": "string",
-            "format": "uuid"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "valueAmount": {
-        "oneOf": [
-          {
-            "type": "string",
-            "format": "decimal",
-            "example": "123.345"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      }
-    },
-    "required": []
-  },
-  "opportunitiesupdatedByConnectForwardKeyInput": {
-    "type": "object",
-    "properties": {
-      "id": {
-        "oneOf": [
-          {
-            "type": "string",
-            "format": "uuid"
-          },
-          {
-            "type": "null"
-          }
-        ]
+        "$ref": "#/$defs/affiliationsupdatedByCreateRelatedInput"
       }
     },
     "required": [
-      "id"
+      "contacts"
     ]
   },
-  "opportunitiesupdatedByConnectInput": {
-    "type": "object",
-    "properties": {
-      "key": {
-        "$ref": "#/$defs/opportunitiesupdatedByConnectForwardKeyInput"
-      }
-    },
-    "required": [
-      "key"
-    ]
-  },
-  "opportunitiesupdatedByCreateArguments": {
-    "type": "object",
-    "properties": {
-      "data": {
-        "$ref": "#/$defs/opportunitiesupdatedByCreateRelatedWithoutTypeInput"
-      }
-    },
-    "required": [
-      "data"
-    ]
-  },
-  "opportunitiesupdatedByCreateRelatedInput": {
+  "organizationsaffiliationsUpdateManyRelatedOperationsInput": {
     "type": "object",
     "properties": {
       "_connect": {
-        "$ref": "#/$defs/opportunitiesupdatedByConnectInput"
+        "$ref": "#/$defs/organizationsaffiliationsConnectInput"
       },
       "_create": {
-        "$ref": "#/$defs/opportunitiesupdatedByCreateArguments"
+        "$ref": "#/$defs/organizationsaffiliationsCreateArguments"
+      },
+      "_delete": {
+        "$ref": "#/$defs/affiliationsDeleteArguments"
+      },
+      "_update": {
+        "$ref": "#/$defs/affiliationsUpdateInput"
       }
     },
     "required": []
-  },
-  "opportunitiesupdatedByCreateRelatedWithoutTypeInput": {
-    "type": "object",
-    "properties": {
-      "appearance": {
-        "oneOf": [
-          {
-            "type": "string"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "attachmentsCreatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "avatarId": {
-        "oneOf": [
-          {
-            "type": "string",
-            "format": "uuid"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "contactOrganizationsCreatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "contactOrganizationsUpdatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "contactsCreatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "contactsOwner": {
-        "type": "array",
-        "items": {}
-      },
-      "contactsUpdatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "email": {
-        "oneOf": [
-          {
-            "type": "string"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "fullName": {
-        "oneOf": [
-          {
-            "type": "string"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "id": {
-        "type": "string",
-        "format": "uuid"
-      },
-      "interactionsCreatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "interactionsOwner": {
-        "type": "array",
-        "items": {}
-      },
-      "interactionsUpdatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "isService": {
-        "type": "boolean"
-      },
-      "lastActivityAt": {
-        "oneOf": [
-          {
-            "type": "string",
-            "format": "date-time"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "opportunitiesCreatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "opportunitiesOwner": {
-        "type": "array",
-        "items": {}
-      },
-      "organizationsCreatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "organizationsOwner": {
-        "type": "array",
-        "items": {}
-      },
-      "organizationsUpdatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "roles": {
-        "type": "array",
-        "items": {}
-      },
-      "serviceOwnerId": {
-        "oneOf": [
-          {
-            "type": "string",
-            "format": "uuid"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "status": {
-        "type": "string"
-      },
-      "storageValues": {
-        "type": "array",
-        "items": {}
-      }
-    },
-    "required": [
-      "id",
-      "isService"
-    ]
-  },
-  "opportunitiesupdatedByUpdateOneRelatedOperationsInput": {
-    "type": "object",
-    "properties": {
-      "_connect": {
-        "$ref": "#/$defs/opportunitiesupdatedByConnectInput"
-      },
-      "_create": {
-        "$ref": "#/$defs/opportunitiesupdatedByCreateArguments"
-      },
-      "_delete": {},
-      "_disconnect": {},
-      "_update": {}
-    },
-    "required": []
-  },
-  "opportunitiesUpdateInput": {
-    "type": "object",
-    "properties": {
-      "data": {
-        "$ref": "#/$defs/opportunitiesUpdateDataInput"
-      },
-      "filter": {
-        "$ref": "#/$defs/opportunitiesFilterInput"
-      }
-    },
-    "required": [
-      "data"
-    ]
   },
   "organizationsattachmentsConnectBackwardKeysInput": {
     "type": "object",
@@ -10315,6 +10616,9 @@ const definitions = {
   "organizationsattachmentsCreateRelatedWithoutTypeInput": {
     "type": "object",
     "properties": {
+      "activities": {
+        "$ref": "#/$defs/attachmentsactivitiesCreateRelatedInput"
+      },
       "assetId": {
         "oneOf": [
           {
@@ -10346,18 +10650,15 @@ const definitions = {
       "createdBy": {
         "$ref": "#/$defs/attachmentscreatedByCreateRelatedInput"
       },
+      "deals": {
+        "$ref": "#/$defs/attachmentsdealsCreateRelatedInput"
+      },
       "fileName": {
         "type": "string"
       },
       "id": {
         "type": "string",
         "format": "uuid"
-      },
-      "interactions": {
-        "$ref": "#/$defs/attachmentsinteractionsCreateRelatedInput"
-      },
-      "opportunities": {
-        "$ref": "#/$defs/attachmentsopportunitiesCreateRelatedInput"
       },
       "sizeBytes": {
         "oneOf": [
@@ -10398,148 +10699,6 @@ const definitions = {
       },
       "_update": {
         "$ref": "#/$defs/attachmentsUpdateInput"
-      }
-    },
-    "required": []
-  },
-  "organizationscontact_organizationsConnectBackwardKeysInput": {
-    "type": "object",
-    "properties": {
-      "id": {
-        "type": "string",
-        "format": "uuid"
-      }
-    },
-    "required": []
-  },
-  "organizationscontact_organizationsConnectInput": {
-    "type": "object",
-    "properties": {
-      "keys": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/organizationscontact_organizationsConnectBackwardKeysInput"
-        }
-      }
-    },
-    "required": [
-      "keys"
-    ]
-  },
-  "organizationscontact_organizationsCreateArguments": {
-    "type": "object",
-    "properties": {
-      "data": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/organizationscontact_organizationsCreateRelatedWithoutTypeInput"
-        }
-      }
-    },
-    "required": [
-      "data"
-    ]
-  },
-  "organizationscontact_organizationsCreateRelatedInput": {
-    "type": "object",
-    "properties": {
-      "_connect": {
-        "$ref": "#/$defs/organizationscontact_organizationsConnectInput"
-      },
-      "_create": {
-        "$ref": "#/$defs/organizationscontact_organizationsCreateArguments"
-      }
-    },
-    "required": []
-  },
-  "organizationscontact_organizationsCreateRelatedWithoutTypeInput": {
-    "type": "object",
-    "properties": {
-      "contacts": {
-        "$ref": "#/$defs/contactOrganizationscontactsCreateRelatedInput"
-      },
-      "createdAt": {
-        "type": "string",
-        "format": "date-time"
-      },
-      "createdBy": {
-        "$ref": "#/$defs/contactOrganizationscreatedByCreateRelatedInput"
-      },
-      "endedAt": {
-        "oneOf": [
-          {
-            "type": "string",
-            "format": "date"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "id": {
-        "type": "string",
-        "format": "uuid"
-      },
-      "isPrimary": {
-        "type": "boolean"
-      },
-      "role": {
-        "oneOf": [
-          {
-            "type": "string"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "startedAt": {
-        "oneOf": [
-          {
-            "type": "string",
-            "format": "date"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "title": {
-        "oneOf": [
-          {
-            "type": "string"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "updatedAt": {
-        "type": "string",
-        "format": "date-time"
-      },
-      "updatedBy": {
-        "$ref": "#/$defs/contactOrganizationsupdatedByCreateRelatedInput"
-      }
-    },
-    "required": [
-      "contacts"
-    ]
-  },
-  "organizationscontact_organizationsUpdateManyRelatedOperationsInput": {
-    "type": "object",
-    "properties": {
-      "_connect": {
-        "$ref": "#/$defs/organizationscontact_organizationsConnectInput"
-      },
-      "_create": {
-        "$ref": "#/$defs/organizationscontact_organizationsCreateArguments"
-      },
-      "_delete": {
-        "$ref": "#/$defs/contactOrganizationsDeleteArguments"
-      },
-      "_update": {
-        "$ref": "#/$defs/contactOrganizationsUpdateInput"
       }
     },
     "required": []
@@ -10600,6 +10759,26 @@ const definitions = {
   "organizationscreatedByCreateRelatedWithoutTypeInput": {
     "type": "object",
     "properties": {
+      "activitiesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "activitiesOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "activitiesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "affiliationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "affiliationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
       "appearance": {
         "oneOf": [
           {
@@ -10625,14 +10804,6 @@ const definitions = {
           }
         ]
       },
-      "contactOrganizationsCreatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "contactOrganizationsUpdatedBy": {
-        "type": "array",
-        "items": {}
-      },
       "contactsCreatedBy": {
         "type": "array",
         "items": {}
@@ -10642,6 +10813,18 @@ const definitions = {
         "items": {}
       },
       "contactsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsUpdatedBy": {
         "type": "array",
         "items": {}
       },
@@ -10669,18 +10852,6 @@ const definitions = {
         "type": "string",
         "format": "uuid"
       },
-      "interactionsCreatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "interactionsOwner": {
-        "type": "array",
-        "items": {}
-      },
-      "interactionsUpdatedBy": {
-        "type": "array",
-        "items": {}
-      },
       "isService": {
         "type": "boolean"
       },
@@ -10694,18 +10865,6 @@ const definitions = {
             "type": "null"
           }
         ]
-      },
-      "opportunitiesCreatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "opportunitiesOwner": {
-        "type": "array",
-        "items": {}
-      },
-      "opportunitiesUpdatedBy": {
-        "type": "array",
-        "items": {}
       },
       "organizationsOwner": {
         "type": "array",
@@ -10761,16 +10920,22 @@ const definitions = {
   "organizationsCreateInput": {
     "type": "object",
     "properties": {
+      "activities": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/organizationsactivitiesCreateRelatedInput"
+        }
+      },
+      "affiliations": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/organizationsaffiliationsCreateRelatedInput"
+        }
+      },
       "attachments": {
         "type": "array",
         "items": {
           "$ref": "#/$defs/organizationsattachmentsCreateRelatedInput"
-        }
-      },
-      "contact_organizations": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/organizationscontact_organizationsCreateRelatedInput"
         }
       },
       "createdAt": {
@@ -10779,6 +10944,12 @@ const definitions = {
       },
       "createdBy": {
         "$ref": "#/$defs/organizationscreatedByCreateRelatedInput"
+      },
+      "deals": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/organizationsdealsCreateRelatedInput"
+        }
       },
       "domain": {
         "oneOf": [
@@ -10804,12 +10975,6 @@ const definitions = {
           }
         ]
       },
-      "interactions": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/organizationsinteractionsCreateRelatedInput"
-        }
-      },
       "name": {
         "type": "string"
       },
@@ -10822,12 +10987,6 @@ const definitions = {
             "type": "null"
           }
         ]
-      },
-      "opportunities": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/organizationsopportunitiesCreateRelatedInput"
-        }
       },
       "owner": {
         "$ref": "#/$defs/organizationsownerCreateRelatedInput"
@@ -10860,6 +11019,164 @@ const definitions = {
       "name"
     ]
   },
+  "organizationsdealsConnectBackwardKeysInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      }
+    },
+    "required": []
+  },
+  "organizationsdealsConnectInput": {
+    "type": "object",
+    "properties": {
+      "keys": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/organizationsdealsConnectBackwardKeysInput"
+        }
+      }
+    },
+    "required": [
+      "keys"
+    ]
+  },
+  "organizationsdealsCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/organizationsdealsCreateRelatedWithoutTypeInput"
+        }
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "organizationsdealsCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/organizationsdealsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/organizationsdealsCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "organizationsdealsCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "activities": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/dealsactivitiesCreateRelatedInput"
+        }
+      },
+      "attachments": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/dealsattachmentsCreateRelatedInput"
+        }
+      },
+      "contacts": {
+        "$ref": "#/$defs/dealscontactsCreateRelatedInput"
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "createdBy": {
+        "$ref": "#/$defs/dealscreatedByCreateRelatedInput"
+      },
+      "currency": {
+        "type": "string"
+      },
+      "expectedCloseDate": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "notes": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "owner": {
+        "$ref": "#/$defs/dealsownerCreateRelatedInput"
+      },
+      "pipeline_stages": {
+        "$ref": "#/$defs/dealspipeline_stagesCreateRelatedInput"
+      },
+      "status": {
+        "type": "string"
+      },
+      "title": {
+        "type": "string"
+      },
+      "updatedAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "updatedBy": {
+        "$ref": "#/$defs/dealsupdatedByCreateRelatedInput"
+      },
+      "valueAmount": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "decimal",
+            "example": "123.345"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": [
+      "pipeline_stages",
+      "title"
+    ]
+  },
+  "organizationsdealsUpdateManyRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/organizationsdealsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/organizationsdealsCreateArguments"
+      },
+      "_delete": {
+        "$ref": "#/$defs/dealsDeleteArguments"
+      },
+      "_update": {
+        "$ref": "#/$defs/dealsUpdateInput"
+      }
+    },
+    "required": []
+  },
   "organizationsFilterInput": {
     "type": "object",
     "properties": {
@@ -10878,6 +11195,26 @@ const definitions = {
           "$ref": "#/$defs/organizationsFilterInput"
         }
       },
+      "activities": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/activitiesFilterQuantifierInput"
+          },
+          {
+            "$ref": "#/$defs/activitiesFilterInput"
+          }
+        ]
+      },
+      "affiliations": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/affiliationsFilterQuantifierInput"
+          },
+          {
+            "$ref": "#/$defs/affiliationsFilterInput"
+          }
+        ]
+      },
       "attachments": {
         "oneOf": [
           {
@@ -10885,16 +11222,6 @@ const definitions = {
           },
           {
             "$ref": "#/$defs/attachmentsFilterInput"
-          }
-        ]
-      },
-      "contact_organizations": {
-        "oneOf": [
-          {
-            "$ref": "#/$defs/contactOrganizationsFilterQuantifierInput"
-          },
-          {
-            "$ref": "#/$defs/contactOrganizationsFilterInput"
           }
         ]
       },
@@ -10925,6 +11252,16 @@ const definitions = {
                 "type": "null"
               }
             ]
+          }
+        ]
+      },
+      "deals": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/dealsFilterQuantifierInput"
+          },
+          {
+            "$ref": "#/$defs/dealsFilterInput"
           }
         ]
       },
@@ -10973,16 +11310,6 @@ const definitions = {
           }
         ]
       },
-      "interactions": {
-        "oneOf": [
-          {
-            "$ref": "#/$defs/interactionsFilterQuantifierInput"
-          },
-          {
-            "$ref": "#/$defs/interactionsFilterInput"
-          }
-        ]
-      },
       "name": {
         "oneOf": [
           {
@@ -11007,16 +11334,6 @@ const definitions = {
                 "type": "null"
               }
             ]
-          }
-        ]
-      },
-      "opportunities": {
-        "oneOf": [
-          {
-            "$ref": "#/$defs/opportunitiesFilterQuantifierInput"
-          },
-          {
-            "$ref": "#/$defs/opportunitiesFilterInput"
           }
         ]
       },
@@ -11102,323 +11419,6 @@ const definitions = {
     },
     "required": []
   },
-  "organizationsinteractionsConnectBackwardKeysInput": {
-    "type": "object",
-    "properties": {
-      "id": {
-        "type": "string",
-        "format": "uuid"
-      }
-    },
-    "required": []
-  },
-  "organizationsinteractionsConnectInput": {
-    "type": "object",
-    "properties": {
-      "keys": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/organizationsinteractionsConnectBackwardKeysInput"
-        }
-      }
-    },
-    "required": [
-      "keys"
-    ]
-  },
-  "organizationsinteractionsCreateArguments": {
-    "type": "object",
-    "properties": {
-      "data": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/organizationsinteractionsCreateRelatedWithoutTypeInput"
-        }
-      }
-    },
-    "required": [
-      "data"
-    ]
-  },
-  "organizationsinteractionsCreateRelatedInput": {
-    "type": "object",
-    "properties": {
-      "_connect": {
-        "$ref": "#/$defs/organizationsinteractionsConnectInput"
-      },
-      "_create": {
-        "$ref": "#/$defs/organizationsinteractionsCreateArguments"
-      }
-    },
-    "required": []
-  },
-  "organizationsinteractionsCreateRelatedWithoutTypeInput": {
-    "type": "object",
-    "properties": {
-      "attachments": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/interactionsattachmentsCreateRelatedInput"
-        }
-      },
-      "body": {
-        "oneOf": [
-          {
-            "type": "string"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "completedAt": {
-        "oneOf": [
-          {
-            "type": "string",
-            "format": "date-time"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "contacts": {
-        "$ref": "#/$defs/interactionscontactsCreateRelatedInput"
-      },
-      "createdAt": {
-        "type": "string",
-        "format": "date-time"
-      },
-      "createdBy": {
-        "$ref": "#/$defs/interactionscreatedByCreateRelatedInput"
-      },
-      "direction": {
-        "type": "string"
-      },
-      "dueAt": {
-        "oneOf": [
-          {
-            "type": "string",
-            "format": "date-time"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "id": {
-        "type": "string",
-        "format": "uuid"
-      },
-      "occurredAt": {
-        "type": "string",
-        "format": "date-time"
-      },
-      "opportunities": {
-        "$ref": "#/$defs/interactionsopportunitiesCreateRelatedInput"
-      },
-      "owner": {
-        "$ref": "#/$defs/interactionsownerCreateRelatedInput"
-      },
-      "status": {
-        "type": "string"
-      },
-      "subject": {
-        "type": "string"
-      },
-      "type": {
-        "type": "string"
-      },
-      "updatedAt": {
-        "type": "string",
-        "format": "date-time"
-      },
-      "updatedBy": {
-        "$ref": "#/$defs/interactionsupdatedByCreateRelatedInput"
-      }
-    },
-    "required": [
-      "status",
-      "subject",
-      "type"
-    ]
-  },
-  "organizationsinteractionsUpdateManyRelatedOperationsInput": {
-    "type": "object",
-    "properties": {
-      "_connect": {
-        "$ref": "#/$defs/organizationsinteractionsConnectInput"
-      },
-      "_create": {
-        "$ref": "#/$defs/organizationsinteractionsCreateArguments"
-      },
-      "_delete": {
-        "$ref": "#/$defs/interactionsDeleteArguments"
-      },
-      "_update": {
-        "$ref": "#/$defs/interactionsUpdateInput"
-      }
-    },
-    "required": []
-  },
-  "organizationsopportunitiesConnectBackwardKeysInput": {
-    "type": "object",
-    "properties": {
-      "id": {
-        "type": "string",
-        "format": "uuid"
-      }
-    },
-    "required": []
-  },
-  "organizationsopportunitiesConnectInput": {
-    "type": "object",
-    "properties": {
-      "keys": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/organizationsopportunitiesConnectBackwardKeysInput"
-        }
-      }
-    },
-    "required": [
-      "keys"
-    ]
-  },
-  "organizationsopportunitiesCreateArguments": {
-    "type": "object",
-    "properties": {
-      "data": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/organizationsopportunitiesCreateRelatedWithoutTypeInput"
-        }
-      }
-    },
-    "required": [
-      "data"
-    ]
-  },
-  "organizationsopportunitiesCreateRelatedInput": {
-    "type": "object",
-    "properties": {
-      "_connect": {
-        "$ref": "#/$defs/organizationsopportunitiesConnectInput"
-      },
-      "_create": {
-        "$ref": "#/$defs/organizationsopportunitiesCreateArguments"
-      }
-    },
-    "required": []
-  },
-  "organizationsopportunitiesCreateRelatedWithoutTypeInput": {
-    "type": "object",
-    "properties": {
-      "attachments": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/opportunitiesattachmentsCreateRelatedInput"
-        }
-      },
-      "contacts": {
-        "$ref": "#/$defs/opportunitiescontactsCreateRelatedInput"
-      },
-      "createdAt": {
-        "type": "string",
-        "format": "date-time"
-      },
-      "createdBy": {
-        "$ref": "#/$defs/opportunitiescreatedByCreateRelatedInput"
-      },
-      "currency": {
-        "type": "string"
-      },
-      "expectedCloseDate": {
-        "oneOf": [
-          {
-            "type": "string",
-            "format": "date"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "id": {
-        "type": "string",
-        "format": "uuid"
-      },
-      "interactions": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/opportunitiesinteractionsCreateRelatedInput"
-        }
-      },
-      "notes": {
-        "oneOf": [
-          {
-            "type": "string"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "owner": {
-        "$ref": "#/$defs/opportunitiesownerCreateRelatedInput"
-      },
-      "pipeline_stages": {
-        "$ref": "#/$defs/opportunitiespipeline_stagesCreateRelatedInput"
-      },
-      "status": {
-        "type": "string"
-      },
-      "title": {
-        "type": "string"
-      },
-      "updatedAt": {
-        "type": "string",
-        "format": "date-time"
-      },
-      "updatedBy": {
-        "$ref": "#/$defs/opportunitiesupdatedByCreateRelatedInput"
-      },
-      "valueAmount": {
-        "oneOf": [
-          {
-            "type": "string",
-            "format": "decimal",
-            "example": "123.345"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      }
-    },
-    "required": [
-      "pipeline_stages",
-      "title"
-    ]
-  },
-  "organizationsopportunitiesUpdateManyRelatedOperationsInput": {
-    "type": "object",
-    "properties": {
-      "_connect": {
-        "$ref": "#/$defs/organizationsopportunitiesConnectInput"
-      },
-      "_create": {
-        "$ref": "#/$defs/organizationsopportunitiesCreateArguments"
-      },
-      "_delete": {
-        "$ref": "#/$defs/opportunitiesDeleteArguments"
-      },
-      "_update": {
-        "$ref": "#/$defs/opportunitiesUpdateInput"
-      }
-    },
-    "required": []
-  },
   "organizationsownerConnectForwardKeyInput": {
     "type": "object",
     "properties": {
@@ -11475,6 +11475,26 @@ const definitions = {
   "organizationsownerCreateRelatedWithoutTypeInput": {
     "type": "object",
     "properties": {
+      "activitiesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "activitiesOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "activitiesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "affiliationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "affiliationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
       "appearance": {
         "oneOf": [
           {
@@ -11500,14 +11520,6 @@ const definitions = {
           }
         ]
       },
-      "contactOrganizationsCreatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "contactOrganizationsUpdatedBy": {
-        "type": "array",
-        "items": {}
-      },
       "contactsCreatedBy": {
         "type": "array",
         "items": {}
@@ -11517,6 +11529,18 @@ const definitions = {
         "items": {}
       },
       "contactsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsUpdatedBy": {
         "type": "array",
         "items": {}
       },
@@ -11544,18 +11568,6 @@ const definitions = {
         "type": "string",
         "format": "uuid"
       },
-      "interactionsCreatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "interactionsOwner": {
-        "type": "array",
-        "items": {}
-      },
-      "interactionsUpdatedBy": {
-        "type": "array",
-        "items": {}
-      },
       "isService": {
         "type": "boolean"
       },
@@ -11569,18 +11581,6 @@ const definitions = {
             "type": "null"
           }
         ]
-      },
-      "opportunitiesCreatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "opportunitiesOwner": {
-        "type": "array",
-        "items": {}
-      },
-      "opportunitiesUpdatedBy": {
-        "type": "array",
-        "items": {}
       },
       "organizationsCreatedBy": {
         "type": "array",
@@ -11721,16 +11721,22 @@ const definitions = {
   "organizationsUpdateDataInput": {
     "type": "object",
     "properties": {
+      "activities": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/organizationsactivitiesUpdateManyRelatedOperationsInput"
+        }
+      },
+      "affiliations": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/organizationsaffiliationsUpdateManyRelatedOperationsInput"
+        }
+      },
       "attachments": {
         "type": "array",
         "items": {
           "$ref": "#/$defs/organizationsattachmentsUpdateManyRelatedOperationsInput"
-        }
-      },
-      "contact_organizations": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/organizationscontact_organizationsUpdateManyRelatedOperationsInput"
         }
       },
       "createdAt": {
@@ -11753,6 +11759,12 @@ const definitions = {
             "type": "null"
           }
         ]
+      },
+      "deals": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/organizationsdealsUpdateManyRelatedOperationsInput"
+        }
       },
       "domain": {
         "oneOf": [
@@ -11778,12 +11790,6 @@ const definitions = {
           }
         ]
       },
-      "interactions": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/organizationsinteractionsUpdateManyRelatedOperationsInput"
-        }
-      },
       "name": {
         "type": "string"
       },
@@ -11796,12 +11802,6 @@ const definitions = {
             "type": "null"
           }
         ]
-      },
-      "opportunities": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/organizationsopportunitiesUpdateManyRelatedOperationsInput"
-        }
       },
       "owner": {
         "type": "array",
@@ -11919,6 +11919,26 @@ const definitions = {
   "organizationsupdatedByCreateRelatedWithoutTypeInput": {
     "type": "object",
     "properties": {
+      "activitiesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "activitiesOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "activitiesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "affiliationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "affiliationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
       "appearance": {
         "oneOf": [
           {
@@ -11944,14 +11964,6 @@ const definitions = {
           }
         ]
       },
-      "contactOrganizationsCreatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "contactOrganizationsUpdatedBy": {
-        "type": "array",
-        "items": {}
-      },
       "contactsCreatedBy": {
         "type": "array",
         "items": {}
@@ -11961,6 +11973,18 @@ const definitions = {
         "items": {}
       },
       "contactsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsUpdatedBy": {
         "type": "array",
         "items": {}
       },
@@ -11988,18 +12012,6 @@ const definitions = {
         "type": "string",
         "format": "uuid"
       },
-      "interactionsCreatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "interactionsOwner": {
-        "type": "array",
-        "items": {}
-      },
-      "interactionsUpdatedBy": {
-        "type": "array",
-        "items": {}
-      },
       "isService": {
         "type": "boolean"
       },
@@ -12013,18 +12025,6 @@ const definitions = {
             "type": "null"
           }
         ]
-      },
-      "opportunitiesCreatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "opportunitiesOwner": {
-        "type": "array",
-        "items": {}
-      },
-      "opportunitiesUpdatedBy": {
-        "type": "array",
-        "items": {}
       },
       "organizationsCreatedBy": {
         "type": "array",
@@ -12091,6 +12091,152 @@ const definitions = {
       "data"
     ]
   },
+  "pipelineStagesdealsConnectBackwardKeysInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      }
+    },
+    "required": []
+  },
+  "pipelineStagesdealsConnectInput": {
+    "type": "object",
+    "properties": {
+      "keys": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/pipelineStagesdealsConnectBackwardKeysInput"
+        }
+      }
+    },
+    "required": [
+      "keys"
+    ]
+  },
+  "pipelineStagesdealsCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/pipelineStagesdealsCreateRelatedWithoutTypeInput"
+        }
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "pipelineStagesdealsCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "activities": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/dealsactivitiesCreateRelatedInput"
+        }
+      },
+      "attachments": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/dealsattachmentsCreateRelatedInput"
+        }
+      },
+      "contacts": {
+        "$ref": "#/$defs/dealscontactsCreateRelatedInput"
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "createdBy": {
+        "$ref": "#/$defs/dealscreatedByCreateRelatedInput"
+      },
+      "currency": {
+        "type": "string"
+      },
+      "expectedCloseDate": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "notes": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "organizations": {
+        "$ref": "#/$defs/dealsorganizationsCreateRelatedInput"
+      },
+      "owner": {
+        "$ref": "#/$defs/dealsownerCreateRelatedInput"
+      },
+      "status": {
+        "type": "string"
+      },
+      "title": {
+        "type": "string"
+      },
+      "updatedAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "updatedBy": {
+        "$ref": "#/$defs/dealsupdatedByCreateRelatedInput"
+      },
+      "valueAmount": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "decimal",
+            "example": "123.345"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": [
+      "organizations",
+      "title"
+    ]
+  },
+  "pipelineStagesdealsUpdateManyRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/pipelineStagesdealsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/pipelineStagesdealsCreateArguments"
+      },
+      "_delete": {
+        "$ref": "#/$defs/dealsDeleteArguments"
+      },
+      "_update": {
+        "$ref": "#/$defs/dealsUpdateInput"
+      }
+    },
+    "required": []
+  },
   "pipelineStagesFilterInput": {
     "type": "object",
     "properties": {
@@ -12123,6 +12269,16 @@ const definitions = {
                 "type": "null"
               }
             ]
+          }
+        ]
+      },
+      "deals": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/dealsFilterQuantifierInput"
+          },
+          {
+            "$ref": "#/$defs/dealsFilterInput"
           }
         ]
       },
@@ -12167,16 +12323,6 @@ const definitions = {
           }
         ]
       },
-      "opportunities": {
-        "oneOf": [
-          {
-            "$ref": "#/$defs/opportunitiesFilterQuantifierInput"
-          },
-          {
-            "$ref": "#/$defs/opportunitiesFilterInput"
-          }
-        ]
-      },
       "position": {
         "oneOf": [
           {
@@ -12207,152 +12353,6 @@ const definitions = {
     },
     "required": []
   },
-  "pipelineStagesopportunitiesConnectBackwardKeysInput": {
-    "type": "object",
-    "properties": {
-      "id": {
-        "type": "string",
-        "format": "uuid"
-      }
-    },
-    "required": []
-  },
-  "pipelineStagesopportunitiesConnectInput": {
-    "type": "object",
-    "properties": {
-      "keys": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/pipelineStagesopportunitiesConnectBackwardKeysInput"
-        }
-      }
-    },
-    "required": [
-      "keys"
-    ]
-  },
-  "pipelineStagesopportunitiesCreateArguments": {
-    "type": "object",
-    "properties": {
-      "data": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/pipelineStagesopportunitiesCreateRelatedWithoutTypeInput"
-        }
-      }
-    },
-    "required": [
-      "data"
-    ]
-  },
-  "pipelineStagesopportunitiesCreateRelatedWithoutTypeInput": {
-    "type": "object",
-    "properties": {
-      "attachments": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/opportunitiesattachmentsCreateRelatedInput"
-        }
-      },
-      "contacts": {
-        "$ref": "#/$defs/opportunitiescontactsCreateRelatedInput"
-      },
-      "createdAt": {
-        "type": "string",
-        "format": "date-time"
-      },
-      "createdBy": {
-        "$ref": "#/$defs/opportunitiescreatedByCreateRelatedInput"
-      },
-      "currency": {
-        "type": "string"
-      },
-      "expectedCloseDate": {
-        "oneOf": [
-          {
-            "type": "string",
-            "format": "date"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "id": {
-        "type": "string",
-        "format": "uuid"
-      },
-      "interactions": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/opportunitiesinteractionsCreateRelatedInput"
-        }
-      },
-      "notes": {
-        "oneOf": [
-          {
-            "type": "string"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      },
-      "organizations": {
-        "$ref": "#/$defs/opportunitiesorganizationsCreateRelatedInput"
-      },
-      "owner": {
-        "$ref": "#/$defs/opportunitiesownerCreateRelatedInput"
-      },
-      "status": {
-        "type": "string"
-      },
-      "title": {
-        "type": "string"
-      },
-      "updatedAt": {
-        "type": "string",
-        "format": "date-time"
-      },
-      "updatedBy": {
-        "$ref": "#/$defs/opportunitiesupdatedByCreateRelatedInput"
-      },
-      "valueAmount": {
-        "oneOf": [
-          {
-            "type": "string",
-            "format": "decimal",
-            "example": "123.345"
-          },
-          {
-            "type": "null"
-          }
-        ]
-      }
-    },
-    "required": [
-      "organizations",
-      "title"
-    ]
-  },
-  "pipelineStagesopportunitiesUpdateManyRelatedOperationsInput": {
-    "type": "object",
-    "properties": {
-      "_connect": {
-        "$ref": "#/$defs/pipelineStagesopportunitiesConnectInput"
-      },
-      "_create": {
-        "$ref": "#/$defs/pipelineStagesopportunitiesCreateArguments"
-      },
-      "_delete": {
-        "$ref": "#/$defs/opportunitiesDeleteArguments"
-      },
-      "_update": {
-        "$ref": "#/$defs/opportunitiesUpdateInput"
-      }
-    },
-    "required": []
-  },
   "pipelineStagesUpdateDataInput": {
     "type": "object",
     "properties": {
@@ -12366,6 +12366,12 @@ const definitions = {
           }
         ]
       },
+      "deals": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/pipelineStagesdealsUpdateManyRelatedOperationsInput"
+        }
+      },
       "id": {
         "type": "string",
         "format": "uuid"
@@ -12378,12 +12384,6 @@ const definitions = {
       },
       "name": {
         "type": "string"
-      },
-      "opportunities": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/pipelineStagesopportunitiesUpdateManyRelatedOperationsInput"
-        }
       },
       "position": {
         "type": "number"
@@ -14272,16 +14272,22 @@ const definitions = {
   "userscontactsCreateRelatedWithoutTypeInput": {
     "type": "object",
     "properties": {
+      "activities": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/contactsactivitiesCreateRelatedInput"
+        }
+      },
+      "affiliations": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/contactsaffiliationsCreateRelatedInput"
+        }
+      },
       "attachments": {
         "type": "array",
         "items": {
           "$ref": "#/$defs/contactsattachmentsCreateRelatedInput"
-        }
-      },
-      "contact_organizations": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/contactscontact_organizationsCreateRelatedInput"
         }
       },
       "createdAt": {
@@ -14290,6 +14296,12 @@ const definitions = {
       },
       "createdBy": {
         "$ref": "#/$defs/contactscreatedByCreateRelatedInput"
+      },
+      "deals": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/contactsdealsCreateRelatedInput"
+        }
       },
       "email": {
         "oneOf": [
@@ -14308,12 +14320,6 @@ const definitions = {
         "type": "string",
         "format": "uuid"
       },
-      "interactions": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/contactsinteractionsCreateRelatedInput"
-        }
-      },
       "lastName": {
         "type": "string"
       },
@@ -14326,12 +14332,6 @@ const definitions = {
             "type": "null"
           }
         ]
-      },
-      "opportunities": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/contactsopportunitiesCreateRelatedInput"
-        }
       },
       "owner": {
         "$ref": "#/$defs/contactsownerCreateRelatedInput"
@@ -14959,14 +14959,14 @@ function fromComponent<T>(component: string): z.ZodType<T> {
 
 export const attachmentsCreateSchema = fromComponent<attachmentsCreateOneInput>('attachmentsCreateInput')
 export const attachmentsUpdateSchema = fromComponent<attachmentsUpdateOneInput>('attachmentsUpdateDataInput')
-export const contactOrganizationsCreateSchema = fromComponent<contactOrganizationsCreateOneInput>('contactOrganizationsCreateInput')
-export const contactOrganizationsUpdateSchema = fromComponent<contactOrganizationsUpdateOneInput>('contactOrganizationsUpdateDataInput')
+export const affiliationsCreateSchema = fromComponent<affiliationsCreateOneInput>('affiliationsCreateInput')
+export const affiliationsUpdateSchema = fromComponent<affiliationsUpdateOneInput>('affiliationsUpdateDataInput')
 export const contactsCreateSchema = fromComponent<contactsCreateOneInput>('contactsCreateInput')
 export const contactsUpdateSchema = fromComponent<contactsUpdateOneInput>('contactsUpdateDataInput')
-export const interactionsCreateSchema = fromComponent<interactionsCreateOneInput>('interactionsCreateInput')
-export const interactionsUpdateSchema = fromComponent<interactionsUpdateOneInput>('interactionsUpdateDataInput')
-export const opportunitiesCreateSchema = fromComponent<opportunitiesCreateOneInput>('opportunitiesCreateInput')
-export const opportunitiesUpdateSchema = fromComponent<opportunitiesUpdateOneInput>('opportunitiesUpdateDataInput')
+export const activitiesCreateSchema = fromComponent<activitiesCreateOneInput>('activitiesCreateInput')
+export const activitiesUpdateSchema = fromComponent<activitiesUpdateOneInput>('activitiesUpdateDataInput')
+export const dealsCreateSchema = fromComponent<dealsCreateOneInput>('dealsCreateInput')
+export const dealsUpdateSchema = fromComponent<dealsUpdateOneInput>('dealsUpdateDataInput')
 export const organizationsCreateSchema = fromComponent<organizationsCreateOneInput>('organizationsCreateInput')
 export const organizationsUpdateSchema = fromComponent<organizationsUpdateOneInput>('organizationsUpdateDataInput')
 

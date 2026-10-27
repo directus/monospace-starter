@@ -170,7 +170,7 @@ function QuickDate({
 }
 
 export function Composer({ defaults }: { defaults: ActivityDefaults }) {
-  const access = useCollectionAccess('interactions')
+  const access = useCollectionAccess('activities')
   const create = useCreateActivity()
   const currentUser = useCurrentUser()
   const rootRef = useRef<HTMLDivElement>(null)
@@ -209,9 +209,7 @@ export function Composer({ defaults }: { defaults: ActivityDefaults }) {
         contacts: defaults.contact
           ? { _connect: { key: { id: defaults.contact.value } } }
           : undefined,
-        opportunities: defaults.deal
-          ? { _connect: { key: { id: defaults.deal.value } } }
-          : undefined,
+        deals: defaults.deal ? { _connect: { key: { id: defaults.deal.value } } } : undefined,
         owner: currentUser ? { _connect: { key: { id: currentUser.id } } } : undefined,
       },
       { onSuccess: () => setSubject('') },

@@ -134,7 +134,7 @@ const columns: Array<DataTableColumn<OrganizationRow>> = [
     enableSorting: false,
     size: 120,
     meta: { headerClassName: 'justify-end', cellClassName: 'text-right tabular-nums' },
-    cell: ({ row }) => row.original.opportunities?.data.length ?? 0,
+    cell: ({ row }) => row.original.deals?.data.length ?? 0,
   },
   {
     id: 'updatedAt',

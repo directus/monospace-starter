@@ -20,27 +20,20 @@
     "collections": [
       "organizations",
       "contacts",
-      "contactOrganizations",
-      "opportunities",
+      "affiliations",
+      "deals",
       "pipelineStages",
-      "interactions",
+      "activities",
       "attachments"
     ],
-    "schemas": [
-      "attachments",
-      "contactOrganizations",
-      "contacts",
-      "interactions",
-      "opportunities",
-      "organizations"
-    ],
+    "schemas": ["attachments", "affiliations", "contacts", "activities", "deals", "organizations"],
     "optional": ["portal", "stripe"],
     "auditTables": {
       "organizations": ["owner_user_id", "created_by", "updated_by"],
       "contacts": ["owner_user_id", "created_by", "updated_by"],
-      "contact_organizations": ["created_by", "updated_by"],
-      "opportunities": ["owner_user_id", "created_by", "updated_by"],
-      "interactions": ["owner_user_id", "created_by", "updated_by"],
+      "affiliations": ["created_by", "updated_by"],
+      "deals": ["owner_user_id", "created_by", "updated_by"],
+      "activities": ["owner_user_id", "created_by", "updated_by"],
       "attachments": ["created_by"]
     },
     "setup": {

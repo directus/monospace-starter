@@ -36,10 +36,10 @@ import { crmCopy } from '@/modules/crm/crm.copy'
 import {
   activityPagesQuery,
   activityView,
-  lookupOpportunities,
+  lookupDeals,
   lookupOrganizations,
   openDueDatesQuery,
-  resolveOpportunities,
+  resolveDeals,
   resolveOrganizations,
 } from '@/modules/crm/data'
 import type { ActivityRecord, ActivityFilter, ActivityView } from '@/modules/crm/data'
@@ -82,9 +82,9 @@ const filterFields: Array<ListFilterField> = [
     label: crmCopy.deals.singular,
     icon: <DealIcon />,
     placeholder: appCopy.form.searchPlaceholder(crmCopy.deals.title),
-    search: (q) => lookupOpportunities(q),
-    resolve: resolveOpportunities,
-    path: 'opportunityId',
+    search: (q) => lookupDeals(q),
+    resolve: resolveDeals,
+    path: 'dealId',
   }),
 ]
 

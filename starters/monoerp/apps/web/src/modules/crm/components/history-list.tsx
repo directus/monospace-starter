@@ -52,7 +52,7 @@ function bucketOf(iso: string, now: number) {
 }
 
 type Entry =
-  | { kind: 'interaction'; at: string; row: ActivityRecord }
+  | { kind: 'activity'; at: string; row: ActivityRecord }
   | { kind: 'external'; at: string; entry: RecordHistoryEntry }
 
 // What happened, newest first, one line per entry, under sticky bucket headers. No counts in
@@ -89,7 +89,7 @@ export function HistoryList({
   }
 
   const entries: Array<Entry> = [
-    ...rows.map((row): Entry => ({ kind: 'interaction', at: happenedAt(row), row })),
+    ...rows.map((row): Entry => ({ kind: 'activity', at: happenedAt(row), row })),
     ...extraEntries.map((entry): Entry => ({ kind: 'external', at: entry.at, entry })),
   ]
 
@@ -119,7 +119,7 @@ export function HistoryList({
     <div className="@container divide-y">
       {groups.map((group) => {
         const ids = group.items.flatMap((entry) =>
-          entry.kind === 'interaction' && entry.row.id ? [entry.row.id] : [],
+          entry.kind === 'activity' && entry.row.id ? [entry.row.id] : [],
         )
 
         const picked = ids.filter((id) => selected?.has(id)).length

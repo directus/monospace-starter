@@ -60,7 +60,7 @@ async function searchContacts(q: string): Promise<SearchHit[]> {
 }
 
 async function searchDeals(q: string): Promise<SearchHit[]> {
-  const rows = await monospace.opportunities.readMany({
+  const rows = await monospace.deals.readMany({
     fields: ['id', 'title'],
     include: { organizations: { fields: ['name'] } },
     filter: dealSearchFilter(q),

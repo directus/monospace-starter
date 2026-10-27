@@ -11,8 +11,8 @@ import {
   organizationOption,
 } from '@/modules/crm/entities'
 
-// The shape every interactions selection in data.ts satisfies, so one mapper serves all pages.
-export type InteractionLike = {
+// The shape every activity selection in data.ts satisfies, so one mapper serves all pages.
+export type ActivityLike = {
   id?: Uuid | null
   type?: string | null
   status?: string | null
@@ -31,14 +31,14 @@ export type InteractionLike = {
     lastName?: string | null
     email?: string | null
   } | null
-  opportunities?: { id?: Uuid | null; title?: string | null } | null
+  deals?: { id?: Uuid | null; title?: string | null } | null
 }
 
-export function contactName(row: InteractionLike) {
+export function contactName(row: ActivityLike) {
   return row.contacts ? entityContactName(row.contacts) : null
 }
 
-export function isOpen(row: InteractionLike) {
+export function isOpen(row: ActivityLike) {
   return row.status === 'open'
 }
 
@@ -71,7 +71,7 @@ function dayStart(now: number, days = 0) {
   return date.getTime()
 }
 
-export function upcomingBucket(row: InteractionLike, now: number): UpcomingBucket {
+export function upcomingBucket(row: ActivityLike, now: number): UpcomingBucket {
   const due = row.dueAt
 
   if (!due) return 'noDate'
@@ -87,7 +87,7 @@ export function upcomingBucket(row: InteractionLike, now: number): UpcomingBucke
   return 'later'
 }
 
-export function countBuckets(rows: Array<InteractionLike>, now: number) {
+export function countBuckets(rows: Array<ActivityLike>, now: number) {
   const counts: Record<UpcomingBucket, number> = {
     overdue: 0,
     today: 0,
@@ -108,7 +108,7 @@ function startOfToday(now: number) {
   return date.getTime()
 }
 
-export function sortByDue<T extends InteractionLike>(rows: Array<T>) {
+export function sortByDue<T extends ActivityLike>(rows: Array<T>) {
   return [...rows].sort((a, b) => {
     const da = a.dueAt ?? a.occurredAt
     const db = b.dueAt ?? b.occurredAt
@@ -122,15 +122,15 @@ export function sortByDue<T extends InteractionLike>(rows: Array<T>) {
 }
 
 export function toActivityInitial(
-  row: InteractionLike,
+  row: ActivityLike,
   fallback: { organization?: RelationOption; contact?: RelationOption; deal?: RelationOption } = {},
 ): ActivityInitial | null {
   if (!row.id) return null
   const organization = organizationOption(row.organizations) ?? fallback.organization
   const contact = contactOption(row.contacts) ?? fallback.contact
 
-  const deal = row.opportunities?.id
-    ? { value: row.opportunities.id, label: row.opportunities.title ?? crmCopy.deals.restricted }
+  const deal = row.deals?.id
+    ? { value: row.deals.id, label: row.deals.title ?? crmCopy.deals.restricted }
     : fallback.deal
 
   return {

@@ -126,26 +126,25 @@ function OrganizationForm({
           status: value.status,
         }
 
-        const contactOrganizations: NonNullable<
-          Parameters<typeof create.mutateAsync>[0]['contact_organizations']
-        > = defaultContact
-          ? [
-              {
-                _create: {
-                  data: [
-                    {
-                      contacts: { _connect: { key: { id: defaultContact.value } } },
-                      isPrimary: false,
-                    },
-                  ],
+        const affiliations: NonNullable<Parameters<typeof create.mutateAsync>[0]['affiliations']> =
+          defaultContact
+            ? [
+                {
+                  _create: {
+                    data: [
+                      {
+                        contacts: { _connect: { key: { id: defaultContact.value } } },
+                        isPrimary: false,
+                      },
+                    ],
+                  },
                 },
-              },
-            ]
-          : []
+              ]
+            : []
 
         await create.mutateAsync({
           ...base,
-          contact_organizations: contactOrganizations.concat(
+          affiliations: affiliations.concat(
             value.contacts.map((contact) => ({
               _create: {
                 data: [

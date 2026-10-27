@@ -114,7 +114,7 @@ function RoleMenu<T extends AffiliationLike>({
   onDelete: (row: T) => void
   className?: string
 }) {
-  const access = useCollectionAccess('contactOrganizations')
+  const access = useCollectionAccess('affiliations')
 
   return (
     <span className={cn('shrink-0', className)}>

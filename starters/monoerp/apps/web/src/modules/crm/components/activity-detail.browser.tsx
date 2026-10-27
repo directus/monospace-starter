@@ -6,7 +6,7 @@ import type { ReactNode } from 'react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { page } from 'vitest/browser'
 
-import { interactionsCreateSchema, interactionsUpdateSchema } from '@/generated/monospace/schemas'
+import { activitiesCreateSchema, activitiesUpdateSchema } from '@/generated/monospace/schemas'
 import { sessionQuery } from '@/lib/auth'
 import { collectionPermissionsQuery } from '@/lib/permissions'
 import { ActivityDetailDrawer } from '@/modules/crm/components/activity-detail'
@@ -30,10 +30,10 @@ const row: ActivityRecord = {
   owner: null,
   organizationId: null,
   contactId: null,
-  opportunityId: null,
+  dealId: null,
   organizations: null,
   contacts: null,
-  opportunities: null,
+  deals: null,
   attachments: { data: [] },
 }
 
@@ -49,20 +49,20 @@ function serve() {
     http.get('/api/monoerp/roles/:id/policies', () =>
       HttpResponse.json({ data: [{ content: { access: 'admin' } }] }),
     ),
-    http.patch('/api/monoerp/items/interactions/:id', async ({ params, request }) => {
+    http.patch('/api/monoerp/items/activities/:id', async ({ params, request }) => {
       const id = String(params.id)
       writes.push({
         method: 'PATCH',
         id,
-        data: interactionsUpdateSchema.parse(await request.json()),
+        data: activitiesUpdateSchema.parse(await request.json()),
       })
 
       return HttpResponse.json({ data: { id } })
     }),
-    http.post('/api/monoerp/items/interactions', async ({ request }) => {
+    http.post('/api/monoerp/items/activities', async ({ request }) => {
       writes.push({
         method: 'POST',
-        data: interactionsCreateSchema.array().parse(await request.json()),
+        data: activitiesCreateSchema.array().parse(await request.json()),
       })
 
       return HttpResponse.json({ data: [{ id: '00000000-0000-4000-8000-000000000002' }] })
@@ -78,7 +78,7 @@ async function renderWithClient(ui: ReactNode) {
   })
 
   const user = await client.ensureQueryData(sessionQuery())
-  await client.ensureQueryData(collectionPermissionsQuery(user.id, 'interactions'))
+  await client.ensureQueryData(collectionPermissionsQuery(user.id, 'activities'))
 
   return render(<QueryClientProvider client={client}>{ui}</QueryClientProvider>)
 }

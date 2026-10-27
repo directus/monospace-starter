@@ -1,7 +1,7 @@
 import type { BulkField } from '@/components/form/bulk-edit-drawer'
 import { ListBulkActions } from '@/components/list-bulk-actions'
-import type { Uuid, interactionsUpdateOneInput } from '@/generated/monospace'
-import { interactionsUpdateSchema } from '@/generated/monospace/schemas'
+import type { Uuid, activitiesUpdateOneInput } from '@/generated/monospace'
+import { activitiesUpdateSchema } from '@/generated/monospace/schemas'
 import { appCopy } from '@/lib/app.copy'
 import { now } from '@/lib/dates'
 import { useCollectionAccess } from '@/lib/permissions'
@@ -34,8 +34,8 @@ const fields: Array<BulkField> = [
 
 // A due date moves the occurrence with it (the task happens when it's due). Completing only
 // stamps the completion time: History shows when something took place, not when it was ticked.
-function toPatch(patch: Record<string, string | null>): interactionsUpdateOneInput {
-  const data: interactionsUpdateOneInput = {}
+function toPatch(patch: Record<string, string | null>): activitiesUpdateOneInput {
+  const data: activitiesUpdateOneInput = {}
 
   if (patch.dueAt) data.dueAt = data.occurredAt = patch.dueAt
 
@@ -48,14 +48,14 @@ function toPatch(patch: Record<string, string | null>): interactionsUpdateOneInp
   }
 
   // The drawer hands back plain strings; the API's own schema checks the owner id.
-  return interactionsUpdateSchema.parse(
+  return activitiesUpdateSchema.parse(
     patch.ownerUserId ? { ...data, ownerUserId: patch.ownerUserId } : data,
   )
 }
 
 // Edit and Delete for selected activities, same variant as the other list pages.
 export function ActivityBulkActions({ ids, onClear }: { ids: Array<Uuid>; onClear: () => void }) {
-  const access = useCollectionAccess('interactions')
+  const access = useCollectionAccess('activities')
   const editable = fields.filter((field) => access.canUpdate(field.name))
   const updateMany = useUpdateManyActivities()
   const deleteMany = useDeleteManyActivities()

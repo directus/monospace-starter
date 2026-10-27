@@ -31,22 +31,22 @@ const INSET = 'px-3'
 // drawer, and under the To do list its own composer for the next task. `hide` names the record
 // the section sits on so rows and the drawer don't repeat it.
 export function RecordActivity({
-  interactions,
+  activities,
   extraEntries = [],
   defaults,
   hide,
   emptyMessage,
 }: {
-  interactions: Array<ActivityRecord>
+  activities: Array<ActivityRecord>
   extraEntries?: Array<RecordHistoryEntry>
   defaults: ActivityDefaults
   hide: ReadonlyArray<LinkedRecord>
   emptyMessage: string
 }) {
-  const access = useCollectionAccess('interactions')
+  const access = useCollectionAccess('activities')
   const [now] = useState(() => Date.now())
-  const todo = sortByDue(interactions.filter(isOpen))
-  const history = interactions.filter((row) => !isOpen(row))
+  const todo = sortByDue(activities.filter(isOpen))
+  const history = activities.filter((row) => !isOpen(row))
   // Open work first when there is any, otherwise straight to what happened.
   const [view, setView] = useState<ActivityView>(todo.length ? 'todo' : 'history')
   const [checked, setChecked] = useState<Set<string>>(() => new Set())
@@ -54,8 +54,8 @@ export function RecordActivity({
   const [selected, select] = useState<{ id: Uuid; mode: ActivityDetailMode } | null>(null)
   const [deleting, setDeleting] = useState<ActivityRecord>()
   const remove = useDeleteActivity()
-  const selectedRow = interactions.find((row) => row.id === selected?.id) ?? null
-  const checkedIds = interactions.flatMap((row) => (row.id && checked.has(row.id) ? [row.id] : []))
+  const selectedRow = activities.find((row) => row.id === selected?.id) ?? null
+  const checkedIds = activities.flatMap((row) => (row.id && checked.has(row.id) ? [row.id] : []))
 
   const switchView = (next: ActivityView) => {
     setView(next)

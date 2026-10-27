@@ -44,14 +44,14 @@ const filterFields: Array<ListFilterField> = [
     placeholder: appCopy.form.searchPlaceholder(crmCopy.organizations.title),
     search: lookupOrganizations,
     resolve: resolveOrganizations,
-    toClause: (clause) => ({ contact_organizations: { _some: { organizationId: clause } } }),
+    toClause: (clause) => ({ affiliations: { _some: { organizationId: clause } } }),
   }),
   {
     id: 'title',
     label: crmCopy.contacts.jobTitle,
     type: 'text',
     icon: <Briefcase />,
-    toClause: (clause) => ({ contact_organizations: { _some: { title: clause } } }),
+    toClause: (clause) => ({ affiliations: { _some: { title: clause } } }),
   },
   { id: 'email', label: crmCopy.contacts.form.email, type: 'text', icon: <Mail /> },
 ]
@@ -86,10 +86,9 @@ export const Route = createFileRoute('/_app/crm/contacts')({
 })
 
 function groupsFor(contact: ContactRow) {
-  return groupAffiliations(
-    contact.contact_organizations?.data ?? [],
-    (row) => row.organizations?.id,
-  ).filter((group) => !group.isFormer)
+  return groupAffiliations(contact.affiliations?.data ?? [], (row) => row.organizations?.id).filter(
+    (group) => !group.isFormer,
+  )
 }
 
 // One organization per row keeps row heights uniform; the rest sit behind a "+N" that opens on

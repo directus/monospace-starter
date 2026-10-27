@@ -8,11 +8,11 @@ const salesIntake = {
   access: 'rules',
   itemRules: {
     contacts: { create: {}, read: {} },
-    opportunities: { read: { filter: { status: { _eq: 'open' } } } },
+    deals: { read: { filter: { status: { _eq: 'open' } } } },
   },
   fieldRules: {
     contacts: { create: '*', read: { id: { filter: null } } },
-    opportunities: { read: { id: { filter: null }, name: { filter: null } } },
+    deals: { read: { id: { filter: null }, name: { filter: null } } },
   },
 }
 
@@ -24,7 +24,7 @@ const salesRep = {
 
 describe('collectionPermissions', () => {
   it('reads item and field rules by API name', () => {
-    const deals = collectionPermissions([salesIntake], 'opportunities')
+    const deals = collectionPermissions([salesIntake], 'deals')
 
     expect(deals.read).toBe(true)
     expect(deals.update).toBe(false)

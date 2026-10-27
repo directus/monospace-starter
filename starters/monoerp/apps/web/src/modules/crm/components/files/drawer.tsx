@@ -86,20 +86,18 @@ export function FileDrawer({
             {copy.linked}
           </h3>
           <div className="space-y-1 text-sm [&_a]:flex [&_a]:items-center [&_a]:gap-2.5 [&_a]:py-1 [&_a]:hover:underline [&_svg]:size-4 [&_svg]:shrink-0 [&_svg]:text-muted-foreground">
-            {row.interactions?.id && !hide.includes('activity') ? (
+            {row.activities?.id && !hide.includes('activity') ? (
               <div className="flex items-center gap-2.5 py-1">
-                <ActivityTypeIcon type={row.interactions.type} />
+                <ActivityTypeIcon type={row.activities.type} />
                 <span className="truncate">
-                  {row.interactions.subject ?? crmCopy.activity.untitled}
+                  {row.activities.subject ?? crmCopy.activity.untitled}
                 </span>
               </div>
             ) : null}
-            {row.opportunities?.id && !hide.includes('deal') ? (
-              <Link to="/crm/deals/$dealId" params={{ dealId: row.opportunities.id }}>
+            {row.deals?.id && !hide.includes('deal') ? (
+              <Link to="/crm/deals/$dealId" params={{ dealId: row.deals.id }}>
                 <DealIcon />
-                <span className="truncate">
-                  {row.opportunities.title ?? crmCopy.deals.restricted}
-                </span>
+                <span className="truncate">{row.deals.title ?? crmCopy.deals.restricted}</span>
               </Link>
             ) : null}
             {row.contacts?.id && !hide.includes('contact') ? (
@@ -137,18 +135,18 @@ function ActivityTypeIcon({ type }: { type: string | null | undefined }) {
 export function ContextPill({ row, hide }: { row: AttachmentRow; hide: Hide }) {
   let content: ReactNode = null
 
-  if (row.interactions?.id && !hide.includes('activity')) {
+  if (row.activities?.id && !hide.includes('activity')) {
     content = (
       <>
-        <ActivityTypeIcon type={row.interactions.type} />
-        <span className="truncate">{row.interactions.subject ?? crmCopy.activity.untitled}</span>
+        <ActivityTypeIcon type={row.activities.type} />
+        <span className="truncate">{row.activities.subject ?? crmCopy.activity.untitled}</span>
       </>
     )
-  } else if (row.opportunities?.id && !hide.includes('deal')) {
+  } else if (row.deals?.id && !hide.includes('deal')) {
     content = (
       <>
         <DealIcon />
-        <span className="truncate">{row.opportunities.title ?? crmCopy.deals.restricted}</span>
+        <span className="truncate">{row.deals.title ?? crmCopy.deals.restricted}</span>
       </>
     )
   } else if (row.contacts?.id && !hide.includes('contact')) {

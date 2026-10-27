@@ -9,7 +9,7 @@ All of these are errors, so `pnpm check` fails on them. They come from `tools/ox
 - **`require-safety-comment-for-type-assertion`:** every `as` cast (except `as const`) needs a `// SAFETY:` comment right above the cast or the statement holding it, saying why the cast is true. From `apps/web/src/modules/crm/components/activity-form.tsx`:
 
   ```ts
-  // SAFETY: interactions.type only holds ActivityType values, but Monospace types it as a plain
+  // SAFETY: activities.type only holds ActivityType values, but Monospace types it as a plain
   // string; see docs/monospace.md, known issues.
   type: (initial?.type ?? defaults?.type ?? 'call') as ActivityType,
   ```

@@ -57,6 +57,6 @@ For component work, also run `pnpm --filter @monoerp/web test:browser`. If the p
 
 The product is **monoERP** (`monoerp` in code). Modules share workspace `monoerp`, database/user `app`, PostgreSQL service `app-postgres`, and source `App`.
 
-CRM uses product names in functions and UI (`deals`, `activity`); SDK calls and query keys use the collection names `opportunities` and `interactions`. Keep those tables unchanged.
+Use the same entity names in SQL, API calls, query keys, and UI: organizations, contacts, affiliations, deals, and activities.
 
 To add a module, copy the four CRM folders; see `docs/modules.md`.

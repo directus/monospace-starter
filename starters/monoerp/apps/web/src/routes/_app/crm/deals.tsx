@@ -250,7 +250,7 @@ function DealRowMobile({ deal }: { deal: DealRow }) {
 }
 
 function DealsPage() {
-  const access = useCollectionAccess('opportunities')
+  const access = useCollectionAccess('deals')
   const search = Route.useSearch()
   const navigate = Route.useNavigate()
 

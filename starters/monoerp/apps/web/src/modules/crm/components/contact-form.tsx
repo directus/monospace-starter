@@ -100,7 +100,7 @@ function ContactForm({
 
         await create.mutateAsync({
           ...base,
-          contact_organizations: value.organization
+          affiliations: value.organization
             ? [
                 {
                   _create: {

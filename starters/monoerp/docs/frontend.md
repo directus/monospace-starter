@@ -57,7 +57,7 @@ Detail pages edit fields in place with `components/inline/inline-field.tsx`. Eac
 
 ## Mutations
 
-Every write is a hook in the module's `mutations.ts` (`modules/crm/mutations.ts`). Use product names for functions and row types (`dealsQuery`, `DealRow`, `useUpdateDeal`, `ActivityRecord`); collection identifiers stay in SDK calls and query keys (`opportunities`, `interactions`). The pattern:
+Every write is a hook in the module's `mutations.ts` (`modules/crm/mutations.ts`). Use the same entity names for functions, row types, SDK collections, and query keys (`dealsQuery`, `DealRow`, `useUpdateDeal`, `ActivityRecord`). The pattern:
 
 - `mutationFn` parses the input with the generated schema and calls the SDK, asking only for `id` back.
 - `onSuccess` shows a toast from copy (`appCopy.toast.created`, `saved`, `deleted`) and refreshes related query groups through `refreshCrm` (`modules/crm/refresh.ts`). A record shows up inside other records' queries, so invalidate every group that could include it.

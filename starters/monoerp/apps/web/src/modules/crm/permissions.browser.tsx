@@ -28,8 +28,8 @@ describe('read-only record details', () => {
           data: [
             {
               access: 'rules',
-              itemRules: { interactions: { read: {} }, attachments: { read: {} } },
-              fieldRules: { interactions: { read: '*' }, attachments: { read: '*' } },
+              itemRules: { activities: { read: {} }, attachments: { read: {} } },
+              fieldRules: { activities: { read: '*' }, attachments: { read: '*' } },
             },
           ].map((content) => ({ content })),
         }),
@@ -45,7 +45,7 @@ describe('read-only record details', () => {
       avatarId: null,
     })
 
-    for (const collection of ['interactions', 'attachments']) {
+    for (const collection of ['activities', 'attachments']) {
       client.setQueryData(
         collectionPermissionsQuery(id, collection).queryKey,
         collectionPermissions(
@@ -66,7 +66,7 @@ describe('read-only record details', () => {
         <RecordTabs
           activity={
             <RecordActivity
-              interactions={[]}
+              activities={[]}
               defaults={{ organization: { value: id, label: 'Atlas' } }}
               hide={['organization']}
               emptyMessage="No activity yet"

@@ -17,8 +17,8 @@
         "url",
         "contacts",
         "organizations",
-        "opportunities",
-        "interactions"
+        "deals",
+        "activities"
       ],
       "fields": {
         "asset_id": {
@@ -51,10 +51,10 @@
         "id": {
           "isHidden": true
         },
-        "interaction_id": {
+        "activity_id": {
           "isHidden": true
         },
-        "opportunity_id": {
+        "deal_id": {
           "isHidden": true
         },
         "organization_id": {
@@ -74,11 +74,11 @@
           "displayName": "Contact",
           "isHidden": false
         },
-        "interactions": {
+        "activities": {
           "displayName": "Activity",
           "isHidden": false
         },
-        "opportunities": {
+        "deals": {
           "displayName": "Deal",
           "isHidden": false
         },
@@ -88,7 +88,7 @@
         }
       }
     },
-    "contact_organizations": {
+    "affiliations": {
       "meta": {
         "displayTemplate": "{contacts.first_name} {contacts.last_name} \u00b7 {organizations.name}",
         "displayName": "Affiliations",
@@ -246,9 +246,9 @@
         "owner",
         "notes",
         "id",
-        "contact_organizations",
-        "opportunities",
-        "interactions",
+        "affiliations",
+        "deals",
+        "activities",
         "updated_at",
         "updated_by"
       ],
@@ -344,15 +344,15 @@
         "attachments": {
           "isHidden": true
         },
-        "contact_organizations": {
+        "affiliations": {
           "displayName": "Organizations",
           "isHidden": false
         },
-        "interactions": {
+        "activities": {
           "displayName": "Activity",
           "isHidden": false
         },
-        "opportunities": {
+        "deals": {
           "displayName": "Deals",
           "typeTemplateId": "relation",
           "isHidden": false
@@ -372,7 +372,7 @@
         }
       }
     },
-    "interactions": {
+    "activities": {
       "meta": {
         "displayTemplate": "{type} {subject}",
         "displayName": "Activity",
@@ -399,8 +399,8 @@
         "id",
         "organizations",
         "contacts",
-        "opportunities",
-        "opportunity_id",
+        "deals",
+        "deal_id",
         "organization_id",
         "updated_at",
         "updated_by"
@@ -477,7 +477,7 @@
           "displayName": "Occurred",
           "isHidden": false
         },
-        "opportunity_id": {
+        "deal_id": {
           "isHidden": true
         },
         "organization_id": {
@@ -576,7 +576,7 @@
           "displayName": "Contact",
           "isHidden": false
         },
-        "opportunities": {
+        "deals": {
           "displayName": "Deal",
           "typeTemplateId": "relation",
           "isHidden": false
@@ -593,7 +593,7 @@
         }
       }
     },
-    "opportunities": {
+    "deals": {
       "meta": {
         "displayTemplate": "{title} \u00b7 {organizations.name} \u00b7 {value_amount}",
         "displayName": "Deals",
@@ -619,7 +619,7 @@
         "contacts",
         "id",
         "pipeline_stages",
-        "interactions",
+        "activities",
         "organization_id",
         "updated_at",
         "updated_by",
@@ -769,7 +769,7 @@
           "displayName": "Primary contact",
           "isHidden": false
         },
-        "interactions": {
+        "activities": {
           "displayName": "Activity",
           "isHidden": false
         },
@@ -808,10 +808,10 @@
         "notes",
         "created_by",
         "portal_account_id",
-        "contact_organizations",
-        "opportunities",
+        "affiliations",
+        "deals",
         "attachments",
-        "interactions",
+        "activities",
         "updated_at",
         "updated_by",
         "id",
@@ -974,15 +974,15 @@
         "attachments": {
           "isHidden": true
         },
-        "contact_organizations": {
+        "affiliations": {
           "displayName": "People",
           "isHidden": false
         },
-        "interactions": {
+        "activities": {
           "displayName": "Activity",
           "isHidden": false
         },
-        "opportunities": {
+        "deals": {
           "displayName": "Deals",
           "isHidden": false
         },
@@ -1005,12 +1005,12 @@
       "meta": {
         "displayTemplate": "{name}",
         "displayName": "Pipeline Stages",
-        "description": "Stages an opportunity moves through.",
+        "description": "Stages a deal moves through.",
         "icon": "lucide:columns-3",
         "isHidden": false,
         "color": "#a855f7"
       },
-      "order": ["name", "position", "status", "color", "is_won", "is_closed", "opportunities"],
+      "order": ["name", "position", "status", "color", "is_won", "is_closed", "deals"],
       "fields": {
         "color": {
           "displayName": "Color",
@@ -1075,7 +1075,7 @@
         }
       },
       "relations": {
-        "opportunities": {
+        "deals": {
           "displayName": "Deals",
           "isHidden": false
         }

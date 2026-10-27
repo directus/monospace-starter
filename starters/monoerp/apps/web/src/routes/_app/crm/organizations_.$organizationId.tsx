@@ -71,8 +71,8 @@ function OrganizationDetailPage() {
   const navigate = useNavigate()
   const detail = useQuery(organizationDetailQuery(organizationId))
   const access = useCollectionAccess('organizations')
-  const dealAccess = useCollectionAccess('opportunities')
-  const affiliationAccess = useCollectionAccess('contactOrganizations')
+  const dealAccess = useCollectionAccess('deals')
+  const affiliationAccess = useCollectionAccess('affiliations')
   const contactAccess = useCollectionAccess('contacts')
 
   const history = useQueries({
@@ -108,15 +108,15 @@ function OrganizationDetailPage() {
 
   const organization = detail.data
   const extraEntries = history.flatMap((query) => query.data ?? [])
-  const affiliations = organization.contact_organizations?.data ?? []
+  const affiliations = organization.affiliations?.data ?? []
 
   const groups = groupAffiliations(
     affiliations.filter(isCurrentAffiliation),
     (row) => row.contacts?.id,
   )
 
-  const deals = organization.opportunities?.data ?? []
-  const interactions = organization.interactions?.data ?? []
+  const deals = organization.deals?.data ?? []
+  const activities = organization.activities?.data ?? []
   const organizationName = organization.name ?? crmCopy.organizations.restricted
 
   const organizationOption = toOrganizationOption({ ...organization, id: organizationId })
@@ -338,7 +338,7 @@ function OrganizationDetailPage() {
         <RecordTabs
           activity={
             <RecordActivity
-              interactions={interactions}
+              activities={activities}
               extraEntries={extraEntries}
               defaults={{ organization: organizationOption }}
               emptyMessage={crmCopy.organizations.noActivity}

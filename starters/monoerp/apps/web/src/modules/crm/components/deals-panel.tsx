@@ -15,7 +15,7 @@ import { StageDot } from '@/modules/crm/components/stage-dot'
 import { crmCopy } from '@/modules/crm/crm.copy'
 import type { OrganizationDetail } from '@/modules/crm/data'
 
-type Deal = NonNullable<OrganizationDetail['opportunities']>['data'][number]
+type Deal = NonNullable<OrganizationDetail['deals']>['data'][number]
 
 // Open deals by default, with a quick flip to everything. Each row is the deal at a glance:
 // stage dot, value, expected close.
@@ -28,7 +28,7 @@ export function DealsPanel({
   organization: RelationOption
   className?: string
 }) {
-  const access = useCollectionAccess('opportunities')
+  const access = useCollectionAccess('deals')
   const [scope, setScope] = useState<'open' | 'all'>('open')
   const open = deals.filter((deal) => deal.status === 'open')
   const rows = scope === 'open' ? open : deals

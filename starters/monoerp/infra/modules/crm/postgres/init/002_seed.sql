@@ -110,7 +110,7 @@ SELECT
   timestamptz '2026-08-21 12:00:00+00' - i * interval '3 hours'
 FROM generate_series(1, 120) AS series(i);
 
-INSERT INTO contact_organizations (
+INSERT INTO affiliations (
   id,
   contact_id,
   organization_id,
@@ -135,7 +135,7 @@ SELECT
   timestamptz '2026-08-21 12:00:00+00' - i * interval '2 hours'
 FROM generate_series(1, 120) AS series(i);
 
-INSERT INTO contact_organizations (
+INSERT INTO affiliations (
   id,
   contact_id,
   organization_id,
@@ -160,7 +160,7 @@ SELECT
   timestamptz '2025-04-01 09:00:00+00' + i * interval '1 hour'
 FROM generate_series(6, 120, 6) AS series(i);
 
-INSERT INTO contact_organizations (
+INSERT INTO affiliations (
   id,
   contact_id,
   organization_id,
@@ -185,7 +185,7 @@ SELECT
   timestamptz '2026-01-01 09:00:00+00' + i * interval '1 hour'
 FROM generate_series(8, 120, 8) AS series(i);
 
-INSERT INTO opportunities (
+INSERT INTO deals (
   id,
   organization_id,
   contact_id,
@@ -219,11 +219,11 @@ SELECT
   timestamptz '2026-08-21 12:00:00+00' - i * interval '4 hours'
 FROM generate_series(1, 60) AS series(i);
 
-INSERT INTO interactions (
+INSERT INTO activities (
   id,
   organization_id,
   contact_id,
-  opportunity_id,
+  deal_id,
   type,
   status,
   direction,
@@ -289,7 +289,7 @@ SELECT
       (ARRAY[
         'Shared notes from the latest account review and agreed on next steps.',
         'Discussed current priorities, stakeholders, and implementation requirements.',
-        'Reviewed account health, upcoming milestones, and expansion opportunities.',
+        'Reviewed account health, upcoming milestones, and expansion deals.',
         'Captured commercial terms and items that need legal review.',
         'Documented the decision process and the remaining technical questions.',
         'Aligned on rollout scope, ownership, and the next customer milestone.'

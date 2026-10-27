@@ -2008,25 +2008,25 @@ export type MonospaceKeyStorageownerCreateRelatedInput = {
 }
 
 export type MonospaceKeyStorageownerCreateRelatedWithoutTypeInput = {
+	activitiesCreatedBy?: readonly MonospaceSystemUseractivitiesCreatedByCreateRelatedInput[];
+	activitiesOwner?: readonly MonospaceSystemUseractivitiesOwnerCreateRelatedInput[];
+	activitiesUpdatedBy?: readonly MonospaceSystemUseractivitiesUpdatedByCreateRelatedInput[];
+	affiliationsCreatedBy?: readonly MonospaceSystemUseraffiliationsCreatedByCreateRelatedInput[];
+	affiliationsUpdatedBy?: readonly MonospaceSystemUseraffiliationsUpdatedByCreateRelatedInput[];
 	appearance?: string | null;
 	attachmentsCreatedBy?: readonly MonospaceSystemUserattachmentsCreatedByCreateRelatedInput[];
 	avatarId?: Uuid | null;
-	contactOrganizationsCreatedBy?: readonly MonospaceSystemUsercontactOrganizationsCreatedByCreateRelatedInput[];
-	contactOrganizationsUpdatedBy?: readonly MonospaceSystemUsercontactOrganizationsUpdatedByCreateRelatedInput[];
 	contactsCreatedBy?: readonly MonospaceSystemUsercontactsCreatedByCreateRelatedInput[];
 	contactsOwner?: readonly MonospaceSystemUsercontactsOwnerCreateRelatedInput[];
 	contactsUpdatedBy?: readonly MonospaceSystemUsercontactsUpdatedByCreateRelatedInput[];
+	dealsCreatedBy?: readonly MonospaceSystemUserdealsCreatedByCreateRelatedInput[];
+	dealsOwner?: readonly MonospaceSystemUserdealsOwnerCreateRelatedInput[];
+	dealsUpdatedBy?: readonly MonospaceSystemUserdealsUpdatedByCreateRelatedInput[];
 	email?: string | null;
 	fullName?: string | null;
 	id: Uuid;
-	interactionsCreatedBy?: readonly MonospaceSystemUserinteractionsCreatedByCreateRelatedInput[];
-	interactionsOwner?: readonly MonospaceSystemUserinteractionsOwnerCreateRelatedInput[];
-	interactionsUpdatedBy?: readonly MonospaceSystemUserinteractionsUpdatedByCreateRelatedInput[];
 	isService: boolean;
 	lastActivityAt?: string | null;
-	opportunitiesCreatedBy?: readonly MonospaceSystemUseropportunitiesCreatedByCreateRelatedInput[];
-	opportunitiesOwner?: readonly MonospaceSystemUseropportunitiesOwnerCreateRelatedInput[];
-	opportunitiesUpdatedBy?: readonly MonospaceSystemUseropportunitiesUpdatedByCreateRelatedInput[];
 	organizationsCreatedBy?: readonly MonospaceSystemUserorganizationsCreatedByCreateRelatedInput[];
 	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
 	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
@@ -5327,25 +5327,25 @@ export type MonospaceSpacesectionsUpdateManyRelatedOperationsInput = {
 }
 
 export type MonospaceSystemUserCollectionOutput = {
+	activitiesCreatedBy?: { data: activitiesCollectionOutput[] };
+	activitiesOwner?: { data: activitiesCollectionOutput[] };
+	activitiesUpdatedBy?: { data: activitiesCollectionOutput[] };
+	affiliationsCreatedBy?: { data: affiliationsCollectionOutput[] };
+	affiliationsUpdatedBy?: { data: affiliationsCollectionOutput[] };
 	appearance?: string | null;
 	attachmentsCreatedBy?: { data: attachmentsCollectionOutput[] };
 	avatarId?: Uuid | null;
-	contactOrganizationsCreatedBy?: { data: contactOrganizationsCollectionOutput[] };
-	contactOrganizationsUpdatedBy?: { data: contactOrganizationsCollectionOutput[] };
 	contactsCreatedBy?: { data: contactsCollectionOutput[] };
 	contactsOwner?: { data: contactsCollectionOutput[] };
 	contactsUpdatedBy?: { data: contactsCollectionOutput[] };
+	dealsCreatedBy?: { data: dealsCollectionOutput[] };
+	dealsOwner?: { data: dealsCollectionOutput[] };
+	dealsUpdatedBy?: { data: dealsCollectionOutput[] };
 	email?: string | null;
 	fullName?: string | null;
 	id?: Uuid;
-	interactionsCreatedBy?: { data: interactionsCollectionOutput[] };
-	interactionsOwner?: { data: interactionsCollectionOutput[] };
-	interactionsUpdatedBy?: { data: interactionsCollectionOutput[] };
 	isService?: boolean;
 	lastActivityAt?: string | null;
-	opportunitiesCreatedBy?: { data: opportunitiesCollectionOutput[] };
-	opportunitiesOwner?: { data: opportunitiesCollectionOutput[] };
-	opportunitiesUpdatedBy?: { data: opportunitiesCollectionOutput[] };
 	organizationsCreatedBy?: { data: organizationsCollectionOutput[] };
 	organizationsOwner?: { data: organizationsCollectionOutput[] };
 	organizationsUpdatedBy?: { data: organizationsCollectionOutput[] };
@@ -5358,49 +5358,49 @@ export type MonospaceSystemUserCollectionOutput = {
 export type MonospaceSystemUserCollectionOutputFieldsInput = readonly ("appearance" | "avatarId" | "email" | "fullName" | "id" | "isService" | "lastActivityAt" | "serviceOwnerId" | "status" | "*" | `${string}:${"appearance" | "avatarId" | "email" | "fullName" | "id" | "isService" | "lastActivityAt" | "serviceOwnerId" | "status"}`)[];
 
 export type MonospaceSystemUserCollectionOutputIncludeInput = {
+	"activitiesCreatedBy"?: (MonospaceSystemUseractivitiesCreatedByRelationFieldArguments & { "fields"?: activitiesCollectionOutputFieldsInput; "include"?: activitiesCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (MonospaceSystemUseractivitiesCreatedByRelationFieldArguments & { "fields"?: activitiesCollectionOutputFieldsInput; "include"?: activitiesCollectionOutputIncludeInput })>]?: never };
+	"activitiesOwner"?: (MonospaceSystemUseractivitiesOwnerRelationFieldArguments & { "fields"?: activitiesCollectionOutputFieldsInput; "include"?: activitiesCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (MonospaceSystemUseractivitiesOwnerRelationFieldArguments & { "fields"?: activitiesCollectionOutputFieldsInput; "include"?: activitiesCollectionOutputIncludeInput })>]?: never };
+	"activitiesUpdatedBy"?: (MonospaceSystemUseractivitiesUpdatedByRelationFieldArguments & { "fields"?: activitiesCollectionOutputFieldsInput; "include"?: activitiesCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (MonospaceSystemUseractivitiesUpdatedByRelationFieldArguments & { "fields"?: activitiesCollectionOutputFieldsInput; "include"?: activitiesCollectionOutputIncludeInput })>]?: never };
+	"affiliationsCreatedBy"?: (MonospaceSystemUseraffiliationsCreatedByRelationFieldArguments & { "fields"?: affiliationsCollectionOutputFieldsInput; "include"?: affiliationsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (MonospaceSystemUseraffiliationsCreatedByRelationFieldArguments & { "fields"?: affiliationsCollectionOutputFieldsInput; "include"?: affiliationsCollectionOutputIncludeInput })>]?: never };
+	"affiliationsUpdatedBy"?: (MonospaceSystemUseraffiliationsUpdatedByRelationFieldArguments & { "fields"?: affiliationsCollectionOutputFieldsInput; "include"?: affiliationsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (MonospaceSystemUseraffiliationsUpdatedByRelationFieldArguments & { "fields"?: affiliationsCollectionOutputFieldsInput; "include"?: affiliationsCollectionOutputIncludeInput })>]?: never };
 	"attachmentsCreatedBy"?: (MonospaceSystemUserattachmentsCreatedByRelationFieldArguments & { "fields"?: attachmentsCollectionOutputFieldsInput; "include"?: attachmentsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (MonospaceSystemUserattachmentsCreatedByRelationFieldArguments & { "fields"?: attachmentsCollectionOutputFieldsInput; "include"?: attachmentsCollectionOutputIncludeInput })>]?: never };
-	"contactOrganizationsCreatedBy"?: (MonospaceSystemUsercontactOrganizationsCreatedByRelationFieldArguments & { "fields"?: contactOrganizationsCollectionOutputFieldsInput; "include"?: contactOrganizationsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (MonospaceSystemUsercontactOrganizationsCreatedByRelationFieldArguments & { "fields"?: contactOrganizationsCollectionOutputFieldsInput; "include"?: contactOrganizationsCollectionOutputIncludeInput })>]?: never };
-	"contactOrganizationsUpdatedBy"?: (MonospaceSystemUsercontactOrganizationsUpdatedByRelationFieldArguments & { "fields"?: contactOrganizationsCollectionOutputFieldsInput; "include"?: contactOrganizationsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (MonospaceSystemUsercontactOrganizationsUpdatedByRelationFieldArguments & { "fields"?: contactOrganizationsCollectionOutputFieldsInput; "include"?: contactOrganizationsCollectionOutputIncludeInput })>]?: never };
 	"contactsCreatedBy"?: (MonospaceSystemUsercontactsCreatedByRelationFieldArguments & { "fields"?: contactsCollectionOutputFieldsInput; "include"?: contactsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (MonospaceSystemUsercontactsCreatedByRelationFieldArguments & { "fields"?: contactsCollectionOutputFieldsInput; "include"?: contactsCollectionOutputIncludeInput })>]?: never };
 	"contactsOwner"?: (MonospaceSystemUsercontactsOwnerRelationFieldArguments & { "fields"?: contactsCollectionOutputFieldsInput; "include"?: contactsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (MonospaceSystemUsercontactsOwnerRelationFieldArguments & { "fields"?: contactsCollectionOutputFieldsInput; "include"?: contactsCollectionOutputIncludeInput })>]?: never };
 	"contactsUpdatedBy"?: (MonospaceSystemUsercontactsUpdatedByRelationFieldArguments & { "fields"?: contactsCollectionOutputFieldsInput; "include"?: contactsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (MonospaceSystemUsercontactsUpdatedByRelationFieldArguments & { "fields"?: contactsCollectionOutputFieldsInput; "include"?: contactsCollectionOutputIncludeInput })>]?: never };
-	"interactionsCreatedBy"?: (MonospaceSystemUserinteractionsCreatedByRelationFieldArguments & { "fields"?: interactionsCollectionOutputFieldsInput; "include"?: interactionsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (MonospaceSystemUserinteractionsCreatedByRelationFieldArguments & { "fields"?: interactionsCollectionOutputFieldsInput; "include"?: interactionsCollectionOutputIncludeInput })>]?: never };
-	"interactionsOwner"?: (MonospaceSystemUserinteractionsOwnerRelationFieldArguments & { "fields"?: interactionsCollectionOutputFieldsInput; "include"?: interactionsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (MonospaceSystemUserinteractionsOwnerRelationFieldArguments & { "fields"?: interactionsCollectionOutputFieldsInput; "include"?: interactionsCollectionOutputIncludeInput })>]?: never };
-	"interactionsUpdatedBy"?: (MonospaceSystemUserinteractionsUpdatedByRelationFieldArguments & { "fields"?: interactionsCollectionOutputFieldsInput; "include"?: interactionsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (MonospaceSystemUserinteractionsUpdatedByRelationFieldArguments & { "fields"?: interactionsCollectionOutputFieldsInput; "include"?: interactionsCollectionOutputIncludeInput })>]?: never };
-	"opportunitiesCreatedBy"?: (MonospaceSystemUseropportunitiesCreatedByRelationFieldArguments & { "fields"?: opportunitiesCollectionOutputFieldsInput; "include"?: opportunitiesCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (MonospaceSystemUseropportunitiesCreatedByRelationFieldArguments & { "fields"?: opportunitiesCollectionOutputFieldsInput; "include"?: opportunitiesCollectionOutputIncludeInput })>]?: never };
-	"opportunitiesOwner"?: (MonospaceSystemUseropportunitiesOwnerRelationFieldArguments & { "fields"?: opportunitiesCollectionOutputFieldsInput; "include"?: opportunitiesCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (MonospaceSystemUseropportunitiesOwnerRelationFieldArguments & { "fields"?: opportunitiesCollectionOutputFieldsInput; "include"?: opportunitiesCollectionOutputIncludeInput })>]?: never };
-	"opportunitiesUpdatedBy"?: (MonospaceSystemUseropportunitiesUpdatedByRelationFieldArguments & { "fields"?: opportunitiesCollectionOutputFieldsInput; "include"?: opportunitiesCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (MonospaceSystemUseropportunitiesUpdatedByRelationFieldArguments & { "fields"?: opportunitiesCollectionOutputFieldsInput; "include"?: opportunitiesCollectionOutputIncludeInput })>]?: never };
+	"dealsCreatedBy"?: (MonospaceSystemUserdealsCreatedByRelationFieldArguments & { "fields"?: dealsCollectionOutputFieldsInput; "include"?: dealsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (MonospaceSystemUserdealsCreatedByRelationFieldArguments & { "fields"?: dealsCollectionOutputFieldsInput; "include"?: dealsCollectionOutputIncludeInput })>]?: never };
+	"dealsOwner"?: (MonospaceSystemUserdealsOwnerRelationFieldArguments & { "fields"?: dealsCollectionOutputFieldsInput; "include"?: dealsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (MonospaceSystemUserdealsOwnerRelationFieldArguments & { "fields"?: dealsCollectionOutputFieldsInput; "include"?: dealsCollectionOutputIncludeInput })>]?: never };
+	"dealsUpdatedBy"?: (MonospaceSystemUserdealsUpdatedByRelationFieldArguments & { "fields"?: dealsCollectionOutputFieldsInput; "include"?: dealsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (MonospaceSystemUserdealsUpdatedByRelationFieldArguments & { "fields"?: dealsCollectionOutputFieldsInput; "include"?: dealsCollectionOutputIncludeInput })>]?: never };
 	"organizationsCreatedBy"?: (MonospaceSystemUserorganizationsCreatedByRelationFieldArguments & { "fields"?: organizationsCollectionOutputFieldsInput; "include"?: organizationsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (MonospaceSystemUserorganizationsCreatedByRelationFieldArguments & { "fields"?: organizationsCollectionOutputFieldsInput; "include"?: organizationsCollectionOutputIncludeInput })>]?: never };
 	"organizationsOwner"?: (MonospaceSystemUserorganizationsOwnerRelationFieldArguments & { "fields"?: organizationsCollectionOutputFieldsInput; "include"?: organizationsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (MonospaceSystemUserorganizationsOwnerRelationFieldArguments & { "fields"?: organizationsCollectionOutputFieldsInput; "include"?: organizationsCollectionOutputIncludeInput })>]?: never };
 	"organizationsUpdatedBy"?: (MonospaceSystemUserorganizationsUpdatedByRelationFieldArguments & { "fields"?: organizationsCollectionOutputFieldsInput; "include"?: organizationsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (MonospaceSystemUserorganizationsUpdatedByRelationFieldArguments & { "fields"?: organizationsCollectionOutputFieldsInput; "include"?: organizationsCollectionOutputIncludeInput })>]?: never };
 	"roles"?: (MonospaceSystemUserrolesRelationFieldArguments & { "fields"?: MonospaceUserRoleCollectionOutputFieldsInput; "include"?: MonospaceUserRoleCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (MonospaceSystemUserrolesRelationFieldArguments & { "fields"?: MonospaceUserRoleCollectionOutputFieldsInput; "include"?: MonospaceUserRoleCollectionOutputIncludeInput })>]?: never };
 	"storageValues"?: (MonospaceSystemUserstorageValuesRelationFieldArguments & { "fields"?: MonospaceKeyStorageCollectionOutputFieldsInput; "include"?: MonospaceKeyStorageCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (MonospaceSystemUserstorageValuesRelationFieldArguments & { "fields"?: MonospaceKeyStorageCollectionOutputFieldsInput; "include"?: MonospaceKeyStorageCollectionOutputIncludeInput })>]?: never };
-} & { [K in `${string}:${"attachmentsCreatedBy"}`]?: MonospaceSystemUserCollectionOutputIncludeInput["attachmentsCreatedBy"] } & { [K in `${string}:${"contactOrganizationsCreatedBy"}`]?: MonospaceSystemUserCollectionOutputIncludeInput["contactOrganizationsCreatedBy"] } & { [K in `${string}:${"contactOrganizationsUpdatedBy"}`]?: MonospaceSystemUserCollectionOutputIncludeInput["contactOrganizationsUpdatedBy"] } & { [K in `${string}:${"contactsCreatedBy"}`]?: MonospaceSystemUserCollectionOutputIncludeInput["contactsCreatedBy"] } & { [K in `${string}:${"contactsOwner"}`]?: MonospaceSystemUserCollectionOutputIncludeInput["contactsOwner"] } & { [K in `${string}:${"contactsUpdatedBy"}`]?: MonospaceSystemUserCollectionOutputIncludeInput["contactsUpdatedBy"] } & { [K in `${string}:${"interactionsCreatedBy"}`]?: MonospaceSystemUserCollectionOutputIncludeInput["interactionsCreatedBy"] } & { [K in `${string}:${"interactionsOwner"}`]?: MonospaceSystemUserCollectionOutputIncludeInput["interactionsOwner"] } & { [K in `${string}:${"interactionsUpdatedBy"}`]?: MonospaceSystemUserCollectionOutputIncludeInput["interactionsUpdatedBy"] } & { [K in `${string}:${"opportunitiesCreatedBy"}`]?: MonospaceSystemUserCollectionOutputIncludeInput["opportunitiesCreatedBy"] } & { [K in `${string}:${"opportunitiesOwner"}`]?: MonospaceSystemUserCollectionOutputIncludeInput["opportunitiesOwner"] } & { [K in `${string}:${"opportunitiesUpdatedBy"}`]?: MonospaceSystemUserCollectionOutputIncludeInput["opportunitiesUpdatedBy"] } & { [K in `${string}:${"organizationsCreatedBy"}`]?: MonospaceSystemUserCollectionOutputIncludeInput["organizationsCreatedBy"] } & { [K in `${string}:${"organizationsOwner"}`]?: MonospaceSystemUserCollectionOutputIncludeInput["organizationsOwner"] } & { [K in `${string}:${"organizationsUpdatedBy"}`]?: MonospaceSystemUserCollectionOutputIncludeInput["organizationsUpdatedBy"] } & { [K in `${string}:${"roles"}`]?: MonospaceSystemUserCollectionOutputIncludeInput["roles"] } & { [K in `${string}:${"storageValues"}`]?: MonospaceSystemUserCollectionOutputIncludeInput["storageValues"] };
+} & { [K in `${string}:${"activitiesCreatedBy"}`]?: MonospaceSystemUserCollectionOutputIncludeInput["activitiesCreatedBy"] } & { [K in `${string}:${"activitiesOwner"}`]?: MonospaceSystemUserCollectionOutputIncludeInput["activitiesOwner"] } & { [K in `${string}:${"activitiesUpdatedBy"}`]?: MonospaceSystemUserCollectionOutputIncludeInput["activitiesUpdatedBy"] } & { [K in `${string}:${"affiliationsCreatedBy"}`]?: MonospaceSystemUserCollectionOutputIncludeInput["affiliationsCreatedBy"] } & { [K in `${string}:${"affiliationsUpdatedBy"}`]?: MonospaceSystemUserCollectionOutputIncludeInput["affiliationsUpdatedBy"] } & { [K in `${string}:${"attachmentsCreatedBy"}`]?: MonospaceSystemUserCollectionOutputIncludeInput["attachmentsCreatedBy"] } & { [K in `${string}:${"contactsCreatedBy"}`]?: MonospaceSystemUserCollectionOutputIncludeInput["contactsCreatedBy"] } & { [K in `${string}:${"contactsOwner"}`]?: MonospaceSystemUserCollectionOutputIncludeInput["contactsOwner"] } & { [K in `${string}:${"contactsUpdatedBy"}`]?: MonospaceSystemUserCollectionOutputIncludeInput["contactsUpdatedBy"] } & { [K in `${string}:${"dealsCreatedBy"}`]?: MonospaceSystemUserCollectionOutputIncludeInput["dealsCreatedBy"] } & { [K in `${string}:${"dealsOwner"}`]?: MonospaceSystemUserCollectionOutputIncludeInput["dealsOwner"] } & { [K in `${string}:${"dealsUpdatedBy"}`]?: MonospaceSystemUserCollectionOutputIncludeInput["dealsUpdatedBy"] } & { [K in `${string}:${"organizationsCreatedBy"}`]?: MonospaceSystemUserCollectionOutputIncludeInput["organizationsCreatedBy"] } & { [K in `${string}:${"organizationsOwner"}`]?: MonospaceSystemUserCollectionOutputIncludeInput["organizationsOwner"] } & { [K in `${string}:${"organizationsUpdatedBy"}`]?: MonospaceSystemUserCollectionOutputIncludeInput["organizationsUpdatedBy"] } & { [K in `${string}:${"roles"}`]?: MonospaceSystemUserCollectionOutputIncludeInput["roles"] } & { [K in `${string}:${"storageValues"}`]?: MonospaceSystemUserCollectionOutputIncludeInput["storageValues"] };
 
 export type MonospaceSystemUserCreateArguments = {
 	data: readonly MonospaceSystemUserCreateInput[];
 }
 
 export type MonospaceSystemUserCreateInput = {
+	activitiesCreatedBy?: readonly MonospaceSystemUseractivitiesCreatedByCreateRelatedInput[];
+	activitiesOwner?: readonly MonospaceSystemUseractivitiesOwnerCreateRelatedInput[];
+	activitiesUpdatedBy?: readonly MonospaceSystemUseractivitiesUpdatedByCreateRelatedInput[];
+	affiliationsCreatedBy?: readonly MonospaceSystemUseraffiliationsCreatedByCreateRelatedInput[];
+	affiliationsUpdatedBy?: readonly MonospaceSystemUseraffiliationsUpdatedByCreateRelatedInput[];
 	appearance?: string | null;
 	attachmentsCreatedBy?: readonly MonospaceSystemUserattachmentsCreatedByCreateRelatedInput[];
 	avatarId?: Uuid | null;
-	contactOrganizationsCreatedBy?: readonly MonospaceSystemUsercontactOrganizationsCreatedByCreateRelatedInput[];
-	contactOrganizationsUpdatedBy?: readonly MonospaceSystemUsercontactOrganizationsUpdatedByCreateRelatedInput[];
 	contactsCreatedBy?: readonly MonospaceSystemUsercontactsCreatedByCreateRelatedInput[];
 	contactsOwner?: readonly MonospaceSystemUsercontactsOwnerCreateRelatedInput[];
 	contactsUpdatedBy?: readonly MonospaceSystemUsercontactsUpdatedByCreateRelatedInput[];
+	dealsCreatedBy?: readonly MonospaceSystemUserdealsCreatedByCreateRelatedInput[];
+	dealsOwner?: readonly MonospaceSystemUserdealsOwnerCreateRelatedInput[];
+	dealsUpdatedBy?: readonly MonospaceSystemUserdealsUpdatedByCreateRelatedInput[];
 	email?: string | null;
 	fullName?: string | null;
 	id: Uuid;
-	interactionsCreatedBy?: readonly MonospaceSystemUserinteractionsCreatedByCreateRelatedInput[];
-	interactionsOwner?: readonly MonospaceSystemUserinteractionsOwnerCreateRelatedInput[];
-	interactionsUpdatedBy?: readonly MonospaceSystemUserinteractionsUpdatedByCreateRelatedInput[];
 	isService: boolean;
 	lastActivityAt?: string | null;
-	opportunitiesCreatedBy?: readonly MonospaceSystemUseropportunitiesCreatedByCreateRelatedInput[];
-	opportunitiesOwner?: readonly MonospaceSystemUseropportunitiesOwnerCreateRelatedInput[];
-	opportunitiesUpdatedBy?: readonly MonospaceSystemUseropportunitiesUpdatedByCreateRelatedInput[];
 	organizationsCreatedBy?: readonly MonospaceSystemUserorganizationsCreatedByCreateRelatedInput[];
 	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
 	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
@@ -5425,25 +5425,25 @@ export type MonospaceSystemUserFilterInput = {
 	_and?: readonly MonospaceSystemUserFilterInput[];
 	_not?: MonospaceSystemUserFilterInput;
 	_or?: readonly MonospaceSystemUserFilterInput[];
+	activitiesCreatedBy?: activitiesFilterQuantifierInput | activitiesFilterInput;
+	activitiesOwner?: activitiesFilterQuantifierInput | activitiesFilterInput;
+	activitiesUpdatedBy?: activitiesFilterQuantifierInput | activitiesFilterInput;
+	affiliationsCreatedBy?: affiliationsFilterQuantifierInput | affiliationsFilterInput;
+	affiliationsUpdatedBy?: affiliationsFilterQuantifierInput | affiliationsFilterInput;
 	appearance?: StringFilterNullablePrimitiveInput | string | null;
 	attachmentsCreatedBy?: attachmentsFilterQuantifierInput | attachmentsFilterInput;
 	avatarId?: UuidFilterNullablePrimitiveInput | Uuid | null;
-	contactOrganizationsCreatedBy?: contactOrganizationsFilterQuantifierInput | contactOrganizationsFilterInput;
-	contactOrganizationsUpdatedBy?: contactOrganizationsFilterQuantifierInput | contactOrganizationsFilterInput;
 	contactsCreatedBy?: contactsFilterQuantifierInput | contactsFilterInput;
 	contactsOwner?: contactsFilterQuantifierInput | contactsFilterInput;
 	contactsUpdatedBy?: contactsFilterQuantifierInput | contactsFilterInput;
+	dealsCreatedBy?: dealsFilterQuantifierInput | dealsFilterInput;
+	dealsOwner?: dealsFilterQuantifierInput | dealsFilterInput;
+	dealsUpdatedBy?: dealsFilterQuantifierInput | dealsFilterInput;
 	email?: StringFilterNullablePrimitiveInput | string | null;
 	fullName?: StringFilterNullablePrimitiveInput | string | null;
 	id?: UuidFilterPrimitiveInput | Uuid;
-	interactionsCreatedBy?: interactionsFilterQuantifierInput | interactionsFilterInput;
-	interactionsOwner?: interactionsFilterQuantifierInput | interactionsFilterInput;
-	interactionsUpdatedBy?: interactionsFilterQuantifierInput | interactionsFilterInput;
 	isService?: BooleanFilterPrimitiveInput | boolean;
 	lastActivityAt?: DateTimeFilterNullablePrimitiveInput | string | null;
-	opportunitiesCreatedBy?: opportunitiesFilterQuantifierInput | opportunitiesFilterInput;
-	opportunitiesOwner?: opportunitiesFilterQuantifierInput | opportunitiesFilterInput;
-	opportunitiesUpdatedBy?: opportunitiesFilterQuantifierInput | opportunitiesFilterInput;
 	organizationsCreatedBy?: organizationsFilterQuantifierInput | organizationsFilterInput;
 	organizationsOwner?: organizationsFilterQuantifierInput | organizationsFilterInput;
 	organizationsUpdatedBy?: organizationsFilterQuantifierInput | organizationsFilterInput;
@@ -5484,25 +5484,25 @@ export type MonospaceSystemUserUpdateArguments = {
 }
 
 export type MonospaceSystemUserUpdateDataInput = {
+	activitiesCreatedBy?: readonly MonospaceSystemUseractivitiesCreatedByUpdateManyRelatedOperationsInput[];
+	activitiesOwner?: readonly MonospaceSystemUseractivitiesOwnerUpdateManyRelatedOperationsInput[];
+	activitiesUpdatedBy?: readonly MonospaceSystemUseractivitiesUpdatedByUpdateManyRelatedOperationsInput[];
+	affiliationsCreatedBy?: readonly MonospaceSystemUseraffiliationsCreatedByUpdateManyRelatedOperationsInput[];
+	affiliationsUpdatedBy?: readonly MonospaceSystemUseraffiliationsUpdatedByUpdateManyRelatedOperationsInput[];
 	appearance?: string | null;
 	attachmentsCreatedBy?: readonly MonospaceSystemUserattachmentsCreatedByUpdateManyRelatedOperationsInput[];
 	avatarId?: Uuid | null;
-	contactOrganizationsCreatedBy?: readonly MonospaceSystemUsercontactOrganizationsCreatedByUpdateManyRelatedOperationsInput[];
-	contactOrganizationsUpdatedBy?: readonly MonospaceSystemUsercontactOrganizationsUpdatedByUpdateManyRelatedOperationsInput[];
 	contactsCreatedBy?: readonly MonospaceSystemUsercontactsCreatedByUpdateManyRelatedOperationsInput[];
 	contactsOwner?: readonly MonospaceSystemUsercontactsOwnerUpdateManyRelatedOperationsInput[];
 	contactsUpdatedBy?: readonly MonospaceSystemUsercontactsUpdatedByUpdateManyRelatedOperationsInput[];
+	dealsCreatedBy?: readonly MonospaceSystemUserdealsCreatedByUpdateManyRelatedOperationsInput[];
+	dealsOwner?: readonly MonospaceSystemUserdealsOwnerUpdateManyRelatedOperationsInput[];
+	dealsUpdatedBy?: readonly MonospaceSystemUserdealsUpdatedByUpdateManyRelatedOperationsInput[];
 	email?: string | null;
 	fullName?: string | null;
 	id?: Uuid;
-	interactionsCreatedBy?: readonly MonospaceSystemUserinteractionsCreatedByUpdateManyRelatedOperationsInput[];
-	interactionsOwner?: readonly MonospaceSystemUserinteractionsOwnerUpdateManyRelatedOperationsInput[];
-	interactionsUpdatedBy?: readonly MonospaceSystemUserinteractionsUpdatedByUpdateManyRelatedOperationsInput[];
 	isService?: boolean;
 	lastActivityAt?: string | null;
-	opportunitiesCreatedBy?: readonly MonospaceSystemUseropportunitiesCreatedByUpdateManyRelatedOperationsInput[];
-	opportunitiesOwner?: readonly MonospaceSystemUseropportunitiesOwnerUpdateManyRelatedOperationsInput[];
-	opportunitiesUpdatedBy?: readonly MonospaceSystemUseropportunitiesUpdatedByUpdateManyRelatedOperationsInput[];
 	organizationsCreatedBy?: readonly MonospaceSystemUserorganizationsCreatedByUpdateManyRelatedOperationsInput[];
 	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerUpdateManyRelatedOperationsInput[];
 	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByUpdateManyRelatedOperationsInput[];
@@ -5521,6 +5521,254 @@ export type MonospaceSystemUserUpdateOneArguments = {
 	data: MonospaceSystemUserUpdateDataInput;
 	filter?: MonospaceSystemUserFilterInput;
 	key: Uuid;
+}
+
+export type MonospaceSystemUseractivitiesCreatedByConnectBackwardKeysInput = {
+	id?: Uuid;
+}
+
+export type MonospaceSystemUseractivitiesCreatedByConnectInput = {
+	keys: readonly MonospaceSystemUseractivitiesCreatedByConnectBackwardKeysInput[];
+}
+
+export type MonospaceSystemUseractivitiesCreatedByCreateArguments = {
+	data: readonly MonospaceSystemUseractivitiesCreatedByCreateRelatedWithoutTypeInput[];
+}
+
+export type MonospaceSystemUseractivitiesCreatedByCreateRelatedInput = {
+	_connect?: MonospaceSystemUseractivitiesCreatedByConnectInput;
+	_create?: MonospaceSystemUseractivitiesCreatedByCreateArguments;
+}
+
+export type MonospaceSystemUseractivitiesCreatedByCreateRelatedWithoutTypeInput = {
+	attachments?: readonly activitiesattachmentsCreateRelatedInput[];
+	body?: string | null;
+	completedAt?: string | null;
+	contacts?: activitiescontactsCreateRelatedInput;
+	createdAt?: string;
+	deals?: activitiesdealsCreateRelatedInput;
+	direction?: string;
+	dueAt?: string | null;
+	id?: Uuid;
+	occurredAt?: string;
+	organizations: activitiesorganizationsCreateRelatedInput;
+	owner?: activitiesownerCreateRelatedInput;
+	status: string;
+	subject: string;
+	type: string;
+	updatedAt?: string;
+	updatedBy?: activitiesupdatedByCreateRelatedInput;
+}
+
+export type MonospaceSystemUseractivitiesCreatedByRelationFieldArguments = {
+	filter?: activitiesFilterInput;
+	limit?: Int64Input;
+	offset?: UInt64Input;
+	sort?: readonly activitiesSortSpecifier[];
+}
+
+export type MonospaceSystemUseractivitiesCreatedByUpdateManyRelatedOperationsInput = {
+	_connect?: MonospaceSystemUseractivitiesCreatedByConnectInput;
+	_create?: MonospaceSystemUseractivitiesCreatedByCreateArguments;
+	_delete?: activitiesDeleteArguments;
+	_disconnect?: activitiesDisconnectManyInput;
+	_update?: activitiesUpdateInput;
+}
+
+export type MonospaceSystemUseractivitiesOwnerConnectBackwardKeysInput = {
+	id?: Uuid;
+}
+
+export type MonospaceSystemUseractivitiesOwnerConnectInput = {
+	keys: readonly MonospaceSystemUseractivitiesOwnerConnectBackwardKeysInput[];
+}
+
+export type MonospaceSystemUseractivitiesOwnerCreateArguments = {
+	data: readonly MonospaceSystemUseractivitiesOwnerCreateRelatedWithoutTypeInput[];
+}
+
+export type MonospaceSystemUseractivitiesOwnerCreateRelatedInput = {
+	_connect?: MonospaceSystemUseractivitiesOwnerConnectInput;
+	_create?: MonospaceSystemUseractivitiesOwnerCreateArguments;
+}
+
+export type MonospaceSystemUseractivitiesOwnerCreateRelatedWithoutTypeInput = {
+	attachments?: readonly activitiesattachmentsCreateRelatedInput[];
+	body?: string | null;
+	completedAt?: string | null;
+	contacts?: activitiescontactsCreateRelatedInput;
+	createdAt?: string;
+	createdBy?: activitiescreatedByCreateRelatedInput;
+	deals?: activitiesdealsCreateRelatedInput;
+	direction?: string;
+	dueAt?: string | null;
+	id?: Uuid;
+	occurredAt?: string;
+	organizations: activitiesorganizationsCreateRelatedInput;
+	status: string;
+	subject: string;
+	type: string;
+	updatedAt?: string;
+	updatedBy?: activitiesupdatedByCreateRelatedInput;
+}
+
+export type MonospaceSystemUseractivitiesOwnerRelationFieldArguments = {
+	filter?: activitiesFilterInput;
+	limit?: Int64Input;
+	offset?: UInt64Input;
+	sort?: readonly activitiesSortSpecifier[];
+}
+
+export type MonospaceSystemUseractivitiesOwnerUpdateManyRelatedOperationsInput = {
+	_connect?: MonospaceSystemUseractivitiesOwnerConnectInput;
+	_create?: MonospaceSystemUseractivitiesOwnerCreateArguments;
+	_delete?: activitiesDeleteArguments;
+	_disconnect?: activitiesDisconnectManyInput;
+	_update?: activitiesUpdateInput;
+}
+
+export type MonospaceSystemUseractivitiesUpdatedByConnectBackwardKeysInput = {
+	id?: Uuid;
+}
+
+export type MonospaceSystemUseractivitiesUpdatedByConnectInput = {
+	keys: readonly MonospaceSystemUseractivitiesUpdatedByConnectBackwardKeysInput[];
+}
+
+export type MonospaceSystemUseractivitiesUpdatedByCreateArguments = {
+	data: readonly MonospaceSystemUseractivitiesUpdatedByCreateRelatedWithoutTypeInput[];
+}
+
+export type MonospaceSystemUseractivitiesUpdatedByCreateRelatedInput = {
+	_connect?: MonospaceSystemUseractivitiesUpdatedByConnectInput;
+	_create?: MonospaceSystemUseractivitiesUpdatedByCreateArguments;
+}
+
+export type MonospaceSystemUseractivitiesUpdatedByCreateRelatedWithoutTypeInput = {
+	attachments?: readonly activitiesattachmentsCreateRelatedInput[];
+	body?: string | null;
+	completedAt?: string | null;
+	contacts?: activitiescontactsCreateRelatedInput;
+	createdAt?: string;
+	createdBy?: activitiescreatedByCreateRelatedInput;
+	deals?: activitiesdealsCreateRelatedInput;
+	direction?: string;
+	dueAt?: string | null;
+	id?: Uuid;
+	occurredAt?: string;
+	organizations: activitiesorganizationsCreateRelatedInput;
+	owner?: activitiesownerCreateRelatedInput;
+	status: string;
+	subject: string;
+	type: string;
+	updatedAt?: string;
+}
+
+export type MonospaceSystemUseractivitiesUpdatedByRelationFieldArguments = {
+	filter?: activitiesFilterInput;
+	limit?: Int64Input;
+	offset?: UInt64Input;
+	sort?: readonly activitiesSortSpecifier[];
+}
+
+export type MonospaceSystemUseractivitiesUpdatedByUpdateManyRelatedOperationsInput = {
+	_connect?: MonospaceSystemUseractivitiesUpdatedByConnectInput;
+	_create?: MonospaceSystemUseractivitiesUpdatedByCreateArguments;
+	_delete?: activitiesDeleteArguments;
+	_disconnect?: activitiesDisconnectManyInput;
+	_update?: activitiesUpdateInput;
+}
+
+export type MonospaceSystemUseraffiliationsCreatedByConnectBackwardKeysInput = {
+	id?: Uuid;
+}
+
+export type MonospaceSystemUseraffiliationsCreatedByConnectInput = {
+	keys: readonly MonospaceSystemUseraffiliationsCreatedByConnectBackwardKeysInput[];
+}
+
+export type MonospaceSystemUseraffiliationsCreatedByCreateArguments = {
+	data: readonly MonospaceSystemUseraffiliationsCreatedByCreateRelatedWithoutTypeInput[];
+}
+
+export type MonospaceSystemUseraffiliationsCreatedByCreateRelatedInput = {
+	_connect?: MonospaceSystemUseraffiliationsCreatedByConnectInput;
+	_create?: MonospaceSystemUseraffiliationsCreatedByCreateArguments;
+}
+
+export type MonospaceSystemUseraffiliationsCreatedByCreateRelatedWithoutTypeInput = {
+	contacts: affiliationscontactsCreateRelatedInput;
+	createdAt?: string;
+	endedAt?: string | null;
+	id?: Uuid;
+	isPrimary?: boolean;
+	organizations: affiliationsorganizationsCreateRelatedInput;
+	role?: string | null;
+	startedAt?: string | null;
+	title?: string | null;
+	updatedAt?: string;
+	updatedBy?: affiliationsupdatedByCreateRelatedInput;
+}
+
+export type MonospaceSystemUseraffiliationsCreatedByRelationFieldArguments = {
+	filter?: affiliationsFilterInput;
+	limit?: Int64Input;
+	offset?: UInt64Input;
+	sort?: readonly affiliationsSortSpecifier[];
+}
+
+export type MonospaceSystemUseraffiliationsCreatedByUpdateManyRelatedOperationsInput = {
+	_connect?: MonospaceSystemUseraffiliationsCreatedByConnectInput;
+	_create?: MonospaceSystemUseraffiliationsCreatedByCreateArguments;
+	_delete?: affiliationsDeleteArguments;
+	_disconnect?: affiliationsDisconnectManyInput;
+	_update?: affiliationsUpdateInput;
+}
+
+export type MonospaceSystemUseraffiliationsUpdatedByConnectBackwardKeysInput = {
+	id?: Uuid;
+}
+
+export type MonospaceSystemUseraffiliationsUpdatedByConnectInput = {
+	keys: readonly MonospaceSystemUseraffiliationsUpdatedByConnectBackwardKeysInput[];
+}
+
+export type MonospaceSystemUseraffiliationsUpdatedByCreateArguments = {
+	data: readonly MonospaceSystemUseraffiliationsUpdatedByCreateRelatedWithoutTypeInput[];
+}
+
+export type MonospaceSystemUseraffiliationsUpdatedByCreateRelatedInput = {
+	_connect?: MonospaceSystemUseraffiliationsUpdatedByConnectInput;
+	_create?: MonospaceSystemUseraffiliationsUpdatedByCreateArguments;
+}
+
+export type MonospaceSystemUseraffiliationsUpdatedByCreateRelatedWithoutTypeInput = {
+	contacts: affiliationscontactsCreateRelatedInput;
+	createdAt?: string;
+	createdBy?: affiliationscreatedByCreateRelatedInput;
+	endedAt?: string | null;
+	id?: Uuid;
+	isPrimary?: boolean;
+	organizations: affiliationsorganizationsCreateRelatedInput;
+	role?: string | null;
+	startedAt?: string | null;
+	title?: string | null;
+	updatedAt?: string;
+}
+
+export type MonospaceSystemUseraffiliationsUpdatedByRelationFieldArguments = {
+	filter?: affiliationsFilterInput;
+	limit?: Int64Input;
+	offset?: UInt64Input;
+	sort?: readonly affiliationsSortSpecifier[];
+}
+
+export type MonospaceSystemUseraffiliationsUpdatedByUpdateManyRelatedOperationsInput = {
+	_connect?: MonospaceSystemUseraffiliationsUpdatedByConnectInput;
+	_create?: MonospaceSystemUseraffiliationsUpdatedByCreateArguments;
+	_delete?: affiliationsDeleteArguments;
+	_disconnect?: affiliationsDisconnectManyInput;
+	_update?: affiliationsUpdateInput;
 }
 
 export type MonospaceSystemUserattachmentsCreatedByConnectBackwardKeysInput = {
@@ -5542,14 +5790,14 @@ export type MonospaceSystemUserattachmentsCreatedByCreateRelatedInput = {
 }
 
 export type MonospaceSystemUserattachmentsCreatedByCreateRelatedWithoutTypeInput = {
+	activities?: attachmentsactivitiesCreateRelatedInput;
 	assetId?: Uuid | null;
 	contacts?: attachmentscontactsCreateRelatedInput;
 	contentType?: string | null;
 	createdAt?: string;
+	deals?: attachmentsdealsCreateRelatedInput;
 	fileName: string;
 	id?: Uuid;
-	interactions?: attachmentsinteractionsCreateRelatedInput;
-	opportunities?: attachmentsopportunitiesCreateRelatedInput;
 	organizations: attachmentsorganizationsCreateRelatedInput;
 	sizeBytes?: Int64Input | null;
 	url?: string | null;
@@ -5570,98 +5818,6 @@ export type MonospaceSystemUserattachmentsCreatedByUpdateManyRelatedOperationsIn
 	_update?: attachmentsUpdateInput;
 }
 
-export type MonospaceSystemUsercontactOrganizationsCreatedByConnectBackwardKeysInput = {
-	id?: Uuid;
-}
-
-export type MonospaceSystemUsercontactOrganizationsCreatedByConnectInput = {
-	keys: readonly MonospaceSystemUsercontactOrganizationsCreatedByConnectBackwardKeysInput[];
-}
-
-export type MonospaceSystemUsercontactOrganizationsCreatedByCreateArguments = {
-	data: readonly MonospaceSystemUsercontactOrganizationsCreatedByCreateRelatedWithoutTypeInput[];
-}
-
-export type MonospaceSystemUsercontactOrganizationsCreatedByCreateRelatedInput = {
-	_connect?: MonospaceSystemUsercontactOrganizationsCreatedByConnectInput;
-	_create?: MonospaceSystemUsercontactOrganizationsCreatedByCreateArguments;
-}
-
-export type MonospaceSystemUsercontactOrganizationsCreatedByCreateRelatedWithoutTypeInput = {
-	contacts: contactOrganizationscontactsCreateRelatedInput;
-	createdAt?: string;
-	endedAt?: string | null;
-	id?: Uuid;
-	isPrimary?: boolean;
-	organizations: contactOrganizationsorganizationsCreateRelatedInput;
-	role?: string | null;
-	startedAt?: string | null;
-	title?: string | null;
-	updatedAt?: string;
-	updatedBy?: contactOrganizationsupdatedByCreateRelatedInput;
-}
-
-export type MonospaceSystemUsercontactOrganizationsCreatedByRelationFieldArguments = {
-	filter?: contactOrganizationsFilterInput;
-	limit?: Int64Input;
-	offset?: UInt64Input;
-	sort?: readonly contactOrganizationsSortSpecifier[];
-}
-
-export type MonospaceSystemUsercontactOrganizationsCreatedByUpdateManyRelatedOperationsInput = {
-	_connect?: MonospaceSystemUsercontactOrganizationsCreatedByConnectInput;
-	_create?: MonospaceSystemUsercontactOrganizationsCreatedByCreateArguments;
-	_delete?: contactOrganizationsDeleteArguments;
-	_disconnect?: contactOrganizationsDisconnectManyInput;
-	_update?: contactOrganizationsUpdateInput;
-}
-
-export type MonospaceSystemUsercontactOrganizationsUpdatedByConnectBackwardKeysInput = {
-	id?: Uuid;
-}
-
-export type MonospaceSystemUsercontactOrganizationsUpdatedByConnectInput = {
-	keys: readonly MonospaceSystemUsercontactOrganizationsUpdatedByConnectBackwardKeysInput[];
-}
-
-export type MonospaceSystemUsercontactOrganizationsUpdatedByCreateArguments = {
-	data: readonly MonospaceSystemUsercontactOrganizationsUpdatedByCreateRelatedWithoutTypeInput[];
-}
-
-export type MonospaceSystemUsercontactOrganizationsUpdatedByCreateRelatedInput = {
-	_connect?: MonospaceSystemUsercontactOrganizationsUpdatedByConnectInput;
-	_create?: MonospaceSystemUsercontactOrganizationsUpdatedByCreateArguments;
-}
-
-export type MonospaceSystemUsercontactOrganizationsUpdatedByCreateRelatedWithoutTypeInput = {
-	contacts: contactOrganizationscontactsCreateRelatedInput;
-	createdAt?: string;
-	createdBy?: contactOrganizationscreatedByCreateRelatedInput;
-	endedAt?: string | null;
-	id?: Uuid;
-	isPrimary?: boolean;
-	organizations: contactOrganizationsorganizationsCreateRelatedInput;
-	role?: string | null;
-	startedAt?: string | null;
-	title?: string | null;
-	updatedAt?: string;
-}
-
-export type MonospaceSystemUsercontactOrganizationsUpdatedByRelationFieldArguments = {
-	filter?: contactOrganizationsFilterInput;
-	limit?: Int64Input;
-	offset?: UInt64Input;
-	sort?: readonly contactOrganizationsSortSpecifier[];
-}
-
-export type MonospaceSystemUsercontactOrganizationsUpdatedByUpdateManyRelatedOperationsInput = {
-	_connect?: MonospaceSystemUsercontactOrganizationsUpdatedByConnectInput;
-	_create?: MonospaceSystemUsercontactOrganizationsUpdatedByCreateArguments;
-	_delete?: contactOrganizationsDeleteArguments;
-	_disconnect?: contactOrganizationsDisconnectManyInput;
-	_update?: contactOrganizationsUpdateInput;
-}
-
 export type MonospaceSystemUsercontactsCreatedByConnectBackwardKeysInput = {
 	id?: Uuid;
 }
@@ -5680,16 +5836,16 @@ export type MonospaceSystemUsercontactsCreatedByCreateRelatedInput = {
 }
 
 export type MonospaceSystemUsercontactsCreatedByCreateRelatedWithoutTypeInput = {
+	activities?: readonly contactsactivitiesCreateRelatedInput[];
+	affiliations?: readonly contactsaffiliationsCreateRelatedInput[];
 	attachments?: readonly contactsattachmentsCreateRelatedInput[];
-	contact_organizations?: readonly contactscontact_organizationsCreateRelatedInput[];
 	createdAt?: string;
+	deals?: readonly contactsdealsCreateRelatedInput[];
 	email?: string | null;
 	firstName: string;
 	id?: Uuid;
-	interactions?: readonly contactsinteractionsCreateRelatedInput[];
 	lastName: string;
 	notes?: string | null;
-	opportunities?: readonly contactsopportunitiesCreateRelatedInput[];
 	owner?: contactsownerCreateRelatedInput;
 	phone?: string | null;
 	portalUser?: contactsportalUserCreateRelatedInput;
@@ -5731,17 +5887,17 @@ export type MonospaceSystemUsercontactsOwnerCreateRelatedInput = {
 }
 
 export type MonospaceSystemUsercontactsOwnerCreateRelatedWithoutTypeInput = {
+	activities?: readonly contactsactivitiesCreateRelatedInput[];
+	affiliations?: readonly contactsaffiliationsCreateRelatedInput[];
 	attachments?: readonly contactsattachmentsCreateRelatedInput[];
-	contact_organizations?: readonly contactscontact_organizationsCreateRelatedInput[];
 	createdAt?: string;
 	createdBy?: contactscreatedByCreateRelatedInput;
+	deals?: readonly contactsdealsCreateRelatedInput[];
 	email?: string | null;
 	firstName: string;
 	id?: Uuid;
-	interactions?: readonly contactsinteractionsCreateRelatedInput[];
 	lastName: string;
 	notes?: string | null;
-	opportunities?: readonly contactsopportunitiesCreateRelatedInput[];
 	phone?: string | null;
 	portalUser?: contactsportalUserCreateRelatedInput;
 	status?: string;
@@ -5782,17 +5938,17 @@ export type MonospaceSystemUsercontactsUpdatedByCreateRelatedInput = {
 }
 
 export type MonospaceSystemUsercontactsUpdatedByCreateRelatedWithoutTypeInput = {
+	activities?: readonly contactsactivitiesCreateRelatedInput[];
+	affiliations?: readonly contactsaffiliationsCreateRelatedInput[];
 	attachments?: readonly contactsattachmentsCreateRelatedInput[];
-	contact_organizations?: readonly contactscontact_organizationsCreateRelatedInput[];
 	createdAt?: string;
 	createdBy?: contactscreatedByCreateRelatedInput;
+	deals?: readonly contactsdealsCreateRelatedInput[];
 	email?: string | null;
 	firstName: string;
 	id?: Uuid;
-	interactions?: readonly contactsinteractionsCreateRelatedInput[];
 	lastName: string;
 	notes?: string | null;
-	opportunities?: readonly contactsopportunitiesCreateRelatedInput[];
 	owner?: contactsownerCreateRelatedInput;
 	phone?: string | null;
 	portalUser?: contactsportalUserCreateRelatedInput;
@@ -5815,313 +5971,157 @@ export type MonospaceSystemUsercontactsUpdatedByUpdateManyRelatedOperationsInput
 	_update?: contactsUpdateInput;
 }
 
-export type MonospaceSystemUserinteractionsCreatedByConnectBackwardKeysInput = {
+export type MonospaceSystemUserdealsCreatedByConnectBackwardKeysInput = {
 	id?: Uuid;
 }
 
-export type MonospaceSystemUserinteractionsCreatedByConnectInput = {
-	keys: readonly MonospaceSystemUserinteractionsCreatedByConnectBackwardKeysInput[];
+export type MonospaceSystemUserdealsCreatedByConnectInput = {
+	keys: readonly MonospaceSystemUserdealsCreatedByConnectBackwardKeysInput[];
 }
 
-export type MonospaceSystemUserinteractionsCreatedByCreateArguments = {
-	data: readonly MonospaceSystemUserinteractionsCreatedByCreateRelatedWithoutTypeInput[];
+export type MonospaceSystemUserdealsCreatedByCreateArguments = {
+	data: readonly MonospaceSystemUserdealsCreatedByCreateRelatedWithoutTypeInput[];
 }
 
-export type MonospaceSystemUserinteractionsCreatedByCreateRelatedInput = {
-	_connect?: MonospaceSystemUserinteractionsCreatedByConnectInput;
-	_create?: MonospaceSystemUserinteractionsCreatedByCreateArguments;
+export type MonospaceSystemUserdealsCreatedByCreateRelatedInput = {
+	_connect?: MonospaceSystemUserdealsCreatedByConnectInput;
+	_create?: MonospaceSystemUserdealsCreatedByCreateArguments;
 }
 
-export type MonospaceSystemUserinteractionsCreatedByCreateRelatedWithoutTypeInput = {
-	attachments?: readonly interactionsattachmentsCreateRelatedInput[];
-	body?: string | null;
-	completedAt?: string | null;
-	contacts?: interactionscontactsCreateRelatedInput;
-	createdAt?: string;
-	direction?: string;
-	dueAt?: string | null;
-	id?: Uuid;
-	occurredAt?: string;
-	opportunities?: interactionsopportunitiesCreateRelatedInput;
-	organizations: interactionsorganizationsCreateRelatedInput;
-	owner?: interactionsownerCreateRelatedInput;
-	status: string;
-	subject: string;
-	type: string;
-	updatedAt?: string;
-	updatedBy?: interactionsupdatedByCreateRelatedInput;
-}
-
-export type MonospaceSystemUserinteractionsCreatedByRelationFieldArguments = {
-	filter?: interactionsFilterInput;
-	limit?: Int64Input;
-	offset?: UInt64Input;
-	sort?: readonly interactionsSortSpecifier[];
-}
-
-export type MonospaceSystemUserinteractionsCreatedByUpdateManyRelatedOperationsInput = {
-	_connect?: MonospaceSystemUserinteractionsCreatedByConnectInput;
-	_create?: MonospaceSystemUserinteractionsCreatedByCreateArguments;
-	_delete?: interactionsDeleteArguments;
-	_disconnect?: interactionsDisconnectManyInput;
-	_update?: interactionsUpdateInput;
-}
-
-export type MonospaceSystemUserinteractionsOwnerConnectBackwardKeysInput = {
-	id?: Uuid;
-}
-
-export type MonospaceSystemUserinteractionsOwnerConnectInput = {
-	keys: readonly MonospaceSystemUserinteractionsOwnerConnectBackwardKeysInput[];
-}
-
-export type MonospaceSystemUserinteractionsOwnerCreateArguments = {
-	data: readonly MonospaceSystemUserinteractionsOwnerCreateRelatedWithoutTypeInput[];
-}
-
-export type MonospaceSystemUserinteractionsOwnerCreateRelatedInput = {
-	_connect?: MonospaceSystemUserinteractionsOwnerConnectInput;
-	_create?: MonospaceSystemUserinteractionsOwnerCreateArguments;
-}
-
-export type MonospaceSystemUserinteractionsOwnerCreateRelatedWithoutTypeInput = {
-	attachments?: readonly interactionsattachmentsCreateRelatedInput[];
-	body?: string | null;
-	completedAt?: string | null;
-	contacts?: interactionscontactsCreateRelatedInput;
-	createdAt?: string;
-	createdBy?: interactionscreatedByCreateRelatedInput;
-	direction?: string;
-	dueAt?: string | null;
-	id?: Uuid;
-	occurredAt?: string;
-	opportunities?: interactionsopportunitiesCreateRelatedInput;
-	organizations: interactionsorganizationsCreateRelatedInput;
-	status: string;
-	subject: string;
-	type: string;
-	updatedAt?: string;
-	updatedBy?: interactionsupdatedByCreateRelatedInput;
-}
-
-export type MonospaceSystemUserinteractionsOwnerRelationFieldArguments = {
-	filter?: interactionsFilterInput;
-	limit?: Int64Input;
-	offset?: UInt64Input;
-	sort?: readonly interactionsSortSpecifier[];
-}
-
-export type MonospaceSystemUserinteractionsOwnerUpdateManyRelatedOperationsInput = {
-	_connect?: MonospaceSystemUserinteractionsOwnerConnectInput;
-	_create?: MonospaceSystemUserinteractionsOwnerCreateArguments;
-	_delete?: interactionsDeleteArguments;
-	_disconnect?: interactionsDisconnectManyInput;
-	_update?: interactionsUpdateInput;
-}
-
-export type MonospaceSystemUserinteractionsUpdatedByConnectBackwardKeysInput = {
-	id?: Uuid;
-}
-
-export type MonospaceSystemUserinteractionsUpdatedByConnectInput = {
-	keys: readonly MonospaceSystemUserinteractionsUpdatedByConnectBackwardKeysInput[];
-}
-
-export type MonospaceSystemUserinteractionsUpdatedByCreateArguments = {
-	data: readonly MonospaceSystemUserinteractionsUpdatedByCreateRelatedWithoutTypeInput[];
-}
-
-export type MonospaceSystemUserinteractionsUpdatedByCreateRelatedInput = {
-	_connect?: MonospaceSystemUserinteractionsUpdatedByConnectInput;
-	_create?: MonospaceSystemUserinteractionsUpdatedByCreateArguments;
-}
-
-export type MonospaceSystemUserinteractionsUpdatedByCreateRelatedWithoutTypeInput = {
-	attachments?: readonly interactionsattachmentsCreateRelatedInput[];
-	body?: string | null;
-	completedAt?: string | null;
-	contacts?: interactionscontactsCreateRelatedInput;
-	createdAt?: string;
-	createdBy?: interactionscreatedByCreateRelatedInput;
-	direction?: string;
-	dueAt?: string | null;
-	id?: Uuid;
-	occurredAt?: string;
-	opportunities?: interactionsopportunitiesCreateRelatedInput;
-	organizations: interactionsorganizationsCreateRelatedInput;
-	owner?: interactionsownerCreateRelatedInput;
-	status: string;
-	subject: string;
-	type: string;
-	updatedAt?: string;
-}
-
-export type MonospaceSystemUserinteractionsUpdatedByRelationFieldArguments = {
-	filter?: interactionsFilterInput;
-	limit?: Int64Input;
-	offset?: UInt64Input;
-	sort?: readonly interactionsSortSpecifier[];
-}
-
-export type MonospaceSystemUserinteractionsUpdatedByUpdateManyRelatedOperationsInput = {
-	_connect?: MonospaceSystemUserinteractionsUpdatedByConnectInput;
-	_create?: MonospaceSystemUserinteractionsUpdatedByCreateArguments;
-	_delete?: interactionsDeleteArguments;
-	_disconnect?: interactionsDisconnectManyInput;
-	_update?: interactionsUpdateInput;
-}
-
-export type MonospaceSystemUseropportunitiesCreatedByConnectBackwardKeysInput = {
-	id?: Uuid;
-}
-
-export type MonospaceSystemUseropportunitiesCreatedByConnectInput = {
-	keys: readonly MonospaceSystemUseropportunitiesCreatedByConnectBackwardKeysInput[];
-}
-
-export type MonospaceSystemUseropportunitiesCreatedByCreateArguments = {
-	data: readonly MonospaceSystemUseropportunitiesCreatedByCreateRelatedWithoutTypeInput[];
-}
-
-export type MonospaceSystemUseropportunitiesCreatedByCreateRelatedInput = {
-	_connect?: MonospaceSystemUseropportunitiesCreatedByConnectInput;
-	_create?: MonospaceSystemUseropportunitiesCreatedByCreateArguments;
-}
-
-export type MonospaceSystemUseropportunitiesCreatedByCreateRelatedWithoutTypeInput = {
-	attachments?: readonly opportunitiesattachmentsCreateRelatedInput[];
-	contacts?: opportunitiescontactsCreateRelatedInput;
+export type MonospaceSystemUserdealsCreatedByCreateRelatedWithoutTypeInput = {
+	activities?: readonly dealsactivitiesCreateRelatedInput[];
+	attachments?: readonly dealsattachmentsCreateRelatedInput[];
+	contacts?: dealscontactsCreateRelatedInput;
 	createdAt?: string;
 	currency?: string;
 	expectedCloseDate?: string | null;
 	id?: Uuid;
-	interactions?: readonly opportunitiesinteractionsCreateRelatedInput[];
 	notes?: string | null;
-	organizations: opportunitiesorganizationsCreateRelatedInput;
-	owner?: opportunitiesownerCreateRelatedInput;
-	pipeline_stages: opportunitiespipeline_stagesCreateRelatedInput;
+	organizations: dealsorganizationsCreateRelatedInput;
+	owner?: dealsownerCreateRelatedInput;
+	pipeline_stages: dealspipeline_stagesCreateRelatedInput;
 	status?: string;
 	title: string;
 	updatedAt?: string;
-	updatedBy?: opportunitiesupdatedByCreateRelatedInput;
+	updatedBy?: dealsupdatedByCreateRelatedInput;
 	valueAmount?: string | null;
 }
 
-export type MonospaceSystemUseropportunitiesCreatedByRelationFieldArguments = {
-	filter?: opportunitiesFilterInput;
+export type MonospaceSystemUserdealsCreatedByRelationFieldArguments = {
+	filter?: dealsFilterInput;
 	limit?: Int64Input;
 	offset?: UInt64Input;
-	sort?: readonly opportunitiesSortSpecifier[];
+	sort?: readonly dealsSortSpecifier[];
 }
 
-export type MonospaceSystemUseropportunitiesCreatedByUpdateManyRelatedOperationsInput = {
-	_connect?: MonospaceSystemUseropportunitiesCreatedByConnectInput;
-	_create?: MonospaceSystemUseropportunitiesCreatedByCreateArguments;
-	_delete?: opportunitiesDeleteArguments;
-	_disconnect?: opportunitiesDisconnectManyInput;
-	_update?: opportunitiesUpdateInput;
+export type MonospaceSystemUserdealsCreatedByUpdateManyRelatedOperationsInput = {
+	_connect?: MonospaceSystemUserdealsCreatedByConnectInput;
+	_create?: MonospaceSystemUserdealsCreatedByCreateArguments;
+	_delete?: dealsDeleteArguments;
+	_disconnect?: dealsDisconnectManyInput;
+	_update?: dealsUpdateInput;
 }
 
-export type MonospaceSystemUseropportunitiesOwnerConnectBackwardKeysInput = {
+export type MonospaceSystemUserdealsOwnerConnectBackwardKeysInput = {
 	id?: Uuid;
 }
 
-export type MonospaceSystemUseropportunitiesOwnerConnectInput = {
-	keys: readonly MonospaceSystemUseropportunitiesOwnerConnectBackwardKeysInput[];
+export type MonospaceSystemUserdealsOwnerConnectInput = {
+	keys: readonly MonospaceSystemUserdealsOwnerConnectBackwardKeysInput[];
 }
 
-export type MonospaceSystemUseropportunitiesOwnerCreateArguments = {
-	data: readonly MonospaceSystemUseropportunitiesOwnerCreateRelatedWithoutTypeInput[];
+export type MonospaceSystemUserdealsOwnerCreateArguments = {
+	data: readonly MonospaceSystemUserdealsOwnerCreateRelatedWithoutTypeInput[];
 }
 
-export type MonospaceSystemUseropportunitiesOwnerCreateRelatedInput = {
-	_connect?: MonospaceSystemUseropportunitiesOwnerConnectInput;
-	_create?: MonospaceSystemUseropportunitiesOwnerCreateArguments;
+export type MonospaceSystemUserdealsOwnerCreateRelatedInput = {
+	_connect?: MonospaceSystemUserdealsOwnerConnectInput;
+	_create?: MonospaceSystemUserdealsOwnerCreateArguments;
 }
 
-export type MonospaceSystemUseropportunitiesOwnerCreateRelatedWithoutTypeInput = {
-	attachments?: readonly opportunitiesattachmentsCreateRelatedInput[];
-	contacts?: opportunitiescontactsCreateRelatedInput;
+export type MonospaceSystemUserdealsOwnerCreateRelatedWithoutTypeInput = {
+	activities?: readonly dealsactivitiesCreateRelatedInput[];
+	attachments?: readonly dealsattachmentsCreateRelatedInput[];
+	contacts?: dealscontactsCreateRelatedInput;
 	createdAt?: string;
-	createdBy?: opportunitiescreatedByCreateRelatedInput;
+	createdBy?: dealscreatedByCreateRelatedInput;
 	currency?: string;
 	expectedCloseDate?: string | null;
 	id?: Uuid;
-	interactions?: readonly opportunitiesinteractionsCreateRelatedInput[];
 	notes?: string | null;
-	organizations: opportunitiesorganizationsCreateRelatedInput;
-	pipeline_stages: opportunitiespipeline_stagesCreateRelatedInput;
+	organizations: dealsorganizationsCreateRelatedInput;
+	pipeline_stages: dealspipeline_stagesCreateRelatedInput;
 	status?: string;
 	title: string;
 	updatedAt?: string;
-	updatedBy?: opportunitiesupdatedByCreateRelatedInput;
+	updatedBy?: dealsupdatedByCreateRelatedInput;
 	valueAmount?: string | null;
 }
 
-export type MonospaceSystemUseropportunitiesOwnerRelationFieldArguments = {
-	filter?: opportunitiesFilterInput;
+export type MonospaceSystemUserdealsOwnerRelationFieldArguments = {
+	filter?: dealsFilterInput;
 	limit?: Int64Input;
 	offset?: UInt64Input;
-	sort?: readonly opportunitiesSortSpecifier[];
+	sort?: readonly dealsSortSpecifier[];
 }
 
-export type MonospaceSystemUseropportunitiesOwnerUpdateManyRelatedOperationsInput = {
-	_connect?: MonospaceSystemUseropportunitiesOwnerConnectInput;
-	_create?: MonospaceSystemUseropportunitiesOwnerCreateArguments;
-	_delete?: opportunitiesDeleteArguments;
-	_disconnect?: opportunitiesDisconnectManyInput;
-	_update?: opportunitiesUpdateInput;
+export type MonospaceSystemUserdealsOwnerUpdateManyRelatedOperationsInput = {
+	_connect?: MonospaceSystemUserdealsOwnerConnectInput;
+	_create?: MonospaceSystemUserdealsOwnerCreateArguments;
+	_delete?: dealsDeleteArguments;
+	_disconnect?: dealsDisconnectManyInput;
+	_update?: dealsUpdateInput;
 }
 
-export type MonospaceSystemUseropportunitiesUpdatedByConnectBackwardKeysInput = {
+export type MonospaceSystemUserdealsUpdatedByConnectBackwardKeysInput = {
 	id?: Uuid;
 }
 
-export type MonospaceSystemUseropportunitiesUpdatedByConnectInput = {
-	keys: readonly MonospaceSystemUseropportunitiesUpdatedByConnectBackwardKeysInput[];
+export type MonospaceSystemUserdealsUpdatedByConnectInput = {
+	keys: readonly MonospaceSystemUserdealsUpdatedByConnectBackwardKeysInput[];
 }
 
-export type MonospaceSystemUseropportunitiesUpdatedByCreateArguments = {
-	data: readonly MonospaceSystemUseropportunitiesUpdatedByCreateRelatedWithoutTypeInput[];
+export type MonospaceSystemUserdealsUpdatedByCreateArguments = {
+	data: readonly MonospaceSystemUserdealsUpdatedByCreateRelatedWithoutTypeInput[];
 }
 
-export type MonospaceSystemUseropportunitiesUpdatedByCreateRelatedInput = {
-	_connect?: MonospaceSystemUseropportunitiesUpdatedByConnectInput;
-	_create?: MonospaceSystemUseropportunitiesUpdatedByCreateArguments;
+export type MonospaceSystemUserdealsUpdatedByCreateRelatedInput = {
+	_connect?: MonospaceSystemUserdealsUpdatedByConnectInput;
+	_create?: MonospaceSystemUserdealsUpdatedByCreateArguments;
 }
 
-export type MonospaceSystemUseropportunitiesUpdatedByCreateRelatedWithoutTypeInput = {
-	attachments?: readonly opportunitiesattachmentsCreateRelatedInput[];
-	contacts?: opportunitiescontactsCreateRelatedInput;
+export type MonospaceSystemUserdealsUpdatedByCreateRelatedWithoutTypeInput = {
+	activities?: readonly dealsactivitiesCreateRelatedInput[];
+	attachments?: readonly dealsattachmentsCreateRelatedInput[];
+	contacts?: dealscontactsCreateRelatedInput;
 	createdAt?: string;
-	createdBy?: opportunitiescreatedByCreateRelatedInput;
+	createdBy?: dealscreatedByCreateRelatedInput;
 	currency?: string;
 	expectedCloseDate?: string | null;
 	id?: Uuid;
-	interactions?: readonly opportunitiesinteractionsCreateRelatedInput[];
 	notes?: string | null;
-	organizations: opportunitiesorganizationsCreateRelatedInput;
-	owner?: opportunitiesownerCreateRelatedInput;
-	pipeline_stages: opportunitiespipeline_stagesCreateRelatedInput;
+	organizations: dealsorganizationsCreateRelatedInput;
+	owner?: dealsownerCreateRelatedInput;
+	pipeline_stages: dealspipeline_stagesCreateRelatedInput;
 	status?: string;
 	title: string;
 	updatedAt?: string;
 	valueAmount?: string | null;
 }
 
-export type MonospaceSystemUseropportunitiesUpdatedByRelationFieldArguments = {
-	filter?: opportunitiesFilterInput;
+export type MonospaceSystemUserdealsUpdatedByRelationFieldArguments = {
+	filter?: dealsFilterInput;
 	limit?: Int64Input;
 	offset?: UInt64Input;
-	sort?: readonly opportunitiesSortSpecifier[];
+	sort?: readonly dealsSortSpecifier[];
 }
 
-export type MonospaceSystemUseropportunitiesUpdatedByUpdateManyRelatedOperationsInput = {
-	_connect?: MonospaceSystemUseropportunitiesUpdatedByConnectInput;
-	_create?: MonospaceSystemUseropportunitiesUpdatedByCreateArguments;
-	_delete?: opportunitiesDeleteArguments;
-	_disconnect?: opportunitiesDisconnectManyInput;
-	_update?: opportunitiesUpdateInput;
+export type MonospaceSystemUserdealsUpdatedByUpdateManyRelatedOperationsInput = {
+	_connect?: MonospaceSystemUserdealsUpdatedByConnectInput;
+	_create?: MonospaceSystemUserdealsUpdatedByCreateArguments;
+	_delete?: dealsDeleteArguments;
+	_disconnect?: dealsDisconnectManyInput;
+	_update?: dealsUpdateInput;
 }
 
 export type MonospaceSystemUserorganizationsCreatedByConnectBackwardKeysInput = {
@@ -6143,16 +6143,16 @@ export type MonospaceSystemUserorganizationsCreatedByCreateRelatedInput = {
 }
 
 export type MonospaceSystemUserorganizationsCreatedByCreateRelatedWithoutTypeInput = {
+	activities?: readonly organizationsactivitiesCreateRelatedInput[];
+	affiliations?: readonly organizationsaffiliationsCreateRelatedInput[];
 	attachments?: readonly organizationsattachmentsCreateRelatedInput[];
-	contact_organizations?: readonly organizationscontact_organizationsCreateRelatedInput[];
 	createdAt?: string;
+	deals?: readonly organizationsdealsCreateRelatedInput[];
 	domain?: string | null;
 	id?: Uuid;
 	industry?: string | null;
-	interactions?: readonly organizationsinteractionsCreateRelatedInput[];
 	name: string;
 	notes?: string | null;
-	opportunities?: readonly organizationsopportunitiesCreateRelatedInput[];
 	owner?: organizationsownerCreateRelatedInput;
 	portalAccount?: organizationsportalAccountCreateRelatedInput;
 	portalAccountId?: string | null;
@@ -6195,17 +6195,17 @@ export type MonospaceSystemUserorganizationsOwnerCreateRelatedInput = {
 }
 
 export type MonospaceSystemUserorganizationsOwnerCreateRelatedWithoutTypeInput = {
+	activities?: readonly organizationsactivitiesCreateRelatedInput[];
+	affiliations?: readonly organizationsaffiliationsCreateRelatedInput[];
 	attachments?: readonly organizationsattachmentsCreateRelatedInput[];
-	contact_organizations?: readonly organizationscontact_organizationsCreateRelatedInput[];
 	createdAt?: string;
 	createdBy?: organizationscreatedByCreateRelatedInput;
+	deals?: readonly organizationsdealsCreateRelatedInput[];
 	domain?: string | null;
 	id?: Uuid;
 	industry?: string | null;
-	interactions?: readonly organizationsinteractionsCreateRelatedInput[];
 	name: string;
 	notes?: string | null;
-	opportunities?: readonly organizationsopportunitiesCreateRelatedInput[];
 	portalAccount?: organizationsportalAccountCreateRelatedInput;
 	portalAccountId?: string | null;
 	status?: string;
@@ -6247,17 +6247,17 @@ export type MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput = {
 }
 
 export type MonospaceSystemUserorganizationsUpdatedByCreateRelatedWithoutTypeInput = {
+	activities?: readonly organizationsactivitiesCreateRelatedInput[];
+	affiliations?: readonly organizationsaffiliationsCreateRelatedInput[];
 	attachments?: readonly organizationsattachmentsCreateRelatedInput[];
-	contact_organizations?: readonly organizationscontact_organizationsCreateRelatedInput[];
 	createdAt?: string;
 	createdBy?: organizationscreatedByCreateRelatedInput;
+	deals?: readonly organizationsdealsCreateRelatedInput[];
 	domain?: string | null;
 	id?: Uuid;
 	industry?: string | null;
-	interactions?: readonly organizationsinteractionsCreateRelatedInput[];
 	name: string;
 	notes?: string | null;
-	opportunities?: readonly organizationsopportunitiesCreateRelatedInput[];
 	owner?: organizationsownerCreateRelatedInput;
 	portalAccount?: organizationsportalAccountCreateRelatedInput;
 	portalAccountId?: string | null;
@@ -6464,25 +6464,25 @@ export type MonospaceUserRoleuserCreateRelatedInput = {
 }
 
 export type MonospaceUserRoleuserCreateRelatedWithoutTypeInput = {
+	activitiesCreatedBy?: readonly MonospaceSystemUseractivitiesCreatedByCreateRelatedInput[];
+	activitiesOwner?: readonly MonospaceSystemUseractivitiesOwnerCreateRelatedInput[];
+	activitiesUpdatedBy?: readonly MonospaceSystemUseractivitiesUpdatedByCreateRelatedInput[];
+	affiliationsCreatedBy?: readonly MonospaceSystemUseraffiliationsCreatedByCreateRelatedInput[];
+	affiliationsUpdatedBy?: readonly MonospaceSystemUseraffiliationsUpdatedByCreateRelatedInput[];
 	appearance?: string | null;
 	attachmentsCreatedBy?: readonly MonospaceSystemUserattachmentsCreatedByCreateRelatedInput[];
 	avatarId?: Uuid | null;
-	contactOrganizationsCreatedBy?: readonly MonospaceSystemUsercontactOrganizationsCreatedByCreateRelatedInput[];
-	contactOrganizationsUpdatedBy?: readonly MonospaceSystemUsercontactOrganizationsUpdatedByCreateRelatedInput[];
 	contactsCreatedBy?: readonly MonospaceSystemUsercontactsCreatedByCreateRelatedInput[];
 	contactsOwner?: readonly MonospaceSystemUsercontactsOwnerCreateRelatedInput[];
 	contactsUpdatedBy?: readonly MonospaceSystemUsercontactsUpdatedByCreateRelatedInput[];
+	dealsCreatedBy?: readonly MonospaceSystemUserdealsCreatedByCreateRelatedInput[];
+	dealsOwner?: readonly MonospaceSystemUserdealsOwnerCreateRelatedInput[];
+	dealsUpdatedBy?: readonly MonospaceSystemUserdealsUpdatedByCreateRelatedInput[];
 	email?: string | null;
 	fullName?: string | null;
 	id: Uuid;
-	interactionsCreatedBy?: readonly MonospaceSystemUserinteractionsCreatedByCreateRelatedInput[];
-	interactionsOwner?: readonly MonospaceSystemUserinteractionsOwnerCreateRelatedInput[];
-	interactionsUpdatedBy?: readonly MonospaceSystemUserinteractionsUpdatedByCreateRelatedInput[];
 	isService: boolean;
 	lastActivityAt?: string | null;
-	opportunitiesCreatedBy?: readonly MonospaceSystemUseropportunitiesCreatedByCreateRelatedInput[];
-	opportunitiesOwner?: readonly MonospaceSystemUseropportunitiesOwnerCreateRelatedInput[];
-	opportunitiesUpdatedBy?: readonly MonospaceSystemUseropportunitiesUpdatedByCreateRelatedInput[];
 	organizationsCreatedBy?: readonly MonospaceSystemUserorganizationsCreatedByCreateRelatedInput[];
 	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
 	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
@@ -6749,17 +6749,17 @@ export type accountsorganizationCreateRelatedInput = {
 }
 
 export type accountsorganizationCreateRelatedWithoutTypeInput = {
+	activities?: readonly organizationsactivitiesCreateRelatedInput[];
+	affiliations?: readonly organizationsaffiliationsCreateRelatedInput[];
 	attachments?: readonly organizationsattachmentsCreateRelatedInput[];
-	contact_organizations?: readonly organizationscontact_organizationsCreateRelatedInput[];
 	createdAt?: string;
 	createdBy?: organizationscreatedByCreateRelatedInput;
+	deals?: readonly organizationsdealsCreateRelatedInput[];
 	domain?: string | null;
 	id?: Uuid;
 	industry?: string | null;
-	interactions?: readonly organizationsinteractionsCreateRelatedInput[];
 	name: string;
 	notes?: string | null;
-	opportunities?: readonly organizationsopportunitiesCreateRelatedInput[];
 	owner?: organizationsownerCreateRelatedInput;
 	portalAccountId?: string | null;
 	status?: string;
@@ -6938,7 +6938,905 @@ export type accountsusersUpdateManyRelatedOperationsInput = {
 	_update?: usersUpdateInput;
 }
 
+export type activitiesCollectionOutput = {
+	attachments?: { data: attachmentsCollectionOutput[] };
+	body?: string | null;
+	completedAt?: string | null;
+	contactId?: Uuid | null;
+	contacts?: contactsCollectionOutput | null;
+	createdAt?: string;
+	createdBy?: MonospaceSystemUserCollectionOutput | null;
+	createdById?: Uuid | null;
+	dealId?: Uuid | null;
+	deals?: dealsCollectionOutput | null;
+	direction?: string;
+	dueAt?: string | null;
+	id?: Uuid;
+	occurredAt?: string;
+	organizationId?: Uuid;
+	organizations?: organizationsCollectionOutput;
+	owner?: MonospaceSystemUserCollectionOutput | null;
+	ownerUserId?: Uuid | null;
+	status?: string;
+	subject?: string;
+	type?: string;
+	updatedAt?: string;
+	updatedBy?: MonospaceSystemUserCollectionOutput | null;
+	updatedById?: Uuid | null;
+}
+
+export type activitiesCollectionOutputFieldsInput = readonly ("body" | "completedAt" | "contactId" | "createdAt" | "createdById" | "dealId" | "direction" | "dueAt" | "id" | "occurredAt" | "organizationId" | "ownerUserId" | "status" | "subject" | "type" | "updatedAt" | "updatedById" | "*" | `${string}:${"body" | "completedAt" | "contactId" | "createdAt" | "createdById" | "dealId" | "direction" | "dueAt" | "id" | "occurredAt" | "organizationId" | "ownerUserId" | "status" | "subject" | "type" | "updatedAt" | "updatedById"}`)[];
+
+export type activitiesCollectionOutputIncludeInput = {
+	"attachments"?: (activitiesattachmentsRelationFieldArguments & { "fields"?: attachmentsCollectionOutputFieldsInput; "include"?: attachmentsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (activitiesattachmentsRelationFieldArguments & { "fields"?: attachmentsCollectionOutputFieldsInput; "include"?: attachmentsCollectionOutputIncludeInput })>]?: never };
+	"contacts"?: (activitiescontactsRelationFieldArguments & { "fields"?: contactsCollectionOutputFieldsInput; "include"?: contactsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (activitiescontactsRelationFieldArguments & { "fields"?: contactsCollectionOutputFieldsInput; "include"?: contactsCollectionOutputIncludeInput })>]?: never };
+	"createdBy"?: (activitiescreatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (activitiescreatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput })>]?: never };
+	"deals"?: (activitiesdealsRelationFieldArguments & { "fields"?: dealsCollectionOutputFieldsInput; "include"?: dealsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (activitiesdealsRelationFieldArguments & { "fields"?: dealsCollectionOutputFieldsInput; "include"?: dealsCollectionOutputIncludeInput })>]?: never };
+	"organizations"?: ({ "fields"?: organizationsCollectionOutputFieldsInput; "include"?: organizationsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof ({ "fields"?: organizationsCollectionOutputFieldsInput; "include"?: organizationsCollectionOutputIncludeInput })>]?: never };
+	"owner"?: (activitiesownerRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (activitiesownerRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput })>]?: never };
+	"updatedBy"?: (activitiesupdatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (activitiesupdatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput })>]?: never };
+} & { [K in `${string}:${"attachments"}`]?: activitiesCollectionOutputIncludeInput["attachments"] } & { [K in `${string}:${"contacts"}`]?: activitiesCollectionOutputIncludeInput["contacts"] } & { [K in `${string}:${"createdBy"}`]?: activitiesCollectionOutputIncludeInput["createdBy"] } & { [K in `${string}:${"deals"}`]?: activitiesCollectionOutputIncludeInput["deals"] } & { [K in `${string}:${"organizations"}`]?: activitiesCollectionOutputIncludeInput["organizations"] } & { [K in `${string}:${"owner"}`]?: activitiesCollectionOutputIncludeInput["owner"] } & { [K in `${string}:${"updatedBy"}`]?: activitiesCollectionOutputIncludeInput["updatedBy"] };
+
+export type activitiesCreateArguments = {
+	data: readonly activitiesCreateInput[];
+}
+
+export type activitiesCreateInput = {
+	attachments?: readonly activitiesattachmentsCreateRelatedInput[];
+	body?: string | null;
+	completedAt?: string | null;
+	contacts?: activitiescontactsCreateRelatedInput;
+	createdAt?: string;
+	createdBy?: activitiescreatedByCreateRelatedInput;
+	deals?: activitiesdealsCreateRelatedInput;
+	direction?: string;
+	dueAt?: string | null;
+	id?: Uuid;
+	occurredAt?: string;
+	organizations: activitiesorganizationsCreateRelatedInput;
+	owner?: activitiesownerCreateRelatedInput;
+	status: string;
+	subject: string;
+	type: string;
+	updatedAt?: string;
+	updatedBy?: activitiesupdatedByCreateRelatedInput;
+}
+
+export type activitiesDeleteArguments = {
+	filter?: activitiesFilterInput;
+}
+
+export type activitiesDeleteOneArguments = {
+	filter?: activitiesFilterInput;
+	key: Uuid;
+}
+
+export type activitiesDisconnectManyInput = {
+	filter?: activitiesFilterInput;
+}
+
+export type activitiesDisconnectOneInput = {}
+
+export type activitiesFilterInput = {
+	_and?: readonly activitiesFilterInput[];
+	_not?: activitiesFilterInput;
+	_or?: readonly activitiesFilterInput[];
+	attachments?: attachmentsFilterQuantifierInput | attachmentsFilterInput;
+	body?: StringFilterNullablePrimitiveInput | string | null;
+	completedAt?: DateTimeFilterNullablePrimitiveInput | string | null;
+	contactId?: UuidFilterNullablePrimitiveInput | Uuid | null;
+	contacts?: contactsFilterInput;
+	createdAt?: DateTimeFilterPrimitiveInput | string;
+	createdBy?: MonospaceSystemUserFilterInput;
+	createdById?: UuidFilterNullablePrimitiveInput | Uuid | null;
+	dealId?: UuidFilterNullablePrimitiveInput | Uuid | null;
+	deals?: dealsFilterInput;
+	direction?: StringFilterPrimitiveInput | string;
+	dueAt?: DateTimeFilterNullablePrimitiveInput | string | null;
+	id?: UuidFilterPrimitiveInput | Uuid;
+	occurredAt?: DateTimeFilterPrimitiveInput | string;
+	organizationId?: UuidFilterPrimitiveInput | Uuid;
+	organizations?: organizationsFilterInput;
+	owner?: MonospaceSystemUserFilterInput;
+	ownerUserId?: UuidFilterNullablePrimitiveInput | Uuid | null;
+	status?: StringFilterPrimitiveInput | string;
+	subject?: StringFilterPrimitiveInput | string;
+	type?: StringFilterPrimitiveInput | string;
+	updatedAt?: DateTimeFilterPrimitiveInput | string;
+	updatedBy?: MonospaceSystemUserFilterInput;
+	updatedById?: UuidFilterNullablePrimitiveInput | Uuid | null;
+}
+
+export type activitiesFilterQuantifierInput = {
+	_every?: activitiesFilterInput;
+	_none?: activitiesFilterInput;
+	_some?: activitiesFilterInput;
+}
+
+export type activitiesListArguments = {
+	filter?: activitiesFilterInput;
+	limit?: Int64Input;
+	meta?: MetaArguments;
+	offset?: UInt64Input;
+	sort?: readonly activitiesSortSpecifier[];
+}
+
+export type activitiesReadArguments = {
+	filter?: activitiesFilterInput;
+	key: Uuid;
+}
+
+export type activitiesSortSpecifier = {
+	body?: SortFieldOptions;
+	completedAt?: SortFieldOptions;
+	contactId?: SortFieldOptions;
+	createdAt?: SortFieldOptions;
+	createdById?: SortFieldOptions;
+	dealId?: SortFieldOptions;
+	direction?: SortFieldOptions;
+	dueAt?: SortFieldOptions;
+	id?: SortFieldOptions;
+	occurredAt?: SortFieldOptions;
+	organizationId?: SortFieldOptions;
+	ownerUserId?: SortFieldOptions;
+	status?: SortFieldOptions;
+	subject?: SortFieldOptions;
+	type?: SortFieldOptions;
+	updatedAt?: SortFieldOptions;
+	updatedById?: SortFieldOptions;
+}
+
+export type activitiesUpdateArguments = {
+	data: activitiesUpdateDataInput;
+	filter?: activitiesFilterInput;
+}
+
+export type activitiesUpdateDataInput = {
+	attachments?: readonly activitiesattachmentsUpdateManyRelatedOperationsInput[];
+	body?: string | null;
+	completedAt?: string | null;
+	contactId?: Uuid | null;
+	contacts?: readonly activitiescontactsUpdateOneRelatedOperationsInput[];
+	createdAt?: string;
+	createdBy?: readonly activitiescreatedByUpdateOneRelatedOperationsInput[];
+	createdById?: Uuid | null;
+	dealId?: Uuid | null;
+	deals?: readonly activitiesdealsUpdateOneRelatedOperationsInput[];
+	direction?: string;
+	dueAt?: string | null;
+	id?: Uuid;
+	occurredAt?: string;
+	organizationId?: Uuid;
+	organizations?: readonly activitiesorganizationsUpdateOneRelatedOperationsInput[];
+	owner?: readonly activitiesownerUpdateOneRelatedOperationsInput[];
+	ownerUserId?: Uuid | null;
+	status?: string;
+	subject?: string;
+	type?: string;
+	updatedAt?: string;
+	updatedBy?: readonly activitiesupdatedByUpdateOneRelatedOperationsInput[];
+	updatedById?: Uuid | null;
+}
+
+export type activitiesUpdateInput = {
+	data: activitiesUpdateDataInput;
+	filter?: activitiesFilterInput;
+}
+
+export type activitiesUpdateOneArguments = {
+	data: activitiesUpdateDataInput;
+	filter?: activitiesFilterInput;
+	key: Uuid;
+}
+
+export type activitiesattachmentsConnectBackwardKeysInput = {
+	assetId?: Uuid;
+	id?: Uuid;
+}
+
+export type activitiesattachmentsConnectInput = {
+	keys: readonly activitiesattachmentsConnectBackwardKeysInput[];
+}
+
+export type activitiesattachmentsCreateArguments = {
+	data: readonly activitiesattachmentsCreateRelatedWithoutTypeInput[];
+}
+
+export type activitiesattachmentsCreateRelatedInput = {
+	_connect?: activitiesattachmentsConnectInput;
+	_create?: activitiesattachmentsCreateArguments;
+}
+
+export type activitiesattachmentsCreateRelatedWithoutTypeInput = {
+	assetId?: Uuid | null;
+	contacts?: attachmentscontactsCreateRelatedInput;
+	contentType?: string | null;
+	createdAt?: string;
+	createdBy?: attachmentscreatedByCreateRelatedInput;
+	deals?: attachmentsdealsCreateRelatedInput;
+	fileName: string;
+	id?: Uuid;
+	organizations: attachmentsorganizationsCreateRelatedInput;
+	sizeBytes?: Int64Input | null;
+	url?: string | null;
+}
+
+export type activitiesattachmentsRelationFieldArguments = {
+	filter?: attachmentsFilterInput;
+	limit?: Int64Input;
+	offset?: UInt64Input;
+	sort?: readonly attachmentsSortSpecifier[];
+}
+
+export type activitiesattachmentsUpdateManyRelatedOperationsInput = {
+	_connect?: activitiesattachmentsConnectInput;
+	_create?: activitiesattachmentsCreateArguments;
+	_delete?: attachmentsDeleteArguments;
+	_disconnect?: attachmentsDisconnectManyInput;
+	_update?: attachmentsUpdateInput;
+}
+
+export type activitiescontactsConnectForwardKeyInput = {
+	id: Uuid | null;
+}
+
+export type activitiescontactsConnectInput = {
+	key: activitiescontactsConnectForwardKeyInput;
+}
+
+export type activitiescontactsCreateArguments = {
+	data: activitiescontactsCreateRelatedWithoutTypeInput;
+}
+
+export type activitiescontactsCreateRelatedInput = {
+	_connect?: activitiescontactsConnectInput;
+	_create?: activitiescontactsCreateArguments;
+}
+
+export type activitiescontactsCreateRelatedWithoutTypeInput = {
+	affiliations?: readonly contactsaffiliationsCreateRelatedInput[];
+	attachments?: readonly contactsattachmentsCreateRelatedInput[];
+	createdAt?: string;
+	createdBy?: contactscreatedByCreateRelatedInput;
+	deals?: readonly contactsdealsCreateRelatedInput[];
+	email?: string | null;
+	firstName: string;
+	id?: Uuid;
+	lastName: string;
+	notes?: string | null;
+	owner?: contactsownerCreateRelatedInput;
+	phone?: string | null;
+	portalUser?: contactsportalUserCreateRelatedInput;
+	status?: string;
+	updatedAt?: string;
+	updatedBy?: contactsupdatedByCreateRelatedInput;
+}
+
+export type activitiescontactsRelationFieldArguments = {
+	filter?: contactsFilterInput;
+}
+
+export type activitiescontactsUpdateOneRelatedOperationsInput = {
+	_connect?: activitiescontactsConnectInput;
+	_create?: activitiescontactsCreateArguments;
+	_delete?: contactsDeleteArguments;
+	_disconnect?: contactsDisconnectOneInput;
+	_update?: contactsUpdateInput;
+}
+
+export type activitiescreatedByConnectForwardKeyInput = {
+	id: Uuid | null;
+}
+
+export type activitiescreatedByConnectInput = {
+	key: activitiescreatedByConnectForwardKeyInput;
+}
+
+export type activitiescreatedByCreateArguments = {
+	data: activitiescreatedByCreateRelatedWithoutTypeInput;
+}
+
+export type activitiescreatedByCreateRelatedInput = {
+	_connect?: activitiescreatedByConnectInput;
+	_create?: activitiescreatedByCreateArguments;
+}
+
+export type activitiescreatedByCreateRelatedWithoutTypeInput = {
+	activitiesOwner?: readonly MonospaceSystemUseractivitiesOwnerCreateRelatedInput[];
+	activitiesUpdatedBy?: readonly MonospaceSystemUseractivitiesUpdatedByCreateRelatedInput[];
+	affiliationsCreatedBy?: readonly MonospaceSystemUseraffiliationsCreatedByCreateRelatedInput[];
+	affiliationsUpdatedBy?: readonly MonospaceSystemUseraffiliationsUpdatedByCreateRelatedInput[];
+	appearance?: string | null;
+	attachmentsCreatedBy?: readonly MonospaceSystemUserattachmentsCreatedByCreateRelatedInput[];
+	avatarId?: Uuid | null;
+	contactsCreatedBy?: readonly MonospaceSystemUsercontactsCreatedByCreateRelatedInput[];
+	contactsOwner?: readonly MonospaceSystemUsercontactsOwnerCreateRelatedInput[];
+	contactsUpdatedBy?: readonly MonospaceSystemUsercontactsUpdatedByCreateRelatedInput[];
+	dealsCreatedBy?: readonly MonospaceSystemUserdealsCreatedByCreateRelatedInput[];
+	dealsOwner?: readonly MonospaceSystemUserdealsOwnerCreateRelatedInput[];
+	dealsUpdatedBy?: readonly MonospaceSystemUserdealsUpdatedByCreateRelatedInput[];
+	email?: string | null;
+	fullName?: string | null;
+	id: Uuid;
+	isService: boolean;
+	lastActivityAt?: string | null;
+	organizationsCreatedBy?: readonly MonospaceSystemUserorganizationsCreatedByCreateRelatedInput[];
+	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
+	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
+	roles?: readonly MonospaceSystemUserrolesCreateRelatedInput[];
+	serviceOwnerId?: Uuid | null;
+	status?: string;
+	storageValues?: readonly MonospaceSystemUserstorageValuesCreateRelatedInput[];
+}
+
+export type activitiescreatedByRelationFieldArguments = {
+	filter?: MonospaceSystemUserFilterInput;
+}
+
+export type activitiescreatedByUpdateOneRelatedOperationsInput = {
+	_connect?: activitiescreatedByConnectInput;
+	_create?: activitiescreatedByCreateArguments;
+	_delete?: MonospaceSystemUserDeleteArguments;
+	_disconnect?: MonospaceSystemUserDisconnectOneInput;
+	_update?: MonospaceSystemUserUpdateInput;
+}
+
+export type activitiesdealsConnectForwardKeyInput = {
+	id: Uuid | null;
+}
+
+export type activitiesdealsConnectInput = {
+	key: activitiesdealsConnectForwardKeyInput;
+}
+
+export type activitiesdealsCreateArguments = {
+	data: activitiesdealsCreateRelatedWithoutTypeInput;
+}
+
+export type activitiesdealsCreateRelatedInput = {
+	_connect?: activitiesdealsConnectInput;
+	_create?: activitiesdealsCreateArguments;
+}
+
+export type activitiesdealsCreateRelatedWithoutTypeInput = {
+	attachments?: readonly dealsattachmentsCreateRelatedInput[];
+	contacts?: dealscontactsCreateRelatedInput;
+	createdAt?: string;
+	createdBy?: dealscreatedByCreateRelatedInput;
+	currency?: string;
+	expectedCloseDate?: string | null;
+	id?: Uuid;
+	notes?: string | null;
+	organizations: dealsorganizationsCreateRelatedInput;
+	owner?: dealsownerCreateRelatedInput;
+	pipeline_stages: dealspipeline_stagesCreateRelatedInput;
+	status?: string;
+	title: string;
+	updatedAt?: string;
+	updatedBy?: dealsupdatedByCreateRelatedInput;
+	valueAmount?: string | null;
+}
+
+export type activitiesdealsRelationFieldArguments = {
+	filter?: dealsFilterInput;
+}
+
+export type activitiesdealsUpdateOneRelatedOperationsInput = {
+	_connect?: activitiesdealsConnectInput;
+	_create?: activitiesdealsCreateArguments;
+	_delete?: dealsDeleteArguments;
+	_disconnect?: dealsDisconnectOneInput;
+	_update?: dealsUpdateInput;
+}
+
+export type activitiesorganizationsConnectForwardKeyInput = {
+	id: Uuid;
+}
+
+export type activitiesorganizationsConnectInput = {
+	key: activitiesorganizationsConnectForwardKeyInput;
+}
+
+export type activitiesorganizationsCreateArguments = {
+	data: activitiesorganizationsCreateRelatedWithoutTypeInput;
+}
+
+export type activitiesorganizationsCreateRelatedInput = {
+	_connect?: activitiesorganizationsConnectInput;
+	_create?: activitiesorganizationsCreateArguments;
+}
+
+export type activitiesorganizationsCreateRelatedWithoutTypeInput = {
+	affiliations?: readonly organizationsaffiliationsCreateRelatedInput[];
+	attachments?: readonly organizationsattachmentsCreateRelatedInput[];
+	createdAt?: string;
+	createdBy?: organizationscreatedByCreateRelatedInput;
+	deals?: readonly organizationsdealsCreateRelatedInput[];
+	domain?: string | null;
+	id?: Uuid;
+	industry?: string | null;
+	name: string;
+	notes?: string | null;
+	owner?: organizationsownerCreateRelatedInput;
+	portalAccount?: organizationsportalAccountCreateRelatedInput;
+	portalAccountId?: string | null;
+	status?: string;
+	updatedAt?: string;
+	updatedBy?: organizationsupdatedByCreateRelatedInput;
+}
+
+export type activitiesorganizationsUpdateOneRelatedOperationsInput = {
+	_connect?: activitiesorganizationsConnectInput;
+	_create?: activitiesorganizationsCreateArguments;
+	_update?: organizationsUpdateInput;
+}
+
+export type activitiesownerConnectForwardKeyInput = {
+	id: Uuid | null;
+}
+
+export type activitiesownerConnectInput = {
+	key: activitiesownerConnectForwardKeyInput;
+}
+
+export type activitiesownerCreateArguments = {
+	data: activitiesownerCreateRelatedWithoutTypeInput;
+}
+
+export type activitiesownerCreateRelatedInput = {
+	_connect?: activitiesownerConnectInput;
+	_create?: activitiesownerCreateArguments;
+}
+
+export type activitiesownerCreateRelatedWithoutTypeInput = {
+	activitiesCreatedBy?: readonly MonospaceSystemUseractivitiesCreatedByCreateRelatedInput[];
+	activitiesUpdatedBy?: readonly MonospaceSystemUseractivitiesUpdatedByCreateRelatedInput[];
+	affiliationsCreatedBy?: readonly MonospaceSystemUseraffiliationsCreatedByCreateRelatedInput[];
+	affiliationsUpdatedBy?: readonly MonospaceSystemUseraffiliationsUpdatedByCreateRelatedInput[];
+	appearance?: string | null;
+	attachmentsCreatedBy?: readonly MonospaceSystemUserattachmentsCreatedByCreateRelatedInput[];
+	avatarId?: Uuid | null;
+	contactsCreatedBy?: readonly MonospaceSystemUsercontactsCreatedByCreateRelatedInput[];
+	contactsOwner?: readonly MonospaceSystemUsercontactsOwnerCreateRelatedInput[];
+	contactsUpdatedBy?: readonly MonospaceSystemUsercontactsUpdatedByCreateRelatedInput[];
+	dealsCreatedBy?: readonly MonospaceSystemUserdealsCreatedByCreateRelatedInput[];
+	dealsOwner?: readonly MonospaceSystemUserdealsOwnerCreateRelatedInput[];
+	dealsUpdatedBy?: readonly MonospaceSystemUserdealsUpdatedByCreateRelatedInput[];
+	email?: string | null;
+	fullName?: string | null;
+	id: Uuid;
+	isService: boolean;
+	lastActivityAt?: string | null;
+	organizationsCreatedBy?: readonly MonospaceSystemUserorganizationsCreatedByCreateRelatedInput[];
+	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
+	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
+	roles?: readonly MonospaceSystemUserrolesCreateRelatedInput[];
+	serviceOwnerId?: Uuid | null;
+	status?: string;
+	storageValues?: readonly MonospaceSystemUserstorageValuesCreateRelatedInput[];
+}
+
+export type activitiesownerRelationFieldArguments = {
+	filter?: MonospaceSystemUserFilterInput;
+}
+
+export type activitiesownerUpdateOneRelatedOperationsInput = {
+	_connect?: activitiesownerConnectInput;
+	_create?: activitiesownerCreateArguments;
+	_delete?: MonospaceSystemUserDeleteArguments;
+	_disconnect?: MonospaceSystemUserDisconnectOneInput;
+	_update?: MonospaceSystemUserUpdateInput;
+}
+
+export type activitiesupdatedByConnectForwardKeyInput = {
+	id: Uuid | null;
+}
+
+export type activitiesupdatedByConnectInput = {
+	key: activitiesupdatedByConnectForwardKeyInput;
+}
+
+export type activitiesupdatedByCreateArguments = {
+	data: activitiesupdatedByCreateRelatedWithoutTypeInput;
+}
+
+export type activitiesupdatedByCreateRelatedInput = {
+	_connect?: activitiesupdatedByConnectInput;
+	_create?: activitiesupdatedByCreateArguments;
+}
+
+export type activitiesupdatedByCreateRelatedWithoutTypeInput = {
+	activitiesCreatedBy?: readonly MonospaceSystemUseractivitiesCreatedByCreateRelatedInput[];
+	activitiesOwner?: readonly MonospaceSystemUseractivitiesOwnerCreateRelatedInput[];
+	affiliationsCreatedBy?: readonly MonospaceSystemUseraffiliationsCreatedByCreateRelatedInput[];
+	affiliationsUpdatedBy?: readonly MonospaceSystemUseraffiliationsUpdatedByCreateRelatedInput[];
+	appearance?: string | null;
+	attachmentsCreatedBy?: readonly MonospaceSystemUserattachmentsCreatedByCreateRelatedInput[];
+	avatarId?: Uuid | null;
+	contactsCreatedBy?: readonly MonospaceSystemUsercontactsCreatedByCreateRelatedInput[];
+	contactsOwner?: readonly MonospaceSystemUsercontactsOwnerCreateRelatedInput[];
+	contactsUpdatedBy?: readonly MonospaceSystemUsercontactsUpdatedByCreateRelatedInput[];
+	dealsCreatedBy?: readonly MonospaceSystemUserdealsCreatedByCreateRelatedInput[];
+	dealsOwner?: readonly MonospaceSystemUserdealsOwnerCreateRelatedInput[];
+	dealsUpdatedBy?: readonly MonospaceSystemUserdealsUpdatedByCreateRelatedInput[];
+	email?: string | null;
+	fullName?: string | null;
+	id: Uuid;
+	isService: boolean;
+	lastActivityAt?: string | null;
+	organizationsCreatedBy?: readonly MonospaceSystemUserorganizationsCreatedByCreateRelatedInput[];
+	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
+	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
+	roles?: readonly MonospaceSystemUserrolesCreateRelatedInput[];
+	serviceOwnerId?: Uuid | null;
+	status?: string;
+	storageValues?: readonly MonospaceSystemUserstorageValuesCreateRelatedInput[];
+}
+
+export type activitiesupdatedByRelationFieldArguments = {
+	filter?: MonospaceSystemUserFilterInput;
+}
+
+export type activitiesupdatedByUpdateOneRelatedOperationsInput = {
+	_connect?: activitiesupdatedByConnectInput;
+	_create?: activitiesupdatedByCreateArguments;
+	_delete?: MonospaceSystemUserDeleteArguments;
+	_disconnect?: MonospaceSystemUserDisconnectOneInput;
+	_update?: MonospaceSystemUserUpdateInput;
+}
+
+export type affiliationsCollectionOutput = {
+	contactId?: Uuid;
+	contacts?: contactsCollectionOutput;
+	createdAt?: string;
+	createdBy?: MonospaceSystemUserCollectionOutput | null;
+	createdById?: Uuid | null;
+	endedAt?: string | null;
+	id?: Uuid;
+	isPrimary?: boolean;
+	organizationId?: Uuid;
+	organizations?: organizationsCollectionOutput;
+	role?: string | null;
+	startedAt?: string | null;
+	title?: string | null;
+	updatedAt?: string;
+	updatedBy?: MonospaceSystemUserCollectionOutput | null;
+	updatedById?: Uuid | null;
+}
+
+export type affiliationsCollectionOutputFieldsInput = readonly ("contactId" | "createdAt" | "createdById" | "endedAt" | "id" | "isPrimary" | "organizationId" | "role" | "startedAt" | "title" | "updatedAt" | "updatedById" | "*" | `${string}:${"contactId" | "createdAt" | "createdById" | "endedAt" | "id" | "isPrimary" | "organizationId" | "role" | "startedAt" | "title" | "updatedAt" | "updatedById"}`)[];
+
+export type affiliationsCollectionOutputIncludeInput = {
+	"contacts"?: ({ "fields"?: contactsCollectionOutputFieldsInput; "include"?: contactsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof ({ "fields"?: contactsCollectionOutputFieldsInput; "include"?: contactsCollectionOutputIncludeInput })>]?: never };
+	"createdBy"?: (affiliationscreatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (affiliationscreatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput })>]?: never };
+	"organizations"?: ({ "fields"?: organizationsCollectionOutputFieldsInput; "include"?: organizationsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof ({ "fields"?: organizationsCollectionOutputFieldsInput; "include"?: organizationsCollectionOutputIncludeInput })>]?: never };
+	"updatedBy"?: (affiliationsupdatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (affiliationsupdatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput })>]?: never };
+} & { [K in `${string}:${"contacts"}`]?: affiliationsCollectionOutputIncludeInput["contacts"] } & { [K in `${string}:${"createdBy"}`]?: affiliationsCollectionOutputIncludeInput["createdBy"] } & { [K in `${string}:${"organizations"}`]?: affiliationsCollectionOutputIncludeInput["organizations"] } & { [K in `${string}:${"updatedBy"}`]?: affiliationsCollectionOutputIncludeInput["updatedBy"] };
+
+export type affiliationsCreateArguments = {
+	data: readonly affiliationsCreateInput[];
+}
+
+export type affiliationsCreateInput = {
+	contacts: affiliationscontactsCreateRelatedInput;
+	createdAt?: string;
+	createdBy?: affiliationscreatedByCreateRelatedInput;
+	endedAt?: string | null;
+	id?: Uuid;
+	isPrimary?: boolean;
+	organizations: affiliationsorganizationsCreateRelatedInput;
+	role?: string | null;
+	startedAt?: string | null;
+	title?: string | null;
+	updatedAt?: string;
+	updatedBy?: affiliationsupdatedByCreateRelatedInput;
+}
+
+export type affiliationsDeleteArguments = {
+	filter?: affiliationsFilterInput;
+}
+
+export type affiliationsDeleteOneArguments = {
+	filter?: affiliationsFilterInput;
+	key: Uuid;
+}
+
+export type affiliationsDisconnectManyInput = {
+	filter?: affiliationsFilterInput;
+}
+
+export type affiliationsFilterInput = {
+	_and?: readonly affiliationsFilterInput[];
+	_not?: affiliationsFilterInput;
+	_or?: readonly affiliationsFilterInput[];
+	contactId?: UuidFilterPrimitiveInput | Uuid;
+	contacts?: contactsFilterInput;
+	createdAt?: DateTimeFilterPrimitiveInput | string;
+	createdBy?: MonospaceSystemUserFilterInput;
+	createdById?: UuidFilterNullablePrimitiveInput | Uuid | null;
+	endedAt?: DateFilterNullablePrimitiveInput | string | null;
+	id?: UuidFilterPrimitiveInput | Uuid;
+	isPrimary?: BooleanFilterPrimitiveInput | boolean;
+	organizationId?: UuidFilterPrimitiveInput | Uuid;
+	organizations?: organizationsFilterInput;
+	role?: StringFilterNullablePrimitiveInput | string | null;
+	startedAt?: DateFilterNullablePrimitiveInput | string | null;
+	title?: StringFilterNullablePrimitiveInput | string | null;
+	updatedAt?: DateTimeFilterPrimitiveInput | string;
+	updatedBy?: MonospaceSystemUserFilterInput;
+	updatedById?: UuidFilterNullablePrimitiveInput | Uuid | null;
+}
+
+export type affiliationsFilterQuantifierInput = {
+	_every?: affiliationsFilterInput;
+	_none?: affiliationsFilterInput;
+	_some?: affiliationsFilterInput;
+}
+
+export type affiliationsListArguments = {
+	filter?: affiliationsFilterInput;
+	limit?: Int64Input;
+	meta?: MetaArguments;
+	offset?: UInt64Input;
+	sort?: readonly affiliationsSortSpecifier[];
+}
+
+export type affiliationsReadArguments = {
+	filter?: affiliationsFilterInput;
+	key: Uuid;
+}
+
+export type affiliationsSortSpecifier = {
+	contactId?: SortFieldOptions;
+	createdAt?: SortFieldOptions;
+	createdById?: SortFieldOptions;
+	endedAt?: SortFieldOptions;
+	id?: SortFieldOptions;
+	isPrimary?: SortFieldOptions;
+	organizationId?: SortFieldOptions;
+	role?: SortFieldOptions;
+	startedAt?: SortFieldOptions;
+	title?: SortFieldOptions;
+	updatedAt?: SortFieldOptions;
+	updatedById?: SortFieldOptions;
+}
+
+export type affiliationsUpdateArguments = {
+	data: affiliationsUpdateDataInput;
+	filter?: affiliationsFilterInput;
+}
+
+export type affiliationsUpdateDataInput = {
+	contactId?: Uuid;
+	contacts?: readonly affiliationscontactsUpdateOneRelatedOperationsInput[];
+	createdAt?: string;
+	createdBy?: readonly affiliationscreatedByUpdateOneRelatedOperationsInput[];
+	createdById?: Uuid | null;
+	endedAt?: string | null;
+	id?: Uuid;
+	isPrimary?: boolean;
+	organizationId?: Uuid;
+	organizations?: readonly affiliationsorganizationsUpdateOneRelatedOperationsInput[];
+	role?: string | null;
+	startedAt?: string | null;
+	title?: string | null;
+	updatedAt?: string;
+	updatedBy?: readonly affiliationsupdatedByUpdateOneRelatedOperationsInput[];
+	updatedById?: Uuid | null;
+}
+
+export type affiliationsUpdateInput = {
+	data: affiliationsUpdateDataInput;
+	filter?: affiliationsFilterInput;
+}
+
+export type affiliationsUpdateOneArguments = {
+	data: affiliationsUpdateDataInput;
+	filter?: affiliationsFilterInput;
+	key: Uuid;
+}
+
+export type affiliationscontactsConnectForwardKeyInput = {
+	id: Uuid;
+}
+
+export type affiliationscontactsConnectInput = {
+	key: affiliationscontactsConnectForwardKeyInput;
+}
+
+export type affiliationscontactsCreateArguments = {
+	data: affiliationscontactsCreateRelatedWithoutTypeInput;
+}
+
+export type affiliationscontactsCreateRelatedInput = {
+	_connect?: affiliationscontactsConnectInput;
+	_create?: affiliationscontactsCreateArguments;
+}
+
+export type affiliationscontactsCreateRelatedWithoutTypeInput = {
+	activities?: readonly contactsactivitiesCreateRelatedInput[];
+	attachments?: readonly contactsattachmentsCreateRelatedInput[];
+	createdAt?: string;
+	createdBy?: contactscreatedByCreateRelatedInput;
+	deals?: readonly contactsdealsCreateRelatedInput[];
+	email?: string | null;
+	firstName: string;
+	id?: Uuid;
+	lastName: string;
+	notes?: string | null;
+	owner?: contactsownerCreateRelatedInput;
+	phone?: string | null;
+	portalUser?: contactsportalUserCreateRelatedInput;
+	status?: string;
+	updatedAt?: string;
+	updatedBy?: contactsupdatedByCreateRelatedInput;
+}
+
+export type affiliationscontactsUpdateOneRelatedOperationsInput = {
+	_connect?: affiliationscontactsConnectInput;
+	_create?: affiliationscontactsCreateArguments;
+	_update?: contactsUpdateInput;
+}
+
+export type affiliationscreatedByConnectForwardKeyInput = {
+	id: Uuid | null;
+}
+
+export type affiliationscreatedByConnectInput = {
+	key: affiliationscreatedByConnectForwardKeyInput;
+}
+
+export type affiliationscreatedByCreateArguments = {
+	data: affiliationscreatedByCreateRelatedWithoutTypeInput;
+}
+
+export type affiliationscreatedByCreateRelatedInput = {
+	_connect?: affiliationscreatedByConnectInput;
+	_create?: affiliationscreatedByCreateArguments;
+}
+
+export type affiliationscreatedByCreateRelatedWithoutTypeInput = {
+	activitiesCreatedBy?: readonly MonospaceSystemUseractivitiesCreatedByCreateRelatedInput[];
+	activitiesOwner?: readonly MonospaceSystemUseractivitiesOwnerCreateRelatedInput[];
+	activitiesUpdatedBy?: readonly MonospaceSystemUseractivitiesUpdatedByCreateRelatedInput[];
+	affiliationsUpdatedBy?: readonly MonospaceSystemUseraffiliationsUpdatedByCreateRelatedInput[];
+	appearance?: string | null;
+	attachmentsCreatedBy?: readonly MonospaceSystemUserattachmentsCreatedByCreateRelatedInput[];
+	avatarId?: Uuid | null;
+	contactsCreatedBy?: readonly MonospaceSystemUsercontactsCreatedByCreateRelatedInput[];
+	contactsOwner?: readonly MonospaceSystemUsercontactsOwnerCreateRelatedInput[];
+	contactsUpdatedBy?: readonly MonospaceSystemUsercontactsUpdatedByCreateRelatedInput[];
+	dealsCreatedBy?: readonly MonospaceSystemUserdealsCreatedByCreateRelatedInput[];
+	dealsOwner?: readonly MonospaceSystemUserdealsOwnerCreateRelatedInput[];
+	dealsUpdatedBy?: readonly MonospaceSystemUserdealsUpdatedByCreateRelatedInput[];
+	email?: string | null;
+	fullName?: string | null;
+	id: Uuid;
+	isService: boolean;
+	lastActivityAt?: string | null;
+	organizationsCreatedBy?: readonly MonospaceSystemUserorganizationsCreatedByCreateRelatedInput[];
+	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
+	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
+	roles?: readonly MonospaceSystemUserrolesCreateRelatedInput[];
+	serviceOwnerId?: Uuid | null;
+	status?: string;
+	storageValues?: readonly MonospaceSystemUserstorageValuesCreateRelatedInput[];
+}
+
+export type affiliationscreatedByRelationFieldArguments = {
+	filter?: MonospaceSystemUserFilterInput;
+}
+
+export type affiliationscreatedByUpdateOneRelatedOperationsInput = {
+	_connect?: affiliationscreatedByConnectInput;
+	_create?: affiliationscreatedByCreateArguments;
+	_delete?: MonospaceSystemUserDeleteArguments;
+	_disconnect?: MonospaceSystemUserDisconnectOneInput;
+	_update?: MonospaceSystemUserUpdateInput;
+}
+
+export type affiliationsorganizationsConnectForwardKeyInput = {
+	id: Uuid;
+}
+
+export type affiliationsorganizationsConnectInput = {
+	key: affiliationsorganizationsConnectForwardKeyInput;
+}
+
+export type affiliationsorganizationsCreateArguments = {
+	data: affiliationsorganizationsCreateRelatedWithoutTypeInput;
+}
+
+export type affiliationsorganizationsCreateRelatedInput = {
+	_connect?: affiliationsorganizationsConnectInput;
+	_create?: affiliationsorganizationsCreateArguments;
+}
+
+export type affiliationsorganizationsCreateRelatedWithoutTypeInput = {
+	activities?: readonly organizationsactivitiesCreateRelatedInput[];
+	attachments?: readonly organizationsattachmentsCreateRelatedInput[];
+	createdAt?: string;
+	createdBy?: organizationscreatedByCreateRelatedInput;
+	deals?: readonly organizationsdealsCreateRelatedInput[];
+	domain?: string | null;
+	id?: Uuid;
+	industry?: string | null;
+	name: string;
+	notes?: string | null;
+	owner?: organizationsownerCreateRelatedInput;
+	portalAccount?: organizationsportalAccountCreateRelatedInput;
+	portalAccountId?: string | null;
+	status?: string;
+	updatedAt?: string;
+	updatedBy?: organizationsupdatedByCreateRelatedInput;
+}
+
+export type affiliationsorganizationsUpdateOneRelatedOperationsInput = {
+	_connect?: affiliationsorganizationsConnectInput;
+	_create?: affiliationsorganizationsCreateArguments;
+	_update?: organizationsUpdateInput;
+}
+
+export type affiliationsupdatedByConnectForwardKeyInput = {
+	id: Uuid | null;
+}
+
+export type affiliationsupdatedByConnectInput = {
+	key: affiliationsupdatedByConnectForwardKeyInput;
+}
+
+export type affiliationsupdatedByCreateArguments = {
+	data: affiliationsupdatedByCreateRelatedWithoutTypeInput;
+}
+
+export type affiliationsupdatedByCreateRelatedInput = {
+	_connect?: affiliationsupdatedByConnectInput;
+	_create?: affiliationsupdatedByCreateArguments;
+}
+
+export type affiliationsupdatedByCreateRelatedWithoutTypeInput = {
+	activitiesCreatedBy?: readonly MonospaceSystemUseractivitiesCreatedByCreateRelatedInput[];
+	activitiesOwner?: readonly MonospaceSystemUseractivitiesOwnerCreateRelatedInput[];
+	activitiesUpdatedBy?: readonly MonospaceSystemUseractivitiesUpdatedByCreateRelatedInput[];
+	affiliationsCreatedBy?: readonly MonospaceSystemUseraffiliationsCreatedByCreateRelatedInput[];
+	appearance?: string | null;
+	attachmentsCreatedBy?: readonly MonospaceSystemUserattachmentsCreatedByCreateRelatedInput[];
+	avatarId?: Uuid | null;
+	contactsCreatedBy?: readonly MonospaceSystemUsercontactsCreatedByCreateRelatedInput[];
+	contactsOwner?: readonly MonospaceSystemUsercontactsOwnerCreateRelatedInput[];
+	contactsUpdatedBy?: readonly MonospaceSystemUsercontactsUpdatedByCreateRelatedInput[];
+	dealsCreatedBy?: readonly MonospaceSystemUserdealsCreatedByCreateRelatedInput[];
+	dealsOwner?: readonly MonospaceSystemUserdealsOwnerCreateRelatedInput[];
+	dealsUpdatedBy?: readonly MonospaceSystemUserdealsUpdatedByCreateRelatedInput[];
+	email?: string | null;
+	fullName?: string | null;
+	id: Uuid;
+	isService: boolean;
+	lastActivityAt?: string | null;
+	organizationsCreatedBy?: readonly MonospaceSystemUserorganizationsCreatedByCreateRelatedInput[];
+	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
+	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
+	roles?: readonly MonospaceSystemUserrolesCreateRelatedInput[];
+	serviceOwnerId?: Uuid | null;
+	status?: string;
+	storageValues?: readonly MonospaceSystemUserstorageValuesCreateRelatedInput[];
+}
+
+export type affiliationsupdatedByRelationFieldArguments = {
+	filter?: MonospaceSystemUserFilterInput;
+}
+
+export type affiliationsupdatedByUpdateOneRelatedOperationsInput = {
+	_connect?: affiliationsupdatedByConnectInput;
+	_create?: affiliationsupdatedByCreateArguments;
+	_delete?: MonospaceSystemUserDeleteArguments;
+	_disconnect?: MonospaceSystemUserDisconnectOneInput;
+	_update?: MonospaceSystemUserUpdateInput;
+}
+
 export type attachmentsCollectionOutput = {
+	activities?: activitiesCollectionOutput | null;
+	activityId?: Uuid | null;
 	assetId?: Uuid | null;
 	contactId?: Uuid | null;
 	contacts?: contactsCollectionOutput | null;
@@ -6946,42 +7844,40 @@ export type attachmentsCollectionOutput = {
 	createdAt?: string;
 	createdBy?: MonospaceSystemUserCollectionOutput | null;
 	createdById?: Uuid | null;
+	dealId?: Uuid | null;
+	deals?: dealsCollectionOutput | null;
 	fileName?: string;
 	id?: Uuid;
-	interactionId?: Uuid | null;
-	interactions?: interactionsCollectionOutput | null;
-	opportunities?: opportunitiesCollectionOutput | null;
-	opportunityId?: Uuid | null;
 	organizationId?: Uuid;
 	organizations?: organizationsCollectionOutput;
 	sizeBytes?: Int64 | null;
 	url?: string | null;
 }
 
-export type attachmentsCollectionOutputFieldsInput = readonly ("assetId" | "contactId" | "contentType" | "createdAt" | "createdById" | "fileName" | "id" | "interactionId" | "opportunityId" | "organizationId" | "sizeBytes" | "url" | "*" | `${string}:${"assetId" | "contactId" | "contentType" | "createdAt" | "createdById" | "fileName" | "id" | "interactionId" | "opportunityId" | "organizationId" | "sizeBytes" | "url"}`)[];
+export type attachmentsCollectionOutputFieldsInput = readonly ("activityId" | "assetId" | "contactId" | "contentType" | "createdAt" | "createdById" | "dealId" | "fileName" | "id" | "organizationId" | "sizeBytes" | "url" | "*" | `${string}:${"activityId" | "assetId" | "contactId" | "contentType" | "createdAt" | "createdById" | "dealId" | "fileName" | "id" | "organizationId" | "sizeBytes" | "url"}`)[];
 
 export type attachmentsCollectionOutputIncludeInput = {
+	"activities"?: (attachmentsactivitiesRelationFieldArguments & { "fields"?: activitiesCollectionOutputFieldsInput; "include"?: activitiesCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (attachmentsactivitiesRelationFieldArguments & { "fields"?: activitiesCollectionOutputFieldsInput; "include"?: activitiesCollectionOutputIncludeInput })>]?: never };
 	"contacts"?: (attachmentscontactsRelationFieldArguments & { "fields"?: contactsCollectionOutputFieldsInput; "include"?: contactsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (attachmentscontactsRelationFieldArguments & { "fields"?: contactsCollectionOutputFieldsInput; "include"?: contactsCollectionOutputIncludeInput })>]?: never };
 	"createdBy"?: (attachmentscreatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (attachmentscreatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput })>]?: never };
-	"interactions"?: (attachmentsinteractionsRelationFieldArguments & { "fields"?: interactionsCollectionOutputFieldsInput; "include"?: interactionsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (attachmentsinteractionsRelationFieldArguments & { "fields"?: interactionsCollectionOutputFieldsInput; "include"?: interactionsCollectionOutputIncludeInput })>]?: never };
-	"opportunities"?: (attachmentsopportunitiesRelationFieldArguments & { "fields"?: opportunitiesCollectionOutputFieldsInput; "include"?: opportunitiesCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (attachmentsopportunitiesRelationFieldArguments & { "fields"?: opportunitiesCollectionOutputFieldsInput; "include"?: opportunitiesCollectionOutputIncludeInput })>]?: never };
+	"deals"?: (attachmentsdealsRelationFieldArguments & { "fields"?: dealsCollectionOutputFieldsInput; "include"?: dealsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (attachmentsdealsRelationFieldArguments & { "fields"?: dealsCollectionOutputFieldsInput; "include"?: dealsCollectionOutputIncludeInput })>]?: never };
 	"organizations"?: ({ "fields"?: organizationsCollectionOutputFieldsInput; "include"?: organizationsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof ({ "fields"?: organizationsCollectionOutputFieldsInput; "include"?: organizationsCollectionOutputIncludeInput })>]?: never };
-} & { [K in `${string}:${"contacts"}`]?: attachmentsCollectionOutputIncludeInput["contacts"] } & { [K in `${string}:${"createdBy"}`]?: attachmentsCollectionOutputIncludeInput["createdBy"] } & { [K in `${string}:${"interactions"}`]?: attachmentsCollectionOutputIncludeInput["interactions"] } & { [K in `${string}:${"opportunities"}`]?: attachmentsCollectionOutputIncludeInput["opportunities"] } & { [K in `${string}:${"organizations"}`]?: attachmentsCollectionOutputIncludeInput["organizations"] };
+} & { [K in `${string}:${"activities"}`]?: attachmentsCollectionOutputIncludeInput["activities"] } & { [K in `${string}:${"contacts"}`]?: attachmentsCollectionOutputIncludeInput["contacts"] } & { [K in `${string}:${"createdBy"}`]?: attachmentsCollectionOutputIncludeInput["createdBy"] } & { [K in `${string}:${"deals"}`]?: attachmentsCollectionOutputIncludeInput["deals"] } & { [K in `${string}:${"organizations"}`]?: attachmentsCollectionOutputIncludeInput["organizations"] };
 
 export type attachmentsCreateArguments = {
 	data: readonly attachmentsCreateInput[];
 }
 
 export type attachmentsCreateInput = {
+	activities?: attachmentsactivitiesCreateRelatedInput;
 	assetId?: Uuid | null;
 	contacts?: attachmentscontactsCreateRelatedInput;
 	contentType?: string | null;
 	createdAt?: string;
 	createdBy?: attachmentscreatedByCreateRelatedInput;
+	deals?: attachmentsdealsCreateRelatedInput;
 	fileName: string;
 	id?: Uuid;
-	interactions?: attachmentsinteractionsCreateRelatedInput;
-	opportunities?: attachmentsopportunitiesCreateRelatedInput;
 	organizations: attachmentsorganizationsCreateRelatedInput;
 	sizeBytes?: Int64Input | null;
 	url?: string | null;
@@ -7004,6 +7900,8 @@ export type attachmentsFilterInput = {
 	_and?: readonly attachmentsFilterInput[];
 	_not?: attachmentsFilterInput;
 	_or?: readonly attachmentsFilterInput[];
+	activities?: activitiesFilterInput;
+	activityId?: UuidFilterNullablePrimitiveInput | Uuid | null;
 	assetId?: UuidFilterNullablePrimitiveInput | Uuid | null;
 	contactId?: UuidFilterNullablePrimitiveInput | Uuid | null;
 	contacts?: contactsFilterInput;
@@ -7011,12 +7909,10 @@ export type attachmentsFilterInput = {
 	createdAt?: DateTimeFilterPrimitiveInput | string;
 	createdBy?: MonospaceSystemUserFilterInput;
 	createdById?: UuidFilterNullablePrimitiveInput | Uuid | null;
+	dealId?: UuidFilterNullablePrimitiveInput | Uuid | null;
+	deals?: dealsFilterInput;
 	fileName?: StringFilterPrimitiveInput | string;
 	id?: UuidFilterPrimitiveInput | Uuid;
-	interactionId?: UuidFilterNullablePrimitiveInput | Uuid | null;
-	interactions?: interactionsFilterInput;
-	opportunities?: opportunitiesFilterInput;
-	opportunityId?: UuidFilterNullablePrimitiveInput | Uuid | null;
 	organizationId?: UuidFilterPrimitiveInput | Uuid;
 	organizations?: organizationsFilterInput;
 	sizeBytes?: Int64FilterNullablePrimitiveInput | Int64Input | null;
@@ -7043,15 +7939,15 @@ export type attachmentsReadArguments = {
 }
 
 export type attachmentsSortSpecifier = {
+	activityId?: SortFieldOptions;
 	assetId?: SortFieldOptions;
 	contactId?: SortFieldOptions;
 	contentType?: SortFieldOptions;
 	createdAt?: SortFieldOptions;
 	createdById?: SortFieldOptions;
+	dealId?: SortFieldOptions;
 	fileName?: SortFieldOptions;
 	id?: SortFieldOptions;
-	interactionId?: SortFieldOptions;
-	opportunityId?: SortFieldOptions;
 	organizationId?: SortFieldOptions;
 	sizeBytes?: SortFieldOptions;
 	url?: SortFieldOptions;
@@ -7063,6 +7959,8 @@ export type attachmentsUpdateArguments = {
 }
 
 export type attachmentsUpdateDataInput = {
+	activities?: readonly attachmentsactivitiesUpdateOneRelatedOperationsInput[];
+	activityId?: Uuid | null;
 	assetId?: Uuid | null;
 	contactId?: Uuid | null;
 	contacts?: readonly attachmentscontactsUpdateOneRelatedOperationsInput[];
@@ -7070,12 +7968,10 @@ export type attachmentsUpdateDataInput = {
 	createdAt?: string;
 	createdBy?: readonly attachmentscreatedByUpdateOneRelatedOperationsInput[];
 	createdById?: Uuid | null;
+	dealId?: Uuid | null;
+	deals?: readonly attachmentsdealsUpdateOneRelatedOperationsInput[];
 	fileName?: string;
 	id?: Uuid;
-	interactionId?: Uuid | null;
-	interactions?: readonly attachmentsinteractionsUpdateOneRelatedOperationsInput[];
-	opportunities?: readonly attachmentsopportunitiesUpdateOneRelatedOperationsInput[];
-	opportunityId?: Uuid | null;
 	organizationId?: Uuid;
 	organizations?: readonly attachmentsorganizationsUpdateOneRelatedOperationsInput[];
 	sizeBytes?: Int64Input | null;
@@ -7091,6 +7987,55 @@ export type attachmentsUpdateOneArguments = {
 	data: attachmentsUpdateDataInput;
 	filter?: attachmentsFilterInput;
 	key: Uuid;
+}
+
+export type attachmentsactivitiesConnectForwardKeyInput = {
+	id: Uuid | null;
+}
+
+export type attachmentsactivitiesConnectInput = {
+	key: attachmentsactivitiesConnectForwardKeyInput;
+}
+
+export type attachmentsactivitiesCreateArguments = {
+	data: attachmentsactivitiesCreateRelatedWithoutTypeInput;
+}
+
+export type attachmentsactivitiesCreateRelatedInput = {
+	_connect?: attachmentsactivitiesConnectInput;
+	_create?: attachmentsactivitiesCreateArguments;
+}
+
+export type attachmentsactivitiesCreateRelatedWithoutTypeInput = {
+	body?: string | null;
+	completedAt?: string | null;
+	contacts?: activitiescontactsCreateRelatedInput;
+	createdAt?: string;
+	createdBy?: activitiescreatedByCreateRelatedInput;
+	deals?: activitiesdealsCreateRelatedInput;
+	direction?: string;
+	dueAt?: string | null;
+	id?: Uuid;
+	occurredAt?: string;
+	organizations: activitiesorganizationsCreateRelatedInput;
+	owner?: activitiesownerCreateRelatedInput;
+	status: string;
+	subject: string;
+	type: string;
+	updatedAt?: string;
+	updatedBy?: activitiesupdatedByCreateRelatedInput;
+}
+
+export type attachmentsactivitiesRelationFieldArguments = {
+	filter?: activitiesFilterInput;
+}
+
+export type attachmentsactivitiesUpdateOneRelatedOperationsInput = {
+	_connect?: attachmentsactivitiesConnectInput;
+	_create?: attachmentsactivitiesCreateArguments;
+	_delete?: activitiesDeleteArguments;
+	_disconnect?: activitiesDisconnectOneInput;
+	_update?: activitiesUpdateInput;
 }
 
 export type attachmentscontactsConnectForwardKeyInput = {
@@ -7111,16 +8056,16 @@ export type attachmentscontactsCreateRelatedInput = {
 }
 
 export type attachmentscontactsCreateRelatedWithoutTypeInput = {
-	contact_organizations?: readonly contactscontact_organizationsCreateRelatedInput[];
+	activities?: readonly contactsactivitiesCreateRelatedInput[];
+	affiliations?: readonly contactsaffiliationsCreateRelatedInput[];
 	createdAt?: string;
 	createdBy?: contactscreatedByCreateRelatedInput;
+	deals?: readonly contactsdealsCreateRelatedInput[];
 	email?: string | null;
 	firstName: string;
 	id?: Uuid;
-	interactions?: readonly contactsinteractionsCreateRelatedInput[];
 	lastName: string;
 	notes?: string | null;
-	opportunities?: readonly contactsopportunitiesCreateRelatedInput[];
 	owner?: contactsownerCreateRelatedInput;
 	phone?: string | null;
 	portalUser?: contactsportalUserCreateRelatedInput;
@@ -7159,24 +8104,24 @@ export type attachmentscreatedByCreateRelatedInput = {
 }
 
 export type attachmentscreatedByCreateRelatedWithoutTypeInput = {
+	activitiesCreatedBy?: readonly MonospaceSystemUseractivitiesCreatedByCreateRelatedInput[];
+	activitiesOwner?: readonly MonospaceSystemUseractivitiesOwnerCreateRelatedInput[];
+	activitiesUpdatedBy?: readonly MonospaceSystemUseractivitiesUpdatedByCreateRelatedInput[];
+	affiliationsCreatedBy?: readonly MonospaceSystemUseraffiliationsCreatedByCreateRelatedInput[];
+	affiliationsUpdatedBy?: readonly MonospaceSystemUseraffiliationsUpdatedByCreateRelatedInput[];
 	appearance?: string | null;
 	avatarId?: Uuid | null;
-	contactOrganizationsCreatedBy?: readonly MonospaceSystemUsercontactOrganizationsCreatedByCreateRelatedInput[];
-	contactOrganizationsUpdatedBy?: readonly MonospaceSystemUsercontactOrganizationsUpdatedByCreateRelatedInput[];
 	contactsCreatedBy?: readonly MonospaceSystemUsercontactsCreatedByCreateRelatedInput[];
 	contactsOwner?: readonly MonospaceSystemUsercontactsOwnerCreateRelatedInput[];
 	contactsUpdatedBy?: readonly MonospaceSystemUsercontactsUpdatedByCreateRelatedInput[];
+	dealsCreatedBy?: readonly MonospaceSystemUserdealsCreatedByCreateRelatedInput[];
+	dealsOwner?: readonly MonospaceSystemUserdealsOwnerCreateRelatedInput[];
+	dealsUpdatedBy?: readonly MonospaceSystemUserdealsUpdatedByCreateRelatedInput[];
 	email?: string | null;
 	fullName?: string | null;
 	id: Uuid;
-	interactionsCreatedBy?: readonly MonospaceSystemUserinteractionsCreatedByCreateRelatedInput[];
-	interactionsOwner?: readonly MonospaceSystemUserinteractionsOwnerCreateRelatedInput[];
-	interactionsUpdatedBy?: readonly MonospaceSystemUserinteractionsUpdatedByCreateRelatedInput[];
 	isService: boolean;
 	lastActivityAt?: string | null;
-	opportunitiesCreatedBy?: readonly MonospaceSystemUseropportunitiesCreatedByCreateRelatedInput[];
-	opportunitiesOwner?: readonly MonospaceSystemUseropportunitiesOwnerCreateRelatedInput[];
-	opportunitiesUpdatedBy?: readonly MonospaceSystemUseropportunitiesUpdatedByCreateRelatedInput[];
 	organizationsCreatedBy?: readonly MonospaceSystemUserorganizationsCreatedByCreateRelatedInput[];
 	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
 	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
@@ -7198,101 +8143,52 @@ export type attachmentscreatedByUpdateOneRelatedOperationsInput = {
 	_update?: MonospaceSystemUserUpdateInput;
 }
 
-export type attachmentsinteractionsConnectForwardKeyInput = {
+export type attachmentsdealsConnectForwardKeyInput = {
 	id: Uuid | null;
 }
 
-export type attachmentsinteractionsConnectInput = {
-	key: attachmentsinteractionsConnectForwardKeyInput;
+export type attachmentsdealsConnectInput = {
+	key: attachmentsdealsConnectForwardKeyInput;
 }
 
-export type attachmentsinteractionsCreateArguments = {
-	data: attachmentsinteractionsCreateRelatedWithoutTypeInput;
+export type attachmentsdealsCreateArguments = {
+	data: attachmentsdealsCreateRelatedWithoutTypeInput;
 }
 
-export type attachmentsinteractionsCreateRelatedInput = {
-	_connect?: attachmentsinteractionsConnectInput;
-	_create?: attachmentsinteractionsCreateArguments;
+export type attachmentsdealsCreateRelatedInput = {
+	_connect?: attachmentsdealsConnectInput;
+	_create?: attachmentsdealsCreateArguments;
 }
 
-export type attachmentsinteractionsCreateRelatedWithoutTypeInput = {
-	body?: string | null;
-	completedAt?: string | null;
-	contacts?: interactionscontactsCreateRelatedInput;
+export type attachmentsdealsCreateRelatedWithoutTypeInput = {
+	activities?: readonly dealsactivitiesCreateRelatedInput[];
+	contacts?: dealscontactsCreateRelatedInput;
 	createdAt?: string;
-	createdBy?: interactionscreatedByCreateRelatedInput;
-	direction?: string;
-	dueAt?: string | null;
-	id?: Uuid;
-	occurredAt?: string;
-	opportunities?: interactionsopportunitiesCreateRelatedInput;
-	organizations: interactionsorganizationsCreateRelatedInput;
-	owner?: interactionsownerCreateRelatedInput;
-	status: string;
-	subject: string;
-	type: string;
-	updatedAt?: string;
-	updatedBy?: interactionsupdatedByCreateRelatedInput;
-}
-
-export type attachmentsinteractionsRelationFieldArguments = {
-	filter?: interactionsFilterInput;
-}
-
-export type attachmentsinteractionsUpdateOneRelatedOperationsInput = {
-	_connect?: attachmentsinteractionsConnectInput;
-	_create?: attachmentsinteractionsCreateArguments;
-	_delete?: interactionsDeleteArguments;
-	_disconnect?: interactionsDisconnectOneInput;
-	_update?: interactionsUpdateInput;
-}
-
-export type attachmentsopportunitiesConnectForwardKeyInput = {
-	id: Uuid | null;
-}
-
-export type attachmentsopportunitiesConnectInput = {
-	key: attachmentsopportunitiesConnectForwardKeyInput;
-}
-
-export type attachmentsopportunitiesCreateArguments = {
-	data: attachmentsopportunitiesCreateRelatedWithoutTypeInput;
-}
-
-export type attachmentsopportunitiesCreateRelatedInput = {
-	_connect?: attachmentsopportunitiesConnectInput;
-	_create?: attachmentsopportunitiesCreateArguments;
-}
-
-export type attachmentsopportunitiesCreateRelatedWithoutTypeInput = {
-	contacts?: opportunitiescontactsCreateRelatedInput;
-	createdAt?: string;
-	createdBy?: opportunitiescreatedByCreateRelatedInput;
+	createdBy?: dealscreatedByCreateRelatedInput;
 	currency?: string;
 	expectedCloseDate?: string | null;
 	id?: Uuid;
-	interactions?: readonly opportunitiesinteractionsCreateRelatedInput[];
 	notes?: string | null;
-	organizations: opportunitiesorganizationsCreateRelatedInput;
-	owner?: opportunitiesownerCreateRelatedInput;
-	pipeline_stages: opportunitiespipeline_stagesCreateRelatedInput;
+	organizations: dealsorganizationsCreateRelatedInput;
+	owner?: dealsownerCreateRelatedInput;
+	pipeline_stages: dealspipeline_stagesCreateRelatedInput;
 	status?: string;
 	title: string;
 	updatedAt?: string;
-	updatedBy?: opportunitiesupdatedByCreateRelatedInput;
+	updatedBy?: dealsupdatedByCreateRelatedInput;
 	valueAmount?: string | null;
 }
 
-export type attachmentsopportunitiesRelationFieldArguments = {
-	filter?: opportunitiesFilterInput;
+export type attachmentsdealsRelationFieldArguments = {
+	filter?: dealsFilterInput;
 }
 
-export type attachmentsopportunitiesUpdateOneRelatedOperationsInput = {
-	_connect?: attachmentsopportunitiesConnectInput;
-	_create?: attachmentsopportunitiesCreateArguments;
-	_delete?: opportunitiesDeleteArguments;
-	_disconnect?: opportunitiesDisconnectOneInput;
-	_update?: opportunitiesUpdateInput;
+export type attachmentsdealsUpdateOneRelatedOperationsInput = {
+	_connect?: attachmentsdealsConnectInput;
+	_create?: attachmentsdealsCreateArguments;
+	_delete?: dealsDeleteArguments;
+	_disconnect?: dealsDisconnectOneInput;
+	_update?: dealsUpdateInput;
 }
 
 export type attachmentsorganizationsConnectForwardKeyInput = {
@@ -7313,16 +8209,16 @@ export type attachmentsorganizationsCreateRelatedInput = {
 }
 
 export type attachmentsorganizationsCreateRelatedWithoutTypeInput = {
-	contact_organizations?: readonly organizationscontact_organizationsCreateRelatedInput[];
+	activities?: readonly organizationsactivitiesCreateRelatedInput[];
+	affiliations?: readonly organizationsaffiliationsCreateRelatedInput[];
 	createdAt?: string;
 	createdBy?: organizationscreatedByCreateRelatedInput;
+	deals?: readonly organizationsdealsCreateRelatedInput[];
 	domain?: string | null;
 	id?: Uuid;
 	industry?: string | null;
-	interactions?: readonly organizationsinteractionsCreateRelatedInput[];
 	name: string;
 	notes?: string | null;
-	opportunities?: readonly organizationsopportunitiesCreateRelatedInput[];
 	owner?: organizationsownerCreateRelatedInput;
 	portalAccount?: organizationsportalAccountCreateRelatedInput;
 	portalAccountId?: string | null;
@@ -7337,368 +8233,19 @@ export type attachmentsorganizationsUpdateOneRelatedOperationsInput = {
 	_update?: organizationsUpdateInput;
 }
 
-export type contactOrganizationsCollectionOutput = {
-	contactId?: Uuid;
-	contacts?: contactsCollectionOutput;
-	createdAt?: string;
-	createdBy?: MonospaceSystemUserCollectionOutput | null;
-	createdById?: Uuid | null;
-	endedAt?: string | null;
-	id?: Uuid;
-	isPrimary?: boolean;
-	organizationId?: Uuid;
-	organizations?: organizationsCollectionOutput;
-	role?: string | null;
-	startedAt?: string | null;
-	title?: string | null;
-	updatedAt?: string;
-	updatedBy?: MonospaceSystemUserCollectionOutput | null;
-	updatedById?: Uuid | null;
-}
-
-export type contactOrganizationsCollectionOutputFieldsInput = readonly ("contactId" | "createdAt" | "createdById" | "endedAt" | "id" | "isPrimary" | "organizationId" | "role" | "startedAt" | "title" | "updatedAt" | "updatedById" | "*" | `${string}:${"contactId" | "createdAt" | "createdById" | "endedAt" | "id" | "isPrimary" | "organizationId" | "role" | "startedAt" | "title" | "updatedAt" | "updatedById"}`)[];
-
-export type contactOrganizationsCollectionOutputIncludeInput = {
-	"contacts"?: ({ "fields"?: contactsCollectionOutputFieldsInput; "include"?: contactsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof ({ "fields"?: contactsCollectionOutputFieldsInput; "include"?: contactsCollectionOutputIncludeInput })>]?: never };
-	"createdBy"?: (contactOrganizationscreatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (contactOrganizationscreatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput })>]?: never };
-	"organizations"?: ({ "fields"?: organizationsCollectionOutputFieldsInput; "include"?: organizationsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof ({ "fields"?: organizationsCollectionOutputFieldsInput; "include"?: organizationsCollectionOutputIncludeInput })>]?: never };
-	"updatedBy"?: (contactOrganizationsupdatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (contactOrganizationsupdatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput })>]?: never };
-} & { [K in `${string}:${"contacts"}`]?: contactOrganizationsCollectionOutputIncludeInput["contacts"] } & { [K in `${string}:${"createdBy"}`]?: contactOrganizationsCollectionOutputIncludeInput["createdBy"] } & { [K in `${string}:${"organizations"}`]?: contactOrganizationsCollectionOutputIncludeInput["organizations"] } & { [K in `${string}:${"updatedBy"}`]?: contactOrganizationsCollectionOutputIncludeInput["updatedBy"] };
-
-export type contactOrganizationsCreateArguments = {
-	data: readonly contactOrganizationsCreateInput[];
-}
-
-export type contactOrganizationsCreateInput = {
-	contacts: contactOrganizationscontactsCreateRelatedInput;
-	createdAt?: string;
-	createdBy?: contactOrganizationscreatedByCreateRelatedInput;
-	endedAt?: string | null;
-	id?: Uuid;
-	isPrimary?: boolean;
-	organizations: contactOrganizationsorganizationsCreateRelatedInput;
-	role?: string | null;
-	startedAt?: string | null;
-	title?: string | null;
-	updatedAt?: string;
-	updatedBy?: contactOrganizationsupdatedByCreateRelatedInput;
-}
-
-export type contactOrganizationsDeleteArguments = {
-	filter?: contactOrganizationsFilterInput;
-}
-
-export type contactOrganizationsDeleteOneArguments = {
-	filter?: contactOrganizationsFilterInput;
-	key: Uuid;
-}
-
-export type contactOrganizationsDisconnectManyInput = {
-	filter?: contactOrganizationsFilterInput;
-}
-
-export type contactOrganizationsFilterInput = {
-	_and?: readonly contactOrganizationsFilterInput[];
-	_not?: contactOrganizationsFilterInput;
-	_or?: readonly contactOrganizationsFilterInput[];
-	contactId?: UuidFilterPrimitiveInput | Uuid;
-	contacts?: contactsFilterInput;
-	createdAt?: DateTimeFilterPrimitiveInput | string;
-	createdBy?: MonospaceSystemUserFilterInput;
-	createdById?: UuidFilterNullablePrimitiveInput | Uuid | null;
-	endedAt?: DateFilterNullablePrimitiveInput | string | null;
-	id?: UuidFilterPrimitiveInput | Uuid;
-	isPrimary?: BooleanFilterPrimitiveInput | boolean;
-	organizationId?: UuidFilterPrimitiveInput | Uuid;
-	organizations?: organizationsFilterInput;
-	role?: StringFilterNullablePrimitiveInput | string | null;
-	startedAt?: DateFilterNullablePrimitiveInput | string | null;
-	title?: StringFilterNullablePrimitiveInput | string | null;
-	updatedAt?: DateTimeFilterPrimitiveInput | string;
-	updatedBy?: MonospaceSystemUserFilterInput;
-	updatedById?: UuidFilterNullablePrimitiveInput | Uuid | null;
-}
-
-export type contactOrganizationsFilterQuantifierInput = {
-	_every?: contactOrganizationsFilterInput;
-	_none?: contactOrganizationsFilterInput;
-	_some?: contactOrganizationsFilterInput;
-}
-
-export type contactOrganizationsListArguments = {
-	filter?: contactOrganizationsFilterInput;
-	limit?: Int64Input;
-	meta?: MetaArguments;
-	offset?: UInt64Input;
-	sort?: readonly contactOrganizationsSortSpecifier[];
-}
-
-export type contactOrganizationsReadArguments = {
-	filter?: contactOrganizationsFilterInput;
-	key: Uuid;
-}
-
-export type contactOrganizationsSortSpecifier = {
-	contactId?: SortFieldOptions;
-	createdAt?: SortFieldOptions;
-	createdById?: SortFieldOptions;
-	endedAt?: SortFieldOptions;
-	id?: SortFieldOptions;
-	isPrimary?: SortFieldOptions;
-	organizationId?: SortFieldOptions;
-	role?: SortFieldOptions;
-	startedAt?: SortFieldOptions;
-	title?: SortFieldOptions;
-	updatedAt?: SortFieldOptions;
-	updatedById?: SortFieldOptions;
-}
-
-export type contactOrganizationsUpdateArguments = {
-	data: contactOrganizationsUpdateDataInput;
-	filter?: contactOrganizationsFilterInput;
-}
-
-export type contactOrganizationsUpdateDataInput = {
-	contactId?: Uuid;
-	contacts?: readonly contactOrganizationscontactsUpdateOneRelatedOperationsInput[];
-	createdAt?: string;
-	createdBy?: readonly contactOrganizationscreatedByUpdateOneRelatedOperationsInput[];
-	createdById?: Uuid | null;
-	endedAt?: string | null;
-	id?: Uuid;
-	isPrimary?: boolean;
-	organizationId?: Uuid;
-	organizations?: readonly contactOrganizationsorganizationsUpdateOneRelatedOperationsInput[];
-	role?: string | null;
-	startedAt?: string | null;
-	title?: string | null;
-	updatedAt?: string;
-	updatedBy?: readonly contactOrganizationsupdatedByUpdateOneRelatedOperationsInput[];
-	updatedById?: Uuid | null;
-}
-
-export type contactOrganizationsUpdateInput = {
-	data: contactOrganizationsUpdateDataInput;
-	filter?: contactOrganizationsFilterInput;
-}
-
-export type contactOrganizationsUpdateOneArguments = {
-	data: contactOrganizationsUpdateDataInput;
-	filter?: contactOrganizationsFilterInput;
-	key: Uuid;
-}
-
-export type contactOrganizationscontactsConnectForwardKeyInput = {
-	id: Uuid;
-}
-
-export type contactOrganizationscontactsConnectInput = {
-	key: contactOrganizationscontactsConnectForwardKeyInput;
-}
-
-export type contactOrganizationscontactsCreateArguments = {
-	data: contactOrganizationscontactsCreateRelatedWithoutTypeInput;
-}
-
-export type contactOrganizationscontactsCreateRelatedInput = {
-	_connect?: contactOrganizationscontactsConnectInput;
-	_create?: contactOrganizationscontactsCreateArguments;
-}
-
-export type contactOrganizationscontactsCreateRelatedWithoutTypeInput = {
-	attachments?: readonly contactsattachmentsCreateRelatedInput[];
-	createdAt?: string;
-	createdBy?: contactscreatedByCreateRelatedInput;
-	email?: string | null;
-	firstName: string;
-	id?: Uuid;
-	interactions?: readonly contactsinteractionsCreateRelatedInput[];
-	lastName: string;
-	notes?: string | null;
-	opportunities?: readonly contactsopportunitiesCreateRelatedInput[];
-	owner?: contactsownerCreateRelatedInput;
-	phone?: string | null;
-	portalUser?: contactsportalUserCreateRelatedInput;
-	status?: string;
-	updatedAt?: string;
-	updatedBy?: contactsupdatedByCreateRelatedInput;
-}
-
-export type contactOrganizationscontactsUpdateOneRelatedOperationsInput = {
-	_connect?: contactOrganizationscontactsConnectInput;
-	_create?: contactOrganizationscontactsCreateArguments;
-	_update?: contactsUpdateInput;
-}
-
-export type contactOrganizationscreatedByConnectForwardKeyInput = {
-	id: Uuid | null;
-}
-
-export type contactOrganizationscreatedByConnectInput = {
-	key: contactOrganizationscreatedByConnectForwardKeyInput;
-}
-
-export type contactOrganizationscreatedByCreateArguments = {
-	data: contactOrganizationscreatedByCreateRelatedWithoutTypeInput;
-}
-
-export type contactOrganizationscreatedByCreateRelatedInput = {
-	_connect?: contactOrganizationscreatedByConnectInput;
-	_create?: contactOrganizationscreatedByCreateArguments;
-}
-
-export type contactOrganizationscreatedByCreateRelatedWithoutTypeInput = {
-	appearance?: string | null;
-	attachmentsCreatedBy?: readonly MonospaceSystemUserattachmentsCreatedByCreateRelatedInput[];
-	avatarId?: Uuid | null;
-	contactOrganizationsUpdatedBy?: readonly MonospaceSystemUsercontactOrganizationsUpdatedByCreateRelatedInput[];
-	contactsCreatedBy?: readonly MonospaceSystemUsercontactsCreatedByCreateRelatedInput[];
-	contactsOwner?: readonly MonospaceSystemUsercontactsOwnerCreateRelatedInput[];
-	contactsUpdatedBy?: readonly MonospaceSystemUsercontactsUpdatedByCreateRelatedInput[];
-	email?: string | null;
-	fullName?: string | null;
-	id: Uuid;
-	interactionsCreatedBy?: readonly MonospaceSystemUserinteractionsCreatedByCreateRelatedInput[];
-	interactionsOwner?: readonly MonospaceSystemUserinteractionsOwnerCreateRelatedInput[];
-	interactionsUpdatedBy?: readonly MonospaceSystemUserinteractionsUpdatedByCreateRelatedInput[];
-	isService: boolean;
-	lastActivityAt?: string | null;
-	opportunitiesCreatedBy?: readonly MonospaceSystemUseropportunitiesCreatedByCreateRelatedInput[];
-	opportunitiesOwner?: readonly MonospaceSystemUseropportunitiesOwnerCreateRelatedInput[];
-	opportunitiesUpdatedBy?: readonly MonospaceSystemUseropportunitiesUpdatedByCreateRelatedInput[];
-	organizationsCreatedBy?: readonly MonospaceSystemUserorganizationsCreatedByCreateRelatedInput[];
-	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
-	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
-	roles?: readonly MonospaceSystemUserrolesCreateRelatedInput[];
-	serviceOwnerId?: Uuid | null;
-	status?: string;
-	storageValues?: readonly MonospaceSystemUserstorageValuesCreateRelatedInput[];
-}
-
-export type contactOrganizationscreatedByRelationFieldArguments = {
-	filter?: MonospaceSystemUserFilterInput;
-}
-
-export type contactOrganizationscreatedByUpdateOneRelatedOperationsInput = {
-	_connect?: contactOrganizationscreatedByConnectInput;
-	_create?: contactOrganizationscreatedByCreateArguments;
-	_delete?: MonospaceSystemUserDeleteArguments;
-	_disconnect?: MonospaceSystemUserDisconnectOneInput;
-	_update?: MonospaceSystemUserUpdateInput;
-}
-
-export type contactOrganizationsorganizationsConnectForwardKeyInput = {
-	id: Uuid;
-}
-
-export type contactOrganizationsorganizationsConnectInput = {
-	key: contactOrganizationsorganizationsConnectForwardKeyInput;
-}
-
-export type contactOrganizationsorganizationsCreateArguments = {
-	data: contactOrganizationsorganizationsCreateRelatedWithoutTypeInput;
-}
-
-export type contactOrganizationsorganizationsCreateRelatedInput = {
-	_connect?: contactOrganizationsorganizationsConnectInput;
-	_create?: contactOrganizationsorganizationsCreateArguments;
-}
-
-export type contactOrganizationsorganizationsCreateRelatedWithoutTypeInput = {
-	attachments?: readonly organizationsattachmentsCreateRelatedInput[];
-	createdAt?: string;
-	createdBy?: organizationscreatedByCreateRelatedInput;
-	domain?: string | null;
-	id?: Uuid;
-	industry?: string | null;
-	interactions?: readonly organizationsinteractionsCreateRelatedInput[];
-	name: string;
-	notes?: string | null;
-	opportunities?: readonly organizationsopportunitiesCreateRelatedInput[];
-	owner?: organizationsownerCreateRelatedInput;
-	portalAccount?: organizationsportalAccountCreateRelatedInput;
-	portalAccountId?: string | null;
-	status?: string;
-	updatedAt?: string;
-	updatedBy?: organizationsupdatedByCreateRelatedInput;
-}
-
-export type contactOrganizationsorganizationsUpdateOneRelatedOperationsInput = {
-	_connect?: contactOrganizationsorganizationsConnectInput;
-	_create?: contactOrganizationsorganizationsCreateArguments;
-	_update?: organizationsUpdateInput;
-}
-
-export type contactOrganizationsupdatedByConnectForwardKeyInput = {
-	id: Uuid | null;
-}
-
-export type contactOrganizationsupdatedByConnectInput = {
-	key: contactOrganizationsupdatedByConnectForwardKeyInput;
-}
-
-export type contactOrganizationsupdatedByCreateArguments = {
-	data: contactOrganizationsupdatedByCreateRelatedWithoutTypeInput;
-}
-
-export type contactOrganizationsupdatedByCreateRelatedInput = {
-	_connect?: contactOrganizationsupdatedByConnectInput;
-	_create?: contactOrganizationsupdatedByCreateArguments;
-}
-
-export type contactOrganizationsupdatedByCreateRelatedWithoutTypeInput = {
-	appearance?: string | null;
-	attachmentsCreatedBy?: readonly MonospaceSystemUserattachmentsCreatedByCreateRelatedInput[];
-	avatarId?: Uuid | null;
-	contactOrganizationsCreatedBy?: readonly MonospaceSystemUsercontactOrganizationsCreatedByCreateRelatedInput[];
-	contactsCreatedBy?: readonly MonospaceSystemUsercontactsCreatedByCreateRelatedInput[];
-	contactsOwner?: readonly MonospaceSystemUsercontactsOwnerCreateRelatedInput[];
-	contactsUpdatedBy?: readonly MonospaceSystemUsercontactsUpdatedByCreateRelatedInput[];
-	email?: string | null;
-	fullName?: string | null;
-	id: Uuid;
-	interactionsCreatedBy?: readonly MonospaceSystemUserinteractionsCreatedByCreateRelatedInput[];
-	interactionsOwner?: readonly MonospaceSystemUserinteractionsOwnerCreateRelatedInput[];
-	interactionsUpdatedBy?: readonly MonospaceSystemUserinteractionsUpdatedByCreateRelatedInput[];
-	isService: boolean;
-	lastActivityAt?: string | null;
-	opportunitiesCreatedBy?: readonly MonospaceSystemUseropportunitiesCreatedByCreateRelatedInput[];
-	opportunitiesOwner?: readonly MonospaceSystemUseropportunitiesOwnerCreateRelatedInput[];
-	opportunitiesUpdatedBy?: readonly MonospaceSystemUseropportunitiesUpdatedByCreateRelatedInput[];
-	organizationsCreatedBy?: readonly MonospaceSystemUserorganizationsCreatedByCreateRelatedInput[];
-	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
-	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
-	roles?: readonly MonospaceSystemUserrolesCreateRelatedInput[];
-	serviceOwnerId?: Uuid | null;
-	status?: string;
-	storageValues?: readonly MonospaceSystemUserstorageValuesCreateRelatedInput[];
-}
-
-export type contactOrganizationsupdatedByRelationFieldArguments = {
-	filter?: MonospaceSystemUserFilterInput;
-}
-
-export type contactOrganizationsupdatedByUpdateOneRelatedOperationsInput = {
-	_connect?: contactOrganizationsupdatedByConnectInput;
-	_create?: contactOrganizationsupdatedByCreateArguments;
-	_delete?: MonospaceSystemUserDeleteArguments;
-	_disconnect?: MonospaceSystemUserDisconnectOneInput;
-	_update?: MonospaceSystemUserUpdateInput;
-}
-
 export type contactsCollectionOutput = {
+	activities?: { data: activitiesCollectionOutput[] };
+	affiliations?: { data: affiliationsCollectionOutput[] };
 	attachments?: { data: attachmentsCollectionOutput[] };
-	contact_organizations?: { data: contactOrganizationsCollectionOutput[] };
 	createdAt?: string;
 	createdBy?: MonospaceSystemUserCollectionOutput | null;
 	createdById?: Uuid | null;
+	deals?: { data: dealsCollectionOutput[] };
 	email?: string | null;
 	firstName?: string;
 	id?: Uuid;
-	interactions?: { data: interactionsCollectionOutput[] };
 	lastName?: string;
 	notes?: string | null;
-	opportunities?: { data: opportunitiesCollectionOutput[] };
 	owner?: MonospaceSystemUserCollectionOutput | null;
 	ownerUserId?: Uuid | null;
 	phone?: string | null;
@@ -7712,32 +8259,32 @@ export type contactsCollectionOutput = {
 export type contactsCollectionOutputFieldsInput = readonly ("createdAt" | "createdById" | "email" | "firstName" | "id" | "lastName" | "notes" | "ownerUserId" | "phone" | "status" | "updatedAt" | "updatedById" | "*" | `${string}:${"createdAt" | "createdById" | "email" | "firstName" | "id" | "lastName" | "notes" | "ownerUserId" | "phone" | "status" | "updatedAt" | "updatedById"}`)[];
 
 export type contactsCollectionOutputIncludeInput = {
+	"activities"?: (contactsactivitiesRelationFieldArguments & { "fields"?: activitiesCollectionOutputFieldsInput; "include"?: activitiesCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (contactsactivitiesRelationFieldArguments & { "fields"?: activitiesCollectionOutputFieldsInput; "include"?: activitiesCollectionOutputIncludeInput })>]?: never };
+	"affiliations"?: (contactsaffiliationsRelationFieldArguments & { "fields"?: affiliationsCollectionOutputFieldsInput; "include"?: affiliationsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (contactsaffiliationsRelationFieldArguments & { "fields"?: affiliationsCollectionOutputFieldsInput; "include"?: affiliationsCollectionOutputIncludeInput })>]?: never };
 	"attachments"?: (contactsattachmentsRelationFieldArguments & { "fields"?: attachmentsCollectionOutputFieldsInput; "include"?: attachmentsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (contactsattachmentsRelationFieldArguments & { "fields"?: attachmentsCollectionOutputFieldsInput; "include"?: attachmentsCollectionOutputIncludeInput })>]?: never };
-	"contact_organizations"?: (contactscontact_organizationsRelationFieldArguments & { "fields"?: contactOrganizationsCollectionOutputFieldsInput; "include"?: contactOrganizationsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (contactscontact_organizationsRelationFieldArguments & { "fields"?: contactOrganizationsCollectionOutputFieldsInput; "include"?: contactOrganizationsCollectionOutputIncludeInput })>]?: never };
 	"createdBy"?: (contactscreatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (contactscreatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput })>]?: never };
-	"interactions"?: (contactsinteractionsRelationFieldArguments & { "fields"?: interactionsCollectionOutputFieldsInput; "include"?: interactionsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (contactsinteractionsRelationFieldArguments & { "fields"?: interactionsCollectionOutputFieldsInput; "include"?: interactionsCollectionOutputIncludeInput })>]?: never };
-	"opportunities"?: (contactsopportunitiesRelationFieldArguments & { "fields"?: opportunitiesCollectionOutputFieldsInput; "include"?: opportunitiesCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (contactsopportunitiesRelationFieldArguments & { "fields"?: opportunitiesCollectionOutputFieldsInput; "include"?: opportunitiesCollectionOutputIncludeInput })>]?: never };
+	"deals"?: (contactsdealsRelationFieldArguments & { "fields"?: dealsCollectionOutputFieldsInput; "include"?: dealsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (contactsdealsRelationFieldArguments & { "fields"?: dealsCollectionOutputFieldsInput; "include"?: dealsCollectionOutputIncludeInput })>]?: never };
 	"owner"?: (contactsownerRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (contactsownerRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput })>]?: never };
 	"portalUser"?: (contactsportalUserRelationFieldArguments & { "fields"?: usersCollectionOutputFieldsInput; "include"?: usersCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (contactsportalUserRelationFieldArguments & { "fields"?: usersCollectionOutputFieldsInput; "include"?: usersCollectionOutputIncludeInput })>]?: never };
 	"updatedBy"?: (contactsupdatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (contactsupdatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput })>]?: never };
-} & { [K in `${string}:${"attachments"}`]?: contactsCollectionOutputIncludeInput["attachments"] } & { [K in `${string}:${"contact_organizations"}`]?: contactsCollectionOutputIncludeInput["contact_organizations"] } & { [K in `${string}:${"createdBy"}`]?: contactsCollectionOutputIncludeInput["createdBy"] } & { [K in `${string}:${"interactions"}`]?: contactsCollectionOutputIncludeInput["interactions"] } & { [K in `${string}:${"opportunities"}`]?: contactsCollectionOutputIncludeInput["opportunities"] } & { [K in `${string}:${"owner"}`]?: contactsCollectionOutputIncludeInput["owner"] } & { [K in `${string}:${"portalUser"}`]?: contactsCollectionOutputIncludeInput["portalUser"] } & { [K in `${string}:${"updatedBy"}`]?: contactsCollectionOutputIncludeInput["updatedBy"] };
+} & { [K in `${string}:${"activities"}`]?: contactsCollectionOutputIncludeInput["activities"] } & { [K in `${string}:${"affiliations"}`]?: contactsCollectionOutputIncludeInput["affiliations"] } & { [K in `${string}:${"attachments"}`]?: contactsCollectionOutputIncludeInput["attachments"] } & { [K in `${string}:${"createdBy"}`]?: contactsCollectionOutputIncludeInput["createdBy"] } & { [K in `${string}:${"deals"}`]?: contactsCollectionOutputIncludeInput["deals"] } & { [K in `${string}:${"owner"}`]?: contactsCollectionOutputIncludeInput["owner"] } & { [K in `${string}:${"portalUser"}`]?: contactsCollectionOutputIncludeInput["portalUser"] } & { [K in `${string}:${"updatedBy"}`]?: contactsCollectionOutputIncludeInput["updatedBy"] };
 
 export type contactsCreateArguments = {
 	data: readonly contactsCreateInput[];
 }
 
 export type contactsCreateInput = {
+	activities?: readonly contactsactivitiesCreateRelatedInput[];
+	affiliations?: readonly contactsaffiliationsCreateRelatedInput[];
 	attachments?: readonly contactsattachmentsCreateRelatedInput[];
-	contact_organizations?: readonly contactscontact_organizationsCreateRelatedInput[];
 	createdAt?: string;
 	createdBy?: contactscreatedByCreateRelatedInput;
+	deals?: readonly contactsdealsCreateRelatedInput[];
 	email?: string | null;
 	firstName: string;
 	id?: Uuid;
-	interactions?: readonly contactsinteractionsCreateRelatedInput[];
 	lastName: string;
 	notes?: string | null;
-	opportunities?: readonly contactsopportunitiesCreateRelatedInput[];
 	owner?: contactsownerCreateRelatedInput;
 	phone?: string | null;
 	portalUser?: contactsportalUserCreateRelatedInput;
@@ -7765,18 +8312,18 @@ export type contactsFilterInput = {
 	_and?: readonly contactsFilterInput[];
 	_not?: contactsFilterInput;
 	_or?: readonly contactsFilterInput[];
+	activities?: activitiesFilterQuantifierInput | activitiesFilterInput;
+	affiliations?: affiliationsFilterQuantifierInput | affiliationsFilterInput;
 	attachments?: attachmentsFilterQuantifierInput | attachmentsFilterInput;
-	contact_organizations?: contactOrganizationsFilterQuantifierInput | contactOrganizationsFilterInput;
 	createdAt?: DateTimeFilterPrimitiveInput | string;
 	createdBy?: MonospaceSystemUserFilterInput;
 	createdById?: UuidFilterNullablePrimitiveInput | Uuid | null;
+	deals?: dealsFilterQuantifierInput | dealsFilterInput;
 	email?: StringFilterNullablePrimitiveInput | string | null;
 	firstName?: StringFilterPrimitiveInput | string;
 	id?: UuidFilterPrimitiveInput | Uuid;
-	interactions?: interactionsFilterQuantifierInput | interactionsFilterInput;
 	lastName?: StringFilterPrimitiveInput | string;
 	notes?: StringFilterNullablePrimitiveInput | string | null;
-	opportunities?: opportunitiesFilterQuantifierInput | opportunitiesFilterInput;
 	owner?: MonospaceSystemUserFilterInput;
 	ownerUserId?: UuidFilterNullablePrimitiveInput | Uuid | null;
 	phone?: StringFilterNullablePrimitiveInput | string | null;
@@ -7827,18 +8374,18 @@ export type contactsUpdateArguments = {
 }
 
 export type contactsUpdateDataInput = {
+	activities?: readonly contactsactivitiesUpdateManyRelatedOperationsInput[];
+	affiliations?: readonly contactsaffiliationsUpdateManyRelatedOperationsInput[];
 	attachments?: readonly contactsattachmentsUpdateManyRelatedOperationsInput[];
-	contact_organizations?: readonly contactscontact_organizationsUpdateManyRelatedOperationsInput[];
 	createdAt?: string;
 	createdBy?: readonly contactscreatedByUpdateOneRelatedOperationsInput[];
 	createdById?: Uuid | null;
+	deals?: readonly contactsdealsUpdateManyRelatedOperationsInput[];
 	email?: string | null;
 	firstName?: string;
 	id?: Uuid;
-	interactions?: readonly contactsinteractionsUpdateManyRelatedOperationsInput[];
 	lastName?: string;
 	notes?: string | null;
-	opportunities?: readonly contactsopportunitiesUpdateManyRelatedOperationsInput[];
 	owner?: readonly contactsownerUpdateOneRelatedOperationsInput[];
 	ownerUserId?: Uuid | null;
 	phone?: string | null;
@@ -7860,6 +8407,103 @@ export type contactsUpdateOneArguments = {
 	key: Uuid;
 }
 
+export type contactsactivitiesConnectBackwardKeysInput = {
+	id?: Uuid;
+}
+
+export type contactsactivitiesConnectInput = {
+	keys: readonly contactsactivitiesConnectBackwardKeysInput[];
+}
+
+export type contactsactivitiesCreateArguments = {
+	data: readonly contactsactivitiesCreateRelatedWithoutTypeInput[];
+}
+
+export type contactsactivitiesCreateRelatedInput = {
+	_connect?: contactsactivitiesConnectInput;
+	_create?: contactsactivitiesCreateArguments;
+}
+
+export type contactsactivitiesCreateRelatedWithoutTypeInput = {
+	attachments?: readonly activitiesattachmentsCreateRelatedInput[];
+	body?: string | null;
+	completedAt?: string | null;
+	createdAt?: string;
+	createdBy?: activitiescreatedByCreateRelatedInput;
+	deals?: activitiesdealsCreateRelatedInput;
+	direction?: string;
+	dueAt?: string | null;
+	id?: Uuid;
+	occurredAt?: string;
+	organizations: activitiesorganizationsCreateRelatedInput;
+	owner?: activitiesownerCreateRelatedInput;
+	status: string;
+	subject: string;
+	type: string;
+	updatedAt?: string;
+	updatedBy?: activitiesupdatedByCreateRelatedInput;
+}
+
+export type contactsactivitiesRelationFieldArguments = {
+	filter?: activitiesFilterInput;
+	limit?: Int64Input;
+	offset?: UInt64Input;
+	sort?: readonly activitiesSortSpecifier[];
+}
+
+export type contactsactivitiesUpdateManyRelatedOperationsInput = {
+	_connect?: contactsactivitiesConnectInput;
+	_create?: contactsactivitiesCreateArguments;
+	_delete?: activitiesDeleteArguments;
+	_disconnect?: activitiesDisconnectManyInput;
+	_update?: activitiesUpdateInput;
+}
+
+export type contactsaffiliationsConnectBackwardKeysInput = {
+	id?: Uuid;
+}
+
+export type contactsaffiliationsConnectInput = {
+	keys: readonly contactsaffiliationsConnectBackwardKeysInput[];
+}
+
+export type contactsaffiliationsCreateArguments = {
+	data: readonly contactsaffiliationsCreateRelatedWithoutTypeInput[];
+}
+
+export type contactsaffiliationsCreateRelatedInput = {
+	_connect?: contactsaffiliationsConnectInput;
+	_create?: contactsaffiliationsCreateArguments;
+}
+
+export type contactsaffiliationsCreateRelatedWithoutTypeInput = {
+	createdAt?: string;
+	createdBy?: affiliationscreatedByCreateRelatedInput;
+	endedAt?: string | null;
+	id?: Uuid;
+	isPrimary?: boolean;
+	organizations: affiliationsorganizationsCreateRelatedInput;
+	role?: string | null;
+	startedAt?: string | null;
+	title?: string | null;
+	updatedAt?: string;
+	updatedBy?: affiliationsupdatedByCreateRelatedInput;
+}
+
+export type contactsaffiliationsRelationFieldArguments = {
+	filter?: affiliationsFilterInput;
+	limit?: Int64Input;
+	offset?: UInt64Input;
+	sort?: readonly affiliationsSortSpecifier[];
+}
+
+export type contactsaffiliationsUpdateManyRelatedOperationsInput = {
+	_connect?: contactsaffiliationsConnectInput;
+	_create?: contactsaffiliationsCreateArguments;
+	_delete?: affiliationsDeleteArguments;
+	_update?: affiliationsUpdateInput;
+}
+
 export type contactsattachmentsConnectBackwardKeysInput = {
 	assetId?: Uuid;
 	id?: Uuid;
@@ -7879,14 +8523,14 @@ export type contactsattachmentsCreateRelatedInput = {
 }
 
 export type contactsattachmentsCreateRelatedWithoutTypeInput = {
+	activities?: attachmentsactivitiesCreateRelatedInput;
 	assetId?: Uuid | null;
 	contentType?: string | null;
 	createdAt?: string;
 	createdBy?: attachmentscreatedByCreateRelatedInput;
+	deals?: attachmentsdealsCreateRelatedInput;
 	fileName: string;
 	id?: Uuid;
-	interactions?: attachmentsinteractionsCreateRelatedInput;
-	opportunities?: attachmentsopportunitiesCreateRelatedInput;
 	organizations: attachmentsorganizationsCreateRelatedInput;
 	sizeBytes?: Int64Input | null;
 	url?: string | null;
@@ -7907,51 +8551,6 @@ export type contactsattachmentsUpdateManyRelatedOperationsInput = {
 	_update?: attachmentsUpdateInput;
 }
 
-export type contactscontact_organizationsConnectBackwardKeysInput = {
-	id?: Uuid;
-}
-
-export type contactscontact_organizationsConnectInput = {
-	keys: readonly contactscontact_organizationsConnectBackwardKeysInput[];
-}
-
-export type contactscontact_organizationsCreateArguments = {
-	data: readonly contactscontact_organizationsCreateRelatedWithoutTypeInput[];
-}
-
-export type contactscontact_organizationsCreateRelatedInput = {
-	_connect?: contactscontact_organizationsConnectInput;
-	_create?: contactscontact_organizationsCreateArguments;
-}
-
-export type contactscontact_organizationsCreateRelatedWithoutTypeInput = {
-	createdAt?: string;
-	createdBy?: contactOrganizationscreatedByCreateRelatedInput;
-	endedAt?: string | null;
-	id?: Uuid;
-	isPrimary?: boolean;
-	organizations: contactOrganizationsorganizationsCreateRelatedInput;
-	role?: string | null;
-	startedAt?: string | null;
-	title?: string | null;
-	updatedAt?: string;
-	updatedBy?: contactOrganizationsupdatedByCreateRelatedInput;
-}
-
-export type contactscontact_organizationsRelationFieldArguments = {
-	filter?: contactOrganizationsFilterInput;
-	limit?: Int64Input;
-	offset?: UInt64Input;
-	sort?: readonly contactOrganizationsSortSpecifier[];
-}
-
-export type contactscontact_organizationsUpdateManyRelatedOperationsInput = {
-	_connect?: contactscontact_organizationsConnectInput;
-	_create?: contactscontact_organizationsCreateArguments;
-	_delete?: contactOrganizationsDeleteArguments;
-	_update?: contactOrganizationsUpdateInput;
-}
-
 export type contactscreatedByConnectForwardKeyInput = {
 	id: Uuid | null;
 }
@@ -7970,24 +8569,24 @@ export type contactscreatedByCreateRelatedInput = {
 }
 
 export type contactscreatedByCreateRelatedWithoutTypeInput = {
+	activitiesCreatedBy?: readonly MonospaceSystemUseractivitiesCreatedByCreateRelatedInput[];
+	activitiesOwner?: readonly MonospaceSystemUseractivitiesOwnerCreateRelatedInput[];
+	activitiesUpdatedBy?: readonly MonospaceSystemUseractivitiesUpdatedByCreateRelatedInput[];
+	affiliationsCreatedBy?: readonly MonospaceSystemUseraffiliationsCreatedByCreateRelatedInput[];
+	affiliationsUpdatedBy?: readonly MonospaceSystemUseraffiliationsUpdatedByCreateRelatedInput[];
 	appearance?: string | null;
 	attachmentsCreatedBy?: readonly MonospaceSystemUserattachmentsCreatedByCreateRelatedInput[];
 	avatarId?: Uuid | null;
-	contactOrganizationsCreatedBy?: readonly MonospaceSystemUsercontactOrganizationsCreatedByCreateRelatedInput[];
-	contactOrganizationsUpdatedBy?: readonly MonospaceSystemUsercontactOrganizationsUpdatedByCreateRelatedInput[];
 	contactsOwner?: readonly MonospaceSystemUsercontactsOwnerCreateRelatedInput[];
 	contactsUpdatedBy?: readonly MonospaceSystemUsercontactsUpdatedByCreateRelatedInput[];
+	dealsCreatedBy?: readonly MonospaceSystemUserdealsCreatedByCreateRelatedInput[];
+	dealsOwner?: readonly MonospaceSystemUserdealsOwnerCreateRelatedInput[];
+	dealsUpdatedBy?: readonly MonospaceSystemUserdealsUpdatedByCreateRelatedInput[];
 	email?: string | null;
 	fullName?: string | null;
 	id: Uuid;
-	interactionsCreatedBy?: readonly MonospaceSystemUserinteractionsCreatedByCreateRelatedInput[];
-	interactionsOwner?: readonly MonospaceSystemUserinteractionsOwnerCreateRelatedInput[];
-	interactionsUpdatedBy?: readonly MonospaceSystemUserinteractionsUpdatedByCreateRelatedInput[];
 	isService: boolean;
 	lastActivityAt?: string | null;
-	opportunitiesCreatedBy?: readonly MonospaceSystemUseropportunitiesCreatedByCreateRelatedInput[];
-	opportunitiesOwner?: readonly MonospaceSystemUseropportunitiesOwnerCreateRelatedInput[];
-	opportunitiesUpdatedBy?: readonly MonospaceSystemUseropportunitiesUpdatedByCreateRelatedInput[];
 	organizationsCreatedBy?: readonly MonospaceSystemUserorganizationsCreatedByCreateRelatedInput[];
 	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
 	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
@@ -8009,107 +8608,55 @@ export type contactscreatedByUpdateOneRelatedOperationsInput = {
 	_update?: MonospaceSystemUserUpdateInput;
 }
 
-export type contactsinteractionsConnectBackwardKeysInput = {
+export type contactsdealsConnectBackwardKeysInput = {
 	id?: Uuid;
 }
 
-export type contactsinteractionsConnectInput = {
-	keys: readonly contactsinteractionsConnectBackwardKeysInput[];
+export type contactsdealsConnectInput = {
+	keys: readonly contactsdealsConnectBackwardKeysInput[];
 }
 
-export type contactsinteractionsCreateArguments = {
-	data: readonly contactsinteractionsCreateRelatedWithoutTypeInput[];
+export type contactsdealsCreateArguments = {
+	data: readonly contactsdealsCreateRelatedWithoutTypeInput[];
 }
 
-export type contactsinteractionsCreateRelatedInput = {
-	_connect?: contactsinteractionsConnectInput;
-	_create?: contactsinteractionsCreateArguments;
+export type contactsdealsCreateRelatedInput = {
+	_connect?: contactsdealsConnectInput;
+	_create?: contactsdealsCreateArguments;
 }
 
-export type contactsinteractionsCreateRelatedWithoutTypeInput = {
-	attachments?: readonly interactionsattachmentsCreateRelatedInput[];
-	body?: string | null;
-	completedAt?: string | null;
+export type contactsdealsCreateRelatedWithoutTypeInput = {
+	activities?: readonly dealsactivitiesCreateRelatedInput[];
+	attachments?: readonly dealsattachmentsCreateRelatedInput[];
 	createdAt?: string;
-	createdBy?: interactionscreatedByCreateRelatedInput;
-	direction?: string;
-	dueAt?: string | null;
-	id?: Uuid;
-	occurredAt?: string;
-	opportunities?: interactionsopportunitiesCreateRelatedInput;
-	organizations: interactionsorganizationsCreateRelatedInput;
-	owner?: interactionsownerCreateRelatedInput;
-	status: string;
-	subject: string;
-	type: string;
-	updatedAt?: string;
-	updatedBy?: interactionsupdatedByCreateRelatedInput;
-}
-
-export type contactsinteractionsRelationFieldArguments = {
-	filter?: interactionsFilterInput;
-	limit?: Int64Input;
-	offset?: UInt64Input;
-	sort?: readonly interactionsSortSpecifier[];
-}
-
-export type contactsinteractionsUpdateManyRelatedOperationsInput = {
-	_connect?: contactsinteractionsConnectInput;
-	_create?: contactsinteractionsCreateArguments;
-	_delete?: interactionsDeleteArguments;
-	_disconnect?: interactionsDisconnectManyInput;
-	_update?: interactionsUpdateInput;
-}
-
-export type contactsopportunitiesConnectBackwardKeysInput = {
-	id?: Uuid;
-}
-
-export type contactsopportunitiesConnectInput = {
-	keys: readonly contactsopportunitiesConnectBackwardKeysInput[];
-}
-
-export type contactsopportunitiesCreateArguments = {
-	data: readonly contactsopportunitiesCreateRelatedWithoutTypeInput[];
-}
-
-export type contactsopportunitiesCreateRelatedInput = {
-	_connect?: contactsopportunitiesConnectInput;
-	_create?: contactsopportunitiesCreateArguments;
-}
-
-export type contactsopportunitiesCreateRelatedWithoutTypeInput = {
-	attachments?: readonly opportunitiesattachmentsCreateRelatedInput[];
-	createdAt?: string;
-	createdBy?: opportunitiescreatedByCreateRelatedInput;
+	createdBy?: dealscreatedByCreateRelatedInput;
 	currency?: string;
 	expectedCloseDate?: string | null;
 	id?: Uuid;
-	interactions?: readonly opportunitiesinteractionsCreateRelatedInput[];
 	notes?: string | null;
-	organizations: opportunitiesorganizationsCreateRelatedInput;
-	owner?: opportunitiesownerCreateRelatedInput;
-	pipeline_stages: opportunitiespipeline_stagesCreateRelatedInput;
+	organizations: dealsorganizationsCreateRelatedInput;
+	owner?: dealsownerCreateRelatedInput;
+	pipeline_stages: dealspipeline_stagesCreateRelatedInput;
 	status?: string;
 	title: string;
 	updatedAt?: string;
-	updatedBy?: opportunitiesupdatedByCreateRelatedInput;
+	updatedBy?: dealsupdatedByCreateRelatedInput;
 	valueAmount?: string | null;
 }
 
-export type contactsopportunitiesRelationFieldArguments = {
-	filter?: opportunitiesFilterInput;
+export type contactsdealsRelationFieldArguments = {
+	filter?: dealsFilterInput;
 	limit?: Int64Input;
 	offset?: UInt64Input;
-	sort?: readonly opportunitiesSortSpecifier[];
+	sort?: readonly dealsSortSpecifier[];
 }
 
-export type contactsopportunitiesUpdateManyRelatedOperationsInput = {
-	_connect?: contactsopportunitiesConnectInput;
-	_create?: contactsopportunitiesCreateArguments;
-	_delete?: opportunitiesDeleteArguments;
-	_disconnect?: opportunitiesDisconnectManyInput;
-	_update?: opportunitiesUpdateInput;
+export type contactsdealsUpdateManyRelatedOperationsInput = {
+	_connect?: contactsdealsConnectInput;
+	_create?: contactsdealsCreateArguments;
+	_delete?: dealsDeleteArguments;
+	_disconnect?: dealsDisconnectManyInput;
+	_update?: dealsUpdateInput;
 }
 
 export type contactsownerConnectForwardKeyInput = {
@@ -8130,24 +8677,24 @@ export type contactsownerCreateRelatedInput = {
 }
 
 export type contactsownerCreateRelatedWithoutTypeInput = {
+	activitiesCreatedBy?: readonly MonospaceSystemUseractivitiesCreatedByCreateRelatedInput[];
+	activitiesOwner?: readonly MonospaceSystemUseractivitiesOwnerCreateRelatedInput[];
+	activitiesUpdatedBy?: readonly MonospaceSystemUseractivitiesUpdatedByCreateRelatedInput[];
+	affiliationsCreatedBy?: readonly MonospaceSystemUseraffiliationsCreatedByCreateRelatedInput[];
+	affiliationsUpdatedBy?: readonly MonospaceSystemUseraffiliationsUpdatedByCreateRelatedInput[];
 	appearance?: string | null;
 	attachmentsCreatedBy?: readonly MonospaceSystemUserattachmentsCreatedByCreateRelatedInput[];
 	avatarId?: Uuid | null;
-	contactOrganizationsCreatedBy?: readonly MonospaceSystemUsercontactOrganizationsCreatedByCreateRelatedInput[];
-	contactOrganizationsUpdatedBy?: readonly MonospaceSystemUsercontactOrganizationsUpdatedByCreateRelatedInput[];
 	contactsCreatedBy?: readonly MonospaceSystemUsercontactsCreatedByCreateRelatedInput[];
 	contactsUpdatedBy?: readonly MonospaceSystemUsercontactsUpdatedByCreateRelatedInput[];
+	dealsCreatedBy?: readonly MonospaceSystemUserdealsCreatedByCreateRelatedInput[];
+	dealsOwner?: readonly MonospaceSystemUserdealsOwnerCreateRelatedInput[];
+	dealsUpdatedBy?: readonly MonospaceSystemUserdealsUpdatedByCreateRelatedInput[];
 	email?: string | null;
 	fullName?: string | null;
 	id: Uuid;
-	interactionsCreatedBy?: readonly MonospaceSystemUserinteractionsCreatedByCreateRelatedInput[];
-	interactionsOwner?: readonly MonospaceSystemUserinteractionsOwnerCreateRelatedInput[];
-	interactionsUpdatedBy?: readonly MonospaceSystemUserinteractionsUpdatedByCreateRelatedInput[];
 	isService: boolean;
 	lastActivityAt?: string | null;
-	opportunitiesCreatedBy?: readonly MonospaceSystemUseropportunitiesCreatedByCreateRelatedInput[];
-	opportunitiesOwner?: readonly MonospaceSystemUseropportunitiesOwnerCreateRelatedInput[];
-	opportunitiesUpdatedBy?: readonly MonospaceSystemUseropportunitiesUpdatedByCreateRelatedInput[];
 	organizationsCreatedBy?: readonly MonospaceSystemUserorganizationsCreatedByCreateRelatedInput[];
 	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
 	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
@@ -8227,24 +8774,24 @@ export type contactsupdatedByCreateRelatedInput = {
 }
 
 export type contactsupdatedByCreateRelatedWithoutTypeInput = {
+	activitiesCreatedBy?: readonly MonospaceSystemUseractivitiesCreatedByCreateRelatedInput[];
+	activitiesOwner?: readonly MonospaceSystemUseractivitiesOwnerCreateRelatedInput[];
+	activitiesUpdatedBy?: readonly MonospaceSystemUseractivitiesUpdatedByCreateRelatedInput[];
+	affiliationsCreatedBy?: readonly MonospaceSystemUseraffiliationsCreatedByCreateRelatedInput[];
+	affiliationsUpdatedBy?: readonly MonospaceSystemUseraffiliationsUpdatedByCreateRelatedInput[];
 	appearance?: string | null;
 	attachmentsCreatedBy?: readonly MonospaceSystemUserattachmentsCreatedByCreateRelatedInput[];
 	avatarId?: Uuid | null;
-	contactOrganizationsCreatedBy?: readonly MonospaceSystemUsercontactOrganizationsCreatedByCreateRelatedInput[];
-	contactOrganizationsUpdatedBy?: readonly MonospaceSystemUsercontactOrganizationsUpdatedByCreateRelatedInput[];
 	contactsCreatedBy?: readonly MonospaceSystemUsercontactsCreatedByCreateRelatedInput[];
 	contactsOwner?: readonly MonospaceSystemUsercontactsOwnerCreateRelatedInput[];
+	dealsCreatedBy?: readonly MonospaceSystemUserdealsCreatedByCreateRelatedInput[];
+	dealsOwner?: readonly MonospaceSystemUserdealsOwnerCreateRelatedInput[];
+	dealsUpdatedBy?: readonly MonospaceSystemUserdealsUpdatedByCreateRelatedInput[];
 	email?: string | null;
 	fullName?: string | null;
 	id: Uuid;
-	interactionsCreatedBy?: readonly MonospaceSystemUserinteractionsCreatedByCreateRelatedInput[];
-	interactionsOwner?: readonly MonospaceSystemUserinteractionsOwnerCreateRelatedInput[];
-	interactionsUpdatedBy?: readonly MonospaceSystemUserinteractionsUpdatedByCreateRelatedInput[];
 	isService: boolean;
 	lastActivityAt?: string | null;
-	opportunitiesCreatedBy?: readonly MonospaceSystemUseropportunitiesCreatedByCreateRelatedInput[];
-	opportunitiesOwner?: readonly MonospaceSystemUseropportunitiesOwnerCreateRelatedInput[];
-	opportunitiesUpdatedBy?: readonly MonospaceSystemUseropportunitiesUpdatedByCreateRelatedInput[];
 	organizationsCreatedBy?: readonly MonospaceSystemUserorganizationsCreatedByCreateRelatedInput[];
 	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
 	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
@@ -8261,6 +8808,584 @@ export type contactsupdatedByRelationFieldArguments = {
 export type contactsupdatedByUpdateOneRelatedOperationsInput = {
 	_connect?: contactsupdatedByConnectInput;
 	_create?: contactsupdatedByCreateArguments;
+	_delete?: MonospaceSystemUserDeleteArguments;
+	_disconnect?: MonospaceSystemUserDisconnectOneInput;
+	_update?: MonospaceSystemUserUpdateInput;
+}
+
+export type dealsCollectionOutput = {
+	activities?: { data: activitiesCollectionOutput[] };
+	attachments?: { data: attachmentsCollectionOutput[] };
+	contactId?: Uuid | null;
+	contacts?: contactsCollectionOutput | null;
+	createdAt?: string;
+	createdBy?: MonospaceSystemUserCollectionOutput | null;
+	createdById?: Uuid | null;
+	currency?: string;
+	expectedCloseDate?: string | null;
+	id?: Uuid;
+	notes?: string | null;
+	organizationId?: Uuid;
+	organizations?: organizationsCollectionOutput;
+	owner?: MonospaceSystemUserCollectionOutput | null;
+	ownerUserId?: Uuid | null;
+	pipeline_stages?: pipelineStagesCollectionOutput;
+	stageId?: Uuid;
+	status?: string;
+	title?: string;
+	updatedAt?: string;
+	updatedBy?: MonospaceSystemUserCollectionOutput | null;
+	updatedById?: Uuid | null;
+	valueAmount?: string | null;
+}
+
+export type dealsCollectionOutputFieldsInput = readonly ("contactId" | "createdAt" | "createdById" | "currency" | "expectedCloseDate" | "id" | "notes" | "organizationId" | "ownerUserId" | "stageId" | "status" | "title" | "updatedAt" | "updatedById" | "valueAmount" | "*" | `${string}:${"contactId" | "createdAt" | "createdById" | "currency" | "expectedCloseDate" | "id" | "notes" | "organizationId" | "ownerUserId" | "stageId" | "status" | "title" | "updatedAt" | "updatedById" | "valueAmount"}`)[];
+
+export type dealsCollectionOutputIncludeInput = {
+	"activities"?: (dealsactivitiesRelationFieldArguments & { "fields"?: activitiesCollectionOutputFieldsInput; "include"?: activitiesCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (dealsactivitiesRelationFieldArguments & { "fields"?: activitiesCollectionOutputFieldsInput; "include"?: activitiesCollectionOutputIncludeInput })>]?: never };
+	"attachments"?: (dealsattachmentsRelationFieldArguments & { "fields"?: attachmentsCollectionOutputFieldsInput; "include"?: attachmentsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (dealsattachmentsRelationFieldArguments & { "fields"?: attachmentsCollectionOutputFieldsInput; "include"?: attachmentsCollectionOutputIncludeInput })>]?: never };
+	"contacts"?: (dealscontactsRelationFieldArguments & { "fields"?: contactsCollectionOutputFieldsInput; "include"?: contactsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (dealscontactsRelationFieldArguments & { "fields"?: contactsCollectionOutputFieldsInput; "include"?: contactsCollectionOutputIncludeInput })>]?: never };
+	"createdBy"?: (dealscreatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (dealscreatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput })>]?: never };
+	"organizations"?: ({ "fields"?: organizationsCollectionOutputFieldsInput; "include"?: organizationsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof ({ "fields"?: organizationsCollectionOutputFieldsInput; "include"?: organizationsCollectionOutputIncludeInput })>]?: never };
+	"owner"?: (dealsownerRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (dealsownerRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput })>]?: never };
+	"pipeline_stages"?: ({ "fields"?: pipelineStagesCollectionOutputFieldsInput; "include"?: pipelineStagesCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof ({ "fields"?: pipelineStagesCollectionOutputFieldsInput; "include"?: pipelineStagesCollectionOutputIncludeInput })>]?: never };
+	"updatedBy"?: (dealsupdatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (dealsupdatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput })>]?: never };
+} & { [K in `${string}:${"activities"}`]?: dealsCollectionOutputIncludeInput["activities"] } & { [K in `${string}:${"attachments"}`]?: dealsCollectionOutputIncludeInput["attachments"] } & { [K in `${string}:${"contacts"}`]?: dealsCollectionOutputIncludeInput["contacts"] } & { [K in `${string}:${"createdBy"}`]?: dealsCollectionOutputIncludeInput["createdBy"] } & { [K in `${string}:${"organizations"}`]?: dealsCollectionOutputIncludeInput["organizations"] } & { [K in `${string}:${"owner"}`]?: dealsCollectionOutputIncludeInput["owner"] } & { [K in `${string}:${"pipeline_stages"}`]?: dealsCollectionOutputIncludeInput["pipeline_stages"] } & { [K in `${string}:${"updatedBy"}`]?: dealsCollectionOutputIncludeInput["updatedBy"] };
+
+export type dealsCreateArguments = {
+	data: readonly dealsCreateInput[];
+}
+
+export type dealsCreateInput = {
+	activities?: readonly dealsactivitiesCreateRelatedInput[];
+	attachments?: readonly dealsattachmentsCreateRelatedInput[];
+	contacts?: dealscontactsCreateRelatedInput;
+	createdAt?: string;
+	createdBy?: dealscreatedByCreateRelatedInput;
+	currency?: string;
+	expectedCloseDate?: string | null;
+	id?: Uuid;
+	notes?: string | null;
+	organizations: dealsorganizationsCreateRelatedInput;
+	owner?: dealsownerCreateRelatedInput;
+	pipeline_stages: dealspipeline_stagesCreateRelatedInput;
+	status?: string;
+	title: string;
+	updatedAt?: string;
+	updatedBy?: dealsupdatedByCreateRelatedInput;
+	valueAmount?: string | null;
+}
+
+export type dealsDeleteArguments = {
+	filter?: dealsFilterInput;
+}
+
+export type dealsDeleteOneArguments = {
+	filter?: dealsFilterInput;
+	key: Uuid;
+}
+
+export type dealsDisconnectManyInput = {
+	filter?: dealsFilterInput;
+}
+
+export type dealsDisconnectOneInput = {}
+
+export type dealsFilterInput = {
+	_and?: readonly dealsFilterInput[];
+	_not?: dealsFilterInput;
+	_or?: readonly dealsFilterInput[];
+	activities?: activitiesFilterQuantifierInput | activitiesFilterInput;
+	attachments?: attachmentsFilterQuantifierInput | attachmentsFilterInput;
+	contactId?: UuidFilterNullablePrimitiveInput | Uuid | null;
+	contacts?: contactsFilterInput;
+	createdAt?: DateTimeFilterPrimitiveInput | string;
+	createdBy?: MonospaceSystemUserFilterInput;
+	createdById?: UuidFilterNullablePrimitiveInput | Uuid | null;
+	currency?: StringFilterPrimitiveInput | string;
+	expectedCloseDate?: DateFilterNullablePrimitiveInput | string | null;
+	id?: UuidFilterPrimitiveInput | Uuid;
+	notes?: StringFilterNullablePrimitiveInput | string | null;
+	organizationId?: UuidFilterPrimitiveInput | Uuid;
+	organizations?: organizationsFilterInput;
+	owner?: MonospaceSystemUserFilterInput;
+	ownerUserId?: UuidFilterNullablePrimitiveInput | Uuid | null;
+	pipeline_stages?: pipelineStagesFilterInput;
+	stageId?: UuidFilterPrimitiveInput | Uuid;
+	status?: StringFilterPrimitiveInput | string;
+	title?: StringFilterPrimitiveInput | string;
+	updatedAt?: DateTimeFilterPrimitiveInput | string;
+	updatedBy?: MonospaceSystemUserFilterInput;
+	updatedById?: UuidFilterNullablePrimitiveInput | Uuid | null;
+	valueAmount?: DecimalFilterNullablePrimitiveInput | string | null;
+}
+
+export type dealsFilterQuantifierInput = {
+	_every?: dealsFilterInput;
+	_none?: dealsFilterInput;
+	_some?: dealsFilterInput;
+}
+
+export type dealsListArguments = {
+	filter?: dealsFilterInput;
+	limit?: Int64Input;
+	meta?: MetaArguments;
+	offset?: UInt64Input;
+	sort?: readonly dealsSortSpecifier[];
+}
+
+export type dealsReadArguments = {
+	filter?: dealsFilterInput;
+	key: Uuid;
+}
+
+export type dealsSortSpecifier = {
+	contactId?: SortFieldOptions;
+	createdAt?: SortFieldOptions;
+	createdById?: SortFieldOptions;
+	currency?: SortFieldOptions;
+	expectedCloseDate?: SortFieldOptions;
+	id?: SortFieldOptions;
+	notes?: SortFieldOptions;
+	organizationId?: SortFieldOptions;
+	ownerUserId?: SortFieldOptions;
+	stageId?: SortFieldOptions;
+	status?: SortFieldOptions;
+	title?: SortFieldOptions;
+	updatedAt?: SortFieldOptions;
+	updatedById?: SortFieldOptions;
+	valueAmount?: SortFieldOptions;
+}
+
+export type dealsUpdateArguments = {
+	data: dealsUpdateDataInput;
+	filter?: dealsFilterInput;
+}
+
+export type dealsUpdateDataInput = {
+	activities?: readonly dealsactivitiesUpdateManyRelatedOperationsInput[];
+	attachments?: readonly dealsattachmentsUpdateManyRelatedOperationsInput[];
+	contactId?: Uuid | null;
+	contacts?: readonly dealscontactsUpdateOneRelatedOperationsInput[];
+	createdAt?: string;
+	createdBy?: readonly dealscreatedByUpdateOneRelatedOperationsInput[];
+	createdById?: Uuid | null;
+	currency?: string;
+	expectedCloseDate?: string | null;
+	id?: Uuid;
+	notes?: string | null;
+	organizationId?: Uuid;
+	organizations?: readonly dealsorganizationsUpdateOneRelatedOperationsInput[];
+	owner?: readonly dealsownerUpdateOneRelatedOperationsInput[];
+	ownerUserId?: Uuid | null;
+	pipeline_stages?: readonly dealspipeline_stagesUpdateOneRelatedOperationsInput[];
+	stageId?: Uuid;
+	status?: string;
+	title?: string;
+	updatedAt?: string;
+	updatedBy?: readonly dealsupdatedByUpdateOneRelatedOperationsInput[];
+	updatedById?: Uuid | null;
+	valueAmount?: string | null;
+}
+
+export type dealsUpdateInput = {
+	data: dealsUpdateDataInput;
+	filter?: dealsFilterInput;
+}
+
+export type dealsUpdateOneArguments = {
+	data: dealsUpdateDataInput;
+	filter?: dealsFilterInput;
+	key: Uuid;
+}
+
+export type dealsactivitiesConnectBackwardKeysInput = {
+	id?: Uuid;
+}
+
+export type dealsactivitiesConnectInput = {
+	keys: readonly dealsactivitiesConnectBackwardKeysInput[];
+}
+
+export type dealsactivitiesCreateArguments = {
+	data: readonly dealsactivitiesCreateRelatedWithoutTypeInput[];
+}
+
+export type dealsactivitiesCreateRelatedInput = {
+	_connect?: dealsactivitiesConnectInput;
+	_create?: dealsactivitiesCreateArguments;
+}
+
+export type dealsactivitiesCreateRelatedWithoutTypeInput = {
+	attachments?: readonly activitiesattachmentsCreateRelatedInput[];
+	body?: string | null;
+	completedAt?: string | null;
+	contacts?: activitiescontactsCreateRelatedInput;
+	createdAt?: string;
+	createdBy?: activitiescreatedByCreateRelatedInput;
+	direction?: string;
+	dueAt?: string | null;
+	id?: Uuid;
+	occurredAt?: string;
+	organizations: activitiesorganizationsCreateRelatedInput;
+	owner?: activitiesownerCreateRelatedInput;
+	status: string;
+	subject: string;
+	type: string;
+	updatedAt?: string;
+	updatedBy?: activitiesupdatedByCreateRelatedInput;
+}
+
+export type dealsactivitiesRelationFieldArguments = {
+	filter?: activitiesFilterInput;
+	limit?: Int64Input;
+	offset?: UInt64Input;
+	sort?: readonly activitiesSortSpecifier[];
+}
+
+export type dealsactivitiesUpdateManyRelatedOperationsInput = {
+	_connect?: dealsactivitiesConnectInput;
+	_create?: dealsactivitiesCreateArguments;
+	_delete?: activitiesDeleteArguments;
+	_disconnect?: activitiesDisconnectManyInput;
+	_update?: activitiesUpdateInput;
+}
+
+export type dealsattachmentsConnectBackwardKeysInput = {
+	assetId?: Uuid;
+	id?: Uuid;
+}
+
+export type dealsattachmentsConnectInput = {
+	keys: readonly dealsattachmentsConnectBackwardKeysInput[];
+}
+
+export type dealsattachmentsCreateArguments = {
+	data: readonly dealsattachmentsCreateRelatedWithoutTypeInput[];
+}
+
+export type dealsattachmentsCreateRelatedInput = {
+	_connect?: dealsattachmentsConnectInput;
+	_create?: dealsattachmentsCreateArguments;
+}
+
+export type dealsattachmentsCreateRelatedWithoutTypeInput = {
+	activities?: attachmentsactivitiesCreateRelatedInput;
+	assetId?: Uuid | null;
+	contacts?: attachmentscontactsCreateRelatedInput;
+	contentType?: string | null;
+	createdAt?: string;
+	createdBy?: attachmentscreatedByCreateRelatedInput;
+	fileName: string;
+	id?: Uuid;
+	organizations: attachmentsorganizationsCreateRelatedInput;
+	sizeBytes?: Int64Input | null;
+	url?: string | null;
+}
+
+export type dealsattachmentsRelationFieldArguments = {
+	filter?: attachmentsFilterInput;
+	limit?: Int64Input;
+	offset?: UInt64Input;
+	sort?: readonly attachmentsSortSpecifier[];
+}
+
+export type dealsattachmentsUpdateManyRelatedOperationsInput = {
+	_connect?: dealsattachmentsConnectInput;
+	_create?: dealsattachmentsCreateArguments;
+	_delete?: attachmentsDeleteArguments;
+	_disconnect?: attachmentsDisconnectManyInput;
+	_update?: attachmentsUpdateInput;
+}
+
+export type dealscontactsConnectForwardKeyInput = {
+	id: Uuid | null;
+}
+
+export type dealscontactsConnectInput = {
+	key: dealscontactsConnectForwardKeyInput;
+}
+
+export type dealscontactsCreateArguments = {
+	data: dealscontactsCreateRelatedWithoutTypeInput;
+}
+
+export type dealscontactsCreateRelatedInput = {
+	_connect?: dealscontactsConnectInput;
+	_create?: dealscontactsCreateArguments;
+}
+
+export type dealscontactsCreateRelatedWithoutTypeInput = {
+	activities?: readonly contactsactivitiesCreateRelatedInput[];
+	affiliations?: readonly contactsaffiliationsCreateRelatedInput[];
+	attachments?: readonly contactsattachmentsCreateRelatedInput[];
+	createdAt?: string;
+	createdBy?: contactscreatedByCreateRelatedInput;
+	email?: string | null;
+	firstName: string;
+	id?: Uuid;
+	lastName: string;
+	notes?: string | null;
+	owner?: contactsownerCreateRelatedInput;
+	phone?: string | null;
+	portalUser?: contactsportalUserCreateRelatedInput;
+	status?: string;
+	updatedAt?: string;
+	updatedBy?: contactsupdatedByCreateRelatedInput;
+}
+
+export type dealscontactsRelationFieldArguments = {
+	filter?: contactsFilterInput;
+}
+
+export type dealscontactsUpdateOneRelatedOperationsInput = {
+	_connect?: dealscontactsConnectInput;
+	_create?: dealscontactsCreateArguments;
+	_delete?: contactsDeleteArguments;
+	_disconnect?: contactsDisconnectOneInput;
+	_update?: contactsUpdateInput;
+}
+
+export type dealscreatedByConnectForwardKeyInput = {
+	id: Uuid | null;
+}
+
+export type dealscreatedByConnectInput = {
+	key: dealscreatedByConnectForwardKeyInput;
+}
+
+export type dealscreatedByCreateArguments = {
+	data: dealscreatedByCreateRelatedWithoutTypeInput;
+}
+
+export type dealscreatedByCreateRelatedInput = {
+	_connect?: dealscreatedByConnectInput;
+	_create?: dealscreatedByCreateArguments;
+}
+
+export type dealscreatedByCreateRelatedWithoutTypeInput = {
+	activitiesCreatedBy?: readonly MonospaceSystemUseractivitiesCreatedByCreateRelatedInput[];
+	activitiesOwner?: readonly MonospaceSystemUseractivitiesOwnerCreateRelatedInput[];
+	activitiesUpdatedBy?: readonly MonospaceSystemUseractivitiesUpdatedByCreateRelatedInput[];
+	affiliationsCreatedBy?: readonly MonospaceSystemUseraffiliationsCreatedByCreateRelatedInput[];
+	affiliationsUpdatedBy?: readonly MonospaceSystemUseraffiliationsUpdatedByCreateRelatedInput[];
+	appearance?: string | null;
+	attachmentsCreatedBy?: readonly MonospaceSystemUserattachmentsCreatedByCreateRelatedInput[];
+	avatarId?: Uuid | null;
+	contactsCreatedBy?: readonly MonospaceSystemUsercontactsCreatedByCreateRelatedInput[];
+	contactsOwner?: readonly MonospaceSystemUsercontactsOwnerCreateRelatedInput[];
+	contactsUpdatedBy?: readonly MonospaceSystemUsercontactsUpdatedByCreateRelatedInput[];
+	dealsOwner?: readonly MonospaceSystemUserdealsOwnerCreateRelatedInput[];
+	dealsUpdatedBy?: readonly MonospaceSystemUserdealsUpdatedByCreateRelatedInput[];
+	email?: string | null;
+	fullName?: string | null;
+	id: Uuid;
+	isService: boolean;
+	lastActivityAt?: string | null;
+	organizationsCreatedBy?: readonly MonospaceSystemUserorganizationsCreatedByCreateRelatedInput[];
+	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
+	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
+	roles?: readonly MonospaceSystemUserrolesCreateRelatedInput[];
+	serviceOwnerId?: Uuid | null;
+	status?: string;
+	storageValues?: readonly MonospaceSystemUserstorageValuesCreateRelatedInput[];
+}
+
+export type dealscreatedByRelationFieldArguments = {
+	filter?: MonospaceSystemUserFilterInput;
+}
+
+export type dealscreatedByUpdateOneRelatedOperationsInput = {
+	_connect?: dealscreatedByConnectInput;
+	_create?: dealscreatedByCreateArguments;
+	_delete?: MonospaceSystemUserDeleteArguments;
+	_disconnect?: MonospaceSystemUserDisconnectOneInput;
+	_update?: MonospaceSystemUserUpdateInput;
+}
+
+export type dealsorganizationsConnectForwardKeyInput = {
+	id: Uuid;
+}
+
+export type dealsorganizationsConnectInput = {
+	key: dealsorganizationsConnectForwardKeyInput;
+}
+
+export type dealsorganizationsCreateArguments = {
+	data: dealsorganizationsCreateRelatedWithoutTypeInput;
+}
+
+export type dealsorganizationsCreateRelatedInput = {
+	_connect?: dealsorganizationsConnectInput;
+	_create?: dealsorganizationsCreateArguments;
+}
+
+export type dealsorganizationsCreateRelatedWithoutTypeInput = {
+	activities?: readonly organizationsactivitiesCreateRelatedInput[];
+	affiliations?: readonly organizationsaffiliationsCreateRelatedInput[];
+	attachments?: readonly organizationsattachmentsCreateRelatedInput[];
+	createdAt?: string;
+	createdBy?: organizationscreatedByCreateRelatedInput;
+	domain?: string | null;
+	id?: Uuid;
+	industry?: string | null;
+	name: string;
+	notes?: string | null;
+	owner?: organizationsownerCreateRelatedInput;
+	portalAccount?: organizationsportalAccountCreateRelatedInput;
+	portalAccountId?: string | null;
+	status?: string;
+	updatedAt?: string;
+	updatedBy?: organizationsupdatedByCreateRelatedInput;
+}
+
+export type dealsorganizationsUpdateOneRelatedOperationsInput = {
+	_connect?: dealsorganizationsConnectInput;
+	_create?: dealsorganizationsCreateArguments;
+	_update?: organizationsUpdateInput;
+}
+
+export type dealsownerConnectForwardKeyInput = {
+	id: Uuid | null;
+}
+
+export type dealsownerConnectInput = {
+	key: dealsownerConnectForwardKeyInput;
+}
+
+export type dealsownerCreateArguments = {
+	data: dealsownerCreateRelatedWithoutTypeInput;
+}
+
+export type dealsownerCreateRelatedInput = {
+	_connect?: dealsownerConnectInput;
+	_create?: dealsownerCreateArguments;
+}
+
+export type dealsownerCreateRelatedWithoutTypeInput = {
+	activitiesCreatedBy?: readonly MonospaceSystemUseractivitiesCreatedByCreateRelatedInput[];
+	activitiesOwner?: readonly MonospaceSystemUseractivitiesOwnerCreateRelatedInput[];
+	activitiesUpdatedBy?: readonly MonospaceSystemUseractivitiesUpdatedByCreateRelatedInput[];
+	affiliationsCreatedBy?: readonly MonospaceSystemUseraffiliationsCreatedByCreateRelatedInput[];
+	affiliationsUpdatedBy?: readonly MonospaceSystemUseraffiliationsUpdatedByCreateRelatedInput[];
+	appearance?: string | null;
+	attachmentsCreatedBy?: readonly MonospaceSystemUserattachmentsCreatedByCreateRelatedInput[];
+	avatarId?: Uuid | null;
+	contactsCreatedBy?: readonly MonospaceSystemUsercontactsCreatedByCreateRelatedInput[];
+	contactsOwner?: readonly MonospaceSystemUsercontactsOwnerCreateRelatedInput[];
+	contactsUpdatedBy?: readonly MonospaceSystemUsercontactsUpdatedByCreateRelatedInput[];
+	dealsCreatedBy?: readonly MonospaceSystemUserdealsCreatedByCreateRelatedInput[];
+	dealsUpdatedBy?: readonly MonospaceSystemUserdealsUpdatedByCreateRelatedInput[];
+	email?: string | null;
+	fullName?: string | null;
+	id: Uuid;
+	isService: boolean;
+	lastActivityAt?: string | null;
+	organizationsCreatedBy?: readonly MonospaceSystemUserorganizationsCreatedByCreateRelatedInput[];
+	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
+	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
+	roles?: readonly MonospaceSystemUserrolesCreateRelatedInput[];
+	serviceOwnerId?: Uuid | null;
+	status?: string;
+	storageValues?: readonly MonospaceSystemUserstorageValuesCreateRelatedInput[];
+}
+
+export type dealsownerRelationFieldArguments = {
+	filter?: MonospaceSystemUserFilterInput;
+}
+
+export type dealsownerUpdateOneRelatedOperationsInput = {
+	_connect?: dealsownerConnectInput;
+	_create?: dealsownerCreateArguments;
+	_delete?: MonospaceSystemUserDeleteArguments;
+	_disconnect?: MonospaceSystemUserDisconnectOneInput;
+	_update?: MonospaceSystemUserUpdateInput;
+}
+
+export type dealspipeline_stagesConnectForwardKeyInput = {
+	id: Uuid;
+}
+
+export type dealspipeline_stagesConnectInput = {
+	key: dealspipeline_stagesConnectForwardKeyInput;
+}
+
+export type dealspipeline_stagesCreateArguments = {
+	data: dealspipeline_stagesCreateRelatedWithoutTypeInput;
+}
+
+export type dealspipeline_stagesCreateRelatedInput = {
+	_connect?: dealspipeline_stagesConnectInput;
+	_create?: dealspipeline_stagesCreateArguments;
+}
+
+export type dealspipeline_stagesCreateRelatedWithoutTypeInput = {
+	color?: string | null;
+	id?: Uuid;
+	isClosed?: boolean;
+	isWon?: boolean;
+	name: string;
+	position: number;
+}
+
+export type dealspipeline_stagesUpdateOneRelatedOperationsInput = {
+	_connect?: dealspipeline_stagesConnectInput;
+	_create?: dealspipeline_stagesCreateArguments;
+	_update?: pipelineStagesUpdateInput;
+}
+
+export type dealsupdatedByConnectForwardKeyInput = {
+	id: Uuid | null;
+}
+
+export type dealsupdatedByConnectInput = {
+	key: dealsupdatedByConnectForwardKeyInput;
+}
+
+export type dealsupdatedByCreateArguments = {
+	data: dealsupdatedByCreateRelatedWithoutTypeInput;
+}
+
+export type dealsupdatedByCreateRelatedInput = {
+	_connect?: dealsupdatedByConnectInput;
+	_create?: dealsupdatedByCreateArguments;
+}
+
+export type dealsupdatedByCreateRelatedWithoutTypeInput = {
+	activitiesCreatedBy?: readonly MonospaceSystemUseractivitiesCreatedByCreateRelatedInput[];
+	activitiesOwner?: readonly MonospaceSystemUseractivitiesOwnerCreateRelatedInput[];
+	activitiesUpdatedBy?: readonly MonospaceSystemUseractivitiesUpdatedByCreateRelatedInput[];
+	affiliationsCreatedBy?: readonly MonospaceSystemUseraffiliationsCreatedByCreateRelatedInput[];
+	affiliationsUpdatedBy?: readonly MonospaceSystemUseraffiliationsUpdatedByCreateRelatedInput[];
+	appearance?: string | null;
+	attachmentsCreatedBy?: readonly MonospaceSystemUserattachmentsCreatedByCreateRelatedInput[];
+	avatarId?: Uuid | null;
+	contactsCreatedBy?: readonly MonospaceSystemUsercontactsCreatedByCreateRelatedInput[];
+	contactsOwner?: readonly MonospaceSystemUsercontactsOwnerCreateRelatedInput[];
+	contactsUpdatedBy?: readonly MonospaceSystemUsercontactsUpdatedByCreateRelatedInput[];
+	dealsCreatedBy?: readonly MonospaceSystemUserdealsCreatedByCreateRelatedInput[];
+	dealsOwner?: readonly MonospaceSystemUserdealsOwnerCreateRelatedInput[];
+	email?: string | null;
+	fullName?: string | null;
+	id: Uuid;
+	isService: boolean;
+	lastActivityAt?: string | null;
+	organizationsCreatedBy?: readonly MonospaceSystemUserorganizationsCreatedByCreateRelatedInput[];
+	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
+	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
+	roles?: readonly MonospaceSystemUserrolesCreateRelatedInput[];
+	serviceOwnerId?: Uuid | null;
+	status?: string;
+	storageValues?: readonly MonospaceSystemUserstorageValuesCreateRelatedInput[];
+}
+
+export type dealsupdatedByRelationFieldArguments = {
+	filter?: MonospaceSystemUserFilterInput;
+}
+
+export type dealsupdatedByUpdateOneRelatedOperationsInput = {
+	_connect?: dealsupdatedByConnectInput;
+	_create?: dealsupdatedByCreateArguments;
 	_delete?: MonospaceSystemUserDeleteArguments;
 	_disconnect?: MonospaceSystemUserDisconnectOneInput;
 	_update?: MonospaceSystemUserUpdateInput;
@@ -8456,1144 +9581,19 @@ export type eventsuserUpdateOneRelatedOperationsInput = {
 	_update?: usersUpdateInput;
 }
 
-export type interactionsCollectionOutput = {
-	attachments?: { data: attachmentsCollectionOutput[] };
-	body?: string | null;
-	completedAt?: string | null;
-	contactId?: Uuid | null;
-	contacts?: contactsCollectionOutput | null;
-	createdAt?: string;
-	createdBy?: MonospaceSystemUserCollectionOutput | null;
-	createdById?: Uuid | null;
-	direction?: string;
-	dueAt?: string | null;
-	id?: Uuid;
-	occurredAt?: string;
-	opportunities?: opportunitiesCollectionOutput | null;
-	opportunityId?: Uuid | null;
-	organizationId?: Uuid;
-	organizations?: organizationsCollectionOutput;
-	owner?: MonospaceSystemUserCollectionOutput | null;
-	ownerUserId?: Uuid | null;
-	status?: string;
-	subject?: string;
-	type?: string;
-	updatedAt?: string;
-	updatedBy?: MonospaceSystemUserCollectionOutput | null;
-	updatedById?: Uuid | null;
-}
-
-export type interactionsCollectionOutputFieldsInput = readonly ("body" | "completedAt" | "contactId" | "createdAt" | "createdById" | "direction" | "dueAt" | "id" | "occurredAt" | "opportunityId" | "organizationId" | "ownerUserId" | "status" | "subject" | "type" | "updatedAt" | "updatedById" | "*" | `${string}:${"body" | "completedAt" | "contactId" | "createdAt" | "createdById" | "direction" | "dueAt" | "id" | "occurredAt" | "opportunityId" | "organizationId" | "ownerUserId" | "status" | "subject" | "type" | "updatedAt" | "updatedById"}`)[];
-
-export type interactionsCollectionOutputIncludeInput = {
-	"attachments"?: (interactionsattachmentsRelationFieldArguments & { "fields"?: attachmentsCollectionOutputFieldsInput; "include"?: attachmentsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (interactionsattachmentsRelationFieldArguments & { "fields"?: attachmentsCollectionOutputFieldsInput; "include"?: attachmentsCollectionOutputIncludeInput })>]?: never };
-	"contacts"?: (interactionscontactsRelationFieldArguments & { "fields"?: contactsCollectionOutputFieldsInput; "include"?: contactsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (interactionscontactsRelationFieldArguments & { "fields"?: contactsCollectionOutputFieldsInput; "include"?: contactsCollectionOutputIncludeInput })>]?: never };
-	"createdBy"?: (interactionscreatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (interactionscreatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput })>]?: never };
-	"opportunities"?: (interactionsopportunitiesRelationFieldArguments & { "fields"?: opportunitiesCollectionOutputFieldsInput; "include"?: opportunitiesCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (interactionsopportunitiesRelationFieldArguments & { "fields"?: opportunitiesCollectionOutputFieldsInput; "include"?: opportunitiesCollectionOutputIncludeInput })>]?: never };
-	"organizations"?: ({ "fields"?: organizationsCollectionOutputFieldsInput; "include"?: organizationsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof ({ "fields"?: organizationsCollectionOutputFieldsInput; "include"?: organizationsCollectionOutputIncludeInput })>]?: never };
-	"owner"?: (interactionsownerRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (interactionsownerRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput })>]?: never };
-	"updatedBy"?: (interactionsupdatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (interactionsupdatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput })>]?: never };
-} & { [K in `${string}:${"attachments"}`]?: interactionsCollectionOutputIncludeInput["attachments"] } & { [K in `${string}:${"contacts"}`]?: interactionsCollectionOutputIncludeInput["contacts"] } & { [K in `${string}:${"createdBy"}`]?: interactionsCollectionOutputIncludeInput["createdBy"] } & { [K in `${string}:${"opportunities"}`]?: interactionsCollectionOutputIncludeInput["opportunities"] } & { [K in `${string}:${"organizations"}`]?: interactionsCollectionOutputIncludeInput["organizations"] } & { [K in `${string}:${"owner"}`]?: interactionsCollectionOutputIncludeInput["owner"] } & { [K in `${string}:${"updatedBy"}`]?: interactionsCollectionOutputIncludeInput["updatedBy"] };
-
-export type interactionsCreateArguments = {
-	data: readonly interactionsCreateInput[];
-}
-
-export type interactionsCreateInput = {
-	attachments?: readonly interactionsattachmentsCreateRelatedInput[];
-	body?: string | null;
-	completedAt?: string | null;
-	contacts?: interactionscontactsCreateRelatedInput;
-	createdAt?: string;
-	createdBy?: interactionscreatedByCreateRelatedInput;
-	direction?: string;
-	dueAt?: string | null;
-	id?: Uuid;
-	occurredAt?: string;
-	opportunities?: interactionsopportunitiesCreateRelatedInput;
-	organizations: interactionsorganizationsCreateRelatedInput;
-	owner?: interactionsownerCreateRelatedInput;
-	status: string;
-	subject: string;
-	type: string;
-	updatedAt?: string;
-	updatedBy?: interactionsupdatedByCreateRelatedInput;
-}
-
-export type interactionsDeleteArguments = {
-	filter?: interactionsFilterInput;
-}
-
-export type interactionsDeleteOneArguments = {
-	filter?: interactionsFilterInput;
-	key: Uuid;
-}
-
-export type interactionsDisconnectManyInput = {
-	filter?: interactionsFilterInput;
-}
-
-export type interactionsDisconnectOneInput = {}
-
-export type interactionsFilterInput = {
-	_and?: readonly interactionsFilterInput[];
-	_not?: interactionsFilterInput;
-	_or?: readonly interactionsFilterInput[];
-	attachments?: attachmentsFilterQuantifierInput | attachmentsFilterInput;
-	body?: StringFilterNullablePrimitiveInput | string | null;
-	completedAt?: DateTimeFilterNullablePrimitiveInput | string | null;
-	contactId?: UuidFilterNullablePrimitiveInput | Uuid | null;
-	contacts?: contactsFilterInput;
-	createdAt?: DateTimeFilterPrimitiveInput | string;
-	createdBy?: MonospaceSystemUserFilterInput;
-	createdById?: UuidFilterNullablePrimitiveInput | Uuid | null;
-	direction?: StringFilterPrimitiveInput | string;
-	dueAt?: DateTimeFilterNullablePrimitiveInput | string | null;
-	id?: UuidFilterPrimitiveInput | Uuid;
-	occurredAt?: DateTimeFilterPrimitiveInput | string;
-	opportunities?: opportunitiesFilterInput;
-	opportunityId?: UuidFilterNullablePrimitiveInput | Uuid | null;
-	organizationId?: UuidFilterPrimitiveInput | Uuid;
-	organizations?: organizationsFilterInput;
-	owner?: MonospaceSystemUserFilterInput;
-	ownerUserId?: UuidFilterNullablePrimitiveInput | Uuid | null;
-	status?: StringFilterPrimitiveInput | string;
-	subject?: StringFilterPrimitiveInput | string;
-	type?: StringFilterPrimitiveInput | string;
-	updatedAt?: DateTimeFilterPrimitiveInput | string;
-	updatedBy?: MonospaceSystemUserFilterInput;
-	updatedById?: UuidFilterNullablePrimitiveInput | Uuid | null;
-}
-
-export type interactionsFilterQuantifierInput = {
-	_every?: interactionsFilterInput;
-	_none?: interactionsFilterInput;
-	_some?: interactionsFilterInput;
-}
-
-export type interactionsListArguments = {
-	filter?: interactionsFilterInput;
-	limit?: Int64Input;
-	meta?: MetaArguments;
-	offset?: UInt64Input;
-	sort?: readonly interactionsSortSpecifier[];
-}
-
-export type interactionsReadArguments = {
-	filter?: interactionsFilterInput;
-	key: Uuid;
-}
-
-export type interactionsSortSpecifier = {
-	body?: SortFieldOptions;
-	completedAt?: SortFieldOptions;
-	contactId?: SortFieldOptions;
-	createdAt?: SortFieldOptions;
-	createdById?: SortFieldOptions;
-	direction?: SortFieldOptions;
-	dueAt?: SortFieldOptions;
-	id?: SortFieldOptions;
-	occurredAt?: SortFieldOptions;
-	opportunityId?: SortFieldOptions;
-	organizationId?: SortFieldOptions;
-	ownerUserId?: SortFieldOptions;
-	status?: SortFieldOptions;
-	subject?: SortFieldOptions;
-	type?: SortFieldOptions;
-	updatedAt?: SortFieldOptions;
-	updatedById?: SortFieldOptions;
-}
-
-export type interactionsUpdateArguments = {
-	data: interactionsUpdateDataInput;
-	filter?: interactionsFilterInput;
-}
-
-export type interactionsUpdateDataInput = {
-	attachments?: readonly interactionsattachmentsUpdateManyRelatedOperationsInput[];
-	body?: string | null;
-	completedAt?: string | null;
-	contactId?: Uuid | null;
-	contacts?: readonly interactionscontactsUpdateOneRelatedOperationsInput[];
-	createdAt?: string;
-	createdBy?: readonly interactionscreatedByUpdateOneRelatedOperationsInput[];
-	createdById?: Uuid | null;
-	direction?: string;
-	dueAt?: string | null;
-	id?: Uuid;
-	occurredAt?: string;
-	opportunities?: readonly interactionsopportunitiesUpdateOneRelatedOperationsInput[];
-	opportunityId?: Uuid | null;
-	organizationId?: Uuid;
-	organizations?: readonly interactionsorganizationsUpdateOneRelatedOperationsInput[];
-	owner?: readonly interactionsownerUpdateOneRelatedOperationsInput[];
-	ownerUserId?: Uuid | null;
-	status?: string;
-	subject?: string;
-	type?: string;
-	updatedAt?: string;
-	updatedBy?: readonly interactionsupdatedByUpdateOneRelatedOperationsInput[];
-	updatedById?: Uuid | null;
-}
-
-export type interactionsUpdateInput = {
-	data: interactionsUpdateDataInput;
-	filter?: interactionsFilterInput;
-}
-
-export type interactionsUpdateOneArguments = {
-	data: interactionsUpdateDataInput;
-	filter?: interactionsFilterInput;
-	key: Uuid;
-}
-
-export type interactionsattachmentsConnectBackwardKeysInput = {
-	assetId?: Uuid;
-	id?: Uuid;
-}
-
-export type interactionsattachmentsConnectInput = {
-	keys: readonly interactionsattachmentsConnectBackwardKeysInput[];
-}
-
-export type interactionsattachmentsCreateArguments = {
-	data: readonly interactionsattachmentsCreateRelatedWithoutTypeInput[];
-}
-
-export type interactionsattachmentsCreateRelatedInput = {
-	_connect?: interactionsattachmentsConnectInput;
-	_create?: interactionsattachmentsCreateArguments;
-}
-
-export type interactionsattachmentsCreateRelatedWithoutTypeInput = {
-	assetId?: Uuid | null;
-	contacts?: attachmentscontactsCreateRelatedInput;
-	contentType?: string | null;
-	createdAt?: string;
-	createdBy?: attachmentscreatedByCreateRelatedInput;
-	fileName: string;
-	id?: Uuid;
-	opportunities?: attachmentsopportunitiesCreateRelatedInput;
-	organizations: attachmentsorganizationsCreateRelatedInput;
-	sizeBytes?: Int64Input | null;
-	url?: string | null;
-}
-
-export type interactionsattachmentsRelationFieldArguments = {
-	filter?: attachmentsFilterInput;
-	limit?: Int64Input;
-	offset?: UInt64Input;
-	sort?: readonly attachmentsSortSpecifier[];
-}
-
-export type interactionsattachmentsUpdateManyRelatedOperationsInput = {
-	_connect?: interactionsattachmentsConnectInput;
-	_create?: interactionsattachmentsCreateArguments;
-	_delete?: attachmentsDeleteArguments;
-	_disconnect?: attachmentsDisconnectManyInput;
-	_update?: attachmentsUpdateInput;
-}
-
-export type interactionscontactsConnectForwardKeyInput = {
-	id: Uuid | null;
-}
-
-export type interactionscontactsConnectInput = {
-	key: interactionscontactsConnectForwardKeyInput;
-}
-
-export type interactionscontactsCreateArguments = {
-	data: interactionscontactsCreateRelatedWithoutTypeInput;
-}
-
-export type interactionscontactsCreateRelatedInput = {
-	_connect?: interactionscontactsConnectInput;
-	_create?: interactionscontactsCreateArguments;
-}
-
-export type interactionscontactsCreateRelatedWithoutTypeInput = {
-	attachments?: readonly contactsattachmentsCreateRelatedInput[];
-	contact_organizations?: readonly contactscontact_organizationsCreateRelatedInput[];
-	createdAt?: string;
-	createdBy?: contactscreatedByCreateRelatedInput;
-	email?: string | null;
-	firstName: string;
-	id?: Uuid;
-	lastName: string;
-	notes?: string | null;
-	opportunities?: readonly contactsopportunitiesCreateRelatedInput[];
-	owner?: contactsownerCreateRelatedInput;
-	phone?: string | null;
-	portalUser?: contactsportalUserCreateRelatedInput;
-	status?: string;
-	updatedAt?: string;
-	updatedBy?: contactsupdatedByCreateRelatedInput;
-}
-
-export type interactionscontactsRelationFieldArguments = {
-	filter?: contactsFilterInput;
-}
-
-export type interactionscontactsUpdateOneRelatedOperationsInput = {
-	_connect?: interactionscontactsConnectInput;
-	_create?: interactionscontactsCreateArguments;
-	_delete?: contactsDeleteArguments;
-	_disconnect?: contactsDisconnectOneInput;
-	_update?: contactsUpdateInput;
-}
-
-export type interactionscreatedByConnectForwardKeyInput = {
-	id: Uuid | null;
-}
-
-export type interactionscreatedByConnectInput = {
-	key: interactionscreatedByConnectForwardKeyInput;
-}
-
-export type interactionscreatedByCreateArguments = {
-	data: interactionscreatedByCreateRelatedWithoutTypeInput;
-}
-
-export type interactionscreatedByCreateRelatedInput = {
-	_connect?: interactionscreatedByConnectInput;
-	_create?: interactionscreatedByCreateArguments;
-}
-
-export type interactionscreatedByCreateRelatedWithoutTypeInput = {
-	appearance?: string | null;
-	attachmentsCreatedBy?: readonly MonospaceSystemUserattachmentsCreatedByCreateRelatedInput[];
-	avatarId?: Uuid | null;
-	contactOrganizationsCreatedBy?: readonly MonospaceSystemUsercontactOrganizationsCreatedByCreateRelatedInput[];
-	contactOrganizationsUpdatedBy?: readonly MonospaceSystemUsercontactOrganizationsUpdatedByCreateRelatedInput[];
-	contactsCreatedBy?: readonly MonospaceSystemUsercontactsCreatedByCreateRelatedInput[];
-	contactsOwner?: readonly MonospaceSystemUsercontactsOwnerCreateRelatedInput[];
-	contactsUpdatedBy?: readonly MonospaceSystemUsercontactsUpdatedByCreateRelatedInput[];
-	email?: string | null;
-	fullName?: string | null;
-	id: Uuid;
-	interactionsOwner?: readonly MonospaceSystemUserinteractionsOwnerCreateRelatedInput[];
-	interactionsUpdatedBy?: readonly MonospaceSystemUserinteractionsUpdatedByCreateRelatedInput[];
-	isService: boolean;
-	lastActivityAt?: string | null;
-	opportunitiesCreatedBy?: readonly MonospaceSystemUseropportunitiesCreatedByCreateRelatedInput[];
-	opportunitiesOwner?: readonly MonospaceSystemUseropportunitiesOwnerCreateRelatedInput[];
-	opportunitiesUpdatedBy?: readonly MonospaceSystemUseropportunitiesUpdatedByCreateRelatedInput[];
-	organizationsCreatedBy?: readonly MonospaceSystemUserorganizationsCreatedByCreateRelatedInput[];
-	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
-	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
-	roles?: readonly MonospaceSystemUserrolesCreateRelatedInput[];
-	serviceOwnerId?: Uuid | null;
-	status?: string;
-	storageValues?: readonly MonospaceSystemUserstorageValuesCreateRelatedInput[];
-}
-
-export type interactionscreatedByRelationFieldArguments = {
-	filter?: MonospaceSystemUserFilterInput;
-}
-
-export type interactionscreatedByUpdateOneRelatedOperationsInput = {
-	_connect?: interactionscreatedByConnectInput;
-	_create?: interactionscreatedByCreateArguments;
-	_delete?: MonospaceSystemUserDeleteArguments;
-	_disconnect?: MonospaceSystemUserDisconnectOneInput;
-	_update?: MonospaceSystemUserUpdateInput;
-}
-
-export type interactionsopportunitiesConnectForwardKeyInput = {
-	id: Uuid | null;
-}
-
-export type interactionsopportunitiesConnectInput = {
-	key: interactionsopportunitiesConnectForwardKeyInput;
-}
-
-export type interactionsopportunitiesCreateArguments = {
-	data: interactionsopportunitiesCreateRelatedWithoutTypeInput;
-}
-
-export type interactionsopportunitiesCreateRelatedInput = {
-	_connect?: interactionsopportunitiesConnectInput;
-	_create?: interactionsopportunitiesCreateArguments;
-}
-
-export type interactionsopportunitiesCreateRelatedWithoutTypeInput = {
-	attachments?: readonly opportunitiesattachmentsCreateRelatedInput[];
-	contacts?: opportunitiescontactsCreateRelatedInput;
-	createdAt?: string;
-	createdBy?: opportunitiescreatedByCreateRelatedInput;
-	currency?: string;
-	expectedCloseDate?: string | null;
-	id?: Uuid;
-	notes?: string | null;
-	organizations: opportunitiesorganizationsCreateRelatedInput;
-	owner?: opportunitiesownerCreateRelatedInput;
-	pipeline_stages: opportunitiespipeline_stagesCreateRelatedInput;
-	status?: string;
-	title: string;
-	updatedAt?: string;
-	updatedBy?: opportunitiesupdatedByCreateRelatedInput;
-	valueAmount?: string | null;
-}
-
-export type interactionsopportunitiesRelationFieldArguments = {
-	filter?: opportunitiesFilterInput;
-}
-
-export type interactionsopportunitiesUpdateOneRelatedOperationsInput = {
-	_connect?: interactionsopportunitiesConnectInput;
-	_create?: interactionsopportunitiesCreateArguments;
-	_delete?: opportunitiesDeleteArguments;
-	_disconnect?: opportunitiesDisconnectOneInput;
-	_update?: opportunitiesUpdateInput;
-}
-
-export type interactionsorganizationsConnectForwardKeyInput = {
-	id: Uuid;
-}
-
-export type interactionsorganizationsConnectInput = {
-	key: interactionsorganizationsConnectForwardKeyInput;
-}
-
-export type interactionsorganizationsCreateArguments = {
-	data: interactionsorganizationsCreateRelatedWithoutTypeInput;
-}
-
-export type interactionsorganizationsCreateRelatedInput = {
-	_connect?: interactionsorganizationsConnectInput;
-	_create?: interactionsorganizationsCreateArguments;
-}
-
-export type interactionsorganizationsCreateRelatedWithoutTypeInput = {
-	attachments?: readonly organizationsattachmentsCreateRelatedInput[];
-	contact_organizations?: readonly organizationscontact_organizationsCreateRelatedInput[];
-	createdAt?: string;
-	createdBy?: organizationscreatedByCreateRelatedInput;
-	domain?: string | null;
-	id?: Uuid;
-	industry?: string | null;
-	name: string;
-	notes?: string | null;
-	opportunities?: readonly organizationsopportunitiesCreateRelatedInput[];
-	owner?: organizationsownerCreateRelatedInput;
-	portalAccount?: organizationsportalAccountCreateRelatedInput;
-	portalAccountId?: string | null;
-	status?: string;
-	updatedAt?: string;
-	updatedBy?: organizationsupdatedByCreateRelatedInput;
-}
-
-export type interactionsorganizationsUpdateOneRelatedOperationsInput = {
-	_connect?: interactionsorganizationsConnectInput;
-	_create?: interactionsorganizationsCreateArguments;
-	_update?: organizationsUpdateInput;
-}
-
-export type interactionsownerConnectForwardKeyInput = {
-	id: Uuid | null;
-}
-
-export type interactionsownerConnectInput = {
-	key: interactionsownerConnectForwardKeyInput;
-}
-
-export type interactionsownerCreateArguments = {
-	data: interactionsownerCreateRelatedWithoutTypeInput;
-}
-
-export type interactionsownerCreateRelatedInput = {
-	_connect?: interactionsownerConnectInput;
-	_create?: interactionsownerCreateArguments;
-}
-
-export type interactionsownerCreateRelatedWithoutTypeInput = {
-	appearance?: string | null;
-	attachmentsCreatedBy?: readonly MonospaceSystemUserattachmentsCreatedByCreateRelatedInput[];
-	avatarId?: Uuid | null;
-	contactOrganizationsCreatedBy?: readonly MonospaceSystemUsercontactOrganizationsCreatedByCreateRelatedInput[];
-	contactOrganizationsUpdatedBy?: readonly MonospaceSystemUsercontactOrganizationsUpdatedByCreateRelatedInput[];
-	contactsCreatedBy?: readonly MonospaceSystemUsercontactsCreatedByCreateRelatedInput[];
-	contactsOwner?: readonly MonospaceSystemUsercontactsOwnerCreateRelatedInput[];
-	contactsUpdatedBy?: readonly MonospaceSystemUsercontactsUpdatedByCreateRelatedInput[];
-	email?: string | null;
-	fullName?: string | null;
-	id: Uuid;
-	interactionsCreatedBy?: readonly MonospaceSystemUserinteractionsCreatedByCreateRelatedInput[];
-	interactionsUpdatedBy?: readonly MonospaceSystemUserinteractionsUpdatedByCreateRelatedInput[];
-	isService: boolean;
-	lastActivityAt?: string | null;
-	opportunitiesCreatedBy?: readonly MonospaceSystemUseropportunitiesCreatedByCreateRelatedInput[];
-	opportunitiesOwner?: readonly MonospaceSystemUseropportunitiesOwnerCreateRelatedInput[];
-	opportunitiesUpdatedBy?: readonly MonospaceSystemUseropportunitiesUpdatedByCreateRelatedInput[];
-	organizationsCreatedBy?: readonly MonospaceSystemUserorganizationsCreatedByCreateRelatedInput[];
-	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
-	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
-	roles?: readonly MonospaceSystemUserrolesCreateRelatedInput[];
-	serviceOwnerId?: Uuid | null;
-	status?: string;
-	storageValues?: readonly MonospaceSystemUserstorageValuesCreateRelatedInput[];
-}
-
-export type interactionsownerRelationFieldArguments = {
-	filter?: MonospaceSystemUserFilterInput;
-}
-
-export type interactionsownerUpdateOneRelatedOperationsInput = {
-	_connect?: interactionsownerConnectInput;
-	_create?: interactionsownerCreateArguments;
-	_delete?: MonospaceSystemUserDeleteArguments;
-	_disconnect?: MonospaceSystemUserDisconnectOneInput;
-	_update?: MonospaceSystemUserUpdateInput;
-}
-
-export type interactionsupdatedByConnectForwardKeyInput = {
-	id: Uuid | null;
-}
-
-export type interactionsupdatedByConnectInput = {
-	key: interactionsupdatedByConnectForwardKeyInput;
-}
-
-export type interactionsupdatedByCreateArguments = {
-	data: interactionsupdatedByCreateRelatedWithoutTypeInput;
-}
-
-export type interactionsupdatedByCreateRelatedInput = {
-	_connect?: interactionsupdatedByConnectInput;
-	_create?: interactionsupdatedByCreateArguments;
-}
-
-export type interactionsupdatedByCreateRelatedWithoutTypeInput = {
-	appearance?: string | null;
-	attachmentsCreatedBy?: readonly MonospaceSystemUserattachmentsCreatedByCreateRelatedInput[];
-	avatarId?: Uuid | null;
-	contactOrganizationsCreatedBy?: readonly MonospaceSystemUsercontactOrganizationsCreatedByCreateRelatedInput[];
-	contactOrganizationsUpdatedBy?: readonly MonospaceSystemUsercontactOrganizationsUpdatedByCreateRelatedInput[];
-	contactsCreatedBy?: readonly MonospaceSystemUsercontactsCreatedByCreateRelatedInput[];
-	contactsOwner?: readonly MonospaceSystemUsercontactsOwnerCreateRelatedInput[];
-	contactsUpdatedBy?: readonly MonospaceSystemUsercontactsUpdatedByCreateRelatedInput[];
-	email?: string | null;
-	fullName?: string | null;
-	id: Uuid;
-	interactionsCreatedBy?: readonly MonospaceSystemUserinteractionsCreatedByCreateRelatedInput[];
-	interactionsOwner?: readonly MonospaceSystemUserinteractionsOwnerCreateRelatedInput[];
-	isService: boolean;
-	lastActivityAt?: string | null;
-	opportunitiesCreatedBy?: readonly MonospaceSystemUseropportunitiesCreatedByCreateRelatedInput[];
-	opportunitiesOwner?: readonly MonospaceSystemUseropportunitiesOwnerCreateRelatedInput[];
-	opportunitiesUpdatedBy?: readonly MonospaceSystemUseropportunitiesUpdatedByCreateRelatedInput[];
-	organizationsCreatedBy?: readonly MonospaceSystemUserorganizationsCreatedByCreateRelatedInput[];
-	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
-	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
-	roles?: readonly MonospaceSystemUserrolesCreateRelatedInput[];
-	serviceOwnerId?: Uuid | null;
-	status?: string;
-	storageValues?: readonly MonospaceSystemUserstorageValuesCreateRelatedInput[];
-}
-
-export type interactionsupdatedByRelationFieldArguments = {
-	filter?: MonospaceSystemUserFilterInput;
-}
-
-export type interactionsupdatedByUpdateOneRelatedOperationsInput = {
-	_connect?: interactionsupdatedByConnectInput;
-	_create?: interactionsupdatedByCreateArguments;
-	_delete?: MonospaceSystemUserDeleteArguments;
-	_disconnect?: MonospaceSystemUserDisconnectOneInput;
-	_update?: MonospaceSystemUserUpdateInput;
-}
-
-export type opportunitiesCollectionOutput = {
-	attachments?: { data: attachmentsCollectionOutput[] };
-	contactId?: Uuid | null;
-	contacts?: contactsCollectionOutput | null;
-	createdAt?: string;
-	createdBy?: MonospaceSystemUserCollectionOutput | null;
-	createdById?: Uuid | null;
-	currency?: string;
-	expectedCloseDate?: string | null;
-	id?: Uuid;
-	interactions?: { data: interactionsCollectionOutput[] };
-	notes?: string | null;
-	organizationId?: Uuid;
-	organizations?: organizationsCollectionOutput;
-	owner?: MonospaceSystemUserCollectionOutput | null;
-	ownerUserId?: Uuid | null;
-	pipeline_stages?: pipelineStagesCollectionOutput;
-	stageId?: Uuid;
-	status?: string;
-	title?: string;
-	updatedAt?: string;
-	updatedBy?: MonospaceSystemUserCollectionOutput | null;
-	updatedById?: Uuid | null;
-	valueAmount?: string | null;
-}
-
-export type opportunitiesCollectionOutputFieldsInput = readonly ("contactId" | "createdAt" | "createdById" | "currency" | "expectedCloseDate" | "id" | "notes" | "organizationId" | "ownerUserId" | "stageId" | "status" | "title" | "updatedAt" | "updatedById" | "valueAmount" | "*" | `${string}:${"contactId" | "createdAt" | "createdById" | "currency" | "expectedCloseDate" | "id" | "notes" | "organizationId" | "ownerUserId" | "stageId" | "status" | "title" | "updatedAt" | "updatedById" | "valueAmount"}`)[];
-
-export type opportunitiesCollectionOutputIncludeInput = {
-	"attachments"?: (opportunitiesattachmentsRelationFieldArguments & { "fields"?: attachmentsCollectionOutputFieldsInput; "include"?: attachmentsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (opportunitiesattachmentsRelationFieldArguments & { "fields"?: attachmentsCollectionOutputFieldsInput; "include"?: attachmentsCollectionOutputIncludeInput })>]?: never };
-	"contacts"?: (opportunitiescontactsRelationFieldArguments & { "fields"?: contactsCollectionOutputFieldsInput; "include"?: contactsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (opportunitiescontactsRelationFieldArguments & { "fields"?: contactsCollectionOutputFieldsInput; "include"?: contactsCollectionOutputIncludeInput })>]?: never };
-	"createdBy"?: (opportunitiescreatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (opportunitiescreatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput })>]?: never };
-	"interactions"?: (opportunitiesinteractionsRelationFieldArguments & { "fields"?: interactionsCollectionOutputFieldsInput; "include"?: interactionsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (opportunitiesinteractionsRelationFieldArguments & { "fields"?: interactionsCollectionOutputFieldsInput; "include"?: interactionsCollectionOutputIncludeInput })>]?: never };
-	"organizations"?: ({ "fields"?: organizationsCollectionOutputFieldsInput; "include"?: organizationsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof ({ "fields"?: organizationsCollectionOutputFieldsInput; "include"?: organizationsCollectionOutputIncludeInput })>]?: never };
-	"owner"?: (opportunitiesownerRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (opportunitiesownerRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput })>]?: never };
-	"pipeline_stages"?: ({ "fields"?: pipelineStagesCollectionOutputFieldsInput; "include"?: pipelineStagesCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof ({ "fields"?: pipelineStagesCollectionOutputFieldsInput; "include"?: pipelineStagesCollectionOutputIncludeInput })>]?: never };
-	"updatedBy"?: (opportunitiesupdatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (opportunitiesupdatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput })>]?: never };
-} & { [K in `${string}:${"attachments"}`]?: opportunitiesCollectionOutputIncludeInput["attachments"] } & { [K in `${string}:${"contacts"}`]?: opportunitiesCollectionOutputIncludeInput["contacts"] } & { [K in `${string}:${"createdBy"}`]?: opportunitiesCollectionOutputIncludeInput["createdBy"] } & { [K in `${string}:${"interactions"}`]?: opportunitiesCollectionOutputIncludeInput["interactions"] } & { [K in `${string}:${"organizations"}`]?: opportunitiesCollectionOutputIncludeInput["organizations"] } & { [K in `${string}:${"owner"}`]?: opportunitiesCollectionOutputIncludeInput["owner"] } & { [K in `${string}:${"pipeline_stages"}`]?: opportunitiesCollectionOutputIncludeInput["pipeline_stages"] } & { [K in `${string}:${"updatedBy"}`]?: opportunitiesCollectionOutputIncludeInput["updatedBy"] };
-
-export type opportunitiesCreateArguments = {
-	data: readonly opportunitiesCreateInput[];
-}
-
-export type opportunitiesCreateInput = {
-	attachments?: readonly opportunitiesattachmentsCreateRelatedInput[];
-	contacts?: opportunitiescontactsCreateRelatedInput;
-	createdAt?: string;
-	createdBy?: opportunitiescreatedByCreateRelatedInput;
-	currency?: string;
-	expectedCloseDate?: string | null;
-	id?: Uuid;
-	interactions?: readonly opportunitiesinteractionsCreateRelatedInput[];
-	notes?: string | null;
-	organizations: opportunitiesorganizationsCreateRelatedInput;
-	owner?: opportunitiesownerCreateRelatedInput;
-	pipeline_stages: opportunitiespipeline_stagesCreateRelatedInput;
-	status?: string;
-	title: string;
-	updatedAt?: string;
-	updatedBy?: opportunitiesupdatedByCreateRelatedInput;
-	valueAmount?: string | null;
-}
-
-export type opportunitiesDeleteArguments = {
-	filter?: opportunitiesFilterInput;
-}
-
-export type opportunitiesDeleteOneArguments = {
-	filter?: opportunitiesFilterInput;
-	key: Uuid;
-}
-
-export type opportunitiesDisconnectManyInput = {
-	filter?: opportunitiesFilterInput;
-}
-
-export type opportunitiesDisconnectOneInput = {}
-
-export type opportunitiesFilterInput = {
-	_and?: readonly opportunitiesFilterInput[];
-	_not?: opportunitiesFilterInput;
-	_or?: readonly opportunitiesFilterInput[];
-	attachments?: attachmentsFilterQuantifierInput | attachmentsFilterInput;
-	contactId?: UuidFilterNullablePrimitiveInput | Uuid | null;
-	contacts?: contactsFilterInput;
-	createdAt?: DateTimeFilterPrimitiveInput | string;
-	createdBy?: MonospaceSystemUserFilterInput;
-	createdById?: UuidFilterNullablePrimitiveInput | Uuid | null;
-	currency?: StringFilterPrimitiveInput | string;
-	expectedCloseDate?: DateFilterNullablePrimitiveInput | string | null;
-	id?: UuidFilterPrimitiveInput | Uuid;
-	interactions?: interactionsFilterQuantifierInput | interactionsFilterInput;
-	notes?: StringFilterNullablePrimitiveInput | string | null;
-	organizationId?: UuidFilterPrimitiveInput | Uuid;
-	organizations?: organizationsFilterInput;
-	owner?: MonospaceSystemUserFilterInput;
-	ownerUserId?: UuidFilterNullablePrimitiveInput | Uuid | null;
-	pipeline_stages?: pipelineStagesFilterInput;
-	stageId?: UuidFilterPrimitiveInput | Uuid;
-	status?: StringFilterPrimitiveInput | string;
-	title?: StringFilterPrimitiveInput | string;
-	updatedAt?: DateTimeFilterPrimitiveInput | string;
-	updatedBy?: MonospaceSystemUserFilterInput;
-	updatedById?: UuidFilterNullablePrimitiveInput | Uuid | null;
-	valueAmount?: DecimalFilterNullablePrimitiveInput | string | null;
-}
-
-export type opportunitiesFilterQuantifierInput = {
-	_every?: opportunitiesFilterInput;
-	_none?: opportunitiesFilterInput;
-	_some?: opportunitiesFilterInput;
-}
-
-export type opportunitiesListArguments = {
-	filter?: opportunitiesFilterInput;
-	limit?: Int64Input;
-	meta?: MetaArguments;
-	offset?: UInt64Input;
-	sort?: readonly opportunitiesSortSpecifier[];
-}
-
-export type opportunitiesReadArguments = {
-	filter?: opportunitiesFilterInput;
-	key: Uuid;
-}
-
-export type opportunitiesSortSpecifier = {
-	contactId?: SortFieldOptions;
-	createdAt?: SortFieldOptions;
-	createdById?: SortFieldOptions;
-	currency?: SortFieldOptions;
-	expectedCloseDate?: SortFieldOptions;
-	id?: SortFieldOptions;
-	notes?: SortFieldOptions;
-	organizationId?: SortFieldOptions;
-	ownerUserId?: SortFieldOptions;
-	stageId?: SortFieldOptions;
-	status?: SortFieldOptions;
-	title?: SortFieldOptions;
-	updatedAt?: SortFieldOptions;
-	updatedById?: SortFieldOptions;
-	valueAmount?: SortFieldOptions;
-}
-
-export type opportunitiesUpdateArguments = {
-	data: opportunitiesUpdateDataInput;
-	filter?: opportunitiesFilterInput;
-}
-
-export type opportunitiesUpdateDataInput = {
-	attachments?: readonly opportunitiesattachmentsUpdateManyRelatedOperationsInput[];
-	contactId?: Uuid | null;
-	contacts?: readonly opportunitiescontactsUpdateOneRelatedOperationsInput[];
-	createdAt?: string;
-	createdBy?: readonly opportunitiescreatedByUpdateOneRelatedOperationsInput[];
-	createdById?: Uuid | null;
-	currency?: string;
-	expectedCloseDate?: string | null;
-	id?: Uuid;
-	interactions?: readonly opportunitiesinteractionsUpdateManyRelatedOperationsInput[];
-	notes?: string | null;
-	organizationId?: Uuid;
-	organizations?: readonly opportunitiesorganizationsUpdateOneRelatedOperationsInput[];
-	owner?: readonly opportunitiesownerUpdateOneRelatedOperationsInput[];
-	ownerUserId?: Uuid | null;
-	pipeline_stages?: readonly opportunitiespipeline_stagesUpdateOneRelatedOperationsInput[];
-	stageId?: Uuid;
-	status?: string;
-	title?: string;
-	updatedAt?: string;
-	updatedBy?: readonly opportunitiesupdatedByUpdateOneRelatedOperationsInput[];
-	updatedById?: Uuid | null;
-	valueAmount?: string | null;
-}
-
-export type opportunitiesUpdateInput = {
-	data: opportunitiesUpdateDataInput;
-	filter?: opportunitiesFilterInput;
-}
-
-export type opportunitiesUpdateOneArguments = {
-	data: opportunitiesUpdateDataInput;
-	filter?: opportunitiesFilterInput;
-	key: Uuid;
-}
-
-export type opportunitiesattachmentsConnectBackwardKeysInput = {
-	assetId?: Uuid;
-	id?: Uuid;
-}
-
-export type opportunitiesattachmentsConnectInput = {
-	keys: readonly opportunitiesattachmentsConnectBackwardKeysInput[];
-}
-
-export type opportunitiesattachmentsCreateArguments = {
-	data: readonly opportunitiesattachmentsCreateRelatedWithoutTypeInput[];
-}
-
-export type opportunitiesattachmentsCreateRelatedInput = {
-	_connect?: opportunitiesattachmentsConnectInput;
-	_create?: opportunitiesattachmentsCreateArguments;
-}
-
-export type opportunitiesattachmentsCreateRelatedWithoutTypeInput = {
-	assetId?: Uuid | null;
-	contacts?: attachmentscontactsCreateRelatedInput;
-	contentType?: string | null;
-	createdAt?: string;
-	createdBy?: attachmentscreatedByCreateRelatedInput;
-	fileName: string;
-	id?: Uuid;
-	interactions?: attachmentsinteractionsCreateRelatedInput;
-	organizations: attachmentsorganizationsCreateRelatedInput;
-	sizeBytes?: Int64Input | null;
-	url?: string | null;
-}
-
-export type opportunitiesattachmentsRelationFieldArguments = {
-	filter?: attachmentsFilterInput;
-	limit?: Int64Input;
-	offset?: UInt64Input;
-	sort?: readonly attachmentsSortSpecifier[];
-}
-
-export type opportunitiesattachmentsUpdateManyRelatedOperationsInput = {
-	_connect?: opportunitiesattachmentsConnectInput;
-	_create?: opportunitiesattachmentsCreateArguments;
-	_delete?: attachmentsDeleteArguments;
-	_disconnect?: attachmentsDisconnectManyInput;
-	_update?: attachmentsUpdateInput;
-}
-
-export type opportunitiescontactsConnectForwardKeyInput = {
-	id: Uuid | null;
-}
-
-export type opportunitiescontactsConnectInput = {
-	key: opportunitiescontactsConnectForwardKeyInput;
-}
-
-export type opportunitiescontactsCreateArguments = {
-	data: opportunitiescontactsCreateRelatedWithoutTypeInput;
-}
-
-export type opportunitiescontactsCreateRelatedInput = {
-	_connect?: opportunitiescontactsConnectInput;
-	_create?: opportunitiescontactsCreateArguments;
-}
-
-export type opportunitiescontactsCreateRelatedWithoutTypeInput = {
-	attachments?: readonly contactsattachmentsCreateRelatedInput[];
-	contact_organizations?: readonly contactscontact_organizationsCreateRelatedInput[];
-	createdAt?: string;
-	createdBy?: contactscreatedByCreateRelatedInput;
-	email?: string | null;
-	firstName: string;
-	id?: Uuid;
-	interactions?: readonly contactsinteractionsCreateRelatedInput[];
-	lastName: string;
-	notes?: string | null;
-	owner?: contactsownerCreateRelatedInput;
-	phone?: string | null;
-	portalUser?: contactsportalUserCreateRelatedInput;
-	status?: string;
-	updatedAt?: string;
-	updatedBy?: contactsupdatedByCreateRelatedInput;
-}
-
-export type opportunitiescontactsRelationFieldArguments = {
-	filter?: contactsFilterInput;
-}
-
-export type opportunitiescontactsUpdateOneRelatedOperationsInput = {
-	_connect?: opportunitiescontactsConnectInput;
-	_create?: opportunitiescontactsCreateArguments;
-	_delete?: contactsDeleteArguments;
-	_disconnect?: contactsDisconnectOneInput;
-	_update?: contactsUpdateInput;
-}
-
-export type opportunitiescreatedByConnectForwardKeyInput = {
-	id: Uuid | null;
-}
-
-export type opportunitiescreatedByConnectInput = {
-	key: opportunitiescreatedByConnectForwardKeyInput;
-}
-
-export type opportunitiescreatedByCreateArguments = {
-	data: opportunitiescreatedByCreateRelatedWithoutTypeInput;
-}
-
-export type opportunitiescreatedByCreateRelatedInput = {
-	_connect?: opportunitiescreatedByConnectInput;
-	_create?: opportunitiescreatedByCreateArguments;
-}
-
-export type opportunitiescreatedByCreateRelatedWithoutTypeInput = {
-	appearance?: string | null;
-	attachmentsCreatedBy?: readonly MonospaceSystemUserattachmentsCreatedByCreateRelatedInput[];
-	avatarId?: Uuid | null;
-	contactOrganizationsCreatedBy?: readonly MonospaceSystemUsercontactOrganizationsCreatedByCreateRelatedInput[];
-	contactOrganizationsUpdatedBy?: readonly MonospaceSystemUsercontactOrganizationsUpdatedByCreateRelatedInput[];
-	contactsCreatedBy?: readonly MonospaceSystemUsercontactsCreatedByCreateRelatedInput[];
-	contactsOwner?: readonly MonospaceSystemUsercontactsOwnerCreateRelatedInput[];
-	contactsUpdatedBy?: readonly MonospaceSystemUsercontactsUpdatedByCreateRelatedInput[];
-	email?: string | null;
-	fullName?: string | null;
-	id: Uuid;
-	interactionsCreatedBy?: readonly MonospaceSystemUserinteractionsCreatedByCreateRelatedInput[];
-	interactionsOwner?: readonly MonospaceSystemUserinteractionsOwnerCreateRelatedInput[];
-	interactionsUpdatedBy?: readonly MonospaceSystemUserinteractionsUpdatedByCreateRelatedInput[];
-	isService: boolean;
-	lastActivityAt?: string | null;
-	opportunitiesOwner?: readonly MonospaceSystemUseropportunitiesOwnerCreateRelatedInput[];
-	opportunitiesUpdatedBy?: readonly MonospaceSystemUseropportunitiesUpdatedByCreateRelatedInput[];
-	organizationsCreatedBy?: readonly MonospaceSystemUserorganizationsCreatedByCreateRelatedInput[];
-	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
-	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
-	roles?: readonly MonospaceSystemUserrolesCreateRelatedInput[];
-	serviceOwnerId?: Uuid | null;
-	status?: string;
-	storageValues?: readonly MonospaceSystemUserstorageValuesCreateRelatedInput[];
-}
-
-export type opportunitiescreatedByRelationFieldArguments = {
-	filter?: MonospaceSystemUserFilterInput;
-}
-
-export type opportunitiescreatedByUpdateOneRelatedOperationsInput = {
-	_connect?: opportunitiescreatedByConnectInput;
-	_create?: opportunitiescreatedByCreateArguments;
-	_delete?: MonospaceSystemUserDeleteArguments;
-	_disconnect?: MonospaceSystemUserDisconnectOneInput;
-	_update?: MonospaceSystemUserUpdateInput;
-}
-
-export type opportunitiesinteractionsConnectBackwardKeysInput = {
-	id?: Uuid;
-}
-
-export type opportunitiesinteractionsConnectInput = {
-	keys: readonly opportunitiesinteractionsConnectBackwardKeysInput[];
-}
-
-export type opportunitiesinteractionsCreateArguments = {
-	data: readonly opportunitiesinteractionsCreateRelatedWithoutTypeInput[];
-}
-
-export type opportunitiesinteractionsCreateRelatedInput = {
-	_connect?: opportunitiesinteractionsConnectInput;
-	_create?: opportunitiesinteractionsCreateArguments;
-}
-
-export type opportunitiesinteractionsCreateRelatedWithoutTypeInput = {
-	attachments?: readonly interactionsattachmentsCreateRelatedInput[];
-	body?: string | null;
-	completedAt?: string | null;
-	contacts?: interactionscontactsCreateRelatedInput;
-	createdAt?: string;
-	createdBy?: interactionscreatedByCreateRelatedInput;
-	direction?: string;
-	dueAt?: string | null;
-	id?: Uuid;
-	occurredAt?: string;
-	organizations: interactionsorganizationsCreateRelatedInput;
-	owner?: interactionsownerCreateRelatedInput;
-	status: string;
-	subject: string;
-	type: string;
-	updatedAt?: string;
-	updatedBy?: interactionsupdatedByCreateRelatedInput;
-}
-
-export type opportunitiesinteractionsRelationFieldArguments = {
-	filter?: interactionsFilterInput;
-	limit?: Int64Input;
-	offset?: UInt64Input;
-	sort?: readonly interactionsSortSpecifier[];
-}
-
-export type opportunitiesinteractionsUpdateManyRelatedOperationsInput = {
-	_connect?: opportunitiesinteractionsConnectInput;
-	_create?: opportunitiesinteractionsCreateArguments;
-	_delete?: interactionsDeleteArguments;
-	_disconnect?: interactionsDisconnectManyInput;
-	_update?: interactionsUpdateInput;
-}
-
-export type opportunitiesorganizationsConnectForwardKeyInput = {
-	id: Uuid;
-}
-
-export type opportunitiesorganizationsConnectInput = {
-	key: opportunitiesorganizationsConnectForwardKeyInput;
-}
-
-export type opportunitiesorganizationsCreateArguments = {
-	data: opportunitiesorganizationsCreateRelatedWithoutTypeInput;
-}
-
-export type opportunitiesorganizationsCreateRelatedInput = {
-	_connect?: opportunitiesorganizationsConnectInput;
-	_create?: opportunitiesorganizationsCreateArguments;
-}
-
-export type opportunitiesorganizationsCreateRelatedWithoutTypeInput = {
-	attachments?: readonly organizationsattachmentsCreateRelatedInput[];
-	contact_organizations?: readonly organizationscontact_organizationsCreateRelatedInput[];
-	createdAt?: string;
-	createdBy?: organizationscreatedByCreateRelatedInput;
-	domain?: string | null;
-	id?: Uuid;
-	industry?: string | null;
-	interactions?: readonly organizationsinteractionsCreateRelatedInput[];
-	name: string;
-	notes?: string | null;
-	owner?: organizationsownerCreateRelatedInput;
-	portalAccount?: organizationsportalAccountCreateRelatedInput;
-	portalAccountId?: string | null;
-	status?: string;
-	updatedAt?: string;
-	updatedBy?: organizationsupdatedByCreateRelatedInput;
-}
-
-export type opportunitiesorganizationsUpdateOneRelatedOperationsInput = {
-	_connect?: opportunitiesorganizationsConnectInput;
-	_create?: opportunitiesorganizationsCreateArguments;
-	_update?: organizationsUpdateInput;
-}
-
-export type opportunitiesownerConnectForwardKeyInput = {
-	id: Uuid | null;
-}
-
-export type opportunitiesownerConnectInput = {
-	key: opportunitiesownerConnectForwardKeyInput;
-}
-
-export type opportunitiesownerCreateArguments = {
-	data: opportunitiesownerCreateRelatedWithoutTypeInput;
-}
-
-export type opportunitiesownerCreateRelatedInput = {
-	_connect?: opportunitiesownerConnectInput;
-	_create?: opportunitiesownerCreateArguments;
-}
-
-export type opportunitiesownerCreateRelatedWithoutTypeInput = {
-	appearance?: string | null;
-	attachmentsCreatedBy?: readonly MonospaceSystemUserattachmentsCreatedByCreateRelatedInput[];
-	avatarId?: Uuid | null;
-	contactOrganizationsCreatedBy?: readonly MonospaceSystemUsercontactOrganizationsCreatedByCreateRelatedInput[];
-	contactOrganizationsUpdatedBy?: readonly MonospaceSystemUsercontactOrganizationsUpdatedByCreateRelatedInput[];
-	contactsCreatedBy?: readonly MonospaceSystemUsercontactsCreatedByCreateRelatedInput[];
-	contactsOwner?: readonly MonospaceSystemUsercontactsOwnerCreateRelatedInput[];
-	contactsUpdatedBy?: readonly MonospaceSystemUsercontactsUpdatedByCreateRelatedInput[];
-	email?: string | null;
-	fullName?: string | null;
-	id: Uuid;
-	interactionsCreatedBy?: readonly MonospaceSystemUserinteractionsCreatedByCreateRelatedInput[];
-	interactionsOwner?: readonly MonospaceSystemUserinteractionsOwnerCreateRelatedInput[];
-	interactionsUpdatedBy?: readonly MonospaceSystemUserinteractionsUpdatedByCreateRelatedInput[];
-	isService: boolean;
-	lastActivityAt?: string | null;
-	opportunitiesCreatedBy?: readonly MonospaceSystemUseropportunitiesCreatedByCreateRelatedInput[];
-	opportunitiesUpdatedBy?: readonly MonospaceSystemUseropportunitiesUpdatedByCreateRelatedInput[];
-	organizationsCreatedBy?: readonly MonospaceSystemUserorganizationsCreatedByCreateRelatedInput[];
-	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
-	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
-	roles?: readonly MonospaceSystemUserrolesCreateRelatedInput[];
-	serviceOwnerId?: Uuid | null;
-	status?: string;
-	storageValues?: readonly MonospaceSystemUserstorageValuesCreateRelatedInput[];
-}
-
-export type opportunitiesownerRelationFieldArguments = {
-	filter?: MonospaceSystemUserFilterInput;
-}
-
-export type opportunitiesownerUpdateOneRelatedOperationsInput = {
-	_connect?: opportunitiesownerConnectInput;
-	_create?: opportunitiesownerCreateArguments;
-	_delete?: MonospaceSystemUserDeleteArguments;
-	_disconnect?: MonospaceSystemUserDisconnectOneInput;
-	_update?: MonospaceSystemUserUpdateInput;
-}
-
-export type opportunitiespipeline_stagesConnectForwardKeyInput = {
-	id: Uuid;
-}
-
-export type opportunitiespipeline_stagesConnectInput = {
-	key: opportunitiespipeline_stagesConnectForwardKeyInput;
-}
-
-export type opportunitiespipeline_stagesCreateArguments = {
-	data: opportunitiespipeline_stagesCreateRelatedWithoutTypeInput;
-}
-
-export type opportunitiespipeline_stagesCreateRelatedInput = {
-	_connect?: opportunitiespipeline_stagesConnectInput;
-	_create?: opportunitiespipeline_stagesCreateArguments;
-}
-
-export type opportunitiespipeline_stagesCreateRelatedWithoutTypeInput = {
-	color?: string | null;
-	id?: Uuid;
-	isClosed?: boolean;
-	isWon?: boolean;
-	name: string;
-	position: number;
-}
-
-export type opportunitiespipeline_stagesUpdateOneRelatedOperationsInput = {
-	_connect?: opportunitiespipeline_stagesConnectInput;
-	_create?: opportunitiespipeline_stagesCreateArguments;
-	_update?: pipelineStagesUpdateInput;
-}
-
-export type opportunitiesupdatedByConnectForwardKeyInput = {
-	id: Uuid | null;
-}
-
-export type opportunitiesupdatedByConnectInput = {
-	key: opportunitiesupdatedByConnectForwardKeyInput;
-}
-
-export type opportunitiesupdatedByCreateArguments = {
-	data: opportunitiesupdatedByCreateRelatedWithoutTypeInput;
-}
-
-export type opportunitiesupdatedByCreateRelatedInput = {
-	_connect?: opportunitiesupdatedByConnectInput;
-	_create?: opportunitiesupdatedByCreateArguments;
-}
-
-export type opportunitiesupdatedByCreateRelatedWithoutTypeInput = {
-	appearance?: string | null;
-	attachmentsCreatedBy?: readonly MonospaceSystemUserattachmentsCreatedByCreateRelatedInput[];
-	avatarId?: Uuid | null;
-	contactOrganizationsCreatedBy?: readonly MonospaceSystemUsercontactOrganizationsCreatedByCreateRelatedInput[];
-	contactOrganizationsUpdatedBy?: readonly MonospaceSystemUsercontactOrganizationsUpdatedByCreateRelatedInput[];
-	contactsCreatedBy?: readonly MonospaceSystemUsercontactsCreatedByCreateRelatedInput[];
-	contactsOwner?: readonly MonospaceSystemUsercontactsOwnerCreateRelatedInput[];
-	contactsUpdatedBy?: readonly MonospaceSystemUsercontactsUpdatedByCreateRelatedInput[];
-	email?: string | null;
-	fullName?: string | null;
-	id: Uuid;
-	interactionsCreatedBy?: readonly MonospaceSystemUserinteractionsCreatedByCreateRelatedInput[];
-	interactionsOwner?: readonly MonospaceSystemUserinteractionsOwnerCreateRelatedInput[];
-	interactionsUpdatedBy?: readonly MonospaceSystemUserinteractionsUpdatedByCreateRelatedInput[];
-	isService: boolean;
-	lastActivityAt?: string | null;
-	opportunitiesCreatedBy?: readonly MonospaceSystemUseropportunitiesCreatedByCreateRelatedInput[];
-	opportunitiesOwner?: readonly MonospaceSystemUseropportunitiesOwnerCreateRelatedInput[];
-	organizationsCreatedBy?: readonly MonospaceSystemUserorganizationsCreatedByCreateRelatedInput[];
-	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
-	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
-	roles?: readonly MonospaceSystemUserrolesCreateRelatedInput[];
-	serviceOwnerId?: Uuid | null;
-	status?: string;
-	storageValues?: readonly MonospaceSystemUserstorageValuesCreateRelatedInput[];
-}
-
-export type opportunitiesupdatedByRelationFieldArguments = {
-	filter?: MonospaceSystemUserFilterInput;
-}
-
-export type opportunitiesupdatedByUpdateOneRelatedOperationsInput = {
-	_connect?: opportunitiesupdatedByConnectInput;
-	_create?: opportunitiesupdatedByCreateArguments;
-	_delete?: MonospaceSystemUserDeleteArguments;
-	_disconnect?: MonospaceSystemUserDisconnectOneInput;
-	_update?: MonospaceSystemUserUpdateInput;
-}
-
 export type organizationsCollectionOutput = {
+	activities?: { data: activitiesCollectionOutput[] };
+	affiliations?: { data: affiliationsCollectionOutput[] };
 	attachments?: { data: attachmentsCollectionOutput[] };
-	contact_organizations?: { data: contactOrganizationsCollectionOutput[] };
 	createdAt?: string;
 	createdBy?: MonospaceSystemUserCollectionOutput | null;
 	createdById?: Uuid | null;
+	deals?: { data: dealsCollectionOutput[] };
 	domain?: string | null;
 	id?: Uuid;
 	industry?: string | null;
-	interactions?: { data: interactionsCollectionOutput[] };
 	name?: string;
 	notes?: string | null;
-	opportunities?: { data: opportunitiesCollectionOutput[] };
 	owner?: MonospaceSystemUserCollectionOutput | null;
 	ownerUserId?: Uuid | null;
 	portalAccount?: accountsCollectionOutput | null;
@@ -9607,32 +9607,32 @@ export type organizationsCollectionOutput = {
 export type organizationsCollectionOutputFieldsInput = readonly ("createdAt" | "createdById" | "domain" | "id" | "industry" | "name" | "notes" | "ownerUserId" | "portalAccountId" | "status" | "updatedAt" | "updatedById" | "*" | `${string}:${"createdAt" | "createdById" | "domain" | "id" | "industry" | "name" | "notes" | "ownerUserId" | "portalAccountId" | "status" | "updatedAt" | "updatedById"}`)[];
 
 export type organizationsCollectionOutputIncludeInput = {
+	"activities"?: (organizationsactivitiesRelationFieldArguments & { "fields"?: activitiesCollectionOutputFieldsInput; "include"?: activitiesCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (organizationsactivitiesRelationFieldArguments & { "fields"?: activitiesCollectionOutputFieldsInput; "include"?: activitiesCollectionOutputIncludeInput })>]?: never };
+	"affiliations"?: (organizationsaffiliationsRelationFieldArguments & { "fields"?: affiliationsCollectionOutputFieldsInput; "include"?: affiliationsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (organizationsaffiliationsRelationFieldArguments & { "fields"?: affiliationsCollectionOutputFieldsInput; "include"?: affiliationsCollectionOutputIncludeInput })>]?: never };
 	"attachments"?: (organizationsattachmentsRelationFieldArguments & { "fields"?: attachmentsCollectionOutputFieldsInput; "include"?: attachmentsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (organizationsattachmentsRelationFieldArguments & { "fields"?: attachmentsCollectionOutputFieldsInput; "include"?: attachmentsCollectionOutputIncludeInput })>]?: never };
-	"contact_organizations"?: (organizationscontact_organizationsRelationFieldArguments & { "fields"?: contactOrganizationsCollectionOutputFieldsInput; "include"?: contactOrganizationsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (organizationscontact_organizationsRelationFieldArguments & { "fields"?: contactOrganizationsCollectionOutputFieldsInput; "include"?: contactOrganizationsCollectionOutputIncludeInput })>]?: never };
 	"createdBy"?: (organizationscreatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (organizationscreatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput })>]?: never };
-	"interactions"?: (organizationsinteractionsRelationFieldArguments & { "fields"?: interactionsCollectionOutputFieldsInput; "include"?: interactionsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (organizationsinteractionsRelationFieldArguments & { "fields"?: interactionsCollectionOutputFieldsInput; "include"?: interactionsCollectionOutputIncludeInput })>]?: never };
-	"opportunities"?: (organizationsopportunitiesRelationFieldArguments & { "fields"?: opportunitiesCollectionOutputFieldsInput; "include"?: opportunitiesCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (organizationsopportunitiesRelationFieldArguments & { "fields"?: opportunitiesCollectionOutputFieldsInput; "include"?: opportunitiesCollectionOutputIncludeInput })>]?: never };
+	"deals"?: (organizationsdealsRelationFieldArguments & { "fields"?: dealsCollectionOutputFieldsInput; "include"?: dealsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (organizationsdealsRelationFieldArguments & { "fields"?: dealsCollectionOutputFieldsInput; "include"?: dealsCollectionOutputIncludeInput })>]?: never };
 	"owner"?: (organizationsownerRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (organizationsownerRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput })>]?: never };
 	"portalAccount"?: (organizationsportalAccountRelationFieldArguments & { "fields"?: accountsCollectionOutputFieldsInput; "include"?: accountsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (organizationsportalAccountRelationFieldArguments & { "fields"?: accountsCollectionOutputFieldsInput; "include"?: accountsCollectionOutputIncludeInput })>]?: never };
 	"updatedBy"?: (organizationsupdatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (organizationsupdatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput })>]?: never };
-} & { [K in `${string}:${"attachments"}`]?: organizationsCollectionOutputIncludeInput["attachments"] } & { [K in `${string}:${"contact_organizations"}`]?: organizationsCollectionOutputIncludeInput["contact_organizations"] } & { [K in `${string}:${"createdBy"}`]?: organizationsCollectionOutputIncludeInput["createdBy"] } & { [K in `${string}:${"interactions"}`]?: organizationsCollectionOutputIncludeInput["interactions"] } & { [K in `${string}:${"opportunities"}`]?: organizationsCollectionOutputIncludeInput["opportunities"] } & { [K in `${string}:${"owner"}`]?: organizationsCollectionOutputIncludeInput["owner"] } & { [K in `${string}:${"portalAccount"}`]?: organizationsCollectionOutputIncludeInput["portalAccount"] } & { [K in `${string}:${"updatedBy"}`]?: organizationsCollectionOutputIncludeInput["updatedBy"] };
+} & { [K in `${string}:${"activities"}`]?: organizationsCollectionOutputIncludeInput["activities"] } & { [K in `${string}:${"affiliations"}`]?: organizationsCollectionOutputIncludeInput["affiliations"] } & { [K in `${string}:${"attachments"}`]?: organizationsCollectionOutputIncludeInput["attachments"] } & { [K in `${string}:${"createdBy"}`]?: organizationsCollectionOutputIncludeInput["createdBy"] } & { [K in `${string}:${"deals"}`]?: organizationsCollectionOutputIncludeInput["deals"] } & { [K in `${string}:${"owner"}`]?: organizationsCollectionOutputIncludeInput["owner"] } & { [K in `${string}:${"portalAccount"}`]?: organizationsCollectionOutputIncludeInput["portalAccount"] } & { [K in `${string}:${"updatedBy"}`]?: organizationsCollectionOutputIncludeInput["updatedBy"] };
 
 export type organizationsCreateArguments = {
 	data: readonly organizationsCreateInput[];
 }
 
 export type organizationsCreateInput = {
+	activities?: readonly organizationsactivitiesCreateRelatedInput[];
+	affiliations?: readonly organizationsaffiliationsCreateRelatedInput[];
 	attachments?: readonly organizationsattachmentsCreateRelatedInput[];
-	contact_organizations?: readonly organizationscontact_organizationsCreateRelatedInput[];
 	createdAt?: string;
 	createdBy?: organizationscreatedByCreateRelatedInput;
+	deals?: readonly organizationsdealsCreateRelatedInput[];
 	domain?: string | null;
 	id?: Uuid;
 	industry?: string | null;
-	interactions?: readonly organizationsinteractionsCreateRelatedInput[];
 	name: string;
 	notes?: string | null;
-	opportunities?: readonly organizationsopportunitiesCreateRelatedInput[];
 	owner?: organizationsownerCreateRelatedInput;
 	portalAccount?: organizationsportalAccountCreateRelatedInput;
 	portalAccountId?: string | null;
@@ -9658,18 +9658,18 @@ export type organizationsFilterInput = {
 	_and?: readonly organizationsFilterInput[];
 	_not?: organizationsFilterInput;
 	_or?: readonly organizationsFilterInput[];
+	activities?: activitiesFilterQuantifierInput | activitiesFilterInput;
+	affiliations?: affiliationsFilterQuantifierInput | affiliationsFilterInput;
 	attachments?: attachmentsFilterQuantifierInput | attachmentsFilterInput;
-	contact_organizations?: contactOrganizationsFilterQuantifierInput | contactOrganizationsFilterInput;
 	createdAt?: DateTimeFilterPrimitiveInput | string;
 	createdBy?: MonospaceSystemUserFilterInput;
 	createdById?: UuidFilterNullablePrimitiveInput | Uuid | null;
+	deals?: dealsFilterQuantifierInput | dealsFilterInput;
 	domain?: StringFilterNullablePrimitiveInput | string | null;
 	id?: UuidFilterPrimitiveInput | Uuid;
 	industry?: StringFilterNullablePrimitiveInput | string | null;
-	interactions?: interactionsFilterQuantifierInput | interactionsFilterInput;
 	name?: StringFilterPrimitiveInput | string;
 	notes?: StringFilterNullablePrimitiveInput | string | null;
-	opportunities?: opportunitiesFilterQuantifierInput | opportunitiesFilterInput;
 	owner?: MonospaceSystemUserFilterInput;
 	ownerUserId?: UuidFilterNullablePrimitiveInput | Uuid | null;
 	portalAccount?: accountsFilterInput;
@@ -9720,18 +9720,18 @@ export type organizationsUpdateArguments = {
 }
 
 export type organizationsUpdateDataInput = {
+	activities?: readonly organizationsactivitiesUpdateManyRelatedOperationsInput[];
+	affiliations?: readonly organizationsaffiliationsUpdateManyRelatedOperationsInput[];
 	attachments?: readonly organizationsattachmentsUpdateManyRelatedOperationsInput[];
-	contact_organizations?: readonly organizationscontact_organizationsUpdateManyRelatedOperationsInput[];
 	createdAt?: string;
 	createdBy?: readonly organizationscreatedByUpdateOneRelatedOperationsInput[];
 	createdById?: Uuid | null;
+	deals?: readonly organizationsdealsUpdateManyRelatedOperationsInput[];
 	domain?: string | null;
 	id?: Uuid;
 	industry?: string | null;
-	interactions?: readonly organizationsinteractionsUpdateManyRelatedOperationsInput[];
 	name?: string;
 	notes?: string | null;
-	opportunities?: readonly organizationsopportunitiesUpdateManyRelatedOperationsInput[];
 	owner?: readonly organizationsownerUpdateOneRelatedOperationsInput[];
 	ownerUserId?: Uuid | null;
 	portalAccount?: readonly organizationsportalAccountUpdateOneRelatedOperationsInput[];
@@ -9753,6 +9753,102 @@ export type organizationsUpdateOneArguments = {
 	key: Uuid;
 }
 
+export type organizationsactivitiesConnectBackwardKeysInput = {
+	id?: Uuid;
+}
+
+export type organizationsactivitiesConnectInput = {
+	keys: readonly organizationsactivitiesConnectBackwardKeysInput[];
+}
+
+export type organizationsactivitiesCreateArguments = {
+	data: readonly organizationsactivitiesCreateRelatedWithoutTypeInput[];
+}
+
+export type organizationsactivitiesCreateRelatedInput = {
+	_connect?: organizationsactivitiesConnectInput;
+	_create?: organizationsactivitiesCreateArguments;
+}
+
+export type organizationsactivitiesCreateRelatedWithoutTypeInput = {
+	attachments?: readonly activitiesattachmentsCreateRelatedInput[];
+	body?: string | null;
+	completedAt?: string | null;
+	contacts?: activitiescontactsCreateRelatedInput;
+	createdAt?: string;
+	createdBy?: activitiescreatedByCreateRelatedInput;
+	deals?: activitiesdealsCreateRelatedInput;
+	direction?: string;
+	dueAt?: string | null;
+	id?: Uuid;
+	occurredAt?: string;
+	owner?: activitiesownerCreateRelatedInput;
+	status: string;
+	subject: string;
+	type: string;
+	updatedAt?: string;
+	updatedBy?: activitiesupdatedByCreateRelatedInput;
+}
+
+export type organizationsactivitiesRelationFieldArguments = {
+	filter?: activitiesFilterInput;
+	limit?: Int64Input;
+	offset?: UInt64Input;
+	sort?: readonly activitiesSortSpecifier[];
+}
+
+export type organizationsactivitiesUpdateManyRelatedOperationsInput = {
+	_connect?: organizationsactivitiesConnectInput;
+	_create?: organizationsactivitiesCreateArguments;
+	_delete?: activitiesDeleteArguments;
+	_update?: activitiesUpdateInput;
+}
+
+export type organizationsaffiliationsConnectBackwardKeysInput = {
+	id?: Uuid;
+}
+
+export type organizationsaffiliationsConnectInput = {
+	keys: readonly organizationsaffiliationsConnectBackwardKeysInput[];
+}
+
+export type organizationsaffiliationsCreateArguments = {
+	data: readonly organizationsaffiliationsCreateRelatedWithoutTypeInput[];
+}
+
+export type organizationsaffiliationsCreateRelatedInput = {
+	_connect?: organizationsaffiliationsConnectInput;
+	_create?: organizationsaffiliationsCreateArguments;
+}
+
+export type organizationsaffiliationsCreateRelatedWithoutTypeInput = {
+	contacts: affiliationscontactsCreateRelatedInput;
+	createdAt?: string;
+	createdBy?: affiliationscreatedByCreateRelatedInput;
+	endedAt?: string | null;
+	id?: Uuid;
+	isPrimary?: boolean;
+	role?: string | null;
+	startedAt?: string | null;
+	title?: string | null;
+	updatedAt?: string;
+	updatedBy?: affiliationsupdatedByCreateRelatedInput;
+}
+
+export type organizationsaffiliationsRelationFieldArguments = {
+	filter?: affiliationsFilterInput;
+	limit?: Int64Input;
+	offset?: UInt64Input;
+	sort?: readonly affiliationsSortSpecifier[];
+}
+
+export type organizationsaffiliationsUpdateManyRelatedOperationsInput = {
+	_connect?: organizationsaffiliationsConnectInput;
+	_create?: organizationsaffiliationsCreateArguments;
+	_delete?: affiliationsDeleteArguments;
+	_update?: affiliationsUpdateInput;
+}
+
 export type organizationsattachmentsConnectBackwardKeysInput = {
 	assetId?: Uuid;
 	id?: Uuid;
@@ -9772,15 +9868,15 @@ export type organizationsattachmentsCreateRelatedInput = {
 }
 
 export type organizationsattachmentsCreateRelatedWithoutTypeInput = {
+	activities?: attachmentsactivitiesCreateRelatedInput;
 	assetId?: Uuid | null;
 	contacts?: attachmentscontactsCreateRelatedInput;
 	contentType?: string | null;
 	createdAt?: string;
 	createdBy?: attachmentscreatedByCreateRelatedInput;
+	deals?: attachmentsdealsCreateRelatedInput;
 	fileName: string;
 	id?: Uuid;
-	interactions?: attachmentsinteractionsCreateRelatedInput;
-	opportunities?: attachmentsopportunitiesCreateRelatedInput;
 	sizeBytes?: Int64Input | null;
 	url?: string | null;
 }
@@ -9797,51 +9893,6 @@ export type organizationsattachmentsUpdateManyRelatedOperationsInput = {
 	_create?: organizationsattachmentsCreateArguments;
 	_delete?: attachmentsDeleteArguments;
 	_update?: attachmentsUpdateInput;
-}
-
-export type organizationscontact_organizationsConnectBackwardKeysInput = {
-	id?: Uuid;
-}
-
-export type organizationscontact_organizationsConnectInput = {
-	keys: readonly organizationscontact_organizationsConnectBackwardKeysInput[];
-}
-
-export type organizationscontact_organizationsCreateArguments = {
-	data: readonly organizationscontact_organizationsCreateRelatedWithoutTypeInput[];
-}
-
-export type organizationscontact_organizationsCreateRelatedInput = {
-	_connect?: organizationscontact_organizationsConnectInput;
-	_create?: organizationscontact_organizationsCreateArguments;
-}
-
-export type organizationscontact_organizationsCreateRelatedWithoutTypeInput = {
-	contacts: contactOrganizationscontactsCreateRelatedInput;
-	createdAt?: string;
-	createdBy?: contactOrganizationscreatedByCreateRelatedInput;
-	endedAt?: string | null;
-	id?: Uuid;
-	isPrimary?: boolean;
-	role?: string | null;
-	startedAt?: string | null;
-	title?: string | null;
-	updatedAt?: string;
-	updatedBy?: contactOrganizationsupdatedByCreateRelatedInput;
-}
-
-export type organizationscontact_organizationsRelationFieldArguments = {
-	filter?: contactOrganizationsFilterInput;
-	limit?: Int64Input;
-	offset?: UInt64Input;
-	sort?: readonly contactOrganizationsSortSpecifier[];
-}
-
-export type organizationscontact_organizationsUpdateManyRelatedOperationsInput = {
-	_connect?: organizationscontact_organizationsConnectInput;
-	_create?: organizationscontact_organizationsCreateArguments;
-	_delete?: contactOrganizationsDeleteArguments;
-	_update?: contactOrganizationsUpdateInput;
 }
 
 export type organizationscreatedByConnectForwardKeyInput = {
@@ -9862,25 +9913,25 @@ export type organizationscreatedByCreateRelatedInput = {
 }
 
 export type organizationscreatedByCreateRelatedWithoutTypeInput = {
+	activitiesCreatedBy?: readonly MonospaceSystemUseractivitiesCreatedByCreateRelatedInput[];
+	activitiesOwner?: readonly MonospaceSystemUseractivitiesOwnerCreateRelatedInput[];
+	activitiesUpdatedBy?: readonly MonospaceSystemUseractivitiesUpdatedByCreateRelatedInput[];
+	affiliationsCreatedBy?: readonly MonospaceSystemUseraffiliationsCreatedByCreateRelatedInput[];
+	affiliationsUpdatedBy?: readonly MonospaceSystemUseraffiliationsUpdatedByCreateRelatedInput[];
 	appearance?: string | null;
 	attachmentsCreatedBy?: readonly MonospaceSystemUserattachmentsCreatedByCreateRelatedInput[];
 	avatarId?: Uuid | null;
-	contactOrganizationsCreatedBy?: readonly MonospaceSystemUsercontactOrganizationsCreatedByCreateRelatedInput[];
-	contactOrganizationsUpdatedBy?: readonly MonospaceSystemUsercontactOrganizationsUpdatedByCreateRelatedInput[];
 	contactsCreatedBy?: readonly MonospaceSystemUsercontactsCreatedByCreateRelatedInput[];
 	contactsOwner?: readonly MonospaceSystemUsercontactsOwnerCreateRelatedInput[];
 	contactsUpdatedBy?: readonly MonospaceSystemUsercontactsUpdatedByCreateRelatedInput[];
+	dealsCreatedBy?: readonly MonospaceSystemUserdealsCreatedByCreateRelatedInput[];
+	dealsOwner?: readonly MonospaceSystemUserdealsOwnerCreateRelatedInput[];
+	dealsUpdatedBy?: readonly MonospaceSystemUserdealsUpdatedByCreateRelatedInput[];
 	email?: string | null;
 	fullName?: string | null;
 	id: Uuid;
-	interactionsCreatedBy?: readonly MonospaceSystemUserinteractionsCreatedByCreateRelatedInput[];
-	interactionsOwner?: readonly MonospaceSystemUserinteractionsOwnerCreateRelatedInput[];
-	interactionsUpdatedBy?: readonly MonospaceSystemUserinteractionsUpdatedByCreateRelatedInput[];
 	isService: boolean;
 	lastActivityAt?: string | null;
-	opportunitiesCreatedBy?: readonly MonospaceSystemUseropportunitiesCreatedByCreateRelatedInput[];
-	opportunitiesOwner?: readonly MonospaceSystemUseropportunitiesOwnerCreateRelatedInput[];
-	opportunitiesUpdatedBy?: readonly MonospaceSystemUseropportunitiesUpdatedByCreateRelatedInput[];
 	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
 	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
 	roles?: readonly MonospaceSystemUserrolesCreateRelatedInput[];
@@ -9901,105 +9952,54 @@ export type organizationscreatedByUpdateOneRelatedOperationsInput = {
 	_update?: MonospaceSystemUserUpdateInput;
 }
 
-export type organizationsinteractionsConnectBackwardKeysInput = {
+export type organizationsdealsConnectBackwardKeysInput = {
 	id?: Uuid;
 }
 
-export type organizationsinteractionsConnectInput = {
-	keys: readonly organizationsinteractionsConnectBackwardKeysInput[];
+export type organizationsdealsConnectInput = {
+	keys: readonly organizationsdealsConnectBackwardKeysInput[];
 }
 
-export type organizationsinteractionsCreateArguments = {
-	data: readonly organizationsinteractionsCreateRelatedWithoutTypeInput[];
+export type organizationsdealsCreateArguments = {
+	data: readonly organizationsdealsCreateRelatedWithoutTypeInput[];
 }
 
-export type organizationsinteractionsCreateRelatedInput = {
-	_connect?: organizationsinteractionsConnectInput;
-	_create?: organizationsinteractionsCreateArguments;
+export type organizationsdealsCreateRelatedInput = {
+	_connect?: organizationsdealsConnectInput;
+	_create?: organizationsdealsCreateArguments;
 }
 
-export type organizationsinteractionsCreateRelatedWithoutTypeInput = {
-	attachments?: readonly interactionsattachmentsCreateRelatedInput[];
-	body?: string | null;
-	completedAt?: string | null;
-	contacts?: interactionscontactsCreateRelatedInput;
+export type organizationsdealsCreateRelatedWithoutTypeInput = {
+	activities?: readonly dealsactivitiesCreateRelatedInput[];
+	attachments?: readonly dealsattachmentsCreateRelatedInput[];
+	contacts?: dealscontactsCreateRelatedInput;
 	createdAt?: string;
-	createdBy?: interactionscreatedByCreateRelatedInput;
-	direction?: string;
-	dueAt?: string | null;
-	id?: Uuid;
-	occurredAt?: string;
-	opportunities?: interactionsopportunitiesCreateRelatedInput;
-	owner?: interactionsownerCreateRelatedInput;
-	status: string;
-	subject: string;
-	type: string;
-	updatedAt?: string;
-	updatedBy?: interactionsupdatedByCreateRelatedInput;
-}
-
-export type organizationsinteractionsRelationFieldArguments = {
-	filter?: interactionsFilterInput;
-	limit?: Int64Input;
-	offset?: UInt64Input;
-	sort?: readonly interactionsSortSpecifier[];
-}
-
-export type organizationsinteractionsUpdateManyRelatedOperationsInput = {
-	_connect?: organizationsinteractionsConnectInput;
-	_create?: organizationsinteractionsCreateArguments;
-	_delete?: interactionsDeleteArguments;
-	_update?: interactionsUpdateInput;
-}
-
-export type organizationsopportunitiesConnectBackwardKeysInput = {
-	id?: Uuid;
-}
-
-export type organizationsopportunitiesConnectInput = {
-	keys: readonly organizationsopportunitiesConnectBackwardKeysInput[];
-}
-
-export type organizationsopportunitiesCreateArguments = {
-	data: readonly organizationsopportunitiesCreateRelatedWithoutTypeInput[];
-}
-
-export type organizationsopportunitiesCreateRelatedInput = {
-	_connect?: organizationsopportunitiesConnectInput;
-	_create?: organizationsopportunitiesCreateArguments;
-}
-
-export type organizationsopportunitiesCreateRelatedWithoutTypeInput = {
-	attachments?: readonly opportunitiesattachmentsCreateRelatedInput[];
-	contacts?: opportunitiescontactsCreateRelatedInput;
-	createdAt?: string;
-	createdBy?: opportunitiescreatedByCreateRelatedInput;
+	createdBy?: dealscreatedByCreateRelatedInput;
 	currency?: string;
 	expectedCloseDate?: string | null;
 	id?: Uuid;
-	interactions?: readonly opportunitiesinteractionsCreateRelatedInput[];
 	notes?: string | null;
-	owner?: opportunitiesownerCreateRelatedInput;
-	pipeline_stages: opportunitiespipeline_stagesCreateRelatedInput;
+	owner?: dealsownerCreateRelatedInput;
+	pipeline_stages: dealspipeline_stagesCreateRelatedInput;
 	status?: string;
 	title: string;
 	updatedAt?: string;
-	updatedBy?: opportunitiesupdatedByCreateRelatedInput;
+	updatedBy?: dealsupdatedByCreateRelatedInput;
 	valueAmount?: string | null;
 }
 
-export type organizationsopportunitiesRelationFieldArguments = {
-	filter?: opportunitiesFilterInput;
+export type organizationsdealsRelationFieldArguments = {
+	filter?: dealsFilterInput;
 	limit?: Int64Input;
 	offset?: UInt64Input;
-	sort?: readonly opportunitiesSortSpecifier[];
+	sort?: readonly dealsSortSpecifier[];
 }
 
-export type organizationsopportunitiesUpdateManyRelatedOperationsInput = {
-	_connect?: organizationsopportunitiesConnectInput;
-	_create?: organizationsopportunitiesCreateArguments;
-	_delete?: opportunitiesDeleteArguments;
-	_update?: opportunitiesUpdateInput;
+export type organizationsdealsUpdateManyRelatedOperationsInput = {
+	_connect?: organizationsdealsConnectInput;
+	_create?: organizationsdealsCreateArguments;
+	_delete?: dealsDeleteArguments;
+	_update?: dealsUpdateInput;
 }
 
 export type organizationsownerConnectForwardKeyInput = {
@@ -10020,25 +10020,25 @@ export type organizationsownerCreateRelatedInput = {
 }
 
 export type organizationsownerCreateRelatedWithoutTypeInput = {
+	activitiesCreatedBy?: readonly MonospaceSystemUseractivitiesCreatedByCreateRelatedInput[];
+	activitiesOwner?: readonly MonospaceSystemUseractivitiesOwnerCreateRelatedInput[];
+	activitiesUpdatedBy?: readonly MonospaceSystemUseractivitiesUpdatedByCreateRelatedInput[];
+	affiliationsCreatedBy?: readonly MonospaceSystemUseraffiliationsCreatedByCreateRelatedInput[];
+	affiliationsUpdatedBy?: readonly MonospaceSystemUseraffiliationsUpdatedByCreateRelatedInput[];
 	appearance?: string | null;
 	attachmentsCreatedBy?: readonly MonospaceSystemUserattachmentsCreatedByCreateRelatedInput[];
 	avatarId?: Uuid | null;
-	contactOrganizationsCreatedBy?: readonly MonospaceSystemUsercontactOrganizationsCreatedByCreateRelatedInput[];
-	contactOrganizationsUpdatedBy?: readonly MonospaceSystemUsercontactOrganizationsUpdatedByCreateRelatedInput[];
 	contactsCreatedBy?: readonly MonospaceSystemUsercontactsCreatedByCreateRelatedInput[];
 	contactsOwner?: readonly MonospaceSystemUsercontactsOwnerCreateRelatedInput[];
 	contactsUpdatedBy?: readonly MonospaceSystemUsercontactsUpdatedByCreateRelatedInput[];
+	dealsCreatedBy?: readonly MonospaceSystemUserdealsCreatedByCreateRelatedInput[];
+	dealsOwner?: readonly MonospaceSystemUserdealsOwnerCreateRelatedInput[];
+	dealsUpdatedBy?: readonly MonospaceSystemUserdealsUpdatedByCreateRelatedInput[];
 	email?: string | null;
 	fullName?: string | null;
 	id: Uuid;
-	interactionsCreatedBy?: readonly MonospaceSystemUserinteractionsCreatedByCreateRelatedInput[];
-	interactionsOwner?: readonly MonospaceSystemUserinteractionsOwnerCreateRelatedInput[];
-	interactionsUpdatedBy?: readonly MonospaceSystemUserinteractionsUpdatedByCreateRelatedInput[];
 	isService: boolean;
 	lastActivityAt?: string | null;
-	opportunitiesCreatedBy?: readonly MonospaceSystemUseropportunitiesCreatedByCreateRelatedInput[];
-	opportunitiesOwner?: readonly MonospaceSystemUseropportunitiesOwnerCreateRelatedInput[];
-	opportunitiesUpdatedBy?: readonly MonospaceSystemUseropportunitiesUpdatedByCreateRelatedInput[];
 	organizationsCreatedBy?: readonly MonospaceSystemUserorganizationsCreatedByCreateRelatedInput[];
 	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
 	roles?: readonly MonospaceSystemUserrolesCreateRelatedInput[];
@@ -10107,25 +10107,25 @@ export type organizationsupdatedByCreateRelatedInput = {
 }
 
 export type organizationsupdatedByCreateRelatedWithoutTypeInput = {
+	activitiesCreatedBy?: readonly MonospaceSystemUseractivitiesCreatedByCreateRelatedInput[];
+	activitiesOwner?: readonly MonospaceSystemUseractivitiesOwnerCreateRelatedInput[];
+	activitiesUpdatedBy?: readonly MonospaceSystemUseractivitiesUpdatedByCreateRelatedInput[];
+	affiliationsCreatedBy?: readonly MonospaceSystemUseraffiliationsCreatedByCreateRelatedInput[];
+	affiliationsUpdatedBy?: readonly MonospaceSystemUseraffiliationsUpdatedByCreateRelatedInput[];
 	appearance?: string | null;
 	attachmentsCreatedBy?: readonly MonospaceSystemUserattachmentsCreatedByCreateRelatedInput[];
 	avatarId?: Uuid | null;
-	contactOrganizationsCreatedBy?: readonly MonospaceSystemUsercontactOrganizationsCreatedByCreateRelatedInput[];
-	contactOrganizationsUpdatedBy?: readonly MonospaceSystemUsercontactOrganizationsUpdatedByCreateRelatedInput[];
 	contactsCreatedBy?: readonly MonospaceSystemUsercontactsCreatedByCreateRelatedInput[];
 	contactsOwner?: readonly MonospaceSystemUsercontactsOwnerCreateRelatedInput[];
 	contactsUpdatedBy?: readonly MonospaceSystemUsercontactsUpdatedByCreateRelatedInput[];
+	dealsCreatedBy?: readonly MonospaceSystemUserdealsCreatedByCreateRelatedInput[];
+	dealsOwner?: readonly MonospaceSystemUserdealsOwnerCreateRelatedInput[];
+	dealsUpdatedBy?: readonly MonospaceSystemUserdealsUpdatedByCreateRelatedInput[];
 	email?: string | null;
 	fullName?: string | null;
 	id: Uuid;
-	interactionsCreatedBy?: readonly MonospaceSystemUserinteractionsCreatedByCreateRelatedInput[];
-	interactionsOwner?: readonly MonospaceSystemUserinteractionsOwnerCreateRelatedInput[];
-	interactionsUpdatedBy?: readonly MonospaceSystemUserinteractionsUpdatedByCreateRelatedInput[];
 	isService: boolean;
 	lastActivityAt?: string | null;
-	opportunitiesCreatedBy?: readonly MonospaceSystemUseropportunitiesCreatedByCreateRelatedInput[];
-	opportunitiesOwner?: readonly MonospaceSystemUseropportunitiesOwnerCreateRelatedInput[];
-	opportunitiesUpdatedBy?: readonly MonospaceSystemUseropportunitiesUpdatedByCreateRelatedInput[];
 	organizationsCreatedBy?: readonly MonospaceSystemUserorganizationsCreatedByCreateRelatedInput[];
 	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
 	roles?: readonly MonospaceSystemUserrolesCreateRelatedInput[];
@@ -10148,11 +10148,11 @@ export type organizationsupdatedByUpdateOneRelatedOperationsInput = {
 
 export type pipelineStagesCollectionOutput = {
 	color?: string | null;
+	deals?: { data: dealsCollectionOutput[] };
 	id?: Uuid;
 	isClosed?: boolean;
 	isWon?: boolean;
 	name?: string;
-	opportunities?: { data: opportunitiesCollectionOutput[] };
 	position?: number;
 	status?: string | null;
 }
@@ -10160,8 +10160,8 @@ export type pipelineStagesCollectionOutput = {
 export type pipelineStagesCollectionOutputFieldsInput = readonly ("color" | "id" | "isClosed" | "isWon" | "name" | "position" | "status" | "*" | `${string}:${"color" | "id" | "isClosed" | "isWon" | "name" | "position" | "status"}`)[];
 
 export type pipelineStagesCollectionOutputIncludeInput = {
-	"opportunities"?: (pipelineStagesopportunitiesRelationFieldArguments & { "fields"?: opportunitiesCollectionOutputFieldsInput; "include"?: opportunitiesCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (pipelineStagesopportunitiesRelationFieldArguments & { "fields"?: opportunitiesCollectionOutputFieldsInput; "include"?: opportunitiesCollectionOutputIncludeInput })>]?: never };
-} & { [K in `${string}:${"opportunities"}`]?: pipelineStagesCollectionOutputIncludeInput["opportunities"] };
+	"deals"?: (pipelineStagesdealsRelationFieldArguments & { "fields"?: dealsCollectionOutputFieldsInput; "include"?: dealsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (pipelineStagesdealsRelationFieldArguments & { "fields"?: dealsCollectionOutputFieldsInput; "include"?: dealsCollectionOutputIncludeInput })>]?: never };
+} & { [K in `${string}:${"deals"}`]?: pipelineStagesCollectionOutputIncludeInput["deals"] };
 
 export type pipelineStagesCreateArguments = {
 	data: readonly pipelineStagesCreateInput[];
@@ -10169,11 +10169,11 @@ export type pipelineStagesCreateArguments = {
 
 export type pipelineStagesCreateInput = {
 	color?: string | null;
+	deals?: readonly pipelineStagesdealsCreateRelatedInput[];
 	id?: Uuid;
 	isClosed?: boolean;
 	isWon?: boolean;
 	name: string;
-	opportunities?: readonly pipelineStagesopportunitiesCreateRelatedInput[];
 	position: number;
 }
 
@@ -10191,11 +10191,11 @@ export type pipelineStagesFilterInput = {
 	_not?: pipelineStagesFilterInput;
 	_or?: readonly pipelineStagesFilterInput[];
 	color?: StringFilterNullablePrimitiveInput | string | null;
+	deals?: dealsFilterQuantifierInput | dealsFilterInput;
 	id?: UuidFilterPrimitiveInput | Uuid;
 	isClosed?: BooleanFilterPrimitiveInput | boolean;
 	isWon?: BooleanFilterPrimitiveInput | boolean;
 	name?: StringFilterPrimitiveInput | string;
-	opportunities?: opportunitiesFilterQuantifierInput | opportunitiesFilterInput;
 	position?: FloatFilterPrimitiveInput | number;
 	status?: StringFilterNullablePrimitiveInput | string | null;
 }
@@ -10230,11 +10230,11 @@ export type pipelineStagesUpdateArguments = {
 
 export type pipelineStagesUpdateDataInput = {
 	color?: string | null;
+	deals?: readonly pipelineStagesdealsUpdateManyRelatedOperationsInput[];
 	id?: Uuid;
 	isClosed?: boolean;
 	isWon?: boolean;
 	name?: string;
-	opportunities?: readonly pipelineStagesopportunitiesUpdateManyRelatedOperationsInput[];
 	position?: number;
 }
 
@@ -10249,54 +10249,54 @@ export type pipelineStagesUpdateOneArguments = {
 	key: Uuid;
 }
 
-export type pipelineStagesopportunitiesConnectBackwardKeysInput = {
+export type pipelineStagesdealsConnectBackwardKeysInput = {
 	id?: Uuid;
 }
 
-export type pipelineStagesopportunitiesConnectInput = {
-	keys: readonly pipelineStagesopportunitiesConnectBackwardKeysInput[];
+export type pipelineStagesdealsConnectInput = {
+	keys: readonly pipelineStagesdealsConnectBackwardKeysInput[];
 }
 
-export type pipelineStagesopportunitiesCreateArguments = {
-	data: readonly pipelineStagesopportunitiesCreateRelatedWithoutTypeInput[];
+export type pipelineStagesdealsCreateArguments = {
+	data: readonly pipelineStagesdealsCreateRelatedWithoutTypeInput[];
 }
 
-export type pipelineStagesopportunitiesCreateRelatedInput = {
-	_connect?: pipelineStagesopportunitiesConnectInput;
-	_create?: pipelineStagesopportunitiesCreateArguments;
+export type pipelineStagesdealsCreateRelatedInput = {
+	_connect?: pipelineStagesdealsConnectInput;
+	_create?: pipelineStagesdealsCreateArguments;
 }
 
-export type pipelineStagesopportunitiesCreateRelatedWithoutTypeInput = {
-	attachments?: readonly opportunitiesattachmentsCreateRelatedInput[];
-	contacts?: opportunitiescontactsCreateRelatedInput;
+export type pipelineStagesdealsCreateRelatedWithoutTypeInput = {
+	activities?: readonly dealsactivitiesCreateRelatedInput[];
+	attachments?: readonly dealsattachmentsCreateRelatedInput[];
+	contacts?: dealscontactsCreateRelatedInput;
 	createdAt?: string;
-	createdBy?: opportunitiescreatedByCreateRelatedInput;
+	createdBy?: dealscreatedByCreateRelatedInput;
 	currency?: string;
 	expectedCloseDate?: string | null;
 	id?: Uuid;
-	interactions?: readonly opportunitiesinteractionsCreateRelatedInput[];
 	notes?: string | null;
-	organizations: opportunitiesorganizationsCreateRelatedInput;
-	owner?: opportunitiesownerCreateRelatedInput;
+	organizations: dealsorganizationsCreateRelatedInput;
+	owner?: dealsownerCreateRelatedInput;
 	status?: string;
 	title: string;
 	updatedAt?: string;
-	updatedBy?: opportunitiesupdatedByCreateRelatedInput;
+	updatedBy?: dealsupdatedByCreateRelatedInput;
 	valueAmount?: string | null;
 }
 
-export type pipelineStagesopportunitiesRelationFieldArguments = {
-	filter?: opportunitiesFilterInput;
+export type pipelineStagesdealsRelationFieldArguments = {
+	filter?: dealsFilterInput;
 	limit?: Int64Input;
 	offset?: UInt64Input;
-	sort?: readonly opportunitiesSortSpecifier[];
+	sort?: readonly dealsSortSpecifier[];
 }
 
-export type pipelineStagesopportunitiesUpdateManyRelatedOperationsInput = {
-	_connect?: pipelineStagesopportunitiesConnectInput;
-	_create?: pipelineStagesopportunitiesCreateArguments;
-	_delete?: opportunitiesDeleteArguments;
-	_update?: opportunitiesUpdateInput;
+export type pipelineStagesdealsUpdateManyRelatedOperationsInput = {
+	_connect?: pipelineStagesdealsConnectInput;
+	_create?: pipelineStagesdealsCreateArguments;
+	_delete?: dealsDeleteArguments;
+	_update?: dealsUpdateInput;
 }
 
 export type plansCollectionOutput = {
@@ -11298,17 +11298,17 @@ export type userscontactsCreateRelatedInput = {
 }
 
 export type userscontactsCreateRelatedWithoutTypeInput = {
+	activities?: readonly contactsactivitiesCreateRelatedInput[];
+	affiliations?: readonly contactsaffiliationsCreateRelatedInput[];
 	attachments?: readonly contactsattachmentsCreateRelatedInput[];
-	contact_organizations?: readonly contactscontact_organizationsCreateRelatedInput[];
 	createdAt?: string;
 	createdBy?: contactscreatedByCreateRelatedInput;
+	deals?: readonly contactsdealsCreateRelatedInput[];
 	email?: string | null;
 	firstName: string;
 	id?: Uuid;
-	interactions?: readonly contactsinteractionsCreateRelatedInput[];
 	lastName: string;
 	notes?: string | null;
-	opportunities?: readonly contactsopportunitiesCreateRelatedInput[];
 	owner?: contactsownerCreateRelatedInput;
 	phone?: string | null;
 	status?: string;
@@ -11500,12 +11500,176 @@ export type accountsCollection = {
   }
 }
 
-export type attachmentsCollection = {
-  '~primitiveKeys': 'assetId' | 'contactId' | 'contentType' | 'createdAt' | 'createdById' | 'fileName' | 'id' | 'interactionId' | 'opportunityId' | 'organizationId' | 'sizeBytes' | 'url';
+export type activitiesCollection = {
+  '~primitiveKeys': 'body' | 'completedAt' | 'contactId' | 'createdAt' | 'createdById' | 'dealId' | 'direction' | 'dueAt' | 'id' | 'occurredAt' | 'organizationId' | 'ownerUserId' | 'status' | 'subject' | 'type' | 'updatedAt' | 'updatedById';
+  '~relations': {
+    attachments: attachmentsCollection[];
+    contacts: contactsCollection;
+    deals: dealsCollection;
+    organizations: organizationsCollection;
+  };
+
+  '~readOne': {
+    '~key': Uuid;
+    '~output': _Types.activitiesCollectionOutput;
+    '~parameters': {
+      filter?: _Types.activitiesFilterInput;
+      fields?: _Types.activitiesCollectionOutputFieldsInput;
+      include?: _Types.activitiesCollectionOutputIncludeInput;
+    };
+  }
+
+  '~readMany': {
+    '~output': _Types.activitiesCollectionOutput;
+    '~responseMeta': _Types.ResponseMeta;
+    '~parameters': {
+      filter?: _Types.activitiesFilterInput;
+      sort?: readonly _Types.activitiesSortSpecifier[];
+      fields?: _Types.activitiesCollectionOutputFieldsInput;
+      include?: _Types.activitiesCollectionOutputIncludeInput;
+      meta?: _Types.MetaArguments;
+      limit?: number;
+      offset?: number;
+    };
+  }
+
+  '~create': {
+    '~input': _Types.activitiesCreateInput;
+    '~output': _Types.activitiesCollectionOutput;
+    '~parameters': {
+      fields?: _Types.activitiesCollectionOutputFieldsInput;
+      include?: _Types.activitiesCollectionOutputIncludeInput;
+    };
+  }
+
+  '~updateOne': {
+    '~key': Uuid;
+    '~input': _Types.activitiesUpdateDataInput;
+    '~output': _Types.activitiesCollectionOutput;
+    '~parameters': {
+      filter?: _Types.activitiesFilterInput;
+      fields?: _Types.activitiesCollectionOutputFieldsInput;
+      include?: _Types.activitiesCollectionOutputIncludeInput;
+    };
+  }
+
+  '~updateMany': {
+    '~input': _Types.activitiesUpdateDataInput;
+    '~output': _Types.activitiesCollectionOutput;
+    '~parameters': {
+      filter?: _Types.activitiesFilterInput;
+      fields?: _Types.activitiesCollectionOutputFieldsInput;
+      include?: _Types.activitiesCollectionOutputIncludeInput;
+    };
+  }
+
+  '~deleteOne': {
+    '~key': Uuid;
+    '~output': _Types.activitiesCollectionOutput;
+    '~parameters': {
+      filter?: _Types.activitiesFilterInput;
+      fields?: _Types.activitiesCollectionOutputFieldsInput;
+      include?: _Types.activitiesCollectionOutputIncludeInput;
+    };
+  }
+
+  '~deleteMany': {
+    '~output': _Types.activitiesCollectionOutput;
+    '~parameters': {
+      filter?: _Types.activitiesFilterInput;
+      fields?: _Types.activitiesCollectionOutputFieldsInput;
+      include?: _Types.activitiesCollectionOutputIncludeInput;
+    };
+  }
+}
+
+export type affiliationsCollection = {
+  '~primitiveKeys': 'contactId' | 'createdAt' | 'createdById' | 'endedAt' | 'id' | 'isPrimary' | 'organizationId' | 'role' | 'startedAt' | 'title' | 'updatedAt' | 'updatedById';
   '~relations': {
     contacts: contactsCollection;
-    interactions: interactionsCollection;
-    opportunities: opportunitiesCollection;
+    organizations: organizationsCollection;
+  };
+
+  '~readOne': {
+    '~key': Uuid;
+    '~output': _Types.affiliationsCollectionOutput;
+    '~parameters': {
+      filter?: _Types.affiliationsFilterInput;
+      fields?: _Types.affiliationsCollectionOutputFieldsInput;
+      include?: _Types.affiliationsCollectionOutputIncludeInput;
+    };
+  }
+
+  '~readMany': {
+    '~output': _Types.affiliationsCollectionOutput;
+    '~responseMeta': _Types.ResponseMeta;
+    '~parameters': {
+      filter?: _Types.affiliationsFilterInput;
+      sort?: readonly _Types.affiliationsSortSpecifier[];
+      fields?: _Types.affiliationsCollectionOutputFieldsInput;
+      include?: _Types.affiliationsCollectionOutputIncludeInput;
+      meta?: _Types.MetaArguments;
+      limit?: number;
+      offset?: number;
+    };
+  }
+
+  '~create': {
+    '~input': _Types.affiliationsCreateInput;
+    '~output': _Types.affiliationsCollectionOutput;
+    '~parameters': {
+      fields?: _Types.affiliationsCollectionOutputFieldsInput;
+      include?: _Types.affiliationsCollectionOutputIncludeInput;
+    };
+  }
+
+  '~updateOne': {
+    '~key': Uuid;
+    '~input': _Types.affiliationsUpdateDataInput;
+    '~output': _Types.affiliationsCollectionOutput;
+    '~parameters': {
+      filter?: _Types.affiliationsFilterInput;
+      fields?: _Types.affiliationsCollectionOutputFieldsInput;
+      include?: _Types.affiliationsCollectionOutputIncludeInput;
+    };
+  }
+
+  '~updateMany': {
+    '~input': _Types.affiliationsUpdateDataInput;
+    '~output': _Types.affiliationsCollectionOutput;
+    '~parameters': {
+      filter?: _Types.affiliationsFilterInput;
+      fields?: _Types.affiliationsCollectionOutputFieldsInput;
+      include?: _Types.affiliationsCollectionOutputIncludeInput;
+    };
+  }
+
+  '~deleteOne': {
+    '~key': Uuid;
+    '~output': _Types.affiliationsCollectionOutput;
+    '~parameters': {
+      filter?: _Types.affiliationsFilterInput;
+      fields?: _Types.affiliationsCollectionOutputFieldsInput;
+      include?: _Types.affiliationsCollectionOutputIncludeInput;
+    };
+  }
+
+  '~deleteMany': {
+    '~output': _Types.affiliationsCollectionOutput;
+    '~parameters': {
+      filter?: _Types.affiliationsFilterInput;
+      fields?: _Types.affiliationsCollectionOutputFieldsInput;
+      include?: _Types.affiliationsCollectionOutputIncludeInput;
+    };
+  }
+}
+
+export type attachmentsCollection = {
+  '~primitiveKeys': 'activityId' | 'assetId' | 'contactId' | 'contentType' | 'createdAt' | 'createdById' | 'dealId' | 'fileName' | 'id' | 'organizationId' | 'sizeBytes' | 'url';
+  '~relations': {
+    activities: activitiesCollection;
+    contacts: contactsCollection;
+    deals: dealsCollection;
     organizations: organizationsCollection;
   };
 
@@ -11583,94 +11747,13 @@ export type attachmentsCollection = {
   }
 }
 
-export type contactOrganizationsCollection = {
-  '~primitiveKeys': 'contactId' | 'createdAt' | 'createdById' | 'endedAt' | 'id' | 'isPrimary' | 'organizationId' | 'role' | 'startedAt' | 'title' | 'updatedAt' | 'updatedById';
-  '~relations': {
-    contacts: contactsCollection;
-    organizations: organizationsCollection;
-  };
-
-  '~readOne': {
-    '~key': Uuid;
-    '~output': _Types.contactOrganizationsCollectionOutput;
-    '~parameters': {
-      filter?: _Types.contactOrganizationsFilterInput;
-      fields?: _Types.contactOrganizationsCollectionOutputFieldsInput;
-      include?: _Types.contactOrganizationsCollectionOutputIncludeInput;
-    };
-  }
-
-  '~readMany': {
-    '~output': _Types.contactOrganizationsCollectionOutput;
-    '~responseMeta': _Types.ResponseMeta;
-    '~parameters': {
-      filter?: _Types.contactOrganizationsFilterInput;
-      sort?: readonly _Types.contactOrganizationsSortSpecifier[];
-      fields?: _Types.contactOrganizationsCollectionOutputFieldsInput;
-      include?: _Types.contactOrganizationsCollectionOutputIncludeInput;
-      meta?: _Types.MetaArguments;
-      limit?: number;
-      offset?: number;
-    };
-  }
-
-  '~create': {
-    '~input': _Types.contactOrganizationsCreateInput;
-    '~output': _Types.contactOrganizationsCollectionOutput;
-    '~parameters': {
-      fields?: _Types.contactOrganizationsCollectionOutputFieldsInput;
-      include?: _Types.contactOrganizationsCollectionOutputIncludeInput;
-    };
-  }
-
-  '~updateOne': {
-    '~key': Uuid;
-    '~input': _Types.contactOrganizationsUpdateDataInput;
-    '~output': _Types.contactOrganizationsCollectionOutput;
-    '~parameters': {
-      filter?: _Types.contactOrganizationsFilterInput;
-      fields?: _Types.contactOrganizationsCollectionOutputFieldsInput;
-      include?: _Types.contactOrganizationsCollectionOutputIncludeInput;
-    };
-  }
-
-  '~updateMany': {
-    '~input': _Types.contactOrganizationsUpdateDataInput;
-    '~output': _Types.contactOrganizationsCollectionOutput;
-    '~parameters': {
-      filter?: _Types.contactOrganizationsFilterInput;
-      fields?: _Types.contactOrganizationsCollectionOutputFieldsInput;
-      include?: _Types.contactOrganizationsCollectionOutputIncludeInput;
-    };
-  }
-
-  '~deleteOne': {
-    '~key': Uuid;
-    '~output': _Types.contactOrganizationsCollectionOutput;
-    '~parameters': {
-      filter?: _Types.contactOrganizationsFilterInput;
-      fields?: _Types.contactOrganizationsCollectionOutputFieldsInput;
-      include?: _Types.contactOrganizationsCollectionOutputIncludeInput;
-    };
-  }
-
-  '~deleteMany': {
-    '~output': _Types.contactOrganizationsCollectionOutput;
-    '~parameters': {
-      filter?: _Types.contactOrganizationsFilterInput;
-      fields?: _Types.contactOrganizationsCollectionOutputFieldsInput;
-      include?: _Types.contactOrganizationsCollectionOutputIncludeInput;
-    };
-  }
-}
-
 export type contactsCollection = {
   '~primitiveKeys': 'createdAt' | 'createdById' | 'email' | 'firstName' | 'id' | 'lastName' | 'notes' | 'ownerUserId' | 'phone' | 'status' | 'updatedAt' | 'updatedById';
   '~relations': {
+    activities: activitiesCollection[];
+    affiliations: affiliationsCollection[];
     attachments: attachmentsCollection[];
-    contact_organizations: contactOrganizationsCollection[];
-    interactions: interactionsCollection[];
-    opportunities: opportunitiesCollection[];
+    deals: dealsCollection[];
     portalUser: usersCollection;
   };
 
@@ -11744,6 +11827,90 @@ export type contactsCollection = {
       filter?: _Types.contactsFilterInput;
       fields?: _Types.contactsCollectionOutputFieldsInput;
       include?: _Types.contactsCollectionOutputIncludeInput;
+    };
+  }
+}
+
+export type dealsCollection = {
+  '~primitiveKeys': 'contactId' | 'createdAt' | 'createdById' | 'currency' | 'expectedCloseDate' | 'id' | 'notes' | 'organizationId' | 'ownerUserId' | 'stageId' | 'status' | 'title' | 'updatedAt' | 'updatedById' | 'valueAmount';
+  '~relations': {
+    activities: activitiesCollection[];
+    attachments: attachmentsCollection[];
+    contacts: contactsCollection;
+    organizations: organizationsCollection;
+    pipeline_stages: pipelineStagesCollection;
+  };
+
+  '~readOne': {
+    '~key': Uuid;
+    '~output': _Types.dealsCollectionOutput;
+    '~parameters': {
+      filter?: _Types.dealsFilterInput;
+      fields?: _Types.dealsCollectionOutputFieldsInput;
+      include?: _Types.dealsCollectionOutputIncludeInput;
+    };
+  }
+
+  '~readMany': {
+    '~output': _Types.dealsCollectionOutput;
+    '~responseMeta': _Types.ResponseMeta;
+    '~parameters': {
+      filter?: _Types.dealsFilterInput;
+      sort?: readonly _Types.dealsSortSpecifier[];
+      fields?: _Types.dealsCollectionOutputFieldsInput;
+      include?: _Types.dealsCollectionOutputIncludeInput;
+      meta?: _Types.MetaArguments;
+      limit?: number;
+      offset?: number;
+    };
+  }
+
+  '~create': {
+    '~input': _Types.dealsCreateInput;
+    '~output': _Types.dealsCollectionOutput;
+    '~parameters': {
+      fields?: _Types.dealsCollectionOutputFieldsInput;
+      include?: _Types.dealsCollectionOutputIncludeInput;
+    };
+  }
+
+  '~updateOne': {
+    '~key': Uuid;
+    '~input': _Types.dealsUpdateDataInput;
+    '~output': _Types.dealsCollectionOutput;
+    '~parameters': {
+      filter?: _Types.dealsFilterInput;
+      fields?: _Types.dealsCollectionOutputFieldsInput;
+      include?: _Types.dealsCollectionOutputIncludeInput;
+    };
+  }
+
+  '~updateMany': {
+    '~input': _Types.dealsUpdateDataInput;
+    '~output': _Types.dealsCollectionOutput;
+    '~parameters': {
+      filter?: _Types.dealsFilterInput;
+      fields?: _Types.dealsCollectionOutputFieldsInput;
+      include?: _Types.dealsCollectionOutputIncludeInput;
+    };
+  }
+
+  '~deleteOne': {
+    '~key': Uuid;
+    '~output': _Types.dealsCollectionOutput;
+    '~parameters': {
+      filter?: _Types.dealsFilterInput;
+      fields?: _Types.dealsCollectionOutputFieldsInput;
+      include?: _Types.dealsCollectionOutputIncludeInput;
+    };
+  }
+
+  '~deleteMany': {
+    '~output': _Types.dealsCollectionOutput;
+    '~parameters': {
+      filter?: _Types.dealsFilterInput;
+      fields?: _Types.dealsCollectionOutputFieldsInput;
+      include?: _Types.dealsCollectionOutputIncludeInput;
     };
   }
 }
@@ -11829,180 +11996,13 @@ export type eventsCollection = {
   }
 }
 
-export type interactionsCollection = {
-  '~primitiveKeys': 'body' | 'completedAt' | 'contactId' | 'createdAt' | 'createdById' | 'direction' | 'dueAt' | 'id' | 'occurredAt' | 'opportunityId' | 'organizationId' | 'ownerUserId' | 'status' | 'subject' | 'type' | 'updatedAt' | 'updatedById';
-  '~relations': {
-    attachments: attachmentsCollection[];
-    contacts: contactsCollection;
-    opportunities: opportunitiesCollection;
-    organizations: organizationsCollection;
-  };
-
-  '~readOne': {
-    '~key': Uuid;
-    '~output': _Types.interactionsCollectionOutput;
-    '~parameters': {
-      filter?: _Types.interactionsFilterInput;
-      fields?: _Types.interactionsCollectionOutputFieldsInput;
-      include?: _Types.interactionsCollectionOutputIncludeInput;
-    };
-  }
-
-  '~readMany': {
-    '~output': _Types.interactionsCollectionOutput;
-    '~responseMeta': _Types.ResponseMeta;
-    '~parameters': {
-      filter?: _Types.interactionsFilterInput;
-      sort?: readonly _Types.interactionsSortSpecifier[];
-      fields?: _Types.interactionsCollectionOutputFieldsInput;
-      include?: _Types.interactionsCollectionOutputIncludeInput;
-      meta?: _Types.MetaArguments;
-      limit?: number;
-      offset?: number;
-    };
-  }
-
-  '~create': {
-    '~input': _Types.interactionsCreateInput;
-    '~output': _Types.interactionsCollectionOutput;
-    '~parameters': {
-      fields?: _Types.interactionsCollectionOutputFieldsInput;
-      include?: _Types.interactionsCollectionOutputIncludeInput;
-    };
-  }
-
-  '~updateOne': {
-    '~key': Uuid;
-    '~input': _Types.interactionsUpdateDataInput;
-    '~output': _Types.interactionsCollectionOutput;
-    '~parameters': {
-      filter?: _Types.interactionsFilterInput;
-      fields?: _Types.interactionsCollectionOutputFieldsInput;
-      include?: _Types.interactionsCollectionOutputIncludeInput;
-    };
-  }
-
-  '~updateMany': {
-    '~input': _Types.interactionsUpdateDataInput;
-    '~output': _Types.interactionsCollectionOutput;
-    '~parameters': {
-      filter?: _Types.interactionsFilterInput;
-      fields?: _Types.interactionsCollectionOutputFieldsInput;
-      include?: _Types.interactionsCollectionOutputIncludeInput;
-    };
-  }
-
-  '~deleteOne': {
-    '~key': Uuid;
-    '~output': _Types.interactionsCollectionOutput;
-    '~parameters': {
-      filter?: _Types.interactionsFilterInput;
-      fields?: _Types.interactionsCollectionOutputFieldsInput;
-      include?: _Types.interactionsCollectionOutputIncludeInput;
-    };
-  }
-
-  '~deleteMany': {
-    '~output': _Types.interactionsCollectionOutput;
-    '~parameters': {
-      filter?: _Types.interactionsFilterInput;
-      fields?: _Types.interactionsCollectionOutputFieldsInput;
-      include?: _Types.interactionsCollectionOutputIncludeInput;
-    };
-  }
-}
-
-export type opportunitiesCollection = {
-  '~primitiveKeys': 'contactId' | 'createdAt' | 'createdById' | 'currency' | 'expectedCloseDate' | 'id' | 'notes' | 'organizationId' | 'ownerUserId' | 'stageId' | 'status' | 'title' | 'updatedAt' | 'updatedById' | 'valueAmount';
-  '~relations': {
-    attachments: attachmentsCollection[];
-    contacts: contactsCollection;
-    interactions: interactionsCollection[];
-    organizations: organizationsCollection;
-    pipeline_stages: pipelineStagesCollection;
-  };
-
-  '~readOne': {
-    '~key': Uuid;
-    '~output': _Types.opportunitiesCollectionOutput;
-    '~parameters': {
-      filter?: _Types.opportunitiesFilterInput;
-      fields?: _Types.opportunitiesCollectionOutputFieldsInput;
-      include?: _Types.opportunitiesCollectionOutputIncludeInput;
-    };
-  }
-
-  '~readMany': {
-    '~output': _Types.opportunitiesCollectionOutput;
-    '~responseMeta': _Types.ResponseMeta;
-    '~parameters': {
-      filter?: _Types.opportunitiesFilterInput;
-      sort?: readonly _Types.opportunitiesSortSpecifier[];
-      fields?: _Types.opportunitiesCollectionOutputFieldsInput;
-      include?: _Types.opportunitiesCollectionOutputIncludeInput;
-      meta?: _Types.MetaArguments;
-      limit?: number;
-      offset?: number;
-    };
-  }
-
-  '~create': {
-    '~input': _Types.opportunitiesCreateInput;
-    '~output': _Types.opportunitiesCollectionOutput;
-    '~parameters': {
-      fields?: _Types.opportunitiesCollectionOutputFieldsInput;
-      include?: _Types.opportunitiesCollectionOutputIncludeInput;
-    };
-  }
-
-  '~updateOne': {
-    '~key': Uuid;
-    '~input': _Types.opportunitiesUpdateDataInput;
-    '~output': _Types.opportunitiesCollectionOutput;
-    '~parameters': {
-      filter?: _Types.opportunitiesFilterInput;
-      fields?: _Types.opportunitiesCollectionOutputFieldsInput;
-      include?: _Types.opportunitiesCollectionOutputIncludeInput;
-    };
-  }
-
-  '~updateMany': {
-    '~input': _Types.opportunitiesUpdateDataInput;
-    '~output': _Types.opportunitiesCollectionOutput;
-    '~parameters': {
-      filter?: _Types.opportunitiesFilterInput;
-      fields?: _Types.opportunitiesCollectionOutputFieldsInput;
-      include?: _Types.opportunitiesCollectionOutputIncludeInput;
-    };
-  }
-
-  '~deleteOne': {
-    '~key': Uuid;
-    '~output': _Types.opportunitiesCollectionOutput;
-    '~parameters': {
-      filter?: _Types.opportunitiesFilterInput;
-      fields?: _Types.opportunitiesCollectionOutputFieldsInput;
-      include?: _Types.opportunitiesCollectionOutputIncludeInput;
-    };
-  }
-
-  '~deleteMany': {
-    '~output': _Types.opportunitiesCollectionOutput;
-    '~parameters': {
-      filter?: _Types.opportunitiesFilterInput;
-      fields?: _Types.opportunitiesCollectionOutputFieldsInput;
-      include?: _Types.opportunitiesCollectionOutputIncludeInput;
-    };
-  }
-}
-
 export type organizationsCollection = {
   '~primitiveKeys': 'createdAt' | 'createdById' | 'domain' | 'id' | 'industry' | 'name' | 'notes' | 'ownerUserId' | 'portalAccountId' | 'status' | 'updatedAt' | 'updatedById';
   '~relations': {
+    activities: activitiesCollection[];
+    affiliations: affiliationsCollection[];
     attachments: attachmentsCollection[];
-    contact_organizations: contactOrganizationsCollection[];
-    interactions: interactionsCollection[];
-    opportunities: opportunitiesCollection[];
+    deals: dealsCollection[];
     portalAccount: accountsCollection;
   };
 
@@ -12083,7 +12083,7 @@ export type organizationsCollection = {
 export type pipelineStagesCollection = {
   '~primitiveKeys': 'color' | 'id' | 'isClosed' | 'isWon' | 'name' | 'position' | 'status';
   '~relations': {
-    opportunities: opportunitiesCollection[];
+    deals: dealsCollection[];
   };
 
   '~readOne': {
@@ -12650,6 +12650,112 @@ export type accountsUpdateManyResult<T extends accountsUpdateManyParameters, Opt
 export type accountsDeleteOneResult<T extends accountsDeleteOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<accountsCollection, T, 'deleteOne', Opts>;
 export type accountsDeleteManyResult<T extends accountsDeleteManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<accountsCollection, T, 'deleteMany', Opts>;
 
+// --- activities: Per-Collection Type Aliases ---
+
+export type activitiesKey = ReadOneKey<activitiesCollection>;
+export type activitiesUpdateOneInput = UpdateOneInput<activitiesCollection>;
+export type activitiesUpdateManyInput = UpdateManyInput<activitiesCollection>;
+export type activitiesCreateOneInput = CreateOneInput<activitiesCollection>;
+export type activitiesCreateManyInput = CreateManyInput<activitiesCollection>;
+export type activitiesReadOneFields = OperationFields<activitiesCollection, 'readOne'>;
+export type activitiesReadManyFields = OperationFields<activitiesCollection, 'readMany'>;
+export type activitiesReadFirstFields = OperationFields<activitiesCollection, 'readMany'>;
+export type activitiesCreateOneFields = OperationFields<activitiesCollection, 'createOne'>;
+export type activitiesCreateManyFields = OperationFields<activitiesCollection, 'createMany'>;
+export type activitiesUpdateOneFields = OperationFields<activitiesCollection, 'updateOne'>;
+export type activitiesUpdateManyFields = OperationFields<activitiesCollection, 'updateMany'>;
+export type activitiesDeleteOneFields = OperationFields<activitiesCollection, 'deleteOne'>;
+export type activitiesDeleteManyFields = OperationFields<activitiesCollection, 'deleteMany'>;
+export type activitiesReadOneArgs = ReadOneOptions<activitiesCollection>;
+export type activitiesReadManyArgs = ReadManyParameters<activitiesCollection>;
+export type activitiesReadFirstArgs = ReadManyParameters<activitiesCollection>;
+export type activitiesCreateOneArgs = CreateOneOptions<activitiesCollection>;
+export type activitiesCreateManyArgs = CreateManyOptions<activitiesCollection>;
+export type activitiesUpdateOneArgs = UpdateOneOptions<activitiesCollection>;
+export type activitiesUpdateManyArgs = UpdateManyOptions<activitiesCollection>;
+export type activitiesDeleteOneArgs = DeleteOneOptions<activitiesCollection>;
+export type activitiesDeleteManyArgs = DeleteManyParameters<activitiesCollection>;
+export type activitiesReadOneParameters = ReadOneParameters<activitiesCollection>;
+export type activitiesReadManyParameters = ReadManyParameters<activitiesCollection>;
+export type activitiesReadFirstParameters = ReadManyParameters<activitiesCollection>;
+export type activitiesCreateOneParameters = CreateOneParameters<activitiesCollection>;
+export type activitiesCreateManyParameters = CreateManyParameters<activitiesCollection>;
+export type activitiesUpdateOneParameters = UpdateOneParameters<activitiesCollection>;
+export type activitiesUpdateManyParameters = UpdateManyParameters<activitiesCollection>;
+export type activitiesDeleteOneParameters = DeleteOneParameters<activitiesCollection>;
+export type activitiesDeleteManyParameters = DeleteManyParameters<activitiesCollection>;
+export type activitiesReadOneResultItem<T extends activitiesReadOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<activitiesCollection, T, 'readOne', Opts>;
+export type activitiesReadManyResultItem<T extends activitiesReadManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<activitiesCollection, T, 'readMany', Opts>;
+export type activitiesReadFirstResultItem<T extends activitiesReadFirstParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<activitiesCollection, T, 'readMany', Opts>;
+export type activitiesCreateOneResultItem<T extends activitiesCreateOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<activitiesCollection, T, 'createOne', Opts>;
+export type activitiesCreateManyResultItem<T extends activitiesCreateManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<activitiesCollection, T, 'createMany', Opts>;
+export type activitiesUpdateOneResultItem<T extends activitiesUpdateOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<activitiesCollection, T, 'updateOne', Opts>;
+export type activitiesUpdateManyResultItem<T extends activitiesUpdateManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<activitiesCollection, T, 'updateMany', Opts>;
+export type activitiesDeleteOneResultItem<T extends activitiesDeleteOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<activitiesCollection, T, 'deleteOne', Opts>;
+export type activitiesDeleteManyResultItem<T extends activitiesDeleteManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<activitiesCollection, T, 'deleteMany', Opts>;
+export type activitiesReadOneResult<T extends activitiesReadOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<activitiesCollection, T, 'readOne', Opts>;
+export type activitiesReadManyResult<T extends activitiesReadManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<activitiesCollection, T, 'readMany', Opts>;
+export type activitiesReadFirstResult<T extends activitiesReadFirstParameters, Opts extends Partial<TypeOptions> = {}> = ReadFirstResult<activitiesCollection, T, Opts>;
+export type activitiesCreateOneResult<T extends activitiesCreateOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<activitiesCollection, T, 'createOne', Opts>;
+export type activitiesCreateManyResult<T extends activitiesCreateManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<activitiesCollection, T, 'createMany', Opts>;
+export type activitiesUpdateOneResult<T extends activitiesUpdateOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<activitiesCollection, T, 'updateOne', Opts>;
+export type activitiesUpdateManyResult<T extends activitiesUpdateManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<activitiesCollection, T, 'updateMany', Opts>;
+export type activitiesDeleteOneResult<T extends activitiesDeleteOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<activitiesCollection, T, 'deleteOne', Opts>;
+export type activitiesDeleteManyResult<T extends activitiesDeleteManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<activitiesCollection, T, 'deleteMany', Opts>;
+
+// --- affiliations: Per-Collection Type Aliases ---
+
+export type affiliationsKey = ReadOneKey<affiliationsCollection>;
+export type affiliationsUpdateOneInput = UpdateOneInput<affiliationsCollection>;
+export type affiliationsUpdateManyInput = UpdateManyInput<affiliationsCollection>;
+export type affiliationsCreateOneInput = CreateOneInput<affiliationsCollection>;
+export type affiliationsCreateManyInput = CreateManyInput<affiliationsCollection>;
+export type affiliationsReadOneFields = OperationFields<affiliationsCollection, 'readOne'>;
+export type affiliationsReadManyFields = OperationFields<affiliationsCollection, 'readMany'>;
+export type affiliationsReadFirstFields = OperationFields<affiliationsCollection, 'readMany'>;
+export type affiliationsCreateOneFields = OperationFields<affiliationsCollection, 'createOne'>;
+export type affiliationsCreateManyFields = OperationFields<affiliationsCollection, 'createMany'>;
+export type affiliationsUpdateOneFields = OperationFields<affiliationsCollection, 'updateOne'>;
+export type affiliationsUpdateManyFields = OperationFields<affiliationsCollection, 'updateMany'>;
+export type affiliationsDeleteOneFields = OperationFields<affiliationsCollection, 'deleteOne'>;
+export type affiliationsDeleteManyFields = OperationFields<affiliationsCollection, 'deleteMany'>;
+export type affiliationsReadOneArgs = ReadOneOptions<affiliationsCollection>;
+export type affiliationsReadManyArgs = ReadManyParameters<affiliationsCollection>;
+export type affiliationsReadFirstArgs = ReadManyParameters<affiliationsCollection>;
+export type affiliationsCreateOneArgs = CreateOneOptions<affiliationsCollection>;
+export type affiliationsCreateManyArgs = CreateManyOptions<affiliationsCollection>;
+export type affiliationsUpdateOneArgs = UpdateOneOptions<affiliationsCollection>;
+export type affiliationsUpdateManyArgs = UpdateManyOptions<affiliationsCollection>;
+export type affiliationsDeleteOneArgs = DeleteOneOptions<affiliationsCollection>;
+export type affiliationsDeleteManyArgs = DeleteManyParameters<affiliationsCollection>;
+export type affiliationsReadOneParameters = ReadOneParameters<affiliationsCollection>;
+export type affiliationsReadManyParameters = ReadManyParameters<affiliationsCollection>;
+export type affiliationsReadFirstParameters = ReadManyParameters<affiliationsCollection>;
+export type affiliationsCreateOneParameters = CreateOneParameters<affiliationsCollection>;
+export type affiliationsCreateManyParameters = CreateManyParameters<affiliationsCollection>;
+export type affiliationsUpdateOneParameters = UpdateOneParameters<affiliationsCollection>;
+export type affiliationsUpdateManyParameters = UpdateManyParameters<affiliationsCollection>;
+export type affiliationsDeleteOneParameters = DeleteOneParameters<affiliationsCollection>;
+export type affiliationsDeleteManyParameters = DeleteManyParameters<affiliationsCollection>;
+export type affiliationsReadOneResultItem<T extends affiliationsReadOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<affiliationsCollection, T, 'readOne', Opts>;
+export type affiliationsReadManyResultItem<T extends affiliationsReadManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<affiliationsCollection, T, 'readMany', Opts>;
+export type affiliationsReadFirstResultItem<T extends affiliationsReadFirstParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<affiliationsCollection, T, 'readMany', Opts>;
+export type affiliationsCreateOneResultItem<T extends affiliationsCreateOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<affiliationsCollection, T, 'createOne', Opts>;
+export type affiliationsCreateManyResultItem<T extends affiliationsCreateManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<affiliationsCollection, T, 'createMany', Opts>;
+export type affiliationsUpdateOneResultItem<T extends affiliationsUpdateOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<affiliationsCollection, T, 'updateOne', Opts>;
+export type affiliationsUpdateManyResultItem<T extends affiliationsUpdateManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<affiliationsCollection, T, 'updateMany', Opts>;
+export type affiliationsDeleteOneResultItem<T extends affiliationsDeleteOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<affiliationsCollection, T, 'deleteOne', Opts>;
+export type affiliationsDeleteManyResultItem<T extends affiliationsDeleteManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<affiliationsCollection, T, 'deleteMany', Opts>;
+export type affiliationsReadOneResult<T extends affiliationsReadOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<affiliationsCollection, T, 'readOne', Opts>;
+export type affiliationsReadManyResult<T extends affiliationsReadManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<affiliationsCollection, T, 'readMany', Opts>;
+export type affiliationsReadFirstResult<T extends affiliationsReadFirstParameters, Opts extends Partial<TypeOptions> = {}> = ReadFirstResult<affiliationsCollection, T, Opts>;
+export type affiliationsCreateOneResult<T extends affiliationsCreateOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<affiliationsCollection, T, 'createOne', Opts>;
+export type affiliationsCreateManyResult<T extends affiliationsCreateManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<affiliationsCollection, T, 'createMany', Opts>;
+export type affiliationsUpdateOneResult<T extends affiliationsUpdateOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<affiliationsCollection, T, 'updateOne', Opts>;
+export type affiliationsUpdateManyResult<T extends affiliationsUpdateManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<affiliationsCollection, T, 'updateMany', Opts>;
+export type affiliationsDeleteOneResult<T extends affiliationsDeleteOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<affiliationsCollection, T, 'deleteOne', Opts>;
+export type affiliationsDeleteManyResult<T extends affiliationsDeleteManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<affiliationsCollection, T, 'deleteMany', Opts>;
+
 // --- attachments: Per-Collection Type Aliases ---
 
 export type attachmentsKey = ReadOneKey<attachmentsCollection>;
@@ -12702,59 +12808,6 @@ export type attachmentsUpdateOneResult<T extends attachmentsUpdateOneParameters,
 export type attachmentsUpdateManyResult<T extends attachmentsUpdateManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<attachmentsCollection, T, 'updateMany', Opts>;
 export type attachmentsDeleteOneResult<T extends attachmentsDeleteOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<attachmentsCollection, T, 'deleteOne', Opts>;
 export type attachmentsDeleteManyResult<T extends attachmentsDeleteManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<attachmentsCollection, T, 'deleteMany', Opts>;
-
-// --- contactOrganizations: Per-Collection Type Aliases ---
-
-export type contactOrganizationsKey = ReadOneKey<contactOrganizationsCollection>;
-export type contactOrganizationsUpdateOneInput = UpdateOneInput<contactOrganizationsCollection>;
-export type contactOrganizationsUpdateManyInput = UpdateManyInput<contactOrganizationsCollection>;
-export type contactOrganizationsCreateOneInput = CreateOneInput<contactOrganizationsCollection>;
-export type contactOrganizationsCreateManyInput = CreateManyInput<contactOrganizationsCollection>;
-export type contactOrganizationsReadOneFields = OperationFields<contactOrganizationsCollection, 'readOne'>;
-export type contactOrganizationsReadManyFields = OperationFields<contactOrganizationsCollection, 'readMany'>;
-export type contactOrganizationsReadFirstFields = OperationFields<contactOrganizationsCollection, 'readMany'>;
-export type contactOrganizationsCreateOneFields = OperationFields<contactOrganizationsCollection, 'createOne'>;
-export type contactOrganizationsCreateManyFields = OperationFields<contactOrganizationsCollection, 'createMany'>;
-export type contactOrganizationsUpdateOneFields = OperationFields<contactOrganizationsCollection, 'updateOne'>;
-export type contactOrganizationsUpdateManyFields = OperationFields<contactOrganizationsCollection, 'updateMany'>;
-export type contactOrganizationsDeleteOneFields = OperationFields<contactOrganizationsCollection, 'deleteOne'>;
-export type contactOrganizationsDeleteManyFields = OperationFields<contactOrganizationsCollection, 'deleteMany'>;
-export type contactOrganizationsReadOneArgs = ReadOneOptions<contactOrganizationsCollection>;
-export type contactOrganizationsReadManyArgs = ReadManyParameters<contactOrganizationsCollection>;
-export type contactOrganizationsReadFirstArgs = ReadManyParameters<contactOrganizationsCollection>;
-export type contactOrganizationsCreateOneArgs = CreateOneOptions<contactOrganizationsCollection>;
-export type contactOrganizationsCreateManyArgs = CreateManyOptions<contactOrganizationsCollection>;
-export type contactOrganizationsUpdateOneArgs = UpdateOneOptions<contactOrganizationsCollection>;
-export type contactOrganizationsUpdateManyArgs = UpdateManyOptions<contactOrganizationsCollection>;
-export type contactOrganizationsDeleteOneArgs = DeleteOneOptions<contactOrganizationsCollection>;
-export type contactOrganizationsDeleteManyArgs = DeleteManyParameters<contactOrganizationsCollection>;
-export type contactOrganizationsReadOneParameters = ReadOneParameters<contactOrganizationsCollection>;
-export type contactOrganizationsReadManyParameters = ReadManyParameters<contactOrganizationsCollection>;
-export type contactOrganizationsReadFirstParameters = ReadManyParameters<contactOrganizationsCollection>;
-export type contactOrganizationsCreateOneParameters = CreateOneParameters<contactOrganizationsCollection>;
-export type contactOrganizationsCreateManyParameters = CreateManyParameters<contactOrganizationsCollection>;
-export type contactOrganizationsUpdateOneParameters = UpdateOneParameters<contactOrganizationsCollection>;
-export type contactOrganizationsUpdateManyParameters = UpdateManyParameters<contactOrganizationsCollection>;
-export type contactOrganizationsDeleteOneParameters = DeleteOneParameters<contactOrganizationsCollection>;
-export type contactOrganizationsDeleteManyParameters = DeleteManyParameters<contactOrganizationsCollection>;
-export type contactOrganizationsReadOneResultItem<T extends contactOrganizationsReadOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<contactOrganizationsCollection, T, 'readOne', Opts>;
-export type contactOrganizationsReadManyResultItem<T extends contactOrganizationsReadManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<contactOrganizationsCollection, T, 'readMany', Opts>;
-export type contactOrganizationsReadFirstResultItem<T extends contactOrganizationsReadFirstParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<contactOrganizationsCollection, T, 'readMany', Opts>;
-export type contactOrganizationsCreateOneResultItem<T extends contactOrganizationsCreateOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<contactOrganizationsCollection, T, 'createOne', Opts>;
-export type contactOrganizationsCreateManyResultItem<T extends contactOrganizationsCreateManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<contactOrganizationsCollection, T, 'createMany', Opts>;
-export type contactOrganizationsUpdateOneResultItem<T extends contactOrganizationsUpdateOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<contactOrganizationsCollection, T, 'updateOne', Opts>;
-export type contactOrganizationsUpdateManyResultItem<T extends contactOrganizationsUpdateManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<contactOrganizationsCollection, T, 'updateMany', Opts>;
-export type contactOrganizationsDeleteOneResultItem<T extends contactOrganizationsDeleteOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<contactOrganizationsCollection, T, 'deleteOne', Opts>;
-export type contactOrganizationsDeleteManyResultItem<T extends contactOrganizationsDeleteManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<contactOrganizationsCollection, T, 'deleteMany', Opts>;
-export type contactOrganizationsReadOneResult<T extends contactOrganizationsReadOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<contactOrganizationsCollection, T, 'readOne', Opts>;
-export type contactOrganizationsReadManyResult<T extends contactOrganizationsReadManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<contactOrganizationsCollection, T, 'readMany', Opts>;
-export type contactOrganizationsReadFirstResult<T extends contactOrganizationsReadFirstParameters, Opts extends Partial<TypeOptions> = {}> = ReadFirstResult<contactOrganizationsCollection, T, Opts>;
-export type contactOrganizationsCreateOneResult<T extends contactOrganizationsCreateOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<contactOrganizationsCollection, T, 'createOne', Opts>;
-export type contactOrganizationsCreateManyResult<T extends contactOrganizationsCreateManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<contactOrganizationsCollection, T, 'createMany', Opts>;
-export type contactOrganizationsUpdateOneResult<T extends contactOrganizationsUpdateOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<contactOrganizationsCollection, T, 'updateOne', Opts>;
-export type contactOrganizationsUpdateManyResult<T extends contactOrganizationsUpdateManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<contactOrganizationsCollection, T, 'updateMany', Opts>;
-export type contactOrganizationsDeleteOneResult<T extends contactOrganizationsDeleteOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<contactOrganizationsCollection, T, 'deleteOne', Opts>;
-export type contactOrganizationsDeleteManyResult<T extends contactOrganizationsDeleteManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<contactOrganizationsCollection, T, 'deleteMany', Opts>;
 
 // --- contacts: Per-Collection Type Aliases ---
 
@@ -12809,6 +12862,59 @@ export type contactsUpdateManyResult<T extends contactsUpdateManyParameters, Opt
 export type contactsDeleteOneResult<T extends contactsDeleteOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<contactsCollection, T, 'deleteOne', Opts>;
 export type contactsDeleteManyResult<T extends contactsDeleteManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<contactsCollection, T, 'deleteMany', Opts>;
 
+// --- deals: Per-Collection Type Aliases ---
+
+export type dealsKey = ReadOneKey<dealsCollection>;
+export type dealsUpdateOneInput = UpdateOneInput<dealsCollection>;
+export type dealsUpdateManyInput = UpdateManyInput<dealsCollection>;
+export type dealsCreateOneInput = CreateOneInput<dealsCollection>;
+export type dealsCreateManyInput = CreateManyInput<dealsCollection>;
+export type dealsReadOneFields = OperationFields<dealsCollection, 'readOne'>;
+export type dealsReadManyFields = OperationFields<dealsCollection, 'readMany'>;
+export type dealsReadFirstFields = OperationFields<dealsCollection, 'readMany'>;
+export type dealsCreateOneFields = OperationFields<dealsCollection, 'createOne'>;
+export type dealsCreateManyFields = OperationFields<dealsCollection, 'createMany'>;
+export type dealsUpdateOneFields = OperationFields<dealsCollection, 'updateOne'>;
+export type dealsUpdateManyFields = OperationFields<dealsCollection, 'updateMany'>;
+export type dealsDeleteOneFields = OperationFields<dealsCollection, 'deleteOne'>;
+export type dealsDeleteManyFields = OperationFields<dealsCollection, 'deleteMany'>;
+export type dealsReadOneArgs = ReadOneOptions<dealsCollection>;
+export type dealsReadManyArgs = ReadManyParameters<dealsCollection>;
+export type dealsReadFirstArgs = ReadManyParameters<dealsCollection>;
+export type dealsCreateOneArgs = CreateOneOptions<dealsCollection>;
+export type dealsCreateManyArgs = CreateManyOptions<dealsCollection>;
+export type dealsUpdateOneArgs = UpdateOneOptions<dealsCollection>;
+export type dealsUpdateManyArgs = UpdateManyOptions<dealsCollection>;
+export type dealsDeleteOneArgs = DeleteOneOptions<dealsCollection>;
+export type dealsDeleteManyArgs = DeleteManyParameters<dealsCollection>;
+export type dealsReadOneParameters = ReadOneParameters<dealsCollection>;
+export type dealsReadManyParameters = ReadManyParameters<dealsCollection>;
+export type dealsReadFirstParameters = ReadManyParameters<dealsCollection>;
+export type dealsCreateOneParameters = CreateOneParameters<dealsCollection>;
+export type dealsCreateManyParameters = CreateManyParameters<dealsCollection>;
+export type dealsUpdateOneParameters = UpdateOneParameters<dealsCollection>;
+export type dealsUpdateManyParameters = UpdateManyParameters<dealsCollection>;
+export type dealsDeleteOneParameters = DeleteOneParameters<dealsCollection>;
+export type dealsDeleteManyParameters = DeleteManyParameters<dealsCollection>;
+export type dealsReadOneResultItem<T extends dealsReadOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<dealsCollection, T, 'readOne', Opts>;
+export type dealsReadManyResultItem<T extends dealsReadManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<dealsCollection, T, 'readMany', Opts>;
+export type dealsReadFirstResultItem<T extends dealsReadFirstParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<dealsCollection, T, 'readMany', Opts>;
+export type dealsCreateOneResultItem<T extends dealsCreateOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<dealsCollection, T, 'createOne', Opts>;
+export type dealsCreateManyResultItem<T extends dealsCreateManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<dealsCollection, T, 'createMany', Opts>;
+export type dealsUpdateOneResultItem<T extends dealsUpdateOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<dealsCollection, T, 'updateOne', Opts>;
+export type dealsUpdateManyResultItem<T extends dealsUpdateManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<dealsCollection, T, 'updateMany', Opts>;
+export type dealsDeleteOneResultItem<T extends dealsDeleteOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<dealsCollection, T, 'deleteOne', Opts>;
+export type dealsDeleteManyResultItem<T extends dealsDeleteManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<dealsCollection, T, 'deleteMany', Opts>;
+export type dealsReadOneResult<T extends dealsReadOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<dealsCollection, T, 'readOne', Opts>;
+export type dealsReadManyResult<T extends dealsReadManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<dealsCollection, T, 'readMany', Opts>;
+export type dealsReadFirstResult<T extends dealsReadFirstParameters, Opts extends Partial<TypeOptions> = {}> = ReadFirstResult<dealsCollection, T, Opts>;
+export type dealsCreateOneResult<T extends dealsCreateOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<dealsCollection, T, 'createOne', Opts>;
+export type dealsCreateManyResult<T extends dealsCreateManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<dealsCollection, T, 'createMany', Opts>;
+export type dealsUpdateOneResult<T extends dealsUpdateOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<dealsCollection, T, 'updateOne', Opts>;
+export type dealsUpdateManyResult<T extends dealsUpdateManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<dealsCollection, T, 'updateMany', Opts>;
+export type dealsDeleteOneResult<T extends dealsDeleteOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<dealsCollection, T, 'deleteOne', Opts>;
+export type dealsDeleteManyResult<T extends dealsDeleteManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<dealsCollection, T, 'deleteMany', Opts>;
+
 // --- events: Per-Collection Type Aliases ---
 
 export type eventsKey = ReadOneKey<eventsCollection>;
@@ -12861,112 +12967,6 @@ export type eventsUpdateOneResult<T extends eventsUpdateOneParameters, Opts exte
 export type eventsUpdateManyResult<T extends eventsUpdateManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<eventsCollection, T, 'updateMany', Opts>;
 export type eventsDeleteOneResult<T extends eventsDeleteOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<eventsCollection, T, 'deleteOne', Opts>;
 export type eventsDeleteManyResult<T extends eventsDeleteManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<eventsCollection, T, 'deleteMany', Opts>;
-
-// --- interactions: Per-Collection Type Aliases ---
-
-export type interactionsKey = ReadOneKey<interactionsCollection>;
-export type interactionsUpdateOneInput = UpdateOneInput<interactionsCollection>;
-export type interactionsUpdateManyInput = UpdateManyInput<interactionsCollection>;
-export type interactionsCreateOneInput = CreateOneInput<interactionsCollection>;
-export type interactionsCreateManyInput = CreateManyInput<interactionsCollection>;
-export type interactionsReadOneFields = OperationFields<interactionsCollection, 'readOne'>;
-export type interactionsReadManyFields = OperationFields<interactionsCollection, 'readMany'>;
-export type interactionsReadFirstFields = OperationFields<interactionsCollection, 'readMany'>;
-export type interactionsCreateOneFields = OperationFields<interactionsCollection, 'createOne'>;
-export type interactionsCreateManyFields = OperationFields<interactionsCollection, 'createMany'>;
-export type interactionsUpdateOneFields = OperationFields<interactionsCollection, 'updateOne'>;
-export type interactionsUpdateManyFields = OperationFields<interactionsCollection, 'updateMany'>;
-export type interactionsDeleteOneFields = OperationFields<interactionsCollection, 'deleteOne'>;
-export type interactionsDeleteManyFields = OperationFields<interactionsCollection, 'deleteMany'>;
-export type interactionsReadOneArgs = ReadOneOptions<interactionsCollection>;
-export type interactionsReadManyArgs = ReadManyParameters<interactionsCollection>;
-export type interactionsReadFirstArgs = ReadManyParameters<interactionsCollection>;
-export type interactionsCreateOneArgs = CreateOneOptions<interactionsCollection>;
-export type interactionsCreateManyArgs = CreateManyOptions<interactionsCollection>;
-export type interactionsUpdateOneArgs = UpdateOneOptions<interactionsCollection>;
-export type interactionsUpdateManyArgs = UpdateManyOptions<interactionsCollection>;
-export type interactionsDeleteOneArgs = DeleteOneOptions<interactionsCollection>;
-export type interactionsDeleteManyArgs = DeleteManyParameters<interactionsCollection>;
-export type interactionsReadOneParameters = ReadOneParameters<interactionsCollection>;
-export type interactionsReadManyParameters = ReadManyParameters<interactionsCollection>;
-export type interactionsReadFirstParameters = ReadManyParameters<interactionsCollection>;
-export type interactionsCreateOneParameters = CreateOneParameters<interactionsCollection>;
-export type interactionsCreateManyParameters = CreateManyParameters<interactionsCollection>;
-export type interactionsUpdateOneParameters = UpdateOneParameters<interactionsCollection>;
-export type interactionsUpdateManyParameters = UpdateManyParameters<interactionsCollection>;
-export type interactionsDeleteOneParameters = DeleteOneParameters<interactionsCollection>;
-export type interactionsDeleteManyParameters = DeleteManyParameters<interactionsCollection>;
-export type interactionsReadOneResultItem<T extends interactionsReadOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<interactionsCollection, T, 'readOne', Opts>;
-export type interactionsReadManyResultItem<T extends interactionsReadManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<interactionsCollection, T, 'readMany', Opts>;
-export type interactionsReadFirstResultItem<T extends interactionsReadFirstParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<interactionsCollection, T, 'readMany', Opts>;
-export type interactionsCreateOneResultItem<T extends interactionsCreateOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<interactionsCollection, T, 'createOne', Opts>;
-export type interactionsCreateManyResultItem<T extends interactionsCreateManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<interactionsCollection, T, 'createMany', Opts>;
-export type interactionsUpdateOneResultItem<T extends interactionsUpdateOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<interactionsCollection, T, 'updateOne', Opts>;
-export type interactionsUpdateManyResultItem<T extends interactionsUpdateManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<interactionsCollection, T, 'updateMany', Opts>;
-export type interactionsDeleteOneResultItem<T extends interactionsDeleteOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<interactionsCollection, T, 'deleteOne', Opts>;
-export type interactionsDeleteManyResultItem<T extends interactionsDeleteManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<interactionsCollection, T, 'deleteMany', Opts>;
-export type interactionsReadOneResult<T extends interactionsReadOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<interactionsCollection, T, 'readOne', Opts>;
-export type interactionsReadManyResult<T extends interactionsReadManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<interactionsCollection, T, 'readMany', Opts>;
-export type interactionsReadFirstResult<T extends interactionsReadFirstParameters, Opts extends Partial<TypeOptions> = {}> = ReadFirstResult<interactionsCollection, T, Opts>;
-export type interactionsCreateOneResult<T extends interactionsCreateOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<interactionsCollection, T, 'createOne', Opts>;
-export type interactionsCreateManyResult<T extends interactionsCreateManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<interactionsCollection, T, 'createMany', Opts>;
-export type interactionsUpdateOneResult<T extends interactionsUpdateOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<interactionsCollection, T, 'updateOne', Opts>;
-export type interactionsUpdateManyResult<T extends interactionsUpdateManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<interactionsCollection, T, 'updateMany', Opts>;
-export type interactionsDeleteOneResult<T extends interactionsDeleteOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<interactionsCollection, T, 'deleteOne', Opts>;
-export type interactionsDeleteManyResult<T extends interactionsDeleteManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<interactionsCollection, T, 'deleteMany', Opts>;
-
-// --- opportunities: Per-Collection Type Aliases ---
-
-export type opportunitiesKey = ReadOneKey<opportunitiesCollection>;
-export type opportunitiesUpdateOneInput = UpdateOneInput<opportunitiesCollection>;
-export type opportunitiesUpdateManyInput = UpdateManyInput<opportunitiesCollection>;
-export type opportunitiesCreateOneInput = CreateOneInput<opportunitiesCollection>;
-export type opportunitiesCreateManyInput = CreateManyInput<opportunitiesCollection>;
-export type opportunitiesReadOneFields = OperationFields<opportunitiesCollection, 'readOne'>;
-export type opportunitiesReadManyFields = OperationFields<opportunitiesCollection, 'readMany'>;
-export type opportunitiesReadFirstFields = OperationFields<opportunitiesCollection, 'readMany'>;
-export type opportunitiesCreateOneFields = OperationFields<opportunitiesCollection, 'createOne'>;
-export type opportunitiesCreateManyFields = OperationFields<opportunitiesCollection, 'createMany'>;
-export type opportunitiesUpdateOneFields = OperationFields<opportunitiesCollection, 'updateOne'>;
-export type opportunitiesUpdateManyFields = OperationFields<opportunitiesCollection, 'updateMany'>;
-export type opportunitiesDeleteOneFields = OperationFields<opportunitiesCollection, 'deleteOne'>;
-export type opportunitiesDeleteManyFields = OperationFields<opportunitiesCollection, 'deleteMany'>;
-export type opportunitiesReadOneArgs = ReadOneOptions<opportunitiesCollection>;
-export type opportunitiesReadManyArgs = ReadManyParameters<opportunitiesCollection>;
-export type opportunitiesReadFirstArgs = ReadManyParameters<opportunitiesCollection>;
-export type opportunitiesCreateOneArgs = CreateOneOptions<opportunitiesCollection>;
-export type opportunitiesCreateManyArgs = CreateManyOptions<opportunitiesCollection>;
-export type opportunitiesUpdateOneArgs = UpdateOneOptions<opportunitiesCollection>;
-export type opportunitiesUpdateManyArgs = UpdateManyOptions<opportunitiesCollection>;
-export type opportunitiesDeleteOneArgs = DeleteOneOptions<opportunitiesCollection>;
-export type opportunitiesDeleteManyArgs = DeleteManyParameters<opportunitiesCollection>;
-export type opportunitiesReadOneParameters = ReadOneParameters<opportunitiesCollection>;
-export type opportunitiesReadManyParameters = ReadManyParameters<opportunitiesCollection>;
-export type opportunitiesReadFirstParameters = ReadManyParameters<opportunitiesCollection>;
-export type opportunitiesCreateOneParameters = CreateOneParameters<opportunitiesCollection>;
-export type opportunitiesCreateManyParameters = CreateManyParameters<opportunitiesCollection>;
-export type opportunitiesUpdateOneParameters = UpdateOneParameters<opportunitiesCollection>;
-export type opportunitiesUpdateManyParameters = UpdateManyParameters<opportunitiesCollection>;
-export type opportunitiesDeleteOneParameters = DeleteOneParameters<opportunitiesCollection>;
-export type opportunitiesDeleteManyParameters = DeleteManyParameters<opportunitiesCollection>;
-export type opportunitiesReadOneResultItem<T extends opportunitiesReadOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<opportunitiesCollection, T, 'readOne', Opts>;
-export type opportunitiesReadManyResultItem<T extends opportunitiesReadManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<opportunitiesCollection, T, 'readMany', Opts>;
-export type opportunitiesReadFirstResultItem<T extends opportunitiesReadFirstParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<opportunitiesCollection, T, 'readMany', Opts>;
-export type opportunitiesCreateOneResultItem<T extends opportunitiesCreateOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<opportunitiesCollection, T, 'createOne', Opts>;
-export type opportunitiesCreateManyResultItem<T extends opportunitiesCreateManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<opportunitiesCollection, T, 'createMany', Opts>;
-export type opportunitiesUpdateOneResultItem<T extends opportunitiesUpdateOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<opportunitiesCollection, T, 'updateOne', Opts>;
-export type opportunitiesUpdateManyResultItem<T extends opportunitiesUpdateManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<opportunitiesCollection, T, 'updateMany', Opts>;
-export type opportunitiesDeleteOneResultItem<T extends opportunitiesDeleteOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<opportunitiesCollection, T, 'deleteOne', Opts>;
-export type opportunitiesDeleteManyResultItem<T extends opportunitiesDeleteManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<opportunitiesCollection, T, 'deleteMany', Opts>;
-export type opportunitiesReadOneResult<T extends opportunitiesReadOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<opportunitiesCollection, T, 'readOne', Opts>;
-export type opportunitiesReadManyResult<T extends opportunitiesReadManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<opportunitiesCollection, T, 'readMany', Opts>;
-export type opportunitiesReadFirstResult<T extends opportunitiesReadFirstParameters, Opts extends Partial<TypeOptions> = {}> = ReadFirstResult<opportunitiesCollection, T, Opts>;
-export type opportunitiesCreateOneResult<T extends opportunitiesCreateOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<opportunitiesCollection, T, 'createOne', Opts>;
-export type opportunitiesCreateManyResult<T extends opportunitiesCreateManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<opportunitiesCollection, T, 'createMany', Opts>;
-export type opportunitiesUpdateOneResult<T extends opportunitiesUpdateOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<opportunitiesCollection, T, 'updateOne', Opts>;
-export type opportunitiesUpdateManyResult<T extends opportunitiesUpdateManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<opportunitiesCollection, T, 'updateMany', Opts>;
-export type opportunitiesDeleteOneResult<T extends opportunitiesDeleteOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<opportunitiesCollection, T, 'deleteOne', Opts>;
-export type opportunitiesDeleteManyResult<T extends opportunitiesDeleteManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<opportunitiesCollection, T, 'deleteMany', Opts>;
 
 // --- organizations: Per-Collection Type Aliases ---
 
@@ -13390,37 +13390,44 @@ export type Schema = {
    */
   accounts: accountsCollection;
   /**
-   * attachments collection.
+   * activities collection.
    *
    * Collection output shape
    *
    * ```typescript
    * {
-   *   "assetId": Uuid | null;
+   *   "attachments": { "data": attachmentsCollectionOutput[]; "meta"?: ResponseMeta };
+   *   "body": string | null;
+   *   "completedAt": string | null;
    *   "contactId": Uuid | null;
    *   "contacts": contactsCollectionOutput | null;
-   *   "contentType": string | null;
    *   "createdAt": string;
    *   "createdBy": MonospaceSystemUserCollectionOutput | null;
    *   "createdById": Uuid | null;
-   *   "fileName": string;
+   *   "dealId": Uuid | null;
+   *   "deals": dealsCollectionOutput | null;
+   *   "direction": string;
+   *   "dueAt": string | null;
    *   "id": Uuid;
-   *   "interactionId": Uuid | null;
-   *   "interactions": interactionsCollectionOutput | null;
-   *   "opportunities": opportunitiesCollectionOutput | null;
-   *   "opportunityId": Uuid | null;
+   *   "occurredAt": string;
    *   "organizationId": Uuid;
    *   "organizations": organizationsCollectionOutput;
-   *   "sizeBytes": Int64 | null;
-   *   "url": string | null;
+   *   "owner": MonospaceSystemUserCollectionOutput | null;
+   *   "ownerUserId": Uuid | null;
+   *   "status": string;
+   *   "subject": string;
+   *   "type": string;
+   *   "updatedAt": string;
+   *   "updatedBy": MonospaceSystemUserCollectionOutput | null;
+   *   "updatedById": Uuid | null;
    * }
    * ```
    *
    * Returned fields depend on the selection; strictNull also accounts for fields hidden by permissions.
    */
-  attachments: attachmentsCollection;
+  activities: activitiesCollection;
   /**
-   * contactOrganizations collection.
+   * affiliations collection.
    *
    * Collection output shape
    *
@@ -13447,7 +13454,37 @@ export type Schema = {
    *
    * Returned fields depend on the selection; strictNull also accounts for fields hidden by permissions.
    */
-  contactOrganizations: contactOrganizationsCollection;
+  affiliations: affiliationsCollection;
+  /**
+   * attachments collection.
+   *
+   * Collection output shape
+   *
+   * ```typescript
+   * {
+   *   "activities": activitiesCollectionOutput | null;
+   *   "activityId": Uuid | null;
+   *   "assetId": Uuid | null;
+   *   "contactId": Uuid | null;
+   *   "contacts": contactsCollectionOutput | null;
+   *   "contentType": string | null;
+   *   "createdAt": string;
+   *   "createdBy": MonospaceSystemUserCollectionOutput | null;
+   *   "createdById": Uuid | null;
+   *   "dealId": Uuid | null;
+   *   "deals": dealsCollectionOutput | null;
+   *   "fileName": string;
+   *   "id": Uuid;
+   *   "organizationId": Uuid;
+   *   "organizations": organizationsCollectionOutput;
+   *   "sizeBytes": Int64 | null;
+   *   "url": string | null;
+   * }
+   * ```
+   *
+   * Returned fields depend on the selection; strictNull also accounts for fields hidden by permissions.
+   */
+  attachments: attachmentsCollection;
   /**
    * contacts collection.
    *
@@ -13455,18 +13492,18 @@ export type Schema = {
    *
    * ```typescript
    * {
+   *   "activities": { "data": activitiesCollectionOutput[]; "meta"?: ResponseMeta };
+   *   "affiliations": { "data": affiliationsCollectionOutput[]; "meta"?: ResponseMeta };
    *   "attachments": { "data": attachmentsCollectionOutput[]; "meta"?: ResponseMeta };
-   *   "contact_organizations": { "data": contactOrganizationsCollectionOutput[]; "meta"?: ResponseMeta };
    *   "createdAt": string;
    *   "createdBy": MonospaceSystemUserCollectionOutput | null;
    *   "createdById": Uuid | null;
+   *   "deals": { "data": dealsCollectionOutput[]; "meta"?: ResponseMeta };
    *   "email": string | null;
    *   "firstName": string;
    *   "id": Uuid;
-   *   "interactions": { "data": interactionsCollectionOutput[]; "meta"?: ResponseMeta };
    *   "lastName": string;
    *   "notes": string | null;
-   *   "opportunities": { "data": opportunitiesCollectionOutput[]; "meta"?: ResponseMeta };
    *   "owner": MonospaceSystemUserCollectionOutput | null;
    *   "ownerUserId": Uuid | null;
    *   "phone": string | null;
@@ -13481,6 +13518,42 @@ export type Schema = {
    * Returned fields depend on the selection; strictNull also accounts for fields hidden by permissions.
    */
   contacts: contactsCollection;
+  /**
+   * deals collection.
+   *
+   * Collection output shape
+   *
+   * ```typescript
+   * {
+   *   "activities": { "data": activitiesCollectionOutput[]; "meta"?: ResponseMeta };
+   *   "attachments": { "data": attachmentsCollectionOutput[]; "meta"?: ResponseMeta };
+   *   "contactId": Uuid | null;
+   *   "contacts": contactsCollectionOutput | null;
+   *   "createdAt": string;
+   *   "createdBy": MonospaceSystemUserCollectionOutput | null;
+   *   "createdById": Uuid | null;
+   *   "currency": string;
+   *   "expectedCloseDate": string | null;
+   *   "id": Uuid;
+   *   "notes": string | null;
+   *   "organizationId": Uuid;
+   *   "organizations": organizationsCollectionOutput;
+   *   "owner": MonospaceSystemUserCollectionOutput | null;
+   *   "ownerUserId": Uuid | null;
+   *   "pipeline_stages": pipelineStagesCollectionOutput;
+   *   "stageId": Uuid;
+   *   "status": string;
+   *   "title": string;
+   *   "updatedAt": string;
+   *   "updatedBy": MonospaceSystemUserCollectionOutput | null;
+   *   "updatedById": Uuid | null;
+   *   "valueAmount": string | null;
+   * }
+   * ```
+   *
+   * Returned fields depend on the selection; strictNull also accounts for fields hidden by permissions.
+   */
+  deals: dealsCollection;
   /**
    * events collection.
    *
@@ -13503,97 +13576,24 @@ export type Schema = {
    */
   events: eventsCollection;
   /**
-   * interactions collection.
-   *
-   * Collection output shape
-   *
-   * ```typescript
-   * {
-   *   "attachments": { "data": attachmentsCollectionOutput[]; "meta"?: ResponseMeta };
-   *   "body": string | null;
-   *   "completedAt": string | null;
-   *   "contactId": Uuid | null;
-   *   "contacts": contactsCollectionOutput | null;
-   *   "createdAt": string;
-   *   "createdBy": MonospaceSystemUserCollectionOutput | null;
-   *   "createdById": Uuid | null;
-   *   "direction": string;
-   *   "dueAt": string | null;
-   *   "id": Uuid;
-   *   "occurredAt": string;
-   *   "opportunities": opportunitiesCollectionOutput | null;
-   *   "opportunityId": Uuid | null;
-   *   "organizationId": Uuid;
-   *   "organizations": organizationsCollectionOutput;
-   *   "owner": MonospaceSystemUserCollectionOutput | null;
-   *   "ownerUserId": Uuid | null;
-   *   "status": string;
-   *   "subject": string;
-   *   "type": string;
-   *   "updatedAt": string;
-   *   "updatedBy": MonospaceSystemUserCollectionOutput | null;
-   *   "updatedById": Uuid | null;
-   * }
-   * ```
-   *
-   * Returned fields depend on the selection; strictNull also accounts for fields hidden by permissions.
-   */
-  interactions: interactionsCollection;
-  /**
-   * opportunities collection.
-   *
-   * Collection output shape
-   *
-   * ```typescript
-   * {
-   *   "attachments": { "data": attachmentsCollectionOutput[]; "meta"?: ResponseMeta };
-   *   "contactId": Uuid | null;
-   *   "contacts": contactsCollectionOutput | null;
-   *   "createdAt": string;
-   *   "createdBy": MonospaceSystemUserCollectionOutput | null;
-   *   "createdById": Uuid | null;
-   *   "currency": string;
-   *   "expectedCloseDate": string | null;
-   *   "id": Uuid;
-   *   "interactions": { "data": interactionsCollectionOutput[]; "meta"?: ResponseMeta };
-   *   "notes": string | null;
-   *   "organizationId": Uuid;
-   *   "organizations": organizationsCollectionOutput;
-   *   "owner": MonospaceSystemUserCollectionOutput | null;
-   *   "ownerUserId": Uuid | null;
-   *   "pipeline_stages": pipelineStagesCollectionOutput;
-   *   "stageId": Uuid;
-   *   "status": string;
-   *   "title": string;
-   *   "updatedAt": string;
-   *   "updatedBy": MonospaceSystemUserCollectionOutput | null;
-   *   "updatedById": Uuid | null;
-   *   "valueAmount": string | null;
-   * }
-   * ```
-   *
-   * Returned fields depend on the selection; strictNull also accounts for fields hidden by permissions.
-   */
-  opportunities: opportunitiesCollection;
-  /**
    * organizations collection.
    *
    * Collection output shape
    *
    * ```typescript
    * {
+   *   "activities": { "data": activitiesCollectionOutput[]; "meta"?: ResponseMeta };
+   *   "affiliations": { "data": affiliationsCollectionOutput[]; "meta"?: ResponseMeta };
    *   "attachments": { "data": attachmentsCollectionOutput[]; "meta"?: ResponseMeta };
-   *   "contact_organizations": { "data": contactOrganizationsCollectionOutput[]; "meta"?: ResponseMeta };
    *   "createdAt": string;
    *   "createdBy": MonospaceSystemUserCollectionOutput | null;
    *   "createdById": Uuid | null;
+   *   "deals": { "data": dealsCollectionOutput[]; "meta"?: ResponseMeta };
    *   "domain": string | null;
    *   "id": Uuid;
    *   "industry": string | null;
-   *   "interactions": { "data": interactionsCollectionOutput[]; "meta"?: ResponseMeta };
    *   "name": string;
    *   "notes": string | null;
-   *   "opportunities": { "data": opportunitiesCollectionOutput[]; "meta"?: ResponseMeta };
    *   "owner": MonospaceSystemUserCollectionOutput | null;
    *   "ownerUserId": Uuid | null;
    *   "portalAccount": accountsCollectionOutput | null;
@@ -13616,11 +13616,11 @@ export type Schema = {
    * ```typescript
    * {
    *   "color": string | null;
+   *   "deals": { "data": dealsCollectionOutput[]; "meta"?: ResponseMeta };
    *   "id": Uuid;
    *   "isClosed": boolean;
    *   "isWon": boolean;
    *   "name": string;
-   *   "opportunities": { "data": opportunitiesCollectionOutput[]; "meta"?: ResponseMeta };
    *   "position": number;
    *   "status": string | null;
    * }
