@@ -1,8 +1,7 @@
-import { useQuery } from '@tanstack/react-query'
+import { useSuspenseQuery } from '@tanstack/react-query'
 import { createFileRoute } from '@tanstack/react-router'
 import { LayoutDashboard } from 'lucide-react'
 
-import { DataError, DataLoading } from '@/components/data-state'
 import { PageHeader } from '@/components/page-header'
 import { DashboardCharts } from '@/modules/crm/components/dashboard-charts'
 import { crmCopy } from '@/modules/crm/crm.copy'
@@ -14,20 +13,14 @@ export const Route = createFileRoute('/_app/crm/')({
   staticData: {
     page: { title: crmCopy.dashboard.navTitle, icon: LayoutDashboard, module: 'crm', nav: 10 },
   },
-  loader: ({ context: { queryClient } }) => queryClient.ensureQueryData(homeDealsQuery),
+  loader: async ({ context: { queryClient } }) => {
+    await queryClient.query({ ...homeDealsQuery, staleTime: 'static' })
+  },
   component: HomePage,
 })
 
 function HomePage() {
-  const deals = useQuery(homeDealsQuery)
-
-  if (deals.isPending) {
-    return <DataLoading rows={8} />
-  }
-
-  if (deals.isError) {
-    return <DataError error={deals.error} />
-  }
+  const deals = useSuspenseQuery(homeDealsQuery)
 
   return (
     <div className="space-y-6">

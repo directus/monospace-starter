@@ -1,11 +1,11 @@
 import { MonospaceNotFoundError } from '@monospace/sdk'
-import { useQueries, useQuery } from '@tanstack/react-query'
+import { noop, useQueries, useSuspenseQuery } from '@tanstack/react-query'
 import { createFileRoute, notFound, useNavigate } from '@tanstack/react-router'
 import { Link2, Mail, Phone, Plus, Paperclip } from 'lucide-react'
 import { useState } from 'react'
 
 import { DeleteDialog } from '@/components/confirm-dialog'
-import { DataError, DataLoading, SectionBoundary } from '@/components/data-state'
+import { SectionBoundary } from '@/components/data-state'
 import { optionalPhone, requiredEmail } from '@/components/form/validators'
 import {
   InlineReadOnly,
@@ -51,7 +51,7 @@ import { RecordActivity } from '@/modules/crm/components/record-activity'
 import { RecordTabs } from '@/modules/crm/components/record-tabs'
 import { StatusBadge } from '@/modules/crm/components/status-badge'
 import { crmCopy } from '@/modules/crm/crm.copy'
-import { contactDetailQuery } from '@/modules/crm/data'
+import { attachmentsQuery, contactDetailQuery } from '@/modules/crm/data'
 import { contactStatusOptions } from '@/modules/crm/entities'
 import {
   contactOption as toContactOption,
@@ -67,7 +67,10 @@ export const Route = createFileRoute('/_app/crm/contacts_/$contactId')({
     page: { title: crmCopy.contacts.singular, module: 'crm', parent: '/crm/contacts' },
   },
   loader: async ({ context: { queryClient }, params }) => {
-    await ensureOrNotFound(queryClient, contactDetailQuery(params.contactId))
+    const contact = await ensureOrNotFound(queryClient, contactDetailQuery(params.contactId))
+
+    for (const panel of contactPanels) panel.prefetch?.(queryClient, { email: contact.email })
+    void queryClient.query(attachmentsQuery({ contactId: params.contactId })).catch(noop)
   },
   component: ContactDetailPage,
 })
@@ -75,7 +78,7 @@ export const Route = createFileRoute('/_app/crm/contacts_/$contactId')({
 function ContactDetailPage() {
   const { contactId } = Route.useParams()
   const navigate = useNavigate()
-  const contactQuery = useQuery(contactDetailQuery(contactId))
+  const contactQuery = useSuspenseQuery(contactDetailQuery(contactId))
   const access = useCollectionAccess('contacts')
   const affiliationAccess = useCollectionAccess('affiliations')
   const organizationAccess = useCollectionAccess('organizations')
@@ -98,14 +101,6 @@ function ContactDetailPage() {
 
   if (contactQuery.isError && contactQuery.error instanceof MonospaceNotFoundError) {
     throw notFound()
-  }
-
-  if (contactQuery.isPending) {
-    return <DataLoading rows={8} />
-  }
-
-  if (contactQuery.isError) {
-    return <DataError error={contactQuery.error} />
   }
 
   const contact = contactQuery.data

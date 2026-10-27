@@ -8,7 +8,7 @@ import { z } from 'zod'
 
 import { activitiesCreateSchema, dealsUpdateSchema } from '@/generated/monospace/schemas'
 import { sessionQuery } from '@/lib/auth'
-import { collectionPermissions, collectionPermissionsQuery } from '@/lib/permissions'
+import { userPoliciesQuery } from '@/lib/permissions'
 import { CloseDealDialog } from '@/modules/crm/components/close-deal-dialog'
 import type { PipelineStage } from '@/modules/crm/data'
 import { useCloseDeal } from '@/modules/crm/mutations'
@@ -88,12 +88,7 @@ describe('closing a deal', () => {
       avatarId: null,
     })
 
-    for (const collection of ['deals', 'activities']) {
-      client.setQueryData(
-        collectionPermissionsQuery(id, collection).queryKey,
-        collectionPermissions([{ access: 'admin' }], collection),
-      )
-    }
+    client.setQueryData(userPoliciesQuery(id).queryKey, [{ access: 'admin' }])
 
     render(
       <QueryClientProvider client={client}>

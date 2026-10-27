@@ -52,6 +52,7 @@ For component work, also run `pnpm --filter @monoerp/web test:browser`. If the p
 - **Ownership:** give every file under `apps/web/src/routes`, `apps/web/src/modules`, `infra/modules`, and `connectors` exactly one owner in `starter.json`, `module.json`, or `connector.json`, including settings routes.
 - **Import boundaries:** modules use core and their own code; keep other modules and connector code behind the shared feature contracts (see `docs/modules.md`).
 - **Match what's there.** Search for an existing helper before writing one. Keep diffs small.
+- **Loading data:** a route's loader awaits only what the first paint needs (`queryClient.query({ ...options, staleTime: 'static' })`) and starts everything else without awaiting it. The page reads the same options with the same params (`useSuspenseQuery`, `Route.useLoaderDeps()`). No fetching in effects, and no deprecated `ensureQueryData`/`prefetchQuery`. Edits that look instant patch the cache first. See "Loading a screen" in `docs/frontend.md`.
 
 ## Names
 

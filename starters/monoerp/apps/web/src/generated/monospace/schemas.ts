@@ -14949,12 +14949,17 @@ const definitions = {
 
 type JsonSchema = Parameters<typeof z.fromJSONSchema>[0]
 
+// Built on first parse: building every schema when the module loads costs about a second of
+// startup, before the app can make its first request.
 function fromComponent<T>(component: string): z.ZodType<T> {
-  return z.fromJSONSchema({
-    $schema: 'https://json-schema.org/draft/2020-12/schema',
-    $ref: `#/$defs/${component}`,
-    $defs: definitions,
-  } as unknown as JsonSchema) as z.ZodType<T>
+  return z.lazy(
+    () =>
+      z.fromJSONSchema({
+        $schema: 'https://json-schema.org/draft/2020-12/schema',
+        $ref: `#/$defs/${component}`,
+        $defs: definitions,
+      } as unknown as JsonSchema) as z.ZodType<T>,
+  )
 }
 
 export const attachmentsCreateSchema = fromComponent<attachmentsCreateOneInput>('attachmentsCreateInput')

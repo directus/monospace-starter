@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query'
+import { noop, useQuery } from '@tanstack/react-query'
 
 import { Property, InlineText } from '@/components/inline/inline-field'
 import { isMissingFromWorkspace } from '@/lib/errors'
@@ -101,15 +101,25 @@ export const contactPanel: ContactPanelContribution = {
     queryFn: async ({ client }) => {
       const query = portalUserQuery(email)
 
-      return historyEntries((await client.ensureQueryData(query))?.events?.data ?? [])
+      return historyEntries(
+        (await client.query({ ...query, staleTime: 'static' }))?.events?.data ?? [],
+      )
     },
   }),
+  prefetch: (client, { email }) => {
+    if (email) void client.query(portalUserQuery(email)).catch(noop)
+  },
 }
 
 export const dealSummary: DealSummaryContribution = {
   id: 'portal',
   title: portalCopy.organizations.currentPlan,
   component: DealSummary,
+  prefetch: (client, { organization }) => {
+    const portalAccountId = organization?.portalAccountId
+
+    if (portalAccountId) void client.query(portalSummaryQuery(portalAccountId)).catch(noop)
+  },
 }
 
 export default {
@@ -133,7 +143,14 @@ export default {
     queryFn: async ({ client }) => {
       const query = portalAccountQuery(organization?.portalAccountId)
 
-      return historyEntries((await client.ensureQueryData(query))?.events?.data ?? [])
+      return historyEntries(
+        (await client.query({ ...query, staleTime: 'static' }))?.events?.data ?? [],
+      )
     },
   }),
+  prefetch: (client, { organization }) => {
+    const portalAccountId = organization?.portalAccountId
+
+    if (portalAccountId) void client.query(portalAccountQuery(portalAccountId)).catch(noop)
+  },
 } satisfies OrganizationPanelContribution

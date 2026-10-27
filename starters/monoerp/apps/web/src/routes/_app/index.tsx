@@ -5,7 +5,7 @@ import { ArrowRight } from 'lucide-react'
 import { PageHeader } from '@/components/page-header'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { appCopy } from '@/lib/app.copy'
-import { refreshSession, SESSION_QUERY_KEY } from '@/lib/auth'
+import { sessionQuery } from '@/lib/auth'
 import { modules } from '@/modules'
 import { usePages } from '@/modules/pages'
 
@@ -14,12 +14,7 @@ export const Route = createFileRoute('/_app/')({
 })
 
 function HomePage() {
-  const session = useQuery({
-    queryKey: SESSION_QUERY_KEY,
-    queryFn: refreshSession,
-    retry: false,
-    staleTime: Number.POSITIVE_INFINITY,
-  })
+  const session = useQuery(sessionQuery())
 
   const name = session.data?.fullName?.split(' ')[0] ?? session.data?.email
   const pages = usePages()

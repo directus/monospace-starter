@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
 
+import { preloadNotesEditor } from '@/components/notes-editor'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { crmCopy } from '@/modules/crm/crm.copy'
 
@@ -22,7 +23,9 @@ export function RecordTabs({
     <Tabs defaultValue="activity" className={`min-w-0 gap-5 ${className ?? ''}`}>
       <TabsList variant="line" className="border-b">
         <TabsTrigger value="activity">{crmCopy.activity.title}</TabsTrigger>
-        <TabsTrigger value="notes">{crmCopy.notes.title}</TabsTrigger>
+        <TabsTrigger value="notes" onPointerEnter={preloadNotesEditor} onFocus={preloadNotesEditor}>
+          {crmCopy.notes.title}
+        </TabsTrigger>
         <TabsTrigger value="files">{crmCopy.files.title}</TabsTrigger>
         {extra.map(({ id, title }) => (
           <TabsTrigger key={id} value={id}>

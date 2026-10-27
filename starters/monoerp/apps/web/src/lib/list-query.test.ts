@@ -1,20 +1,20 @@
 import { describe, expect, it } from 'vitest'
 
-import { PAGE_SIZE, nextOffset, readAllPages, sortSpec } from './list-query'
+import { ALL_PAGE_SIZE, PAGE_SIZE, nextOffset, readAllPages, sortSpec } from './list-query'
 
 describe('list queries', () => {
-  it('reads every page beyond 250 records, including an exact final page', async () => {
-    const records = Array.from({ length: 300 }, (_, id) => ({ id }))
+  it('reads every page in big pages, including an exact final page', async () => {
+    const records = Array.from({ length: 1000 }, (_, id) => ({ id }))
     const offsets: Array<number> = []
 
-    const rows = await readAllPages(async ({ offset = 0, limit = PAGE_SIZE }) => {
+    const rows = await readAllPages(async ({ offset = 0, limit = ALL_PAGE_SIZE }) => {
       offsets.push(offset)
 
       return records.slice(offset, offset + limit)
     })
 
     expect(rows).toEqual(records)
-    expect(offsets).toEqual([0, 50, 100, 150, 200, 250, 300])
+    expect(offsets).toEqual([0, 500, 1000])
   })
 
   it('stops after a short page and handles an empty collection', async () => {

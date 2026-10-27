@@ -1,8 +1,9 @@
+import { useQueryClient } from '@tanstack/react-query'
 import type { ChangeEvent } from 'react'
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useRef, useState } from 'react'
 import { toast } from 'sonner'
 
-import { fetchUploadLimit, formatBytes } from '@/lib/assets'
+import { formatBytes, uploadLimitQuery } from '@/lib/assets'
 import { useCollectionAccess } from '@/lib/permissions'
 import { crmCopy } from '@/modules/crm/crm.copy'
 import type { AttachmentTarget } from '@/modules/crm/data'
@@ -16,22 +17,19 @@ const copy = crmCopy.files
 // check against the server cap, then one upload at a time so progress reads left to right.
 export function useUploads({ notify = false } = {}) {
   const { mutateAsync } = useUploadAttachment({ notify })
+  const queryClient = useQueryClient()
   const [uploads, setUploads] = useState<Array<UploadItem>>([])
-  const limit = useRef<number | null>(null)
-  useEffect(() => {
-    void fetchUploadLimit().then((value) => {
-      limit.current = value
-    })
-  }, [])
 
   const patch = (key: string, next: Partial<UploadItem>) =>
     setUploads((current) => current.map((item) => (item.key === key ? { ...item, ...next } : item)))
 
   const add = useCallback(
     async (files: Iterable<File>, target: AttachmentTarget) => {
+      const limit = await queryClient.query(uploadLimitQuery()).catch(() => null)
+
       for (const file of files) {
-        if (limit.current && file.size > limit.current) {
-          toast.error(copy.tooLarge(file.name, formatBytes(limit.current)))
+        if (limit && file.size > limit) {
+          toast.error(copy.tooLarge(file.name, formatBytes(limit)))
           continue
         }
 
@@ -50,7 +48,7 @@ export function useUploads({ notify = false } = {}) {
         }
       }
     },
-    [mutateAsync],
+    [mutateAsync, queryClient],
   )
 
   const dismiss = (key: string) =>

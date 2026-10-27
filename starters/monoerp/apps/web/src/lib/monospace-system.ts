@@ -52,19 +52,45 @@ export async function readMembers(ids: ReadonlyArray<Uuid>) {
 
 const USERS_TTL = 5 * 60_000
 
+// A workspace has few members, so one read covers every owner on every page.
+const MEMBERS_LIMIT = 500
+
 let knownUsers = new Map<Uuid, Member>()
 
 let knownUsersAt = 0
 
+let loadingMembers: Promise<void> | undefined
+
+async function readAllMembers() {
+  const { data } = await get(listOf(member), '/members', {
+    ...fields(MEMBER_FIELDS),
+    limit: MEMBERS_LIMIT,
+  })
+
+  knownUsers = new Map(data.map((user) => [user.id, user]))
+  knownUsersAt = Date.now()
+}
+
+/** Starts reading every workspace member, at most once per TTL. The app layout calls this. */
+export function loadMembers() {
+  if (Date.now() - knownUsersAt > USERS_TTL && !loadingMembers) {
+    loadingMembers = readAllMembers()
+      .catch(() => {})
+      .finally(() => {
+        loadingMembers = undefined
+      })
+  }
+
+  return loadingMembers ?? Promise.resolve()
+}
+
 // Owners and uploaders are looked up here and kept for a few minutes, instead of coming from an
 // `owner` or `createdBy` include. Monospace never caches a query that includes a system user
 // (docs/monospace.md, known issues), so one such include makes every list and record read skip
-// its cache. This lookup is the only uncached read, and it only asks for users it hasn't seen.
+// its cache. The member list loads alongside the first page (`loadMembers`), so record reads
+// usually find their users here without a second request.
 export async function usersById(ids: ReadonlyArray<Uuid | null | undefined>) {
-  if (Date.now() - knownUsersAt > USERS_TTL) {
-    knownUsers = new Map()
-    knownUsersAt = Date.now()
-  }
+  if (ids.some(Boolean)) await loadMembers()
 
   const missing = [...new Set(ids)].flatMap((id) => (id && !knownUsers.has(id) ? [id] : []))
 
@@ -73,6 +99,11 @@ export async function usersById(ids: ReadonlyArray<Uuid | null | undefined>) {
   }
 
   return knownUsers
+}
+
+/** A member already read this session, for filling in an owner before the server answers. */
+export function knownMember(id: Uuid | null) {
+  return id ? (knownUsers.get(id) ?? null) : null
 }
 
 /** Members whose name or email contains `q`, by name. */

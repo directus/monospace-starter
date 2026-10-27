@@ -36,16 +36,6 @@ describe('Monospace browser transport', () => {
       .mockResolvedValueOnce(Response.json({ message: 'Invalid token' }, { status: 401 }))
       .mockResolvedValueOnce(Response.json({}))
       .mockResolvedValueOnce(
-        Response.json({
-          data: {
-            id: '00000000-0000-4000-8001-000000000001',
-            email: 'admin@example.com',
-            fullName: 'Example Admin',
-            avatarId: null,
-          },
-        }),
-      )
-      .mockResolvedValueOnce(
         Response.json({ data: [{ id: '00000000-0000-4000-8001-000000000001' }] }),
       )
 
@@ -54,11 +44,9 @@ describe('Monospace browser transport', () => {
     const rows = await readExample()
 
     expect(rows).toEqual([{ id: '00000000-0000-4000-8001-000000000001' }])
-    expect(fetchMock).toHaveBeenCalledTimes(4)
+    // The retry only needs a new token, so it doesn't read the profile.
+    expect(fetchMock).toHaveBeenCalledTimes(3)
     expect(fetchMock.mock.calls[1]?.[0]).toBe('/api/auth/refresh')
-    expect(fetchMock.mock.calls[2]?.[0]).toBe(
-      '/api/system/users/me?fields=id,email,fullName,avatarId',
-    )
     expect(timeout).toHaveBeenCalledWith(30_000)
     expect(lockRequest).toHaveBeenCalledWith('monospace-session-refresh', expect.any(Function))
   })
@@ -104,7 +92,7 @@ describe('Monospace browser transport', () => {
     await Promise.all([readExample(), readExample()])
 
     expect(refreshRequests).toBe(1)
-    expect(profileRequests).toBe(1)
+    expect(profileRequests).toBe(0)
     expect(itemRequests).toBe(4)
   })
 

@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query'
+import { noop, useQuery } from '@tanstack/react-query'
 import { Link, createFileRoute } from '@tanstack/react-router'
 import { CalendarDays, CircleDot, Coins, Milestone } from 'lucide-react'
 
@@ -119,16 +119,28 @@ export const Route = createFileRoute('/_app/crm/deals')({
     },
   },
   validateSearch: listSearchSchema,
+  // The board reads every deal; the table reads pages. `params` is the query's own input, so the
+  // loader and the page build the same key; `display` only picks which query.
   loaderDeps: ({ search }) => ({
-    q: search.q,
-    filter: clauseFor(search.filters),
-    sort: parseSort(search.sort),
     display: search.display ?? 'table',
+    params: { q: search.q, filter: clauseFor(search.filters), sort: parseSort(search.sort) },
   }),
-  loader: ({ context: { queryClient }, deps: { display, ...deps } }) =>
-    display === 'board'
-      ? queryClient.ensureQueryData(dealsQuery(deps))
-      : queryClient.ensureInfiniteQueryData(dealsPagesQuery(deps)),
+  loader: async ({ context: { queryClient }, deps: { display, params } }) => {
+    const stages = { ...pipelineStagesQuery(), staleTime: 'static' } as const
+
+    if (display === 'board') {
+      await Promise.all([
+        queryClient.query({ ...dealsQuery(params), staleTime: 'static' }),
+        queryClient.query(stages),
+      ])
+
+      return
+    }
+
+    // Stage names fill in the table's bulk edit, not its first paint.
+    void queryClient.query(stages).catch(noop)
+    await queryClient.infiniteQuery({ ...dealsPagesQuery(params), staleTime: 'static' })
+  },
   component: DealsPage,
 })
 
@@ -259,7 +271,7 @@ function DealsPage() {
     columns,
     search,
     onSearchChange: (patch) => navigate({ search: (previous) => ({ ...previous, ...patch }) }),
-    params: Route.useLoaderDeps(),
+    params: Route.useLoaderDeps().params,
     query: dealsPagesQuery,
     selectable: true,
     board: true,

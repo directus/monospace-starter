@@ -1,3 +1,4 @@
+import { queryOptions } from '@tanstack/react-query'
 import { z } from 'zod'
 
 import type { Uuid } from '@/generated/monospace'
@@ -100,7 +101,7 @@ export async function deleteAsset(id: string, { scope = 'workspace' }: AssetScop
 }
 
 // Server-side cap in bytes, only reported to signed-in callers.
-export async function fetchUploadLimit() {
+async function fetchUploadLimit() {
   const response = await fetch('/api/system/info', { credentials: 'include' })
 
   if (!response.ok) return null
@@ -108,6 +109,15 @@ export async function fetchUploadLimit() {
   const body = systemInfo.safeParse(await response.json())
 
   return body.data?.data.authenticated?.maxFileUploadSize ?? null
+}
+
+// The cap only changes with server config, so it's read once per session.
+export function uploadLimitQuery() {
+  return queryOptions({
+    queryKey: ['upload-limit'],
+    queryFn: fetchUploadLimit,
+    staleTime: Number.POSITIVE_INFINITY,
+  })
 }
 
 // Monospace sends 64-bit integers, such as a file's size, as strings.

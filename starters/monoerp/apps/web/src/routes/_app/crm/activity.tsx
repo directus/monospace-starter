@@ -114,6 +114,26 @@ function clauseFor({
   return clauses.length ? { _and: clauses } : undefined
 }
 
+// The loader and the page build their queries here, from the same deps, so their keys match.
+function activityQueries(
+  {
+    q,
+    filters,
+    view,
+    due,
+  }: { q?: string; filters?: ListFilterQuery; view: ActivityView; due?: UpcomingBucket },
+  now: number,
+) {
+  return {
+    pages: activityPagesQuery({
+      view,
+      q,
+      filter: clauseFor({ query: filters, due: view === 'todo' ? due : undefined, now }),
+    }),
+    openDue: openDueDatesQuery({ q, filter: clauseFor({ query: filters, now }) }),
+  }
+}
+
 export const Route = createFileRoute('/_app/crm/activity')({
   staticData: {
     page: {
@@ -132,24 +152,12 @@ export const Route = createFileRoute('/_app/crm/activity')({
     view: search.view ?? 'todo',
     due: search.due,
   }),
-  loader: ({ context: { queryClient }, deps }) => {
-    const now = Date.now()
+  loader: async ({ context: { queryClient }, deps }) => {
+    const { pages, openDue } = activityQueries(deps, Date.now())
 
-    return Promise.all([
-      queryClient.ensureInfiniteQueryData(
-        activityPagesQuery({
-          view: deps.view,
-          q: deps.q,
-          filter: clauseFor({
-            query: deps.filters,
-            due: deps.view === 'todo' ? deps.due : undefined,
-            now,
-          }),
-        }),
-      ),
-      queryClient.ensureQueryData(
-        openDueDatesQuery({ q: deps.q, filter: clauseFor({ query: deps.filters, now }) }),
-      ),
+    await Promise.all([
+      queryClient.infiniteQuery({ ...pages, staleTime: 'static' }),
+      queryClient.query({ ...openDue, staleTime: 'static' }),
     ])
   },
   component: ActivityPage,
@@ -169,12 +177,10 @@ function ActivityPage() {
 
   const query = state.query
 
-  const pages = useInfiniteQuery(
-    activityPagesQuery({ view, q: search.q, filter: clauseFor({ query, due, now }) }),
-  )
-
+  const queries = activityQueries(Route.useLoaderDeps(), now)
+  const pages = useInfiniteQuery(queries.pages)
   // Counts stay live on both tabs so the To do number never blinks out.
-  const openDue = useQuery(openDueDatesQuery({ q: search.q, filter: clauseFor({ query, now }) }))
+  const openDue = useQuery(queries.openDue)
   const rows = useMemo(() => pages.data?.pages.flat() ?? [], [pages.data])
   const counts = useMemo(() => countBuckets(openDue.data ?? [], now), [openDue.data, now])
   const openCount = openDue.data?.length ?? 0

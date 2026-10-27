@@ -429,6 +429,8 @@ async function fetchContactDetail(contactId: Uuid) {
   }
 }
 
+export type ContactDetail = Awaited<ReturnType<typeof fetchContactDetail>>
+
 export function contactDetailQuery(contactId: Uuid) {
   return queryOptions({
     queryKey: ['contacts', contactId],
@@ -607,6 +609,8 @@ async function fetchDealDetail(dealId: Uuid) {
     activities: { data: await withOwners(keyed(detail.activities?.data ?? [])) },
   }
 }
+
+export type DealDetail = Awaited<ReturnType<typeof fetchDealDetail>>
 
 export function dealDetailQuery(dealId: Uuid) {
   return queryOptions({

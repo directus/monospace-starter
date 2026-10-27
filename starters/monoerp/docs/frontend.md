@@ -8,10 +8,55 @@ Screens call Monospace from the browser with the generated SDK (`lib/monospace.t
 
 - A fetcher asks for exactly the fields and relations the screen shows (`fields`, `include`), and the row type comes from its return type (`OrganizationRow = Awaited<ReturnType<typeof fetchOrganizations>>[number]`). Don't write row types by hand.
 - Query options wrap each fetcher (`organizationsPagesQuery`, `organizationDetailQuery`). Query keys start with the collection name (`['organizations', ...]`); mutations rely on that to refresh.
-- Route loaders prime the cache with `queryClient.ensureQueryData` (or `ensureInfiniteQueryData`), and the component reads the same options with `useQuery`. A loader whose query can fail for reasons the user can fix on the page prefetches instead (`prefetchInfiniteQuery` in `routes/_app/crm/organizations.tsx`, where a portal filter can fail), so the error shows in the page rather than replacing it.
+- Every screen loads the same way, below. Don't use `ensureQueryData`, `prefetchQuery`, `fetchQuery`, or their infinite versions: they're deprecated in the installed TanStack Query.
 - Never include portal (MySQL) data in a CRM read: if MySQL is down, the whole request fails. Read it in its own query (`portalAccountQuery`, `portalSummaryQuery`, `portalUserQuery` in `connectors/portal/frontend/crm/data.ts`) and show "Portal unavailable" when it errors, or "isn't set up" when the source isn't connected (`isMissingFromWorkspace`). See `docs/architecture.md`.
-- Never include `owner`, `createdBy`, or `updatedBy`: Monospace won't cache any query that includes a system user. Read the ID column (`ownerUserId`) and let `withUsers` in `lib/monospace-system.ts` (the caller names each output field) fill in the user.
+- Never include `owner`, `createdBy`, or `updatedBy`: Monospace won't cache any query that includes a system user. Read the ID column (`ownerUserId`) and let `withUsers` in `lib/monospace-system.ts` (the caller names each output field) fill in the user. The app layout starts reading the member list (`loadMembers`) with the first page, so `withUsers` rarely makes a request of its own.
 - User pickers use `lookupUsers` and `resolveUsers` from `lib/users.ts`. User avatars and labels live in `components/users.tsx`, and `InlineOwner` lives in `components/inline/inline-owner.tsx`. These are shared across modules.
+
+### Loading a screen
+
+The route's loader puts the data in the cache before the page renders; the page reads it from the cache with the same query options. Copy this:
+
+```tsx
+// modules/<id>/data.ts: one options factory per read
+export function organizationDetailQuery(id: Uuid) {
+  return queryOptions({
+    queryKey: ['organizations', id],
+    queryFn: () => fetchOrganizationDetail(id),
+  })
+}
+
+// routes/...: the loader awaits only what the first paint needs
+export const Route = createFileRoute('/_app/crm/organizations_/$organizationId')({
+  loader: async ({ context: { queryClient }, params: { organizationId } }) => {
+    const organization = await ensureOrNotFound(
+      queryClient,
+      organizationDetailQuery(organizationId),
+    )
+
+    // Panels and connector tabs: started now, never awaited, so they never hold the page.
+    for (const panel of organizationPanels) panel.prefetch?.(queryClient, { organization })
+    void queryClient.query(attachmentsQuery({ organizationId })).catch(noop)
+  },
+  component: OrganizationDetailPage,
+})
+
+function OrganizationDetailPage() {
+  const { organizationId } = Route.useParams()
+  const detail = useSuspenseQuery(organizationDetailQuery(organizationId)) // data is never undefined
+}
+```
+
+- **Blocking reads** in a loader use `await queryClient.query({ ...options, staleTime: 'static' })` (`infiniteQuery` for pages). `'static'` returns cached data without waiting on a refetch, so going back to a page is instant; the page's own query refreshes stale data in the background. `ensureOrNotFound` (`lib/route-loaders.ts`) does the same and turns a missing record into `notFound()`.
+- **Everything else** starts in the loader without `await`: `void queryClient.query(options).catch(noop)`. Panels, tabs, and connector data show their own loading state.
+- **Same options, same params.** The page passes exactly what the loader used: `Route.useLoaderDeps()` for lists, `Route.useParams()` for records. Keep UI-only state (the deals `display` switch) out of the query params; `routes/_app/crm/deals.tsx` nests them as `{ display, params }`. `modules/crm/loader-keys.test.ts` checks this for each CRM list.
+- **Pages read with `useSuspenseQuery`** when the loader awaited the data, so there's no loading branch to write. Secondary reads use `useQuery` and render `DataLoading` themselves.
+- **A loader that can fail for reasons the user can fix on the page** catches its error (`.catch(noop)` in `routes/_app/crm/organizations.tsx`, where a portal filter can fail), so the page's query shows the error under its filters instead of replacing the page.
+- **Connector panels** start their reads through the slot's `prefetch` (`modules/crm/slots.ts`), which record loaders call once the record is known.
+- **Per-user reads** (session, permissions, members) start once in `routes/_app.tsx` `beforeLoad`. Permissions are one query per user (`userPoliciesQuery`); `useCollectionAccess` picks a collection out of it with `select`.
+- Links preload on hover (`defaultPreload: 'intent'` in `router.tsx`), so most clicks find their data already loaded. While a loader runs, the current page stays and a thin bar under the header shows the click registered (`NavigationProgress` in `shell/app-shell.tsx`). Lists keep their old rows while a new search, filter, or sort loads, so don't give a list a `pendingComponent`.
+- Nothing fetches in `useEffect`. A value that's needed later (the upload size cap) is a query too (`uploadLimitQuery`), read when it's needed.
+- **Startup stays small.** The page head starts the session requests before the app's code loads (`earlySessionScript` in `lib/auth.ts`), and the refresh and user read run in parallel. Generated write schemas build on first use (`z.lazy` in `scripts/generate-zod-schemas.ts`). Heavy components below the fold load lazily with a placeholder of the same size: `components/notes-editor.tsx` wraps BlockNote, which only `components/notes-block-editor.tsx` may import (`notes-editor.test.ts` checks). Once the first page is up, the shell fetches the code for module pages in the background (`usePreloadModulePages`).
 
 ## List pages
 
@@ -39,7 +84,7 @@ A list with a board view as well (`routes/_app/crm/deals.tsx`) switches on `sear
 
 ## Detail pages
 
-Copy `routes/_app/crm/organizations_.$organizationId.tsx`. The route parses its id with `uuidParam` (`lib/uuid.ts`), and `ensureOrNotFound` (`lib/route-loaders.ts`) turns missing records into `notFound()`. Detail fetchers return a non-null ID. The page uses `RecordTitle`/`RecordName` inside `PageHeader`, `RecordDetails` around the details fields, and `RecordTabs` for activity, notes, files, and connector tabs. `AffiliationsPanel` owns the shared role edit/end/remove flow; `DealsPanel` owns the organization's deals list.
+Copy `routes/_app/crm/organizations_.$organizationId.tsx`. The route parses its id with `uuidParam` (`lib/uuid.ts`), and `ensureOrNotFound` (`lib/route-loaders.ts`) turns missing records into `notFound()`. Its loader starts the panels' reads (see "Loading a screen"). Detail fetchers return a non-null ID. The page uses `RecordTitle`/`RecordName` inside `PageHeader`, `RecordDetails` around the details fields, and `RecordTabs` for activity, notes, files, and connector tabs. `AffiliationsPanel` owns the shared role edit/end/remove flow; `DealsPanel` owns the organization's deals list.
 
 ## Forms
 
@@ -53,14 +98,26 @@ Create and full-edit forms use TanStack Form through `useAppForm` (`components/f
 
 ## Inline editing
 
-Detail pages edit fields in place with `components/inline/inline-field.tsx`. Each field saves on its own (blur, Enter, or pick) and shows its error under the value. Text fields take the same Zod validators as the forms. Use `PropertyList` for the details card. Pass notes-field access to `NotesEditor.readOnly` to keep editing consistent with other fields.
+Detail pages edit fields in place with `components/inline/inline-field.tsx`. Each field saves on its own (blur, Enter, or pick): the editor closes at once and shows the new value while the write runs. If the write fails, the field goes back to the saved value and shows the error under it. Text fields take the same Zod validators as the forms. Use `PropertyList` for the details card. Pass notes-field access to `NotesEditor.readOnly` to keep editing consistent with other fields.
 
 ## Mutations
 
 Every write is a hook in the module's `mutations.ts` (`modules/crm/mutations.ts`). Use the same entity names for functions, row types, SDK collections, and query keys (`dealsQuery`, `DealRow`, `useUpdateDeal`, `ActivityRecord`). The pattern:
 
 - `mutationFn` parses the input with the generated schema and calls the SDK, asking only for `id` back.
-- `onSuccess` shows a toast from copy (`appCopy.toast.created`, `saved`, `deleted`) and refreshes related query groups through `refreshCrm` (`modules/crm/refresh.ts`). A record shows up inside other records' queries, so invalidate every group that could include it.
+- `onSuccess` shows a toast from copy (`appCopy.toast.created`, `saved`, `deleted`) and refreshes CRM record queries through `refreshCrm` (`modules/crm/refresh.ts`). A record shows up inside other records' queries, so invalidate every group that could include it.
+- Edits that should feel instant (inline fields, stage moves, board drags) write the change into the cache first and refresh after, without holding the field in its saving state. Copy `useUpdateDeal`:
+
+  ```ts
+  onMutate: ({ id, data }) =>
+    patchCached<DealDetail>(queryClient, { queryKey: dealDetailQuery(id).queryKey, exact: true },
+      (detail) => ({ ...detail, ...data })),
+  onError: (_error, _input, rollback) => rollback?.(),
+  onSettled: () => void refreshCrm(queryClient),
+  ```
+
+  `patchCached` cancels refetches in flight and returns the rollback. Only patch what the cache can show: an id whose label comes from a relation (a deal's organization) only appears after the refetch, so `useUpdateDeal` returns the refresh from `onSettled` for those saves to stay pending until it lands. Creates, deletes, bulk edits, and activity completion still await the refresh, since their rows appear, leave, or move.
+
 - `useCloseDeal` confirms the value and close date, updates the deal, and files an optional outcome note. The board and detail page share this workflow. These are separate requests; refreshing on failure shows a close that succeeded even when its note failed.
 - Hooks that fire on every keystroke or inline save take `{ notify: false }` to skip the toast.
 
@@ -79,6 +136,8 @@ Monospace enforces access on every request. The app only hides or disables contr
 - Loading and failed queries: `DataLoading` and `DataError` (`components/data-state.tsx`).
 - Turn any caught error into a sentence with `errorMessage` (`lib/errors.ts`). It knows permission errors, conflicts, and duplicates.
 - Toasts are Sonner (`toast` from `sonner`). The `Toaster` is mounted once in `shell/app-shell.tsx`.
+
+CRM board and dashboard queries load all matching deals in 500-row pages (`readAllPages`), usually one request. Currency totals and dashboard charts stay separate per currency; no exchange rate is assumed. List paging and sorting helpers live in `lib/list-query.ts`.
 
 ## Dates and numbers
 

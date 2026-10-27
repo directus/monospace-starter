@@ -1,3 +1,4 @@
+import { noop } from '@tanstack/react-query'
 import { Link, createFileRoute } from '@tanstack/react-router'
 import { CalendarDays, CircleDot, Factory, Globe } from 'lucide-react'
 
@@ -15,6 +16,7 @@ import { appCopy } from '@/lib/app.copy'
 import { filtersToClause, relationField } from '@/lib/filters'
 import type { ListFilterField, ListFilterQuery } from '@/lib/filters'
 import { formatDate } from '@/lib/format'
+import { PAGE_SIZE } from '@/lib/list-query'
 import { listSearchSchema, parseSort } from '@/lib/list-search'
 import { useCollectionAccess } from '@/lib/permissions'
 import { lookupUsers, resolveUsers } from '@/lib/users'
@@ -84,10 +86,13 @@ export const Route = createFileRoute('/_app/crm/organizations')({
     filter: clauseFor(search.filters),
     sort: parseSort(search.sort),
   }),
-  // Prefetch never throws. A plan or renewal filter reads the portal, so while the portal is down
-  // the page shows the error under its filters, where the filter can be removed.
-  loader: ({ context: { queryClient }, deps }) =>
-    queryClient.prefetchInfiniteQuery(organizationsPagesQuery(deps)),
+  // A plan or renewal filter reads the portal, so the loader swallows errors: while the portal is
+  // down the page shows the error under its filters, where the filter can be removed.
+  loader: async ({ context: { queryClient }, deps }) => {
+    await queryClient
+      .infiniteQuery({ ...organizationsPagesQuery(deps), staleTime: 'static' })
+      .catch(noop)
+  },
   component: OrganizationsPage,
 })
 
@@ -146,7 +151,23 @@ const columns: Array<DataTableColumn<OrganizationRow>> = [
   },
 ]
 
+// Connector cells read their data for one page of rows at a time, so loading more rows adds a
+// request for the new page instead of reloading every row's data.
+function organizationsByPage(rows: OrganizationRow[]) {
+  const pages = new Map<string, OrganizationRow[]>()
+
+  for (let start = 0; start < rows.length; start += PAGE_SIZE) {
+    const page = rows.slice(start, start + PAGE_SIZE)
+
+    for (const row of page) pages.set(row.id, page)
+  }
+
+  return pages
+}
+
 function organizationColumns(rows: OrganizationRow[]): DataTableColumn<OrganizationRow>[] {
+  const pages = organizationsByPage(rows)
+
   return insertColumns(
     columns,
     organizationLists.flatMap((feature) =>
@@ -156,7 +177,7 @@ function organizationColumns(rows: OrganizationRow[]): DataTableColumn<Organizat
           ...column,
           enableSorting: false,
           cell: ({ row }: { row: { original: OrganizationRow } }) => (
-            <Cell organization={row.original} organizations={rows} />
+            <Cell organization={row.original} organizations={pages.get(row.original.id) ?? []} />
           ),
         },
       })),

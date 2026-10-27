@@ -3,7 +3,7 @@ import type { ClientConfig } from '@monospace/sdk'
 import { ofetch } from 'ofetch'
 import { z } from 'zod'
 
-import { AuthRequestError, refreshSession } from './auth'
+import { AuthRequestError, refreshToken } from './auth'
 
 // The error body Monospace sends with a failed request; `source` nests the underlying cause.
 const engineError = z.object({
@@ -22,7 +22,7 @@ let sessionGeneration = 0
 
 function refreshAccessToken() {
   if (!refreshPromise) {
-    refreshPromise = refreshSession()
+    refreshPromise = refreshToken()
       .then(() => {
         sessionGeneration += 1
       })

@@ -57,16 +57,12 @@ async function errorMessage(response: Response) {
 }
 
 async function requestCurrentUser() {
-  const response = await fetch('/api/system/users/me?fields=id,email,fullName,avatarId', {
+  const response = await fetch(CURRENT_USER_PATH, {
     credentials: 'include',
     signal: AbortSignal.timeout(AUTH_REQUEST_TIMEOUT_MS),
   })
 
-  if (!response.ok) {
-    throw new AuthRequestError(await errorMessage(response), response.status)
-  }
-
-  return currentUserResponse.parse(await response.json()).data
+  return readCurrentUser(response)
 }
 
 // Profile edits for the signed-in user. The generated SDK only covers the workspace scope,
@@ -90,28 +86,85 @@ export async function updateCurrentUser(patch: {
   return currentUserResponse.parse(await response.json()).data
 }
 
-async function requestSessionRefresh() {
-  const response = await fetch('/api/auth/refresh', {
-    method: 'POST',
-    credentials: 'include',
-    signal: AbortSignal.timeout(AUTH_REQUEST_TIMEOUT_MS),
-    headers: { 'content-type': 'application/json' },
-    body: '{}',
-  })
+const CURRENT_USER_PATH = '/api/system/users/me?fields=id,email,fullName,avatarId'
 
+// Pages outside the signed-in app, where nothing reads the session on load.
+const PUBLIC_PATHS = ['/login', '/careers', '/slides']
+
+// Runs in the page head, before the app's code has loaded, and starts the two session requests
+// so they're usually done by the time the first route asks. `refreshSession` picks them up.
+export const earlySessionScript = `(() => {
+  if (${JSON.stringify(PUBLIC_PATHS)}.some((path) => location.pathname.startsWith(path))) return
+  const init = { method: 'POST', credentials: 'include', headers: { 'content-type': 'application/json' }, body: '{}' }
+  const refresh = () => fetch('/api/auth/refresh', init)
+  window.__sessionStart = {
+    refresh: navigator.locks ? navigator.locks.request(${JSON.stringify(SESSION_REFRESH_LOCK)}, refresh) : refresh(),
+    user: fetch(${JSON.stringify(CURRENT_USER_PATH)}, { credentials: 'include' }),
+  }
+})()`
+
+declare global {
+  interface Window {
+    __sessionStart?: { refresh: Promise<Response>; user: Promise<Response> }
+  }
+}
+
+// The head script's requests, once: a later refresh (after sign-in, on retry) starts fresh ones.
+function takeEarlySession() {
+  const early = globalThis.window?.__sessionStart
+
+  if (early) delete window.__sessionStart
+
+  return early
+}
+
+async function checkRefresh(response: Response) {
+  if (!response.ok) {
+    throw new AuthRequestError(await errorMessage(response), response.status)
+  }
+}
+
+async function readCurrentUser(response: Response) {
   if (!response.ok) {
     throw new AuthRequestError(await errorMessage(response), response.status)
   }
 
-  return requestCurrentUser()
+  return currentUserResponse.parse(await response.json()).data
 }
 
-export function refreshSession() {
+function postRefresh() {
+  const request = () =>
+    fetch('/api/auth/refresh', {
+      method: 'POST',
+      credentials: 'include',
+      signal: AbortSignal.timeout(AUTH_REQUEST_TIMEOUT_MS),
+      headers: { 'content-type': 'application/json' },
+      body: '{}',
+    })
+
   const locks = globalThis.navigator?.locks
 
-  return locks
-    ? locks.request(SESSION_REFRESH_LOCK, requestSessionRefresh)
-    : requestSessionRefresh()
+  return locks ? locks.request(SESSION_REFRESH_LOCK, request) : request()
+}
+
+/** Renews the access token only, for retrying a request that came back 401. */
+export async function refreshToken() {
+  await checkRefresh(await postRefresh())
+}
+
+// Refreshes the session and reads the user at the same time. The read only has to wait for the
+// refresh, and run again, when the access token had already expired.
+export async function refreshSession() {
+  const early = takeEarlySession()
+
+  const [refreshed, user] = await Promise.allSettled([
+    (early?.refresh ?? postRefresh()).then(checkRefresh),
+    early?.user.then(readCurrentUser) ?? requestCurrentUser(),
+  ])
+
+  if (refreshed.status === 'rejected') throw refreshed.reason
+
+  return user.status === 'fulfilled' ? user.value : requestCurrentUser()
 }
 
 export async function signIn(email: string, password: string) {

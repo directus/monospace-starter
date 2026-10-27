@@ -10,6 +10,22 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* Fade-ins that start late, so quick work never flashes (NavigationProgress, inline saves). */
+@keyframes reveal {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes route-progress {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(300%);
+  }
+}
+
 @theme inline {
   --font-sans: 'Geist Variable', ui-sans-serif, system-ui, sans-serif;
   --color-background: var(--background);

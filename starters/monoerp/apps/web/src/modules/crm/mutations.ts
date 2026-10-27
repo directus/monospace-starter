@@ -32,12 +32,20 @@ import { appCopy } from '@/lib/app.copy'
 import { deleteAsset, uploadAsset } from '@/lib/assets'
 import { formatMoney } from '@/lib/format'
 import { monospace } from '@/lib/monospace'
+import { knownMember } from '@/lib/monospace-system'
 import { useCollectionAccess } from '@/lib/permissions'
 import { crmCopy } from '@/modules/crm/crm.copy'
+import {
+  contactDetailQuery,
+  dealDetailQuery,
+  organizationDetailQuery,
+  pipelineStagesQuery,
+} from '@/modules/crm/data'
+import type { ContactDetail, DealDetail, DealRow, OrganizationDetail } from '@/modules/crm/data'
 import type { PipelineStage } from '@/modules/crm/data'
 import type { AttachmentTarget } from '@/modules/crm/data'
 import { statusForStage } from '@/modules/crm/deals'
-import { refreshCrm } from '@/modules/crm/refresh'
+import { patchCached, patchRow, refreshCrm } from '@/modules/crm/refresh'
 
 function connectTarget(target: AttachmentTarget) {
   return {
@@ -49,6 +57,17 @@ function connectTarget(target: AttachmentTarget) {
 }
 
 type Update<TData> = { id: Uuid; data: TData }
+
+// Record edits that write plain fields only (no relation operations), so the same change can be
+// shown in cached rows before the server answers.
+type FieldUpdate<T> = {
+  [K in keyof T as NonNullable<T[K]> extends ReadonlyArray<object> ? never : K]?: T[K]
+}
+
+// Rows show owners as people, so an owner change also fills in who it is.
+function withKnownOwner<T extends { ownerUserId?: Uuid | null }>(data: T) {
+  return data.ownerUserId === undefined ? data : { ...data, owner: knownMember(data.ownerUserId) }
+}
 
 // Upload the blob, then the row. A row that fails to insert takes its blob with it so nothing
 // is left orphaned in storage.
@@ -163,16 +182,24 @@ export function useUpdateOrganization({ notify = true }: { notify?: boolean } = 
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: ({ id, data }: Update<organizationsUpdateOneInput>) =>
+    mutationFn: ({ id, data }: Update<FieldUpdate<organizationsUpdateOneInput>>) =>
       monospace.organizations.updateOne({
         key: id,
         data: organizationsUpdateSchema.parse(data),
         fields: ['id'],
       }),
-    onSuccess: async () => {
+    // Inline edits show at once, and the refresh doesn't hold the field in its saving state.
+    onMutate: ({ id, data }) =>
+      patchCached<OrganizationDetail>(
+        queryClient,
+        { queryKey: organizationDetailQuery(id).queryKey, exact: true },
+        (detail) => ({ ...detail, ...withKnownOwner(data) }),
+      ),
+    onError: (_error, _input, rollback) => rollback?.(),
+    onSuccess: () => {
       if (notify) toast.success(appCopy.toast.saved(crmCopy.organizations.singular))
-      await refreshCrm(queryClient)
     },
+    onSettled: () => void refreshCrm(queryClient),
   })
 }
 
@@ -205,16 +232,24 @@ export function useUpdateContact({ notify = true }: { notify?: boolean } = {}) {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: ({ id, data }: Update<contactsUpdateOneInput>) =>
+    mutationFn: ({ id, data }: Update<FieldUpdate<contactsUpdateOneInput>>) =>
       monospace.contacts.updateOne({
         key: id,
         data: contactsUpdateSchema.parse(data),
         fields: ['id'],
       }),
-    onSuccess: async () => {
+    // Inline edits show at once, and the refresh doesn't hold the field in its saving state.
+    onMutate: ({ id, data }) =>
+      patchCached<ContactDetail>(
+        queryClient,
+        { queryKey: contactDetailQuery(id).queryKey, exact: true },
+        (detail) => ({ ...detail, ...withKnownOwner(data) }),
+      ),
+    onError: (_error, _input, rollback) => rollback?.(),
+    onSuccess: () => {
       if (notify) toast.success(appCopy.toast.saved(crmCopy.contacts.singular))
-      await refreshCrm(queryClient)
     },
+    onSettled: () => void refreshCrm(queryClient),
   })
 }
 
@@ -295,15 +330,49 @@ export function useUpdateDeal({ notify = true }: { notify?: boolean } = {}) {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: ({ id, data }: Update<dealsUpdateOneInput>) =>
+    mutationFn: ({ id, data }: Update<FieldUpdate<dealsUpdateOneInput>>) =>
       monospace.deals.updateOne({
         key: id,
         data: dealsUpdateSchema.parse(data),
         fields: ['id'],
       }),
-    onSuccess: async () => {
+    // Inline edits show at once, and the refresh doesn't hold the field in its saving state.
+    // The board groups by the embedded stage, so a stage move fills that in too.
+    onMutate: async ({ id, data }) => {
+      const stage = queryClient
+        .getQueryData(pipelineStagesQuery().queryKey)
+        ?.find((item) => item.id === data.stageId)
+
+      const patch = withKnownOwner(data)
+
+      const rollbacks = await Promise.all([
+        patchCached<DealDetail>(
+          queryClient,
+          { queryKey: dealDetailQuery(id).queryKey, exact: true },
+          (detail) => ({ ...detail, ...patch, pipeline_stages: stage ?? detail.pipeline_stages }),
+        ),
+        // Every-deal reads (board, dashboard) are arrays under ['deals', filters].
+        patchCached<DealRow[]>(
+          queryClient,
+          { queryKey: ['deals'], predicate: (query) => Array.isArray(query.state.data) },
+          (rows) => patchRow(rows, id, stage ? { ...patch, pipeline_stages: stage } : patch),
+        ),
+      ])
+
+      return () => {
+        for (const rollback of rollbacks) rollback()
+      }
+    },
+    onError: (_error, _input, rollback) => rollback?.(),
+    onSuccess: () => {
       if (notify) toast.success(appCopy.toast.saved(crmCopy.deals.singular))
-      await refreshCrm(queryClient)
+    },
+    onSettled: (_result, _error, { data }) => {
+      const refresh = refreshCrm(queryClient)
+
+      // A new organization or contact shows by name, which only the refetch brings, so those
+      // saves stay pending until it lands.
+      return data.organizationId === undefined && data.contactId === undefined ? undefined : refresh
     },
   })
 }
@@ -478,6 +547,7 @@ export function useUpdateActivity() {
         toast.success(appCopy.toast.saved(crmCopy.activity.singular))
       }
 
+      // Rows show a spinner until the refreshed list drops or moves them.
       await refreshCrm(queryClient)
     },
   })

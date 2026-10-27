@@ -19,8 +19,9 @@ import { appCopy } from '@/lib/app.copy'
 import { errorMessage } from '@/lib/errors'
 import { cn } from '@/lib/utils'
 
-// Inline editing for detail pages. Every control saves on its own (blur, Enter, or pick) and
-// shows the failure under the value instead of a form-level banner. Text editors take the same
+// Inline editing for detail pages. Every control saves on its own (blur, Enter, or pick), closes
+// at once showing the new value, and if the write fails goes back to the saved value with the
+// failure under it instead of a form-level banner. Text editors take the same
 // zod validators as the drawer forms; an invalid draft stays open with its message until it is
 // fixed or cancelled with Escape.
 //
@@ -79,28 +80,33 @@ function ReadOnlyValue({ children, className }: { children?: ReactNode; classNam
   )
 }
 
+// `pending` holds the value being written, so the closed editor shows it right away. The caller's
+// value takes over once the write settles: the new one on success, the old one on failure.
 function useInlineSave<T>(onSave: (value: T) => Promise<void>) {
-  const [saving, setSaving] = useState(false)
+  const [pending, setPending] = useState<{ value: T }>()
   const [error, setError] = useState<string>()
 
   async function save(value: T) {
-    setSaving(true)
+    setPending({ value })
     setError(undefined)
 
     try {
       await onSave(value)
-
-      return true
     } catch (caught) {
       setError(errorMessage(caught))
-
-      return false
     } finally {
-      setSaving(false)
+      setPending(undefined)
     }
   }
 
-  return { saving, error, save, setError, clearError: () => setError(undefined) }
+  return {
+    saving: pending !== undefined,
+    pending,
+    error,
+    save,
+    setError,
+    clearError: () => setError(undefined),
+  }
 }
 
 function invalidMessage(schema: ZodType | undefined, value: string) {
@@ -154,7 +160,7 @@ export function InlineDisplay({
       onClick={onClick}
       disabled={saving}
       className={cn(
-        'group/inline flex items-center gap-2 rounded-md px-2.5 text-left transition-colors outline-none hover:bg-muted focus-visible:ring-3 focus-visible:ring-ring/50 disabled:opacity-60',
+        'group/inline flex items-center gap-2 rounded-md px-2.5 text-left transition-colors outline-none hover:bg-muted focus-visible:ring-3 focus-visible:ring-ring/50',
         ROW,
         INSET,
         empty && 'text-muted-foreground',
@@ -170,7 +176,10 @@ export function InlineDisplay({
         <span className="min-w-0 flex-1 truncate">{children}</span>
       )}
       {saving ? (
-        <Loader2 className="size-3.5 shrink-0 animate-spin text-muted-foreground" />
+        // Fades in late: a quick save never shows a spinner.
+        <span className="shrink-0 animate-[reveal_150ms_ease-out_400ms_forwards] opacity-0">
+          <Loader2 className="size-3.5 animate-spin text-muted-foreground" />
+        </span>
       ) : !empty ? (
         <Pencil className="size-3.5 shrink-0 text-muted-foreground opacity-40 transition-opacity group-hover/inline:opacity-100 group-focus-visible/inline:opacity-100 [@media(hover:hover)]:opacity-0" />
       ) : null}
@@ -221,11 +230,12 @@ export function InlineText({
 }) {
   const [editing, setEditing] = useState(false)
   const [draft, setDraft] = useState('')
-  const { saving, error, save, setError, clearError } = useInlineSave(onSave)
+  const { saving, pending, error, save, setError, clearError } = useInlineSave(onSave)
   const id = useId()
+  const shown = pending ? pending.value : value
 
   function start() {
-    setDraft(value ?? '')
+    setDraft(shown ?? '')
     clearError()
     setEditing(true)
   }
@@ -247,12 +257,13 @@ export function InlineText({
       return
     }
 
-    if (await save(next)) setEditing(false)
+    setEditing(false)
+    await save(next)
   }
 
   const display = (
     <InlineDisplay
-      empty={!value}
+      empty={!shown}
       emptyLabel={emptyLabel ?? appCopy.inline.add(label)}
       onClick={start}
       saving={saving}
@@ -261,7 +272,7 @@ export function InlineText({
         displayClassName,
       )}
     >
-      {value ? (format ? format(value) : value) : null}
+      {shown ? (format ? format(shown) : shown) : null}
     </InlineDisplay>
   )
 
@@ -283,7 +294,8 @@ export function InlineText({
                 return
               }
 
-              void save(date).then((ok) => ok && setEditing(false))
+              setEditing(false)
+              void save(date)
             }}
             onBlur={() => setEditing(false)}
             autoFocus
@@ -311,10 +323,10 @@ export function InlineText({
             className={cn(ROW, INSET, inputClassName)}
           />
         )
-      ) : action && value ? (
+      ) : action && shown ? (
         <div className="flex items-center gap-3">
           {display}
-          <span className="hidden pointer-coarse:contents">{action(value)}</span>
+          <span className="hidden pointer-coarse:contents">{action(shown)}</span>
         </div>
       ) : (
         display
@@ -339,9 +351,9 @@ export function InlineSelect({
   onSave: (value: string) => Promise<void>
   className?: string
 }) {
-  const { saving, error, save } = useInlineSave(onSave)
+  const { saving, pending, error, save } = useInlineSave(onSave)
   const readOnly = use(InlineReadOnly)
-  const current = value ?? null
+  const current = pending ? pending.value : (value ?? null)
 
   if (readOnly) {
     return (
@@ -410,15 +422,16 @@ export function InlineRelation({
   className?: string
 }) {
   const [editing, setEditing] = useState(false)
-  const { saving, error, save, clearError } = useInlineSave(onSave)
+  const { saving, pending, error, save, clearError } = useInlineSave(onSave)
   const id = useId()
+  const shown = pending ? pending.value : value
 
   return (
     <div className={className}>
       {editing ? (
         <RelationCombobox
           id={id}
-          value={value}
+          value={shown}
           onChange={(next) => {
             if (next?.value === value?.value) {
               setEditing(false)
@@ -426,7 +439,8 @@ export function InlineRelation({
               return
             }
 
-            void save(next).then((ok) => ok && setEditing(false))
+            setEditing(false)
+            void save(next)
           }}
           onBlur={() => setEditing(false)}
           search={search}
@@ -441,7 +455,7 @@ export function InlineRelation({
         />
       ) : (
         <InlineDisplay
-          empty={!value}
+          empty={!shown}
           emptyLabel={emptyLabel ?? appCopy.inline.set(label)}
           onClick={() => {
             clearError()
@@ -449,7 +463,7 @@ export function InlineRelation({
           }}
           saving={saving}
         >
-          {value ? (render ? render(value) : value.label) : null}
+          {shown ? (render ? render(shown) : shown.label) : null}
         </InlineDisplay>
       )}
       <InlineError message={error} />
@@ -477,11 +491,12 @@ export function InlineMoney({
   const [editing, setEditing] = useState(false)
   const [draftAmount, setDraftAmount] = useState('')
   const [draftCurrency, setDraftCurrency] = useState(currency)
-  const { saving, error, save, setError, clearError } = useInlineSave(onSave)
+  const { saving, pending, error, save, setError, clearError } = useInlineSave(onSave)
+  const shown = pending ? pending.value : { amount: amount ?? null, currency }
 
   function start() {
-    setDraftAmount(amount ?? '')
-    setDraftCurrency(currency)
+    setDraftAmount(shown.amount ?? '')
+    setDraftCurrency(shown.currency)
     clearError()
     setEditing(true)
   }
@@ -503,7 +518,8 @@ export function InlineMoney({
       return
     }
 
-    if (await save(next)) setEditing(false)
+    setEditing(false)
+    await save(next)
   }
 
   return (
@@ -560,12 +576,12 @@ export function InlineMoney({
         </div>
       ) : (
         <InlineDisplay
-          empty={amount == null}
+          empty={shown.amount == null}
           emptyLabel={appCopy.inline.add(label)}
           onClick={start}
           saving={saving}
         >
-          {amount != null ? format(amount, currency) : null}
+          {shown.amount != null ? format(shown.amount, shown.currency) : null}
         </InlineDisplay>
       )}
       <InlineError message={error} />
@@ -594,12 +610,13 @@ export function InlineName({
   const [editing, setEditing] = useState(false)
   const [draftFirst, setDraftFirst] = useState('')
   const [draftLast, setDraftLast] = useState('')
-  const { saving, error, save, setError, clearError } = useInlineSave(onSave)
-  const full = [firstName, lastName].filter(Boolean).join(' ')
+  const { saving, pending, error, save, setError, clearError } = useInlineSave(onSave)
+  const shown = pending ? pending.value : { firstName, lastName }
+  const full = [shown.firstName, shown.lastName].filter(Boolean).join(' ')
 
   function start() {
-    setDraftFirst(firstName ?? '')
-    setDraftLast(lastName ?? '')
+    setDraftFirst(shown.firstName ?? '')
+    setDraftLast(shown.lastName ?? '')
     clearError()
     setEditing(true)
   }
@@ -621,7 +638,8 @@ export function InlineName({
       return
     }
 
-    if (await save(next)) setEditing(false)
+    setEditing(false)
+    await save(next)
   }
 
   return (

@@ -1,3 +1,4 @@
+import type { QueryClient } from '@tanstack/react-query'
 import type { ComponentType } from 'react'
 
 import type { organizationsUpdateOneInput } from '@/generated/monospace'
@@ -7,6 +8,8 @@ import { selectFeatures } from '@/modules/features'
 import type { RecordHistoryQuery } from '@/modules/types'
 
 type Organization = { [Field in keyof OrganizationRow]?: OrganizationRow[Field] | null }
+
+type Prefetch<Props> = (queryClient: QueryClient, props: Props) => void
 
 export type OrganizationPanelProps = {
   organization: Organization | null | undefined
@@ -18,6 +21,7 @@ export type OrganizationPanelContribution = {
   title: string
   component: ComponentType<OrganizationPanelProps>
   historyQuery?: (props: OrganizationPanelProps) => RecordHistoryQuery
+  prefetch?: Prefetch<OrganizationPanelProps>
   detailField?: ComponentType<{
     organization: Organization
     canUpdate: (field: string) => boolean
@@ -49,12 +53,14 @@ export type ContactPanelContribution = {
   component: ComponentType<ContactPanelProps>
   summary: ComponentType<ContactPanelProps>
   historyQuery: (props: ContactPanelProps) => RecordHistoryQuery
+  prefetch?: Prefetch<ContactPanelProps>
 }
 
 export type DealSummaryContribution = {
   id: string
   title: string
   component: ComponentType<OrganizationPanelProps>
+  prefetch?: Prefetch<OrganizationPanelProps>
 }
 
 declare const __MODULE_FEATURE_PATHS__: Record<string, readonly string[]>

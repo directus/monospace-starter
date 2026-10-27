@@ -1,6 +1,6 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { Loader2, Trash2, Upload } from 'lucide-react'
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { toast } from 'sonner'
 
 import { PageHeader } from '@/components/page-header'
@@ -10,7 +10,7 @@ import { Frame, FrameHeader, FramePanel, FrameTitle } from '@/components/ui/fram
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { appCopy } from '@/lib/app.copy'
-import { deleteAsset, fetchUploadLimit, formatBytes, uploadAsset } from '@/lib/assets'
+import { deleteAsset, formatBytes, uploadAsset, uploadLimitQuery } from '@/lib/assets'
 import { SESSION_QUERY_KEY, updateCurrentUser, useCurrentUser } from '@/lib/auth'
 import type { CurrentUser } from '@/lib/auth'
 import { initials } from '@/lib/format'
@@ -26,11 +26,7 @@ export function AccountSettings() {
   const queryClient = useQueryClient()
   const [name, setName] = useState(user?.fullName ?? '')
   const picker = useRef<HTMLInputElement>(null)
-  const [limit, setLimit] = useState<number | null>(null)
-
-  useEffect(() => {
-    void fetchUploadLimit().then(setLimit)
-  }, [])
+  const limit = useQuery(uploadLimitQuery()).data ?? null
 
   // The session query is the only copy of the user, so every save writes back into it.
   const applyUser = (next: CurrentUser) => {

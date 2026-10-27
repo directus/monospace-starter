@@ -6,7 +6,7 @@ import { afterEach, describe, expect, it } from 'vitest'
 import { page } from 'vitest/browser'
 
 import { sessionQuery } from '@/lib/auth'
-import { collectionPermissions, collectionPermissionsQuery } from '@/lib/permissions'
+import { userPoliciesQuery } from '@/lib/permissions'
 import { AttachmentsPanel } from '@/modules/crm/components/files/panel'
 import { RecordActivity } from '@/modules/crm/components/record-activity'
 import { RecordTabs } from '@/modules/crm/components/record-tabs'
@@ -45,21 +45,14 @@ describe('read-only record details', () => {
       avatarId: null,
     })
 
-    for (const collection of ['activities', 'attachments']) {
-      client.setQueryData(
-        collectionPermissionsQuery(id, collection).queryKey,
-        collectionPermissions(
-          [
-            {
-              access: 'rules',
-              itemRules: { [collection]: { read: {} } },
-              fieldRules: { [collection]: { read: '*' } },
-            },
-          ],
-          collection,
-        ),
-      )
-    }
+    client.setQueryData(
+      userPoliciesQuery(id).queryKey,
+      ['activities', 'attachments'].map((collection) => ({
+        access: 'rules',
+        itemRules: { [collection]: { read: {} } },
+        fieldRules: { [collection]: { read: '*' } },
+      })),
+    )
 
     render(
       <QueryClientProvider client={client}>

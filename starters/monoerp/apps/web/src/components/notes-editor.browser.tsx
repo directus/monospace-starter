@@ -3,7 +3,7 @@ import { cleanup, render, screen } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { page, userEvent } from 'vitest/browser'
 
-import { NotesEditor } from '@/components/notes-editor'
+import { NotesEditor } from '@/components/notes-block-editor'
 
 const markdown = `# Account notes
 

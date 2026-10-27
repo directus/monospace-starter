@@ -30,14 +30,18 @@ export function pagesQuery<T>(key: QueryKey, fetchPage: (page: Page) => Promise<
   })
 }
 
+// Reads that need every row (boards, dashboards) take big pages: each page waits on the one before,
+// since Monospace returns no total to fetch them in parallel. Usually one request.
+export const ALL_PAGE_SIZE = 500
+
 // Advance by the raw page length, before callers discard rows with hidden ids.
 export async function readAllPages<T>(fetchPage: (page: Page) => Promise<Array<T>>) {
   const rows: Array<T> = []
 
-  for (let offset = 0; ; offset += PAGE_SIZE) {
-    const page = await fetchPage({ offset, limit: PAGE_SIZE })
+  for (let offset = 0; ; offset += ALL_PAGE_SIZE) {
+    const page = await fetchPage({ offset, limit: ALL_PAGE_SIZE })
     rows.push(...page)
 
-    if (page.length < PAGE_SIZE) return rows
+    if (page.length < ALL_PAGE_SIZE) return rows
   }
 }

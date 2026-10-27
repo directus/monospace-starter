@@ -8,7 +8,7 @@ import { page } from 'vitest/browser'
 
 import { activitiesCreateSchema, activitiesUpdateSchema } from '@/generated/monospace/schemas'
 import { sessionQuery } from '@/lib/auth'
-import { collectionPermissionsQuery } from '@/lib/permissions'
+import { userPoliciesQuery } from '@/lib/permissions'
 import { ActivityDetailDrawer } from '@/modules/crm/components/activity-detail'
 import { crmCopy } from '@/modules/crm/crm.copy'
 import type { ActivityRecord } from '@/modules/crm/data'
@@ -77,8 +77,8 @@ async function renderWithClient(ui: ReactNode) {
     defaultOptions: { queries: { retry: false }, mutations: { retry: false } },
   })
 
-  const user = await client.ensureQueryData(sessionQuery())
-  await client.ensureQueryData(collectionPermissionsQuery(user.id, 'activities'))
+  const user = await client.query(sessionQuery())
+  await client.query(userPoliciesQuery(user.id))
 
   return render(<QueryClientProvider client={client}>{ui}</QueryClientProvider>)
 }

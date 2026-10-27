@@ -1,11 +1,11 @@
 import { MonospaceNotFoundError } from '@monospace/sdk'
-import { useQuery } from '@tanstack/react-query'
+import { noop, useQuery, useSuspenseQuery } from '@tanstack/react-query'
 import { createFileRoute, notFound, useNavigate } from '@tanstack/react-router'
 import { Paperclip } from 'lucide-react'
 import { useState } from 'react'
 
 import { DeleteDialog } from '@/components/confirm-dialog'
-import { DataError, DataLoading, SectionBoundary } from '@/components/data-state'
+import { SectionBoundary } from '@/components/data-state'
 import { requiredText } from '@/components/form/validators'
 import {
   InlineMoney,
@@ -42,6 +42,7 @@ import { crmCopy } from '@/modules/crm/crm.copy'
 import {
   lookupContacts,
   lookupOrganizations,
+  attachmentsQuery,
   dealDetailQuery,
   pipelineStagesQuery,
 } from '@/modules/crm/data'
@@ -59,11 +60,15 @@ export const Route = createFileRoute('/_app/crm/deals_/$dealId')({
   staticData: {
     page: { title: crmCopy.deals.singular, module: 'crm', parent: '/crm/deals' },
   },
-  loader: async ({ context: { queryClient }, params }) => {
-    await Promise.all([
-      ensureOrNotFound(queryClient, dealDetailQuery(params.dealId)),
-      ensureOrNotFound(queryClient, pipelineStagesQuery()),
+  loader: async ({ context: { queryClient }, params: { dealId } }) => {
+    const [deal] = await Promise.all([
+      ensureOrNotFound(queryClient, dealDetailQuery(dealId)),
+      queryClient.query({ ...pipelineStagesQuery(), staleTime: 'static' }),
     ])
+
+    for (const summary of dealSummaries)
+      summary.prefetch?.(queryClient, { organization: deal.organizations })
+    void queryClient.query(attachmentsQuery({ dealId })).catch(noop)
   },
   component: DealDetailPage,
 })
@@ -71,7 +76,7 @@ export const Route = createFileRoute('/_app/crm/deals_/$dealId')({
 function DealDetailPage() {
   const { dealId } = Route.useParams()
   const navigate = useNavigate()
-  const dealQuery = useQuery(dealDetailQuery(dealId))
+  const dealQuery = useSuspenseQuery(dealDetailQuery(dealId))
   const access = useCollectionAccess('deals')
   const stages = useQuery(pipelineStagesQuery())
   const update = useUpdateDeal()
@@ -86,14 +91,6 @@ function DealDetailPage() {
 
   if (dealQuery.isError && dealQuery.error instanceof MonospaceNotFoundError) {
     throw notFound()
-  }
-
-  if (dealQuery.isPending) {
-    return <DataLoading rows={8} />
-  }
-
-  if (dealQuery.isError) {
-    return <DataError error={dealQuery.error} />
   }
 
   const deal = dealQuery.data

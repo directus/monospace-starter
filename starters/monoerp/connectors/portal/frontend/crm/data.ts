@@ -150,8 +150,11 @@ export function portalUserQuery(email: string | null | undefined) {
 }
 
 export function portalSummariesQuery(ids: ReadonlyArray<string | null | undefined>) {
+  // Sorted and deduplicated, so the same rows in another order (a new sort) reuse the cache.
+  const wanted = [...new Set(ids)].flatMap((id) => (id ? [id] : [])).sort()
+
   return queryOptions({
-    queryKey: ['organizations', 'portal-summaries', ids],
-    queryFn: () => portalSummaries(ids),
+    queryKey: ['organizations', 'portal-summaries', wanted],
+    queryFn: () => portalSummaries(wanted),
   })
 }

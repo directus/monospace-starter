@@ -6,6 +6,7 @@ import userEvent from '@testing-library/user-event'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 
 import { InlineMoney, InlineText } from '@/components/inline/inline-field'
+import { appCopy } from '@/lib/app.copy'
 
 afterEach(cleanup)
 
@@ -56,5 +57,53 @@ describe('InlineMoney', () => {
     fireEvent.change(input!, { target: { value: '2026-09-04' } })
 
     await waitFor(() => expect(onSave).toHaveBeenCalledWith('2026-09-04'))
+  })
+})
+
+describe('InlineText saves', () => {
+  // A write the test settles by hand, to look at the field while it's still in flight.
+  function pendingWrite() {
+    let settle = { resolve: () => {}, reject: (_error: Error) => {} }
+
+    const onSave = vi.fn(
+      () =>
+        new Promise<void>((resolve, reject) => {
+          settle = { resolve, reject }
+        }),
+    )
+
+    return { onSave, settle: () => settle }
+  }
+
+  it('closes at once and shows the new value while the write runs', async () => {
+    const user = userEvent.setup()
+    const write = pendingWrite()
+
+    render(<InlineText label="Name" value="Acme" onSave={write.onSave} />)
+
+    await user.click(screen.getByRole('button', { name: /Acme/ }))
+    await user.clear(screen.getByRole('textbox', { name: 'Name' }))
+    await user.type(screen.getByRole('textbox', { name: 'Name' }), 'Acme Labs{Enter}')
+
+    expect(screen.queryByRole('textbox', { name: 'Name' })).not.toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /Acme Labs/ })).toBeInTheDocument()
+    expect(write.onSave).toHaveBeenCalledWith('Acme Labs')
+
+    write.settle().resolve()
+  })
+
+  it('goes back to the saved value and shows why when the write fails', async () => {
+    const user = userEvent.setup()
+    const write = pendingWrite()
+
+    render(<InlineText label="Name" value="Acme" onSave={write.onSave} />)
+
+    await user.click(screen.getByRole('button', { name: /Acme/ }))
+    await user.clear(screen.getByRole('textbox', { name: 'Name' }))
+    await user.type(screen.getByRole('textbox', { name: 'Name' }), 'Acme Labs{Enter}')
+    write.settle().reject(new Error('Name is taken'))
+
+    expect(await screen.findByRole('alert')).toHaveTextContent(appCopy.form.saveFailed)
+    expect(screen.getByRole('button', { name: /^Acme$/ })).toBeInTheDocument()
   })
 })

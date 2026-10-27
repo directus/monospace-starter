@@ -12,6 +12,7 @@ import { useEffect } from 'react'
 
 import { buttonVariants } from '@/components/ui/button'
 import { appCopy } from '@/lib/app.copy'
+import { earlySessionScript } from '@/lib/auth'
 import { reportUnexpectedError } from '@/lib/errors'
 
 import appCss from '../styles.css?url'
@@ -76,6 +77,8 @@ function RootDocument({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        {/* Before the app's code loads, so the session is ready when the first route needs it. */}
+        <script dangerouslySetInnerHTML={{ __html: earlySessionScript }} />
         <HeadContent />
         <script
           dangerouslySetInnerHTML={{

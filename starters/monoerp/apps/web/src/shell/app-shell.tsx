@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { Link, useMatches, useNavigate } from '@tanstack/react-router'
+import { Link, useMatches, useNavigate, useRouter, useRouterState } from '@tanstack/react-router'
 import { House, PanelLeftClose, PanelLeftOpen, Search } from 'lucide-react'
-import { useState, type ReactNode } from 'react'
+import { useEffect, useState, type ReactNode } from 'react'
 
 import {
   Breadcrumb,
@@ -18,7 +18,7 @@ import { Toaster } from '@/components/ui/sonner'
 import { TooltipProvider } from '@/components/ui/tooltip'
 import { useIsMobile } from '@/hooks/use-mobile'
 import { appCopy } from '@/lib/app.copy'
-import { refreshSession, SESSION_QUERY_KEY, signOut } from '@/lib/auth'
+import { sessionQuery, signOut } from '@/lib/auth'
 import { cn } from '@/lib/utils'
 import { moduleById } from '@/modules'
 import { usePages } from '@/modules/pages'
@@ -29,12 +29,7 @@ export function AppShell({ children }: { children: ReactNode }) {
   const navigate = useNavigate()
   const queryClient = useQueryClient()
 
-  const session = useQuery({
-    queryKey: SESSION_QUERY_KEY,
-    queryFn: refreshSession,
-    retry: false,
-    staleTime: Number.POSITIVE_INFINITY,
-  })
+  const session = useQuery(sessionQuery())
 
   const [theme, setTheme] = useState<'light' | 'dark'>(() =>
     typeof document !== 'undefined' && document.documentElement.classList.contains('dark')
@@ -44,6 +39,8 @@ export function AppShell({ children }: { children: ReactNode }) {
 
   const [paletteOpen, setPaletteOpen] = useState(false)
   const isMobile = useIsMobile()
+
+  usePreloadModulePages()
 
   const logout = useMutation({
     mutationFn: signOut,
@@ -78,12 +75,48 @@ export function AppShell({ children }: { children: ReactNode }) {
         />
         <SidebarInset className="h-svh overflow-hidden">
           <AppHeader onOpenSearch={() => setPaletteOpen(true)} />
+          <NavigationProgress />
           <CommandPalette open={paletteOpen} onOpenChange={setPaletteOpen} />
           <Toaster position={isMobile ? 'bottom-center' : 'top-center'} />
           <PageContainer>{children}</PageContainer>
         </SidebarInset>
       </SidebarProvider>
     </TooltipProvider>
+  )
+}
+
+const PRELOAD_DELAY = 1500
+
+// Once the first page is up and the browser is idle, fetch the code for the module pages (lists,
+// dashboards, record pages) so a first visit doesn't wait on a download. Their data still loads
+// on hover or click.
+function usePreloadModulePages() {
+  const router = useRouter()
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => {
+      for (const route of Object.values(router.routesById)) {
+        if (route.options.staticData?.page?.module) void router.loadRouteChunk(route)
+      }
+    }, PRELOAD_DELAY)
+
+    return () => window.clearTimeout(timer)
+  }, [router])
+}
+
+// Loaders hold the current page until the next one has its data. A thin bar under the header shows
+// that a click registered; it fades in late, so instant (cached or preloaded) navigations don't flash.
+function NavigationProgress() {
+  const loading = useRouterState({ select: (state) => state.isLoading })
+
+  return (
+    <div className="pointer-events-none relative z-20 h-0" aria-hidden>
+      {loading ? (
+        <div className="absolute inset-x-0 top-0 h-0.5 [animation:reveal_150ms_ease-out_150ms_forwards] overflow-hidden opacity-0">
+          <div className="h-full w-1/3 bg-primary motion-safe:[animation:route-progress_1s_ease-in-out_infinite]" />
+        </div>
+      ) : null}
+    </div>
   )
 }
 

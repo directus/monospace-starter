@@ -63,15 +63,20 @@ export function collectionPermissions(
   }
 }
 
-async function fetchCollectionPermissions(userId: Uuid, apiName: string) {
-  return collectionPermissions(await readUserPolicies(userId), apiName)
+// One read per user: every collection's permissions come from the same policies, so pages that
+// check several collections share this request instead of repeating it per collection.
+export function userPoliciesQuery(userId: Uuid | undefined) {
+  return queryOptions({
+    queryKey: ['permissions', workspace, userId],
+    staleTime: 5 * 60_000,
+    queryFn: userId ? () => readUserPolicies(userId) : skipToken,
+  })
 }
 
 export function collectionPermissionsQuery(userId: Uuid | undefined, apiName: string) {
   return queryOptions({
-    queryKey: ['permissions', workspace, userId, apiName],
-    staleTime: 30_000,
-    queryFn: userId ? () => fetchCollectionPermissions(userId, apiName) : skipToken,
+    ...userPoliciesQuery(userId),
+    select: (contents) => collectionPermissions(contents, apiName),
   })
 }
 

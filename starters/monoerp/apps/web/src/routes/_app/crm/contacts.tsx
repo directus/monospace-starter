@@ -80,8 +80,9 @@ export const Route = createFileRoute('/_app/crm/contacts')({
     filter: clauseFor(search.filters),
     sort: parseSort(search.sort),
   }),
-  loader: ({ context: { queryClient }, deps }) =>
-    queryClient.ensureInfiniteQueryData(contactsPagesQuery(deps)),
+  loader: async ({ context: { queryClient }, deps }) => {
+    await queryClient.infiniteQuery({ ...contactsPagesQuery(deps), staleTime: 'static' })
+  },
   component: ContactsPage,
 })
 

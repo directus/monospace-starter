@@ -136,12 +136,12 @@ To add UI from a connector without importing it into CRM:
 | `order`                  | Display order                                                |
 | `collections`, `schemas` | Required API collections and write schemas                   |
 
-| Export from `feature.tsx` | Type / purpose                                                                                                                        |
-| ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
-| Default export            | `OrganizationPanelContribution`: ID, title, and component accepting `organization`; optional history query and editable `detailField` |
-| `organizationList`        | `OrganizationListContribution`: list filters and columns receiving `organization` and visible `organizations`                         |
-| `contactPanel`            | `ContactPanelContribution`: contact tab, summary, and history                                                                         |
-| `dealSummary`             | `DealSummaryContribution`: labelled detail property                                                                                   |
+| Export from `feature.tsx` | Type / purpose                                                                                                                                     |
+| ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Default export            | `OrganizationPanelContribution`: ID, title, and component accepting `organization`; optional history query, editable `detailField`, and `prefetch` |
+| `organizationList`        | `OrganizationListContribution`: list filters and columns receiving `organization` and visible `organizations`                                      |
+| `contactPanel`            | `ContactPanelContribution`: contact tab, summary, history, and optional prefetch                                                                   |
+| `dealSummary`             | `DealSummaryContribution`: labelled detail property and optional prefetch                                                                          |
 
 Build and test configs define `__MODULE_FEATURE_PATHS__`, a map of module IDs to selected connector paths. Each module reads only its own entry.
 

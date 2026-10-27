@@ -62,7 +62,7 @@ it('refreshes an expired session and shares the Portal panel/history read', asyn
   await expect.poll(() => screen.queryByText('Apple portal account')).not.toBeNull()
   expect(screen.getByText('Team')).toBeTruthy()
   expect(
-    await client.fetchQuery(panel.historyQuery({ organization: { portalAccountId: 'acct-0001' } })),
+    await client.query(panel.historyQuery({ organization: { portalAccountId: 'acct-0001' } })),
   ).toHaveLength(1)
   expect(requests).toEqual(['acct-0001', 'acct-0001'])
   expect(organizationLists.flatMap((list) => list.columns.map(({ id }) => id))).toEqual([

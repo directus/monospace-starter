@@ -1,11 +1,11 @@
 import { MonospaceNotFoundError } from '@monospace/sdk'
-import { useQueries, useQuery } from '@tanstack/react-query'
+import { noop, useQueries, useSuspenseQuery } from '@tanstack/react-query'
 import { createFileRoute, notFound, useNavigate } from '@tanstack/react-router'
 import { ArrowUpRight, ExternalLink, Link2, Paperclip, Plus, UserPlus } from 'lucide-react'
 import { useState } from 'react'
 
 import { DeleteDialog } from '@/components/confirm-dialog'
-import { DataError, DataLoading, SectionBoundary } from '@/components/data-state'
+import { SectionBoundary } from '@/components/data-state'
 import { optionalDomain, requiredText } from '@/components/form/validators'
 import {
   InlineSelect,
@@ -46,7 +46,7 @@ import { useAttachFiles } from '@/modules/crm/components/files/uploads'
 import { RecordActivity } from '@/modules/crm/components/record-activity'
 import { RecordTabs } from '@/modules/crm/components/record-tabs'
 import { crmCopy } from '@/modules/crm/crm.copy'
-import { organizationDetailQuery } from '@/modules/crm/data'
+import { attachmentsQuery, organizationDetailQuery } from '@/modules/crm/data'
 import {
   contactOption as toContactOption,
   organizationOption as toOrganizationOption,
@@ -60,8 +60,14 @@ export const Route = createFileRoute('/_app/crm/organizations_/$organizationId')
   staticData: {
     page: { title: crmCopy.organizations.singular, module: 'crm', parent: '/crm/organizations' },
   },
-  loader: async ({ context: { queryClient }, params }) => {
-    await ensureOrNotFound(queryClient, organizationDetailQuery(params.organizationId))
+  loader: async ({ context: { queryClient }, params: { organizationId } }) => {
+    const organization = await ensureOrNotFound(
+      queryClient,
+      organizationDetailQuery(organizationId),
+    )
+
+    for (const panel of organizationPanels) panel.prefetch?.(queryClient, { organization })
+    void queryClient.query(attachmentsQuery({ organizationId })).catch(noop)
   },
   component: OrganizationDetailPage,
 })
@@ -69,7 +75,7 @@ export const Route = createFileRoute('/_app/crm/organizations_/$organizationId')
 function OrganizationDetailPage() {
   const { organizationId } = Route.useParams()
   const navigate = useNavigate()
-  const detail = useQuery(organizationDetailQuery(organizationId))
+  const detail = useSuspenseQuery(organizationDetailQuery(organizationId))
   const access = useCollectionAccess('organizations')
   const dealAccess = useCollectionAccess('deals')
   const affiliationAccess = useCollectionAccess('affiliations')
@@ -96,14 +102,6 @@ function OrganizationDetailPage() {
 
   if (detail.isError && detail.error instanceof MonospaceNotFoundError) {
     throw notFound()
-  }
-
-  if (detail.isPending) {
-    return <DataLoading rows={8} />
-  }
-
-  if (detail.isError) {
-    return <DataError error={detail.error} />
   }
 
   const organization = detail.data

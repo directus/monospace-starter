@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query'
+import { noop, useQuery } from '@tanstack/react-query'
 
 import type { OrganizationPanelContribution, OrganizationPanelProps } from '@/modules/crm/slots'
 
@@ -25,4 +25,10 @@ export default {
   id: 'stripe-billing',
   title: billingCopy.tab,
   component: OrganizationBilling,
+  // Billing is a tab, but Stripe is slow enough that starting with the page makes the tab instant.
+  prefetch: (client, { organization }) => {
+    const portalAccountId = organization?.portalAccountId
+
+    if (portalAccountId) void client.query(billingQuery(portalAccountId)).catch(noop)
+  },
 } satisfies OrganizationPanelContribution
