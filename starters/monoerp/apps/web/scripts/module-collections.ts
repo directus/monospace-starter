@@ -38,8 +38,6 @@ const featureConfig = z.object({
 
 const manifestConfigs = z.array(
   z.discriminatedUnion('kind', [
-    z.object({ kind: z.literal('starter'), id: z.string() }),
-    z.object({ kind: z.literal('workshop'), id: z.string() }),
     z.object({
       kind: z.literal('module'),
       id: z.string(),
@@ -59,7 +57,13 @@ const manifestConfigs = z.array(
 )
 
 function readManifests(root: URL) {
-  return manifestConfigs.parse(manifestReader.readManifests(root))
+  return manifestConfigs.parse(
+    manifestReader
+      .readManifests(root)
+      .filter(
+        (manifest: { kind: string }) => manifest.kind === 'module' || manifest.kind === 'connector',
+      ),
+  )
 }
 
 function selectedConnectorIds(root: URL, override: string | undefined) {

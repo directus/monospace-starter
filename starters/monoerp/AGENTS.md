@@ -29,7 +29,7 @@ pnpm setup:all            # never `pnpm setup`: that's pnpm's own command and ed
 pnpm dev                  # http://localhost:3000, admin@example.com / monospace
 ```
 
-After install, check `docker compose ps` before starting services: someone else may already be using the stack. To run your own copy alongside it, change every `*_PORT` in `.env` and add `COMPOSE_PROJECT_NAME=<something unique>` to `.env` before any `docker compose` command (in `.env`, not exported, so `pnpm setup:all` uses it too).
+After install, check `docker compose ps` before starting services: someone else may already be using this copy. Compose uses the folder name for its containers and volumes. To run another copy alongside it, use a different folder name and change every `*_PORT` in its `.env`.
 
 ## Check your work
 

@@ -7,16 +7,11 @@ export const repository = new URL('../', import.meta.url)
 export function manifestPath(manifest) {
   if (manifest.kind === 'starter') return 'starter.json'
 
-  if (manifest.kind === 'workshop') return 'tooling/workshop/workshop.json'
-
   return `${manifest.kind === 'module' ? 'modules' : 'connectors'}/${manifest.id}/${manifest.kind}.json`
 }
 
 export function readManifests(root = repository) {
   const paths = existsSync(new URL('starter.json', root)) ? ['starter.json'] : []
-  const workshop = 'tooling/workshop/workshop.json'
-
-  if (existsSync(new URL(workshop, root))) paths.push(workshop)
 
   for (const [base, kind] of [
     ['modules', 'module'],

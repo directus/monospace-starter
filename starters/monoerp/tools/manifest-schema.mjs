@@ -138,13 +138,6 @@ export const manifestSchema = z
     }),
     z.strictObject({
       ...common,
-      kind: z.literal('workshop'),
-      id: z.literal('workshop'),
-      format: z.literal('urn:monospace:manifest:workshop:1'),
-      'x-monoerp': z.strictObject(runtimeCommon),
-    }),
-    z.strictObject({
-      ...common,
       kind: z.literal('module'),
       format: z.literal('urn:monospace:manifest:module:1'),
       'x-monoerp': moduleRuntime,

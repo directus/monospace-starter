@@ -1,5 +1,3 @@
-name: monoerp
-
 include:
   - compose.app.yml
 

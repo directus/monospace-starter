@@ -67,7 +67,7 @@ New here? [The getting started guide](docs/getting-started.md) shows you around 
 - The first `docker compose up` loads the demo data, which takes a minute or two. The `keygen` container generates Monospace's keys and exits; that's expected. `pnpm setup:all` waits for Monospace.
 - The first time you open Studio, it asks you to accept its terms and then to create a workspace, even though `crm` already exists. Open Studio in a new tab to skip that.
 - monoERP runs its own Monospace. If another app uses port 8100, choose different ports as described below.
-- **Ports** are in `.env`, and everything follows them, including `pnpm dev`. To run a second copy next to the first, change all the ports and set its own Docker project name with `COMPOSE_PROJECT_NAME=monoerp-2` in its `.env`, or the two share containers and data. Put it in `.env` rather than exporting it, so every terminal (and `pnpm setup:all`) uses it.
+- **Ports** are in `.env`, and everything follows them, including `pnpm dev`. To run a second copy next to the first, use a different folder name and change all its ports. Compose uses each folder name to separate containers and volumes.
 - **License key:** optional. Without one, Monospace runs on its free tier, and the CRM quickstart works without skipped features. The free tier allows 1 workspace and 3 users, with no custom roles, service accounts, or SSO, and it sends usage telemetry. To use a key, set `MONOSPACE_LICENSE__KEY` in `.env`. Without one, leave that line commented out: Monospace refuses to start with an empty key.
 
 </details>
