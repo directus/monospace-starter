@@ -10,12 +10,12 @@ import { page } from 'vitest/browser'
 import { interactionsCreateSchema, interactionsUpdateSchema } from '@/generated/monospace/schemas'
 import { ActivityDetailDrawer } from '@/modules/crm/components/activity-detail'
 import { crmCopy } from '@/modules/crm/crm.copy'
-import type { InteractionRow } from '@/modules/crm/data'
+import type { ActivityRecord } from '@/modules/crm/data'
 import { signedIn, worker } from '@/test/msw'
 
 const copy = crmCopy.activity.sheet
 
-const row: InteractionRow = {
+const row: ActivityRecord = {
   id: '00000000-0000-4000-8000-000000000001',
   subject: 'Review the renewal',
   type: 'call',
@@ -42,6 +42,10 @@ function serve() {
 
   worker.use(
     ...signedIn,
+    http.get('/api/crm/system/user-role', () => HttpResponse.json({ data: [{ roleId: 'role' }] })),
+    http.get('/api/crm/roles/:id/policies', () =>
+      HttpResponse.json({ data: [{ content: { access: 'admin' } }] }),
+    ),
     http.patch('/api/crm/items/interactions/:id', async ({ params, request }) => {
       const id = String(params.id)
       writes.push({

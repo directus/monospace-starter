@@ -1,7 +1,7 @@
-import { useState } from 'react'
+import { contactStatusOptions } from '@/modules/crm/entities'
 import type { ReactElement } from 'react'
 
-import { useAppForm } from '@/components/form/app-form'
+import { useAppForm, submitForm } from '@/components/form/app-form'
 import {
   DrawerForm,
   DrawerFormBody,
@@ -13,17 +13,11 @@ import type { RelationOption } from '@/components/form/relation-combobox'
 import { optionalPhone, requiredEmail, requiredText } from '@/components/form/validators'
 import { appCopy } from '@/lib/app.copy'
 import { todayInput } from '@/lib/dates'
-import { errorMessage } from '@/lib/errors'
 import { crmCopy } from '@/modules/crm/crm.copy'
 import { lookupOrganizations } from '@/modules/crm/data'
 import { useCreateContact } from '@/modules/crm/mutations'
 
 const copy = crmCopy.contacts
-
-const statusOptions = [
-  { value: 'active', label: copy.statuses.active },
-  { value: 'former', label: copy.statuses.former },
-]
 
 export type ContactInitial = { firstName?: string; lastName?: string; email?: string }
 
@@ -69,7 +63,7 @@ type ContactValues = {
   title: string
 }
 
-export function ContactForm({
+function ContactForm({
   defaultOrganization,
   initial,
   onCancel,
@@ -81,7 +75,6 @@ export function ContactForm({
   onSuccess?: () => void
 }) {
   const create = useCreateContact()
-  const [submitError, setSubmitError] = useState<string>()
 
   const defaultValues: ContactValues = {
     firstName: initial?.firstName ?? '',
@@ -95,18 +88,16 @@ export function ContactForm({
 
   const form = useAppForm({
     defaultValues,
-    onSubmit: async ({ value }) => {
-      setSubmitError(undefined)
+    onSubmit: ({ value, formApi }) =>
+      submitForm(formApi, async () => {
+        const base = {
+          firstName: value.firstName.trim(),
+          lastName: value.lastName.trim(),
+          email: value.email.trim(),
+          phone: value.phone.trim() || null,
+          status: value.status,
+        }
 
-      const base = {
-        firstName: value.firstName.trim(),
-        lastName: value.lastName.trim(),
-        email: value.email.trim(),
-        phone: value.phone.trim() || null,
-        status: value.status,
-      }
-
-      try {
         await create.mutateAsync({
           ...base,
           contact_organizations: value.organization
@@ -129,10 +120,7 @@ export function ContactForm({
             : undefined,
         })
         onSuccess?.()
-      } catch (error) {
-        setSubmitError(errorMessage(error))
-      }
-    },
+      }),
   })
 
   return (
@@ -177,7 +165,9 @@ export function ContactForm({
             )}
           </form.AppField>
           <form.AppField name="status">
-            {(field) => <field.SelectField label={copy.form.status} options={statusOptions} />}
+            {(field) => (
+              <field.SelectField label={copy.form.status} options={contactStatusOptions} />
+            )}
           </form.AppField>
           <form.AppField name="organization">
             {(field) => (
@@ -197,7 +187,14 @@ export function ContactForm({
         </div>
       </DrawerFormBody>
 
-      <DrawerFormFooter error={submitError} onCancel={onCancel}>
+      <DrawerFormFooter
+        error={
+          <form.AppForm>
+            <form.FormError />
+          </form.AppForm>
+        }
+        onCancel={onCancel}
+      >
         <form.AppForm>
           <form.SubmitButton
             label={appCopy.form.create(copy.singular)}

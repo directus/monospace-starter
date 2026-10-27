@@ -1,31 +1,24 @@
 import { format } from 'date-fns'
 import { z } from 'zod'
 
-import { resolveFilterDate } from '@/components/reui/filters/filters-date'
-import type {
-  FilterField,
-  FilterNode,
-  FilterOption,
-  FilterQuery,
-  FilterRule,
-} from '@/components/reui/filters/filters-types'
+import { resolveFilterDate } from '@/components/filters/date'
+import type { FilterField, FilterOption, FilterQuery, FilterRule } from '@/components/filters/types'
 import { RelationOptionVisual } from '@/components/form/relation-combobox'
 import type { RelationOption } from '@/components/form/relation-combobox'
-import { createFilterQuery } from '@/components/reui/filters/filters'
-import {
-  getFilterOperator,
-  resolveFilterOperators,
-} from '@/components/reui/filters/filters-operators'
+import { createFilterQuery } from '@/components/filters/filters'
+import { getFilterOperator, resolveFilterOperators } from '@/components/filters/operators'
 import type { Uuid } from '@/generated/monospace'
 import { isUuid } from '@/lib/uuid'
 
-// List filters are a FilterQuery tree (components/reui/filters), kept in the URL with readable
+// List filters are flat AND rules, kept in the URL with readable
 // operator names, and turned into Monospace filter clauses here. A page declares its fields with
 // `ListFilterField`, which adds where each one lives in Monospace on top of the field config.
 
 // A Monospace filter clause: field paths nesting down to one operator (`{ status: { _eq: 'x' } }`),
 // or `_and` / `_or` lists of clauses.
 type ClauseValue = string | boolean | Array<string | boolean> | FilterClause | Array<FilterClause>
+
+export const EMPTY_FILTERS = createFilterQuery<FilterValue>([])
 
 export type FilterClause = { [key: string]: ClauseValue }
 
@@ -34,11 +27,9 @@ export type ListFilterField = FilterField<FilterValue> & {
   path?: string
   // Escape hatch for clauses that don't fit a single path (e.g. `_some` on a relation).
   toClause?: (clause: FilterClause) => FilterClause
-  // How to serialise values: `date` fields carry reUI date tokens, `number` fields numbers.
+  // How to serialise values: `date` fields carry date tokens, `number` fields numbers.
   kind?: 'text' | 'number' | 'date' | 'option' | 'boolean'
 }
-
-/* ------------------------------ URL shape ------------------------------ */
 
 // A date rule's value: an absolute day or a relative token, optionally with a time.
 export const filterDateValue = z.object({
@@ -49,7 +40,7 @@ export const filterDateValue = z.object({
   time: z.string().optional(),
 })
 
-// What reUI's editors write into a rule: text, a number, yes/no, a date, or a list of those (option
+// What filter editors write into a rule: text, a number, yes/no, a date, or a list of those (option
 // ids, a range). A range end left blank is undefined in memory and null once it's been through JSON.
 const filterScalar = z.union([
   z.string(),
@@ -81,16 +72,8 @@ const ruleSchema = z
   // reUI's rules always carry a `value` key, even when it's empty.
   .transform((rule) => ({ ...rule, value: rule.value }))
 
-export const filterQuerySchema = z.object({
-  id: z.string(),
-  type: z.literal('group'),
-  combinator: z.enum(['and', 'or']),
-  get rules() {
-    return z.array(z.union([ruleSchema, filterQuerySchema]))
-  },
-})
-
-/* --------------------------- Monospace clauses --------------------------- */
+// Reject old group/combinator URLs instead of silently changing their meaning.
+export const filterQuerySchema = z.strictObject({ rules: z.array(ruleSchema) })
 
 function nest(path: string, leaf: FilterClause) {
   return path
@@ -159,29 +142,18 @@ function ruleClause(fields: ReadonlyArray<ListFilterField>, rule: FilterRule<Fil
   return rule.negated ? { _not: scoped } : scoped
 }
 
-function nodeClause(
-  fields: ReadonlyArray<ListFilterField>,
-  node: FilterNode<FilterValue>,
-): FilterClause | null {
-  if (node.type === 'rule') return ruleClause(fields, node)
-
-  const clauses = node.rules.flatMap((child) => {
-    const clause = nodeClause(fields, child)
-
-    return clause ? [clause] : []
-  })
-
-  if (!clauses.length) return null
-
-  return node.combinator === 'or' ? { _or: clauses } : { _and: clauses }
-}
-
-// The whole query as one Monospace clause, or undefined when nothing applies.
+// Incomplete and unknown rules do not restrict the list.
 export function filtersToClause(
   fields: ReadonlyArray<ListFilterField>,
   query: ListFilterQuery | undefined,
 ) {
-  return query ? (nodeClause(fields, query) ?? undefined) : undefined
+  const clauses = query?.rules.flatMap((rule) => {
+    const clause = ruleClause(fields, rule)
+
+    return clause ? [clause] : []
+  })
+
+  return clauses?.length ? { _and: clauses } : undefined
 }
 
 // Whether the query holds a complete rule for a field (e.g. to drop a redundant column).
@@ -192,12 +164,7 @@ export function hasRuleFor(
 ) {
   if (!query) return false
 
-  const walk = (node: FilterNode<FilterValue>): boolean =>
-    node.type === 'rule'
-      ? node.path[0] === id && ruleClause(fields, node) !== null
-      : node.rules.some(walk)
-
-  return walk(query)
+  return query.rules.some((rule) => rule.path[0] === id && ruleClause(fields, rule) !== null)
 }
 
 // Replace (or add) the single rule for a field, e.g. "owner is any of [me]" from a shortcut.
@@ -219,15 +186,13 @@ export function withRule(
   }
 }
 
-/* ------------------------------ Field helpers ------------------------------ */
-
-export function toFilterOption(option: RelationOption): FilterOption {
+function toFilterOption(option: RelationOption): FilterOption {
   return {
     value: option.value,
     label: option.label,
     description: option.description,
     icon:
-      option.image || option.avatar || option.visual || option.color ? (
+      option.image || option.avatar || option.variant || option.color ? (
         <RelationOptionVisual option={option} />
       ) : undefined,
   }
@@ -253,3 +218,5 @@ export function relationField({
     ...field,
   }
 }
+
+export { createFilterQuery, isFilterQueryEmpty } from '@/components/filters/query'

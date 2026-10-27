@@ -302,19 +302,4 @@ SELECT
   timestamptz '2026-08-21 12:00:00+00' - i * interval '5 hours'
 FROM generate_series(1, 300) AS series(i);
 
-INSERT INTO saved_views (
-  id,
-  name,
-  target_resource,
-  filters,
-  sorting,
-  visible_columns,
-  visibility,
-  created_at,
-  updated_at
-) VALUES
-  (pg_temp.fixture_uuid(10, 1), 'Active organizations', 'organizations', '{"status":{"_eq":"active"}}', '[{"field":"name","direction":"asc"}]', '["name","status","industry","owner_user_id"]', 'workspace', timestamptz '2026-08-01 09:00:00+00', timestamptz '2026-08-01 09:00:00+00'),
-  (pg_temp.fixture_uuid(10, 2), 'Active contacts', 'contacts', '{"status":{"_eq":"active"}}', '[{"field":"last_name","direction":"asc"}]', '["first_name","last_name","email","status"]', 'workspace', timestamptz '2026-08-01 09:00:00+00', timestamptz '2026-08-01 09:00:00+00'),
-  (pg_temp.fixture_uuid(10, 3), 'Open opportunities', 'opportunities', '{"status":{"_eq":"open"}}', '[{"field":"expected_close_date","direction":"asc"}]', '["title","organization_id","stage_id","value_amount","expected_close_date"]', 'workspace', timestamptz '2026-08-01 09:00:00+00', timestamptz '2026-08-01 09:00:00+00');
-
 COMMIT;

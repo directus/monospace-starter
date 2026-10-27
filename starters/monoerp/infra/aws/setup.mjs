@@ -2,7 +2,7 @@
 // Monospace workspace, like `docker compose up` plus `pnpm setup:all` locally. Safe to rerun, so
 // it's also how a stage picks up new migrations and schema changes.
 //
-//   pnpm aws:setup --stage staging
+//   pnpm aws setup --stage staging
 import { runTask, stackOutputs, stage } from './lib.mjs'
 
 const outputs = stackOutputs()

@@ -1324,18 +1324,6 @@ const definitions = {
         "type": "array",
         "items": {}
       },
-      "savedViewsCreatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "savedViewsOwner": {
-        "type": "array",
-        "items": {}
-      },
-      "savedViewsUpdatedBy": {
-        "type": "array",
-        "items": {}
-      },
       "serviceOwnerId": {
         "oneOf": [
           {
@@ -2672,18 +2660,6 @@ const definitions = {
         "type": "array",
         "items": {}
       },
-      "savedViewsCreatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "savedViewsOwner": {
-        "type": "array",
-        "items": {}
-      },
-      "savedViewsUpdatedBy": {
-        "type": "array",
-        "items": {}
-      },
       "serviceOwnerId": {
         "oneOf": [
           {
@@ -3474,18 +3450,6 @@ const definitions = {
         "type": "array",
         "items": {}
       },
-      "savedViewsCreatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "savedViewsOwner": {
-        "type": "array",
-        "items": {}
-      },
-      "savedViewsUpdatedBy": {
-        "type": "array",
-        "items": {}
-      },
       "serviceOwnerId": {
         "oneOf": [
           {
@@ -4001,18 +3965,6 @@ const definitions = {
         "items": {}
       },
       "roles": {
-        "type": "array",
-        "items": {}
-      },
-      "savedViewsCreatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "savedViewsOwner": {
-        "type": "array",
-        "items": {}
-      },
-      "savedViewsUpdatedBy": {
         "type": "array",
         "items": {}
       },
@@ -4900,18 +4852,6 @@ const definitions = {
         "type": "array",
         "items": {}
       },
-      "savedViewsCreatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "savedViewsOwner": {
-        "type": "array",
-        "items": {}
-      },
-      "savedViewsUpdatedBy": {
-        "type": "array",
-        "items": {}
-      },
       "serviceOwnerId": {
         "oneOf": [
           {
@@ -5375,18 +5315,6 @@ const definitions = {
         "items": {}
       },
       "roles": {
-        "type": "array",
-        "items": {}
-      },
-      "savedViewsCreatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "savedViewsOwner": {
-        "type": "array",
-        "items": {}
-      },
-      "savedViewsUpdatedBy": {
         "type": "array",
         "items": {}
       },
@@ -7009,18 +6937,6 @@ const definitions = {
         "type": "array",
         "items": {}
       },
-      "savedViewsCreatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "savedViewsOwner": {
-        "type": "array",
-        "items": {}
-      },
-      "savedViewsUpdatedBy": {
-        "type": "array",
-        "items": {}
-      },
       "serviceOwnerId": {
         "oneOf": [
           {
@@ -7968,18 +7884,6 @@ const definitions = {
         "type": "array",
         "items": {}
       },
-      "savedViewsCreatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "savedViewsOwner": {
-        "type": "array",
-        "items": {}
-      },
-      "savedViewsUpdatedBy": {
-        "type": "array",
-        "items": {}
-      },
       "serviceOwnerId": {
         "oneOf": [
           {
@@ -8358,18 +8262,6 @@ const definitions = {
         "items": {}
       },
       "roles": {
-        "type": "array",
-        "items": {}
-      },
-      "savedViewsCreatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "savedViewsOwner": {
-        "type": "array",
-        "items": {}
-      },
-      "savedViewsUpdatedBy": {
         "type": "array",
         "items": {}
       },
@@ -8910,18 +8802,6 @@ const definitions = {
         "items": {}
       },
       "roles": {
-        "type": "array",
-        "items": {}
-      },
-      "savedViewsCreatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "savedViewsOwner": {
-        "type": "array",
-        "items": {}
-      },
-      "savedViewsUpdatedBy": {
         "type": "array",
         "items": {}
       },
@@ -9855,18 +9735,6 @@ const definitions = {
         "type": "array",
         "items": {}
       },
-      "savedViewsCreatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "savedViewsOwner": {
-        "type": "array",
-        "items": {}
-      },
-      "savedViewsUpdatedBy": {
-        "type": "array",
-        "items": {}
-      },
       "serviceOwnerId": {
         "oneOf": [
           {
@@ -10334,18 +10202,6 @@ const definitions = {
         "items": {}
       },
       "roles": {
-        "type": "array",
-        "items": {}
-      },
-      "savedViewsCreatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "savedViewsOwner": {
-        "type": "array",
-        "items": {}
-      },
-      "savedViewsUpdatedBy": {
         "type": "array",
         "items": {}
       },
@@ -10860,18 +10716,6 @@ const definitions = {
         "items": {}
       },
       "roles": {
-        "type": "array",
-        "items": {}
-      },
-      "savedViewsCreatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "savedViewsOwner": {
-        "type": "array",
-        "items": {}
-      },
-      "savedViewsUpdatedBy": {
         "type": "array",
         "items": {}
       },
@@ -11750,18 +11594,6 @@ const definitions = {
         "type": "array",
         "items": {}
       },
-      "savedViewsCreatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "savedViewsOwner": {
-        "type": "array",
-        "items": {}
-      },
-      "savedViewsUpdatedBy": {
-        "type": "array",
-        "items": {}
-      },
       "serviceOwnerId": {
         "oneOf": [
           {
@@ -12203,18 +12035,6 @@ const definitions = {
         "items": {}
       },
       "roles": {
-        "type": "array",
-        "items": {}
-      },
-      "savedViewsCreatedBy": {
-        "type": "array",
-        "items": {}
-      },
-      "savedViewsOwner": {
-        "type": "array",
-        "items": {}
-      },
-      "savedViewsUpdatedBy": {
         "type": "array",
         "items": {}
       },

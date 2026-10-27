@@ -1,3 +1,4 @@
+import { useCollectionAccess } from '@/lib/permissions'
 import { CalendarDays, Check, Clock2, Loader2, Plus } from 'lucide-react'
 import { useCallback, useId, useRef, useState } from 'react'
 import type { KeyboardEvent, MouseEvent } from 'react'
@@ -23,7 +24,6 @@ import { atNine, fromDateTimeInput, laterToday, nextWeek, now, toDateTimeInput }
 import { formatDue } from '@/lib/format'
 import { cn } from '@/lib/utils'
 import { filterRelationOptions } from '@/modules/crm/activity'
-import type { UpcomingBucket } from '@/modules/crm/activity'
 import { activityTypes } from '@/modules/crm/components/activity-form'
 import type { ActivityDefaults, ActivityType } from '@/modules/crm/components/activity-form'
 import { crmCopy } from '@/modules/crm/crm.copy'
@@ -31,14 +31,6 @@ import { lookupOrganizations } from '@/modules/crm/data'
 import { useCreateActivity } from '@/modules/crm/mutations'
 
 const copy = crmCopy.activity.upcoming
-
-export const bucketLabels: Record<UpcomingBucket, string> = {
-  overdue: copy.overdue,
-  today: copy.today,
-  week: copy.week,
-  later: copy.later,
-  noDate: copy.noDate,
-}
 
 export function DueChip({
   value,
@@ -178,6 +170,7 @@ function QuickDate({
 }
 
 export function Composer({ defaults }: { defaults: ActivityDefaults }) {
+  const access = useCollectionAccess('interactions')
   const create = useCreateActivity()
   const currentUser = useCurrentUser()
   const rootRef = useRef<HTMLDivElement>(null)
@@ -244,6 +237,8 @@ export function Composer({ defaults }: { defaults: ActivityDefaults }) {
 
     rootRef.current?.querySelector('input')?.focus()
   }
+
+  if (!access.create) return null
 
   return (
     <div

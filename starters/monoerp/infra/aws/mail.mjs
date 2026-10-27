@@ -1,7 +1,7 @@
 // Opens the stage's Mailpit inbox at http://localhost:8025 through an SSM tunnel, so it never
 // needs a public address. Stays open until Ctrl+C. Needs AWS's Session Manager plugin.
 //
-//   pnpm aws:mail --stage staging
+//   pnpm aws mail --stage staging
 import { execFileSync, spawn } from 'node:child_process'
 import { awsJson, region, stackOutputs, stage } from './lib.mjs'
 

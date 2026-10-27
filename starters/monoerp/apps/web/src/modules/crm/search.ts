@@ -1,14 +1,10 @@
 import { linkOptions } from '@tanstack/react-router'
 
 import { monospace } from '@/lib/monospace'
-import {
-  contactSearchFilter,
-  opportunitySearchFilter,
-  organizationSearchFilter,
-} from '@/modules/crm/data'
+import { contactSearchFilter, dealSearchFilter, organizationSearchFilter } from '@/modules/crm/data'
 import type { ModuleSearch, SearchGroup, SearchHit } from '@/modules/types'
 import { crmCopy } from '@/modules/crm/crm.copy'
-import { organizationLogo } from '@/modules/crm/entity-options'
+import { organizationLogo, contactName, organizationName } from '@/modules/crm/entities'
 import { ContactIcon, DealIcon, OrganizationIcon } from '@/modules/crm/icons'
 
 const LIMIT = 5
@@ -26,10 +22,10 @@ async function searchOrganizations(q: string): Promise<SearchHit[]> {
       ? [
           {
             id: row.id,
-            title: row.name ?? crmCopy.organizations.restricted,
+            title: organizationName(row),
             subtitle: row.industry ?? undefined,
             image: organizationLogo(row.domain),
-            visual: 'organization' as const,
+            variant: 'square' as const,
             link: linkOptions({
               to: '/crm/organizations/$organizationId',
               params: { organizationId: row.id },
@@ -53,11 +49,9 @@ async function searchContacts(q: string): Promise<SearchHit[]> {
       ? [
           {
             id: row.id,
-            title:
-              [row.firstName, row.lastName].filter(Boolean).join(' ') ||
-              `${crmCopy.contacts.restrictedName.first} ${crmCopy.contacts.restrictedName.last}`,
+            title: contactName(row),
             subtitle: row.email ?? undefined,
-            visual: 'contact' as const,
+            variant: 'circle' as const,
             link: linkOptions({ to: '/crm/contacts/$contactId', params: { contactId: row.id } }),
           },
         ]
@@ -65,11 +59,11 @@ async function searchContacts(q: string): Promise<SearchHit[]> {
   )
 }
 
-async function searchOpportunities(q: string): Promise<SearchHit[]> {
+async function searchDeals(q: string): Promise<SearchHit[]> {
   const rows = await monospace.opportunities.readMany({
     fields: ['id', 'title'],
     include: { organizations: { fields: ['name'] } },
-    filter: opportunitySearchFilter(q),
+    filter: dealSearchFilter(q),
     sort: [{ updatedAt: { direction: 'desc' } }],
     limit: LIMIT,
   })
@@ -91,7 +85,7 @@ async function searchOpportunities(q: string): Promise<SearchHit[]> {
 const searchers = [
   { scopeId: 'contacts', search: searchContacts },
   { scopeId: 'organizations', search: searchOrganizations },
-  { scopeId: 'opportunities', search: searchOpportunities },
+  { scopeId: 'deals', search: searchDeals },
 ] as const
 
 export const crmSearch: ModuleSearch = {
@@ -109,7 +103,7 @@ export const crmSearch: ModuleSearch = {
       list: (q) => linkOptions({ to: '/crm/organizations', search: { q } }),
     },
     {
-      id: 'opportunities',
+      id: 'deals',
       label: crmCopy.deals.title,
       icon: DealIcon,
       list: (q) => linkOptions({ to: '/crm/deals', search: { q } }),

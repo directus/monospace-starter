@@ -40,7 +40,7 @@ export function CurrentPlan({
         <span
           className={
             renewal.tone === 'warn'
-              ? 'block text-xs text-amber-700 dark:text-amber-400'
+              ? 'block text-xs text-warning'
               : 'block text-xs text-muted-foreground'
           }
         >

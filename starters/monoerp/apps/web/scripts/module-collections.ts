@@ -1,9 +1,8 @@
 import { existsSync } from 'node:fs'
 import { loadEnvFile } from 'node:process'
 
-import { z } from 'zod'
-
-const manifestReader = await import(new URL('../../../infra/manifests.mjs', import.meta.url).href)
+import * as manifestReader from '../../../infra/manifests.mjs'
+import type { Collections } from '../../../infra/manifests.mjs'
 
 const repository = new URL('../../../', import.meta.url)
 
@@ -13,63 +12,9 @@ try {
   if (!(error instanceof Error && 'code' in error && error.code === 'ENOENT')) throw error
 }
 
-const collectionConfig = z
-  .object({ order: z.number(), collections: z.array(z.string()), schemas: z.array(z.string()) })
-  .superRefine((config, context) => {
-    const missing = config.schemas.filter((name) => !config.collections.includes(name))
-
-    if (missing.length)
-      context.addIssue({
-        code: 'custom',
-        message: `schemas missing from collections: ${missing.join(', ')}`,
-      })
-  })
-
-const featureConfig = z.object({
-  module: z.string(),
-  slot: z.string(),
-  connector: z.string(),
-  path: z.string(),
-  requires: z.array(z.string()),
-  order: z.number(),
-  collections: z.array(z.string()),
-  schemas: z.array(z.string()),
-})
-
-const manifestConfigs = z.array(
-  z.discriminatedUnion('kind', [
-    z.object({
-      kind: z.literal('module'),
-      id: z.string(),
-      app: z.string(),
-      requires: z.array(z.string()),
-      optional: z.array(z.string()),
-      order: z.number(),
-      collections: z.array(z.string()),
-      schemas: z.array(z.string()),
-    }),
-    z.object({
-      kind: z.literal('connector'),
-      id: z.string(),
-      frontend: z.array(featureConfig.omit({ connector: true })).optional(),
-    }),
-  ]),
-)
-
-function readManifests(root: URL) {
-  return manifestConfigs.parse(
-    manifestReader
-      .readManifests(root)
-      .filter(
-        (manifest: { kind: string }) => manifest.kind === 'module' || manifest.kind === 'connector',
-      ),
-  )
-}
-
 function selectedConnectorIds(root: URL, override: string | undefined) {
-  return z
-    .array(z.object({ id: z.string() }))
-    .parse(manifestReader.selectConnectors(readManifests(root), override))
+  return manifestReader
+    .selectConnectors(manifestReader.readManifests(root), override)
     .map(({ id }) => id)
 }
 
@@ -77,7 +22,7 @@ export function readFrontendFeatures(
   root = repository,
   selected = selectedConnectorIds(root, process.env.OPTIONAL_SOURCES),
 ) {
-  const manifests = readManifests(root)
+  const manifests = manifestReader.readManifests(root)
 
   const installed = new Set(
     manifests.flatMap((manifest) =>
@@ -94,9 +39,7 @@ export function readFrontendFeatures(
   const features = manifests
     .flatMap((manifest) =>
       manifest.kind === 'connector'
-        ? (manifest.frontend ?? []).map((feature) =>
-            featureConfig.parse({ ...feature, connector: manifest.id }),
-          )
+        ? (manifest.frontend ?? []).map((feature) => ({ ...feature, connector: manifest.id }))
         : [],
     )
     .sort((left, right) => left.order - right.order)
@@ -141,15 +84,11 @@ export function readModuleCollections(
   root = repository,
   selected = selectedConnectorIds(root, process.env.OPTIONAL_SOURCES),
 ) {
-  const configs = readManifests(root).flatMap((manifest) =>
-    manifest.kind === 'module' ? [collectionConfig.parse(manifest)] : [],
-  )
+  const configs: Collections[] = manifestReader
+    .readManifests(root)
+    .flatMap((manifest) => (manifest.kind === 'module' ? [manifest] : []))
 
-  configs.push(
-    ...readFrontendFeatures(root, selected).active.map((feature) =>
-      collectionConfig.parse(feature),
-    ),
-  )
+  configs.push(...readFrontendFeatures(root, selected).active)
   configs.sort((left, right) => left.order - right.order)
 
   return {
@@ -162,10 +101,16 @@ export const { appCollections, schemaCollections } = readModuleCollections()
 
 export const frontendFeatures = readFrontendFeatures()
 
-export function readOrganizationPanelPaths(features = frontendFeatures.active) {
-  return features.flatMap((feature) =>
-    feature.module === 'crm' && feature.slot === 'organization-panel' ? [feature.path] : [],
-  )
+export function readModuleFeaturePaths(features = frontendFeatures.active) {
+  const paths: Record<string, string[]> = {}
+
+  for (const feature of features) {
+    const selected = (paths[feature.module] ??= [])
+
+    if (!selected.includes(feature.path)) selected.push(feature.path)
+  }
+
+  return paths
 }
 
-export const organizationPanelPaths = readOrganizationPanelPaths()
+export const moduleFeaturePaths = readModuleFeaturePaths()

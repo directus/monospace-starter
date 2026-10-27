@@ -4,7 +4,7 @@ How to check your work, where tests go, and what the lint rules want from you.
 
 ## The checks
 
-Run `pnpm verify` before calling a change done. CI runs that same command: module or connector checks, formatting/lint, typecheck, unit tests, and production build. Browser tests and AWS typechecks are additional checks for those areas.
+Run `pnpm verify` before calling a change done. CI runs that same command: module or connector checks, formatting/lint, typecheck, unit tests, and production build. Browser tests are an additional check for component changes.
 
 | Command                                   | What it runs                                                                                                                                |
 | ----------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -12,10 +12,9 @@ Run `pnpm verify` before calling a change done. CI runs that same command: modul
 | `pnpm verify`                             | `pnpm check && pnpm typecheck && pnpm test && pnpm build`                                                                                   |
 | `pnpm build`                              | Production app build                                                                                                                        |
 | `pnpm check`                              | Module and connector validation, then `vp check`: Oxfmt formatting, then Oxlint with type-aware rules and the extra rules in `tools/oxlint` |
-| `pnpm typecheck`                          | `tsc --noEmit` for `apps/web`                                                                                                               |
+| `pnpm typecheck`                          | Every installed workspace package with a `typecheck` script                                                                                 |
 | `pnpm test`                               | Vitest unit tests (`*.test.ts`, `*.test.tsx`)                                                                                               |
 | `pnpm --filter @monoerp/web test:browser` | Vitest browser tests (`*.browser.tsx`) in headless Chromium                                                                                 |
-| `pnpm --filter @monoerp/infra typecheck`  | TypeScript for `infra/aws`                                                                                                                  |
 | `pnpm format`                             | Fixes formatting. `pnpm check` only reports it                                                                                              |
 
 Lint and format settings live in the root `vite.config.ts`. Generated files (`apps/web/src/generated`, `routeTree.gen.ts`) and the Stripe connector's source (`connectors/stripe/extension/src`, which keeps the structure of Monospace's example connector) are skipped by the linter.
@@ -83,31 +82,7 @@ Parse request bodies with the generated Zod schemas (`@/generated/monospace/sche
 
 Module mocking (`vi.mock`, `vi.doMock`, `jest.mock`) fails lint. Fake the network with MSW, or pass the dependency in. In unit tests, `vi.stubGlobal` and `vi.spyOn` are fine for globals like `fetch` (see `apps/web/src/modules/crm/monospace.test.ts`).
 
-## Lint rules you'll hit
-
-All of these are errors, so `pnpm check` fails on them. They come from `tools/oxlint/anti-slop`.
-
-- **`require-safety-comment-for-type-assertion`:** every `as` cast (except `as const`) needs a `// SAFETY:` comment right above the cast or the statement holding it, saying why the cast is true. From `apps/web/src/modules/crm/components/activity-form.tsx`:
-
-  ```ts
-  // SAFETY: interactions.type only holds ActivityType values, but Monospace types it as a plain
-  // string; see docs/monospace.md, known issues.
-  type: (initial?.type ?? defaults?.type ?? 'call') as ActivityType,
-  ```
-
-  If you can't say why it's true, parse the value instead of casting it.
-
-- **`no-chained-type-assertions`, `no-widen-then-assert`:** no `as unknown as X`, and no widening a value only to cast it back. Fix the type at its source.
-- **`no-unknown-parameters`, `no-unknown-returns`, `no-unknown-type-aliases`:** no `unknown` in function signatures or type aliases. Parse the data where it enters the app (a Zod schema, a response parser) and pass the named type along. A `cause` parameter and type-guard subjects are allowed.
-- **`no-object-parameters`, `no-unsafe-dictionary-type`:** no `object` parameters, and no `Record<string, unknown>` (or `any`, `object`, `{}`) values. Use the real type.
-- **`no-runtime-typeof`:** no `typeof x === 'string'` checks on data. Parse it at the boundary, then branch on the parsed value.
-- **`no-module-mocking`:** see above.
-- **`require-readable-spacing`:** blank lines after imports, around functions and types, around multi-line declarations, before `return`, `if`, loops, `switch`, and `try`, and after any block. `vp check --fix` (and so the pre-commit hook) adds them for you.
-- **`no-array-filter-map`, `no-reduce-accumulator-copy`, `oxc/no-accumulating-spread`:** do it in one pass (`flatMap`, a loop) instead of chained passes or copying an accumulator every step.
-- **`no-conditional-empty-object-spread`:** no `...(ok ? { a } : {})`. Build the object directly.
-- **`no-shape-in-symbol-names`:** don't name things `...Shape`. Name them for what they are.
-
-`infra/aws` also gets the Effect rules in `tools/oxlint/anti-slop/effect`.
+If `tools/oxlint` is installed, it adds stricter rules; see [its README](../tools/oxlint/README.md).
 
 ## Pre-commit hook
 
@@ -115,4 +90,4 @@ When this folder is a Git repo root, `pnpm install` turns on a pre-commit hook (
 
 ## CI
 
-`.github/workflows/check.yml` runs on pull requests and pushes to `main`: frozen install, then `pnpm verify`. Copy this starter into its own Git repository to enable CI. Browser and AWS typechecks remain available locally; AWS deployment is an explicit opt-in command in the [deployment guide](../infra/aws/README.md).
+`.github/workflows/check.yml` runs on pull requests and pushes to `main`: frozen install, then `pnpm verify`. Copy this starter into its own Git repository to enable CI. Browser tests remain available locally. See the [deployment guide](deploy.md) for hosting.

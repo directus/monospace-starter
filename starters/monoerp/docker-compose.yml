@@ -33,8 +33,9 @@ services:
       - '127.0.0.1:${CRM_POSTGRES_PORT:-5433}:5432'
     volumes:
       - crm_postgres_data:/var/lib/postgresql/data
-      - ./infra/postgres/init:/docker-entrypoint-initdb.d:ro
-      - ./infra:/infra:ro
+      - ./infra/postgres/entrypoint:/docker-entrypoint-initdb.d:ro
+      - ./infra/postgres:/infra/postgres:ro
+      - ./infra/modules:/infra/modules:ro
     healthcheck:
       test: ['CMD-SHELL', 'pg_isready -h 127.0.0.1 -U crm -d crm']
       interval: 5s

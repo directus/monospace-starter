@@ -3,18 +3,18 @@
 //   organizations.portal_account_id -> accounts.id   (organizations.portalAccount)
 //   contacts.email                  -> users.email   (contacts.portalUser)
 // Idempotent: skips anything already in place, and anything on a source that isn't connected.
-import { randomUUID } from 'node:crypto'
 import {
   authenticate,
-  findCollection,
-  findField,
+  crmSource,
+  sourceName,
+  ensureRelation,
   migrate,
   readCollections,
-} from '../../../../monospace/setup/lib.mjs'
+} from '#setup'
 
-const CRM = process.env.MONOSPACE_CRM_SOURCE ?? 'CRM'
+const CRM = crmSource
 
-const PORTAL = process.env.MONOSPACE_PORTAL_SOURCE ?? 'Portal'
+const PORTAL = sourceName('portal')
 
 const crossSourceRelations = [
   {
@@ -54,45 +54,7 @@ for (const relation of crossSourceRelations) {
     continue
   }
 
-  const from = findCollection(collections, relation.from.source, relation.from.collection)
-  const to = findCollection(collections, relation.to.source, relation.to.collection)
-  const existing = from.relationFields.find((field) => field.apiName === relation.from.apiName)
-
-  if (existing) {
-    if (existing.oppositeCollectionId !== to.id) {
-      throw new Error(`${from.dbName}.${relation.from.apiName} points at the wrong collection`)
-    }
-
-    continue
-  }
-
-  operations.push({
-    kind: 'createRelationFieldPair',
-    data: {
-      kind: 'single',
-      data: {
-        relationName: relation.relationName,
-        onDelete: 'noAction',
-        onUpdate: 'noAction',
-        firstField: {
-          id: randomUUID(),
-          apiName: relation.from.apiName,
-          isList: false,
-          isConstrained: false,
-          collectionId: from.id,
-          fieldIds: [findField(from, relation.from.field).id],
-        },
-        secondField: {
-          id: randomUUID(),
-          apiName: relation.to.apiName,
-          isList: relation.to.isList,
-          isConstrained: false,
-          collectionId: to.id,
-          fieldIds: [findField(to, relation.to.field).id],
-        },
-      },
-    },
-  })
+  operations.push(...ensureRelation(collections, relation))
 }
 
 await migrate(operations, 'Portal relations')

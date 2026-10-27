@@ -1,6 +1,8 @@
 import * as React from 'react'
 import { Command as CommandPrimitive } from 'cmdk'
 
+import { appCopy } from '@/lib/app.copy'
+
 import { cn } from '@/lib/utils'
 import {
   Dialog,
@@ -26,8 +28,8 @@ function Command({ className, ...props }: React.ComponentProps<typeof CommandPri
 }
 
 function CommandDialog({
-  title = 'Command Palette',
-  description = 'Search for a command to run...',
+  title = appCopy.search.title,
+  description = appCopy.search.description,
   children,
   className,
   showCloseButton = false,

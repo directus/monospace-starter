@@ -1,4 +1,4 @@
-import { infiniteQueryOptions, queryOptions } from '@tanstack/react-query'
+import { queryOptions } from '@tanstack/react-query'
 import { z } from 'zod'
 
 import type { RelationOption } from '@/components/form/relation-combobox'
@@ -10,28 +10,12 @@ import type {
   opportunitiesReadManyArgs,
   organizationsReadManyArgs,
 } from '@/generated/monospace'
+import { pagesQuery, readAllPages, sortSpec } from '@/lib/list-query'
+import type { ListParams, Page, Sorts } from '@/lib/list-query'
 import { keyed, monospace } from '@/lib/monospace'
-import { usersById } from '@/lib/monospace-system'
-import { contactOption, organizationOption } from '@/modules/crm/entity-options'
+import { withUsers } from '@/lib/monospace-system'
+import { contactOption, organizationOption } from '@/modules/crm/entities'
 import { stageColor } from '@/modules/crm/stage-color'
-
-// `filter` is the Monospace clause built from the page's active filters (see lib/filters.tsx).
-// `sort` is a table column id, mapped to Monospace fields per collection below.
-export type ListSort = { id: string; desc: boolean } | null
-
-type ListFilters<TFilter> = {
-  q?: string
-  filter?: TFilter
-  sort?: ListSort
-}
-
-type Page = { offset?: number; limit?: number }
-
-export const PAGE_SIZE = 50
-
-type Direction = 'asc' | 'desc'
-
-type Sorts<T> = Record<string, (direction: Direction) => T>
 
 type ContactSort = NonNullable<contactsReadManyArgs['sort']>
 
@@ -63,52 +47,31 @@ const OPPORTUNITY_SORTS = {
   updatedAt: (direction) => [{ updatedAt: { direction } }],
 } satisfies Sorts<OpportunitySort>
 
-function sortSpec<T>(sorts: Sorts<T>, sort: ListSort | undefined, fallback: T) {
-  const toSort = sort ? sorts[sort.id] : undefined
-
-  return toSort ? toSort(sort?.desc ? 'desc' : 'asc') : fallback
-}
-
 async function withOwners<T extends { ownerUserId?: Uuid | null }>(rows: ReadonlyArray<T>) {
-  const users = await usersById(rows.map((row) => row.ownerUserId))
-
-  return rows.map((row) => ({
-    ...row,
-    owner: row.ownerUserId ? (users.get(row.ownerUserId) ?? null) : null,
-  }))
+  return withUsers(rows, { ownerUserId: 'owner' })
 }
 
 async function withOwner<T extends { ownerUserId?: Uuid | null }>(row: T) {
-  const users = await usersById([row.ownerUserId])
+  const [filled] = await withOwners([row])
 
-  return { ...row, owner: row.ownerUserId ? (users.get(row.ownerUserId) ?? null) : null }
+  return filled!
 }
 
 async function withCreators<T extends { createdById?: Uuid | null }>(rows: ReadonlyArray<T>) {
-  const users = await usersById(rows.map((row) => row.createdById))
-
-  return rows.map((row) => ({
-    ...row,
-    createdBy: row.createdById ? (users.get(row.createdById) ?? null) : null,
-  }))
-}
-
-// Pages keep loading until one comes back short.
-function nextOffset<T>(lastPage: Array<T>, pages: Array<Array<T>>) {
-  return lastPage.length < PAGE_SIZE ? undefined : pages.length * PAGE_SIZE
+  return withUsers(rows, { createdById: 'createdBy' })
 }
 
 export type OrganizationsFilter = NonNullable<organizationsReadManyArgs['filter']>
 
 export type ContactsFilter = NonNullable<contactsReadManyArgs['filter']>
 
-export type OpportunitiesFilter = NonNullable<opportunitiesReadManyArgs['filter']>
+export type DealsFilter = NonNullable<opportunitiesReadManyArgs['filter']>
 
 const LIST_LIMIT = 250
 
 const RELATED_LIMIT = 100
 
-export type InteractionsFilter = NonNullable<interactionsReadManyArgs['filter']>
+export type ActivityFilter = NonNullable<interactionsReadManyArgs['filter']>
 
 const INTERACTION_FIELDS = [
   'id',
@@ -228,7 +191,7 @@ export function contactSearchFilter(q: string) {
   }
 }
 
-export function opportunitySearchFilter(q: string) {
+export function dealSearchFilter(q: string) {
   return {
     _or: [{ title: { _icontains: q } }, { organizations: { name: { _icontains: q } } }],
   }
@@ -240,7 +203,7 @@ async function fetchOrganizations({
   sort,
   offset = 0,
   limit = LIST_LIMIT,
-}: ListFilters<OrganizationsFilter> & Page) {
+}: ListParams<OrganizationsFilter> & Page) {
   const rows = await monospace.organizations.readMany({
     fields: [
       'id',
@@ -270,14 +233,10 @@ async function fetchOrganizations({
 
 export type OrganizationRow = Awaited<ReturnType<typeof fetchOrganizations>>[number]
 
-export function organizationsPagesQuery(filters: ListFilters<OrganizationsFilter>) {
-  return infiniteQueryOptions({
-    queryKey: ['organizations', 'pages', filters],
-    queryFn: ({ pageParam }) =>
-      fetchOrganizations({ ...filters, offset: pageParam, limit: PAGE_SIZE }),
-    initialPageParam: 0,
-    getNextPageParam: nextOffset,
-  })
+export function organizationsPagesQuery(filters: ListParams<OrganizationsFilter>) {
+  return pagesQuery(['organizations', 'pages', filters], (page) =>
+    fetchOrganizations({ ...filters, ...page }),
+  )
 }
 
 async function fetchContacts({
@@ -286,7 +245,7 @@ async function fetchContacts({
   sort,
   offset = 0,
   limit = LIST_LIMIT,
-}: ListFilters<ContactsFilter> & Page) {
+}: ListParams<ContactsFilter> & Page) {
   const rows = await monospace.contacts.readMany({
     fields: ['id', 'firstName', 'lastName', 'email', 'status', 'updatedAt'],
     include: {
@@ -311,22 +270,19 @@ async function fetchContacts({
 
 export type ContactRow = Awaited<ReturnType<typeof fetchContacts>>[number]
 
-export function contactsPagesQuery(filters: ListFilters<ContactsFilter>) {
-  return infiniteQueryOptions({
-    queryKey: ['contacts', 'pages', filters],
-    queryFn: ({ pageParam }) => fetchContacts({ ...filters, offset: pageParam, limit: PAGE_SIZE }),
-    initialPageParam: 0,
-    getNextPageParam: nextOffset,
-  })
+export function contactsPagesQuery(filters: ListParams<ContactsFilter>) {
+  return pagesQuery(['contacts', 'pages', filters], (page) =>
+    fetchContacts({ ...filters, ...page }),
+  )
 }
 
-async function fetchOpportunities({
+async function fetchDeals({
   q = '',
   filter,
   sort,
   offset = 0,
   limit = LIST_LIMIT,
-}: ListFilters<OpportunitiesFilter> & Page) {
+}: ListParams<DealsFilter> & Page) {
   const rows = await monospace.opportunities.readMany({
     fields: [
       'id',
@@ -344,7 +300,7 @@ async function fetchOpportunities({
       organizations: { fields: ['id', 'name', 'domain'] },
       pipeline_stages: { fields: ['id', 'name', 'position', 'color'] },
     },
-    filter: { _and: [...(q ? [opportunitySearchFilter(q)] : []), ...(filter ? [filter] : [])] },
+    filter: { _and: [...(q ? [dealSearchFilter(q)] : []), ...(filter ? [filter] : [])] },
     sort: sortSpec<OpportunitySort>(OPPORTUNITY_SORTS, sort, [
       { updatedAt: { direction: 'desc' } },
     ]),
@@ -352,27 +308,28 @@ async function fetchOpportunities({
     limit,
   })
 
-  return withOwners(keyed(rows))
+  return rows
 }
 
-export type OpportunityRow = Awaited<ReturnType<typeof fetchOpportunities>>[number]
+async function readDealsPage(params: ListParams<DealsFilter> & Page) {
+  return withOwners(keyed(await fetchDeals(params)))
+}
+
+export type DealRow = Awaited<ReturnType<typeof readDealsPage>>[number]
 
 // Every matching deal at once, for the board and the dashboard.
-export function opportunitiesQuery(filters: ListFilters<OpportunitiesFilter>) {
+export function dealsQuery(filters: ListParams<DealsFilter>) {
   return queryOptions({
     queryKey: ['opportunities', filters],
-    queryFn: () => fetchOpportunities(filters),
+    queryFn: async () =>
+      withOwners(keyed(await readAllPages((page) => fetchDeals({ ...filters, ...page })))),
   })
 }
 
-export function opportunitiesPagesQuery(filters: ListFilters<OpportunitiesFilter>) {
-  return infiniteQueryOptions({
-    queryKey: ['opportunities', 'pages', filters],
-    queryFn: ({ pageParam }) =>
-      fetchOpportunities({ ...filters, offset: pageParam, limit: PAGE_SIZE }),
-    initialPageParam: 0,
-    getNextPageParam: nextOffset,
-  })
+export function dealsPagesQuery(filters: ListParams<DealsFilter>) {
+  return pagesQuery(['opportunities', 'pages', filters], (page) =>
+    readDealsPage({ ...filters, ...page }),
+  )
 }
 
 async function fetchOrganizationDetail(organizationId: Uuid) {
@@ -420,6 +377,7 @@ async function fetchOrganizationDetail(organizationId: Uuid) {
 
   return {
     ...(await withOwner(detail)),
+    id: organizationId,
     contact_organizations: { data: keyed(detail.contact_organizations?.data ?? []) },
     opportunities: { data: keyed(detail.opportunities?.data ?? []) },
     interactions: { data: await withOwners(keyed(detail.interactions?.data ?? [])) },
@@ -468,12 +426,11 @@ async function fetchContactDetail(contactId: Uuid) {
 
   return {
     ...(await withOwner(detail)),
+    id: contactId,
     contact_organizations: { data: keyed(detail.contact_organizations?.data ?? []) },
     interactions: { data: await withOwners(keyed(detail.interactions?.data ?? [])) },
   }
 }
-
-export type ContactDetail = Awaited<ReturnType<typeof fetchContactDetail>>
 
 export function contactDetailQuery(contactId: Uuid) {
   return queryOptions({
@@ -604,10 +561,7 @@ export async function lookupOpportunities(
     fields: ['id', 'title'],
     include: { organizations: { fields: ['name'] } },
     filter: {
-      _and: [
-        ...(q ? [opportunitySearchFilter(q)] : []),
-        ...(organizationId ? [{ organizationId }] : []),
-      ],
+      _and: [...(q ? [dealSearchFilter(q)] : []), ...(organizationId ? [{ organizationId }] : [])],
     },
     sort: [{ updatedAt: { direction: 'desc' } }],
     limit: LOOKUP_LIMIT,
@@ -620,7 +574,7 @@ export async function lookupOpportunities(
   )
 }
 
-async function fetchOpportunityDetail(opportunityId: Uuid) {
+async function fetchDealDetail(opportunityId: Uuid) {
   const detail = await monospace.opportunities.readOne({
     key: opportunityId,
     fields: [
@@ -653,36 +607,35 @@ async function fetchOpportunityDetail(opportunityId: Uuid) {
 
   return {
     ...(await withOwner(detail)),
+    id: opportunityId,
     interactions: { data: await withOwners(keyed(detail.interactions?.data ?? [])) },
   }
 }
 
-export type OpportunityDetail = Awaited<ReturnType<typeof fetchOpportunityDetail>>
-
-export function opportunityDetailQuery(opportunityId: Uuid) {
+export function dealDetailQuery(opportunityId: Uuid) {
   return queryOptions({
     queryKey: ['opportunities', opportunityId],
-    queryFn: () => fetchOpportunityDetail(opportunityId),
+    queryFn: () => fetchDealDetail(opportunityId),
   })
 }
 
-function interactionSearchFilter(q: string): InteractionsFilter {
+function interactionSearchFilter(q: string): ActivityFilter {
   return { _or: [{ subject: { _icontains: q } }, { body: { _icontains: q } }] }
 }
 
 // `view` picks the status slice and its natural order: open work soonest-due first, history
 // most recent first.
-export const interactionsView = z.enum(['todo', 'history'])
+export const activityView = z.enum(['todo', 'history'])
 
-export type InteractionsView = z.infer<typeof interactionsView>
+export type ActivityView = z.infer<typeof activityView>
 
-async function fetchInteractions({
+async function fetchActivities({
   view,
   q = '',
   filter,
   offset = 0,
   limit = LIST_LIMIT,
-}: ListFilters<InteractionsFilter> & Page & { view: InteractionsView }) {
+}: ListParams<ActivityFilter> & Page & { view: ActivityView }) {
   const rows = await monospace.interactions.readMany({
     fields: INTERACTION_FIELDS,
     include: INTERACTION_INCLUDE,
@@ -704,22 +657,16 @@ async function fetchInteractions({
   return withOwners(keyed(rows))
 }
 
-export type InteractionRow = Awaited<ReturnType<typeof fetchInteractions>>[number]
+export type ActivityRecord = Awaited<ReturnType<typeof fetchActivities>>[number]
 
-export function interactionsPagesQuery(
-  filters: ListFilters<InteractionsFilter> & { view: InteractionsView },
-) {
-  return infiniteQueryOptions({
-    queryKey: ['interactions', 'pages', filters],
-    queryFn: ({ pageParam }) =>
-      fetchInteractions({ ...filters, offset: pageParam, limit: PAGE_SIZE }),
-    initialPageParam: 0,
-    getNextPageParam: nextOffset,
-  })
+export function activityPagesQuery(filters: ListParams<ActivityFilter> & { view: ActivityView }) {
+  return pagesQuery(['interactions', 'pages', filters], (page) =>
+    fetchActivities({ ...filters, ...page }),
+  )
 }
 
 // Every open item's due date, for the triage counts. Cheap enough to take in one page.
-export function openDueDatesQuery(filters: ListFilters<InteractionsFilter>) {
+export function openDueDatesQuery(filters: ListParams<ActivityFilter>) {
   return queryOptions({
     queryKey: ['interactions', 'open-due', filters],
     queryFn: () =>

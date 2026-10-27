@@ -1,5 +1,4 @@
 import { appCopy } from '@/lib/app.copy'
-import type { Uuid } from '@/generated/monospace'
 
 const dateFormatter = new Intl.DateTimeFormat('en-US', {
   month: 'short',
@@ -67,36 +66,9 @@ export function initials(value: string, fallback = '') {
   return result || fallback
 }
 
-export type OwnerLike = {
-  id?: Uuid | null
-  fullName?: string | null
-  email?: string | null
-  avatarId?: string | null
-}
-
-export function avatarUrl(avatarId: string | null | undefined) {
-  return avatarId ? `/api/system/assets/${encodeURIComponent(avatarId)}` : undefined
-}
-
-export function ownerLabel(owner: OwnerLike | null | undefined) {
-  return owner?.fullName ?? owner?.email ?? appCopy.fallback.unassigned
-}
-
-export function ownerOption(owner: OwnerLike | null | undefined) {
-  return owner?.id
-    ? {
-        value: owner.id,
-        label: ownerLabel(owner),
-        description: owner.email ?? undefined,
-        image: avatarUrl(owner.avatarId),
-        avatar: true,
-      }
-    : null
-}
-
 const DAY_MS = 86_400_000
 
-const timeOnly = new Intl.DateTimeFormat('en-US', { hour: 'numeric', minute: '2-digit' })
+export const timeOnly = new Intl.DateTimeFormat('en-US', { hour: 'numeric', minute: '2-digit' })
 
 const weekday = new Intl.DateTimeFormat('en-US', { weekday: 'short' })
 
@@ -109,15 +81,19 @@ export function formatDue(value: string | null | undefined, now = Date.now()) {
   const date = new Date(value)
   const start = new Date(now)
   start.setHours(0, 0, 0, 0)
-  const days = Math.floor((date.getTime() - start.getTime()) / DAY_MS)
 
-  if (days < -1) return `${-days} days ago`
+  const days =
+    (Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()) -
+      Date.UTC(start.getFullYear(), start.getMonth(), start.getDate())) /
+    DAY_MS
 
-  if (days === -1) return `Yesterday ${timeOnly.format(date)}`
+  if (days < -1) return appCopy.due.daysAgo(-days)
 
-  if (days === 0) return `Today ${timeOnly.format(date)}`
+  if (days === -1) return appCopy.due.yesterday(timeOnly.format(date))
 
-  if (days === 1) return `Tomorrow ${timeOnly.format(date)}`
+  if (days === 0) return appCopy.due.today(timeOnly.format(date))
+
+  if (days === 1) return appCopy.due.tomorrow(timeOnly.format(date))
 
   if (days < 7) return `${weekday.format(date)} ${timeOnly.format(date)}`
 
@@ -149,4 +125,8 @@ export function formatRelative(value: string | null | undefined, now = Date.now(
 
 export function enumLabel(labels: Record<string, string>, value: string | null | undefined) {
   return (value && labels[value]) || labelize(value)
+}
+
+export function optionsFrom(labels: Record<string, string>) {
+  return Object.entries(labels).map(([value, label]) => ({ value, label }))
 }

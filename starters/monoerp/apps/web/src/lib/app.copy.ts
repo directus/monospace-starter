@@ -9,12 +9,9 @@ export const appCopy = {
     description: 'A federated business hub powered by Monospace.',
   },
   fallback: {
-    notConnected: 'Not connected',
-    restricted: (noun: string) => `Restricted ${noun}`,
     unknown: 'Unknown',
     unassigned: 'Unassigned',
     none: 'None',
-    ongoing: 'ongoing',
   },
   home: {
     title: 'Home',
@@ -48,6 +45,7 @@ export const appCopy = {
     hints: { scope: 'Tab Scope', open: 'Open', navigate: '↑↓ Navigate', close: 'Esc Close' },
   },
   sidebar: {
+    toggle: 'Toggle sidebar',
     collapse: 'Collapse sidebar',
     expand: 'Expand sidebar',
   },
@@ -71,6 +69,7 @@ export const appCopy = {
     loadingProfile: 'Loading profile…',
   },
   data: {
+    loading: 'Loading data',
     sessionExpiredTitle: 'Your session has expired',
     sessionExpiredDescription: 'Sign in again to continue.',
     forbiddenTitle: 'Permission required',
@@ -105,12 +104,103 @@ export const appCopy = {
       `${count} ${(count === 1 ? singular : noun).toLowerCase()}`,
   },
   filters: {
-    add: 'Filter',
+    operators: {
+      is_before: 'is before',
+      is_after: 'is after',
+      is_on_or_before: 'is on or before',
+      is_on_or_after: 'is on or after',
+      contains: 'contains',
+      not_contains: 'does not contain',
+      starts_with: 'starts with',
+      ends_with: 'ends with',
+      is: 'is',
+      is_not: 'is not',
+      is_any_of: 'is any of',
+      is_none_of: 'is none of',
+      eq: 'equals',
+      neq: 'does not equal',
+      gt: 'is greater than',
+      gte: 'is greater than or equal to',
+      lt: 'is less than',
+      lte: 'is less than or equal to',
+      between: 'is between',
+      not_between: 'is not between',
+      empty: 'is empty',
+      not_empty: 'is not empty',
+    },
+    datePlaceholder: 'today, next friday…',
+    pastWeek: 'Past week',
+    pastMonth: 'Past month',
+    nextMonth: 'Next 30 days',
+    trueValue: 'True',
+    falseValue: 'False',
+    relativeDate: (unit: string, offset: number) => {
+      if (unit === 'day' && offset === 0) return 'today'
+
+      if (unit === 'day' && offset === 1) return 'tomorrow'
+
+      if (unit === 'day' && offset === -1) return 'yesterday'
+      const plural = Math.abs(offset) === 1 ? unit : `${unit}s`
+
+      if (offset > 0) return `in ${offset} ${plural}`
+
+      if (offset < 0) return `${Math.abs(offset)} ${plural} ago`
+
+      return `this ${unit}`
+    },
+    addFilter: 'Add filter',
     clearAll: 'Clear all',
+    searchFields: 'Search fields…',
+    searchOperators: 'Search operators…',
+    searchOptions: 'Search…',
+    back: 'Back',
+    clear: 'Clear',
+    apply: 'Apply',
+    discard: 'Discard changes',
+    empty: 'No results',
+    loading: 'Loading…',
     loadingMore: 'Loading more…',
+    loadMore: 'Load more',
+    error: 'Could not load',
+    retry: 'Retry',
+    duplicate: 'Duplicate',
+    negate: 'Negate',
+    remove: 'Remove',
+    chipMenu: (fieldLabel: string) => `${fieldLabel} filter options`,
+    filtersLabel: 'Filters',
+    filterLabel: (condition: string) => condition,
+    readOnly: 'Read only. These filters cannot be changed.',
+    pathSeparator: ' > ',
+    valuePlaceholder: 'Enter text…',
+    selectPlaceholder: 'Select…',
+    noValue: 'no value',
+    selectCondition: 'Select condition',
+    incomplete: 'incomplete filter',
+    branchAffordance: 'opens a list',
+    exclusiveHint: 'cannot be combined with the other options',
+    exclusiveAnnouncement: (label: string, cleared: number) =>
+      cleared === 1
+        ? `${label} selected. 1 other selection cleared.`
+        : `${label} selected. ${cleared} other selections cleared.`,
+    itemCount: (count: number) => `${count} items`,
+    fieldsLabel: 'Fields',
+    resultsAnnouncement: (count: number) => (count === 1 ? '1 result' : `${count} results`),
+    actionsLabel: 'Actions',
+    countAnnouncement: (count: number) =>
+      count === 1 ? '1 filter applied' : `${count} filters applied`,
+    valueCount: (count: number) => `${count} selected`,
+    valueDetail: (summary: string, values: string[]) => `${summary}: ${values.join(', ')}`,
+    valueRange: (from: string, to: string) => `${from} to ${to}`,
+    rangeFrom: (fieldLabel: string) => `${fieldLabel} from`,
+    rangeTo: (fieldLabel: string) => `${fieldLabel} to`,
+    rangeSeparator: 'to',
+    negated: (operatorLabel: string) => `not ${operatorLabel}`,
+    add: 'Filter',
     allLoaded: (count: number, noun: string) => `All ${count} ${noun.toLowerCase()} loaded`,
   },
   table: {
+    selectRow: 'Select row',
+    selectAll: 'Select all',
     columns: 'Columns',
     sortAsc: 'Sort ascending',
     sortDesc: 'Sort descending',
@@ -127,6 +217,12 @@ export const appCopy = {
     saving: 'Saving…',
     saved: 'Saved',
     saveFailed: 'Could not save notes',
+  },
+  due: {
+    daysAgo: (count: number) => `${count} days ago`,
+    yesterday: (time: string) => `Yesterday ${time}`,
+    today: (time: string) => `Today ${time}`,
+    tomorrow: (time: string) => `Tomorrow ${time}`,
   },
   common: {
     status: 'Status',

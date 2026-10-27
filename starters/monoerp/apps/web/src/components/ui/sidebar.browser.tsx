@@ -16,7 +16,7 @@ describe('SidebarProvider', () => {
   beforeEach(() => window.localStorage.clear())
 
   it('restores and persists the desktop sidebar state', async () => {
-    window.localStorage.setItem('crm-sidebar-open', 'false')
+    window.localStorage.setItem('sidebar-open', 'false')
     const user = userEvent.setup()
 
     render(
@@ -29,6 +29,6 @@ describe('SidebarProvider', () => {
     await user.click(toggle)
 
     expect(screen.getByRole('button', { name: 'Expanded' })).toBeInTheDocument()
-    expect(window.localStorage.getItem('crm-sidebar-open')).toBe('true')
+    expect(window.localStorage.getItem('sidebar-open')).toBe('true')
   })
 })

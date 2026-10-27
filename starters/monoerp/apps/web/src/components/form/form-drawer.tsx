@@ -153,7 +153,7 @@ export function DrawerFormFooter({
   onCancel,
   children,
 }: {
-  error?: string
+  error?: ReactNode
   onCancel?: () => void
   children: ReactNode
 }) {

@@ -1,6 +1,6 @@
 // Runs the Probe task in the stage's private subnets and reports which data stores answer.
 //
-//   pnpm aws:probe --stage staging
+//   pnpm aws probe --stage staging
 import { runTask, stackOutputs, stage } from './lib.mjs'
 
 const outputs = stackOutputs()

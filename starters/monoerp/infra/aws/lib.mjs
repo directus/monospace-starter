@@ -43,7 +43,7 @@ export const stackOutputs = ({ optional = false } = {}) => {
     )
   } catch {
     if (optional) return undefined
-    console.error(`No deploy found for stage "${stage}". Run: pnpm aws:deploy --stage ${stage}`)
+    console.error(`No deploy found for stage "${stage}". Run: pnpm aws deploy --stage ${stage}`)
     process.exit(1)
   }
 }

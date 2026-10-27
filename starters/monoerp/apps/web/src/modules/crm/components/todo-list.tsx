@@ -5,17 +5,15 @@ import { Checkbox } from '@/components/ui/checkbox'
 import { cn } from '@/lib/utils'
 import { upcomingBucket, upcomingBuckets } from '@/modules/crm/activity'
 import type { UpcomingBucket } from '@/modules/crm/activity'
-import { bucketLabels } from '@/modules/crm/components/activity-composer'
+import { bucketLabels } from '@/modules/crm/activity'
 import { ActivityRow, LIST_INSET } from '@/modules/crm/components/activity-row'
 import type { RowHandlers } from '@/modules/crm/components/activity-row'
 import { crmCopy } from '@/modules/crm/crm.copy'
-import type { InteractionRow } from '@/modules/crm/data'
+import type { ActivityRecord } from '@/modules/crm/data'
 
 const copy = crmCopy.activity
 
 export type { LinkedRecord, RowHandlers } from '@/modules/crm/components/activity-row'
-
-export { LIST_INSET } from '@/modules/crm/components/activity-row'
 
 // Open work grouped by due date. Checkboxes select for the bulk bar; the hover check at the
 // row's edge completes; clicking the row opens the detail drawer.
@@ -27,7 +25,7 @@ export function TodoList({
   handlers,
   footer,
 }: {
-  rows: Array<InteractionRow>
+  rows: Array<ActivityRecord>
   // A single bucket shows flat; "all" groups by bucket.
   bucket: UpcomingBucket | 'all'
   // Leave out for no selection (phones): no checkboxes, and rows reclaim the column.

@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 
-import { dateField } from '@/components/filter-date-editor'
-import { DEFAULT_FILTER_OPERATORS } from '@/components/reui/filters/filters-operators'
+import { dateField } from '@/components/filters/filter-date-editor'
+import { DEFAULT_FILTER_OPERATORS } from '@/components/filters/operators'
 
 import { operatorClause } from './filters'
 import type { FilterValue, ListFilterField } from './filters'

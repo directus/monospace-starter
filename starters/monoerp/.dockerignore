@@ -5,5 +5,5 @@
 **/node_modules
 *.log
 docs
-infra/aws
+addons
 .pnpm-store

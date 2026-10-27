@@ -1,3 +1,4 @@
+import { useCollectionAccess } from '@/lib/permissions'
 import { Check, ChevronDown, Loader2, RotateCcw, Trash2 } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
@@ -35,6 +36,8 @@ export function DealActions({
   // Extra menu items, placed before Delete.
   children?: ReactNode
 }) {
+  const access = useCollectionAccess('opportunities')
+  const canMove = access.canUpdate('stageId') && access.canUpdate('status')
   const current = stages.find((stage) => stage.id === currentStageId)
   const won = stages.find((stage) => stage.isWon)
   const lost = stages.find((stage) => stage.isClosed && !stage.isWon)
@@ -48,7 +51,11 @@ export function DealActions({
   return (
     <div className="flex items-center">
       {primary ? (
-        <Button className="rounded-r-none" disabled={busy} onClick={() => onSelect(primary)}>
+        <Button
+          className="rounded-r-none"
+          disabled={busy || !canMove}
+          onClick={() => onSelect(primary)}
+        >
           {pendingStageId === primary.id ? (
             <Loader2 className="animate-spin" data-icon="inline-start" />
           ) : (
@@ -67,7 +74,7 @@ export function DealActions({
                   ? '-ml-px rounded-l-none border-l border-l-primary-foreground/20'
                   : undefined
               }
-              disabled={busy}
+              disabled={busy || !canMove}
             />
           }
         >
@@ -76,19 +83,19 @@ export function DealActions({
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="min-w-44">
           {!closed && lost ? (
-            <DropdownMenuItem onClick={() => onSelect(lost)}>
+            <DropdownMenuItem disabled={!canMove} onClick={() => onSelect(lost)}>
               <StageDot stage={lost} />
               <span style={{ color: stageColor(lost) }}>{crmCopy.deals.stepper.markLost}</span>
             </DropdownMenuItem>
           ) : null}
           {closed && current && !current.isWon && won ? (
-            <DropdownMenuItem onClick={() => onSelect(won)}>
+            <DropdownMenuItem disabled={!canMove} onClick={() => onSelect(won)}>
               <StageDot stage={won} />
               <span style={{ color: stageColor(won) }}>{crmCopy.deals.stepper.markWon}</span>
             </DropdownMenuItem>
           ) : null}
           {closed && current?.isWon && lost ? (
-            <DropdownMenuItem onClick={() => onSelect(lost)}>
+            <DropdownMenuItem disabled={!canMove} onClick={() => onSelect(lost)}>
               <StageDot stage={lost} />
               <span style={{ color: stageColor(lost) }}>{crmCopy.deals.stepper.markLost}</span>
             </DropdownMenuItem>

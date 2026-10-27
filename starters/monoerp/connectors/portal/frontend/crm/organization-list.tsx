@@ -1,19 +1,15 @@
+import { optionsFrom } from '@/lib/format'
 import { useQuery } from '@tanstack/react-query'
 import { CalendarDays, CreditCard } from 'lucide-react'
-import { dateField } from '@/components/filter-date-editor'
+import { dateField } from '@/components/filters/filter-date-editor'
 import { formatDate } from '@/lib/format'
 import { cn } from '@/lib/utils'
-import type { OrganizationListContribution } from '@/modules/types'
+import type { OrganizationListContribution } from '@/modules/crm/slots'
 import { portalSummariesQuery } from './data'
 import { portalCopy } from './portal.copy'
 import { currentSubscription, seatUsage, renewalContext, openTicketCount } from './portal'
 
-const PLAN_OPTIONS = [
-  { value: 'starter', label: 'Starter' },
-  { value: 'team', label: 'Team' },
-  { value: 'business', label: 'Business' },
-  { value: 'enterprise', label: 'Enterprise' },
-]
+const PLAN_OPTIONS = optionsFrom(portalCopy.plans)
 
 function useSummary(
   accountId: string | null | undefined,
@@ -55,6 +51,7 @@ export const organizationList: OrganizationListContribution = {
   ],
   columns: [
     {
+      before: 'updatedAt',
       id: 'plan',
       header: portalCopy.organizations.portal.plan,
       size: 130,
@@ -71,6 +68,7 @@ export const organizationList: OrganizationListContribution = {
       },
     },
     {
+      before: 'updatedAt',
       id: 'seats',
       header: portalCopy.organizations.portal.seats,
       size: 110,
@@ -82,13 +80,14 @@ export const organizationList: OrganizationListContribution = {
         if (!seats) return ''
 
         return (
-          <span className={cn(seats.full && 'font-medium text-amber-700 dark:text-amber-400')}>
+          <span className={cn(seats.full && 'font-medium text-warning')}>
             {portalCopy.organizations.portal.seatUsage(seats.used, seats.total)}
           </span>
         )
       },
     },
     {
+      before: 'updatedAt',
       id: 'renewsAt',
       header: portalCopy.organizations.portal.renews,
       size: 170,
@@ -100,7 +99,7 @@ export const organizationList: OrganizationListContribution = {
         if (!subscription || !renewal) return ''
 
         return (
-          <span className={cn(renewal.tone === 'warn' && 'text-amber-700 dark:text-amber-400')}>
+          <span className={cn(renewal.tone === 'warn' && 'text-warning')}>
             {subscription.renewsAt ? `${formatDate(subscription.renewsAt)} · ` : ''}
             {renewal.label}
           </span>
@@ -108,6 +107,7 @@ export const organizationList: OrganizationListContribution = {
       },
     },
     {
+      before: 'updatedAt',
       id: 'tickets',
       header: portalCopy.organizations.portal.openTickets,
       size: 120,
@@ -118,11 +118,7 @@ export const organizationList: OrganizationListContribution = {
 
         if (!account) return ''
 
-        return (
-          <span className={cn(count >= 3 && 'font-medium text-amber-700 dark:text-amber-400')}>
-            {count}
-          </span>
-        )
+        return <span className={cn(count >= 3 && 'font-medium text-warning')}>{count}</span>
       },
     },
   ],

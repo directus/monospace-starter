@@ -2031,9 +2031,6 @@ export type MonospaceKeyStorageownerCreateRelatedWithoutTypeInput = {
 	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
 	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
 	roles?: readonly MonospaceSystemUserrolesCreateRelatedInput[];
-	savedViewsCreatedBy?: readonly MonospaceSystemUsersavedViewsCreatedByCreateRelatedInput[];
-	savedViewsOwner?: readonly MonospaceSystemUsersavedViewsOwnerCreateRelatedInput[];
-	savedViewsUpdatedBy?: readonly MonospaceSystemUsersavedViewsUpdatedByCreateRelatedInput[];
 	serviceOwnerId?: Uuid | null;
 	status?: string;
 }
@@ -5408,9 +5405,6 @@ export type MonospaceSystemUserCreateInput = {
 	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
 	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
 	roles?: readonly MonospaceSystemUserrolesCreateRelatedInput[];
-	savedViewsCreatedBy?: readonly MonospaceSystemUsersavedViewsCreatedByCreateRelatedInput[];
-	savedViewsOwner?: readonly MonospaceSystemUsersavedViewsOwnerCreateRelatedInput[];
-	savedViewsUpdatedBy?: readonly MonospaceSystemUsersavedViewsUpdatedByCreateRelatedInput[];
 	serviceOwnerId?: Uuid | null;
 	status?: string;
 	storageValues?: readonly MonospaceSystemUserstorageValuesCreateRelatedInput[];
@@ -5513,9 +5507,6 @@ export type MonospaceSystemUserUpdateDataInput = {
 	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerUpdateManyRelatedOperationsInput[];
 	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByUpdateManyRelatedOperationsInput[];
 	roles?: readonly MonospaceSystemUserrolesUpdateManyRelatedOperationsInput[];
-	savedViewsCreatedBy?: readonly MonospaceSystemUsersavedViewsCreatedByUpdateManyRelatedOperationsInput[];
-	savedViewsOwner?: readonly MonospaceSystemUsersavedViewsOwnerUpdateManyRelatedOperationsInput[];
-	savedViewsUpdatedBy?: readonly MonospaceSystemUsersavedViewsUpdatedByUpdateManyRelatedOperationsInput[];
 	serviceOwnerId?: Uuid | null;
 	status?: string;
 	storageValues?: readonly MonospaceSystemUserstorageValuesUpdateManyRelatedOperationsInput[];
@@ -6314,123 +6305,6 @@ export type MonospaceSystemUserrolesUpdateManyRelatedOperationsInput = {
 	_update?: MonospaceUserRoleUpdateInput;
 }
 
-export type MonospaceSystemUsersavedViewsCreatedByConnectBackwardKeysInput = {
-	id?: Uuid;
-}
-
-export type MonospaceSystemUsersavedViewsCreatedByConnectInput = {
-	keys: readonly MonospaceSystemUsersavedViewsCreatedByConnectBackwardKeysInput[];
-}
-
-export type MonospaceSystemUsersavedViewsCreatedByCreateArguments = {
-	data: readonly MonospaceSystemUsersavedViewsCreatedByCreateRelatedWithoutTypeInput[];
-}
-
-export type MonospaceSystemUsersavedViewsCreatedByCreateRelatedInput = {
-	_connect?: MonospaceSystemUsersavedViewsCreatedByConnectInput;
-	_create?: MonospaceSystemUsersavedViewsCreatedByCreateArguments;
-}
-
-export type MonospaceSystemUsersavedViewsCreatedByCreateRelatedWithoutTypeInput = {
-	createdAt?: string;
-	filters?: ReadonlyJsonValue;
-	id?: Uuid;
-	name: string;
-	sorting?: ReadonlyJsonValue;
-	targetResource: string;
-	updatedAt?: string;
-	visibility?: string;
-	visibleColumns?: ReadonlyJsonValue;
-}
-
-export type MonospaceSystemUsersavedViewsCreatedByRelationFieldArguments = {
-	limit?: Int64Input;
-	offset?: UInt64Input;
-}
-
-export type MonospaceSystemUsersavedViewsCreatedByUpdateManyRelatedOperationsInput = {
-	_connect?: MonospaceSystemUsersavedViewsCreatedByConnectInput;
-	_create?: MonospaceSystemUsersavedViewsCreatedByCreateArguments;
-}
-
-export type MonospaceSystemUsersavedViewsOwnerConnectBackwardKeysInput = {
-	id?: Uuid;
-}
-
-export type MonospaceSystemUsersavedViewsOwnerConnectInput = {
-	keys: readonly MonospaceSystemUsersavedViewsOwnerConnectBackwardKeysInput[];
-}
-
-export type MonospaceSystemUsersavedViewsOwnerCreateArguments = {
-	data: readonly MonospaceSystemUsersavedViewsOwnerCreateRelatedWithoutTypeInput[];
-}
-
-export type MonospaceSystemUsersavedViewsOwnerCreateRelatedInput = {
-	_connect?: MonospaceSystemUsersavedViewsOwnerConnectInput;
-	_create?: MonospaceSystemUsersavedViewsOwnerCreateArguments;
-}
-
-export type MonospaceSystemUsersavedViewsOwnerCreateRelatedWithoutTypeInput = {
-	createdAt?: string;
-	filters?: ReadonlyJsonValue;
-	id?: Uuid;
-	name: string;
-	sorting?: ReadonlyJsonValue;
-	targetResource: string;
-	updatedAt?: string;
-	visibility?: string;
-	visibleColumns?: ReadonlyJsonValue;
-}
-
-export type MonospaceSystemUsersavedViewsOwnerRelationFieldArguments = {
-	limit?: Int64Input;
-	offset?: UInt64Input;
-}
-
-export type MonospaceSystemUsersavedViewsOwnerUpdateManyRelatedOperationsInput = {
-	_connect?: MonospaceSystemUsersavedViewsOwnerConnectInput;
-	_create?: MonospaceSystemUsersavedViewsOwnerCreateArguments;
-}
-
-export type MonospaceSystemUsersavedViewsUpdatedByConnectBackwardKeysInput = {
-	id?: Uuid;
-}
-
-export type MonospaceSystemUsersavedViewsUpdatedByConnectInput = {
-	keys: readonly MonospaceSystemUsersavedViewsUpdatedByConnectBackwardKeysInput[];
-}
-
-export type MonospaceSystemUsersavedViewsUpdatedByCreateArguments = {
-	data: readonly MonospaceSystemUsersavedViewsUpdatedByCreateRelatedWithoutTypeInput[];
-}
-
-export type MonospaceSystemUsersavedViewsUpdatedByCreateRelatedInput = {
-	_connect?: MonospaceSystemUsersavedViewsUpdatedByConnectInput;
-	_create?: MonospaceSystemUsersavedViewsUpdatedByCreateArguments;
-}
-
-export type MonospaceSystemUsersavedViewsUpdatedByCreateRelatedWithoutTypeInput = {
-	createdAt?: string;
-	filters?: ReadonlyJsonValue;
-	id?: Uuid;
-	name: string;
-	sorting?: ReadonlyJsonValue;
-	targetResource: string;
-	updatedAt?: string;
-	visibility?: string;
-	visibleColumns?: ReadonlyJsonValue;
-}
-
-export type MonospaceSystemUsersavedViewsUpdatedByRelationFieldArguments = {
-	limit?: Int64Input;
-	offset?: UInt64Input;
-}
-
-export type MonospaceSystemUsersavedViewsUpdatedByUpdateManyRelatedOperationsInput = {
-	_connect?: MonospaceSystemUsersavedViewsUpdatedByConnectInput;
-	_create?: MonospaceSystemUsersavedViewsUpdatedByCreateArguments;
-}
-
 export type MonospaceSystemUserstorageValuesConnectBackwardKeysInput = {
 	key?: string;
 }
@@ -6612,9 +6486,6 @@ export type MonospaceUserRoleuserCreateRelatedWithoutTypeInput = {
 	organizationsCreatedBy?: readonly MonospaceSystemUserorganizationsCreatedByCreateRelatedInput[];
 	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
 	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
-	savedViewsCreatedBy?: readonly MonospaceSystemUsersavedViewsCreatedByCreateRelatedInput[];
-	savedViewsOwner?: readonly MonospaceSystemUsersavedViewsOwnerCreateRelatedInput[];
-	savedViewsUpdatedBy?: readonly MonospaceSystemUsersavedViewsUpdatedByCreateRelatedInput[];
 	serviceOwnerId?: Uuid | null;
 	status?: string;
 	storageValues?: readonly MonospaceSystemUserstorageValuesCreateRelatedInput[];
@@ -7310,9 +7181,6 @@ export type attachmentscreatedByCreateRelatedWithoutTypeInput = {
 	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
 	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
 	roles?: readonly MonospaceSystemUserrolesCreateRelatedInput[];
-	savedViewsCreatedBy?: readonly MonospaceSystemUsersavedViewsCreatedByCreateRelatedInput[];
-	savedViewsOwner?: readonly MonospaceSystemUsersavedViewsOwnerCreateRelatedInput[];
-	savedViewsUpdatedBy?: readonly MonospaceSystemUsersavedViewsUpdatedByCreateRelatedInput[];
 	serviceOwnerId?: Uuid | null;
 	status?: string;
 	storageValues?: readonly MonospaceSystemUserstorageValuesCreateRelatedInput[];
@@ -7702,9 +7570,6 @@ export type contactOrganizationscreatedByCreateRelatedWithoutTypeInput = {
 	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
 	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
 	roles?: readonly MonospaceSystemUserrolesCreateRelatedInput[];
-	savedViewsCreatedBy?: readonly MonospaceSystemUsersavedViewsCreatedByCreateRelatedInput[];
-	savedViewsOwner?: readonly MonospaceSystemUsersavedViewsOwnerCreateRelatedInput[];
-	savedViewsUpdatedBy?: readonly MonospaceSystemUsersavedViewsUpdatedByCreateRelatedInput[];
 	serviceOwnerId?: Uuid | null;
 	status?: string;
 	storageValues?: readonly MonospaceSystemUserstorageValuesCreateRelatedInput[];
@@ -7804,9 +7669,6 @@ export type contactOrganizationsupdatedByCreateRelatedWithoutTypeInput = {
 	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
 	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
 	roles?: readonly MonospaceSystemUserrolesCreateRelatedInput[];
-	savedViewsCreatedBy?: readonly MonospaceSystemUsersavedViewsCreatedByCreateRelatedInput[];
-	savedViewsOwner?: readonly MonospaceSystemUsersavedViewsOwnerCreateRelatedInput[];
-	savedViewsUpdatedBy?: readonly MonospaceSystemUsersavedViewsUpdatedByCreateRelatedInput[];
 	serviceOwnerId?: Uuid | null;
 	status?: string;
 	storageValues?: readonly MonospaceSystemUserstorageValuesCreateRelatedInput[];
@@ -8130,9 +7992,6 @@ export type contactscreatedByCreateRelatedWithoutTypeInput = {
 	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
 	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
 	roles?: readonly MonospaceSystemUserrolesCreateRelatedInput[];
-	savedViewsCreatedBy?: readonly MonospaceSystemUsersavedViewsCreatedByCreateRelatedInput[];
-	savedViewsOwner?: readonly MonospaceSystemUsersavedViewsOwnerCreateRelatedInput[];
-	savedViewsUpdatedBy?: readonly MonospaceSystemUsersavedViewsUpdatedByCreateRelatedInput[];
 	serviceOwnerId?: Uuid | null;
 	status?: string;
 	storageValues?: readonly MonospaceSystemUserstorageValuesCreateRelatedInput[];
@@ -8293,9 +8152,6 @@ export type contactsownerCreateRelatedWithoutTypeInput = {
 	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
 	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
 	roles?: readonly MonospaceSystemUserrolesCreateRelatedInput[];
-	savedViewsCreatedBy?: readonly MonospaceSystemUsersavedViewsCreatedByCreateRelatedInput[];
-	savedViewsOwner?: readonly MonospaceSystemUsersavedViewsOwnerCreateRelatedInput[];
-	savedViewsUpdatedBy?: readonly MonospaceSystemUsersavedViewsUpdatedByCreateRelatedInput[];
 	serviceOwnerId?: Uuid | null;
 	status?: string;
 	storageValues?: readonly MonospaceSystemUserstorageValuesCreateRelatedInput[];
@@ -8393,9 +8249,6 @@ export type contactsupdatedByCreateRelatedWithoutTypeInput = {
 	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
 	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
 	roles?: readonly MonospaceSystemUserrolesCreateRelatedInput[];
-	savedViewsCreatedBy?: readonly MonospaceSystemUsersavedViewsCreatedByCreateRelatedInput[];
-	savedViewsOwner?: readonly MonospaceSystemUsersavedViewsOwnerCreateRelatedInput[];
-	savedViewsUpdatedBy?: readonly MonospaceSystemUsersavedViewsUpdatedByCreateRelatedInput[];
 	serviceOwnerId?: Uuid | null;
 	status?: string;
 	storageValues?: readonly MonospaceSystemUserstorageValuesCreateRelatedInput[];
@@ -8929,9 +8782,6 @@ export type interactionscreatedByCreateRelatedWithoutTypeInput = {
 	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
 	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
 	roles?: readonly MonospaceSystemUserrolesCreateRelatedInput[];
-	savedViewsCreatedBy?: readonly MonospaceSystemUsersavedViewsCreatedByCreateRelatedInput[];
-	savedViewsOwner?: readonly MonospaceSystemUsersavedViewsOwnerCreateRelatedInput[];
-	savedViewsUpdatedBy?: readonly MonospaceSystemUsersavedViewsUpdatedByCreateRelatedInput[];
 	serviceOwnerId?: Uuid | null;
 	status?: string;
 	storageValues?: readonly MonospaceSystemUserstorageValuesCreateRelatedInput[];
@@ -9079,9 +8929,6 @@ export type interactionsownerCreateRelatedWithoutTypeInput = {
 	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
 	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
 	roles?: readonly MonospaceSystemUserrolesCreateRelatedInput[];
-	savedViewsCreatedBy?: readonly MonospaceSystemUsersavedViewsCreatedByCreateRelatedInput[];
-	savedViewsOwner?: readonly MonospaceSystemUsersavedViewsOwnerCreateRelatedInput[];
-	savedViewsUpdatedBy?: readonly MonospaceSystemUsersavedViewsUpdatedByCreateRelatedInput[];
 	serviceOwnerId?: Uuid | null;
 	status?: string;
 	storageValues?: readonly MonospaceSystemUserstorageValuesCreateRelatedInput[];
@@ -9139,9 +8986,6 @@ export type interactionsupdatedByCreateRelatedWithoutTypeInput = {
 	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
 	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
 	roles?: readonly MonospaceSystemUserrolesCreateRelatedInput[];
-	savedViewsCreatedBy?: readonly MonospaceSystemUsersavedViewsCreatedByCreateRelatedInput[];
-	savedViewsOwner?: readonly MonospaceSystemUsersavedViewsOwnerCreateRelatedInput[];
-	savedViewsUpdatedBy?: readonly MonospaceSystemUsersavedViewsUpdatedByCreateRelatedInput[];
 	serviceOwnerId?: Uuid | null;
 	status?: string;
 	storageValues?: readonly MonospaceSystemUserstorageValuesCreateRelatedInput[];
@@ -9480,9 +9324,6 @@ export type opportunitiescreatedByCreateRelatedWithoutTypeInput = {
 	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
 	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
 	roles?: readonly MonospaceSystemUserrolesCreateRelatedInput[];
-	savedViewsCreatedBy?: readonly MonospaceSystemUsersavedViewsCreatedByCreateRelatedInput[];
-	savedViewsOwner?: readonly MonospaceSystemUsersavedViewsOwnerCreateRelatedInput[];
-	savedViewsUpdatedBy?: readonly MonospaceSystemUsersavedViewsUpdatedByCreateRelatedInput[];
 	serviceOwnerId?: Uuid | null;
 	status?: string;
 	storageValues?: readonly MonospaceSystemUserstorageValuesCreateRelatedInput[];
@@ -9634,9 +9475,6 @@ export type opportunitiesownerCreateRelatedWithoutTypeInput = {
 	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
 	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
 	roles?: readonly MonospaceSystemUserrolesCreateRelatedInput[];
-	savedViewsCreatedBy?: readonly MonospaceSystemUsersavedViewsCreatedByCreateRelatedInput[];
-	savedViewsOwner?: readonly MonospaceSystemUsersavedViewsOwnerCreateRelatedInput[];
-	savedViewsUpdatedBy?: readonly MonospaceSystemUsersavedViewsUpdatedByCreateRelatedInput[];
 	serviceOwnerId?: Uuid | null;
 	status?: string;
 	storageValues?: readonly MonospaceSystemUserstorageValuesCreateRelatedInput[];
@@ -9726,9 +9564,6 @@ export type opportunitiesupdatedByCreateRelatedWithoutTypeInput = {
 	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
 	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
 	roles?: readonly MonospaceSystemUserrolesCreateRelatedInput[];
-	savedViewsCreatedBy?: readonly MonospaceSystemUsersavedViewsCreatedByCreateRelatedInput[];
-	savedViewsOwner?: readonly MonospaceSystemUsersavedViewsOwnerCreateRelatedInput[];
-	savedViewsUpdatedBy?: readonly MonospaceSystemUsersavedViewsUpdatedByCreateRelatedInput[];
 	serviceOwnerId?: Uuid | null;
 	status?: string;
 	storageValues?: readonly MonospaceSystemUserstorageValuesCreateRelatedInput[];
@@ -10049,9 +9884,6 @@ export type organizationscreatedByCreateRelatedWithoutTypeInput = {
 	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
 	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
 	roles?: readonly MonospaceSystemUserrolesCreateRelatedInput[];
-	savedViewsCreatedBy?: readonly MonospaceSystemUsersavedViewsCreatedByCreateRelatedInput[];
-	savedViewsOwner?: readonly MonospaceSystemUsersavedViewsOwnerCreateRelatedInput[];
-	savedViewsUpdatedBy?: readonly MonospaceSystemUsersavedViewsUpdatedByCreateRelatedInput[];
 	serviceOwnerId?: Uuid | null;
 	status?: string;
 	storageValues?: readonly MonospaceSystemUserstorageValuesCreateRelatedInput[];
@@ -10210,9 +10042,6 @@ export type organizationsownerCreateRelatedWithoutTypeInput = {
 	organizationsCreatedBy?: readonly MonospaceSystemUserorganizationsCreatedByCreateRelatedInput[];
 	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
 	roles?: readonly MonospaceSystemUserrolesCreateRelatedInput[];
-	savedViewsCreatedBy?: readonly MonospaceSystemUsersavedViewsCreatedByCreateRelatedInput[];
-	savedViewsOwner?: readonly MonospaceSystemUsersavedViewsOwnerCreateRelatedInput[];
-	savedViewsUpdatedBy?: readonly MonospaceSystemUsersavedViewsUpdatedByCreateRelatedInput[];
 	serviceOwnerId?: Uuid | null;
 	status?: string;
 	storageValues?: readonly MonospaceSystemUserstorageValuesCreateRelatedInput[];
@@ -10300,9 +10129,6 @@ export type organizationsupdatedByCreateRelatedWithoutTypeInput = {
 	organizationsCreatedBy?: readonly MonospaceSystemUserorganizationsCreatedByCreateRelatedInput[];
 	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
 	roles?: readonly MonospaceSystemUserrolesCreateRelatedInput[];
-	savedViewsCreatedBy?: readonly MonospaceSystemUsersavedViewsCreatedByCreateRelatedInput[];
-	savedViewsOwner?: readonly MonospaceSystemUsersavedViewsOwnerCreateRelatedInput[];
-	savedViewsUpdatedBy?: readonly MonospaceSystemUsersavedViewsUpdatedByCreateRelatedInput[];
 	serviceOwnerId?: Uuid | null;
 	status?: string;
 	storageValues?: readonly MonospaceSystemUserstorageValuesCreateRelatedInput[];

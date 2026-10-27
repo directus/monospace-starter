@@ -15,8 +15,6 @@ export function manifestDocument(input) {
         }
       : input.kind === 'connector'
         ? {
-            provides: [],
-            env: [],
             source: {},
             schemaFiles: [],
             setup: { beforeSchema: [], afterSchema: [] },
@@ -29,7 +27,7 @@ export function manifestDocument(input) {
     ownedPaths: [
       input.kind === 'starter'
         ? 'starter.json'
-        : `${input.kind === 'module' ? 'modules' : 'connectors'}/${input.id}`,
+        : `${{ module: 'modules', connector: 'connectors', addon: 'addons' }[input.kind]}/${input.id}`,
     ],
     requires: [],
     optional: [],
@@ -64,6 +62,8 @@ export function manifestDocument(input) {
     requiresWhenInstalled: conditional,
     'x-monoerp': runtime,
   }
+
+  if (manifest.kind === 'addon') delete document['x-monoerp']
 
   if (manifest.kind === 'starter') {
     document.sourceRoots = [

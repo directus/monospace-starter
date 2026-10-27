@@ -1,3 +1,4 @@
+import { useCollectionAccess } from '@/lib/permissions'
 import { useState } from 'react'
 
 import { DeleteDialog } from '@/components/confirm-dialog'
@@ -17,8 +18,8 @@ import { ActivityBulkActions } from '@/modules/crm/components/activity-bulk'
 import { TodoList } from '@/modules/crm/components/todo-list'
 import type { LinkedRecord, RowHandlers } from '@/modules/crm/components/todo-list'
 import { crmCopy } from '@/modules/crm/crm.copy'
-import { interactionsView } from '@/modules/crm/data'
-import type { InteractionRow, InteractionsView } from '@/modules/crm/data'
+import { activityView } from '@/modules/crm/data'
+import type { ActivityRecord, ActivityView } from '@/modules/crm/data'
 import { useDeleteActivity } from '@/modules/crm/mutations'
 import type { Uuid } from '@/generated/monospace'
 
@@ -36,26 +37,27 @@ export function RecordActivity({
   hide,
   emptyMessage,
 }: {
-  interactions: Array<InteractionRow>
+  interactions: Array<ActivityRecord>
   extraEntries?: Array<RecordHistoryEntry>
   defaults: ActivityDefaults
   hide: ReadonlyArray<LinkedRecord>
   emptyMessage: string
 }) {
+  const access = useCollectionAccess('interactions')
   const [now] = useState(() => Date.now())
   const todo = sortByDue(interactions.filter(isOpen))
   const history = interactions.filter((row) => !isOpen(row))
   // Open work first when there is any, otherwise straight to what happened.
-  const [view, setView] = useState<InteractionsView>(todo.length ? 'todo' : 'history')
+  const [view, setView] = useState<ActivityView>(todo.length ? 'todo' : 'history')
   const [checked, setChecked] = useState<Set<string>>(() => new Set())
   const isMobile = useIsMobile()
   const [selected, select] = useState<{ id: Uuid; mode: ActivityDetailMode } | null>(null)
-  const [deleting, setDeleting] = useState<InteractionRow>()
+  const [deleting, setDeleting] = useState<ActivityRecord>()
   const remove = useDeleteActivity()
   const selectedRow = interactions.find((row) => row.id === selected?.id) ?? null
   const checkedIds = interactions.flatMap((row) => (row.id && checked.has(row.id) ? [row.id] : []))
 
-  const switchView = (next: InteractionsView) => {
+  const switchView = (next: ActivityView) => {
     setView(next)
     setChecked(new Set())
   }
@@ -77,7 +79,7 @@ export function RecordActivity({
         <Tabs
           value={view}
           onValueChange={(next) => {
-            const parsed = interactionsView.safeParse(next)
+            const parsed = activityView.safeParse(next)
 
             if (parsed.success) switchView(parsed.data)
           }}
@@ -98,9 +100,9 @@ export function RecordActivity({
         <div className="ml-auto">
           {checkedIds.length && !isMobile ? (
             <ActivityBulkActions ids={checkedIds} onClear={() => setChecked(new Set())} />
-          ) : (
+          ) : access.create ? (
             <LogActivityButton defaults={defaults} />
-          )}
+          ) : null}
         </div>
       </header>
 
@@ -115,7 +117,7 @@ export function RecordActivity({
           />
         </div>
       ) : null}
-      {view === 'todo' ? <Composer defaults={defaults} /> : null}
+      {view === 'todo' && access.create ? <Composer defaults={defaults} /> : null}
       {view === 'history' ? (
         <div className="overflow-hidden rounded-xl border bg-card">
           {history.length || extraEntries.length ? (

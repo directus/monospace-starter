@@ -6,14 +6,14 @@ const outputs = stackOutputs()
 const steps = []
 
 if (![outputs.jwtPrivateKeySecret, outputs.kmsMasterKeySecret].every(hasValue)) {
-  steps.push(`Generate Monospace's keys:  pnpm aws:keys --stage ${stage}`)
+  steps.push(`Generate Monospace's keys:  pnpm aws keys --stage ${stage}`)
 }
 
 if (!hasValue(outputs.licenseSecret)) {
-  steps.push(`Copy the license key from .env:  pnpm aws:license --stage ${stage}`)
+  steps.push(`Copy the license key from .env:  pnpm aws license --stage ${stage}`)
 }
 
-if (!outputs.url) steps.push(`Finish the deploy:  pnpm aws:deploy --stage ${stage}`)
+if (!outputs.url) steps.push(`Finish the deploy:  pnpm aws deploy --stage ${stage}`)
 
 if (outputs.url) {
   console.log(`\n${stage} is at ${outputs.url} (Studio: ${outputs.studioUrl})`)

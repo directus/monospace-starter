@@ -1,39 +1,28 @@
-import { useInfiniteQuery } from '@tanstack/react-query'
 import { Link, createFileRoute } from '@tanstack/react-router'
-import { Briefcase, CircleDot, Mail, Plus } from 'lucide-react'
-import { useMemo } from 'react'
+import { Briefcase, CircleDot, Mail } from 'lucide-react'
 
-import { DataTable, DataTableMobileRow, useDataTable } from '@/components/data-table'
-import type { DataTableColumn } from '@/components/data-table'
-import { DataError, DataLoading } from '@/components/data-state'
-import { ListBulkActions } from '@/components/list-bulk-actions'
-import { DisplayMenu } from '@/components/display-menu'
+import { useListPage } from '@/hooks/use-list-page'
+import { ListControls, ListAddButton } from '@/components/list-controls'
+import { ListTable } from '@/components/data-table/list-table'
+import { DataTableMobileRow } from '@/components/data-table/data-table'
+import type { DataTableColumn } from '@/components/data-table/data-table'
+import { ListBulkActions, ownerBulkField, statusBulkField } from '@/components/list-bulk-actions'
 import { useDeleteManyContacts, useUpdateManyContacts } from '@/modules/crm/mutations'
-import { FilterTrigger, FilterWell, ListFilters } from '@/components/list-filters'
-import { ListToolbar } from '@/components/list-toolbar'
 import { ListWorkspace } from '@/components/list-workspace'
-import { createFilterQuery, isFilterQueryEmpty } from '@/components/reui/filters/filters'
-import { Button } from '@/components/ui/button'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { appCopy } from '@/lib/app.copy'
 import { filtersToClause, relationField } from '@/lib/filters'
-import type { FilterValue, ListFilterField, ListFilterQuery } from '@/lib/filters'
+import type { ListFilterField, ListFilterQuery } from '@/lib/filters'
 import { formatDate } from '@/lib/format'
-import { listSearchSchema, parseSort, serializeSort } from '@/lib/list-search'
+import { listSearchSchema, parseSort } from '@/lib/list-search'
 import { groupAffiliations, groupTitle } from '@/modules/crm/affiliations'
 import { ContactDrawer } from '@/modules/crm/components/contact-form'
-import {
-  ContactAvatar,
-  ContactLabel,
-  OrganizationLabel,
-  contactName,
-  organizationName,
-} from '@/modules/crm/components/entities'
+import { ContactAvatar, ContactLabel, OrganizationLabel } from '@/modules/crm/components/entities'
+import { contactName, organizationName, contactStatusOptions } from '@/modules/crm/entities'
 import { StatusBadge } from '@/modules/crm/components/status-badge'
 import { crmCopy } from '@/modules/crm/crm.copy'
 import { ContactIcon, OrganizationIcon } from '@/modules/crm/icons'
 import { contactsPagesQuery, lookupOrganizations, resolveOrganizations } from '@/modules/crm/data'
-import { lookupUsers } from '@/lib/user-options'
 import type { ContactRow, ContactsFilter } from '@/modules/crm/data'
 import { useCollectionAccess } from '@/lib/permissions'
 
@@ -46,7 +35,7 @@ const filterFields: Array<ListFilterField> = [
     defaultOperator: 'is_any_of',
     searchable: false,
     icon: <CircleDot />,
-    options: Object.entries(crmCopy.contacts.statuses).map(([value, label]) => ({ value, label })),
+    options: contactStatusOptions,
   },
   relationField({
     id: 'organization',
@@ -66,8 +55,6 @@ const filterFields: Array<ListFilterField> = [
   },
   { id: 'email', label: crmCopy.contacts.form.email, type: 'text', icon: <Mail /> },
 ]
-
-const EMPTY_QUERY = createFilterQuery<FilterValue>([])
 
 function clauseFor(query: ListFilterQuery | undefined) {
   // SAFETY: filtersToClause only emits operators valid for each field type. The generated filter
@@ -220,27 +207,18 @@ function ContactsPage() {
   const access = useCollectionAccess('contacts')
   const search = Route.useSearch()
   const navigate = Route.useNavigate()
-  const query = search.filters ?? EMPTY_QUERY
-  const sort = parseSort(search.sort)
 
-  const contacts = useInfiniteQuery(
-    contactsPagesQuery({ q: search.q, filter: clauseFor(query), sort }),
-  )
+  const page = useListPage({
+    id: 'contacts',
+    columns,
+    search,
+    onSearchChange: (patch) => navigate({ search: (previous) => ({ ...previous, ...patch }) }),
+    params: Route.useLoaderDeps(),
+    query: contactsPagesQuery,
+    selectable: true,
+  })
 
-  const rows = useMemo(() => contacts.data?.pages.flat() ?? [], [contacts.data])
-
-  const { table, resetLayout, isDefaultLayout, onDragEnd, selectedIds, clearSelection } =
-    useDataTable({
-      id: 'contacts',
-      columns,
-      rows,
-      getRowId: (row) => row.id,
-      sort,
-      onSortChange: (next) =>
-        navigate({ search: (previous) => ({ ...previous, sort: serializeSort(next) }) }),
-      selectable: true,
-      selectionKey: JSON.stringify([search.q, search.filters, search.sort]),
-    })
+  const { list: contacts, selectedIds, clearSelection } = page
 
   const updateMany = useUpdateManyContacts()
   const deleteMany = useDeleteManyContacts()
@@ -250,114 +228,52 @@ function ContactsPage() {
       title={crmCopy.contacts.title}
       icon={ContactIcon}
       controls={
-        <ListFilters
+        <ListControls
+          state={page}
           fields={filterFields}
-          query={query}
-          onQueryChange={(next) =>
-            navigate({
-              search: (previous) => ({
-                ...previous,
-                filters: isFilterQueryEmpty(next) ? undefined : next,
-              }),
-            })
+          title={crmCopy.contacts.title}
+          icon={ContactIcon}
+          defaultSort={{ id: 'name', desc: false, label: crmCopy.contacts.singular }}
+          selection={
+            selectedIds.length ? (
+              <ListBulkActions
+                canUpdate={access.canUpdate}
+                ids={selectedIds}
+                noun={crmCopy.contacts.title}
+                singular={crmCopy.contacts.singular}
+                fields={[statusBulkField(contactStatusOptions), ownerBulkField]}
+                onClear={clearSelection}
+                onUpdate={async (ids, data) => {
+                  await updateMany.mutateAsync({ ids, data })
+                }}
+                onDelete={
+                  access.delete
+                    ? async (ids) => {
+                        await deleteMany.mutateAsync(ids)
+                      }
+                    : undefined
+                }
+                deleting={deleteMany.isPending}
+                deleteError={deleteMany.error}
+              />
+            ) : undefined
           }
-        >
-          <ListToolbar
-            title={crmCopy.contacts.title}
-            icon={ContactIcon}
-            query={search.q ?? ''}
-            onQueryChange={(q) => navigate({ search: (previous) => ({ ...previous, q }) })}
-            selection={
-              selectedIds.length ? (
-                <ListBulkActions
-                  ids={selectedIds}
-                  noun={crmCopy.contacts.title}
-                  singular={crmCopy.contacts.singular}
-                  fields={[
-                    {
-                      name: 'status',
-                      label: appCopy.common.status,
-                      kind: 'select',
-                      options: Object.entries(crmCopy.contacts.statuses).map(([value, label]) => ({
-                        value,
-                        label,
-                      })),
-                    },
-                    {
-                      name: 'ownerUserId',
-                      label: appCopy.common.owner,
-                      kind: 'relation',
-                      search: lookupUsers,
-                      placeholder: appCopy.inline.assign,
-                      searchPlaceholder: appCopy.form.searchPlaceholder(appCopy.common.owner),
-                    },
-                  ]}
-                  onClear={clearSelection}
-                  onUpdate={async (ids, data) => {
-                    await updateMany.mutateAsync({ ids, data })
-                  }}
-                  onDelete={
-                    access.delete
-                      ? async (ids) => {
-                          await deleteMany.mutateAsync(ids)
-                        }
-                      : undefined
-                  }
-                  deleting={deleteMany.isPending}
-                  deleteError={deleteMany.error}
-                />
-              ) : undefined
-            }
-            action={
-              <>
-                <DisplayMenu
-                  sort={sort}
-                  defaultSort={{ id: 'name', desc: false, label: crmCopy.contacts.singular }}
-                  onSortChange={(next) =>
-                    navigate({
-                      search: (previous) => ({ ...previous, sort: serializeSort(next) }),
-                    })
-                  }
-                  table={table}
-                  isDefaultLayout={isDefaultLayout}
-                  onResetColumns={resetLayout}
-                />
-                {access.create ? (
-                  <ContactDrawer
-                    trigger={
-                      <Button className="max-md:ml-auto max-md:w-10 max-md:px-0!">
-                        <Plus data-icon="inline-start" />
-                        <span className="max-md:sr-only">
-                          {appCopy.form.add(crmCopy.contacts.singular)}
-                        </span>
-                      </Button>
-                    }
-                  />
-                ) : null}
-              </>
-            }
-          >
-            <FilterTrigger />
-          </ListToolbar>
-          <FilterWell />
-        </ListFilters>
+          action={
+            access.create ? (
+              <ContactDrawer
+                trigger={<ListAddButton label={appCopy.form.add(crmCopy.contacts.singular)} />}
+              />
+            ) : null
+          }
+        />
       }
     >
-      {contacts.isPending ? <DataLoading className="max-md:mx-4" /> : null}
-      {contacts.isError ? <DataError error={contacts.error} className="max-md:mx-4" /> : null}
-      {contacts.data ? (
-        <>
-          <DataTable
-            table={table}
-            onDragEnd={onDragEnd}
-            noun={crmCopy.contacts.title}
-            hasMore={contacts.hasNextPage}
-            isLoadingMore={contacts.isFetchingNextPage}
-            onLoadMore={() => void contacts.fetchNextPage()}
-            mobileRow={(contact) => <ContactRowMobile contact={contact} />}
-          />
-        </>
-      ) : null}
+      <ListTable
+        query={contacts}
+        {...page.tableProps}
+        noun={crmCopy.contacts.title}
+        mobileRow={(contact) => <ContactRowMobile contact={contact} />}
+      />
     </ListWorkspace>
   )
 }

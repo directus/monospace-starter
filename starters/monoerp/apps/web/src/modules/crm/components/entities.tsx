@@ -1,37 +1,14 @@
 import { Link } from '@tanstack/react-router'
 import type { ReactNode } from 'react'
 
-import { EntityAvatar } from '@/components/ui/entity-avatar'
+import { EntityAvatar } from '@/components/avatars'
 import { cn } from '@/lib/utils'
-import { crmCopy } from '@/modules/crm/crm.copy'
-import { organizationLogo } from '@/modules/crm/entity-options'
-import type { Uuid } from '@/generated/monospace'
-
-// Organizations and contacts share their avatars and labels across CRM screens.
-// Every list, card, and picker renders them through here so they look the same everywhere.
-
-export type OrganizationLike = { id?: Uuid | null; name?: string | null; domain?: string | null }
-
-export type ContactLike = {
-  id?: Uuid | null
-  firstName?: string | null
-  lastName?: string | null
-  email?: string | null
-}
+import { contactName, organizationName, organizationLogo } from '@/modules/crm/entities'
+import type { ContactLike, OrganizationLike } from '@/modules/crm/entities'
 
 type Size = 'sm' | 'default' | 'lg'
 
 const textSize: Record<Size, string> = { sm: 'text-sm', default: 'text-sm', lg: 'text-base' }
-
-export function organizationName(organization: OrganizationLike | null | undefined) {
-  return organization?.name ?? crmCopy.organizations.restricted
-}
-
-export function contactName(contact: ContactLike | null | undefined) {
-  const name = `${contact?.firstName ?? ''} ${contact?.lastName ?? ''}`.trim()
-
-  return name || `${crmCopy.contacts.restrictedName.first} ${crmCopy.contacts.restrictedName.last}`
-}
 
 export function OrganizationAvatar({
   organization,
@@ -46,7 +23,7 @@ export function OrganizationAvatar({
     <EntityAvatar
       label={organizationName(organization)}
       image={organizationLogo(organization?.domain)}
-      visual="organization"
+      variant="square"
       size={size}
       className={className}
     />
@@ -63,7 +40,7 @@ export function ContactAvatar({
   className?: string
 }) {
   return (
-    <EntityAvatar label={contactName(contact)} visual="contact" size={size} className={className} />
+    <EntityAvatar label={contactName(contact)} variant="circle" size={size} className={className} />
   )
 }
 

@@ -154,27 +154,8 @@ CREATE INDEX attachments_contact_idx ON attachments(contact_id);
 CREATE INDEX attachments_opportunity_idx ON attachments(opportunity_id);
 CREATE INDEX attachments_interaction_idx ON attachments(interaction_id);
 
-CREATE TABLE saved_views (
-  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
-  name varchar(160) NOT NULL,
-  target_resource varchar(64) NOT NULL,
-  filters jsonb NOT NULL DEFAULT '{}'::jsonb,
-  sorting jsonb NOT NULL DEFAULT '[]'::jsonb,
-  visible_columns jsonb NOT NULL DEFAULT '[]'::jsonb,
-  visibility varchar(32) NOT NULL DEFAULT 'private',
-  owner_user_id uuid,
-  created_by uuid,
-  updated_by uuid,
-  created_at timestamptz NOT NULL DEFAULT now(),
-  updated_at timestamptz NOT NULL DEFAULT now(),
-  CONSTRAINT saved_views_target_check CHECK (target_resource IN ('organizations', 'contacts', 'opportunities')),
-  CONSTRAINT saved_views_visibility_check CHECK (visibility IN ('private', 'workspace'))
-);
-
 CREATE INDEX organizations_owner_idx ON organizations(owner_user_id);
 CREATE INDEX contacts_owner_idx ON contacts(owner_user_id);
-CREATE INDEX saved_views_owner_resource_idx
-  ON saved_views(owner_user_id, target_resource);
 
 CREATE FUNCTION enforce_opportunity_stage_status()
 RETURNS trigger
@@ -300,9 +281,6 @@ CREATE TRIGGER opportunities_set_updated_at
   FOR EACH ROW EXECUTE FUNCTION set_updated_at();
 CREATE TRIGGER interactions_set_updated_at
   BEFORE UPDATE ON interactions
-  FOR EACH ROW EXECUTE FUNCTION set_updated_at();
-CREATE TRIGGER saved_views_set_updated_at
-  BEFORE UPDATE ON saved_views
   FOR EACH ROW EXECUTE FUNCTION set_updated_at();
 
 COMMIT;

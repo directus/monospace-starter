@@ -39,7 +39,7 @@ export function atNine(daysFromNow: number) {
 }
 
 // "Later today": the next round hour at least 30 minutes out, so a default is never already
-// overdue. Late in the evening this still lands today; the user can push it to tomorrow.
+// overdue. Near midnight this may roll into tomorrow.
 export function laterToday() {
   const date = new Date()
   date.setMinutes(date.getMinutes() + 30, 0, 0)

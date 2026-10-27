@@ -1,9 +1,10 @@
+import { useCollectionAccess } from '@/lib/permissions'
 import { useStore } from '@tanstack/react-form'
 import { CalendarDays, Mail, MessageSquareText, Phone, Plus } from 'lucide-react'
-import { useCallback, useState } from 'react'
+import { useCallback } from 'react'
 import type { ReactElement } from 'react'
 
-import { useAppForm } from '@/components/form/app-form'
+import { useAppForm, submitForm } from '@/components/form/app-form'
 import {
   DrawerForm,
   DrawerFormBody,
@@ -20,12 +21,11 @@ import type { Uuid } from '@/generated/monospace'
 import { appCopy } from '@/lib/app.copy'
 import { useCurrentUser } from '@/lib/auth'
 import { fromDateTimeInput, nowInput, toDateTimeInput } from '@/lib/dates'
-import { errorMessage } from '@/lib/errors'
-import { ownerOption } from '@/lib/format'
+import { ownerOption } from '@/lib/users'
 import { filterRelationOptions } from '@/modules/crm/activity'
 import { crmCopy } from '@/modules/crm/crm.copy'
 import { lookupContacts, lookupOpportunities, lookupOrganizations } from '@/modules/crm/data'
-import { lookupUsers } from '@/lib/user-options'
+import { lookupUsers } from '@/lib/users'
 import { useCreateActivity, useUpdateActivity } from '@/modules/crm/mutations'
 
 const copy = crmCopy.activity
@@ -87,7 +87,7 @@ export type ActivityDefaults = {
   scheduled?: boolean
 }
 
-export function ActivityDrawer({
+function ActivityDrawer({
   initial,
   defaults,
   trigger,
@@ -121,6 +121,10 @@ export function ActivityDrawer({
 }
 
 export function LogActivityButton(props: { defaults?: ActivityDefaults }) {
+  const access = useCollectionAccess('interactions')
+
+  if (!access.create) return null
+
   return (
     <ActivityDrawer
       defaults={props.defaults}
@@ -148,7 +152,6 @@ export function ActivityForm({
   const create = useCreateActivity()
   const update = useUpdateActivity()
   const currentUser = useCurrentUser()
-  const [submitError, setSubmitError] = useState<string>()
 
   const defaultValues: ActivityValues = {
     // SAFETY: interactions.type only holds ActivityType values, but Monospace types it as a plain
@@ -169,25 +172,23 @@ export function ActivityForm({
 
   const form = useAppForm({
     defaultValues,
-    onSubmit: async ({ value }) => {
-      setSubmitError(undefined)
+    onSubmit: ({ value, formApi }) =>
+      submitForm(formApi, async () => {
+        if (!value.organization) return
+        const hasDirection = value.type === 'call' || value.type === 'email'
+        const when = fromDateTimeInput(value.occurredAt) ?? new Date().toISOString()
 
-      if (!value.organization) return
-      const hasDirection = value.type === 'call' || value.type === 'email'
-      const when = fromDateTimeInput(value.occurredAt) ?? new Date().toISOString()
+        const base = {
+          type: value.type,
+          status: value.done ? 'completed' : 'open',
+          direction: hasDirection ? value.direction : 'internal',
+          subject: value.subject.trim(),
+          body: value.body.trim() || null,
+          occurredAt: when,
+          dueAt: value.done ? null : when,
+          completedAt: value.done ? (initial?.completedAt ?? new Date().toISOString()) : null,
+        }
 
-      const base = {
-        type: value.type,
-        status: value.done ? 'completed' : 'open',
-        direction: hasDirection ? value.direction : 'internal',
-        subject: value.subject.trim(),
-        body: value.body.trim() || null,
-        occurredAt: when,
-        dueAt: value.done ? null : when,
-        completedAt: value.done ? (initial?.completedAt ?? new Date().toISOString()) : null,
-      }
-
-      try {
         if (initial) {
           await update.mutateAsync({
             id: initial.id,
@@ -212,10 +213,7 @@ export function ActivityForm({
         }
 
         onSuccess?.()
-      } catch (error) {
-        setSubmitError(errorMessage(error))
-      }
-    },
+      }),
   })
 
   const type = useStore(form.store, (state) => state.values.type)
@@ -392,7 +390,14 @@ export function ActivityForm({
         </div>
       </DrawerFormBody>
 
-      <DrawerFormFooter error={submitError} onCancel={onCancel}>
+      <DrawerFormFooter
+        error={
+          <form.AppForm>
+            <form.FormError />
+          </form.AppForm>
+        }
+        onCancel={onCancel}
+      >
         <form.AppForm>
           <form.SubmitButton
             label={initial ? appCopy.form.save : done ? copy.log : copy.schedule}

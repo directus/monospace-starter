@@ -43,7 +43,7 @@ export default Alchemy.Stack(
     const deployRole = githubRole ? yield* githubRole : undefined
 
     // One-off check that every data store answers from inside the private subnets. Run it with
-    // `pnpm aws:probe`; it tries every store and exits non-zero if any is unreachable.
+    // `pnpm aws probe`; it tries every store and exits non-zero if any is unreachable.
     const checks = [
       ['POSTGRES', data.postgres.endpointAddress, ports.postgres],
       ['VALKEY', data.valkey.primaryEndpointAddress, ports.valkey],

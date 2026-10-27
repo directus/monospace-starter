@@ -1,6 +1,6 @@
 import { existsSync } from 'node:fs'
 
-// Sizing per stage. Scaling lean prod is one line here, then `pnpm aws:deploy --stage prod`.
+// Sizing per stage. Scaling lean prod is one line here, then `pnpm aws deploy --stage prod`.
 export interface StageConfig {
   nat: 'single' | 'per-az'
   postgres: { instanceClass: string; multiAz: boolean; storageGb: number }

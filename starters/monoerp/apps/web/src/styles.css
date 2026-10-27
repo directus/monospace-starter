@@ -10,11 +10,6 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* The reUI components (components/reui) theme themselves per reUI "style" with variants
-   like `style-vega:py-1.5`. We only ship the default vega look, so that variant always applies
-   and the other style variants stay undefined (their utilities are simply not generated). */
-@custom-variant style-vega (&);
-
 @theme inline {
   --font-sans: 'Geist Variable', ui-sans-serif, system-ui, sans-serif;
   --color-background: var(--background);
@@ -32,6 +27,8 @@
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
   --color-destructive: var(--destructive);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
   --color-success: var(--success);
   --color-border: var(--border);
   --color-input: var(--input);
@@ -67,6 +64,8 @@
   --muted-foreground: oklch(0.556 0 0);
   --accent: oklch(0.97 0 0);
   --accent-foreground: oklch(0.205 0 0);
+  --warning: oklch(0.55 0.14 65);
+  --warning-foreground: oklch(0.98 0.02 90);
   --destructive: oklch(0.577 0.245 27.325);
   --success: oklch(0.508 0.118 165.612);
   --border: oklch(0.922 0 0);
@@ -98,6 +97,8 @@
   --muted-foreground: oklch(0.708 0 0);
   --accent: oklch(0.269 0 0);
   --accent-foreground: oklch(0.985 0 0);
+  --warning: oklch(0.82 0.14 85);
+  --warning-foreground: oklch(0.25 0.04 65);
   --destructive: oklch(0.704 0.191 22.216);
   --success: oklch(0.765 0.177 163.223);
   --border: oklch(1 0 0 / 10%);

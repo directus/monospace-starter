@@ -1,10 +1,9 @@
 import { InlineRelation } from '@/components/inline/inline-field'
+import { UserLabel, userFromOption } from '@/components/users'
 import type { Uuid } from '@/generated/monospace'
 import { appCopy } from '@/lib/app.copy'
-import type { OwnerLike } from '@/lib/format'
-import { ownerOption } from '@/lib/format'
-import { UserLabel, userFromOption } from '@/components/users'
-import { lookupUsers } from '@/lib/user-options'
+import type { OwnerLike } from '@/lib/users'
+import { lookupUsers, ownerOption } from '@/lib/users'
 
 export function InlineOwner({
   owner,

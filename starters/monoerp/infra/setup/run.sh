@@ -16,7 +16,7 @@ if [ -z "$(psql -tAc "SELECT to_regclass('ops.schema_migrations')")" ]; then
 fi
 sh infra/postgres/migrate.sh
 
-node infra/monospace/setup/connector-step.mjs provision
+node infra/monospace/setup/connector-hook.mjs provision
 
 echo "== Monospace workspace"
 NODE_ENV=production node infra/monospace/setup/setup.mjs

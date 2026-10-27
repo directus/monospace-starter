@@ -6,7 +6,7 @@ import type { LucideIcon } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
 
 import { Badge } from '@/components/ui/badge'
-import { EntityAvatar } from '@/components/ui/entity-avatar'
+import { EntityAvatar } from '@/components/avatars'
 import {
   Command,
   CommandDialog,
@@ -165,8 +165,8 @@ export function CommandPalette({
                     value={`hit:${group.scopeId}:${hit.id}`}
                     onSelect={() => openHit(hit)}
                   >
-                    {hit.visual ? (
-                      <EntityAvatar label={hit.title} image={hit.image} visual={hit.visual} />
+                    {hit.variant ? (
+                      <EntityAvatar label={hit.title} image={hit.image} variant={hit.variant} />
                     ) : (
                       <scope.icon className="text-muted-foreground" />
                     )}

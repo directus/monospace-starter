@@ -1,7 +1,7 @@
 // Copies MONOSPACE_LICENSE__KEY (from the environment, else the repo's .env) into the stage's
 // license secret. The key is never printed or passed on a command line.
 //
-//   pnpm aws:license --stage staging
+//   pnpm aws license --stage staging
 import { existsSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'

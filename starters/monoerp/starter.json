@@ -27,7 +27,7 @@
     "apps/web/src/lib",
     "apps/web/src/modules/boundaries.test.ts",
     "apps/web/src/modules/index.ts",
-    "apps/web/src/modules/organization-panels.ts",
+    "apps/web/src/modules/features.ts",
     "apps/web/src/modules/pages.ts",
     "apps/web/src/modules/types.ts",
     "apps/web/src/react-css.d.ts",
@@ -53,7 +53,6 @@
     "starter.json",
     "docker-compose.yml",
     "docs",
-    "infra/aws",
     "infra/caddy",
     "infra/compose-sync.mjs",
     "infra/compose-sync.test.mjs",
@@ -62,16 +61,29 @@
     "infra/postgres",
     "infra/setup",
     "package.json",
-    "patches",
     "pnpm-lock.yaml",
     "pnpm-workspace.yaml",
-    "tools",
     "vite.config.ts",
     ".github/workflows/check.yml",
-    ".github/assets"
+    ".github/assets",
+    "patches/@monospace__cli@0.2.1.patch",
+    "tools/manifest-fixtures.mjs",
+    "tools/manifest-schema.mjs",
+    "tools/app.mjs",
+    "tools/manifest-fixtures.d.mts",
+    "tools/prepare.mjs",
+    "tools/app.test.mjs",
+    "infra/manifests.d.mts",
+    "patches/alchemy@2.0.0-beta.79.patch"
   ],
   "requires": [],
-  "sourceRoots": ["apps/web/src/routes", "apps/web/src/modules", "infra/modules", "connectors"],
+  "sourceRoots": [
+    "apps/web/src/routes",
+    "apps/web/src/modules",
+    "infra/modules",
+    "connectors",
+    "addons"
+  ],
   "ignorePaths": [
     "dist",
     ".output",
@@ -106,6 +118,12 @@
     ],
     "remove": [
       {
+        "command": ["pnpm", "install"]
+      },
+      {
+        "script": "app:doctor"
+      },
+      {
         "command": [
           "docker",
           "compose",
@@ -127,8 +145,5 @@
         "script": "generate"
       }
     ]
-  },
-  "x-monoerp": {
-    "optional": []
   }
 }

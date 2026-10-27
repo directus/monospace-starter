@@ -2,7 +2,7 @@ import type { AnyFieldMeta } from '@tanstack/react-form'
 import type { ReactNode } from 'react'
 import { z } from 'zod'
 
-import { CheckboxCard } from '@/components/ui/checkbox-card'
+import { CheckboxCard } from '@/components/form/checkbox-card'
 import { DatePicker } from '@/components/ui/date-picker'
 import { Field, FieldDescription, FieldError, FieldLabel } from '@/components/ui/field'
 import { Input } from '@/components/ui/input'

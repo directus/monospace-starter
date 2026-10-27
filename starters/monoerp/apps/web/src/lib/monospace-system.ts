@@ -113,3 +113,26 @@ export async function readUserPolicies(userId: Uuid): Promise<Array<JsonValue | 
 
   return policies.flatMap(({ data }) => data.map((policy) => policy.content))
 }
+
+// Users come from the cached lookup, never an include, so record reads stay cacheable.
+export async function withUsers<
+  K extends string,
+  const N extends string,
+  T extends { [P in K]?: Uuid | null },
+>(rows: ReadonlyArray<T>, names: Record<K, N>): Promise<Array<T & Record<N, Member | null>>> {
+  // SAFETY: the map's keys are the id columns declared by the caller.
+  const keys = Object.keys(names) as Array<K>
+  const users = await usersById(rows.flatMap((row) => keys.map((key) => row[key])))
+
+  return rows.map((row) => {
+    const filled: Record<string, Member | null> = {}
+
+    for (const key of keys) {
+      const id = row[key]
+      filled[names[key]] = id ? (users.get(id) ?? null) : null
+    }
+
+    // SAFETY: the loop fills exactly the output names passed by the caller.
+    return { ...row, ...filled } as T & Record<N, Member | null>
+  })
+}

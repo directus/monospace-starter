@@ -32,7 +32,7 @@ function readPortalSummaries(ids: Array<string>) {
   })
 }
 
-export type PortalSummary = Awaited<ReturnType<typeof readPortalSummaries>>[number]
+type PortalSummary = Awaited<ReturnType<typeof readPortalSummaries>>[number]
 
 // Portal data comes from the other team's MySQL in its own request, never folded into a CRM
 // read: when MySQL is down, a CRM request that includes it fails whole. Returns undefined when

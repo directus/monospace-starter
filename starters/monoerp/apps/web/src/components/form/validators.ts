@@ -9,11 +9,6 @@ export const requiredText = (label: string) =>
 export const requiredEmail = (label: string) =>
   z.string().trim().min(1, appCopy.form.required(label)).email(appCopy.form.invalidEmail)
 
-export const optionalEmail = z.union([
-  z.literal(''),
-  z.string().trim().email(appCopy.form.invalidEmail),
-])
-
 // Loose on purpose: digits with the usual separators, extensions and country codes included.
 export const optionalPhone = z.union([
   z.literal(''),

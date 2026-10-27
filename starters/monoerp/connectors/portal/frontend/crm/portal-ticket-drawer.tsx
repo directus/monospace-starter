@@ -17,7 +17,7 @@ const copy = portalCopy.organizations.portal
 
 const DAY_MS = 86_400_000
 
-// Structural so the organization and contact panels can each pass their own ticket shape.
+// Structural so the organization and contact panels can each pass their own ticket variant.
 export type PortalTicket = {
   id?: string | null
   subject?: string | null

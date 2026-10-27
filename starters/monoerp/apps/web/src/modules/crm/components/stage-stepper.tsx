@@ -1,3 +1,4 @@
+import { useCollectionAccess } from '@/lib/permissions'
 import { Check, Loader2, X } from 'lucide-react'
 import { useEffect, useRef } from 'react'
 
@@ -28,6 +29,8 @@ export function StageStepper({
   onSelect: (stage: PipelineStage) => void
 }) {
   const open = stages.filter((stage) => !stage.isClosed)
+  const access = useCollectionAccess('opportunities')
+  const canMove = access.canUpdate('stageId') && access.canUpdate('status')
   const current = stages.find((stage) => stage.id === currentStageId)
   const outcome = current?.isClosed ? current : undefined
   const currentIndex = open.findIndex((stage) => stage.id === currentStageId)
@@ -78,7 +81,7 @@ export function StageStepper({
               type="button"
               aria-current={isCurrent ? 'step' : undefined}
               title={isCurrent ? undefined : crmCopy.deals.stepper.moveTo(stage.name ?? '')}
-              disabled={isCurrent || busy || isOutcome}
+              disabled={!canMove || isCurrent || busy || isOutcome}
               onClick={() => onSelect(stage)}
               style={{ clipPath }}
               className={cn(

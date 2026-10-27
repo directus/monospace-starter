@@ -107,7 +107,7 @@ More in [`architecture.md`](architecture.md).
 
 ## 4. Make it yours
 
-To build on monoERP, give it a repo of its own: `git init` in the folder `giget` made (or copy `starters/monoerp` out of a `monospace-starter` clone first). Then run `pnpm install` again to enable the pre-commit hook. Its CI workflow (`.github/workflows/check.yml`) runs from a repo root. AWS deployment is optional and run explicitly.
+To build on monoERP, give it a repo of its own: `git init` in the folder `giget` made (or copy `starters/monoerp` out of a `monospace-starter` clone first). Then run `pnpm install` again to enable the pre-commit hook. Its CI workflow (`.github/workflows/check.yml`) runs from a repo root. See [deployment](deploy.md) when choosing a host.
 
 ### Rename it
 
@@ -120,15 +120,14 @@ Start with the display name; keep existing workspace, database, and resource IDs
 | Name                                                      | Where to change it                                                                                                                                                                                            | Existing install?                                                                                                                                 |
 | --------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Product name and copy                                     | `apps/web/src/lib/app.copy.ts`, module copy files, `routes/__root.tsx`, README and `.github/assets/`                                                                                                          | Safe; changes labels, not stored data                                                                                                             |
-| Package names (`monoerp`, `@monoerp/*`, emulator package) | Root, `apps/web`, `infra/aws`, and connector package files; matching `--filter` commands and Docker build filters; run install to update the lockfile                                                         | Safe for app data; update every reference together                                                                                                |
+| Package names (`monoerp`, `@monoerp/*`, emulator package) | Root, `apps/web`, connector package files; matching `--filter` commands and Docker build filters; run install to update the lockfile                                                                          | Safe for app data; update every reference together                                                                                                |
 | Compose project (folder name)                             | Folder name by default; optional `COMPOSE_PROJECT_NAME` override in `.env`                                                                                                                                    | Creates a separate set of containers and volumes. It does not rename or copy your existing data                                                   |
-| Database/service `crm`, `crm-postgres`                    | Shared PostgreSQL service, credentials, mounts, and health checks in `docker-compose.yml`; `CRM_DB_*` defaults in `infra/monospace/setup/sources.mjs`; migration scripts and AWS database settings            | Keep on an existing install. Changing environment names does not rename a database, user, Docker DNS name, or volume; migrate those explicitly    |
+| Database/service `crm`, `crm-postgres`                    | Shared PostgreSQL service, credentials, mounts, and health checks in `docker-compose.yml`; `CRM_DB_*` defaults in `infra/monospace/setup/sources.mjs`; migration scripts                                      | Keep on an existing install. Changing environment names does not rename a database, user, Docker DNS name, or volume; migrate those explicitly    |
 | Workspace `crm`                                           | `MONOSPACE_WORKSPACE` for setup/generation and `VITE_MONOSPACE_WORKSPACE` for the app; workspace asset proxy in `apps/web/vite.config.ts`                                                                     | Setup creates a new workspace under a new name; it does not migrate the old one. On a new install, update the proxy path and regenerate the SDK   |
 | Source names `CRM`, `Portal`, `Stripe`                    | `MONOSPACE_CRM_SOURCE`, `MONOSPACE_PORTAL_SOURCE`, `MONOSPACE_STRIPE_SOURCE`; module/connector schema files, `optionalRelations` targets, and source references in setup steps                                | Keep on an existing install unless migrating sources and relations. Overrides alone do not rename connected sources or rewrite schema settings    |
 | Module ID `crm` and `/crm` pages                          | `modules/crm/module.json`, UI/infra/route folders and imports, UI entry, settings routes, connector feature targets, and generated routes                                                                     | A module identity, separate from the shared workspace/database. Renaming changes URLs and saved links; keep the shared database names independent |
-| Sender name/address                                       | `MONOSPACE_SYSTEM_EMAILER__FROM_NAME` and `FROM_ADDRESS` in `docker-compose.yml` and `infra/aws/services.ts`                                                                                                  | Safe for stored data; use a verified sender for real email                                                                                        |
+| Sender name/address                                       | `MONOSPACE_SYSTEM_EMAILER__FROM_NAME` and `FROM_ADDRESS` in `docker-compose.yml`                                                                                                                              | Safe for stored data; use a verified sender for real email                                                                                        |
 | Stripe extension/provider IDs                             | `connectors/stripe/extension/extension.config.json` (`monoerp/stripe`, `monoerp/stripe-data-connector`), `connector.json` (`source.provider`, `extension.installed: monoerp__stripe`), extension package name | Keep for connected sources. Renaming needs a rebuilt extension and recreated source/relations; display labels can change separately               |
-| AWS names and DNS                                         | Stack/resource IDs in `infra/aws/`, including `services.ts` (`monoerp.internal`, sender), `data.ts` (database/final snapshot names), and deployment state                                                     | Review `pnpm aws:plan` first. Identity changes can create replacements; back up and migrate data before applying them                             |
 | Demo IDs and credentials                                  | SQL seeds, `connectors/stripe/emulator/billing.json`, local defaults                                                                                                                                          | Change before creating demo volumes. Existing data and cross-source IDs need a coordinated migration; replace credentials for shared environments |
 
 All modules use the shared workspace and PostgreSQL database even though their historical defaults are called `crm`. Adding a new module does not require renaming either.
@@ -154,7 +153,7 @@ Say organizations need an employee count.
 
 4. Show it. Add it to the fields the organization page reads (`apps/web/src/modules/crm/data.ts`) and to the page (`apps/web/src/routes/_app/crm/organizations_.$organizationId.tsx`). `tsc` tells you if a name is wrong.
 
-Labels, field order, and icons live in each module or connector’s `monospace/schema/*.json` and go in with `pnpm setup:schema`. If you'd rather set them in Studio, run `pnpm schema:export` afterwards to save them to the repo. See [`data-model.md`](data-model.md).
+Labels, field order, and icons live in each module or connector’s `monospace/schema/*.json` and go in with `pnpm schema:apply`. If you'd rather set them in Studio, run `pnpm schema:export` afterwards to save them to the repo. See [`data-model.md`](data-model.md).
 
 ### Connect your own databases
 
@@ -216,9 +215,7 @@ For component work, also run `pnpm --filter @monoerp/web test:browser` ([`testin
 
 ## 6. Deploy
 
-`pnpm aws:deploy --stage staging` builds a full stage on AWS: network, databases, Monospace, the app, CloudFront, and alarms. [The AWS guide](../infra/aws/README.md) covers setup and costs.
-
-AWS runs the same Monospace release, but does not install the Stripe extension yet. Billing is unavailable there.
+See [deployment](deploy.md) for hosting requirements and optional deployment tooling.
 
 ## Rough edges
 

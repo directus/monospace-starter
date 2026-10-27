@@ -4,10 +4,9 @@ import { execFileSync } from 'node:child_process'
 import { existsSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 
-import { apiUrl } from './lib.mjs'
+import { apiUrl, runSetupStep } from './lib.mjs'
 import { buildExtensions, connectors } from './build-extensions.mjs'
-import { availableSetupSteps } from './connectors.mjs'
-import { syncCompose } from '../../compose-sync.mjs'
+import { setupSteps } from './installed.mjs'
 
 const root = fileURLToPath(new URL('../../../', import.meta.url))
 
@@ -28,8 +27,6 @@ async function waitForMonospace() {
     await new Promise((resolve) => setTimeout(resolve, 2_000))
   }
 }
-
-await syncCompose()
 
 await waitForMonospace()
 
@@ -74,28 +71,33 @@ function composePort() {
   }
 }
 
-const node = (title, name) => ({
+const coreStep = (title, name) => ({
   title,
-  command: process.execPath,
-  args: [
-    fileURLToPath(new URL('step.mjs', import.meta.url)),
-    title,
-    fileURLToPath(new URL(name, import.meta.url)),
-  ],
+  run: () => runSetupStep(title, () => import(new URL(name, import.meta.url))),
+})
+
+const ownerStep = ({ title, owner, script }) => ({
+  title,
+  run: () =>
+    execFileSync(
+      process.execPath,
+      [fileURLToPath(new URL('run-step.mjs', import.meta.url)), `${owner}/${script}`],
+      { stdio: 'inherit', cwd: root },
+    ),
 })
 
 const steps = [
-  node('Workspace and data sources', 'sources.mjs'),
-  node('Introspect sources', 'introspect-sources.mjs'),
-  node('Owner and audit user relations', 'audit-user-relations.mjs'),
-  ...availableSetupSteps('beforeSchema').map(({ title, url }) => node(title, url)),
-  node('API names, defaults, presentation meta', 'apply-schema.mjs'),
-  ...availableSetupSteps('afterSchema').map(({ title, url }) => node(title, url)),
+  coreStep('Workspace and data sources', 'sources.mjs'),
+  coreStep('Introspect sources', 'introspect-sources.mjs'),
+  coreStep('Owner and audit user relations', 'audit-user-relations.mjs'),
+  ...setupSteps('beforeSchema').map(ownerStep),
+  coreStep('API names, defaults, presentation meta', 'apply-schema.mjs'),
+  ...setupSteps('afterSchema').map(ownerStep),
 ]
 
-for (const { title, command, args } of steps) {
+for (const { title, run } of steps) {
   console.log(`\n== ${title}`)
-  execFileSync(command, args, { stdio: 'inherit', cwd: root })
+  await run()
 }
 
 console.log('\nMonospace is set up.')

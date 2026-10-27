@@ -61,12 +61,12 @@ describe('RelationCombobox', () => {
     const user = userEvent.setup()
 
     const options = [
-      { value: '00000000-0000-4000-8000-000000000002', label: 'Maya Patel', visual: 'contact' },
+      { value: '00000000-0000-4000-8000-000000000002', label: 'Maya Patel', variant: 'circle' },
       {
         value: '00000000-0000-4000-8000-000000000003',
         label: 'Apple',
         image: '/logo/apple.com',
-        visual: 'organization',
+        variant: 'square',
       },
     ] satisfies Array<RelationOption>
 

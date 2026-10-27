@@ -15,7 +15,7 @@ import { appCopy } from '@/lib/app.copy'
 import { isMissingFromWorkspace } from '@/lib/errors'
 import { enumLabel, formatDate, formatMoney } from '@/lib/format'
 import { billingSummary, chargeAmount } from './billing'
-import { Empty, Metric, Unlinked } from '@/components/source-panel'
+import { Empty, Metric, Unlinked } from '@/components/panel'
 import { billingCopy } from './billing.copy'
 import type { StripeCustomer } from './data'
 

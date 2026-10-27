@@ -1,3 +1,5 @@
+import { useCollectionAccess } from '@/lib/permissions'
+import { InlineReadOnly } from '@/components/inline/inline-field'
 import { useQuery } from '@tanstack/react-query'
 import { Link } from '@tanstack/react-router'
 import { CalendarDays, Loader2, Plus, RotateCcw } from 'lucide-react'
@@ -5,7 +7,7 @@ import { useState } from 'react'
 import type { ReactNode } from 'react'
 
 import { DrawerFormBody, DrawerFormFooter, FormDrawer } from '@/components/form/form-drawer'
-import { AttachmentsPanel } from '@/modules/crm/components/attachments'
+import { AttachmentsPanel } from '@/modules/crm/components/files/panel'
 import { RecordMenu } from '@/components/record-menu'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -24,7 +26,7 @@ import { crmCopy } from '@/modules/crm/crm.copy'
 import { ContactIcon, DealIcon, OrganizationIcon } from '@/modules/crm/icons'
 import { recentInteractionsQuery } from '@/modules/crm/data'
 import type { LinkedRecord } from '@/modules/crm/components/todo-list'
-import type { InteractionRow } from '@/modules/crm/data'
+import type { ActivityRecord } from '@/modules/crm/data'
 import { useCreateActivity, useUpdateActivity } from '@/modules/crm/mutations'
 
 const copy = crmCopy.activity
@@ -42,16 +44,19 @@ export function ActivityDetailDrawer({
   onDelete,
   hide = [],
 }: {
-  row: InteractionRow | null
+  row: ActivityRecord | null
   mode: ActivityDetailMode
   onModeChange: (mode: ActivityDetailMode) => void
   onOpenChange: (open: boolean) => void
-  onDelete: (row: InteractionRow) => void
+  onDelete: (row: ActivityRecord) => void
   // Linked records the reader is already looking at; also skips "recently on this account"
   // when that record is the organization.
   hide?: ReadonlyArray<LinkedRecord>
 }) {
-  const initial = row && mode === 'edit' ? toActivityInitial(row) : null
+  const access = useCollectionAccess('interactions')
+
+  const initial =
+    row && mode === 'edit' && access.canUpdate('subject') ? toActivityInitial(row) : null
 
   return (
     <FormDrawer
@@ -64,8 +69,8 @@ export function ActivityDetailDrawer({
           <RecordMenu
             size="icon-sm"
             variant="ghost"
-            onEdit={() => onModeChange('edit')}
-            onDelete={() => onDelete(row)}
+            onEdit={access.canUpdate('subject') ? () => onModeChange('edit') : undefined}
+            onDelete={access.delete ? () => onDelete(row) : undefined}
           />
         ) : undefined
       }
@@ -86,7 +91,7 @@ export function ActivityDetailDrawer({
   )
 }
 
-function describe(row: InteractionRow, hide: ReadonlyArray<LinkedRecord>) {
+function describe(row: ActivityRecord, hide: ReadonlyArray<LinkedRecord>) {
   // SAFETY: interactions.type only holds the select options copy.types is keyed by; unknown values
   // fall back to the raw type. See docs/monospace.md, known issues.
   const type = copy.types[(row.type ?? 'note') as keyof typeof copy.types] ?? row.type
@@ -105,10 +110,11 @@ function DetailView({
   hide,
   onClose,
 }: {
-  row: InteractionRow
+  row: ActivityRecord
   hide: ReadonlyArray<LinkedRecord>
   onClose: () => void
 }) {
+  const access = useCollectionAccess('interactions')
   const update = useUpdateActivity()
   const [at] = useState(() => Date.now())
   const open = isOpen(row)
@@ -122,7 +128,7 @@ function DetailView({
   const details = (
     <>
       <div className="flex flex-wrap items-center gap-2">
-        {open ? (
+        {open && access.canUpdate('dueAt') && access.canUpdate('occurredAt') ? (
           <DueChip
             value={due ?? null}
             overdue={overdue}
@@ -202,12 +208,14 @@ function DetailView({
       ) : null}
 
       <Section title={appCopy.common.owner}>
-        <InlineOwner
-          owner={row.owner}
-          onSave={async (ownerUserId) => {
-            await update.mutateAsync({ id: row.id ?? '', data: { ownerUserId } })
-          }}
-        />
+        <InlineReadOnly value={!access.canUpdate('ownerUserId')}>
+          <InlineOwner
+            owner={row.owner}
+            onSave={async (ownerUserId) => {
+              await update.mutateAsync({ id: row.id ?? '', data: { ownerUserId } })
+            }}
+          />
+        </InlineReadOnly>
       </Section>
 
       {row.organizations?.id && row.id && !hide.includes('organization') ? (
@@ -215,6 +223,9 @@ function DetailView({
       ) : null}
     </>
   )
+
+  if (!access.canUpdate('status') || !access.canUpdate('completedAt'))
+    return <DrawerFormBody>{details}</DrawerFormBody>
 
   return open ? (
     <CompleteForm row={row} onDone={onClose}>
@@ -315,10 +326,11 @@ function CompleteForm({
   onDone,
   children,
 }: {
-  row: InteractionRow
+  row: ActivityRecord
   onDone: () => void
   children: ReactNode
 }) {
+  const access = useCollectionAccess('interactions')
   const update = useUpdateActivity()
   const create = useCreateActivity({ notify: false })
   const currentUser = useCurrentUser()
@@ -333,7 +345,13 @@ function CompleteForm({
       data: {
         status: 'completed',
         completedAt: now(),
-        body: note ? (row.body ? `${row.body}\n\n${note}` : note) : row.body,
+        body: access.canUpdate('body')
+          ? note
+            ? row.body
+              ? `${row.body}\n\n${note}`
+              : note
+            : row.body
+          : undefined,
       },
     })
 
@@ -367,6 +385,7 @@ function CompleteForm({
         {children}
         <div className="flex flex-col gap-3 border-t pt-5">
           <Textarea
+            disabled={!access.canUpdate('body')}
             value={outcome}
             onChange={(event) => setOutcome(event.target.value)}
             placeholder={copy.sheet.outcomePlaceholder}
@@ -390,7 +409,7 @@ function CompleteForm({
                 onChange={(due) => setNext({ ...next, due })}
               />
             </div>
-          ) : (
+          ) : access.create ? (
             <Button
               type="button"
               variant="ghost"
@@ -401,7 +420,7 @@ function CompleteForm({
               <Plus data-icon="inline-start" />
               {copy.sheet.nextStep}
             </Button>
-          )}
+          ) : null}
         </div>
       </DrawerFormBody>
       <DrawerFormFooter>

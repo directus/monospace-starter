@@ -10,7 +10,7 @@ import {
   organizationLists,
   contactPanels,
   dealSummaries,
-} from '@/modules/organization-panels'
+} from '@/modules/crm/slots'
 import { worker } from '@/test/msw'
 import { portalCopy } from './portal.copy'
 import { PortalPanel } from './portal-panel'

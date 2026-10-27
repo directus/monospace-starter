@@ -3,7 +3,7 @@ import { useMemo } from 'react'
 
 import type { PageMeta, RoutePath } from '@/modules/types'
 
-export type Page = PageMeta & { to: RoutePath }
+type Page = PageMeta & { to: RoutePath }
 
 /** Every route that declares `staticData.page` and needs no params. */
 export function usePages() {

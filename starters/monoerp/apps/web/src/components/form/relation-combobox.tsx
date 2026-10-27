@@ -3,7 +3,7 @@ import { keepPreviousData, useQuery } from '@tanstack/react-query'
 import { Check, ChevronDown, X } from 'lucide-react'
 import { useState } from 'react'
 
-import { EntityAvatar } from '@/components/ui/entity-avatar'
+import { EntityAvatar } from '@/components/avatars'
 import { useDebouncedValue } from '@/hooks/use-debounced-value'
 import { useIsMobile } from '@/hooks/use-mobile'
 import { appCopy } from '@/lib/app.copy'
@@ -16,14 +16,18 @@ export type RelationOption = {
   description?: string
   image?: string
   avatar?: boolean
-  visual?: 'contact' | 'organization'
+  variant?: 'circle' | 'square'
   color?: string
 }
 
 export function RelationOptionVisual({ option }: { option: RelationOption }) {
-  if (option.visual || option.avatar) {
+  if (option.variant || option.avatar) {
     return (
-      <EntityAvatar label={option.label} image={option.image} visual={option.visual ?? 'avatar'} />
+      <EntityAvatar
+        label={option.label}
+        image={option.image}
+        variant={option.variant ?? 'circle'}
+      />
     )
   }
 

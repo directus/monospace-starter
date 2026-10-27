@@ -1,6 +1,6 @@
 import { fileURLToPath } from 'node:url'
 
-import { organizationPanelPaths } from './scripts/module-collections'
+import { moduleFeaturePaths } from './scripts/module-collections'
 import { devtools } from '@tanstack/devtools-vite'
 import { tanstackStart } from '@tanstack/react-start/plugin/vite'
 import tailwindcss from '@tailwindcss/vite'
@@ -25,11 +25,10 @@ export default defineConfig(({ mode }) => {
       tsconfigPaths: true,
       alias: {
         '@': fileURLToPath(new URL('./src/', import.meta.url)),
-        '#': fileURLToPath(new URL('./src/', import.meta.url)),
       },
     },
     define: {
-      __CRM_ORGANIZATION_PANEL_PATHS__: JSON.stringify(organizationPanelPaths),
+      __MODULE_FEATURE_PATHS__: JSON.stringify(moduleFeaturePaths),
     },
     // Fail rather than move to the next free port: another copy may already be on this one.
     server: { port: Number(process.env.APP_PORT ?? 3000), strictPort: true },

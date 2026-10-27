@@ -11,7 +11,7 @@ import { billingCopy } from './billing.copy'
 import type { StripeCustomer } from './data'
 import feature from './feature'
 import { worker } from '@/test/msw'
-import { organizationPanels } from '@/modules/organization-panels'
+import { organizationPanels } from '@/modules/crm/slots'
 
 const copy = billingCopy
 

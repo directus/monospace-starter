@@ -15,7 +15,7 @@
   <a href="#quickstart">Quickstart</a> •
   <a href="docs/getting-started.md">Getting started guide</a> •
   <a href="#built-for-agents">Built for agents</a> •
-  <a href="infra/aws/README.md">Deploy to AWS</a> •
+  <a href="docs/deploy.md">Deploy</a> •
   <a href="https://monospace.io">Monospace</a> •
   <a href="https://docs.monospace.io">Monospace docs</a>
 </p>
@@ -110,7 +110,7 @@ A module is four folders: manifest, UI, infrastructure, and routes. See [the mod
 | Core       | `starter.json`                                                      | Shared ownership manifest                            |
 | Core       | `apps/web/src/shell`, `apps/web/src/lib`, `apps/web/src/components` | Shell, authentication, and shared UI                 |
 | Core       | `infra/monospace`, `infra/postgres`                                 | Shared workspace setup and PostgreSQL service        |
-| Core       | `infra/aws`, `tools/oxlint`                                         | Optional deployment and code checks                  |
+| Add-ons    | `addons/<id>/addon.json`                                            | Optional deployment and code checks                  |
 | Modules    | `modules/<id>`                                                      | Module manifest                                      |
 | Modules    | `apps/web/src/modules/<id>`                                         | UI entry, copy, reads, and writes                    |
 | Modules    | `infra/modules/<id>`                                                | SQL, demo data, schema settings, and setup           |
@@ -132,19 +132,11 @@ To change the CRM schema, add a migration in `infra/modules/crm/postgres/migrati
 | [`data-model.md`](docs/data-model.md)           | The tables, how the databases connect, schema changes, demo data           |
 | [`monospace.md`](docs/monospace.md)             | Setup scripts, connectors, the generated client, Monospace issues          |
 | [`testing.md`](docs/testing.md)                 | Tests, lint rules, CI                                                      |
-| [`infra/aws/README.md`](infra/aws/README.md)    | Deploying to AWS                                                           |
+| [`docs/deploy.md`](docs/deploy.md)              | Hosting the app                                                            |
 
-## Deploy to AWS
+## Deploy
 
-One command builds a stage: network, PostgreSQL, MySQL, Valkey, RabbitMQ, Monospace, the app, CloudFront, a firewall, alarms, and autoscaling. AWS deployment is optional. The included GitHub Actions workflow checks and builds the app without an AWS account.
-
-Needs a Monospace license key. AWS does not install the Stripe extension yet, so Billing is unavailable there.
-
-```bash
-pnpm aws:deploy --stage staging
-```
-
-[The AWS guide](infra/aws/README.md) covers setup, alarms, backups, and teardown.
+See [deployment](docs/deploy.md) for hosting requirements and the optional deployment add-on.
 
 ## License
 

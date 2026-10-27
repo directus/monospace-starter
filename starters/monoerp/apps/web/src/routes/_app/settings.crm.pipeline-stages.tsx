@@ -10,7 +10,7 @@ export const Route = createFileRoute('/_app/settings/crm/pipeline-stages')({
       title: crmSettingsCopy.stages.title,
       icon: ListFilter,
       parent: '/settings',
-      keywords: ['settings', 'pipeline', 'stages', 'sales'],
+      keywords: crmSettingsCopy.stages.keywords,
     },
   },
   component: PipelineStagesSettings,

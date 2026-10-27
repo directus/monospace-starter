@@ -1,3 +1,4 @@
+// Contract coverage for scripts/generate-zod-schemas.ts against the CRM schema.
 import { describe, expect, expectTypeOf, it } from 'vitest'
 
 import type {

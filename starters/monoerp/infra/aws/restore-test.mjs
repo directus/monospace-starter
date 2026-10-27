@@ -3,7 +3,7 @@
 // minutes, most of it RDS creating and deleting the instance. The scratch instance is deleted
 // even if the check fails.
 //
-//   pnpm aws:restore-test --stage staging
+//   pnpm aws restore-test --stage staging
 import { aws, awsJson, runTask, stackOutputs, stage } from './lib.mjs'
 
 const outputs = stackOutputs()

@@ -1,34 +1,31 @@
-import { useInfiniteQuery, useQuery } from '@tanstack/react-query'
+import { useQuery } from '@tanstack/react-query'
 import { Link, createFileRoute } from '@tanstack/react-router'
-import { CalendarDays, CircleDot, Coins, Milestone, Plus } from 'lucide-react'
-import { useMemo } from 'react'
+import { CalendarDays, CircleDot, Coins, Milestone } from 'lucide-react'
 
-import { DataTable, DataTableMobileRow, useDataTable } from '@/components/data-table'
-import type { DataTableColumn } from '@/components/data-table'
+import { useListPage } from '@/hooks/use-list-page'
+import { ListControls, ListAddButton } from '@/components/list-controls'
+import { ListTable } from '@/components/data-table/list-table'
+import { DataTableMobileRow } from '@/components/data-table/data-table'
+import type { DataTableColumn } from '@/components/data-table/data-table'
 import { DataError, DataLoading } from '@/components/data-state'
-import { ListBulkActions } from '@/components/list-bulk-actions'
-import { DisplayMenu } from '@/components/display-menu'
+import { ListBulkActions, ownerBulkField } from '@/components/list-bulk-actions'
 import { useDeleteManyDeals, useUpdateManyDeals } from '@/modules/crm/mutations'
-import { dateField } from '@/components/filter-date-editor'
-import { FilterTrigger, FilterWell, ListFilters } from '@/components/list-filters'
-import { ListToolbar } from '@/components/list-toolbar'
+import { dateField } from '@/components/filters/filter-date-editor'
 import { ListWorkspace } from '@/components/list-workspace'
-import { createFilterQuery, isFilterQueryEmpty } from '@/components/reui/filters/filters'
 import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
 import { appCopy } from '@/lib/app.copy'
 import { filtersToClause, hasRuleFor, relationField } from '@/lib/filters'
-import type { FilterValue, ListFilterField, ListFilterQuery } from '@/lib/filters'
+import type { ListFilterField, ListFilterQuery } from '@/lib/filters'
 import { formatDate, formatMoney } from '@/lib/format'
-import { listSearchSchema, parseSort, serializeSort } from '@/lib/list-search'
+import { listSearchSchema, parseSort } from '@/lib/list-search'
 import { DealBoard } from '@/modules/crm/components/deal-board'
 import { DealDrawer } from '@/modules/crm/components/deal-form'
 import {
   ContactLabel,
   OrganizationAvatar,
   OrganizationLabel,
-  organizationName,
 } from '@/modules/crm/components/entities'
+import { organizationName, dealStatusOptions } from '@/modules/crm/entities'
 import { UserLabel } from '@/components/users'
 import { StageDot } from '@/modules/crm/components/stage-dot'
 import { StatusBadge } from '@/modules/crm/components/status-badge'
@@ -37,14 +34,14 @@ import { DealIcon, OrganizationIcon, OwnerIcon } from '@/modules/crm/icons'
 import {
   lookupOrganizations,
   lookupStages,
-  opportunitiesPagesQuery,
-  opportunitiesQuery,
+  dealsPagesQuery,
+  dealsQuery,
   pipelineStagesQuery,
   resolveOrganizations,
   resolveStages,
 } from '@/modules/crm/data'
-import { lookupUsers, resolveUsers } from '@/lib/user-options'
-import type { OpportunitiesFilter, OpportunityRow } from '@/modules/crm/data'
+import { lookupUsers, resolveUsers } from '@/lib/users'
+import type { DealsFilter, DealRow } from '@/modules/crm/data'
 import { stageColor } from '@/modules/crm/stage-color'
 import { useCollectionAccess } from '@/lib/permissions'
 
@@ -57,7 +54,7 @@ const filterFields: Array<ListFilterField> = [
     defaultOperator: 'is_any_of',
     searchable: false,
     icon: <CircleDot />,
-    options: Object.entries(crmCopy.deals.statuses).map(([value, label]) => ({ value, label })),
+    options: dealStatusOptions,
   },
   relationField({
     id: 'stage',
@@ -103,12 +100,10 @@ const filterFields: Array<ListFilterField> = [
   }),
 ]
 
-const EMPTY_QUERY = createFilterQuery<FilterValue>([])
-
 function clauseFor(query: ListFilterQuery | undefined) {
   // SAFETY: filtersToClause only emits operators valid for each field type. The generated filter
   // schema can't check it yet (docs/monospace.md, known issues).
-  return filtersToClause(filterFields, query) as OpportunitiesFilter | undefined
+  return filtersToClause(filterFields, query) as DealsFilter | undefined
 }
 
 export const Route = createFileRoute('/_app/crm/deals')({
@@ -132,12 +127,12 @@ export const Route = createFileRoute('/_app/crm/deals')({
   }),
   loader: ({ context: { queryClient }, deps: { display, ...deps } }) =>
     display === 'board'
-      ? queryClient.ensureQueryData(opportunitiesQuery(deps))
-      : queryClient.ensureInfiniteQueryData(opportunitiesPagesQuery(deps)),
+      ? queryClient.ensureQueryData(dealsQuery(deps))
+      : queryClient.ensureInfiniteQueryData(dealsPagesQuery(deps)),
   component: DealsPage,
 })
 
-const columns: Array<DataTableColumn<OpportunityRow>> = [
+const columns: Array<DataTableColumn<DealRow>> = [
   {
     id: 'title',
     header: crmCopy.deals.singular,
@@ -222,7 +217,7 @@ const columns: Array<DataTableColumn<OpportunityRow>> = [
   },
 ]
 
-function DealRowMobile({ deal }: { deal: OpportunityRow }) {
+function DealRowMobile({ deal }: { deal: DealRow }) {
   const stage = deal.pipeline_stages
 
   return (
@@ -258,181 +253,117 @@ function DealsPage() {
   const access = useCollectionAccess('opportunities')
   const search = Route.useSearch()
   const navigate = Route.useNavigate()
-  const display = search.display ?? 'table'
-  const query = search.filters ?? EMPTY_QUERY
-  const sort = parseSort(search.sort)
-  const filter = clauseFor(query)
 
-  const pages = useInfiniteQuery({
-    ...opportunitiesPagesQuery({ q: search.q, filter, sort }),
-    enabled: display === 'table',
+  const page = useListPage({
+    id: 'deals',
+    columns,
+    search,
+    onSearchChange: (patch) => navigate({ search: (previous) => ({ ...previous, ...patch }) }),
+    params: Route.useLoaderDeps(),
+    query: dealsPagesQuery,
+    selectable: true,
+    board: true,
   })
 
-  const all = useQuery({
-    ...opportunitiesQuery({ q: search.q, filter, sort }),
-    enabled: display === 'board',
-  })
+  const { list: pages, selectedIds, clearSelection } = page
 
-  const stages = useQuery({ ...pipelineStagesQuery(), enabled: display === 'board' })
-  const rows = useMemo(() => pages.data?.pages.flat() ?? [], [pages.data])
-  const ownerFiltered = hasRuleFor(filterFields, query, 'owner')
-
-  const { table, resetLayout, isDefaultLayout, onDragEnd, selectedIds, clearSelection } =
-    useDataTable({
-      id: 'deals',
-      columns,
-      rows,
-      getRowId: (row) => row.id,
-      sort,
-      onSortChange: (next) =>
-        navigate({ search: (previous) => ({ ...previous, sort: serializeSort(next) }) }),
-      selectable: true,
-      selectionKey: JSON.stringify([search.q, search.filters, search.sort]),
-    })
+  const all = useQuery({ ...dealsQuery(page.params), enabled: page.display === 'board' })
+  const stages = useQuery(pipelineStagesQuery())
+  const ownerFiltered = hasRuleFor(filterFields, page.query, 'owner')
+  const { display } = page
 
   const updateMany = useUpdateManyDeals()
   const deleteMany = useDeleteManyDeals()
-  const allStages = useQuery(pipelineStagesQuery())
 
-  const loading = display === 'board' ? all.isPending || stages.isPending : pages.isPending
+  const loading = display === 'board' && (all.isPending || stages.isPending)
 
   return (
     <ListWorkspace
       title={crmCopy.deals.title}
       icon={DealIcon}
       controls={
-        <ListFilters
+        <ListControls
+          state={page}
           fields={filterFields}
-          query={query}
-          onQueryChange={(next) =>
-            navigate({
-              search: (previous) => ({
-                ...previous,
-                filters: isFilterQueryEmpty(next) ? undefined : next,
-              }),
-            })
+          title={crmCopy.deals.title}
+          icon={DealIcon}
+          defaultSort={{ id: 'updatedAt', desc: true, label: appCopy.common.lastUpdated }}
+          selection={
+            selectedIds.length ? (
+              <ListBulkActions
+                canUpdate={access.canUpdate}
+                ids={selectedIds}
+                noun={crmCopy.deals.title}
+                singular={crmCopy.deals.singular}
+                fields={[
+                  {
+                    name: 'stageId',
+                    label: crmCopy.deals.stage,
+                    kind: 'select',
+                    options: (stages.data ?? []).flatMap((stage, index) =>
+                      stage.id && stage.name
+                        ? [
+                            {
+                              value: stage.id,
+                              label: stage.name,
+                              color: stageColor(stage, index),
+                            },
+                          ]
+                        : [],
+                    ),
+                  },
+                  ownerBulkField,
+                ]}
+                onClear={clearSelection}
+                onUpdate={async (ids, data) => {
+                  // The database keeps status in step with the stage: a closed stage means won
+                  // or lost, anything else means open.
+                  const stage = stages.data?.find((candidate) => candidate.id === data.stageId)
+
+                  const status = stage
+                    ? stage.isClosed
+                      ? stage.isWon
+                        ? 'won'
+                        : 'lost'
+                      : 'open'
+                    : undefined
+
+                  await updateMany.mutateAsync({
+                    ids,
+                    data: status ? { ...data, status } : data,
+                  })
+                }}
+                onDelete={
+                  access.delete
+                    ? async (ids) => {
+                        await deleteMany.mutateAsync(ids)
+                      }
+                    : undefined
+                }
+                deleting={deleteMany.isPending}
+                deleteError={deleteMany.error}
+              />
+            ) : undefined
           }
-        >
-          <ListToolbar
-            title={crmCopy.deals.title}
-            icon={DealIcon}
-            query={search.q ?? ''}
-            onQueryChange={(q) => navigate({ search: (previous) => ({ ...previous, q }) })}
-            selection={
-              selectedIds.length ? (
-                <ListBulkActions
-                  ids={selectedIds}
-                  noun={crmCopy.deals.title}
-                  singular={crmCopy.deals.singular}
-                  fields={[
-                    {
-                      name: 'stageId',
-                      label: crmCopy.deals.stage,
-                      kind: 'select',
-                      options: (allStages.data ?? []).flatMap((stage, index) =>
-                        stage.id && stage.name
-                          ? [
-                              {
-                                value: stage.id,
-                                label: stage.name,
-                                color: stageColor(stage, index),
-                              },
-                            ]
-                          : [],
-                      ),
-                    },
-                    {
-                      name: 'ownerUserId',
-                      label: appCopy.common.owner,
-                      kind: 'relation',
-                      search: lookupUsers,
-                      placeholder: appCopy.inline.assign,
-                      searchPlaceholder: appCopy.form.searchPlaceholder(appCopy.common.owner),
-                    },
-                  ]}
-                  onClear={clearSelection}
-                  onUpdate={async (ids, data) => {
-                    // The database keeps status in step with the stage: a closed stage means won
-                    // or lost, anything else means open.
-                    const stage = allStages.data?.find((candidate) => candidate.id === data.stageId)
-
-                    const status = stage
-                      ? stage.isClosed
-                        ? stage.isWon
-                          ? 'won'
-                          : 'lost'
-                        : 'open'
-                      : undefined
-
-                    await updateMany.mutateAsync({
-                      ids,
-                      data: status ? { ...data, status } : data,
-                    })
-                  }}
-                  onDelete={
-                    access.delete
-                      ? async (ids) => {
-                          await deleteMany.mutateAsync(ids)
-                        }
-                      : undefined
-                  }
-                  deleting={deleteMany.isPending}
-                  deleteError={deleteMany.error}
-                />
-              ) : undefined
-            }
-            action={
-              <>
-                <DisplayMenu
-                  display={display}
-                  onDisplayChange={(nextDisplay) =>
-                    navigate({ search: (previous) => ({ ...previous, display: nextDisplay }) })
-                  }
-                  sort={sort}
-                  defaultSort={{ id: 'updatedAt', desc: true, label: appCopy.common.lastUpdated }}
-                  onSortChange={(next) =>
-                    navigate({
-                      search: (previous) => ({ ...previous, sort: serializeSort(next) }),
-                    })
-                  }
-                  table={table}
-                  isDefaultLayout={isDefaultLayout}
-                  onResetColumns={resetLayout}
-                />
-                {access.create ? (
-                  <DealDrawer
-                    trigger={
-                      <Button className="max-md:ml-auto max-md:w-10 max-md:px-0!">
-                        <Plus data-icon="inline-start" />
-                        <span className="max-md:sr-only">
-                          {appCopy.form.add(crmCopy.deals.singular)}
-                        </span>
-                      </Button>
-                    }
-                  />
-                ) : null}
-              </>
-            }
-          >
-            <FilterTrigger />
-          </ListToolbar>
-          <FilterWell />
-        </ListFilters>
+          action={
+            access.create ? (
+              <DealDrawer
+                trigger={<ListAddButton label={appCopy.form.add(crmCopy.deals.singular)} />}
+              />
+            ) : null
+          }
+        />
       }
     >
       {loading ? <DataLoading className="max-md:mx-4" /> : null}
-      {pages.isError ? <DataError error={pages.error} className="max-md:mx-4" /> : null}
       {all.isError ? <DataError error={all.error} className="max-md:mx-4" /> : null}
       {stages.isError ? <DataError error={stages.error} className="max-md:mx-4" /> : null}
-      {pages.data && display === 'table' ? (
+      {display === 'table' ? (
         <>
-          <DataTable
-            table={table}
-            onDragEnd={onDragEnd}
+          <ListTable
+            query={pages}
+            {...page.tableProps}
             noun={crmCopy.deals.title}
-            hasMore={pages.hasNextPage}
-            isLoadingMore={pages.isFetchingNextPage}
-            onLoadMore={() => void pages.fetchNextPage()}
             mobileRow={(deal) => <DealRowMobile deal={deal} />}
           />
         </>

@@ -12,7 +12,7 @@ export class UserError extends Error {
 }
 
 // Monospace errors are server responses, so their messages are expected and safe to show.
-export function isExpectedError(error: Error) {
+function isExpectedError(error: Error) {
   return error instanceof UserError || error instanceof MonospaceError
 }
 
@@ -44,19 +44,18 @@ export function isMissingFromWorkspace(error: Error | null) {
 
 // Turns an SDK or unknown error into a sentence the user can act on. Takes `unknown` because
 // it's where caught values get narrowed: JavaScript can throw anything.
-// oxlint-disable-next-line anti-slop/no-unknown-parameters
-export function errorMessage(error: unknown, fallback: string = appCopy.form.saveFailed) {
-  if (error instanceof MonospacePermissionError) return appCopy.form.permissionDenied
+export function errorMessage(cause: unknown, fallback: string = appCopy.form.saveFailed) {
+  if (cause instanceof MonospacePermissionError) return appCopy.form.permissionDenied
 
-  if (error instanceof MonospaceError) {
-    if (error.status === 409 || hasCause(error, /foreign key constraint/i)) {
+  if (cause instanceof MonospaceError) {
+    if (cause.status === 409 || hasCause(cause, /foreign key constraint/i)) {
       return appCopy.form.conflict
     }
 
-    if (hasCause(error, /unique constraint|duplicate key/i)) return appCopy.form.duplicate
+    if (hasCause(cause, /unique constraint|duplicate key/i)) return appCopy.form.duplicate
   }
 
-  if (error instanceof Error && isExpectedError(error) && error.message) return error.message
+  if (cause instanceof Error && isExpectedError(cause) && cause.message) return cause.message
 
   return fallback
 }

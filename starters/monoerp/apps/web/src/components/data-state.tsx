@@ -11,7 +11,8 @@ import { cn } from '@/lib/utils'
 
 export function DataLoading({ rows = 5, className }: { rows?: number; className?: string }) {
   return (
-    <div className={cn('space-y-2 rounded-xl border p-4', className)} aria-label="Loading data">
+    <div className={cn('space-y-2 rounded-xl border p-4', className)} role="status">
+      <span className="sr-only">{appCopy.data.loading}</span>
       {Array.from({ length: rows }, (_, index) => (
         <Skeleton key={index} className="h-10 w-full" />
       ))}

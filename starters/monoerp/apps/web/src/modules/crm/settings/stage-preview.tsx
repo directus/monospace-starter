@@ -9,6 +9,8 @@ import type { PipelineStage } from '@/modules/crm/data'
 import { stageStyle } from '@/modules/crm/stage-color'
 import { crmSettingsCopy } from '@/modules/crm/settings/settings.copy'
 
+const copy = crmSettingsCopy.stages
+
 export function StagePreview({ stages }: { stages: PipelineStage[] }) {
   const [selectedId, setSelectedId] = useState<string>()
 
@@ -19,10 +21,10 @@ export function StagePreview({ stages }: { stages: PipelineStage[] }) {
 
   return (
     <Tabs defaultValue="board">
-      <Frame dense role="region" aria-label="Pipeline preview">
+      <Frame dense role="region" aria-label={copy.previewLabel}>
         <FrameHeader className="flex-row flex-wrap items-center justify-between gap-2 px-5 py-3">
           <FrameTitle>{crmSettingsCopy.stages.preview}</FrameTitle>
-          <TabsList aria-label="Preview view">
+          <TabsList aria-label={copy.previewView}>
             <TabsTrigger value="board" className="px-2 text-xs">
               <Columns3 className="size-3.5" />
               Board
@@ -36,7 +38,7 @@ export function StagePreview({ stages }: { stages: PipelineStage[] }) {
         <FramePanel className="p-4">
           <TabsContent value="board">
             <ol
-              aria-label="Board preview"
+              aria-label={copy.boardPreview}
               className="grid grid-cols-[repeat(auto-fit,minmax(80px,1fr))] gap-2"
             >
               {stages.map((stage, index) => (
@@ -63,7 +65,7 @@ export function StagePreview({ stages }: { stages: PipelineStage[] }) {
           <TabsContent value="detail">
             <div className="space-y-3">
               <div className="flex flex-wrap items-center justify-between gap-2">
-                <p className="text-xs font-medium">Example deal</p>
+                <p className="text-xs font-medium">{copy.exampleDeal}</p>
                 <div className="flex flex-wrap items-center gap-1">
                   {stages
                     .filter((stage) => stage.isClosed)

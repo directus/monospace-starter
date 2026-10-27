@@ -1,6 +1,6 @@
 # Working with Monospace
 
-Monospace is the backend. It holds users, roles, and permissions, connects to both databases and Stripe, and serves the API the app calls. `docker-compose.yml` and AWS (`infra/aws/services.ts`) pin Monospace v1.0.0 by image digest. Change both together.
+Monospace is the backend. It holds users, roles, and permissions, connects to both databases and Stripe, and serves the API the app calls. `docker-compose.yml` pins Monospace v1.0.0 by image digest; deployment reads that same pin.
 
 ## The workspace
 
@@ -16,7 +16,7 @@ New installations can use different names; follow [Rename it](getting-started.md
 
 ### Running without the portal or Stripe
 
-The shared PostgreSQL source is required; CRM uses it. By default setup selects the connector IDs declared by installed modules: CRM uses `portal,stripe`. If set, `OPTIONAL_SOURCES` replaces that list (empty disables all); it can also select a connector no installed module uses. The example `.env` leaves this unset so installed modules choose. A connector folder must exist before setup will connect its source, apply its schema, or run dependent module steps. Use `pnpm app:remove <id>` and the [shared removal steps](../connectors/README.md#remove-a-module-or-connector) to remove its code and local service too. AWS selects only Portal, since it does not install custom extensions yet; Billing is unavailable there.
+The shared PostgreSQL source is required; CRM uses it. By default setup selects the connector IDs declared by installed modules: CRM uses `portal,stripe`. If set, `OPTIONAL_SOURCES` replaces that list (empty disables all); it can also select a connector no installed module uses. The example `.env` leaves this unset so installed modules choose. A connector folder must exist before setup will connect its source, apply its schema, or run dependent module steps. Use `pnpm app:remove <id>` and the [shared removal steps](../connectors/README.md#remove-a-module-or-connector) to remove its code and local service too.
 
 Taking a source out of `OPTIONAL_SOURCES` doesn't remove one that's already connected. Delete it in Studio (Data Model > Sources). Delete the portal's `stripeCustomer` relation before the Stripe source: Monospace won't delete a source while a constrained relation points at it.
 
@@ -36,16 +36,16 @@ Setup (`infra/monospace/setup/setup.mjs`) runs these stages in order:
 3. Link owner/audit fields to Monospace users, then run each module or connector's steps declared before schema application.
 4. Apply collection/field names, defaults, and Studio presentation, then run after-schema steps such as assigning demo activity owners.
 
-| Command / contract                                                   | Purpose                                                                            |
-| -------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
-| `pnpm build:extensions`                                              | Build selected connector packages into `infra/monospace/extensions/`               |
-| `pnpm setup:sources`                                                 | Create workspace and data sources; approve extension hosts                         |
-| `pnpm setup:introspect`                                              | Reread connected sources after migrations, without writing to their databases      |
-| `pnpm setup:audit-relations`                                         | Configure owner and audit-user relations                                           |
-| `pnpm setup:schema`                                                  | Apply module and connector `monospace/schema/*.json`                               |
-| `setup.beforeSchema`, `setup.afterSchema`                            | Module and connector steps run only for installed owners and selected dependencies |
-| `node infra/monospace/setup/module-step.mjs crm/backfill-owners.mjs` | Rerun one owner-qualified step; use the script name in its manifest                |
-| `connector-step.mjs migrate` / `provision`                           | Dispatch installed connectors' migration or provisioning scripts                   |
+| Command / contract                                                | Purpose                                                                            |
+| ----------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| `pnpm build:extensions`                                           | Build selected connector packages into `infra/monospace/extensions/`               |
+| `pnpm setup:sources`                                              | Create workspace and data sources; approve extension hosts                         |
+| `pnpm setup:introspect`                                           | Reread connected sources after migrations, without writing to their databases      |
+| `pnpm setup:audit-relations`                                      | Configure owner and audit-user relations                                           |
+| `pnpm schema:apply`                                               | Apply module and connector `monospace/schema/*.json`                               |
+| `setup.beforeSchema`, `setup.afterSchema`                         | Module and connector steps run only for installed owners and selected dependencies |
+| `node infra/monospace/setup/run-step.mjs crm/backfill-owners.mjs` | Rerun one owner-qualified step; use the script name in its manifest                |
+| `connector-hook.mjs migrate` / `provision`                        | Dispatch installed connectors' migration or provisioning scripts                   |
 
 The PostgreSQL `ops` schema holds migration bookkeeping and is excluded from the API. On local keyless installs, a licensed step refused with HTTP 402 logs an explanation and setup continues; other failures still stop setup. A configured key or production run makes licensing refusals fatal.
 
@@ -55,7 +55,7 @@ For the manifest contract and validator details, see [module or connector manife
 
 One file per owning module or connector and source. Connector files live in `connectors/<id>/monospace/schema/`. Modules contribute collections to the shared `CRM` source. It holds everything set in Studio or through the API that isn't in the SQL: hand-set API names, engine-managed defaults, and Studio presentation (labels, icons, colors, select options, display templates, field order, hidden flags). Entries are keyed by database name, not by ID, so the same file works on any install.
 
-- To change these settings in code: edit the JSON, then `pnpm setup:schema`.
+- To change these settings in code: edit the JSON, then `pnpm schema:apply`.
 - If you changed them in Studio: run `pnpm schema:export` to write them back to their owning module or connector JSON, then commit it. When adding a collection, first add its database name to that owner's JSON so export knows who owns it. Otherwise the next fresh install loses them.
 
 The `optionalRelations` map keys optional relation names to their target `source`, database `collection`, and `owner` ID (module or connector). Apply logs and skips a missing entry only when that source is absent or its module or connector is absent or disabled. Required relations and optional joins whose source and module or connector are present still fail when missing, including when a target table is missing. This also handles Portal reverse joins when CRM tables are absent from the shared PostgreSQL source. Export keeps the dependency map and presentation metadata for later reattachment.
@@ -93,7 +93,7 @@ Studio is Monospace's admin UI, at http://localhost:8100 locally. Use it to look
 
 Without `MONOSPACE_LICENSE__KEY`, Monospace runs on its free tier: 1 workspace, 3 users, no custom roles or policies, no service accounts, no custom permission rules, no SSO, and usage telemetry is required. Signed-in module data works on the free tier. The CRM quickstart needs no licensed setup steps. Other errors still fail setup. With a configured key, licensing refusals also fail setup; production expects a license with the required seats and custom policies. The deployed setup entrypoint uses `NODE_ENV=production`, which also keeps licensing refusals fatal when the backend holds the key separately. An empty `MONOSPACE_LICENSE__KEY=` line counts as an invalid key and Monospace won't start, so leave the line commented out. `docker-compose.yml` only passes the key when it's set.
 
-With a key, Monospace checks in with `licensing.monospace.io` at startup. An online activation is tied to the install and its `MONOSPACE_BASE_URL`. `infra/aws/README.md` covers what that means on AWS.
+With a key, Monospace checks in with `licensing.monospace.io` at startup. An online activation is tied to the install and its `MONOSPACE_BASE_URL`. See [deployment](deploy.md) for hosting requirements.
 
 ## Known Monospace issues and workarounds
 

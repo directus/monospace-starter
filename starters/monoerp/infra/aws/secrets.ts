@@ -22,8 +22,8 @@ export const Credential = (id: string, username: string) =>
     return { username, password: random.text, secret }
   })
 
-// Values Alchemy must never generate or overwrite: `pnpm aws:keys` fills the key material
-// once, and `pnpm aws:license` copies the license from .env. Losing the KMS key makes
+// Values Alchemy must never generate or overwrite: `pnpm aws keys` fills the key material
+// once, and `pnpm aws license` copies the license from .env. Losing the KMS key makes
 // encrypted data unrecoverable, so these are only ever written outside the stack.
 export const Secrets = (retain: boolean) =>
   Effect.gen(function* () {
@@ -35,7 +35,7 @@ export const Secrets = (retain: boolean) =>
     const kmsMasterKey = yield* keySecret('KmsMasterKey', 'Monospace KMS master key (base64)')
 
     const license = yield* AWS.SecretsManager.Secret('MonospaceLicense', {
-      description: 'Monospace license key. Copied from .env by pnpm aws:license.',
+      description: 'Monospace license key. Copied from .env by pnpm aws license.',
     })
 
     const admin = yield* Credential('MonospaceAdminCredentials', 'admin')

@@ -1,7 +1,6 @@
-import { useState } from 'react'
 import type { ReactElement } from 'react'
 
-import { useAppForm } from '@/components/form/app-form'
+import { useAppForm, submitForm } from '@/components/form/app-form'
 import {
   DrawerForm,
   DrawerFormBody,
@@ -14,7 +13,6 @@ import { requiredRelation } from '@/components/form/validators'
 import type { Uuid } from '@/generated/monospace'
 import { appCopy } from '@/lib/app.copy'
 import { toDateInput, todayInput } from '@/lib/dates'
-import { errorMessage } from '@/lib/errors'
 import { crmCopy } from '@/modules/crm/crm.copy'
 import { lookupContacts, lookupOrganizations } from '@/modules/crm/data'
 import {
@@ -72,7 +70,7 @@ export function AffiliationDrawer({
   )
 }
 
-export function AffiliationForm({
+function AffiliationForm({
   initial,
   onCancel,
   onSuccess,
@@ -85,7 +83,6 @@ export function AffiliationForm({
   const pickContact = Boolean(anchor.organizationId)
   const create = useCreateAffiliation()
   const update = useUpdateAffiliation()
-  const [submitError, setSubmitError] = useState<string>()
 
   const form = useAppForm({
     defaultValues: {
@@ -96,22 +93,21 @@ export function AffiliationForm({
       endedAt: toDateInput(initial?.endedAt),
       isPrimary: initial?.isPrimary ?? false,
     },
-    onSubmit: async ({ value }) => {
-      setSubmitError(undefined)
-      const contactId = anchor.contactId ?? initial?.contact?.value ?? value.contact?.value
-      const organizationId = anchor.organizationId ?? value.organization?.value
+    onSubmit: ({ value, formApi }) =>
+      submitForm(formApi, async () => {
+        const contactId = anchor.contactId ?? initial?.contact?.value ?? value.contact?.value
+        const organizationId = anchor.organizationId ?? value.organization?.value
 
-      if (!contactId || !organizationId) return
-      const isPrimary = value.isPrimary && !value.endedAt
+        if (!contactId || !organizationId) return
+        const isPrimary = value.isPrimary && !value.endedAt
 
-      const base = {
-        title: value.title.trim() || null,
-        startedAt: value.startedAt || null,
-        endedAt: value.endedAt || null,
-        isPrimary,
-      }
+        const base = {
+          title: value.title.trim() || null,
+          startedAt: value.startedAt || null,
+          endedAt: value.endedAt || null,
+          isPrimary,
+        }
 
-      try {
         if (isPrimary) await clearPrimaryAffiliation(contactId, initial?.id)
 
         if (initial) {
@@ -125,10 +121,7 @@ export function AffiliationForm({
         }
 
         onSuccess?.()
-      } catch (error) {
-        setSubmitError(errorMessage(error))
-      }
-    },
+      }),
   })
 
   return (
@@ -192,7 +185,14 @@ export function AffiliationForm({
         </div>
       </DrawerFormBody>
 
-      <DrawerFormFooter error={submitError} onCancel={onCancel}>
+      <DrawerFormFooter
+        error={
+          <form.AppForm>
+            <form.FormError />
+          </form.AppForm>
+        }
+        onCancel={onCancel}
+      >
         <form.AppForm>
           <form.SubmitButton
             label={initial ? appCopy.form.save : pickContact ? copy.linkContact : copy.link}

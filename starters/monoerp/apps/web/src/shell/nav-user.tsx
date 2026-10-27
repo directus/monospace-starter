@@ -20,7 +20,8 @@ import {
 } from '@/components/ui/sidebar'
 import type { CurrentUser } from '@/lib/auth'
 import { appCopy } from '@/lib/app.copy'
-import { avatarUrl, initials } from '@/lib/format'
+import { initials } from '@/lib/format'
+import { avatarUrl } from '@/lib/users'
 
 export function NavUser({
   user,

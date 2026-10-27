@@ -1,5 +1,6 @@
 export const settingsCopy = {
   title: 'Settings',
+  keywords: ['preferences', 'configuration'],
   description: 'Make this workspace work for your team.',
   account: {
     title: 'Your account',

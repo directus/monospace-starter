@@ -1,8 +1,9 @@
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import type { RelationOption } from '@/components/form/relation-combobox'
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { appCopy } from '@/lib/app.copy'
-import { avatarUrl, initials } from '@/lib/format'
-import type { OwnerLike } from '@/lib/format'
+import { initials } from '@/lib/format'
+import type { OwnerLike } from '@/lib/users'
+import { avatarUrl } from '@/lib/users'
 import { cn } from '@/lib/utils'
 
 type Size = 'sm' | 'default' | 'lg'

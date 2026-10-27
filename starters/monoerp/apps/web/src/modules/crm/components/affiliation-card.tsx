@@ -1,3 +1,4 @@
+import { useCollectionAccess } from '@/lib/permissions'
 import { CalendarOff } from 'lucide-react'
 import { useState } from 'react'
 import type { ReactNode } from 'react'
@@ -113,15 +114,17 @@ function RoleMenu<T extends AffiliationLike>({
   onDelete: (row: T) => void
   className?: string
 }) {
+  const access = useCollectionAccess('contactOrganizations')
+
   return (
     <span className={cn('shrink-0', className)}>
       <RecordMenu
         size="icon-sm"
         variant="ghost"
-        onEdit={() => onEdit(row)}
-        onDelete={() => onDelete(row)}
+        onEdit={access.canUpdate('title') ? () => onEdit(row) : undefined}
+        onDelete={access.delete ? () => onDelete(row) : undefined}
       >
-        {!row.endedAt ? (
+        {!row.endedAt && access.canUpdate('endedAt') && access.canUpdate('isPrimary') ? (
           <DropdownMenuItem onClick={() => onEnd(row)}>
             <CalendarOff />
             {crmCopy.contacts.affiliations.end}

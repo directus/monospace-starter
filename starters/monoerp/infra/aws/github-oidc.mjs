@@ -2,7 +2,7 @@
 // stored keys. An account has one GitHub identity provider shared by every stage, so this runs
 // once per account rather than in each stage's stack. Safe to rerun.
 //
-//   pnpm aws:github-oidc
+//   pnpm aws github-oidc
 import { aws, awsJson, signedIn } from './lib.mjs'
 
 const account = signedIn()

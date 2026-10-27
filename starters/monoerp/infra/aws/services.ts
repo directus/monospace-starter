@@ -1,3 +1,4 @@
+import { readFileSync } from 'node:fs'
 import { z } from 'zod'
 import * as AWS from 'alchemy/AWS'
 import * as Output from 'alchemy/Output'
@@ -10,9 +11,11 @@ import type { StageConfig } from './stages.ts'
 
 const manifestReader = await import(new URL('../manifests.mjs', import.meta.url).href)
 
-// Same pinned release as docker-compose.yml.
-const monospaceImage =
-  'monospace/monospace:v1.0.0@sha256:bb82b12e61510699d241c08a3f7c74120cac692031272a9f70460ebb56fa34b7'
+const compose = readFileSync(new URL('../../docker-compose.yml', import.meta.url), 'utf8')
+
+const monospaceImage = compose.match(/\n  monospace:\n(?:    [^\n]*\n)*?    image: (\S+)/)?.[1]
+
+if (!monospaceImage) throw new Error('docker-compose.yml is missing the Monospace image')
 
 // Same release as docker-compose.yml.
 const mailpitImage = 'axllent/mailpit:v1.27'
@@ -181,7 +184,7 @@ export const Services = (
           return { host: 'rabbitmq.monoerp.internal', port: servicePorts.amqp, tls: false }
         })
 
-    // Staging's mail server. No public address: `pnpm aws:mail` opens its inbox through an SSM
+    // Staging's mail server. No public address: `pnpm aws mail` opens its inbox through an SSM
     // tunnel, which needs ECS Exec and the SSM policy on the task role.
     const mailpit = config.mailCatcher
       ? yield* Effect.gen(function* () {

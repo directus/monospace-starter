@@ -115,6 +115,7 @@ function violations(path: string, source: string, owners: RouteOwner[] = routeOw
       ? target &&
         !(
           target.startsWith(localFeature) ||
+          target === `apps/web/src/modules/${path.split('/')[3]}/slots` ||
           (target.startsWith('apps/web/src/') && !importedModule)
         )
       : (importedModule && importedModule !== ownerOf(sourcePath)) ||
@@ -157,6 +158,15 @@ describe('module boundaries', () => {
     expect(violations('modules/inventory/data.ts', source)).toHaveLength(1)
   })
 
+  it('allows connectors to import only the target module slots', () => {
+    const path = 'connectors/portal/frontend/crm/feature.tsx'
+    expect(
+      violations(path, "import type { OrganizationPanelProps } from '@/modules/crm/slots'"),
+    ).toEqual([])
+    expect(violations(path, "import '@/modules/crm/data'")).toHaveLength(1)
+    expect(violations(path, "import '@/modules/ats/slots'")).toHaveLength(1)
+  })
+
   it('rejects core imports of module code, including tests', () => {
     expect(
       violations(
@@ -167,7 +177,7 @@ describe('module boundaries', () => {
   })
 
   it('allows core helpers, module-local imports, the registry, and routes', () => {
-    expect(violations('modules/inventory/data.ts', "import '@/lib/user-options'")).toEqual([])
+    expect(violations('modules/inventory/data.ts', "import '@/lib/users'")).toEqual([])
     expect(
       violations('modules/inventory/data.ts', "import '@/modules/inventory/inventory.copy'"),
     ).toEqual([])
@@ -198,7 +208,7 @@ it.each([
 
 it('allows connector-local files, core UI, contracts, and generated types', () => {
   const source =
-    "import './data'; import '@/components/source-panel'; import '@/modules/types'; import '@/generated/monospace'"
+    "import './data'; import '@/components/panel'; import '@/modules/types'; import '@/generated/monospace'"
 
   expect(violations('connectors/stripe/frontend/crm/feature.tsx', source)).toEqual([])
 })

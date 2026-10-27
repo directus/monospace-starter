@@ -1,13 +1,6 @@
 import type { ModuleId, ModuleManifest } from '@/modules/types'
 
-export type {
-  ModuleId,
-  ModuleManifest,
-  PageMeta,
-  RoutePath,
-  SearchHit,
-  SearchScope,
-} from '@/modules/types'
+export type { ModuleId, ModuleManifest, SearchHit, SearchScope } from '@/modules/types'
 
 const manifests = import.meta.glob<{ default: ModuleManifest }>('./*/module.ts', { eager: true })
 

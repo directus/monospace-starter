@@ -17,7 +17,6 @@ Schema: `infra/modules/crm/postgres/init/001_schema.sql`. Every table has a UUID
 | `opportunities`         | A deal (the UI calls them deals). Belongs to one organization, optionally one contact, and sits in one stage. Its `status` must match its stage's status; a trigger enforces that, and changing a stage's won or closed flags updates its deals                  |
 | `interactions`          | Activity: a `note`, `call`, `meeting`, or `email`, with a status (`open`, `completed`, `cancelled`) and a `due_at` for to-dos. Always belongs to an organization, and can also sit on a contact and a deal. A deal's activity must be on the deal's organization |
 | `attachments`           | A file or a link. `asset_id` is a Monospace file in the `crm` workspace; `url` is a link to somewhere else (Drive, a contract tool). Rolls up to an organization like activity does, and can sit on a contact, a deal, or one activity                           |
-| `saved_views`           | A named list view: filters, sorting, and visible columns for organizations, contacts, or opportunities. `private` or shared with the `workspace`                                                                                                                 |
 
 Deleting is restricted on purpose. You can't delete an organization that still has contact history, deals, activity, or attachments, or a contact that still has organization history. A deal with activity can't move to another organization. Deleting a contact clears it from deals, activity, and attachments, and deleting a deal clears it from activity and attachments, rather than deleting those rows.
 
@@ -88,11 +87,11 @@ A migration must be safe to run against a database that already has the change, 
 
 Docker only runs `init/` when a volume is first created. Editing an init file does nothing to a running stack; that's what migrations are for.
 
-The portal has `connectors/portal/emulator/migrations/` too, for changes "the other team" made. They're written to be safe to rerun, so every run applies all of them: `pnpm db:migrate` does locally (`connectors/portal/emulator/migrate.sh`, as MySQL's root user), and the AWS setup task does on deploy (`infra/setup/run.sh`).
+The portal has `connectors/portal/emulator/migrations/` too, for changes "the other team" made. They're written to be safe to rerun, so every run applies all of them: `pnpm db:migrate` does locally (`connectors/portal/emulator/migrate.sh`, as MySQL's root user), and the deployed setup task does on deploy (`infra/setup/run.sh`).
 
 ## Demo data
 
-`infra/modules/crm/postgres/init/002_seed.sql` and `connectors/portal/emulator/init/002_seed.sql` load on the first `docker compose up` (and on AWS stages that seed).
+`infra/modules/crm/postgres/init/002_seed.sql` and `connectors/portal/emulator/init/002_seed.sql` load on the first `docker compose up` (and in deployments that seed).
 
 - Organizations are real, well-known companies with their real domains, so logos resolve. Contacts are fictional and use `example.com` style addresses.
 - The two seeds are built to line up. Portal account `i` belongs to CRM organization `i`, and each account's first portal users are that organization's CRM contacts, matched by email. One organization deliberately has no portal account.

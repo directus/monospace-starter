@@ -1,5 +1,7 @@
 import { Loader2Icon } from 'lucide-react'
 
+import { appCopy } from '@/lib/app.copy'
+
 import { cn } from '@/lib/utils'
 
 function Spinner({ className, ...props }: React.ComponentProps<'svg'>) {
@@ -7,7 +9,7 @@ function Spinner({ className, ...props }: React.ComponentProps<'svg'>) {
     <Loader2Icon
       data-slot="spinner"
       role="status"
-      aria-label="Loading"
+      aria-label={appCopy.data.loading}
       className={cn('size-4 animate-spin', className)}
       {...props}
     />

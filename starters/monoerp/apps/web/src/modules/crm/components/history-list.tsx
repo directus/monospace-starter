@@ -1,3 +1,4 @@
+import { timeOnly } from '@/lib/format'
 import type { ReactNode } from 'react'
 
 import { Checkbox } from '@/components/ui/checkbox'
@@ -6,11 +7,9 @@ import { ActivityRow, LIST_INSET } from '@/modules/crm/components/activity-row'
 import type { RowHandlers } from '@/modules/crm/components/activity-row'
 import type { RecordHistoryEntry } from '@/modules/types'
 import { crmCopy } from '@/modules/crm/crm.copy'
-import type { InteractionRow } from '@/modules/crm/data'
+import type { ActivityRecord } from '@/modules/crm/data'
 
 const copy = crmCopy.activity
-
-const timeOnly = new Intl.DateTimeFormat('en-US', { hour: 'numeric', minute: '2-digit' })
 
 const monthLabel = new Intl.DateTimeFormat('en-US', { month: 'long' })
 
@@ -27,7 +26,7 @@ const DAY = 86_400_000
 
 // History is about when something took place: `occurredAt` (the due time for a task that was
 // completed, the entered time for a logged call). Completion time is only in the drawer.
-function happenedAt(row: InteractionRow) {
+function happenedAt(row: ActivityRecord) {
   return row.occurredAt ?? row.completedAt ?? ''
 }
 
@@ -53,7 +52,7 @@ function bucketOf(iso: string, now: number) {
 }
 
 type Entry =
-  | { kind: 'interaction'; at: string; row: InteractionRow }
+  | { kind: 'interaction'; at: string; row: ActivityRecord }
   | { kind: 'external'; at: string; entry: RecordHistoryEntry }
 
 // What happened, newest first, one line per entry, under sticky bucket headers. No counts in
@@ -69,7 +68,7 @@ export function HistoryList({
   handlers,
   footer,
 }: {
-  rows: Array<InteractionRow>
+  rows: Array<ActivityRecord>
   extraEntries?: Array<RecordHistoryEntry>
   now: number
   // Leave out for no selection (phones): no checkboxes, and rows reclaim the column.

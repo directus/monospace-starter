@@ -1,0 +1,15 @@
+{
+  "format": "urn:monospace:manifest:addon:1",
+  "kind": "addon",
+  "id": "anti-slop",
+  "label": "Strict lint rules",
+  "description": "Additional code conventions",
+  "ownedPaths": ["addons/anti-slop", "tools/oxlint"],
+  "packageEntries": [
+    {
+      "path": "package.json",
+      "section": "devDependencies",
+      "names": ["@oxlint/plugins"]
+    }
+  ]
+}

@@ -1,13 +1,14 @@
-import { Pencil, Trash2 } from 'lucide-react'
+import { Pencil, Trash2, X } from 'lucide-react'
 import { useState } from 'react'
 
-import { SelectionActions } from '@/components/bulk-bar'
-import { BulkEditDrawer } from '@/components/bulk-edit-drawer'
-import type { BulkField } from '@/components/bulk-edit-drawer'
+import type { ReactNode } from 'react'
+import { BulkEditDrawer } from '@/components/form/bulk-edit-drawer'
+import type { BulkField } from '@/components/form/bulk-edit-drawer'
 import { DeleteDialog } from '@/components/confirm-dialog'
 import { Button } from '@/components/ui/button'
 import type { Uuid } from '@/generated/monospace'
 import { appCopy } from '@/lib/app.copy'
+import { lookupUsers } from '@/lib/users'
 import { errorMessage } from '@/lib/errors'
 
 // Edit-and-delete selection actions for a list page's toolbar, plus the edit drawer and the
@@ -16,7 +17,8 @@ export function ListBulkActions({
   ids,
   noun,
   singular,
-  fields,
+  fields: availableFields,
+  canUpdate,
   onClear,
   onUpdate,
   onDelete,
@@ -28,6 +30,7 @@ export function ListBulkActions({
   noun: string
   singular: string
   fields: Array<BulkField>
+  canUpdate: (field: string) => boolean
   onClear: () => void
   onUpdate: (ids: Array<Uuid>, patch: Record<string, string | null>) => Promise<void>
   // Leave out to hide Delete (the user can't delete these records).
@@ -35,21 +38,24 @@ export function ListBulkActions({
   deleting: boolean
   deleteError?: unknown
 }) {
+  const fields = availableFields.filter((field) => canUpdate(field.name))
   const [editing, setEditing] = useState(false)
   const [confirming, setConfirming] = useState(false)
 
   return (
     <>
       <SelectionActions count={ids.length} onClear={onClear}>
-        <Button
-          variant="ghost"
-          size="sm"
-          className="max-md:pr-1.5"
-          onClick={() => setEditing(true)}
-        >
-          <Pencil data-icon="inline-start" />
-          <span className="max-md:sr-only">{appCopy.bulk.edit}</span>
-        </Button>
+        {fields.length ? (
+          <Button
+            variant="ghost"
+            size="sm"
+            className="max-md:pr-1.5"
+            onClick={() => setEditing(true)}
+          >
+            <Pencil data-icon="inline-start" />
+            <span className="max-md:sr-only">{appCopy.bulk.edit}</span>
+          </Button>
+        ) : null}
         {onDelete ? (
           <Button
             variant="ghost"
@@ -90,4 +96,41 @@ export function ListBulkActions({
       />
     </>
   )
+}
+
+// Replaces the list's identity while anything is selected: count, bulk actions, clear.
+function SelectionActions({
+  count,
+  onClear,
+  children,
+}: {
+  count: number
+  onClear: () => void
+  children: ReactNode
+}) {
+  return (
+    <div className="flex h-8 items-center gap-1 rounded-lg border bg-muted/40 pr-1 pl-3">
+      <span className="text-sm font-medium tabular-nums">{appCopy.bulk.selected(count)}</span>
+      <div className="mx-1 h-5 w-px bg-border" />
+      {children}
+      <Button variant="ghost" size="icon-sm" aria-label={appCopy.bulk.clear} onClick={onClear}>
+        <X />
+      </Button>
+    </div>
+  )
+}
+
+export function statusBulkField(
+  options: Extract<BulkField, { kind: 'select' }>['options'],
+): BulkField {
+  return { name: 'status', label: appCopy.common.status, kind: 'select', options }
+}
+
+export const ownerBulkField: BulkField = {
+  name: 'ownerUserId',
+  label: appCopy.common.owner,
+  kind: 'relation',
+  search: lookupUsers,
+  placeholder: appCopy.inline.assign,
+  searchPlaceholder: appCopy.form.searchPlaceholder(appCopy.common.owner),
 }

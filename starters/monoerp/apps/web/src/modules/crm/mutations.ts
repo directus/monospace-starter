@@ -1,5 +1,5 @@
+import { useCollectionAccess } from '@/lib/permissions'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import type { QueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
 
 import type {
@@ -29,22 +29,31 @@ import {
   organizationsCreateSchema,
   organizationsUpdateSchema,
 } from '@/generated/monospace/schemas'
+import { formatMoney } from '@/lib/format'
+import { statusForStage } from '@/modules/crm/deals'
+import type { PipelineStage } from '@/modules/crm/data'
 import { appCopy } from '@/lib/app.copy'
 import { deleteAsset, uploadAsset } from '@/lib/assets'
 import { monospace } from '@/lib/monospace'
 import { crmCopy } from '@/modules/crm/crm.copy'
 import type { AttachmentTarget } from '@/modules/crm/data'
 
-type Group = 'organizations' | 'contacts' | 'opportunities' | 'interactions' | 'attachments'
+import { refreshCrm } from '@/modules/crm/refresh'
 
-// Every record shows up nested inside other records' detail queries, so invalidate broadly.
-function invalidate(queryClient: QueryClient, groups: Array<Group>) {
-  return Promise.all(groups.map((group) => queryClient.invalidateQueries({ queryKey: [group] })))
+function connectTarget(target: AttachmentTarget) {
+  return {
+    organizations: { _connect: { key: { id: target.organizationId } } },
+    contacts: target.contactId ? { _connect: { key: { id: target.contactId } } } : undefined,
+    opportunities: target.opportunityId
+      ? { _connect: { key: { id: target.opportunityId } } }
+      : undefined,
+    interactions: target.interactionId
+      ? { _connect: { key: { id: target.interactionId } } }
+      : undefined,
+  }
 }
 
 type Update<TData> = { id: Uuid; data: TData }
-
-// Attachments
 
 // Upload the blob, then the row. A row that fails to insert takes its blob with it so nothing
 // is left orphaned in storage.
@@ -70,14 +79,7 @@ export function useUploadAttachment({ notify = true }: { notify?: boolean } = {}
         fileName: file.name,
         contentType: file.type || null,
         sizeBytes: file.size,
-        organizations: { _connect: { key: { id: target.organizationId } } },
-        contacts: target.contactId ? { _connect: { key: { id: target.contactId } } } : undefined,
-        opportunities: target.opportunityId
-          ? { _connect: { key: { id: target.opportunityId } } }
-          : undefined,
-        interactions: target.interactionId
-          ? { _connect: { key: { id: target.interactionId } } }
-          : undefined,
+        ...connectTarget(target),
       }
 
       try {
@@ -93,13 +95,7 @@ export function useUploadAttachment({ notify = true }: { notify?: boolean } = {}
     onSuccess: async (_result, { file }) => {
       if (notify) toast.success(crmCopy.files.uploaded(file.name))
       // Record pages embed their activities, so refresh those for the paperclip counts.
-      await invalidate(queryClient, [
-        'attachments',
-        'interactions',
-        'organizations',
-        'contacts',
-        'opportunities',
-      ])
+      await refreshCrm(queryClient, 'attachments')
     },
     onError: (_error, { file }) => {
       toast.error(crmCopy.files.uploadFailed(file.name))
@@ -125,26 +121,13 @@ export function useAddLink() {
         data: attachmentsCreateSchema.parse({
           fileName: title,
           url,
-          organizations: { _connect: { key: { id: target.organizationId } } },
-          contacts: target.contactId ? { _connect: { key: { id: target.contactId } } } : undefined,
-          opportunities: target.opportunityId
-            ? { _connect: { key: { id: target.opportunityId } } }
-            : undefined,
-          interactions: target.interactionId
-            ? { _connect: { key: { id: target.interactionId } } }
-            : undefined,
+          ...connectTarget(target),
         } satisfies attachmentsCreateOneInput),
         fields: ['id'],
       }),
     onSuccess: async () => {
       toast.success(appCopy.toast.created(crmCopy.files.link))
-      await invalidate(queryClient, [
-        'attachments',
-        'interactions',
-        'organizations',
-        'contacts',
-        'opportunities',
-      ])
+      await refreshCrm(queryClient, 'attachments')
     },
   })
 }
@@ -160,18 +143,10 @@ export function useDeleteAttachment() {
     },
     onSuccess: async () => {
       toast.success(appCopy.toast.deleted(crmCopy.files.singular))
-      await invalidate(queryClient, [
-        'attachments',
-        'interactions',
-        'organizations',
-        'contacts',
-        'opportunities',
-      ])
+      await refreshCrm(queryClient, 'attachments')
     },
   })
 }
-
-// Organizations
 
 export function useCreateOrganization() {
   const queryClient = useQueryClient()
@@ -184,7 +159,7 @@ export function useCreateOrganization() {
       }),
     onSuccess: async () => {
       toast.success(appCopy.toast.created(crmCopy.organizations.singular))
-      await invalidate(queryClient, ['organizations', 'contacts'])
+      await refreshCrm(queryClient, 'organizations')
     },
   })
 }
@@ -201,7 +176,7 @@ export function useUpdateOrganization({ notify = true }: { notify?: boolean } = 
       }),
     onSuccess: async () => {
       if (notify) toast.success(appCopy.toast.saved(crmCopy.organizations.singular))
-      await invalidate(queryClient, ['organizations', 'contacts', 'opportunities', 'interactions'])
+      await refreshCrm(queryClient, 'organizations')
     },
   })
 }
@@ -213,12 +188,10 @@ export function useDeleteOrganization() {
     mutationFn: (id: Uuid) => monospace.organizations.deleteOne({ key: id, fields: ['id'] }),
     onSuccess: async () => {
       toast.success(appCopy.toast.deleted(crmCopy.organizations.singular))
-      await invalidate(queryClient, ['organizations', 'contacts', 'opportunities', 'interactions'])
+      await refreshCrm(queryClient, 'organizations')
     },
   })
 }
-
-// Contacts
 
 export function useCreateContact() {
   const queryClient = useQueryClient()
@@ -228,7 +201,7 @@ export function useCreateContact() {
       monospace.contacts.createOne({ data: contactsCreateSchema.parse(input), fields: ['id'] }),
     onSuccess: async () => {
       toast.success(appCopy.toast.created(crmCopy.contacts.singular))
-      await invalidate(queryClient, ['contacts', 'organizations'])
+      await refreshCrm(queryClient, 'contacts')
     },
   })
 }
@@ -245,7 +218,7 @@ export function useUpdateContact({ notify = true }: { notify?: boolean } = {}) {
       }),
     onSuccess: async () => {
       if (notify) toast.success(appCopy.toast.saved(crmCopy.contacts.singular))
-      await invalidate(queryClient, ['contacts', 'organizations', 'interactions'])
+      await refreshCrm(queryClient, 'contacts')
     },
   })
 }
@@ -257,12 +230,10 @@ export function useDeleteContact() {
     mutationFn: (id: Uuid) => monospace.contacts.deleteOne({ key: id, fields: ['id'] }),
     onSuccess: async () => {
       toast.success(appCopy.toast.deleted(crmCopy.contacts.singular))
-      await invalidate(queryClient, ['contacts', 'organizations', 'interactions'])
+      await refreshCrm(queryClient, 'contacts')
     },
   })
 }
-
-// Affiliations (contact_organizations)
 
 export function useCreateAffiliation() {
   const queryClient = useQueryClient()
@@ -275,7 +246,7 @@ export function useCreateAffiliation() {
       }),
     onSuccess: async () => {
       toast.success(appCopy.toast.saved(crmCopy.contacts.affiliations.singular))
-      await invalidate(queryClient, ['contacts', 'organizations'])
+      await refreshCrm(queryClient, 'contactOrganizations')
     },
   })
 }
@@ -292,7 +263,7 @@ export function useUpdateAffiliation() {
       }),
     onSuccess: async () => {
       toast.success(appCopy.toast.saved(crmCopy.contacts.affiliations.singular))
-      await invalidate(queryClient, ['contacts', 'organizations'])
+      await refreshCrm(queryClient, 'contactOrganizations')
     },
   })
 }
@@ -304,12 +275,10 @@ export function useDeleteAffiliation() {
     mutationFn: (id: Uuid) => monospace.contactOrganizations.deleteOne({ key: id, fields: ['id'] }),
     onSuccess: async () => {
       toast.success(appCopy.toast.deleted(crmCopy.contacts.affiliations.singular))
-      await invalidate(queryClient, ['contacts', 'organizations'])
+      await refreshCrm(queryClient, 'contactOrganizations')
     },
   })
 }
-
-// Deals (opportunities)
 
 export function useCreateDeal() {
   const queryClient = useQueryClient()
@@ -322,7 +291,7 @@ export function useCreateDeal() {
       }),
     onSuccess: async () => {
       toast.success(appCopy.toast.created(crmCopy.deals.singular))
-      await invalidate(queryClient, ['opportunities', 'organizations'])
+      await refreshCrm(queryClient, 'opportunities')
     },
   })
 }
@@ -339,7 +308,7 @@ export function useUpdateDeal({ notify = true }: { notify?: boolean } = {}) {
       }),
     onSuccess: async () => {
       if (notify) toast.success(appCopy.toast.saved(crmCopy.deals.singular))
-      await invalidate(queryClient, ['opportunities', 'organizations', 'interactions'])
+      await refreshCrm(queryClient, 'opportunities')
     },
   })
 }
@@ -351,7 +320,7 @@ export function useDeleteDeal() {
     mutationFn: (id: Uuid) => monospace.opportunities.deleteOne({ key: id, fields: ['id'] }),
     onSuccess: async () => {
       toast.success(appCopy.toast.deleted(crmCopy.deals.singular))
-      await invalidate(queryClient, ['opportunities', 'organizations', 'interactions'])
+      await refreshCrm(queryClient, 'opportunities')
     },
   })
 }
@@ -385,7 +354,7 @@ export function useUpdateManyOrganizations() {
       }),
     onSuccess: async (_result, { ids }) => {
       toast.success(appCopy.toast.savedMany(ids.length, crmCopy.organizations.title))
-      await invalidate(queryClient, ['organizations', 'contacts', 'opportunities'])
+      await refreshCrm(queryClient, 'organizations')
     },
   })
 }
@@ -398,7 +367,7 @@ export function useDeleteManyOrganizations() {
       deleteEach(ids, (id) => monospace.organizations.deleteOne({ key: id, fields: ['id'] })),
     onSuccess: async (result) => {
       reportBulkDelete(result, crmCopy.organizations.title)
-      await invalidate(queryClient, ['organizations', 'contacts', 'opportunities'])
+      await refreshCrm(queryClient, 'organizations')
     },
   })
 }
@@ -415,7 +384,7 @@ export function useUpdateManyContacts() {
       }),
     onSuccess: async (_result, { ids }) => {
       toast.success(appCopy.toast.savedMany(ids.length, crmCopy.contacts.title))
-      await invalidate(queryClient, ['contacts', 'organizations'])
+      await refreshCrm(queryClient, 'contacts')
     },
   })
 }
@@ -428,7 +397,7 @@ export function useDeleteManyContacts() {
       deleteEach(ids, (id) => monospace.contacts.deleteOne({ key: id, fields: ['id'] })),
     onSuccess: async (result) => {
       reportBulkDelete(result, crmCopy.contacts.title)
-      await invalidate(queryClient, ['contacts', 'organizations'])
+      await refreshCrm(queryClient, 'contacts')
     },
   })
 }
@@ -445,7 +414,7 @@ export function useUpdateManyDeals() {
       }),
     onSuccess: async (_result, { ids }) => {
       toast.success(appCopy.toast.savedMany(ids.length, crmCopy.deals.title))
-      await invalidate(queryClient, ['opportunities', 'organizations', 'interactions'])
+      await refreshCrm(queryClient, 'opportunities')
     },
   })
 }
@@ -458,12 +427,10 @@ export function useDeleteManyDeals() {
       deleteEach(ids, (id) => monospace.opportunities.deleteOne({ key: id, fields: ['id'] })),
     onSuccess: async (result) => {
       reportBulkDelete(result, crmCopy.deals.title)
-      await invalidate(queryClient, ['opportunities', 'organizations', 'interactions'])
+      await refreshCrm(queryClient, 'opportunities')
     },
   })
 }
-
-// Activity (interactions)
 
 export function useCreateActivity({ notify = true }: { notify?: boolean } = {}) {
   const queryClient = useQueryClient()
@@ -476,14 +443,13 @@ export function useCreateActivity({ notify = true }: { notify?: boolean } = {}) 
       }),
     onSuccess: async () => {
       if (notify) toast.success(appCopy.toast.created(crmCopy.activity.singular))
-      await invalidate(queryClient, ['interactions', 'organizations', 'contacts', 'opportunities'])
+      await refreshCrm(queryClient, 'interactions')
     },
   })
 }
 
 export function useUpdateActivity() {
   const queryClient = useQueryClient()
-  const groups: Array<Group> = ['interactions', 'organizations', 'contacts', 'opportunities']
 
   return useMutation({
     mutationFn: ({ id, data }: Update<interactionsUpdateOneInput>) =>
@@ -504,7 +470,7 @@ export function useUpdateActivity() {
                   data: interactionsUpdateSchema.parse({ status: 'open', completedAt: null }),
                   fields: ['id'],
                 })
-                await invalidate(queryClient, groups)
+                await refreshCrm(queryClient, 'interactions')
                 toast.success(appCopy.toast.reopened(crmCopy.activity.singular))
               } catch {
                 event.preventDefault()
@@ -517,7 +483,7 @@ export function useUpdateActivity() {
         toast.success(appCopy.toast.saved(crmCopy.activity.singular))
       }
 
-      await invalidate(queryClient, groups)
+      await refreshCrm(queryClient, 'interactions')
     },
   })
 }
@@ -529,7 +495,7 @@ export function useDeleteActivity() {
     mutationFn: (id: Uuid) => monospace.interactions.deleteOne({ key: id, fields: ['id'] }),
     onSuccess: async () => {
       toast.success(appCopy.toast.deleted(crmCopy.activity.singular))
-      await invalidate(queryClient, ['interactions', 'organizations', 'contacts', 'opportunities'])
+      await refreshCrm(queryClient, 'interactions')
     },
   })
 }
@@ -547,7 +513,7 @@ export function useUpdateManyActivities() {
       }),
     onSuccess: async (_result, { ids }) => {
       toast.success(appCopy.toast.savedMany(ids.length, crmCopy.activity.plural))
-      await invalidate(queryClient, ['interactions', 'organizations', 'contacts', 'opportunities'])
+      await refreshCrm(queryClient, 'interactions')
     },
   })
 }
@@ -563,7 +529,7 @@ export function useDeleteManyActivities() {
       }),
     onSuccess: async (_result, ids) => {
       toast.success(appCopy.toast.deletedMany(ids.length, crmCopy.activity.plural))
-      await invalidate(queryClient, ['interactions', 'organizations', 'contacts', 'opportunities'])
+      await refreshCrm(queryClient, 'interactions')
     },
   })
 }
@@ -580,5 +546,69 @@ export async function clearPrimaryAffiliation(contactId: Uuid, exceptId?: Uuid) 
     },
     data: { isPrimary: false },
     fields: ['id'],
+  })
+}
+
+export function useCloseDeal() {
+  const access = useCollectionAccess('opportunities')
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: async ({
+      id,
+      organizationId,
+      stage,
+      valueAmount,
+      closeDate,
+      notes,
+    }: {
+      id: Uuid
+      organizationId?: Uuid | null
+      stage: PipelineStage
+      valueAmount: string | null
+      currency: string
+      closeDate: string
+      notes: string
+    }) => {
+      await monospace.opportunities.updateOne({
+        key: id,
+        data: opportunitiesUpdateSchema.parse({
+          stageId: stage.id,
+          status: statusForStage(stage),
+          valueAmount: access.canUpdate('valueAmount') ? valueAmount : undefined,
+          expectedCloseDate: access.canUpdate('expectedCloseDate') ? closeDate : undefined,
+        }),
+        fields: ['id'],
+      })
+
+      // A hidden organization leaves nowhere to file the note. The close itself still works.
+      if (notes && organizationId) {
+        const occurredAt = new Date().toISOString()
+        await monospace.interactions.createOne({
+          data: interactionsCreateSchema.parse({
+            type: 'note',
+            status: 'completed',
+            direction: 'internal',
+            subject: stage.isWon
+              ? crmCopy.deals.close.winNoteSubject
+              : crmCopy.deals.close.lossNoteSubject,
+            body: notes,
+            occurredAt,
+            completedAt: occurredAt,
+            dueAt: null,
+            organizations: { _connect: { key: { id: organizationId } } },
+            opportunities: { _connect: { key: { id } } },
+          }),
+          fields: ['id'],
+        })
+      }
+    },
+    onSuccess: (_result, { stage, valueAmount, currency }) => {
+      if (stage.isWon)
+        toast.success(crmCopy.deals.close.wonToast(formatMoney(valueAmount, currency)))
+      else toast(crmCopy.deals.close.lostToast)
+    },
+    // The deal may have closed even if creating its note failed.
+    onSettled: () => refreshCrm(queryClient, 'opportunities'),
   })
 }

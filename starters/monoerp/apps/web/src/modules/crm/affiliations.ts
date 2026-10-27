@@ -63,7 +63,7 @@ export function affiliationSpan(row: AffiliationLike, now?: number) {
 }
 
 // Whole months between start and end (or now), LinkedIn-style: "8 mos", "1 yr", "2 yrs 10 mos".
-export function tenure(row: AffiliationLike, now: number) {
+function tenure(row: AffiliationLike, now: number) {
   return tenureBetween(row.startedAt, row.endedAt, now)
 }
 

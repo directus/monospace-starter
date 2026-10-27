@@ -1,7 +1,7 @@
 #!/bin/sh
 # Applies connectors/portal/emulator/migrations/*.sql to the local portal database as root, standing in for
 # "the other team" shipping a change. Each migration is safe to rerun, so all of them run
-# every time, as the AWS setup task does (infra/setup/run.sh).
+# every time, as the deployed setup task does (infra/setup/run.sh).
 set -eu
 cd "$(dirname "$0")/../../.."
 

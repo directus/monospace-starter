@@ -302,3 +302,13 @@ describe('NotesEditor styling', () => {
     expect(element('[data-content-type="checkListItem"]').dataset.checked).toBe('true')
   })
 })
+
+it('keeps notes readable without editing or saving when read-only', async () => {
+  const save = vi.fn().mockResolvedValue(undefined)
+  render(<NotesEditor value={'# Account notes\n\nRead this first.'} onSave={save} readOnly />)
+  await screen.findByText('Account notes')
+  expect(element('.bn-editor').getAttribute('contenteditable')).toBe('false')
+  expect(document.querySelector('.bn-side-menu')).toBeNull()
+  cleanup()
+  expect(save).not.toHaveBeenCalled()
+})

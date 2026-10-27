@@ -29,8 +29,7 @@ function validateManifests(root = repository) {
   const manifests = readManifests(root)
   const ids = manifests.map((manifest) => manifest.id)
 
-  if (new Set(ids).size !== ids.length)
-    throw new Error('Starter, module, and connector ids must be unique')
+  if (new Set(ids).size !== ids.length) throw new Error('Manifest ids must be unique')
 
   if (!ids.includes('starter')) throw new Error('starter.json is required')
 
@@ -75,7 +74,12 @@ function validateManifests(root = repository) {
       if (new Set(scripts).size !== scripts.length)
         throw new Error(`${manifest.id}: setup scripts must be unique within the manifest`)
 
-      const known = new Set([...ids, ...manifest.requires, ...manifest.optional])
+      const known = new Set([
+        ...ids,
+        ...manifest.requires,
+        ...manifest.optional,
+        ...Object.values(manifest.requiresWhenInstalled).flat(),
+      ])
 
       for (const step of [...manifest.setup.beforeSchema, ...manifest.setup.afterSchema]) {
         for (const required of step.requires ?? []) {
@@ -101,7 +105,7 @@ function validateManifests(root = repository) {
 
     for (const dependency of manifest.requires) {
       if (!ids.includes(dependency))
-        throw new Error(`${manifest.id}: required module or connector ${dependency} is absent`)
+        throw new Error(`${manifest.id}: required manifest ${dependency} is absent`)
 
       if (dependency === manifest.id) throw new Error(`${manifest.id}: cannot require itself`)
     }
@@ -151,7 +155,13 @@ function validateManifests(root = repository) {
   return { manifests, owners }
 }
 
-const ownedTrees = ['apps/web/src/routes', 'apps/web/src/modules', 'infra/modules', 'connectors']
+const ownedTrees = [
+  'apps/web/src/routes',
+  'apps/web/src/modules',
+  'infra/modules',
+  'connectors',
+  'addons',
+]
 
 function sourceFiles(root) {
   const cwd = fileURLToPath(root)
@@ -208,7 +218,7 @@ export function removeInstalled(id, { root = repository, dryRun = false } = {}) 
   const { manifests } = validateManifests(root)
   const manifest = manifests.find((candidate) => candidate.id === id)
 
-  if (!manifest) throw new Error(`Unknown module or connector: ${id}`)
+  if (!manifest) throw new Error(`Unknown module, connector, or add-on: ${id}`)
 
   if (manifest.kind === 'starter')
     throw new Error('Starter is always installed and cannot be removed')
@@ -238,13 +248,13 @@ export function removeInstalled(id, { root = repository, dryRun = false } = {}) 
     if (!dryRun) rmSync(new URL(path, root), { recursive: true })
   }
 
-  console.log(
-    'For a removed connector, remove its relations and source in Studio first if it was connected.\n' +
-      'Update README.md, AGENTS.md, and docs/ for the removed module or connector.\n' +
-      'Next commands:\n  pnpm install\n  pnpm app:doctor\n' +
-      '  docker compose up -d --wait --wait-timeout 180 --remove-orphans\n' +
-      '  pnpm setup:all\n  pnpm generate:routes\n  pnpm generate',
-  )
+  const starter = manifests.find((manifest) => manifest.kind === 'starter')
+  console.log('For a connected source, remove its relations and source in Studio first.')
+  console.log('Update README.md, AGENTS.md, and docs/ for the removed feature.')
+  console.log('Next commands:')
+
+  for (const step of starter.nextSteps.remove)
+    console.log(`  ${step.script ? `pnpm ${step.script}` : step.command.join(' ')}`)
 
   return manifest.ownedPaths
 }

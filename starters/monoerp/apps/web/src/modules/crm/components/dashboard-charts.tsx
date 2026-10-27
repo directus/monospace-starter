@@ -1,3 +1,5 @@
+import { dealsByCurrency } from '@/modules/crm/deals'
+import { formatMoney } from '@/lib/format'
 import { areaY, barX, barY, defineChart, lineY } from '@tanstack/charts'
 import { Chart } from '@tanstack/charts/react'
 import { scaleBand } from '@tanstack/charts/scales/band'
@@ -8,15 +10,8 @@ import { useMemo } from 'react'
 
 import { useIsMobile } from '@/hooks/use-mobile'
 import { Frame, FrameDescription, FrameHeader, FramePanel, FrameTitle } from '@/components/ui/frame'
-import type { OpportunityRow } from '@/modules/crm/data'
+import type { DealRow } from '@/modules/crm/data'
 import { crmCopy } from '@/modules/crm/crm.copy'
-
-const currency = new Intl.NumberFormat('en-US', {
-  style: 'currency',
-  currency: 'USD',
-  notation: 'compact',
-  maximumFractionDigits: 1,
-})
 
 const monthLabel = new Intl.DateTimeFormat('en-US', {
   month: 'short',
@@ -40,7 +35,6 @@ type PipelineStageRow = {
   position: number
   value: number
   count: number
-  opportunities: Array<OpportunityRow>
 }
 
 type ForecastMonthRow = {
@@ -49,24 +43,44 @@ type ForecastMonthRow = {
   shortMonth: string
   value: number
   count: number
-  opportunities: Array<OpportunityRow>
 }
 
-export function DashboardCharts({ opportunities }: { opportunities: Array<OpportunityRow> }) {
-  const pipelineRows = useMemo(() => groupPipelineByStage(opportunities), [opportunities])
-  const forecastRows = useMemo(() => groupOpenPipelineByMonth(opportunities), [opportunities])
+export function DashboardCharts({ deals }: { deals: Array<DealRow> }) {
+  const groups = dealsByCurrency(deals)
+
+  if (!groups.length) return <CurrencyCharts deals={[]} currency="USD" />
+
+  return (
+    <div className="space-y-6">
+      {groups.map(([currency, deals]) => (
+        <section key={currency} className="space-y-3" aria-label={currency}>
+          <h2 className="text-sm font-medium text-muted-foreground">{currency}</h2>
+          <CurrencyCharts deals={deals} currency={currency} />
+        </section>
+      ))}
+    </div>
+  )
+}
+
+function CurrencyCharts({ deals, currency }: { deals: Array<DealRow>; currency: string }) {
+  const pipelineRows = useMemo(() => groupPipelineByStage(deals), [deals])
+  const forecastRows = useMemo(() => groupOpenPipelineByMonth(deals), [deals])
   // Phones get horizontal stage bars, short money and month labels, and no y-axis title.
   const compact = useIsMobile()
-  const pipelineChart = useMemo(() => createPipelineChart(pipelineRows), [pipelineRows])
+
+  const pipelineChart = useMemo(
+    () => createPipelineChart(pipelineRows, currency),
+    [pipelineRows, currency],
+  )
 
   const compactPipelineChart = useMemo(
-    () => createCompactPipelineChart(pipelineRows),
-    [pipelineRows],
+    () => createCompactPipelineChart(pipelineRows, currency),
+    [pipelineRows, currency],
   )
 
   const forecastChart = useMemo(
-    () => createForecastChart(forecastRows, compact),
-    [forecastRows, compact],
+    () => createForecastChart(forecastRows, compact, currency),
+    [forecastRows, compact, currency],
   )
 
   return (
@@ -117,35 +131,33 @@ export function DashboardCharts({ opportunities }: { opportunities: Array<Opport
   )
 }
 
-function groupPipelineByStage(opportunities: Array<OpportunityRow>) {
+function groupPipelineByStage(deals: Array<DealRow>) {
   const stages = new Map<string, PipelineStageRow>()
 
-  for (const opportunity of opportunities) {
+  for (const opportunity of deals) {
     const stage = opportunity.pipeline_stages
     const id = stage?.id ?? stage?.name ?? 'restricted-stage'
 
     const existing = stages.get(id) ?? {
       id,
-      stage: stage?.name ?? 'Restricted stage',
+      stage: stage?.name ?? crmCopy.deals.restrictedStage,
       position: stage?.position ?? Number.MAX_SAFE_INTEGER,
       value: 0,
       count: 0,
-      opportunities: [],
     }
 
     existing.value += numericValue(opportunity.valueAmount)
     existing.count += 1
-    existing.opportunities.push(opportunity)
     stages.set(id, existing)
   }
 
   return [...stages.values()].sort((a, b) => a.position - b.position)
 }
 
-function groupOpenPipelineByMonth(opportunities: Array<OpportunityRow>) {
+function groupOpenPipelineByMonth(deals: Array<DealRow>) {
   const months = new Map<string, ForecastMonthRow>()
 
-  for (const opportunity of opportunities) {
+  for (const opportunity of deals) {
     if (opportunity.status !== 'open' || !opportunity.expectedCloseDate) continue
 
     const id = opportunity.expectedCloseDate.slice(0, 7)
@@ -156,12 +168,10 @@ function groupOpenPipelineByMonth(opportunities: Array<OpportunityRow>) {
       shortMonth: shortMonthLabel.format(new Date(`${id}-01T00:00:00Z`)),
       value: 0,
       count: 0,
-      opportunities: [],
     }
 
     existing.value += numericValue(opportunity.valueAmount)
     existing.count += 1
-    existing.opportunities.push(opportunity)
     months.set(id, existing)
   }
 
@@ -174,9 +184,11 @@ function numericValue(value: string | null | undefined) {
   return Number.isFinite(number) ? number : 0
 }
 
-const compactMoneyTicks = { count: 4, format: (value: number) => currency.format(value) }
+function moneyTicks(currency: string) {
+  return { count: 4, format: (value: number) => formatMoney(String(value), currency) }
+}
 
-function createPipelineChart(rows: Array<PipelineStageRow>) {
+function createPipelineChart(rows: Array<PipelineStageRow>, currency: string) {
   return defineChart({
     marks: [
       barY(rows, {
@@ -207,7 +219,7 @@ function createPipelineChart(rows: Array<PipelineStageRow>) {
         {
           channel: 'y',
           label: crmCopy.dashboard.pipelineByStage.value,
-          text: (point) => currency.format(Number(point.yValue)),
+          text: (point) => formatMoney(String(point.yValue), currency),
         },
         { field: 'count', label: crmCopy.dashboard.dealCount },
       ],
@@ -216,7 +228,7 @@ function createPipelineChart(rows: Array<PipelineStageRow>) {
 }
 
 // Phone version: stage names read left to right instead of colliding under narrow columns.
-function createCompactPipelineChart(rows: Array<PipelineStageRow>) {
+function createCompactPipelineChart(rows: Array<PipelineStageRow>, currency: string) {
   return defineChart({
     marks: [
       barX(rows, {
@@ -230,7 +242,7 @@ function createCompactPipelineChart(rows: Array<PipelineStageRow>) {
       }),
     ],
     scales: {
-      x: { scale: scaleLinear, nice: true, grid: true, axis: { ticks: compactMoneyTicks } },
+      x: { scale: scaleLinear, nice: true, grid: true, axis: { ticks: moneyTicks(currency) } },
       y: { scale: () => scaleBand<string>().padding(0.12) },
     },
     theme: chartTheme,
@@ -242,7 +254,7 @@ function createCompactPipelineChart(rows: Array<PipelineStageRow>) {
         {
           channel: 'x',
           label: crmCopy.dashboard.pipelineByStage.value,
-          text: (point) => currency.format(Number(point.xValue)),
+          text: (point) => formatMoney(String(point.xValue), currency),
         },
         { field: 'count', label: crmCopy.dashboard.dealCount },
       ],
@@ -250,7 +262,7 @@ function createCompactPipelineChart(rows: Array<PipelineStageRow>) {
   })
 }
 
-function createForecastChart(rows: Array<ForecastMonthRow>, compact: boolean) {
+function createForecastChart(rows: Array<ForecastMonthRow>, compact: boolean, currency: string) {
   const shortMonths = new Map(rows.map((row) => [row.month, row.shortMonth]))
 
   return defineChart({
@@ -285,7 +297,9 @@ function createForecastChart(rows: Array<ForecastMonthRow>, compact: boolean) {
         scale: scaleLinear,
         nice: true,
         grid: true,
-        axis: compact ? { ticks: compactMoneyTicks } : { label: crmCopy.dashboard.forecast.value },
+        axis: compact
+          ? { ticks: moneyTicks(currency) }
+          : { label: crmCopy.dashboard.forecast.value },
       },
     },
     gradients: [
@@ -312,7 +326,7 @@ function createForecastChart(rows: Array<ForecastMonthRow>, compact: boolean) {
         {
           channel: 'y',
           label: crmCopy.dashboard.forecast.value,
-          text: (point) => currency.format(Number(point.yValue)),
+          text: (point) => formatMoney(String(point.yValue), currency),
         },
         { field: 'count', label: crmCopy.dashboard.dealCount },
       ],

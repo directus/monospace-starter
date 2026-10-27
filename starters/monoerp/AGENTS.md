@@ -15,7 +15,7 @@ This file is a map. The details live in `docs/`. Read the doc for the area you'r
 | Setup scripts, the generated client, Studio, Monospace bugs | [`docs/monospace.md`](docs/monospace.md)       |
 | Connectors or local external-source stand-ins               | [`connectors/README.md`](connectors/README.md) |
 | Tests, lint rules, `SAFETY` comments, CI                    | [`docs/testing.md`](docs/testing.md)           |
-| AWS                                                         | [`infra/aws/README.md`](infra/aws/README.md)   |
+| Deployment                                                  | [`docs/deploy.md`](docs/deploy.md)             |
 
 If a doc is wrong or missing something you had to find in the code, fix the doc in the same change.
 
@@ -55,4 +55,4 @@ For component work, also run `pnpm --filter @monoerp/web test:browser`. If the p
 
 ## Names
 
-The product is **monoERP** (`monoerp` in code, packages `@monoerp/web` and `@monoerp/infra`). **CRM** is one module, with `/crm` routes. For compatibility, `crm` also names the shared Monospace workspace and shared PostgreSQL database (`crm-postgres`, source `CRM`, `CRM_*` settings). Every module uses that workspace and database; adding a module does not require a new one. See the "Rename it" guide in `docs/getting-started.md` before changing those names.
+The product is **monoERP** (`monoerp` in code, packages `@monoerp/web` and optional `@monoerp/aws`). **CRM** is one module, with `/crm` routes. For compatibility, `crm` also names the shared Monospace workspace and shared PostgreSQL database (`crm-postgres`, source `CRM`, `CRM_*` settings). Every module uses that workspace and database; adding a module does not require a new one. See the "Rename it" guide in `docs/getting-started.md` before changing those names.

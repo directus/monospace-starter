@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
 
-import { request, runSetupStep } from './lib.mjs'
+import { ensureRelation, request, runSetupStep } from './lib.mjs'
 
 const seats = { meta: { violations: [{ entitlement: 'seats', hard_limit: 3 }] } }
 
@@ -74,4 +74,53 @@ describe('setup licensing', () => {
     expect(await runSetupStep('Test step', async () => {})).toBe(true)
     expect(log).not.toHaveBeenCalled()
   })
+})
+
+it('creates a constrained cross-source join once and refuses a wrong existing target', () => {
+  const collections = [
+    {
+      id: 'accounts',
+      source: 'Portal',
+      dbName: 'accounts',
+      primitiveFields: [{ id: 'customer-id', dbName: 'stripe_customer_id' }],
+      relationFields: [],
+    },
+    {
+      id: 'customers',
+      source: 'Stripe',
+      dbName: 'customers',
+      primitiveFields: [{ id: 'id', dbName: 'id' }],
+      relationFields: [],
+    },
+  ]
+
+  const relation = {
+    relationName: 'accounts_stripe_customer',
+    constrained: true,
+    from: {
+      source: 'Portal',
+      collection: 'accounts',
+      field: 'stripe_customer_id',
+      apiName: 'stripeCustomer',
+    },
+    to: { source: 'Stripe', collection: 'customers', field: 'id', apiName: 'portalAccount' },
+  }
+
+  const [operation] = ensureRelation(collections, relation)
+  expect(operation.data.data.firstField).toMatchObject({
+    collectionId: 'accounts',
+    fieldIds: ['customer-id'],
+    isConstrained: true,
+  })
+  expect(operation.data.data.secondField).toMatchObject({
+    collectionId: 'customers',
+    isConstrained: false,
+  })
+  collections[0].relationFields.push({
+    apiName: 'stripeCustomer',
+    oppositeCollectionId: 'customers',
+  })
+  expect(ensureRelation(collections, relation)).toEqual([])
+  collections[0].relationFields[0].oppositeCollectionId = 'wrong'
+  expect(() => ensureRelation(collections, relation)).toThrow('points at the wrong collection')
 })

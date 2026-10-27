@@ -96,7 +96,7 @@ it('refuses removal of required modules and connectors, starter, and unknown ids
   manifest.requires = ['starter']
   save(root, 'modules/sales/module.json', manifest)
   expect(() => removeInstalled('starter', { root })).toThrow('Starter is always installed')
-  expect(() => removeInstalled('missing', { root })).toThrow('Unknown module or connector')
+  expect(() => removeInstalled('missing', { root })).toThrow('Unknown module, connector, or add-on')
 
   const dependency = {
     kind: 'connector',
@@ -106,8 +106,7 @@ it('refuses removal of required modules and connectors, starter, and unknown ids
     ownedPaths: ['connectors/billing'],
     requires: [],
     optional: [],
-    provides: [],
-    env: [],
+
     schemaFiles: [],
     source: { provider: 'demo' },
     setup: { beforeSchema: [], afterSchema: [] },
@@ -125,9 +124,7 @@ it('rejects missing dependencies and paths before deleting anything', () => {
   const { root, manifest } = fixture()
   manifest.requires = ['missing']
   save(root, 'modules/sales/module.json', manifest)
-  expect(() => removeInstalled('sales', { root })).toThrow(
-    'required module or connector missing is absent',
-  )
+  expect(() => removeInstalled('sales', { root })).toThrow('required manifest missing is absent')
   manifest.requires = []
   manifest.schemaFiles = ['infra/modules/sales/missing.json']
   save(root, 'modules/sales/module.json', manifest)
@@ -334,4 +331,53 @@ it('rejects file URLs and case aliases for protected Git paths', () => {
   save(root, 'modules/sales/module.json', manifest)
   expect(() => removeInstalled('sales', { root })).toThrow('literal repository-relative path')
   expect(existsSync(new URL('.git/config', root))).toBe(true)
+})
+
+it('discovers and removes add-ons through ownership and package entries', () => {
+  const { root } = fixture()
+  write(root, 'package.json', JSON.stringify({ scripts: { deploy: 'example', keep: 'kept' } }))
+  save(root, 'addons/deployment/addon.json', {
+    kind: 'addon',
+    id: 'deployment',
+    ownedPaths: ['addons/deployment', 'infra/deployment'],
+    packageEntries: [{ path: 'package.json', section: 'scripts', names: ['deploy'] }],
+  })
+  write(root, 'infra/deployment/run.mjs')
+  expect(checkApp(root).map(({ id }) => id)).toContain('deployment')
+  removeInstalled('deployment', { root })
+  expect(existsSync(new URL('infra/deployment', root))).toBe(false)
+  expect(JSON.parse(readFileSync(new URL('package.json', root), 'utf8')).scripts).toEqual({
+    keep: 'kept',
+  })
+  expect(checkApp(root).map(({ id }) => id)).not.toContain('deployment')
+})
+
+it('recognizes conditional setup dependencies after their optional connector is removed', () => {
+  const { root } = fixture()
+
+  const billing = {
+    kind: 'connector',
+    id: 'billing',
+    setup: {
+      beforeSchema: [{ title: 'Join portal', script: 'join.mjs', requires: ['portal'] }],
+      afterSchema: [],
+    },
+    frontend: [
+      {
+        module: 'sales',
+        path: 'connectors/billing/frontend/sales',
+        slot: 'organization-panel',
+        order: 0,
+        collections: [],
+        schemas: [],
+        requires: ['portal'],
+      },
+    ],
+  }
+
+  save(root, 'connectors/billing/connector.json', billing)
+  write(root, 'connectors/billing/monospace/setup/join.mjs')
+  write(root, 'connectors/billing/frontend/sales/feature.tsx')
+  expect(checkApp(root).map((manifest) => manifest.id)).toContain('billing')
+  expect(() => removeInstalled('billing', { root })).not.toThrow()
 })

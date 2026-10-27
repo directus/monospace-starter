@@ -10,9 +10,7 @@
     "crm": ["portal"]
   },
   "x-monoerp": {
-    "provides": ["Stripe billing collections"],
     "optional": [],
-    "env": ["STRIPE_API_KEY", "STRIPE_API_BASE", "STRIPE_PORT", "MONOSPACE_STRIPE_SOURCE"],
     "compose": "connectors/stripe/compose.yml",
     "schemaFiles": ["connectors/stripe/monospace/schema/stripe.json"],
     "source": {

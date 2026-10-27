@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { dateField } from '@/components/filter-date-editor'
+import { dateField } from '@/components/filters/filter-date-editor'
 
 import { filtersToClause } from './filters'
 import type { ListFilterField, ListFilterQuery } from './filters'
@@ -18,7 +18,7 @@ function throughUrl(filters: ListFilterQuery) {
 }
 
 function group(rules: ListFilterQuery['rules']): ListFilterQuery {
-  return { id: 'root', type: 'group', combinator: 'and', rules }
+  return { rules }
 }
 
 describe('list filters in the URL', () => {
@@ -43,30 +43,39 @@ describe('list filters in the URL', () => {
     expect(filtersToClause(fields, filters)).toEqual({ _and: [{ title: { _null: true } }] })
   })
 
-  it('keeps date rules and nested groups', () => {
+  it('keeps date rules', () => {
     const filters = throughUrl(
       group([
         {
-          id: 'or',
-          type: 'group',
-          combinator: 'or',
-          rules: [
-            {
-              id: 'a',
-              type: 'rule',
-              path: ['closeDate'],
-              operator: 'is_before',
-              value: { date: '2026-10-01' },
-            },
-            { id: 'b', type: 'rule', path: ['status'], operator: 'is', value: 'open' },
-          ],
+          id: 'a',
+          type: 'rule',
+          path: ['closeDate'],
+          operator: 'is_before',
+          value: { date: '2026-10-01' },
         },
       ]),
     )
 
     expect(filtersToClause(fields, filters)).toEqual({
-      _and: [{ _or: [{ expectedCloseDate: { _lt: '2026-10-01' } }, { status: { _eq: 'open' } }] }],
+      _and: [{ expectedCloseDate: { _lt: '2026-10-01' } }],
     })
+  })
+
+  it('drops old group and or URLs without failing the page', () => {
+    for (const combinator of ['and', 'or']) {
+      expect(
+        listSearchSchema.parse({
+          q: 'acme',
+          filters: { id: 'root', type: 'group', combinator, rules: [] },
+        }),
+      ).toEqual({ q: 'acme', filters: undefined })
+    }
+
+    expect(
+      listSearchSchema.parse({
+        filters: { rules: [{ id: 'old', type: 'group', combinator: 'or', rules: [] }] },
+      }).filters,
+    ).toBeUndefined()
   })
 
   it('drops filters it cannot read instead of failing the page', () => {

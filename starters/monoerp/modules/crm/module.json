@@ -41,8 +41,7 @@
       "contact_organizations": ["created_by", "updated_by"],
       "opportunities": ["owner_user_id", "created_by", "updated_by"],
       "interactions": ["owner_user_id", "created_by", "updated_by"],
-      "attachments": ["created_by"],
-      "saved_views": ["owner_user_id", "created_by", "updated_by"]
+      "attachments": ["created_by"]
     },
     "setup": {
       "beforeSchema": [

@@ -6,6 +6,7 @@
 // they differ. Run the relation scripts first; relations are matched by their apiName.
 import {
   authenticate,
+  META_FIELDS,
   canonicalJson,
   metaPaths,
   migrate,
@@ -13,8 +14,8 @@ import {
   request,
 } from './lib.mjs'
 
-import { modules, readSchemas } from './modules.mjs'
-import { connectorAvailable } from './connectors.mjs'
+import { modules, readSchemas } from './installed.mjs'
+import { connectorAvailable } from './installed.mjs'
 import { schemaRelation } from './schema-relations.mjs'
 
 const STRUCTURAL_KEYS = ['apiName', 'defaultValue']
@@ -23,12 +24,6 @@ const STRUCTURAL_KEYS = ['apiName', 'defaultValue']
 const SORT_DIGITS = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
 
 const sortKey = (index) => `a${SORT_DIGITS[index] ?? 'z'}`
-
-const META_FIELDS = {
-  collection: 'displayTemplate,displayName,description,icon,isHidden,color',
-  field:
-    'displayName,description,typeTemplateId,typeOptions,inputId,inputOptions,displayId,displayOptions,isHidden,sort',
-}
 
 // "{account.name} · {plan.name}" -> Studio's doc node with fieldId chains.
 function renderTemplate(template, collection, resolve) {

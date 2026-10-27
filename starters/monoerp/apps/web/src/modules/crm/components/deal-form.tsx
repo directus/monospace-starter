@@ -1,9 +1,9 @@
 import { useStore } from '@tanstack/react-form'
 import { useQuery } from '@tanstack/react-query'
-import { useCallback, useState } from 'react'
+import { useCallback } from 'react'
 import type { ReactElement } from 'react'
 
-import { useAppForm } from '@/components/form/app-form'
+import { useAppForm, submitForm } from '@/components/form/app-form'
 import {
   DrawerForm,
   DrawerFormBody,
@@ -14,7 +14,6 @@ import {
 import type { RelationOption } from '@/components/form/relation-combobox'
 import { optionalAmount, requiredRelation, requiredText } from '@/components/form/validators'
 import { appCopy } from '@/lib/app.copy'
-import { errorMessage } from '@/lib/errors'
 import { crmCopy } from '@/modules/crm/crm.copy'
 import { lookupContacts, lookupOrganizations, pipelineStagesQuery } from '@/modules/crm/data'
 import { useCreateDeal } from '@/modules/crm/mutations'
@@ -75,7 +74,7 @@ type DealValues = {
   expectedCloseDate: string
 }
 
-export function DealForm({
+function DealForm({
   defaultOrganization,
   defaultContact,
   onCancel,
@@ -88,7 +87,6 @@ export function DealForm({
 }) {
   const stages = useQuery(pipelineStagesQuery())
   const create = useCreateDeal()
-  const [submitError, setSubmitError] = useState<string>()
 
   const stageOptions = (stages.data ?? []).flatMap((stage, index) =>
     stage.id && stage.name
@@ -109,22 +107,20 @@ export function DealForm({
 
   const form = useAppForm({
     defaultValues,
-    onSubmit: async ({ value }) => {
-      setSubmitError(undefined)
+    onSubmit: ({ value, formApi }) =>
+      submitForm(formApi, async () => {
+        const stage = stages.data?.find((item) => item.id === value.stageId)
 
-      const stage = stages.data?.find((item) => item.id === value.stageId)
+        if (!value.organization || !stage) return
 
-      if (!value.organization || !stage) return
+        const base = {
+          title: value.title.trim(),
+          status: value.status,
+          valueAmount: value.valueAmount.trim() || null,
+          currency: value.currency,
+          expectedCloseDate: value.expectedCloseDate || null,
+        }
 
-      const base = {
-        title: value.title.trim(),
-        status: value.status,
-        valueAmount: value.valueAmount.trim() || null,
-        currency: value.currency,
-        expectedCloseDate: value.expectedCloseDate || null,
-      }
-
-      try {
         await create.mutateAsync({
           ...base,
           organizations: { _connect: { key: { id: value.organization.value } } },
@@ -132,10 +128,7 @@ export function DealForm({
           pipeline_stages: { _connect: { key: { id: stage.id } } },
         })
         onSuccess?.()
-      } catch (error) {
-        setSubmitError(errorMessage(error))
-      }
-    },
+      }),
   })
 
   const organizationId = useStore(form.store, (state) => state.values.organization?.value)
@@ -243,7 +236,14 @@ export function DealForm({
         </div>
       </DrawerFormBody>
 
-      <DrawerFormFooter error={submitError} onCancel={onCancel}>
+      <DrawerFormFooter
+        error={
+          <form.AppForm>
+            <form.FormError />
+          </form.AppForm>
+        }
+        onCancel={onCancel}
+      >
         <form.AppForm>
           <form.SubmitButton
             label={appCopy.form.create(copy.singular)}

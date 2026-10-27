@@ -1,3 +1,5 @@
+import { randomUUID } from 'node:crypto'
+import { readManifests, resolveSource } from '../../manifests.mjs'
 // Shared bits for the setup scripts: env loading, an authenticated fetch against the
 // Monospace API, and workspace schema reads keyed by dbName (ids differ per install).
 import { loadEnvFile } from 'node:process'
@@ -19,7 +21,7 @@ export const workspacePath = `/${encodeURIComponent(workspace)}`
 
 // Schemas in a source that Monospace should never import. `ops` holds database bookkeeping
 // (applied migrations, see infra/postgres/migrate.sh), not CRM data.
-const crmSource = process.env.MONOSPACE_CRM_SOURCE ?? 'CRM'
+export const crmSource = process.env.MONOSPACE_CRM_SOURCE ?? 'CRM'
 
 export const excludedNamespaces = { [crmSource]: ['ops'] }
 
@@ -229,4 +231,63 @@ export async function migrate(operations, summary) {
     body: JSON.stringify({ operations }),
   })
   console.log(`${summary}: applied ${operations.length} operation(s)`)
+}
+
+export function sourceName(id) {
+  const connector = readManifests().find(
+    (manifest) => manifest.kind === 'connector' && manifest.id === id,
+  )
+
+  if (!connector) throw new Error(`Connector is absent: ${id}`)
+
+  return resolveSource(connector.source).apiName
+}
+
+export function ensureRelation(collections, { relationName, from, to, constrained = false }) {
+  const first = findCollection(collections, from.source, from.collection)
+  const second = findCollection(collections, to.source, to.collection)
+  const existing = first.relationFields.find((field) => field.apiName === from.apiName)
+
+  if (existing) {
+    if (existing.oppositeCollectionId !== second.id)
+      throw new Error(`${first.dbName}.${from.apiName} points at the wrong collection`)
+
+    return []
+  }
+
+  return [
+    {
+      kind: 'createRelationFieldPair',
+      data: {
+        kind: 'single',
+        data: {
+          relationName,
+          onDelete: 'noAction',
+          onUpdate: 'noAction',
+          firstField: {
+            id: randomUUID(),
+            apiName: from.apiName,
+            isList: false,
+            isConstrained: constrained,
+            collectionId: first.id,
+            fieldIds: [findField(first, from.field).id],
+          },
+          secondField: {
+            id: randomUUID(),
+            apiName: to.apiName,
+            isList: to.isList ?? false,
+            isConstrained: false,
+            collectionId: second.id,
+            fieldIds: [findField(second, to.field).id],
+          },
+        },
+      },
+    },
+  ]
+}
+
+export const META_FIELDS = {
+  collection: 'displayTemplate,displayName,description,icon,isHidden,color',
+  field:
+    'displayName,description,typeTemplateId,typeOptions,inputId,inputOptions,displayId,displayOptions,isHidden,sort',
 }

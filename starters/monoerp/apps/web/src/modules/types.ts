@@ -1,6 +1,7 @@
 import type { NavigateOptions } from '@tanstack/react-router'
 import type { LucideIcon } from 'lucide-react'
-import type { ComponentType } from 'react'
+import type { ReactNode } from 'react'
+import type { QueryClient } from '@tanstack/react-query'
 
 import type { FileRouteTypes } from '@/routeTree.gen'
 
@@ -10,18 +11,6 @@ export type RoutePath = FileRouteTypes['to']
 export interface ModuleRegistry {}
 
 export type ModuleId = keyof ModuleRegistry
-
-export type OrganizationPanelProps = {
-  portalAccountId: string | null
-  onAddContact?: (person: { name?: string | null; email?: string | null }) => void
-}
-
-export type OrganizationPanelContribution = {
-  id: string
-  title: string
-  component: ComponentType<OrganizationPanelProps>
-  historyQuery?: (props: OrganizationPanelProps) => RecordHistoryQuery
-}
 
 export type PageMeta = {
   title: string
@@ -59,7 +48,7 @@ export type SearchHit = {
   title: string
   subtitle?: string
   image?: string
-  visual?: 'contact' | 'organization'
+  variant?: 'circle' | 'square'
   // Built with `linkOptions` so the route checks its params.
   link: NavigateOptions
 }
@@ -84,51 +73,18 @@ export type ModuleManifest = {
   search?: ModuleSearch
   settings?: {
     title: string
-    pages: { title: string; to: RoutePath; icon: LucideIcon }[]
+    pages: RoutePath[]
   }
 }
 
 export type RecordHistoryEntry = {
   id: string
   at: string
-  render: (when: string, inset?: string) => React.ReactNode
+  render: (when: string, inset?: string) => ReactNode
 }
 
 export type RecordHistoryQuery = {
   queryKey: readonly unknown[]
-  queryFn: (context: {
-    client: import('@tanstack/react-query').QueryClient
-  }) => Promise<RecordHistoryEntry[]>
+  queryFn: (context: { client: QueryClient }) => Promise<RecordHistoryEntry[]>
   enabled: boolean
-}
-
-export type OrganizationListContribution = {
-  filters: import('@/lib/filters').ListFilterField[]
-  columns: {
-    id: string
-    header: string
-    size: number
-    meta?: { headerClassName: string; cellClassName: string }
-    component: ComponentType<{
-      accountId: string | null | undefined
-      accountIds: readonly (string | null | undefined)[]
-    }>
-  }[]
-}
-
-export type ContactPanelProps = { email: string | null | undefined }
-
-export type ContactPanelContribution = {
-  id: string
-  title: string
-  summaryTitle: string
-  component: ComponentType<ContactPanelProps>
-  summary: ComponentType<ContactPanelProps>
-  historyQuery: (props: ContactPanelProps) => RecordHistoryQuery
-}
-
-export type DealSummaryContribution = {
-  id: string
-  title: string
-  component: ComponentType<OrganizationPanelProps>
 }

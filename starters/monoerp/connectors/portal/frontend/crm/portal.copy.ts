@@ -1,4 +1,5 @@
 export const portalCopy = {
+  plans: { starter: 'Starter', team: 'Team', business: 'Business', enterprise: 'Enterprise' },
   organizations: {
     portal: {
       title: 'Customer portal',

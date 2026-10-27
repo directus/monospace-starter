@@ -1,6 +1,6 @@
 import { fileURLToPath } from 'node:url'
 
-import { frontendFeatures, organizationPanelPaths } from './scripts/module-collections'
+import { frontendFeatures, moduleFeaturePaths } from './scripts/module-collections'
 import { playwright } from '@vitest/browser-playwright'
 import tailwindcss from '@tailwindcss/vite'
 import react from '@vitejs/plugin-react'
@@ -8,14 +8,14 @@ import { defineConfig } from 'vite-plus'
 
 export default defineConfig({
   resolve: {
+    dedupe: ['react', 'react-dom', '@tanstack/react-query', '@tanstack/react-router'],
     tsconfigPaths: true,
     alias: {
       '@': fileURLToPath(new URL('./src/', import.meta.url)),
-      '#': fileURLToPath(new URL('./src/', import.meta.url)),
     },
   },
   define: {
-    __CRM_ORGANIZATION_PANEL_PATHS__: JSON.stringify(organizationPanelPaths),
+    __MODULE_FEATURE_PATHS__: JSON.stringify(moduleFeaturePaths),
   },
   optimizeDeps: {
     entries: [

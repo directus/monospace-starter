@@ -1,11 +1,12 @@
+import { useCollectionAccess } from '@/lib/permissions'
 import { ListBulkActions } from '@/components/list-bulk-actions'
-import type { BulkField } from '@/components/bulk-edit-drawer'
+import type { BulkField } from '@/components/form/bulk-edit-drawer'
 import type { Uuid, interactionsUpdateOneInput } from '@/generated/monospace'
 import { appCopy } from '@/lib/app.copy'
 import { now } from '@/lib/dates'
 import { interactionsUpdateSchema } from '@/generated/monospace/schemas'
 import { crmCopy } from '@/modules/crm/crm.copy'
-import { lookupUsers } from '@/lib/user-options'
+import { lookupUsers } from '@/lib/users'
 import { useDeleteManyActivities, useUpdateManyActivities } from '@/modules/crm/mutations'
 
 const copy = crmCopy.activity
@@ -52,24 +53,33 @@ function toPatch(patch: Record<string, string | null>): interactionsUpdateOneInp
   )
 }
 
-// Edit and Delete for selected activities, same shape as the other list pages.
+// Edit and Delete for selected activities, same variant as the other list pages.
 export function ActivityBulkActions({ ids, onClear }: { ids: Array<Uuid>; onClear: () => void }) {
+  const access = useCollectionAccess('interactions')
+  const editable = fields.filter((field) => access.canUpdate(field.name))
   const updateMany = useUpdateManyActivities()
   const deleteMany = useDeleteManyActivities()
 
+  if (!editable.length && !access.delete) return null
+
   return (
     <ListBulkActions
+      canUpdate={access.canUpdate}
       ids={ids}
       noun={copy.plural}
       singular={copy.singular}
-      fields={fields}
+      fields={editable}
       onClear={onClear}
       onUpdate={async (selected, patch) => {
         await updateMany.mutateAsync({ ids: selected, data: toPatch(patch) })
       }}
-      onDelete={async (selected) => {
-        await deleteMany.mutateAsync(selected)
-      }}
+      onDelete={
+        access.delete
+          ? async (selected) => {
+              await deleteMany.mutateAsync(selected)
+            }
+          : undefined
+      }
       deleting={deleteMany.isPending}
       deleteError={deleteMany.error}
     />

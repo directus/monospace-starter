@@ -1,8 +1,13 @@
+import type { ActivityFilter } from '@/modules/crm/data'
 import type { RelationOption } from '@/components/form/relation-combobox'
-import type { OwnerLike } from '@/lib/format'
-import { ownerOption } from '@/lib/format'
+import type { OwnerLike } from '@/lib/users'
+import { ownerOption } from '@/lib/users'
 import { crmCopy } from '@/modules/crm/crm.copy'
-import { contactOption, organizationOption } from '@/modules/crm/entity-options'
+import {
+  contactName as entityContactName,
+  contactOption,
+  organizationOption,
+} from '@/modules/crm/entities'
 import type { ActivityInitial } from '@/modules/crm/components/activity-form'
 import type { Uuid } from '@/generated/monospace'
 
@@ -30,9 +35,7 @@ export type InteractionLike = {
 }
 
 export function contactName(row: InteractionLike) {
-  const name = `${row.contacts?.firstName ?? ''} ${row.contacts?.lastName ?? ''}`.trim()
-
-  return name || null
+  return row.contacts ? entityContactName(row.contacts) : null
 }
 
 export function isOpen(row: InteractionLike) {
@@ -61,10 +64,15 @@ export const upcomingBuckets: Array<UpcomingBucket> = [
   'noDate',
 ]
 
-const DAY = 86_400_000
+function dayStart(now: number, days = 0) {
+  const date = new Date(startOfToday(now))
+  date.setDate(date.getDate() + days)
+
+  return date.getTime()
+}
 
 export function upcomingBucket(row: InteractionLike, now: number): UpcomingBucket {
-  const due = row.dueAt ?? row.occurredAt
+  const due = row.dueAt
 
   if (!due) return 'noDate'
   const time = new Date(due).getTime()
@@ -72,9 +80,9 @@ export function upcomingBucket(row: InteractionLike, now: number): UpcomingBucke
 
   if (time < today) return 'overdue'
 
-  if (time < today + DAY) return 'today'
+  if (time < dayStart(now, 1)) return 'today'
 
-  if (time < today + 7 * DAY) return 'week'
+  if (time < dayStart(now, 7)) return 'week'
 
   return 'later'
 }
@@ -140,4 +148,32 @@ export function toActivityInitial(
     deal: deal ?? null,
     owner: ownerOption(row.owner),
   }
+}
+
+// Server-side counterpart of `upcomingBucket`, so a bucket pages from the API in due order.
+export function bucketClause(bucket: UpcomingBucket, now: number): ActivityFilter {
+  const today = new Date(startOfToday(now)).toISOString()
+  const tomorrow = new Date(dayStart(now, 1)).toISOString()
+  const nextWeek = new Date(dayStart(now, 7)).toISOString()
+
+  switch (bucket) {
+    case 'overdue':
+      return { dueAt: { _lt: today } }
+    case 'today':
+      return { dueAt: { _gte: today, _lt: tomorrow } }
+    case 'week':
+      return { dueAt: { _gte: tomorrow, _lt: nextWeek } }
+    case 'later':
+      return { dueAt: { _gte: nextWeek } }
+    case 'noDate':
+      return { dueAt: { _null: true } }
+  }
+}
+
+export const bucketLabels: Record<UpcomingBucket, string> = {
+  overdue: crmCopy.activity.upcoming.overdue,
+  today: crmCopy.activity.upcoming.today,
+  week: crmCopy.activity.upcoming.week,
+  later: crmCopy.activity.upcoming.later,
+  noDate: crmCopy.activity.upcoming.noDate,
 }

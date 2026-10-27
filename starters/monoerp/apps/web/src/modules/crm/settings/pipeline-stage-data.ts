@@ -1,3 +1,4 @@
+import { refreshCrm } from '@/modules/crm/refresh'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
 
@@ -110,7 +111,7 @@ export function stageInput(
   return data
 }
 
-export function stageCreateInput(
+function stageCreateInput(
   draft: StageDraft,
   stages: PipelineStage[],
   permissions: CollectionPermissions,
@@ -197,17 +198,7 @@ export function reorderedStage(stages: PipelineStage[], from: number, to: number
 export function useStageMutations() {
   const queryClient = useQueryClient()
 
-  const refresh = () =>
-    Promise.all(
-      [
-        'pipelineStages',
-        'opportunities',
-        'organizations',
-        'contacts',
-        'interactions',
-        'command-palette',
-      ].map((key) => queryClient.invalidateQueries({ queryKey: [key] })),
-    )
+  const refresh = () => refreshCrm(queryClient, 'pipelineStages')
 
   const save = useMutation({
     mutationFn: async ({ draft, stages, permissions, stage }: SaveStage) => {
@@ -278,7 +269,7 @@ export function useStageMutations() {
         throw new UserError('This stage changed or is no longer editable. Reload and try again.')
     },
     onSuccess: () => {
-      toast.success('Pipeline order updated')
+      toast.success(crmSettingsCopy.stages.orderUpdated)
     },
     onSettled: refresh,
   })

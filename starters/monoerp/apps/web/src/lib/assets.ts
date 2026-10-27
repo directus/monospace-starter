@@ -30,7 +30,7 @@ const systemInfo = z.object({
   }),
 })
 
-export class UploadError extends UserError {
+class UploadError extends UserError {
   constructor(
     message: string,
     public status: number,

@@ -1,3 +1,4 @@
+import { crmSource } from './lib.mjs'
 // Makes sure the workspace and its data sources exist: the CRM and selected external sources
 // unless OPTIONAL_SOURCES leaves them out. Hosts default to the compose service names, which is
 // what Monospace sees from inside the stack.
@@ -11,7 +12,7 @@ import {
   workspacePath,
 } from './lib.mjs'
 
-import { connectors, logMissingConnectors } from './connectors.mjs'
+import { connectors, logMissingConnectors } from './installed.mjs'
 
 logMissingConnectors()
 
@@ -20,7 +21,7 @@ const ssl = process.env.DB_SSL_MODE ? { ssl: { mode: process.env.DB_SSL_MODE } }
 
 const sources = [
   {
-    apiName: process.env.MONOSPACE_CRM_SOURCE ?? 'CRM',
+    apiName: crmSource,
     provider: 'postgres',
     host: process.env.CRM_DB_HOST ?? 'crm-postgres',
     port: Number(process.env.CRM_DB_INTERNAL_PORT ?? 5432),

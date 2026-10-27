@@ -9,9 +9,9 @@ import { afterEach, describe, expect, it, vi } from 'vitest'
 
 import { TooltipProvider } from '@/components/ui/tooltip'
 import { ActivityRow } from '@/modules/crm/components/activity-row'
-import type { InteractionRow } from '@/modules/crm/data'
+import type { ActivityRecord } from '@/modules/crm/data'
 
-const row: InteractionRow = {
+const row: ActivityRecord = {
   id: '00000000-0000-4000-8000-000000000001',
   subject: 'Send revised pricing',
   type: 'call',

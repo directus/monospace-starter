@@ -44,15 +44,15 @@ Deploys go to `us-east-1`. Another region needs two changes: the CloudFront pref
 ## First deploy
 
 ```sh
-pnpm aws:deploy --stage staging
+pnpm aws deploy --stage staging
 ```
 
 RDS, Amazon MQ, and CloudFront creation can take several minutes. RDS, Valkey, and CloudFront print nothing while they wait; that's normal. In CI or other non-interactive shells, add `--no-input --yes`. `alchemy.sh` runs a stage's first deploy in this order:
 
 1. **Pass 1:** the network and data layer (about 6 minutes).
-2. **Between passes:** Monospace's JWT keys and KMS master key are generated into Secrets Manager (`pnpm aws:keys`), the license is copied from `.env` (`pnpm aws:license`), and the database users are created (`pnpm aws:db-init`).
+2. **Between passes:** Monospace's JWT keys and KMS master key are generated into Secrets Manager (`pnpm aws keys`), the license is copied from `.env` (`pnpm aws license`), and the database users are created (`pnpm aws db-init`).
 3. **Pass 2:** the services: Monospace, the monoERP app, the load balancer, CloudFront, alarms, autoscaling (about 5 minutes).
-4. **Setup:** a one-off task loads the CRM schema (and demo data on staging) and configures the Monospace workspace (`pnpm aws:setup`).
+4. **Setup:** a one-off task loads the CRM schema (and demo data on staging) and configures the Monospace workspace (`pnpm aws setup`).
 
 At the end it prints the app and Studio addresses and the command that shows the admin password.
 
@@ -76,9 +76,9 @@ On staging this is optional: destroying staging deletes the data the key protect
 1. Open the **app address** (the first one printed). Sign in as `admin@example.com` with the password from the printed command. You should land in monoERP; Organizations lists 40 demo companies on staging, and prod starts empty.
 2. Open the **Studio address**. Studio is Monospace's own admin UI: data sources, collections, roles, users. Sign in with the same account. It has its own address because it's a single-page app that needs the site root. The first time, Studio asks you to accept its terms and then insists on creating a workspace, even though monoERP's workspace (`crm`) already exists. Open Studio in a new browser tab to get past it; the wizard only tracks its progress per tab.
 3. Health: `https://<app address>/api/system/ready` returns 200 when Monospace and its databases are up. The load balancer uses the same check.
-4. `pnpm aws:probe --stage staging` checks the databases, cache, and broker answer from inside the network.
+4. `pnpm aws probe --stage staging` checks the databases, cache, and broker answer from inside the network.
 
-If the deploy stops partway, fix the cause and run `pnpm aws:deploy` again. Once the keys exist it resumes ("Resuming this stage's unfinished first deploy") instead of starting over, so the stage keeps its address and the license binding stays valid. If only the last step (setup) failed, `pnpm aws:setup` reruns just that.
+If the deploy stops partway, fix the cause and run `pnpm aws deploy` again. Once the keys exist it resumes ("Resuming this stage's unfinished first deploy") instead of starting over, so the stage keeps its address and the license binding stays valid. If only the last step (setup) failed, `pnpm aws setup` reruns just that.
 
 Prod's first deploy is the slowest part: the Multi-AZ database and Amazon MQ take 15 to 20 minutes each.
 
@@ -90,28 +90,28 @@ Add `--stage staging` or `--stage prod` to each.
 
 | Command                 | What it does                                                                                            |
 | ----------------------- | ------------------------------------------------------------------------------------------------------- |
-| `pnpm aws:plan`         | Shows what a deploy would change, without changing anything                                             |
-| `pnpm aws:deploy`       | Applies the code in this folder to the stage                                                            |
-| `pnpm aws:setup`        | Reruns the setup task: new CRM migrations, schema changes, Monospace config. Safe to rerun              |
-| `pnpm aws:probe`        | Checks every data store answers from the private subnets                                                |
-| `pnpm aws:mail`         | Opens staging's Mailpit inbox at http://localhost:8025 until Ctrl+C                                     |
-| `pnpm aws:restore-test` | Restores Postgres into a scratch instance, compares row counts with live, deletes it (15 to 30 minutes) |
-| `pnpm aws:db-init`      | Recreates the database users and resyncs their passwords                                                |
-| `pnpm aws:destroy`      | Removes the stage (see Tearing down)                                                                    |
+| `pnpm aws plan`         | Shows what a deploy would change, without changing anything                                             |
+| `pnpm aws deploy`       | Applies the code in this folder to the stage                                                            |
+| `pnpm aws setup`        | Reruns the setup task: new CRM migrations, schema changes, Monospace config. Safe to rerun              |
+| `pnpm aws probe`        | Checks every data store answers from the private subnets                                                |
+| `pnpm aws mail`         | Opens staging's Mailpit inbox at http://localhost:8025 until Ctrl+C                                     |
+| `pnpm aws restore-test` | Restores Postgres into a scratch instance, compares row counts with live, deletes it (15 to 30 minutes) |
+| `pnpm aws db-init`      | Recreates the database users and resyncs their passwords                                                |
+| `pnpm aws destroy`      | Removes the stage (see Tearing down)                                                                    |
 
 Logs are in CloudWatch, one log group per service, kept 30 days.
 
 ## Reading staging's mail
 
-Staging sends every email (invites, password resets) to a Mailpit task, like `docker compose` locally. It has no public address: anyone who could read it could follow a reset link. `pnpm aws:mail --stage staging` opens it at http://localhost:8025 through an SSM tunnel. Mail lives in the task's memory, so a restart empties the inbox.
+Staging sends every email (invites, password resets) to a Mailpit task, like `docker compose` locally. It has no public address: anyone who could read it could follow a reset link. `pnpm aws mail --stage staging` opens it at http://localhost:8025 through an SSM tunnel. Mail lives in the task's memory, so a restart empties the inbox.
 
 ## Optional automation
 
-The included CI workflow runs checks and builds without AWS credentials. Deploy explicitly with `pnpm aws:deploy --stage staging` or `--stage prod`. To automate deployment, configure your own workflow and GitHub environment restrictions. The optional `pnpm aws:github-oidc` helper creates the account identity provider; `GITHUB_OIDC_SUBJECT` enables a role with repo, environment, and ref-bound trust. See `github.ts` for its accepted subject format. The role has administrator access, so limit who can trigger it.
+The included CI workflow runs checks and builds without AWS credentials. Deploy explicitly with `pnpm aws deploy --stage staging` or `--stage prod`. The optional `.github/workflows/deploy.yml` verifies changes, deploys main to staging, and deploys version tags to prod. Configure its GitHub environments and variables before enabling it. The optional `pnpm aws github-oidc` helper creates the account identity provider; `GITHUB_OIDC_SUBJECT` enables a role with repo, environment, and ref-bound trust. See `github.ts` for its accepted subject format. The role has administrator access, so limit who can trigger it.
 
 One-time setup:
 
-1. `pnpm aws:github-oidc`: creates the account's GitHub identity provider.
+1. `pnpm aws github-oidc`: creates the account's GitHub identity provider.
 2. Configure this repository's OIDC subject template to include `repo`, `context`, and `ref`, in that order:
    ```sh
    gh api --method PUT repos/<owner>/<repo>/actions/oidc/customization/sub --input - <<'JSON'
@@ -125,7 +125,7 @@ One-time setup:
    ```
    Staging trusts only `<prefix>:environment:staging:ref:refs/heads/main`. Prod trusts only `<prefix>:environment:prod:ref:refs/tags/v*`. A branch requesting `environment: prod` cannot assume the prod role, and the old environment-only subject is refused.
 4. In repository Settings > Environments, create `staging` and `prod`. Under **Deployment branches and tags**, choose **Selected branches and tags**. For `staging`, allow only the `main` branch. For `prod`, allow only tags matching `v*`, with no branch rule. These rules are required; add required reviewers to prod where your plan supports them.
-5. Run the initial `pnpm aws:deploy --stage staging` (and `prod`) using your local AWS credentials. This creates the ref-bound `GithubDeployRole` and prints `githubDeployRoleArn`. Set each environment's `AWS_DEPLOY_ROLE_ARN` variable to its stage's ARN.
+5. Run the initial `pnpm aws deploy --stage staging` (and `prod`) using your local AWS credentials. This creates the ref-bound `GithubDeployRole` and prints `githubDeployRoleArn`. Set each environment's `AWS_DEPLOY_ROLE_ARN` variable to its stage's ARN.
 6. Set repository variables `ALARM_EMAIL` and `OIDC_SUBJECT` (the same prefix as `GITHUB_OIDC_SUBJECT`), and secrets `LOGO_DEV_TOKEN` and `MONOSPACE_LICENSE__KEY`. Copy secrets from `.env` without printing them. The license is only read on a stage's first deploy.
 
 ## Alarms
@@ -152,19 +152,19 @@ A deploy resets the task count to the minimum; autoscaling brings it back up if 
 
 ## Backups
 
-RDS keeps automatic backups with point-in-time restore: 1 day on staging, 14 on prod. `pnpm aws:restore-test` proves a restore works. To restore for real, use the RDS console's "Restore to point in time" into a new instance, then point the stage at it.
+RDS keeps automatic backups with point-in-time restore: 1 day on staging, 14 on prod. `pnpm aws restore-test` proves a restore works. To restore for real, use the RDS console's "Restore to point in time" into a new instance, then point the stage at it.
 
 The assets bucket keeps old file versions for 30 days.
 
 ## Tearing down
 
 ```sh
-pnpm aws:destroy --stage staging
+pnpm aws destroy --stage staging
 ```
 
 If Monospace is running, it first restarts it without its license key, which releases the license activation so the key can be used again. Then it deletes the stage. CloudFront and RDS take a while to delete.
 
-Prod keeps its Postgres database (with a final snapshot), the assets bucket, and the key material, so destroying prod by accident doesn't lose data. That also means destroying prod stops at the network: the kept database still sits in it. To remove prod completely, turn off the database's deletion protection and delete it, empty and delete the bucket, delete the three key secrets, then run `pnpm aws:destroy --stage prod` again:
+Prod keeps its Postgres database (with a final snapshot), the assets bucket, and the key material, so destroying prod by accident doesn't lose data. That also means destroying prod stops at the network: the kept database still sits in it. To remove prod completely, turn off the database's deletion protection and delete it, empty and delete the bucket, delete the three key secrets, then run `pnpm aws destroy --stage prod` again:
 
 ```sh
 aws rds modify-db-instance --db-instance-identifier <monoerp-postgres-prod-…> --no-deletion-protection --apply-immediately
@@ -172,12 +172,12 @@ aws rds delete-db-instance --db-instance-identifier <monoerp-postgres-prod-…> 
 aws rds wait db-instance-deleted --db-instance-identifier <monoerp-postgres-prod-…>
 ```
 
-A destroy that fails partway is safe to rerun. Don't run `pnpm aws:deploy` to "fix" a half-destroyed stage: it rebuilds everything.
+A destroy that fails partway is safe to rerun. Don't run `pnpm aws deploy` to "fix" a half-destroyed stage: it rebuilds everything.
 
 ## Things that will bite you
 
 - **Changing a stage's address breaks the license.** An online activation is tied to the installation and its `MONOSPACE_BASE_URL`, and Monospace won't start with a different address (`BindingMismatch`). To move it: release the license (deploy with `MONOERP_RELEASE_LICENSE=1`), then deploy with the new address. Adding a domain later is such a move.
-- **Monospace prints the admin password in its startup log** when it creates the admin, so it's in CloudWatch after a first deploy. It's the same password as the Secrets Manager one. Change it in Studio after first sign-in, then put the new one in the same secret (the one in the command the deploy prints), because `pnpm aws:setup` and the load test sign in with it: `aws secretsmanager put-secret-value --secret-id <that secret> --secret-string '<new password>'`. Monospace only reads the secret when it first creates the admin, so updating it doesn't change the password by itself.
+- **Monospace prints the admin password in its startup log** when it creates the admin, so it's in CloudWatch after a first deploy. It's the same password as the Secrets Manager one. Change it in Studio after first sign-in, then put the new one in the same secret (the one in the command the deploy prints), because `pnpm aws setup` and the load test sign in with it: `aws secretsmanager put-secret-value --secret-id <that secret> --secret-string '<new password>'`. Monospace only reads the secret when it first creates the admin, so updating it doesn't change the password by itself.
 - **`aws sso login` sessions expire.** The deploy scripts say so when they do. If a shell has old `AWS_ACCESS_KEY_ID` or `AWS_SESSION_TOKEN` variables exported, they override your profile; `unset` them.
 - **Docker socket:** Alchemy talks to Docker directly. `alchemy.sh` finds OrbStack or Colima through `docker context`.
 - **A new workspace can briefly be unknown to one Monospace task.** Tasks tell each other about changes through RabbitMQ; a task that missed the message (for example, still connecting during a first deploy) answers `Workspace ... not found` until it rechecks the database. The setup scripts wait and retry for up to a minute.
@@ -196,8 +196,12 @@ A destroy that fails partway is safe to rerun. Don't run `pnpm aws:deploy` to "f
 | `services.ts`    | Load balancer, CloudFront, Monospace, the app, RabbitMQ on staging, one-off tasks       |
 | `operations.ts`  | WAF, alarms, autoscaling                                                                |
 | `alchemy.sh`     | Wrapper: AWS credentials, Docker, the two-pass first deploy, license release on destroy |
-| `*.mjs`          | The `pnpm aws:*` commands                                                               |
+| `*.mjs`          | The `pnpm aws <command>` commands                                                       |
 
 Alchemy's state (what it created) lives in an S3 bucket in the account, `alchemy-state-<account>-<region>-an`, so anyone with access to the account can deploy the same stages.
 
 CloudFront-to-load-balancer traffic uses plain HTTP in this starter. Browser-to-CloudFront traffic is HTTPS. For end-to-end HTTPS, add a domain and ACM certificate to an HTTPS listener on the load balancer before changing the origin policy.
+
+## Package and names
+
+The optional package is `@monoerp/aws`. `pnpm aws <command>` forwards to its scripts; run `pnpm --filter @monoerp/aws typecheck` to check it alone. Rename stack/resource IDs, database/final snapshot names, `monoerp.internal`, and the sender in this folder together. Review `pnpm aws plan` first, since identity changes may replace resources.

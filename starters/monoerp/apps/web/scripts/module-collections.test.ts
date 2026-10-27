@@ -9,7 +9,7 @@ import { afterEach, describe, expect, it, vi } from 'vitest'
 import {
   readFrontendFeatures,
   readModuleCollections,
-  readOrganizationPanelPaths,
+  readModuleFeaturePaths,
 } from './module-collections'
 
 const temporaryDirectories: URL[] = []
@@ -138,12 +138,15 @@ describe('module collection discovery', () => {
 
     const active = readFrontendFeatures(root, ['portal', 'stripe']).active
     expect(
-      readOrganizationPanelPaths([
+      readModuleFeaturePaths([
         ...active,
         ...active.map((feature) => ({ ...feature, module: 'inventory' })),
         ...active.map((feature) => ({ ...feature, slot: 'another-slot' })),
       ]),
-    ).toEqual(['connectors/stripe/frontend/crm'])
+    ).toEqual({
+      crm: ['connectors/stripe/frontend/crm'],
+      inventory: ['connectors/stripe/frontend/crm'],
+    })
     rmSync(entry)
     expect(() => readFrontendFeatures(root, ['portal', 'stripe'])).toThrow(
       'Selected frontend entry is missing',
@@ -190,7 +193,10 @@ it('keeps an installed inventory-targeted feature out of the CRM organization sl
 
   const features = readFrontendFeatures(root, ['stripe', 'demo'])
   expect(features.active).toHaveLength(2)
-  expect(readOrganizationPanelPaths(features.active)).toEqual(['connectors/stripe/frontend/crm'])
+  expect(readModuleFeaturePaths(features.active)).toEqual({
+    crm: ['connectors/stripe/frontend/crm'],
+    inventory: ['connectors/demo/frontend/inventory'],
+  })
 })
 
 it('drops Portal and conditional Stripe collections when Portal is removed', () => {

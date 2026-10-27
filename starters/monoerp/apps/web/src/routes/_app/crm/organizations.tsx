@@ -1,38 +1,31 @@
-import { useInfiniteQuery } from '@tanstack/react-query'
 import { Link, createFileRoute } from '@tanstack/react-router'
-import { CalendarDays, CircleDot, Factory, Globe, Plus } from 'lucide-react'
-import { useMemo } from 'react'
+import { CalendarDays, CircleDot, Factory, Globe } from 'lucide-react'
 
-import { DataTable, DataTableMobileRow, useDataTable } from '@/components/data-table'
-import type { DataTableColumn } from '@/components/data-table'
-import { DataError, DataLoading } from '@/components/data-state'
-import { ListBulkActions } from '@/components/list-bulk-actions'
-import { DisplayMenu } from '@/components/display-menu'
+import { insertColumns } from '@/components/data-table/columns'
+import { useListPage } from '@/hooks/use-list-page'
+import { ListControls, ListAddButton } from '@/components/list-controls'
+import { ListTable } from '@/components/data-table/list-table'
+import { DataTableMobileRow } from '@/components/data-table/data-table'
+import type { DataTableColumn } from '@/components/data-table/data-table'
+import { ListBulkActions, ownerBulkField, statusBulkField } from '@/components/list-bulk-actions'
 import { useDeleteManyOrganizations, useUpdateManyOrganizations } from '@/modules/crm/mutations'
-import { dateField } from '@/components/filter-date-editor'
-import { FilterTrigger, FilterWell, ListFilters } from '@/components/list-filters'
-import { ListToolbar } from '@/components/list-toolbar'
+import { dateField } from '@/components/filters/filter-date-editor'
 import { ListWorkspace } from '@/components/list-workspace'
-import { createFilterQuery, isFilterQueryEmpty } from '@/components/reui/filters/filters'
-import { Button } from '@/components/ui/button'
 import { appCopy } from '@/lib/app.copy'
 import { filtersToClause, relationField } from '@/lib/filters'
-import type { FilterValue, ListFilterField, ListFilterQuery } from '@/lib/filters'
+import type { ListFilterField, ListFilterQuery } from '@/lib/filters'
 import { formatDate } from '@/lib/format'
-import { listSearchSchema, parseSort, serializeSort } from '@/lib/list-search'
-import {
-  OrganizationAvatar,
-  OrganizationLabel,
-  organizationName,
-} from '@/modules/crm/components/entities'
+import { listSearchSchema, parseSort } from '@/lib/list-search'
+import { OrganizationAvatar, OrganizationLabel } from '@/modules/crm/components/entities'
+import { organizationName, organizationStatusOptions } from '@/modules/crm/entities'
 import { UserLabel } from '@/components/users'
 import { OrganizationDrawer } from '@/modules/crm/components/organization-form'
 import { StatusBadge } from '@/modules/crm/components/status-badge'
 import { crmCopy } from '@/modules/crm/crm.copy'
 import { OrganizationIcon, OwnerIcon } from '@/modules/crm/icons'
 import { organizationsPagesQuery } from '@/modules/crm/data'
-import { lookupUsers, resolveUsers } from '@/lib/user-options'
-import { organizationLists } from '@/modules/organization-panels'
+import { lookupUsers, resolveUsers } from '@/lib/users'
+import { organizationLists } from '@/modules/crm/slots'
 import type { OrganizationRow, OrganizationsFilter } from '@/modules/crm/data'
 import { useCollectionAccess } from '@/lib/permissions'
 
@@ -45,10 +38,7 @@ const filterFields: Array<ListFilterField> = [
     defaultOperator: 'is_any_of',
     searchable: false,
     icon: <CircleDot />,
-    options: Object.entries(crmCopy.organizations.statuses).map(([value, label]) => ({
-      value,
-      label,
-    })),
+    options: organizationStatusOptions,
   },
   relationField({
     id: 'owner',
@@ -69,8 +59,6 @@ const filterFields: Array<ListFilterField> = [
   }),
   ...organizationLists.flatMap((feature) => feature.filters),
 ]
-
-const EMPTY_QUERY = createFilterQuery<FilterValue>([])
 
 function clauseFor(query: ListFilterQuery | undefined) {
   // SAFETY: filtersToClause only emits operators valid for each field type. The generated filter
@@ -158,6 +146,27 @@ const columns: Array<DataTableColumn<OrganizationRow>> = [
   },
 ]
 
+function organizationColumns(rows: OrganizationRow[]): DataTableColumn<OrganizationRow>[] {
+  return insertColumns(
+    columns,
+    organizationLists.flatMap((feature) =>
+      feature.columns.map(({ before, component: Cell, ...column }) => ({
+        before,
+        column: {
+          ...column,
+          enableSorting: false,
+          cell: ({ row }: { row: { original: OrganizationRow } }) => (
+            <Cell
+              accountId={row.original.portalAccountId}
+              accountIds={rows.map((item) => item.portalAccountId)}
+            />
+          ),
+        },
+      })),
+    ),
+  )
+}
+
 function OrganizationRowMobile({ organization }: { organization: OrganizationRow }) {
   return (
     <DataTableMobileRow
@@ -181,42 +190,18 @@ function OrganizationsPage() {
   const access = useCollectionAccess('organizations')
   const search = Route.useSearch()
   const navigate = Route.useNavigate()
-  const query = search.filters ?? EMPTY_QUERY
-  const sort = parseSort(search.sort)
 
-  const organizations = useInfiniteQuery(
-    organizationsPagesQuery({ q: search.q, filter: clauseFor(query), sort }),
-  )
+  const page = useListPage({
+    id: 'organizations',
+    getColumns: organizationColumns,
+    search,
+    onSearchChange: (patch) => navigate({ search: (previous) => ({ ...previous, ...patch }) }),
+    params: Route.useLoaderDeps(),
+    query: organizationsPagesQuery,
+    selectable: true,
+  })
 
-  const rows = useMemo(() => organizations.data?.pages.flat() ?? [], [organizations.data])
-
-  const { table, resetLayout, isDefaultLayout, onDragEnd, selectedIds, clearSelection } =
-    useDataTable({
-      id: 'organizations',
-      columns: [
-        ...columns.slice(0, -1),
-        ...organizationLists.flatMap((feature) =>
-          feature.columns.map(({ component: Cell, ...column }) => ({
-            ...column,
-            enableSorting: false,
-            cell: ({ row }: { row: { original: OrganizationRow } }) => (
-              <Cell
-                accountId={row.original.portalAccountId}
-                accountIds={rows.map((item) => item.portalAccountId)}
-              />
-            ),
-          })),
-        ),
-        ...columns.slice(-1),
-      ],
-      rows,
-      getRowId: (row) => row.id,
-      sort,
-      onSortChange: (next) =>
-        navigate({ search: (previous) => ({ ...previous, sort: serializeSort(next) }) }),
-      selectable: true,
-      selectionKey: JSON.stringify([search.q, search.filters, search.sort]),
-    })
+  const { list: organizations, selectedIds, clearSelection } = page
 
   const updateMany = useUpdateManyOrganizations()
   const deleteMany = useDeleteManyOrganizations()
@@ -226,122 +211,52 @@ function OrganizationsPage() {
       title={crmCopy.organizations.title}
       icon={OrganizationIcon}
       controls={
-        <ListFilters
+        <ListControls
+          state={page}
           fields={filterFields}
-          query={query}
-          onQueryChange={(next) =>
-            navigate({
-              search: (previous) => ({
-                ...previous,
-                filters: isFilterQueryEmpty(next) ? undefined : next,
-              }),
-            })
+          title={crmCopy.organizations.title}
+          icon={OrganizationIcon}
+          defaultSort={{ id: 'name', desc: false, label: crmCopy.organizations.singular }}
+          selection={
+            selectedIds.length ? (
+              <ListBulkActions
+                canUpdate={access.canUpdate}
+                ids={selectedIds}
+                noun={crmCopy.organizations.title}
+                singular={crmCopy.organizations.singular}
+                fields={[statusBulkField(organizationStatusOptions), ownerBulkField]}
+                onClear={clearSelection}
+                onUpdate={async (ids, data) => {
+                  await updateMany.mutateAsync({ ids, data })
+                }}
+                onDelete={
+                  access.delete
+                    ? async (ids) => {
+                        await deleteMany.mutateAsync(ids)
+                      }
+                    : undefined
+                }
+                deleting={deleteMany.isPending}
+                deleteError={deleteMany.error}
+              />
+            ) : undefined
           }
-        >
-          <ListToolbar
-            title={crmCopy.organizations.title}
-            icon={OrganizationIcon}
-            query={search.q ?? ''}
-            onQueryChange={(q) => navigate({ search: (previous) => ({ ...previous, q }) })}
-            selection={
-              selectedIds.length ? (
-                <ListBulkActions
-                  ids={selectedIds}
-                  noun={crmCopy.organizations.title}
-                  singular={crmCopy.organizations.singular}
-                  fields={[
-                    {
-                      name: 'status',
-                      label: appCopy.common.status,
-                      kind: 'select',
-                      options: Object.entries(crmCopy.organizations.statuses).map(
-                        ([value, label]) => ({
-                          value,
-                          label,
-                        }),
-                      ),
-                    },
-                    {
-                      name: 'ownerUserId',
-                      label: appCopy.common.owner,
-                      kind: 'relation',
-                      search: lookupUsers,
-                      placeholder: appCopy.inline.assign,
-                      searchPlaceholder: appCopy.form.searchPlaceholder(appCopy.common.owner),
-                    },
-                  ]}
-                  onClear={clearSelection}
-                  onUpdate={async (ids, data) => {
-                    await updateMany.mutateAsync({ ids, data })
-                  }}
-                  onDelete={
-                    access.delete
-                      ? async (ids) => {
-                          await deleteMany.mutateAsync(ids)
-                        }
-                      : undefined
-                  }
-                  deleting={deleteMany.isPending}
-                  deleteError={deleteMany.error}
-                />
-              ) : undefined
-            }
-            action={
-              <>
-                <DisplayMenu
-                  sort={sort}
-                  defaultSort={{
-                    id: 'name',
-                    desc: false,
-                    label: crmCopy.organizations.singular,
-                  }}
-                  onSortChange={(next) =>
-                    navigate({
-                      search: (previous) => ({ ...previous, sort: serializeSort(next) }),
-                    })
-                  }
-                  table={table}
-                  isDefaultLayout={isDefaultLayout}
-                  onResetColumns={resetLayout}
-                />
-                {access.create ? (
-                  <OrganizationDrawer
-                    trigger={
-                      <Button className="max-md:ml-auto max-md:w-10 max-md:px-0!">
-                        <Plus data-icon="inline-start" />
-                        <span className="max-md:sr-only">
-                          {appCopy.form.add(crmCopy.organizations.singular)}
-                        </span>
-                      </Button>
-                    }
-                  />
-                ) : null}
-              </>
-            }
-          >
-            <FilterTrigger />
-          </ListToolbar>
-          <FilterWell />
-        </ListFilters>
+          action={
+            access.create ? (
+              <OrganizationDrawer
+                trigger={<ListAddButton label={appCopy.form.add(crmCopy.organizations.singular)} />}
+              />
+            ) : null
+          }
+        />
       }
     >
-      {organizations.isPending ? <DataLoading className="max-md:mx-4" /> : null}
-      {organizations.isError ? (
-        <DataError error={organizations.error} className="max-md:mx-4" />
-      ) : null}
-      {organizations.data ? (
-        <>
-          <DataTable
-            table={table}
-            onDragEnd={onDragEnd}
-            noun={crmCopy.organizations.title}
-            hasMore={organizations.hasNextPage}
-            isLoadingMore={organizations.isFetchingNextPage}
-            onLoadMore={() => void organizations.fetchNextPage()}
-            mobileRow={(organization) => <OrganizationRowMobile organization={organization} />}
-          />
-        </>
-      ) : null}
+      <ListTable
+        query={organizations}
+        {...page.tableProps}
+        noun={crmCopy.organizations.title}
+        mobileRow={(organization) => <OrganizationRowMobile organization={organization} />}
+      />
     </ListWorkspace>
   )
 }

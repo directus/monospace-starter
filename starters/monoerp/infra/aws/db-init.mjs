@@ -1,7 +1,7 @@
 // Creates the `monospace` and `crm` Postgres users and databases, and syncs their passwords
 // with the secrets. Safe to rerun.
 //
-//   pnpm aws:db-init --stage staging
+//   pnpm aws db-init --stage staging
 import { runTask, stackOutputs, stage } from './lib.mjs'
 
 const outputs = stackOutputs()

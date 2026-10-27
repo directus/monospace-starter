@@ -1,3 +1,7 @@
+import { Empty } from '@/components/panel'
+import { statusForStage, totalsByCurrency } from '@/modules/crm/deals'
+import { CloseDealDialog } from '@/modules/crm/components/close-deal-dialog'
+import { useCollectionAccess } from '@/lib/permissions'
 import { CollisionPriority } from '@dnd-kit/abstract'
 import { move } from '@dnd-kit/helpers'
 import { DragDropProvider, KeyboardSensor, PointerSensor, useDroppable } from '@dnd-kit/react'
@@ -24,12 +28,13 @@ import { appCopy } from '@/lib/app.copy'
 import { errorMessage } from '@/lib/errors'
 import { formatDate, formatMoney } from '@/lib/format'
 import { cn } from '@/lib/utils'
-import { OrganizationLabel, organizationName } from '@/modules/crm/components/entities'
+import { OrganizationLabel } from '@/modules/crm/components/entities'
+import { organizationName } from '@/modules/crm/entities'
 import { UserLabel } from '@/components/users'
 import { StageDot } from '@/modules/crm/components/stage-dot'
 import { crmCopy } from '@/modules/crm/crm.copy'
-import type { OpportunityRow, PipelineStage } from '@/modules/crm/data'
-import { useDeleteDeal, useUpdateDeal } from '@/modules/crm/mutations'
+import type { DealRow, PipelineStage } from '@/modules/crm/data'
+import { useCloseDeal, useDeleteDeal, useUpdateDeal } from '@/modules/crm/mutations'
 import { stageStyle } from '@/modules/crm/stage-color'
 
 type Columns = Record<Uuid, Array<Uuid>>
@@ -46,7 +51,7 @@ const sensors = [
   KeyboardSensor,
 ]
 
-function groupByStage(deals: Array<OpportunityRow>, stages: Array<PipelineStage>): Columns {
+function groupByStage(deals: Array<DealRow>, stages: Array<PipelineStage>): Columns {
   const columns: Columns = Object.fromEntries(stages.map((stage) => [stage.id, []]))
 
   for (const deal of deals) {
@@ -58,24 +63,22 @@ function groupByStage(deals: Array<OpportunityRow>, stages: Array<PipelineStage>
   return columns
 }
 
-function statusForStage(stage: PipelineStage | undefined) {
-  if (!stage) return 'open'
-
-  return stage.isWon ? 'won' : stage.isClosed ? 'lost' : 'open'
-}
-
 export function DealBoard({
   deals,
   stages,
   showOwner = true,
 }: {
-  deals: Array<OpportunityRow>
+  deals: Array<DealRow>
   stages: Array<PipelineStage>
   showOwner?: boolean
 }) {
   const update = useUpdateDeal()
+  const close = useCloseDeal()
+  const access = useCollectionAccess('opportunities')
+  const canMove = access.canUpdate('stageId') && access.canUpdate('status')
+  const [closing, setClosing] = useState<{ deal: DealRow; stage: PipelineStage }>()
   const remove = useDeleteDeal()
-  const [deleting, setDeleting] = useState<OpportunityRow>()
+  const [deleting, setDeleting] = useState<DealRow>()
   const dealsById = new Map(deals.map((deal) => [deal.id, deal]))
   const grouped = groupByStage(deals, stages)
 
@@ -118,8 +121,17 @@ export function DealBoard({
       ?.scrollIntoView({ behavior: 'smooth', inline: 'nearest', block: 'nearest' })
   }
 
-  function moveTo(deal: OpportunityRow, stage: PipelineStage) {
-    if (stage.id === deal.pipeline_stages?.id) return
+  function moveTo(deal: DealRow, stage: PipelineStage) {
+    if (!canMove || stage.id === deal.pipeline_stages?.id) return
+
+    if (stage.isClosed || stage.isWon) {
+      close.reset()
+      setOverride(null)
+      setClosing({ deal, stage })
+
+      return
+    }
+
     update.mutate({ id: deal.id, data: { stageId: stage.id, status: statusForStage(stage) } })
   }
 
@@ -134,7 +146,7 @@ export function DealBoard({
       sensors={sensors}
       onDragStart={() => setDragging(true)}
       onDragOver={(event) => {
-        if (event.operation.source?.type !== 'deal') return
+        if (!canMove || event.operation.source?.type !== 'deal') return
         setOverride((current) => move(current ?? grouped, event))
       }}
       onDragEnd={(event) => {
@@ -153,7 +165,7 @@ export function DealBoard({
 
         const { source } = event.operation
 
-        if (event.canceled || !source || source.type !== 'deal') {
+        if (!canMove || event.canceled || !source || source.type !== 'deal') {
           setOverride(null)
 
           return
@@ -169,11 +181,14 @@ export function DealBoard({
           return
         }
 
+        if (stage.isClosed || stage.isWon) {
+          moveTo(deal, stage)
+
+          return
+        }
+
         update.mutate(
-          {
-            id: deal.id,
-            data: { stageId: stage.id, status: statusForStage(stage) },
-          },
+          { id: deal.id, data: { stageId: stage.id, status: statusForStage(stage) } },
           {
             onError: () => {
               setOverride(null)
@@ -236,10 +251,14 @@ export function DealBoard({
                   renderMenu={(deal) => (
                     <RecordMenu
                       size="icon-sm"
-                      onDelete={() => {
-                        remove.reset()
-                        setDeleting(deal)
-                      }}
+                      onDelete={
+                        access.delete
+                          ? () => {
+                              remove.reset()
+                              setDeleting(deal)
+                            }
+                          : undefined
+                      }
                     >
                       <DropdownMenuSub>
                         <DropdownMenuSubTrigger>
@@ -250,7 +269,7 @@ export function DealBoard({
                           {stages.map((target) => (
                             <DropdownMenuItem
                               key={target.id}
-                              disabled={target.id === deal.pipeline_stages?.id}
+                              disabled={!canMove || target.id === deal.pipeline_stages?.id}
                               onClick={() => moveTo(deal, target)}
                             >
                               <StageDot stage={target} />
@@ -270,6 +289,28 @@ export function DealBoard({
         <ScrollBar orientation="vertical" />
         <ScrollAreaPrimitive.Corner />
       </ScrollAreaPrimitive.Root>
+      {closing ? (
+        <CloseDealDialog
+          key={`${closing.deal.id}:${closing.stage.id}`}
+          stage={closing.stage}
+          valueAmount={closing.deal.valueAmount}
+          currency={closing.deal.currency ?? 'USD'}
+          expectedCloseDate={closing.deal.expectedCloseDate}
+          pending={close.isPending}
+          error={close.isError ? errorMessage(close.error) : undefined}
+          onOpenChange={(open) => !open && setClosing(undefined)}
+          onConfirm={async (values) => {
+            await close.mutateAsync({
+              ...values,
+              id: closing.deal.id,
+              stage: closing.stage,
+              organizationId: closing.deal.organizations?.id,
+              currency: closing.deal.currency ?? 'USD',
+            })
+            setClosing(undefined)
+          }}
+        />
+      ) : null}
       <DeleteDialog
         open={Boolean(deleting)}
         onOpenChange={(open) => !open && setDeleting(undefined)}
@@ -295,9 +336,9 @@ function BoardColumn({
 }: {
   stage: PipelineStage
   index: number
-  deals: Array<OpportunityRow>
+  deals: Array<DealRow>
   showOwner: boolean
-  renderMenu: (deal: OpportunityRow) => ReactNode
+  renderMenu: (deal: DealRow) => ReactNode
 }) {
   const stageId = stage.id
 
@@ -308,8 +349,7 @@ function BoardColumn({
     collisionPriority: CollisionPriority.Low,
   })
 
-  const total = deals.reduce((sum, deal) => sum + Number(deal.valueAmount ?? 0), 0)
-  const currency = deals[0]?.currency ?? undefined
+  const totals = totalsByCurrency(deals)
 
   return (
     <section
@@ -329,7 +369,12 @@ function BoardColumn({
           <h2 className="truncate text-sm font-semibold">{stage.name}</h2>
           <span className="text-xs text-muted-foreground tabular-nums">· {deals.length}</span>
           <span className="ml-auto text-xs text-muted-foreground tabular-nums">
-            {formatMoney(String(total), currency)}
+            {totals.map(({ currency, total }) => (
+              <span key={currency} className="block text-right">
+                {formatMoney(String(total), currency)}{' '}
+                <span className="text-[10px]">{currency}</span>
+              </span>
+            ))}
           </span>
         </div>
       </header>
@@ -346,9 +391,7 @@ function BoardColumn({
           </BoardCard>
         ))}
         {deals.length === 0 ? (
-          <p className="grid flex-1 place-items-center rounded-lg border border-dashed py-6 text-xs text-muted-foreground">
-            {crmCopy.deals.board.empty}
-          </p>
+          <Empty className="flex-1 rounded-lg text-xs">{crmCopy.deals.board.empty}</Empty>
         ) : null}
       </div>
     </section>
@@ -362,18 +405,21 @@ function BoardCard({
   showOwner,
   children,
 }: {
-  deal: OpportunityRow
+  deal: DealRow
   index: number
   stageId: string
   showOwner: boolean
   children: ReactNode
 }) {
+  const access = useCollectionAccess('opportunities')
+
   const { ref, isDragging } = useSortable({
     id: deal.id,
     index,
     group: stageId,
     type: 'deal',
     accept: 'deal',
+    disabled: !access.canUpdate('stageId') || !access.canUpdate('status'),
   })
 
   return (

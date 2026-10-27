@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
-import type { OwnerLike } from '@/lib/format'
+import type { OwnerLike } from '@/lib/users'
 import { UserAvatar, userName } from '@/components/users'
 import { crmCopy } from '@/modules/crm/crm.copy'
 

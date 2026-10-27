@@ -19,7 +19,6 @@ Who does the `/api/*` split depends on where it runs:
 | ---------- | ------------------------------------------------------------------------------------------------------------------------------------- |
 | `pnpm dev` | The app's dev server proxies it (`devProxy` in `apps/web/vite.config.ts`), to `MONOSPACE_PORT` unless `MONOSPACE_PROXY_TARGET` is set |
 | Containers | Caddy, in front of both (`infra/caddy/Caddyfile`, `docker compose --profile full`)                                                    |
-| AWS        | The load balancer's `/api/*` rule, behind CloudFront (`infra/aws/services.ts`)                                                        |
 
 There's no app database and no API of our own. The app's server renders pages and serves two small routes (below). All data goes through Monospace.
 
@@ -47,7 +46,7 @@ The app only reads the rules to shape the UI: `apps/web/src/lib/permissions.ts` 
 
 ## Three sources, one API
 
-Core, modules, and external connectors have separate folders. `modules/<id>/module.json` declares module ownership, collections, setup, and required/optional connectors; `connectors/<id>/connector.json` does the same for each connector. `starter.json` lists shared paths. Each `connectors/<id>/` owns its source config, schema settings, local service, and any custom extension. Shared manifest fields are versioned; monoERP runtime settings live under `x-monoerp` (see `docs/modules.md`). Portal is a connector with a built-in MySQL provider, so another starter can use it without copying CRM. `pnpm install`, dev, and setup discover local services automatically. Optional services never appear in core's `depends_on`.
+Core, modules, and external connectors have separate folders. `modules/<id>/module.json` declares module ownership, collections, setup, and required/optional connectors; `connectors/<id>/connector.json` does the same for each connector. `starter.json` lists shared paths. Each `connectors/<id>/` owns its source config, schema settings, local service, and any custom extension. Shared manifest fields are versioned; monoERP runtime settings live under `x-monoerp` (see `docs/modules.md`). Portal is a connector with a built-in MySQL provider, so another starter can use it without copying CRM. `pnpm install` and dev discover local services automatically. Optional services never appear in core's `depends_on`.
 
 The workspace has three data sources:
 
@@ -87,7 +86,7 @@ One exception: filtering the organization list by a portal field (plan, renewal 
 Two routes in `apps/web/server/`, registered in `apps/web/vite.config.ts`:
 
 - `logo.ts` (`/logo/:domain`): company logos from logo.dev, cached in memory. Needs `LOGO_DEV_TOKEN`; without it, logos are off and lists show an icon.
-- `asset.ts`: Monospace file downloads (avatars, attachments) in dev only. The dev server treats image requests as static files, so the `/api/*` proxy never sees them. In containers and on AWS, `/api/*` goes to Monospace before the app, so this route doesn't run.
+- `asset.ts`: Monospace file downloads (avatars, attachments) in dev only. The dev server treats image requests as static files, so the `/api/*` proxy never sees them. In deployments, `/api/*` goes to Monospace before the app, so this route doesn't run.
 
 Both are nitro routes rather than TanStack Start routes for that same image-request reason.
 
@@ -95,7 +94,7 @@ Both are nitro routes rather than TanStack Start routes for that same image-requ
 
 - **Local:** `docker compose up -d` runs Monospace, both databases, the Stripe emulator, RabbitMQ, and Mailpit. `pnpm dev` runs the app on the host.
 - **Containers:** `docker compose --profile full up -d --build` adds the app (`apps/web/Dockerfile`) and Caddy.
-- **AWS:** Monospace and the app run as Fargate services behind one load balancer, with CloudFront in front. AWS doesn't run Stripe yet. Studio gets its own CloudFront address because it needs the site root. See [`infra/aws/README.md`](../infra/aws/README.md).
+- **Other hosts:** see [deployment](deploy.md) for the required services and optional deployment add-on.
 
 ## Development constraints
 

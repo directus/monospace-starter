@@ -2,7 +2,7 @@ import { execFileSync } from 'node:child_process'
 import { readdirSync, rmSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 
-import { connectors, logMissingConnectors } from './connectors.mjs'
+import { connectors, logMissingConnectors } from './installed.mjs'
 
 const builds = new URL('../extensions/', import.meta.url)
 

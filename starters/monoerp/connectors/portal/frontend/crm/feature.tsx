@@ -1,14 +1,14 @@
 import { useQuery } from '@tanstack/react-query'
 
 import { isMissingFromWorkspace } from '@/lib/errors'
+import type { RecordHistoryEntry } from '@/modules/types'
 import type {
   OrganizationPanelContribution,
   OrganizationPanelProps,
   ContactPanelContribution,
   ContactPanelProps,
   DealSummaryContribution,
-  RecordHistoryEntry,
-} from '@/modules/types'
+} from '@/modules/crm/slots'
 
 import { portalAccountQuery, portalUserQuery, portalSummaryQuery } from './data'
 import { portalCopy } from './portal.copy'

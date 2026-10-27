@@ -5,34 +5,34 @@ import { LayoutDashboard } from 'lucide-react'
 import { DashboardCharts } from '@/modules/crm/components/dashboard-charts'
 import { DataError, DataLoading } from '@/components/data-state'
 import { PageHeader } from '@/components/page-header'
-import { opportunitiesQuery } from '@/modules/crm/data'
+import { dealsQuery } from '@/modules/crm/data'
 import { crmCopy } from '@/modules/crm/crm.copy'
 
-const homeOpportunitiesQuery = opportunitiesQuery({})
+const homeDealsQuery = dealsQuery({})
 
 export const Route = createFileRoute('/_app/crm/')({
   staticData: {
     page: { title: crmCopy.dashboard.navTitle, icon: LayoutDashboard, module: 'crm', nav: 10 },
   },
-  loader: ({ context: { queryClient } }) => queryClient.ensureQueryData(homeOpportunitiesQuery),
+  loader: ({ context: { queryClient } }) => queryClient.ensureQueryData(homeDealsQuery),
   component: HomePage,
 })
 
 function HomePage() {
-  const opportunities = useQuery(homeOpportunitiesQuery)
+  const deals = useQuery(homeDealsQuery)
 
-  if (opportunities.isPending) {
+  if (deals.isPending) {
     return <DataLoading rows={8} />
   }
 
-  if (opportunities.isError) {
-    return <DataError error={opportunities.error} />
+  if (deals.isError) {
+    return <DataError error={deals.error} />
   }
 
   return (
     <div className="space-y-6">
       <PageHeader title={crmCopy.dashboard.title} description={crmCopy.dashboard.description} />
-      <DashboardCharts opportunities={opportunities.data} />
+      <DashboardCharts deals={deals.data} />
     </div>
   )
 }

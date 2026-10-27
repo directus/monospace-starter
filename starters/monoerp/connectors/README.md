@@ -5,7 +5,7 @@ A connector is a removable external source. Portal uses Monospace's built-in MyS
 ## Add a connector
 
 1. Copy `connectors/portal` for a database provider, or `connectors/stripe` for an API extension, to `connectors/<id>`. Keep only the demo services and frontend features you need.
-2. Edit `connector.json`: change the ID, owned paths, source configuration, schema files, environment names, and setup steps. Rename local services and host ports in `compose.yml`. For extensions, update the package name, extension ID, installed directory, and provider ID together.
+2. Edit `connector.json`: change the ID, owned paths, source configuration, schema files, source directives, and setup steps. Rename local services and host ports in `compose.yml`. For extensions, update the package name, extension ID, installed directory, and provider ID together.
 3. Add the connector ID to a module's `requires` or `optional`. Leave `OPTIONAL_SOURCES` unset to use that selection. Give real external databases a read-only login.
 4. Run the commands below, then `pnpm verify` and browser tests for any frontend components. Setup builds selected extensions automatically.
 
@@ -18,7 +18,7 @@ pnpm generate:routes
 pnpm generate
 ```
 
-Install, dev, and setup regenerate `compose.app.yml` automatically. If you edit module or connector folders or Compose declarations without running those commands, run `pnpm compose:sync` before starting Docker. Included Compose paths resolve relative to their own file. Keep optional services out of core's `depends_on`.
+Install and dev regenerate `compose.app.yml` automatically. If you edit module or connector folders or Compose declarations without running those commands, run `pnpm compose:sync` before starting Docker. Included Compose paths resolve relative to their own file. Keep optional services out of core's `depends_on`.
 
 ## Remove a module or connector
 
@@ -32,13 +32,13 @@ To restore a module or connector, copy its whole folder back, restore any declar
 
 | Path or manifest field                       | Purpose                                                                                                                        |
 | -------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
-| `connector.json`                             | ID, label, ownership, dependencies, supported environment variables, and source configuration                                  |
+| `connector.json`                             | ID, label, ownership, dependencies, source configuration                                                                       |
 | `compose.yml` / `compose`, `composeProfiles` | Optional local services and overlays                                                                                           |
 | `source`                                     | Provider and connection settings, resolved only by backend setup                                                               |
 | `schemaFiles`                                | API names and Studio presentation settings in `monospace/schema/*.json`                                                        |
 | `setup.beforeSchema`, `setup.afterSchema`    | Ordered steps relative to `monospace/setup/`; a step's `requires` selects dependencies                                         |
 | `extension.directory`, `extension.installed` | Extension package and generated install directory                                                                              |
-| `migrate`, `provision`                       | Optional scripts relative to the connector folder                                                                              |
+| `migrate`, `provision`                       | Optional scripts relative to the connector folder; `provision` runs in the deployed setup task                                 |
 | `frontend`                                   | Optional module features, collections, and connector dependencies; see [UI contract](../docs/modules.md#optional-connector-ui) |
 | `packageEntries`                             | Root package scripts or dependencies removed with this connector                                                               |
 
@@ -59,3 +59,5 @@ Unset `OPTIONAL_SOURCES` selects installed modules' required and optional connec
 The validator checks source ownership, dependencies, and referenced files before a module or connector can be removed. See [the shared validator rules](../docs/modules.md#how-appdoctor-works).
 
 For complete examples, see [Portal](portal/README.md) and [Stripe](stripe/README.md).
+
+Add-ons use the same removal command and follow-up steps. The command list above is also declared in `starter.json` `nextSteps.remove`, which the removal command prints.

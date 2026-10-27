@@ -2,7 +2,7 @@
 // Does nothing if they're already set: replacing the KMS key makes everything Monospace
 // encrypted with it unrecoverable.
 //
-//   pnpm aws:keys --stage staging
+//   pnpm aws keys --stage staging
 import { generateKeyPairSync, randomBytes } from 'node:crypto'
 import { mkdtempSync, rmSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'

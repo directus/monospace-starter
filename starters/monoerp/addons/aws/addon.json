@@ -1,0 +1,15 @@
+{
+  "format": "urn:monospace:manifest:addon:1",
+  "kind": "addon",
+  "id": "aws",
+  "label": "AWS deploy",
+  "description": "Optional deployment tools",
+  "ownedPaths": ["addons/aws", "infra/aws", ".github/workflows/deploy.yml"],
+  "packageEntries": [
+    {
+      "path": "package.json",
+      "section": "scripts",
+      "names": ["aws"]
+    }
+  ]
+}

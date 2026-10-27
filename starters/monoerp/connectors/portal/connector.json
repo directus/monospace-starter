@@ -7,21 +7,7 @@
   "ownedPaths": ["connectors/portal"],
   "requires": [],
   "x-monoerp": {
-    "provides": ["Read-only external MySQL customer platform", "Local portal demo database"],
     "optional": [],
-    "env": [
-      "CUSTOMER_MYSQL_HOST",
-      "CUSTOMER_MYSQL_INTERNAL_PORT",
-      "CUSTOMER_MYSQL_PORT",
-      "CUSTOMER_MYSQL_ROOT_PASSWORD",
-      "PORTAL_READER_PASSWORD",
-      "MONOSPACE_PORTAL_SOURCE",
-      "DB_SSL_MODE",
-      "DB_ADMIN_USER",
-      "MYSQL_ADMIN_PASSWORD",
-      "PORTAL_DEMO_DATABASE",
-      "SEED_DEMO_DATA"
-    ],
     "compose": "connectors/portal/compose.yml",
     "schemaFiles": ["connectors/portal/monospace/schema/portal.json"],
     "source": {

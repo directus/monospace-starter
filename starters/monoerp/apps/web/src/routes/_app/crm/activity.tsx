@@ -4,20 +4,19 @@ import { CircleDot } from 'lucide-react'
 import { useMemo, useState } from 'react'
 import { z } from 'zod'
 
+import { useListSearch } from '@/hooks/use-list-page'
+import { ListControls } from '@/components/list-controls'
 import { DeleteDialog } from '@/components/confirm-dialog'
 import { DataError, DataLoading } from '@/components/data-state'
-import { FilterTrigger, FilterWell, ListFilters } from '@/components/list-filters'
-import { ListToolbar } from '@/components/list-toolbar'
 import { ListWorkspace } from '@/components/list-workspace'
-import { LoadMoreSentinel } from '@/components/load-more-sentinel'
-import { createFilterQuery, isFilterQueryEmpty } from '@/components/reui/filters/filters'
+import { LoadMoreSentinel } from '@/components/data-table/load-more-sentinel'
 import { Spinner } from '@/components/ui/spinner'
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { useIsMobile } from '@/hooks/use-mobile'
 import { appCopy } from '@/lib/app.copy'
 import { errorMessage } from '@/lib/errors'
 import { filtersToClause, relationField, withRule } from '@/lib/filters'
-import type { FilterValue, ListFilterField, ListFilterQuery } from '@/lib/filters'
+import type { ListFilterField, ListFilterQuery } from '@/lib/filters'
 import { listSearchSchema } from '@/lib/list-search'
 import { cn } from '@/lib/utils'
 import { countBuckets, upcomingBuckets } from '@/modules/crm/activity'
@@ -29,21 +28,21 @@ import { HistoryList } from '@/modules/crm/components/history-list'
 import { ActivityBulkActions } from '@/modules/crm/components/activity-bulk'
 import { TodoList } from '@/modules/crm/components/todo-list'
 import type { RowHandlers } from '@/modules/crm/components/todo-list'
-import { bucketLabels } from '@/modules/crm/components/activity-composer'
+import { bucketLabels, bucketClause } from '@/modules/crm/activity'
 import { crmCopy } from '@/modules/crm/crm.copy'
 import { ActivityIcon, DealIcon, OrganizationIcon, OwnerIcon } from '@/modules/crm/icons'
 import {
-  interactionsPagesQuery,
-  interactionsView,
+  activityPagesQuery,
+  activityView,
   lookupOpportunities,
   lookupOrganizations,
   openDueDatesQuery,
   resolveOpportunities,
   resolveOrganizations,
 } from '@/modules/crm/data'
-import { lookupUsers, resolveUsers } from '@/lib/user-options'
-import type { InteractionRow, InteractionsFilter, InteractionsView } from '@/modules/crm/data'
-import type { OwnerLike } from '@/lib/format'
+import { lookupUsers, resolveUsers } from '@/lib/users'
+import type { ActivityRecord, ActivityFilter, ActivityView } from '@/modules/crm/data'
+import type { OwnerLike } from '@/lib/users'
 import { useDeleteActivity } from '@/modules/crm/mutations'
 import type { Uuid } from '@/generated/monospace'
 
@@ -89,41 +88,10 @@ const filterFields: Array<ListFilterField> = [
   }),
 ]
 
-const EMPTY_QUERY = createFilterQuery<FilterValue>([])
-
-const DAY = 86_400_000
-
 const searchSchema = listSearchSchema.extend({
-  view: interactionsView.optional().catch(undefined),
+  view: activityView.optional().catch(undefined),
   due: z.enum(['overdue', 'today', 'week', 'later', 'noDate']).optional().catch(undefined),
 })
-
-function startOfToday(now: number) {
-  const date = new Date(now)
-  date.setHours(0, 0, 0, 0)
-
-  return date.getTime()
-}
-
-// Server-side counterpart of `upcomingBucket`, so a bucket pages from the API in due order.
-function bucketClause(bucket: UpcomingBucket, now: number): InteractionsFilter {
-  const today = new Date(startOfToday(now)).toISOString()
-  const tomorrow = new Date(startOfToday(now) + DAY).toISOString()
-  const nextWeek = new Date(startOfToday(now) + 7 * DAY).toISOString()
-
-  switch (bucket) {
-    case 'overdue':
-      return { dueAt: { _lt: today } }
-    case 'today':
-      return { dueAt: { _gte: today, _lt: tomorrow } }
-    case 'week':
-      return { dueAt: { _gte: tomorrow, _lt: nextWeek } }
-    case 'later':
-      return { dueAt: { _gte: nextWeek } }
-    case 'noDate':
-      return { dueAt: { _null: true } }
-  }
-}
 
 function clauseFor({
   query,
@@ -134,10 +102,10 @@ function clauseFor({
   due?: UpcomingBucket
   now: number
 }) {
-  const clauses: Array<InteractionsFilter> = []
+  const clauses: Array<ActivityFilter> = []
   // SAFETY: filtersToClause only emits operators valid for each field type. The generated filter
   // schema can't check it yet (docs/monospace.md, known issues).
-  const fromFilters = filtersToClause(filterFields, query) as InteractionsFilter | undefined
+  const fromFilters = filtersToClause(filterFields, query) as ActivityFilter | undefined
 
   if (fromFilters) clauses.push(fromFilters)
 
@@ -169,7 +137,7 @@ export const Route = createFileRoute('/_app/crm/activity')({
 
     return Promise.all([
       queryClient.ensureInfiniteQueryData(
-        interactionsPagesQuery({
+        activityPagesQuery({
           view: deps.view,
           q: deps.q,
           filter: clauseFor({
@@ -191,12 +159,18 @@ function ActivityPage() {
   const search = Route.useSearch()
   const navigate = Route.useNavigate()
   const [now] = useState(() => Date.now())
-  const view: InteractionsView = search.view ?? 'todo'
+  const view: ActivityView = search.view ?? 'todo'
   const due = view === 'todo' ? search.due : undefined
-  const query = search.filters ?? EMPTY_QUERY
+
+  const state = useListSearch({
+    search,
+    onSearchChange: (patch) => navigate({ search: (previous) => ({ ...previous, ...patch }) }),
+  })
+
+  const query = state.query
 
   const pages = useInfiniteQuery(
-    interactionsPagesQuery({ view, q: search.q, filter: clauseFor({ query, due, now }) }),
+    activityPagesQuery({ view, q: search.q, filter: clauseFor({ query, due, now }) }),
   )
 
   // Counts stay live on both tabs so the To do number never blinks out.
@@ -209,7 +183,7 @@ function ActivityPage() {
   const [checked, setChecked] = useState<Set<string>>(() => new Set())
   // Phones get no bulk selection, same as the other CRM lists.
   const isMobile = useIsMobile()
-  const [deleting, setDeleting] = useState<InteractionRow>()
+  const [deleting, setDeleting] = useState<ActivityRecord>()
   const remove = useDeleteActivity()
   const selectedRow = rows.find((row) => row.id === selected?.id) ?? null
 
@@ -222,8 +196,7 @@ function ActivityPage() {
   const set = (patch: Partial<typeof search>) =>
     navigate({ search: (previous) => ({ ...previous, ...patch }) })
 
-  const setQuery = (next: ListFilterQuery) =>
-    set({ filters: isFilterQueryEmpty(next) ? undefined : next })
+  const setQuery = state.setFilters
 
   const filterOwner = (owner: OwnerLike) =>
     owner.id && setQuery(withRule(query, 'owner', 'is_any_of', [owner.id]))
@@ -255,23 +228,18 @@ function ActivityPage() {
       title={copy.title}
       icon={ActivityIcon}
       controls={
-        <ListFilters fields={filterFields} query={query} onQueryChange={setQuery}>
-          <ListToolbar
-            title={copy.title}
-            icon={ActivityIcon}
-            query={search.q ?? ''}
-            onQueryChange={(q) => set({ q: q || undefined })}
-            selection={
-              checkedIds.length && !isMobile ? (
-                <ActivityBulkActions ids={checkedIds} onClear={() => setChecked(new Set())} />
-              ) : undefined
-            }
-            action={<LogActivityButton />}
-          >
-            <FilterTrigger />
-          </ListToolbar>
-          <FilterWell />
-        </ListFilters>
+        <ListControls
+          state={state}
+          fields={filterFields}
+          title={copy.title}
+          icon={ActivityIcon}
+          selection={
+            checkedIds.length && !isMobile ? (
+              <ActivityBulkActions ids={checkedIds} onClear={() => setChecked(new Set())} />
+            ) : undefined
+          }
+          action={<LogActivityButton />}
+        />
       }
     >
       <div className="flex flex-1 flex-col border-t md:min-h-0">
@@ -279,7 +247,7 @@ function ActivityPage() {
           <Tabs
             value={view}
             onValueChange={(next) => {
-              const parsed = interactionsView.safeParse(next)
+              const parsed = activityView.safeParse(next)
 
               if (parsed.success) void set({ view: parsed.data, due: undefined })
             }}

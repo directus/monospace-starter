@@ -6,6 +6,6 @@ export const Route = createFileRoute('/_app/settings/')({
   beforeLoad: () => {
     const firstPage = modules.flatMap((module) => module.settings?.pages ?? [])[0]
 
-    throw redirect({ to: firstPage?.to ?? '/settings/account', replace: true })
+    throw redirect({ to: firstPage ?? '/settings/account', replace: true })
   },
 })

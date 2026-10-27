@@ -9,6 +9,7 @@ export PGOPTIONS="${PGOPTIONS:--c client_min_messages=warning}"
 export SEED_DEMO_DATA="${SEED_DEMO_DATA:-true}"
 infra_dir=$(CDPATH= cd -- "$(dirname "$0")/.." && pwd)
 
+# Covers databases created before the ops schema existed.
 psql -v ON_ERROR_STOP=1 -q <<'SQL'
 CREATE SCHEMA IF NOT EXISTS ops;
 CREATE TABLE IF NOT EXISTS ops.schema_migrations (
@@ -25,14 +26,12 @@ for dir in "$infra_dir/postgres/core/migrations" "$infra_dir"/modules/*/postgres
   esac
   for file in "$dir"/*.sql; do
     [ -f "$file" ] || continue
-    legacy=$(basename "$file")
-    name="$owner/$legacy"
+    file_name=$(basename "$file")
+    name="$owner/$file_name"
     applied=$(echo "SELECT 1 FROM ops.schema_migrations WHERE name = :'name';" | psql -tAq -v name="$name")
     [ "$applied" != 1 ] || continue
-    if [ "$applied" != 1 ]; then
-      echo "Applying $name"
-      psql -v ON_ERROR_STOP=1 -q -f "$file"
-    fi
+    echo "Applying $name"
+    psql -v ON_ERROR_STOP=1 -q -f "$file"
     echo "INSERT INTO ops.schema_migrations (name) VALUES (:'name');" | psql -v ON_ERROR_STOP=1 -q -v name="$name"
   done
 done

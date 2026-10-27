@@ -1,11 +1,7 @@
-import {
-  authenticate,
-  findCollection,
-  migrate,
-  readCollections,
-} from '../../../../infra/monospace/setup/lib.mjs'
+import { sourceName } from '#setup'
+import { authenticate, findCollection, migrate, readCollections } from '#setup'
 
-const PORTAL = process.env.MONOSPACE_PORTAL_SOURCE ?? 'Portal'
+const PORTAL = sourceName('portal')
 
 // Introspection names a single relation after the target collection ("accounts"). The
 // app wants the singular.

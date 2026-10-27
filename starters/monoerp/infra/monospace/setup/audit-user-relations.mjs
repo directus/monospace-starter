@@ -1,5 +1,6 @@
+import { crmSource } from './lib.mjs'
 import { randomUUID } from 'node:crypto'
-import { modules } from './modules.mjs'
+import { modules } from './installed.mjs'
 
 import { authenticate, canonicalJson, readCollections, request, workspace } from './lib.mjs'
 
@@ -42,7 +43,7 @@ await authenticate()
 
 const data = await readCollections()
 
-const source = process.env.MONOSPACE_CRM_SOURCE ?? 'CRM'
+const source = crmSource
 
 const byDbName = new Map(
   data.flatMap((collection) =>
@@ -192,14 +193,13 @@ const operations = [...renameOperations, ...updateOperations, ...relationOperati
 
 if (operations.length === 0) {
   console.log('Monospace audit user relationships are already configured.')
-  process.exit(0)
+} else {
+  await request(`/${encodeURIComponent(workspace)}/schema/migrate`, {
+    method: 'POST',
+    body: JSON.stringify({ operations }),
+  })
+
+  console.log(
+    `Configured ${relationOperations.length} user relationships, ${renameOperations.length} API field names, and ${updateOperations.length} collections with current-user defaults.`,
+  )
 }
-
-await request(`/${encodeURIComponent(workspace)}/schema/migrate`, {
-  method: 'POST',
-  body: JSON.stringify({ operations }),
-})
-
-console.log(
-  `Configured ${relationOperations.length} user relationships, ${renameOperations.length} API field names, and ${updateOperations.length} collections with current-user defaults.`,
-)

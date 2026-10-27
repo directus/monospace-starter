@@ -181,11 +181,13 @@ function slashItems<B extends BlockSchema, I extends InlineContentSchema, S exte
 export function NotesEditor({
   value,
   onSave,
+  readOnly = false,
   className,
 }: {
   value: string | null | undefined
   onSave: (markdown: string | null) => Promise<void>
   className?: string
+  readOnly?: boolean
 }) {
   const editor = useCreateBlockNote({
     domAttributes: { editor: { class: 'notes-content' } },
@@ -209,6 +211,8 @@ export function NotesEditor({
 
   const save = async () => {
     window.clearTimeout(timer.current)
+
+    if (readOnly) return
     const markdown = editor.blocksToMarkdownLossy(editor.document).trim()
     dirty.current = false
 
@@ -253,7 +257,7 @@ export function NotesEditor({
   }, [editor])
 
   const handleChange = () => {
-    if (!loaded.current) return
+    if (readOnly || !loaded.current) return
     dirty.current = true
     setStatus('dirty')
     window.clearTimeout(timer.current)
@@ -262,9 +266,10 @@ export function NotesEditor({
 
   return (
     <div className={cn('relative rounded-xl border bg-card', className)}>
-      <SaveStatus status={status} />
+      {!readOnly ? <SaveStatus status={status} /> : null}
       <BlockNoteView
         editor={editor}
+        editable={!readOnly}
         shadCNComponents={notesShadCNComponents}
         theme={theme}
         onChange={handleChange}
@@ -276,22 +281,28 @@ export function NotesEditor({
         sideMenu={false}
         className="notes-editor"
       >
-        <FormattingToolbarController
-          formattingToolbar={NotesToolbar}
-          floatingUIOptions={{
-            useFloatingOptions: {
-              middleware: [offset(8), flip({ padding: 8 }), shift({ padding: 8 })],
-            },
-          }}
-        />
-        <SideMenuController
-          sideMenu={NotesSideMenu}
-          floatingUIOptions={{ useFloatingOptions: { middleware: sideMenuMiddleware } }}
-        />
-        <SuggestionMenuController
-          triggerCharacter="/"
-          getItems={(query) => Promise.resolve(filterSuggestionItems(slashItems(editor), query))}
-        />
+        {!readOnly ? (
+          <>
+            <FormattingToolbarController
+              formattingToolbar={NotesToolbar}
+              floatingUIOptions={{
+                useFloatingOptions: {
+                  middleware: [offset(8), flip({ padding: 8 }), shift({ padding: 8 })],
+                },
+              }}
+            />
+            <SideMenuController
+              sideMenu={NotesSideMenu}
+              floatingUIOptions={{ useFloatingOptions: { middleware: sideMenuMiddleware } }}
+            />
+            <SuggestionMenuController
+              triggerCharacter="/"
+              getItems={(query) =>
+                Promise.resolve(filterSuggestionItems(slashItems(editor), query))
+              }
+            />
+          </>
+        ) : null}
       </BlockNoteView>
     </div>
   )

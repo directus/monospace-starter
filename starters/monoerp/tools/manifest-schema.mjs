@@ -104,8 +104,6 @@ const moduleRuntime = z.strictObject({
 
 const connectorRuntime = z.strictObject({
   ...runtimeCommon,
-  provides: names,
-  env: z.array(env),
   compose: path.optional(),
   composeProfiles: z.record(id, path).optional(),
   source: z
@@ -134,7 +132,12 @@ export const manifestSchema = z
       sourceRoots: z.array(path),
       ignorePaths: z.array(path).default([]),
       nextSteps: z.strictObject({ create: z.array(nextStep), remove: z.array(nextStep) }),
-      'x-monoerp': z.strictObject(runtimeCommon),
+      'x-monoerp': z.strictObject(runtimeCommon).optional(),
+    }),
+    z.strictObject({
+      ...common,
+      kind: z.literal('addon'),
+      format: z.literal('urn:monospace:manifest:addon:1'),
     }),
     z.strictObject({
       ...common,
@@ -150,7 +153,7 @@ export const manifestSchema = z
     }),
   ])
   .transform((document) => {
-    const { 'x-monoerp': runtime, ...envelope } = document
+    const { 'x-monoerp': runtime = {}, ...envelope } = document
     const manifest = { ...envelope, ...runtime }
 
     if (manifest.kind === 'connector')
@@ -179,7 +182,7 @@ export const manifestSchema = z
         })
     }
 
-    if (manifest.requires.some((dependency) => manifest.optional.includes(dependency)))
+    if (manifest.requires.some((dependency) => (manifest.optional ?? []).includes(dependency)))
       context.addIssue({
         code: 'custom',
         message: 'A dependency cannot be both required and optional',

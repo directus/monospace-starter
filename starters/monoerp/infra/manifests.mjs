@@ -7,7 +7,7 @@ export const repository = new URL('../', import.meta.url)
 export function manifestPath(manifest) {
   if (manifest.kind === 'starter') return 'starter.json'
 
-  return `${manifest.kind === 'module' ? 'modules' : 'connectors'}/${manifest.id}/${manifest.kind}.json`
+  return `${{ module: 'modules', connector: 'connectors', addon: 'addons' }[manifest.kind]}/${manifest.id}/${manifest.kind}.json`
 }
 
 export function readManifests(root = repository) {
@@ -16,6 +16,7 @@ export function readManifests(root = repository) {
   for (const [base, kind] of [
     ['modules', 'module'],
     ['connectors', 'connector'],
+    ['addons', 'addon'],
   ]) {
     const directory = new URL(`${base}/`, root)
 

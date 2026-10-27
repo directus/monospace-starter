@@ -5,16 +5,18 @@
 // pushes it back. Cross-source relations are not exported: they live in
 // audit-user-relations.mjs and the owning modules' and connectors' relation setup scripts.
 import { writeFile } from 'node:fs/promises'
-import { authenticate, canonicalJson, metaPaths, readCollections, request } from './lib.mjs'
+import {
+  authenticate,
+  META_FIELDS,
+  canonicalJson,
+  metaPaths,
+  readCollections,
+  request,
+} from './lib.mjs'
 
-import { readSchemas } from './modules.mjs'
+import { readSchemas } from './installed.mjs'
 
 const schemas = await readSchemas()
-
-const META_COLLECTION = 'displayTemplate,displayName,description,icon,isHidden,color'
-
-const META_FIELD =
-  'displayName,description,typeTemplateId,typeOptions,inputId,inputOptions,displayId,displayOptions,isHidden,sort'
 
 const camelCase = (value) => value.replace(/_([a-z0-9])/g, (_, char) => char.toUpperCase())
 
@@ -40,11 +42,19 @@ async function readMeta(collectionName, key, fields) {
   return new Map(data.map((row) => [row[key], row]))
 }
 
-const collectionMeta = await readMeta('MonospaceCollectionMeta', 'collectionId', META_COLLECTION)
+const collectionMeta = await readMeta(
+  'MonospaceCollectionMeta',
+  'collectionId',
+  META_FIELDS.collection,
+)
 
-const fieldMeta = await readMeta('MonospacePrimitiveFieldMeta', 'fieldId', META_FIELD)
+const fieldMeta = await readMeta('MonospacePrimitiveFieldMeta', 'fieldId', META_FIELDS.field)
 
-const relationMeta = await readMeta('MonospaceSingleRelationFieldMeta', 'fieldId', META_FIELD)
+const relationMeta = await readMeta(
+  'MonospaceSingleRelationFieldMeta',
+  'fieldId',
+  META_FIELDS.field,
+)
 
 // Studio's doc node with fieldId chains -> "{account.name} · {plan.name}".
 function templateToString(template, collection) {

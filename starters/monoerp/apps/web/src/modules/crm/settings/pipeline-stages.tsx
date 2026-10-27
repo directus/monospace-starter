@@ -1,3 +1,4 @@
+import { Empty } from '@/components/panel'
 import { useQuery } from '@tanstack/react-query'
 import { DragDropProvider } from '@dnd-kit/react'
 import { isSortable, useSortable } from '@dnd-kit/react/sortable'
@@ -167,7 +168,7 @@ export function PipelineStagesSettings() {
                 >
                   <FramePanel className="overflow-visible">
                     <ol
-                      aria-label="Pipeline stages"
+                      aria-label={copy.title}
                       className="divide-y [&>li:first-child]:rounded-t-xl [&>li:last-child]:rounded-b-xl"
                     >
                       {visibleStages.map((stage, index) => (
@@ -227,19 +228,19 @@ export function PipelineStagesSettings() {
               </div>
             </div>
           ) : (
-            <div className="flex flex-col items-center rounded-xl border border-dashed px-6 py-16 text-center">
-              <div className="mb-4 rounded-xl bg-muted p-3">
-                <ListFilter className="size-6 text-muted-foreground" />
-              </div>
-              <h2 className="font-medium">{copy.emptyTitle}</h2>
-              <p className="mt-1 max-w-xs text-sm text-muted-foreground">{copy.emptyDescription}</p>
+            <Empty
+              className="px-6 py-16"
+              title={copy.emptyTitle}
+              icon={<ListFilter className="size-6" />}
+            >
+              <p>{copy.emptyDescription}</p>
               {canCreate ? (
                 <Button disabled={busy} className="mt-5" onClick={() => startEditing()}>
                   <Plus />
                   {copy.add}
                 </Button>
               ) : null}
-            </div>
+            </Empty>
           )}
           {editing ? (
             <StageEditor
@@ -318,7 +319,7 @@ function StageRow({
         ref={handleRef}
         variant="ghost"
         size="icon-sm"
-        aria-label={`Move ${stage.name ?? 'stage'}`}
+        aria-label={copy.moveStage(stage.name ?? copy.restricted)}
         disabled={!canDrag}
         className="-ml-1 shrink-0 cursor-grab touch-none text-muted-foreground/60 active:cursor-grabbing"
       >
@@ -352,7 +353,7 @@ function StageRow({
           <Button
             variant="ghost"
             size="icon-sm"
-            aria-label={`Edit ${stage.name ?? 'stage'}`}
+            aria-label={copy.editStage(stage.name ?? copy.restricted)}
             onClick={onEdit}
           >
             <Pencil className="text-muted-foreground" />
@@ -362,7 +363,7 @@ function StageRow({
           <Button
             variant="ghost"
             size="icon-sm"
-            aria-label={`Delete ${stage.name ?? 'stage'}`}
+            aria-label={copy.deleteStage(stage.name ?? copy.restricted)}
             onClick={onDelete}
           >
             <Trash2 className="text-muted-foreground" />
@@ -392,7 +393,7 @@ function OutcomeBadge({ stage }: { stage: Pick<PipelineStage, 'isClosed' | 'isWo
   )
 }
 
-export function StageEditor({
+function StageEditor({
   stage,
   stages,
   permissions,
@@ -467,12 +468,12 @@ export function StageEditor({
         </div>
         <fieldset disabled={!can('color')} className="space-y-3 disabled:opacity-50">
           <legend className="mb-2 text-sm font-medium">{copy.color}</legend>
-          <div className="flex flex-wrap gap-2" role="group" aria-label="Stage colors">
+          <div className="flex flex-wrap gap-2" role="group" aria-label={copy.colors}>
             {colors.map((color) => (
               <button
                 key={color}
                 type="button"
-                aria-label={`Use ${color}`}
+                aria-label={copy.useColor(color)}
                 aria-pressed={draft.color.toLowerCase() === color}
                 className="flex size-7 items-center justify-center rounded-full border border-black/5 transition-transform outline-none hover:scale-110 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 motion-reduce:transition-none pointer-coarse:size-10"
                 style={{ backgroundColor: color }}
@@ -486,14 +487,14 @@ export function StageEditor({
           </div>
           <div className="flex items-center gap-2">
             <input
-              aria-label="Custom color"
+              aria-label={copy.customColor}
               type="color"
               value={/^#[0-9a-f]{6}$/i.test(draft.color) ? draft.color : initial.color}
               onChange={(event) => change('color', event.target.value)}
               className="size-8 cursor-pointer rounded border bg-background p-0.5 pointer-coarse:size-10"
             />
             <Input
-              aria-label="Hex color"
+              aria-label={copy.hexColor}
               value={draft.color}
               maxLength={7}
               className="w-32 font-mono text-base md:text-xs"
@@ -532,7 +533,7 @@ export function StageEditor({
           </p>
         </div>
         {outcomeChanged ? (
-          <div className="space-y-3 rounded-lg border border-amber-500/25 bg-amber-500/5 p-3">
+          <div className="space-y-3 rounded-lg border border-warning/25 bg-warning/5 p-3">
             <p className="text-sm">{copy.outcomeWarning}</p>
             <label className="flex items-start gap-2 text-sm">
               <Checkbox

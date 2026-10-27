@@ -1,3 +1,5 @@
+import { formatDue } from '@/lib/format'
+import { useCollectionAccess } from '@/lib/permissions'
 import { Link } from '@tanstack/react-router'
 import { CalendarDays, CircleCheck, Loader2, Paperclip } from 'lucide-react'
 import type { ReactNode } from 'react'
@@ -8,7 +10,7 @@ import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import { now } from '@/lib/dates'
-import type { OwnerLike } from '@/lib/format'
+import type { OwnerLike } from '@/lib/users'
 import { cn } from '@/lib/utils'
 import { contactName } from '@/modules/crm/activity'
 import { activityIcons } from '@/modules/crm/components/activity-form'
@@ -17,7 +19,7 @@ import { ContactAvatar, OrganizationAvatar } from '@/modules/crm/components/enti
 import { OwnerPopover } from '@/modules/crm/components/owner-popover'
 import { crmCopy } from '@/modules/crm/crm.copy'
 import { DealIcon } from '@/modules/crm/icons'
-import type { InteractionRow } from '@/modules/crm/data'
+import type { ActivityRecord } from '@/modules/crm/data'
 import { useUpdateActivity } from '@/modules/crm/mutations'
 
 const copy = crmCopy.activity
@@ -25,9 +27,9 @@ const copy = crmCopy.activity
 export type LinkedRecord = 'organization' | 'contact' | 'deal'
 
 export type RowHandlers = {
-  onOpen: (row: InteractionRow) => void
-  onEdit: (row: InteractionRow) => void
-  onDelete: (row: InteractionRow) => void
+  onOpen: (row: ActivityRecord) => void
+  onEdit: (row: ActivityRecord) => void
+  onDelete: (row: ActivityRecord) => void
   onFilterOwner?: (user: OwnerLike) => void
   // Linked records to leave out of the row (the page's own record).
   hide?: ReadonlyArray<LinkedRecord>
@@ -58,7 +60,7 @@ export function ActivityRow({
   when,
   handlers,
 }: {
-  row: InteractionRow
+  row: ActivityRecord
   mode: 'todo' | 'history'
   overdue?: boolean
   selected?: boolean
@@ -67,6 +69,7 @@ export function ActivityRow({
   when?: string
   handlers: RowHandlers
 }) {
+  const access = useCollectionAccess('interactions')
   const update = useUpdateActivity()
   const Icon = activityIcons[row.type ?? 'note'] ?? CalendarDays
 
@@ -115,7 +118,7 @@ export function ActivityRow({
           </span>
         ) : null}
         <div className="ml-auto flex shrink-0 items-center transition-opacity group-hover/row:opacity-100 focus-within:opacity-100 has-[[data-popup-open]]:opacity-100 @max-md:-my-1.5 [@media(hover:hover)]:opacity-0">
-          {mode === 'todo' ? (
+          {mode === 'todo' && access.canUpdate('status') && access.canUpdate('completedAt') ? (
             <Tooltip>
               <TooltipTrigger
                 render={
@@ -141,8 +144,8 @@ export function ActivityRow({
           <RecordMenu
             size="icon-sm"
             variant="ghost"
-            onEdit={() => handlers.onEdit(row)}
-            onDelete={() => handlers.onDelete(row)}
+            onEdit={access.canUpdate('subject') ? () => handlers.onEdit(row) : undefined}
+            onDelete={access.delete ? () => handlers.onDelete(row) : undefined}
           />
         </div>
       </div>
@@ -155,7 +158,7 @@ export function ActivityRow({
           mode === 'todo' && '@max-md:-ml-1',
         )}
       >
-        {mode === 'todo' ? (
+        {mode === 'todo' && access.canUpdate('dueAt') && access.canUpdate('occurredAt') ? (
           <DueChip
             variant="text"
             value={row.dueAt ?? row.occurredAt ?? null}
@@ -170,7 +173,7 @@ export function ActivityRow({
           />
         ) : (
           <span className="text-xs whitespace-nowrap text-muted-foreground tabular-nums">
-            {when}
+            {mode === 'todo' ? formatDue(row.dueAt) : when}
           </span>
         )}
       </div>
@@ -182,7 +185,7 @@ export function ActivityRow({
 // Left-aligned pills in priority order: deal, contact, organization, minus whatever the page
 // already is. Two at most, and the second only once the list is wide enough. Same look for
 // every kind: small avatar or logo, then name.
-function ContextPills({ row, hide }: { row: InteractionRow; hide: ReadonlyArray<LinkedRecord> }) {
+function ContextPills({ row, hide }: { row: ActivityRecord; hide: ReadonlyArray<LinkedRecord> }) {
   const deal = row.opportunities
   const organization = row.organizations
   const contact = row.contacts

@@ -13,7 +13,8 @@ import { SESSION_QUERY_KEY, updateCurrentUser, useCurrentUser } from '@/lib/auth
 import type { CurrentUser } from '@/lib/auth'
 import { deleteAsset, fetchUploadLimit, formatBytes, uploadAsset } from '@/lib/assets'
 import { appCopy } from '@/lib/app.copy'
-import { avatarUrl, initials } from '@/lib/format'
+import { initials } from '@/lib/format'
+import { avatarUrl } from '@/lib/users'
 import { settingsCopy } from '@/settings/settings.copy'
 
 const copy = settingsCopy.account

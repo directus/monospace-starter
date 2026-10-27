@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 
-import type { OrganizationPanelContribution, OrganizationPanelProps } from '@/modules/types'
+import type { OrganizationPanelContribution, OrganizationPanelProps } from '@/modules/crm/slots'
 
 import { BillingPanel } from './billing-panel'
 import { billingCopy } from './billing.copy'

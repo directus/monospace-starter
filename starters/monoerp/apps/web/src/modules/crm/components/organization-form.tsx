@@ -1,8 +1,9 @@
+import { organizationStatusOptions } from '@/modules/crm/entities'
 import { Plus, Trash2 } from 'lucide-react'
 import { useState } from 'react'
 import type { ReactElement } from 'react'
 
-import { useAppForm } from '@/components/form/app-form'
+import { useAppForm, submitForm } from '@/components/form/app-form'
 import {
   DrawerForm,
   DrawerFormBody,
@@ -20,18 +21,11 @@ import type { RelationOption } from '@/components/form/relation-combobox'
 import { Button } from '@/components/ui/button'
 import { FieldLegend, FieldSet } from '@/components/ui/field'
 import { appCopy } from '@/lib/app.copy'
-import { errorMessage } from '@/lib/errors'
 import { monospace } from '@/lib/monospace'
 import { crmCopy } from '@/modules/crm/crm.copy'
 import { useCreateOrganization } from '@/modules/crm/mutations'
 
 const copy = crmCopy.organizations
-
-const statusOptions = [
-  { value: 'prospect', label: copy.statuses.prospect },
-  { value: 'active', label: copy.statuses.active },
-  { value: 'inactive', label: copy.statuses.inactive },
-]
 
 type ContactValues = {
   key: string
@@ -102,7 +96,7 @@ type OrganizationValues = {
   contacts: Array<ContactValues>
 }
 
-export function OrganizationForm({
+function OrganizationForm({
   defaultContact,
   onCancel,
   onSuccess,
@@ -112,7 +106,6 @@ export function OrganizationForm({
   onSuccess?: () => void
 }) {
   const create = useCreateOrganization()
-  const [submitError, setSubmitError] = useState<string>()
 
   const defaultValues: OrganizationValues = {
     name: '',
@@ -124,17 +117,15 @@ export function OrganizationForm({
 
   const form = useAppForm({
     defaultValues,
-    onSubmit: async ({ value }) => {
-      setSubmitError(undefined)
+    onSubmit: ({ value, formApi }) =>
+      submitForm(formApi, async () => {
+        const base = {
+          name: value.name.trim(),
+          domain: value.domain.trim() || null,
+          industry: value.industry.trim() || null,
+          status: value.status,
+        }
 
-      const base = {
-        name: value.name.trim(),
-        domain: value.domain.trim() || null,
-        industry: value.industry.trim() || null,
-        status: value.status,
-      }
-
-      try {
         const contactOrganizations: NonNullable<
           Parameters<typeof create.mutateAsync>[0]['contact_organizations']
         > = defaultContact
@@ -179,10 +170,7 @@ export function OrganizationForm({
           ),
         })
         onSuccess?.()
-      } catch (error) {
-        setSubmitError(errorMessage(error))
-      }
-    },
+      }),
   })
 
   return (
@@ -237,7 +225,9 @@ export function OrganizationForm({
             {(field) => <field.TextField label={copy.form.industry} optional />}
           </form.AppField>
           <form.AppField name="status">
-            {(field) => <field.SelectField label={copy.form.status} options={statusOptions} />}
+            {(field) => (
+              <field.SelectField label={copy.form.status} options={organizationStatusOptions} />
+            )}
           </form.AppField>
         </div>
 
@@ -329,7 +319,14 @@ export function OrganizationForm({
         </form.Field>
       </DrawerFormBody>
 
-      <DrawerFormFooter error={submitError} onCancel={onCancel}>
+      <DrawerFormFooter
+        error={
+          <form.AppForm>
+            <form.FormError />
+          </form.AppForm>
+        }
+        onCancel={onCancel}
+      >
         <form.AppForm>
           <form.SubmitButton
             label={appCopy.form.create(copy.singular)}
