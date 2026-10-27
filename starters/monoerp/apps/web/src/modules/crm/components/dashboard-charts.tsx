@@ -135,7 +135,7 @@ function groupPipelineByStage(deals: Array<DealRow>) {
   const stages = new Map<string, PipelineStageRow>()
 
   for (const deal of deals) {
-    const stage = deal.pipeline_stages
+    const stage = deal.stage
     const id = stage?.id ?? stage?.name ?? 'restricted-stage'
 
     const existing = stages.get(id) ?? {

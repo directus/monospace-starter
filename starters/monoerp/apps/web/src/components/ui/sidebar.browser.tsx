@@ -1,9 +1,10 @@
-import '@testing-library/jest-dom/vitest'
 import { render, screen } from '@testing-library/react'
+import '@testing-library/jest-dom/vitest'
 import userEvent from '@testing-library/user-event'
 import { beforeEach, describe, expect, it } from 'vitest'
 
 import { SidebarProvider, useSidebar } from '@/components/ui/sidebar'
+import { appStorageKey } from '@/lib/storage'
 
 function SidebarStateProbe() {
   const { open, toggleSidebar } = useSidebar()
@@ -15,7 +16,7 @@ describe('SidebarProvider', () => {
   beforeEach(() => window.localStorage.clear())
 
   it('restores and persists the desktop sidebar state', async () => {
-    window.localStorage.setItem('sidebar-open', 'false')
+    window.localStorage.setItem(appStorageKey('sidebar-open'), 'false')
     const user = userEvent.setup()
 
     render(
@@ -28,6 +29,6 @@ describe('SidebarProvider', () => {
     await user.click(toggle)
 
     expect(screen.getByRole('button', { name: 'Expanded' })).toBeInTheDocument()
-    expect(window.localStorage.getItem('sidebar-open')).toBe('true')
+    expect(window.localStorage.getItem(appStorageKey('sidebar-open'))).toBe('true')
   })
 })

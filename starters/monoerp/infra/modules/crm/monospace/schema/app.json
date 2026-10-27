@@ -1,5 +1,4 @@
 {
-  "source": "App",
   "collections": {
     "attachments": {
       "meta": {
@@ -71,18 +70,22 @@
       },
       "relations": {
         "contacts": {
+          "apiName": "contact",
           "displayName": "Contact",
           "isHidden": false
         },
         "activities": {
+          "apiName": "activity",
           "displayName": "Activity",
           "isHidden": false
         },
         "deals": {
+          "apiName": "deal",
           "displayName": "Deal",
           "isHidden": false
         },
         "organizations": {
+          "apiName": "organization",
           "displayName": "Organization",
           "isHidden": false
         }
@@ -90,7 +93,7 @@
     },
     "affiliations": {
       "meta": {
-        "displayTemplate": "{contacts.first_name} {contacts.last_name} \u00b7 {organizations.name}",
+        "displayTemplate": "{contact.first_name} {contact.last_name} \u00b7 {organization.name}",
         "displayName": "Affiliations",
         "description": "Which people belong to which organizations.",
         "icon": "lucide:link",
@@ -213,11 +216,13 @@
       },
       "relations": {
         "contacts": {
+          "apiName": "contact",
           "displayName": "Contact",
           "typeTemplateId": "relation",
           "isHidden": false
         },
         "organizations": {
+          "apiName": "organization",
           "displayName": "Organization",
           "typeTemplateId": "relation",
           "isHidden": false
@@ -573,15 +578,18 @@
           "isHidden": true
         },
         "contacts": {
+          "apiName": "contact",
           "displayName": "Contact",
           "isHidden": false
         },
         "deals": {
+          "apiName": "deal",
           "displayName": "Deal",
           "typeTemplateId": "relation",
           "isHidden": false
         },
         "organizations": {
+          "apiName": "organization",
           "displayName": "Organization",
           "isHidden": false
         },
@@ -595,7 +603,7 @@
     },
     "deals": {
       "meta": {
-        "displayTemplate": "{title} \u00b7 {organizations.name} \u00b7 {value_amount}",
+        "displayTemplate": "{title} \u00b7 {organization.name} \u00b7 {value_amount}",
         "displayName": "Deals",
         "description": "Deals moving through the pipeline.",
         "icon": "lucide:target",
@@ -766,6 +774,7 @@
           "isHidden": true
         },
         "contacts": {
+          "apiName": "contact",
           "displayName": "Primary contact",
           "isHidden": false
         },
@@ -774,6 +783,7 @@
           "isHidden": false
         },
         "organizations": {
+          "apiName": "organization",
           "displayName": "Organization",
           "isHidden": false
         },
@@ -784,6 +794,7 @@
           "isHidden": false
         },
         "pipeline_stages": {
+          "apiName": "stage",
           "displayName": "Stage",
           "isHidden": false
         }

@@ -1,10 +1,12 @@
 # Data model
 
-monoERP reads two databases and Stripe. The shared PostgreSQL is ours: the app reads and writes it. The customer portal's MySQL belongs to "another team": the app only reads it. Stripe bills the portal's accounts. Monospace joins all three, so one request can return an organization with its portal account, plan, tickets, and Stripe charges.
+monoERP reads two databases and Stripe. The app database (PostgreSQL) is ours: the app reads and writes it. The customer portal's MySQL belongs to "another team": the app only reads it. Stripe bills the portal's accounts. Monospace joins all three, so one request can return an organization with its portal account, plan, tickets, and Stripe charges.
 
-Collection and field names in the API are camelCase versions of the table and column names (`portal_account_id` becomes `portalAccountId`). Monospace names them that way when it reads the database; the few names set by hand are in the owning module or connector’s `monospace/schema/*.json`.
+Collection and primitive field API names are camelCase (`pipeline_stages` → `pipelineStages`, `portal_account_id` → `portalAccountId`). CRM to-one relations are singular: `organization`, `contact`, `deal`, `stage`, and an attachment's `activity`. To-many relations stay plural (`affiliations`, `deals`, `activities`, `attachments`). These aliases are declared in `infra/modules/crm/monospace/schema/app.json`; setup renames API fields without renaming SQL tables or foreign-key columns.
 
-## CRM (PostgreSQL)
+For example, a deal includes `organization`, `contact`, and `stage`; an activity includes `organization`, `contact`, and `deal`. An organization's `deals` still returns a list. Schema export preserves the explicit aliases so a later fresh setup produces the same API.
+
+## CRM tables in the app database
 
 Schema: `infra/modules/crm/postgres/init/001_schema.sql`. Every table has a UUID `id` that the database generates. Timestamps are `timestamptz`, and `updated_at` is set by a trigger on update.
 
@@ -26,7 +28,7 @@ The database has the `vector` extension (pgvector) but no embedding columns yet.
 
 Most tables have `owner_user_id`, `created_by`, and `updated_by`. They're plain UUID columns in SQL. `pnpm setup:audit-relations` (`infra/monospace/setup/audit-user-relations.mjs`) turns them into relations to Monospace's `MonospaceSystemUser`, exposed as `owner`, `createdBy`, and `updatedBy`. Monospace fills `created_by` on create and `updated_by` on every write with the signed-in user, so the app never sends them.
 
-Users live in Monospace, not in the shared database. There's no CRM user or role table.
+Users live in Monospace, not in the app database. There's no CRM user or role table.
 
 ## Customer portal (MySQL)
 

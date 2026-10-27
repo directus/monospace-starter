@@ -4,18 +4,18 @@ This folder deploys monoERP and Monospace to your own AWS account with [Alchemy]
 
 ## What you get
 
-| Service                                                       | Staging                                                                     | Prod                                                                               |
-| ------------------------------------------------------------- | --------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
-| Monospace                                                     | 2 to 3 tasks, 0.5 vCPU / 1 GB                                               | 2 to 4 tasks, 1 vCPU / 2 GB                                                        |
-| monoERP app                                                   | 1 task, 0.25 vCPU / 0.5 GB                                                  | same                                                                               |
-| Postgres (Monospace's system database and the CRM's database) | one `db.t4g.micro`                                                          | one Multi-AZ `db.t4g.small`, 14 days of backups, kept on destroy                   |
-| Portal MySQL (stand-in for another team's database)           | one `db.t4g.micro` with demo data                                           | an empty `db.t4g.micro`; point the Portal source at your existing database instead |
-| Valkey (Monospace's query cache)                              | one `cache.t4g.micro`                                                       | two nodes                                                                          |
-| RabbitMQ (Monospace's cluster messages)                       | a Fargate task                                                              | Amazon MQ `mq.m7g.medium`                                                          |
-| Email (invites, password resets)                              | Mailpit, a Fargate task with no public address (see Reading staging's mail) | none yet; needs a real mail service such as SES                                    |
-| HTTPS                                                         | CloudFront (the app and Studio each get a `*.cloudfront.net` address)       | same until a domain is added                                                       |
-| Protection                                                    | WAF on both CloudFront addresses; the load balancer only accepts CloudFront | same                                                                               |
-| Alarms                                                        | emailed to `ALARM_EMAIL`                                                    | same                                                                               |
+| Service                                                     | Staging                                                                     | Prod                                                                               |
+| ----------------------------------------------------------- | --------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| Monospace                                                   | 2 to 3 tasks, 0.5 vCPU / 1 GB                                               | 2 to 4 tasks, 1 vCPU / 2 GB                                                        |
+| monoERP app                                                 | 1 task, 0.25 vCPU / 0.5 GB                                                  | same                                                                               |
+| Postgres (Monospace's system database and the app database) | one `db.t4g.micro`                                                          | one Multi-AZ `db.t4g.small`, 14 days of backups, kept on destroy                   |
+| Portal MySQL (stand-in for another team's database)         | one `db.t4g.micro` with demo data                                           | an empty `db.t4g.micro`; point the Portal source at your existing database instead |
+| Valkey (Monospace's query cache)                            | one `cache.t4g.micro`                                                       | two nodes                                                                          |
+| RabbitMQ (Monospace's cluster messages)                     | a Fargate task                                                              | Amazon MQ `mq.m7g.medium`                                                          |
+| Email (invites, password resets)                            | Mailpit, a Fargate task with no public address (see Reading staging's mail) | none yet; needs a real mail service such as SES                                    |
+| HTTPS                                                       | CloudFront (the app and Studio each get a `*.cloudfront.net` address)       | same until a domain is added                                                       |
+| Protection                                                  | WAF on both CloudFront addresses; the load balancer only accepts CloudFront | same                                                                               |
+| Alarms                                                      | emailed to `ALARM_EMAIL`                                                    | same                                                                               |
 
 `stages.ts` holds the example sizes. Review them and estimate costs for your account before deploying.
 

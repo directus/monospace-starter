@@ -8,6 +8,7 @@ import { connectorAvailable } from './installed.mjs'
 // they differ. Run the relation scripts first; relations are matched by their apiName.
 import {
   authenticate,
+  appSource,
   META_FIELDS,
   canonicalJson,
   metaPaths,
@@ -110,6 +111,27 @@ for (const { file, schema } of schemas) {
           },
         })
       }
+    }
+
+    for (const [apiName, item] of Object.entries(definition.relations ?? {})) {
+      if (!item.apiName) continue
+
+      const relation = schemaRelation(
+        file,
+        collection,
+        apiName,
+        undefined,
+        collections,
+        ownerAvailable,
+        item.apiName,
+      )
+
+      if (relation.apiName === item.apiName) continue
+      operations.push({
+        kind: 'renameRelationField',
+        data: { id: relation.id, apiName: item.apiName },
+      })
+      relation.apiName = item.apiName
     }
 
     if (fieldUpdates.length) {
@@ -243,16 +265,22 @@ for (const { file, schema } of schemas) {
         file,
         collection,
         apiName,
-        definition.optionalRelations?.[apiName],
+        definition.optionalRelations?.[apiName]
+          ? {
+              ...definition.optionalRelations[apiName],
+              source: definition.optionalRelations[apiName].source ?? appSource,
+            }
+          : undefined,
         collections,
         ownerAvailable,
+        definition.relations?.[apiName]?.apiName,
       )
 
       const meta = definition.relations?.[apiName]
 
       if (!relation || !meta) continue
 
-      const patch = { ...meta }
+      const patch = Object.fromEntries(Object.entries(meta).filter(([key]) => key !== 'apiName'))
       const sort = order.get(apiName)
 
       if (sort) patch.sort = sort

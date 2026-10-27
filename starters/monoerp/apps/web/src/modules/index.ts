@@ -1,8 +1,8 @@
-import type { ModuleId, ModuleManifest } from '@/modules/types'
+import type { ModuleId, ModuleEntry } from '@/modules/types'
 
-export type { ModuleId, ModuleManifest, SearchHit, SearchScope } from '@/modules/types'
+export type { ModuleId, ModuleEntry, SearchHit, SearchScope } from '@/modules/types'
 
-const manifests = import.meta.glob<{ default: ModuleManifest }>('./*/module.ts', { eager: true })
+const manifests = import.meta.glob<{ default: ModuleEntry }>('./*/module.ts', { eager: true })
 
 export const modules = Object.values(manifests)
   .map((manifest) => manifest.default)

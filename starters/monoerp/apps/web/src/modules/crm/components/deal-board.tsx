@@ -55,7 +55,7 @@ function groupByStage(deals: Array<DealRow>, stages: Array<PipelineStage>): Colu
   const columns: Columns = Object.fromEntries(stages.map((stage) => [stage.id, []]))
 
   for (const deal of deals) {
-    const stageId = deal.pipeline_stages?.id
+    const stageId = deal.stage?.id
 
     if (stageId && columns[stageId]) columns[stageId].push(deal.id)
   }
@@ -122,7 +122,7 @@ export function DealBoard({
   }
 
   function moveTo(deal: DealRow, stage: PipelineStage) {
-    if (!canMove || stage.id === deal.pipeline_stages?.id) return
+    if (!canMove || stage.id === deal.stage?.id) return
 
     if (stage.isClosed || stage.isWon) {
       close.reset()
@@ -175,7 +175,7 @@ export function DealBoard({
 
         const stage = deal && stages.find((item) => columns[item.id]?.includes(deal.id))
 
-        if (!deal || !stage || stage.id === deal.pipeline_stages?.id) {
+        if (!deal || !stage || stage.id === deal.stage?.id) {
           setOverride(null)
 
           return
@@ -269,7 +269,7 @@ export function DealBoard({
                           {stages.map((target) => (
                             <DropdownMenuItem
                               key={target.id}
-                              disabled={!canMove || target.id === deal.pipeline_stages?.id}
+                              disabled={!canMove || target.id === deal.stage?.id}
                               onClick={() => moveTo(deal, target)}
                             >
                               <StageDot stage={target} />
@@ -304,7 +304,7 @@ export function DealBoard({
               ...values,
               id: closing.deal.id,
               stage: closing.stage,
-              organizationId: closing.deal.organizations?.id,
+              organizationId: closing.deal.organization?.id,
               currency: closing.deal.currency ?? 'USD',
             })
             setClosing(undefined)
@@ -453,16 +453,16 @@ function BoardCard({
           {children}
         </div>
       </div>
-      {deal.organizations?.domain ? (
+      {deal.organization?.domain ? (
         <OrganizationLabel
-          organization={deal.organizations}
+          organization={deal.organization}
           size="sm"
           link={false}
           className="text-muted-foreground"
         />
       ) : (
         <p className="truncate text-sm text-muted-foreground">
-          {organizationName(deal.organizations)}
+          {organizationName(deal.organization)}
         </p>
       )}
       <div className="flex min-h-6 items-center justify-between gap-2 text-xs">

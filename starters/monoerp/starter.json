@@ -73,7 +73,11 @@
     "tools/manifest-fixtures.mjs",
     "tools/manifest-schema.mjs",
     "tools/prepare.mjs",
-    "vite.config.ts"
+    "vite.config.ts",
+    "app.config.json",
+    "tools/docs.test.mjs",
+    "tools/lint-addons.ts",
+    "tools/lint-addons.test.mjs"
   ],
   "requires": [],
   "sourceRoots": [

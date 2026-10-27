@@ -7,7 +7,7 @@ How a request gets from the browser to the data, and where each rule lives.
 The browser only ever talks to the app's own address. Anything under `/api/*` goes to Monospace. Everything else is the app.
 
 ```text
-browser ──> app address ──┬── /api/*  ──> Monospace ──┬── shared PostgreSQL (read and write)
+browser ──> app address ──┬── /api/*  ──> Monospace ──┬── app database (PostgreSQL) (read and write)
                           │                           ├── customer platform MySQL (read-only)
                           │                           └── Stripe API (Stripe connector)
                           └── everything else ──> the app (TanStack Start)
@@ -46,11 +46,11 @@ The app only reads the rules to shape the UI: `apps/web/src/lib/permissions.ts` 
 
 ## Three sources, one API
 
-Core, modules, and external connectors have separate folders. `modules/<id>/module.json` declares module ownership, collections, setup, and required/optional connectors; `connectors/<id>/connector.json` does the same for each connector. `starter.json` lists shared paths. Each `connectors/<id>/` owns its source config, schema settings, local service, and any custom extension. Shared manifest fields are versioned; monoERP runtime settings live under `x-monoerp` (see `docs/modules.md`). Portal is a connector with a built-in MySQL provider, so another starter can use it without copying CRM. `pnpm install` and dev discover local services automatically. Optional services never appear in core's `depends_on`.
+Core, modules, and connectors own separate folders. The [module guide](modules.md) describes their manifests and UI entries; [the connector guide](../connectors/README.md) covers external sources. Install and dev discover local services automatically.
 
 The workspace has three data sources:
 
-- **CRM** (PostgreSQL): organizations, contacts, deals, activity, attachments. The app reads and writes it. Schema in `infra/modules/crm/postgres`.
+- **App** (PostgreSQL): organizations, contacts, deals, activity, attachments. The app reads and writes it. Schema in `infra/modules/crm/postgres`.
 - **Portal** (MySQL): a stand-in for a product another team owns (accounts, users, plans, subscriptions, tickets, events). Monospace connects as a user with `SELECT` only (`connectors/portal/emulator/init/003_reader.sh`). Schema in `connectors/portal/emulator`.
 - **Stripe** (an API): customers, products, prices, payment intents, and charges, through the data connector extension in `connectors/stripe`. Locally it points at a Stripe emulator (`connectors/stripe/emulator`).
 
@@ -77,7 +77,7 @@ Portal is selected by default but optional. Removing its connector drops its col
 
 Errors never take the whole app down. The router's `defaultErrorComponent` (`RouteError` in `components/data-state.tsx`) gives every route its own error boundary, so a failed loader or a crash shows an error and a retry in the page's place, inside the app shell. Without it, TanStack Router only catches at the root and replaces everything. Inside a page, `SectionBoundary` wraps the portal and Stripe panels and the deal's current plan, so a crash there costs only that panel. The organization list's loader prefetches instead of awaiting, so a failed portal filter shows up under the filters, where it can be removed.
 
-A source that isn't connected at all (left out of `OPTIONAL_SOURCES`, or deleted in Studio) is different from one that's down: Monospace refuses the query with a 422 that names the missing collection or relation, and nothing will fix that on retry. `isMissingFromWorkspace` in `lib/errors.ts` spots it. The Portal and Billing tabs then say the source isn't set up, and the organization list and deal page leave the portal columns empty instead of saying "Portal unavailable".
+A source that isn't connected at all (not selected, or deleted in Studio) is different from one that's down: Monospace refuses the query with a 422 that names the missing collection or relation, and nothing will fix that on retry. `isMissingFromWorkspace` in `lib/errors.ts` spots it. The Portal and Billing tabs then say the source isn't set up, and the organization list and deal page leave the portal columns empty instead of saying "Portal unavailable".
 
 One exception: filtering the organization list by a portal field (plan, renewal date) puts a portal condition in the CRM request, so that filter fails while MySQL is down.
 

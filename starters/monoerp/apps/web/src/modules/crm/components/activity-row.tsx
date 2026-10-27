@@ -186,9 +186,9 @@ export function ActivityRow({
 // already is. Two at most, and the second only once the list is wide enough. Same look for
 // every kind: small avatar or logo, then name.
 function ContextPills({ row, hide }: { row: ActivityRecord; hide: ReadonlyArray<LinkedRecord> }) {
-  const deal = row.deals
-  const organization = row.organizations
-  const contact = row.contacts
+  const deal = row.deal
+  const organization = row.organization
+  const contact = row.contact
 
   const person =
     contactName(row) ??

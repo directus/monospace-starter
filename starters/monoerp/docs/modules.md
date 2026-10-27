@@ -1,22 +1,22 @@
 # Modules
 
-Add business areas next to CRM without editing the shell. Each module has four folders and uses the shared `monoerp` workspace and PostgreSQL database.
+Add business areas next to CRM without editing the shell. Each module has four folders, plus any settings routes, and uses the workspace and app database from the shared setup.
 
 ## Add a module
 
 Use CRM as the working example for a new `inventory` module:
 
-| Copy from                      | New location                         | Contains                                   |
-| ------------------------------ | ------------------------------------ | ------------------------------------------ |
-| `modules/crm`                  | `modules/inventory`                  | Module manifest                            |
-| `apps/web/src/modules/crm`     | `apps/web/src/modules/inventory`     | UI entry, copy, reads, writes, and tests   |
-| `infra/modules/crm`            | `infra/modules/inventory`            | SQL, demo data, schema settings, and setup |
-| `apps/web/src/routes/_app/crm` | `apps/web/src/routes/_app/inventory` | Pages                                      |
+| Copy from                      | New location                    | Contains                                   |
+| ------------------------------ | ------------------------------- | ------------------------------------------ |
+| `modules/crm`                  | `modules/<id>`                  | Module manifest                            |
+| `apps/web/src/modules/crm`     | `apps/web/src/modules/<id>`     | UI entry, copy, reads, writes, and tests   |
+| `infra/modules/crm`            | `infra/modules/<id>`            | SQL, demo data, schema settings, and setup |
+| `apps/web/src/routes/_app/crm` | `apps/web/src/routes/_app/<id>` | Pages                                      |
 
-1. Replace the copied CRM IDs, imports, tables, demo records, queries, and tests with your module's data. Put SQL in `infra/modules/inventory/postgres/{init,migrations}/` and schema settings in `monospace/schema/`. Use the existing shared database; see [schema changes](data-model.md#changing-the-schema).
-2. Edit `modules/inventory/module.json`: change the ID, owned paths, `app`, `infra`, collections, write schemas, audit columns, and setup scripts. Remove optional connectors you do not use, and clear settings entries unless you copy those route files too. Include every route owned by your module, including settings routes outside its route folder.
-3. Rename `crm.copy.ts` to `inventory.copy.ts` and edit it with `module.ts`. Export a `ModuleManifest`, use `id: 'inventory'` and `basePath: '/inventory'`, and add `inventory: true` to `ModuleRegistry` through declaration merging. The registry discovers `modules/*/module.ts` automatically.
-4. Update each page's `createFileRoute` path and links, then set `staticData.page`: set `module`, `title`, and `icon`; add `nav` for sidebar pages and `parent` for detail pages. Use `index.tsx` for `/inventory` and `items_.$itemId.tsx` for a detail page outside the list layout. Follow [frontend conventions](frontend.md).
+1. Replace the copied CRM IDs, imports, tables, demo records, queries, and tests with your module's data. Put SQL in `infra/modules/<id>/postgres/{init,migrations}/` and schema settings in `monospace/schema/`. Use the existing app database; see [schema changes](data-model.md#changing-the-schema).
+2. Edit `modules/<id>/module.json`: change the ID, owned paths, `app`, `infra`, collections, write schemas, audit columns, and setup scripts. Remove optional connectors you do not use, and clear settings entries unless you copy those route files too. Include every route owned by your module, including settings routes outside its route folder.
+3. Rename `crm.copy.ts` to `inventory.copy.ts` and edit it with `module.ts`. Export a `ModuleEntry`, use `id: 'inventory'` and `basePath: '/inventory'`, and add `inventory: true` to `ModuleRegistry` through declaration merging. The registry discovers `modules/*/module.ts` automatically.
+4. Update each page's `createFileRoute` path and links, then set `staticData.page`: set `module`, `title`, and `icon`; add `nav` for sidebar pages and `parent` for detail pages. Use `index.tsx` for `/<id>` and `items_.$itemId.tsx` for a detail page outside the list layout. Follow [frontend conventions](frontend.md).
 5. Add search or settings only if needed. Copy `crm/search.ts` for search; settings routes use `routes/_app/settings.inventory.<page>.tsx` and the manifest's `settings` entries.
 6. Run `pnpm app:doctor`, `pnpm db:migrate`, `pnpm setup:all`, `pnpm generate:routes`, and `pnpm generate`.
 7. Run `pnpm verify` (plus browser tests for components). Open the module and check its sidebar group, home card, breadcrumbs, and command-palette entries.
@@ -27,20 +27,11 @@ Preview with `pnpm app:remove crm --dry-run`, then run `pnpm app:remove crm` and
 
 ## Starter, module, and connector manifests
 
-Each file has a required `format` marker, such as `urn:monospace:manifest:module:1`.
-The shared envelope contains `kind`, `id`, `label`, `description`, `ownedPaths`, `requires`
-and `packageEntries`. `requires` defaults to an empty list. Conditional requirements use
-`requiresWhenInstalled`, for example `{ "crm": ["portal"] }` on Stripe.
+Each file has a required `format` marker, such as `urn:monospace:manifest:module:1`. The shared envelope contains `kind`, `id`, `label`, `description`, `ownedPaths`, `requires` and `packageEntries`. `requires` defaults to an empty list. Conditional requirements use `requiresWhenInstalled`, for example `{ "crm": ["portal"] }` on Stripe.
 
-monoERP runtime settings live under `x-monoerp`: module app/infra paths, collections, setup,
-connector source settings and frontend features. Optional connector defaults are there too.
-Setup and app scripts validate these runtime settings alongside the shared envelope.
+monoERP runtime settings live under `x-monoerp`: module app/infra paths, collections, setup, connector source settings and frontend features. Optional connector defaults are there too. Setup and app scripts validate these runtime settings alongside the shared envelope.
 
-`starter.json` also declares `sourceRoots`, literal `ignorePaths`, and `nextSteps.create` /
-`nextSteps.remove`. Next steps name package scripts (`{ "script": "setup:all" }`) or explicit
-command arguments (`{ "command": ["cp", "-n", ".env.example", ".env"] }`). Steps with
-`"when": "choices-changed"` run only after modules or connectors are left out. These are printed
-instructions, not code that the CLI evaluates. Package scripts use the detected package manager.
+`starter.json` also declares `sourceRoots`, literal `ignorePaths`, and `nextSteps.create` / `nextSteps.remove`. Next steps name package scripts (`{ "script": "setup:all" }`) or explicit command arguments (`{ "command": ["cp", "-n", ".env.example", ".env"] }`). Steps with `"when": "choices-changed"` run only after modules or connectors are left out. These are printed instructions, not code that the CLI evaluates. Package scripts use the detected package manager.
 
 The starter declares shared ownership in root `starter.json`. Each module uses `modules/<id>/module.json`; each connector uses `connectors/<id>/connector.json`. The starter owns the shared shell and services and cannot be removed.
 
@@ -63,11 +54,11 @@ The starter declares shared ownership in root `starter.json`. Each module uses `
 | Setup step `requires`                     | Skip unless each required module is installed or connector is selected                                     |
 | `compose`, `composeProfiles`              | Optional Compose file and profile overlays, relative to the repo root                                      |
 
-Leave `OPTIONAL_SOURCES` unset to use installed modules' connector declarations. Set it to a comma-separated list to override them, or empty to select none. A connector folder must exist to be selected. See [connector setup](../connectors/README.md).
+For `OPTIONAL_SOURCES` and connector selection, see [Source selection](../connectors/README.md#source-selection).
 
 ## The UI contract
 
-A module UI entry is a `ModuleManifest` (`apps/web/src/modules/types.ts`):
+A module UI entry is a `ModuleEntry` (`apps/web/src/modules/types.ts`):
 
 | Field         | What it does                                                                 |
 | ------------- | ---------------------------------------------------------------------------- |
@@ -82,7 +73,7 @@ A module UI entry is a `ModuleManifest` (`apps/web/src/modules/types.ts`):
 
 `apps/web/src/modules/index.ts` discovers default exports from `./*/module.ts` with an eager Vite glob, sorted by `order`. It exports `modules` and `moduleById`. Each UI entry adds its own key to `ModuleRegistry` through TypeScript declaration merging; `ModuleId` is `keyof ModuleRegistry`. Deleting the module folder removes both its runtime registration and its ID type. The CRM's UI entry is `apps/web/src/modules/crm/module.ts`.
 
-The UI entry reads `order` from its module manifest. The UI derives settings route paths from the JSON file list with `settingsPaths`; route `staticData.page` owns each title and icon. Its label and description are app copy; the JSON label and description describe the installable module. CRM owns only its PostgreSQL collections. Portal's optional feature owns its MySQL collections; Stripe's optional feature owns its Stripe collections.
+The UI derives settings route paths from the JSON file list with `settingsPaths`; route `staticData.page` owns each title and icon. CRM owns only its PostgreSQL collections. Portal's optional feature owns its MySQL collections; Stripe's optional feature owns its Stripe collections.
 
 ## Page metadata
 
@@ -117,7 +108,7 @@ Copy `apps/web/src/modules/crm/search.ts`: a small `readMany` per record type wi
 
 ## Copy
 
-All user-facing text for a module lives in `modules/<id>/<id>.copy.ts` (`crmCopy` in `modules/crm/crm.copy.ts`). Shell and shared text is in `lib/app.copy.ts`, shared settings text in `settings/settings.copy.ts`, and module settings text in `modules/<id>/settings/settings.copy.ts`. The app module entry uses the copy file. The JSON manifest label and description describe choices during app creation. The comment at the top of `crm.copy.ts` sets the CRM's naming ("deals", not "deals"); a new module should state its own.
+All user-facing text for a module lives in `modules/<id>/<id>.copy.ts` (`crmCopy` in `modules/crm/crm.copy.ts`). Shell and shared text is in `lib/app.copy.ts`, shared settings text in `settings/settings.copy.ts`, and module settings text in `modules/<id>/settings/settings.copy.ts`. The app module entry uses the copy file. The JSON manifest label and description describe choices during app creation. The comment at the top of `crm.copy.ts` names the CRM's record types (deals, activities, affiliations); a new module should state its own.
 
 ## Optional connector UI
 
@@ -158,3 +149,9 @@ The import-boundary tests also reject imports between modules or from a module i
 ## Add-ons
 
 `addons/<id>/addon.json` declares optional tooling using `urn:monospace:manifest:addon:1` and `kind: addon`. Add-ons use the shared ownership, dependency, and package-entry fields without `x-monoerp`. Remove them with `pnpm app:remove <id>` and follow the [shared removal steps](../connectors/README.md#remove-a-module-or-connector).
+
+The manifest's `ownedPaths` controls removal. Runtime `app`, `infra`, and `settings` identify the entry paths used by the bundler and setup; they can include settings routes outside the module folder. The doctor checks that those paths are owned.
+
+Add-ons register optional lint fragments with a `lint` path in `addon.json`. Each fragment exports a default Vite+ lint config. `tools/lint-addons.ts` discovers installed add-ons and combines their fragments; the root config does not name individual add-ons. Lint implementation code and connector extensions follow the base rules.
+
+Schema files inherit their source from their owner: modules use `app.config.json`'s `appSource`, and connectors use their manifest's source API name. Optional relation targets without a `source` use the app database.

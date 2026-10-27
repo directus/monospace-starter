@@ -25,9 +25,9 @@ const row: ActivityRecord = {
   organizationId: null,
   contactId: null,
   dealId: null,
-  organizations: null,
-  contacts: null,
-  deals: null,
+  organization: null,
+  contact: null,
+  deal: null,
   attachments: { data: [] },
 }
 

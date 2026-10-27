@@ -1053,8 +1053,8 @@ const definitions = {
           }
         ]
       },
-      "contacts": {
-        "$ref": "#/$defs/attachmentscontactsCreateRelatedInput"
+      "contact": {
+        "$ref": "#/$defs/attachmentscontactCreateRelatedInput"
       },
       "contentType": {
         "oneOf": [
@@ -1073,8 +1073,8 @@ const definitions = {
       "createdBy": {
         "$ref": "#/$defs/attachmentscreatedByCreateRelatedInput"
       },
-      "deals": {
-        "$ref": "#/$defs/attachmentsdealsCreateRelatedInput"
+      "deal": {
+        "$ref": "#/$defs/attachmentsdealCreateRelatedInput"
       },
       "fileName": {
         "type": "string"
@@ -1083,8 +1083,8 @@ const definitions = {
         "type": "string",
         "format": "uuid"
       },
-      "organizations": {
-        "$ref": "#/$defs/attachmentsorganizationsCreateRelatedInput"
+      "organization": {
+        "$ref": "#/$defs/attachmentsorganizationCreateRelatedInput"
       },
       "sizeBytes": {
         "oneOf": [
@@ -1109,7 +1109,7 @@ const definitions = {
     },
     "required": [
       "fileName",
-      "organizations"
+      "organization"
     ]
   },
   "activitiesattachmentsUpdateManyRelatedOperationsInput": {
@@ -1133,7 +1133,7 @@ const definitions = {
     },
     "required": []
   },
-  "activitiescontactsConnectForwardKeyInput": {
+  "activitiescontactConnectForwardKeyInput": {
     "type": "object",
     "properties": {
       "id": {
@@ -1152,41 +1152,41 @@ const definitions = {
       "id"
     ]
   },
-  "activitiescontactsConnectInput": {
+  "activitiescontactConnectInput": {
     "type": "object",
     "properties": {
       "key": {
-        "$ref": "#/$defs/activitiescontactsConnectForwardKeyInput"
+        "$ref": "#/$defs/activitiescontactConnectForwardKeyInput"
       }
     },
     "required": [
       "key"
     ]
   },
-  "activitiescontactsCreateArguments": {
+  "activitiescontactCreateArguments": {
     "type": "object",
     "properties": {
       "data": {
-        "$ref": "#/$defs/activitiescontactsCreateRelatedWithoutTypeInput"
+        "$ref": "#/$defs/activitiescontactCreateRelatedWithoutTypeInput"
       }
     },
     "required": [
       "data"
     ]
   },
-  "activitiescontactsCreateRelatedInput": {
+  "activitiescontactCreateRelatedInput": {
     "type": "object",
     "properties": {
       "_connect": {
-        "$ref": "#/$defs/activitiescontactsConnectInput"
+        "$ref": "#/$defs/activitiescontactConnectInput"
       },
       "_create": {
-        "$ref": "#/$defs/activitiescontactsCreateArguments"
+        "$ref": "#/$defs/activitiescontactCreateArguments"
       }
     },
     "required": []
   },
-  "activitiescontactsCreateRelatedWithoutTypeInput": {
+  "activitiescontactCreateRelatedWithoutTypeInput": {
     "type": "object",
     "properties": {
       "affiliations": {
@@ -1276,14 +1276,14 @@ const definitions = {
       "lastName"
     ]
   },
-  "activitiescontactsUpdateOneRelatedOperationsInput": {
+  "activitiescontactUpdateOneRelatedOperationsInput": {
     "type": "object",
     "properties": {
       "_connect": {
-        "$ref": "#/$defs/activitiescontactsConnectInput"
+        "$ref": "#/$defs/activitiescontactConnectInput"
       },
       "_create": {
-        "$ref": "#/$defs/activitiescontactsCreateArguments"
+        "$ref": "#/$defs/activitiescontactCreateArguments"
       },
       "_delete": {
         "$ref": "#/$defs/contactsDeleteArguments"
@@ -1541,8 +1541,8 @@ const definitions = {
           }
         ]
       },
-      "contacts": {
-        "$ref": "#/$defs/activitiescontactsCreateRelatedInput"
+      "contact": {
+        "$ref": "#/$defs/activitiescontactCreateRelatedInput"
       },
       "createdAt": {
         "type": "string",
@@ -1551,8 +1551,8 @@ const definitions = {
       "createdBy": {
         "$ref": "#/$defs/activitiescreatedByCreateRelatedInput"
       },
-      "deals": {
-        "$ref": "#/$defs/activitiesdealsCreateRelatedInput"
+      "deal": {
+        "$ref": "#/$defs/activitiesdealCreateRelatedInput"
       },
       "direction": {
         "type": "string"
@@ -1576,8 +1576,8 @@ const definitions = {
         "type": "string",
         "format": "date-time"
       },
-      "organizations": {
-        "$ref": "#/$defs/activitiesorganizationsCreateRelatedInput"
+      "organization": {
+        "$ref": "#/$defs/activitiesorganizationCreateRelatedInput"
       },
       "owner": {
         "$ref": "#/$defs/activitiesownerCreateRelatedInput"
@@ -1600,13 +1600,13 @@ const definitions = {
       }
     },
     "required": [
-      "organizations",
+      "organization",
       "status",
       "subject",
       "type"
     ]
   },
-  "activitiesdealsConnectForwardKeyInput": {
+  "activitiesdealConnectForwardKeyInput": {
     "type": "object",
     "properties": {
       "id": {
@@ -1625,41 +1625,41 @@ const definitions = {
       "id"
     ]
   },
-  "activitiesdealsConnectInput": {
+  "activitiesdealConnectInput": {
     "type": "object",
     "properties": {
       "key": {
-        "$ref": "#/$defs/activitiesdealsConnectForwardKeyInput"
+        "$ref": "#/$defs/activitiesdealConnectForwardKeyInput"
       }
     },
     "required": [
       "key"
     ]
   },
-  "activitiesdealsCreateArguments": {
+  "activitiesdealCreateArguments": {
     "type": "object",
     "properties": {
       "data": {
-        "$ref": "#/$defs/activitiesdealsCreateRelatedWithoutTypeInput"
+        "$ref": "#/$defs/activitiesdealCreateRelatedWithoutTypeInput"
       }
     },
     "required": [
       "data"
     ]
   },
-  "activitiesdealsCreateRelatedInput": {
+  "activitiesdealCreateRelatedInput": {
     "type": "object",
     "properties": {
       "_connect": {
-        "$ref": "#/$defs/activitiesdealsConnectInput"
+        "$ref": "#/$defs/activitiesdealConnectInput"
       },
       "_create": {
-        "$ref": "#/$defs/activitiesdealsCreateArguments"
+        "$ref": "#/$defs/activitiesdealCreateArguments"
       }
     },
     "required": []
   },
-  "activitiesdealsCreateRelatedWithoutTypeInput": {
+  "activitiesdealCreateRelatedWithoutTypeInput": {
     "type": "object",
     "properties": {
       "attachments": {
@@ -1668,8 +1668,8 @@ const definitions = {
           "$ref": "#/$defs/dealsattachmentsCreateRelatedInput"
         }
       },
-      "contacts": {
-        "$ref": "#/$defs/dealscontactsCreateRelatedInput"
+      "contact": {
+        "$ref": "#/$defs/dealscontactCreateRelatedInput"
       },
       "createdAt": {
         "type": "string",
@@ -1706,14 +1706,14 @@ const definitions = {
           }
         ]
       },
-      "organizations": {
-        "$ref": "#/$defs/dealsorganizationsCreateRelatedInput"
+      "organization": {
+        "$ref": "#/$defs/dealsorganizationCreateRelatedInput"
       },
       "owner": {
         "$ref": "#/$defs/dealsownerCreateRelatedInput"
       },
-      "pipeline_stages": {
-        "$ref": "#/$defs/dealspipeline_stagesCreateRelatedInput"
+      "stage": {
+        "$ref": "#/$defs/dealsstageCreateRelatedInput"
       },
       "status": {
         "type": "string"
@@ -1742,19 +1742,19 @@ const definitions = {
       }
     },
     "required": [
-      "organizations",
-      "pipeline_stages",
+      "organization",
+      "stage",
       "title"
     ]
   },
-  "activitiesdealsUpdateOneRelatedOperationsInput": {
+  "activitiesdealUpdateOneRelatedOperationsInput": {
     "type": "object",
     "properties": {
       "_connect": {
-        "$ref": "#/$defs/activitiesdealsConnectInput"
+        "$ref": "#/$defs/activitiesdealConnectInput"
       },
       "_create": {
-        "$ref": "#/$defs/activitiesdealsCreateArguments"
+        "$ref": "#/$defs/activitiesdealCreateArguments"
       },
       "_delete": {
         "$ref": "#/$defs/dealsDeleteArguments"
@@ -1854,6 +1854,9 @@ const definitions = {
           }
         ]
       },
+      "contact": {
+        "$ref": "#/$defs/contactsFilterInput"
+      },
       "contactId": {
         "oneOf": [
           {
@@ -1871,9 +1874,6 @@ const definitions = {
             ]
           }
         ]
-      },
-      "contacts": {
-        "$ref": "#/$defs/contactsFilterInput"
       },
       "createdAt": {
         "oneOf": [
@@ -1905,6 +1905,9 @@ const definitions = {
           }
         ]
       },
+      "deal": {
+        "$ref": "#/$defs/dealsFilterInput"
+      },
       "dealId": {
         "oneOf": [
           {
@@ -1922,9 +1925,6 @@ const definitions = {
             ]
           }
         ]
-      },
-      "deals": {
-        "$ref": "#/$defs/dealsFilterInput"
       },
       "direction": {
         "oneOf": [
@@ -1976,6 +1976,9 @@ const definitions = {
           }
         ]
       },
+      "organization": {
+        "$ref": "#/$defs/organizationsFilterInput"
+      },
       "organizationId": {
         "oneOf": [
           {
@@ -1986,9 +1989,6 @@ const definitions = {
             "format": "uuid"
           }
         ]
-      },
-      "organizations": {
-        "$ref": "#/$defs/organizationsFilterInput"
       },
       "owner": {},
       "ownerUserId": {
@@ -2087,7 +2087,7 @@ const definitions = {
     },
     "required": []
   },
-  "activitiesorganizationsConnectForwardKeyInput": {
+  "activitiesorganizationConnectForwardKeyInput": {
     "type": "object",
     "properties": {
       "id": {
@@ -2099,41 +2099,41 @@ const definitions = {
       "id"
     ]
   },
-  "activitiesorganizationsConnectInput": {
+  "activitiesorganizationConnectInput": {
     "type": "object",
     "properties": {
       "key": {
-        "$ref": "#/$defs/activitiesorganizationsConnectForwardKeyInput"
+        "$ref": "#/$defs/activitiesorganizationConnectForwardKeyInput"
       }
     },
     "required": [
       "key"
     ]
   },
-  "activitiesorganizationsCreateArguments": {
+  "activitiesorganizationCreateArguments": {
     "type": "object",
     "properties": {
       "data": {
-        "$ref": "#/$defs/activitiesorganizationsCreateRelatedWithoutTypeInput"
+        "$ref": "#/$defs/activitiesorganizationCreateRelatedWithoutTypeInput"
       }
     },
     "required": [
       "data"
     ]
   },
-  "activitiesorganizationsCreateRelatedInput": {
+  "activitiesorganizationCreateRelatedInput": {
     "type": "object",
     "properties": {
       "_connect": {
-        "$ref": "#/$defs/activitiesorganizationsConnectInput"
+        "$ref": "#/$defs/activitiesorganizationConnectInput"
       },
       "_create": {
-        "$ref": "#/$defs/activitiesorganizationsCreateArguments"
+        "$ref": "#/$defs/activitiesorganizationCreateArguments"
       }
     },
     "required": []
   },
-  "activitiesorganizationsCreateRelatedWithoutTypeInput": {
+  "activitiesorganizationCreateRelatedWithoutTypeInput": {
     "type": "object",
     "properties": {
       "affiliations": {
@@ -2229,14 +2229,14 @@ const definitions = {
       "name"
     ]
   },
-  "activitiesorganizationsUpdateOneRelatedOperationsInput": {
+  "activitiesorganizationUpdateOneRelatedOperationsInput": {
     "type": "object",
     "properties": {
       "_connect": {
-        "$ref": "#/$defs/activitiesorganizationsConnectInput"
+        "$ref": "#/$defs/activitiesorganizationConnectInput"
       },
       "_create": {
-        "$ref": "#/$defs/activitiesorganizationsCreateArguments"
+        "$ref": "#/$defs/activitiesorganizationCreateArguments"
       },
       "_update": {
         "$ref": "#/$defs/organizationsUpdateInput"
@@ -2488,6 +2488,12 @@ const definitions = {
           }
         ]
       },
+      "contact": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/activitiescontactUpdateOneRelatedOperationsInput"
+        }
+      },
       "contactId": {
         "oneOf": [
           {
@@ -2498,12 +2504,6 @@ const definitions = {
             "type": "null"
           }
         ]
-      },
-      "contacts": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/activitiescontactsUpdateOneRelatedOperationsInput"
-        }
       },
       "createdAt": {
         "type": "string",
@@ -2526,6 +2526,12 @@ const definitions = {
           }
         ]
       },
+      "deal": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/activitiesdealUpdateOneRelatedOperationsInput"
+        }
+      },
       "dealId": {
         "oneOf": [
           {
@@ -2536,12 +2542,6 @@ const definitions = {
             "type": "null"
           }
         ]
-      },
-      "deals": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/activitiesdealsUpdateOneRelatedOperationsInput"
-        }
       },
       "direction": {
         "type": "string"
@@ -2565,15 +2565,15 @@ const definitions = {
         "type": "string",
         "format": "date-time"
       },
+      "organization": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/activitiesorganizationUpdateOneRelatedOperationsInput"
+        }
+      },
       "organizationId": {
         "type": "string",
         "format": "uuid"
-      },
-      "organizations": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/activitiesorganizationsUpdateOneRelatedOperationsInput"
-        }
       },
       "owner": {
         "type": "array",
@@ -2853,7 +2853,7 @@ const definitions = {
       "data"
     ]
   },
-  "affiliationscontactsConnectForwardKeyInput": {
+  "affiliationscontactConnectForwardKeyInput": {
     "type": "object",
     "properties": {
       "id": {
@@ -2865,41 +2865,41 @@ const definitions = {
       "id"
     ]
   },
-  "affiliationscontactsConnectInput": {
+  "affiliationscontactConnectInput": {
     "type": "object",
     "properties": {
       "key": {
-        "$ref": "#/$defs/affiliationscontactsConnectForwardKeyInput"
+        "$ref": "#/$defs/affiliationscontactConnectForwardKeyInput"
       }
     },
     "required": [
       "key"
     ]
   },
-  "affiliationscontactsCreateArguments": {
+  "affiliationscontactCreateArguments": {
     "type": "object",
     "properties": {
       "data": {
-        "$ref": "#/$defs/affiliationscontactsCreateRelatedWithoutTypeInput"
+        "$ref": "#/$defs/affiliationscontactCreateRelatedWithoutTypeInput"
       }
     },
     "required": [
       "data"
     ]
   },
-  "affiliationscontactsCreateRelatedInput": {
+  "affiliationscontactCreateRelatedInput": {
     "type": "object",
     "properties": {
       "_connect": {
-        "$ref": "#/$defs/affiliationscontactsConnectInput"
+        "$ref": "#/$defs/affiliationscontactConnectInput"
       },
       "_create": {
-        "$ref": "#/$defs/affiliationscontactsCreateArguments"
+        "$ref": "#/$defs/affiliationscontactCreateArguments"
       }
     },
     "required": []
   },
-  "affiliationscontactsCreateRelatedWithoutTypeInput": {
+  "affiliationscontactCreateRelatedWithoutTypeInput": {
     "type": "object",
     "properties": {
       "activities": {
@@ -2989,14 +2989,14 @@ const definitions = {
       "lastName"
     ]
   },
-  "affiliationscontactsUpdateOneRelatedOperationsInput": {
+  "affiliationscontactUpdateOneRelatedOperationsInput": {
     "type": "object",
     "properties": {
       "_connect": {
-        "$ref": "#/$defs/affiliationscontactsConnectInput"
+        "$ref": "#/$defs/affiliationscontactConnectInput"
       },
       "_create": {
-        "$ref": "#/$defs/affiliationscontactsCreateArguments"
+        "$ref": "#/$defs/affiliationscontactCreateArguments"
       },
       "_update": {
         "$ref": "#/$defs/contactsUpdateInput"
@@ -3221,8 +3221,8 @@ const definitions = {
   "affiliationsCreateInput": {
     "type": "object",
     "properties": {
-      "contacts": {
-        "$ref": "#/$defs/affiliationscontactsCreateRelatedInput"
+      "contact": {
+        "$ref": "#/$defs/affiliationscontactCreateRelatedInput"
       },
       "createdAt": {
         "type": "string",
@@ -3249,8 +3249,8 @@ const definitions = {
       "isPrimary": {
         "type": "boolean"
       },
-      "organizations": {
-        "$ref": "#/$defs/affiliationsorganizationsCreateRelatedInput"
+      "organization": {
+        "$ref": "#/$defs/affiliationsorganizationCreateRelatedInput"
       },
       "role": {
         "oneOf": [
@@ -3292,8 +3292,8 @@ const definitions = {
       }
     },
     "required": [
-      "contacts",
-      "organizations"
+      "contact",
+      "organization"
     ]
   },
   "affiliationsDeleteArguments": {
@@ -3323,6 +3323,9 @@ const definitions = {
           "$ref": "#/$defs/affiliationsFilterInput"
         }
       },
+      "contact": {
+        "$ref": "#/$defs/contactsFilterInput"
+      },
       "contactId": {
         "oneOf": [
           {
@@ -3333,9 +3336,6 @@ const definitions = {
             "format": "uuid"
           }
         ]
-      },
-      "contacts": {
-        "$ref": "#/$defs/contactsFilterInput"
       },
       "createdAt": {
         "oneOf": [
@@ -3406,6 +3406,9 @@ const definitions = {
           }
         ]
       },
+      "organization": {
+        "$ref": "#/$defs/organizationsFilterInput"
+      },
       "organizationId": {
         "oneOf": [
           {
@@ -3416,9 +3419,6 @@ const definitions = {
             "format": "uuid"
           }
         ]
-      },
-      "organizations": {
-        "$ref": "#/$defs/organizationsFilterInput"
       },
       "role": {
         "oneOf": [
@@ -3520,7 +3520,7 @@ const definitions = {
     },
     "required": []
   },
-  "affiliationsorganizationsConnectForwardKeyInput": {
+  "affiliationsorganizationConnectForwardKeyInput": {
     "type": "object",
     "properties": {
       "id": {
@@ -3532,41 +3532,41 @@ const definitions = {
       "id"
     ]
   },
-  "affiliationsorganizationsConnectInput": {
+  "affiliationsorganizationConnectInput": {
     "type": "object",
     "properties": {
       "key": {
-        "$ref": "#/$defs/affiliationsorganizationsConnectForwardKeyInput"
+        "$ref": "#/$defs/affiliationsorganizationConnectForwardKeyInput"
       }
     },
     "required": [
       "key"
     ]
   },
-  "affiliationsorganizationsCreateArguments": {
+  "affiliationsorganizationCreateArguments": {
     "type": "object",
     "properties": {
       "data": {
-        "$ref": "#/$defs/affiliationsorganizationsCreateRelatedWithoutTypeInput"
+        "$ref": "#/$defs/affiliationsorganizationCreateRelatedWithoutTypeInput"
       }
     },
     "required": [
       "data"
     ]
   },
-  "affiliationsorganizationsCreateRelatedInput": {
+  "affiliationsorganizationCreateRelatedInput": {
     "type": "object",
     "properties": {
       "_connect": {
-        "$ref": "#/$defs/affiliationsorganizationsConnectInput"
+        "$ref": "#/$defs/affiliationsorganizationConnectInput"
       },
       "_create": {
-        "$ref": "#/$defs/affiliationsorganizationsCreateArguments"
+        "$ref": "#/$defs/affiliationsorganizationCreateArguments"
       }
     },
     "required": []
   },
-  "affiliationsorganizationsCreateRelatedWithoutTypeInput": {
+  "affiliationsorganizationCreateRelatedWithoutTypeInput": {
     "type": "object",
     "properties": {
       "activities": {
@@ -3662,14 +3662,14 @@ const definitions = {
       "name"
     ]
   },
-  "affiliationsorganizationsUpdateOneRelatedOperationsInput": {
+  "affiliationsorganizationUpdateOneRelatedOperationsInput": {
     "type": "object",
     "properties": {
       "_connect": {
-        "$ref": "#/$defs/affiliationsorganizationsConnectInput"
+        "$ref": "#/$defs/affiliationsorganizationConnectInput"
       },
       "_create": {
-        "$ref": "#/$defs/affiliationsorganizationsCreateArguments"
+        "$ref": "#/$defs/affiliationsorganizationCreateArguments"
       },
       "_update": {
         "$ref": "#/$defs/organizationsUpdateInput"
@@ -3680,15 +3680,15 @@ const definitions = {
   "affiliationsUpdateDataInput": {
     "type": "object",
     "properties": {
+      "contact": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/affiliationscontactUpdateOneRelatedOperationsInput"
+        }
+      },
       "contactId": {
         "type": "string",
         "format": "uuid"
-      },
-      "contacts": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/affiliationscontactsUpdateOneRelatedOperationsInput"
-        }
       },
       "createdAt": {
         "type": "string",
@@ -3729,15 +3729,15 @@ const definitions = {
       "isPrimary": {
         "type": "boolean"
       },
+      "organization": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/affiliationsorganizationUpdateOneRelatedOperationsInput"
+        }
+      },
       "organizationId": {
         "type": "string",
         "format": "uuid"
-      },
-      "organizations": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/affiliationsorganizationsUpdateOneRelatedOperationsInput"
-        }
       },
       "role": {
         "oneOf": [
@@ -4022,7 +4022,7 @@ const definitions = {
       "data"
     ]
   },
-  "attachmentsactivitiesConnectForwardKeyInput": {
+  "attachmentsactivityConnectForwardKeyInput": {
     "type": "object",
     "properties": {
       "id": {
@@ -4041,41 +4041,41 @@ const definitions = {
       "id"
     ]
   },
-  "attachmentsactivitiesConnectInput": {
+  "attachmentsactivityConnectInput": {
     "type": "object",
     "properties": {
       "key": {
-        "$ref": "#/$defs/attachmentsactivitiesConnectForwardKeyInput"
+        "$ref": "#/$defs/attachmentsactivityConnectForwardKeyInput"
       }
     },
     "required": [
       "key"
     ]
   },
-  "attachmentsactivitiesCreateArguments": {
+  "attachmentsactivityCreateArguments": {
     "type": "object",
     "properties": {
       "data": {
-        "$ref": "#/$defs/attachmentsactivitiesCreateRelatedWithoutTypeInput"
+        "$ref": "#/$defs/attachmentsactivityCreateRelatedWithoutTypeInput"
       }
     },
     "required": [
       "data"
     ]
   },
-  "attachmentsactivitiesCreateRelatedInput": {
+  "attachmentsactivityCreateRelatedInput": {
     "type": "object",
     "properties": {
       "_connect": {
-        "$ref": "#/$defs/attachmentsactivitiesConnectInput"
+        "$ref": "#/$defs/attachmentsactivityConnectInput"
       },
       "_create": {
-        "$ref": "#/$defs/attachmentsactivitiesCreateArguments"
+        "$ref": "#/$defs/attachmentsactivityCreateArguments"
       }
     },
     "required": []
   },
-  "attachmentsactivitiesCreateRelatedWithoutTypeInput": {
+  "attachmentsactivityCreateRelatedWithoutTypeInput": {
     "type": "object",
     "properties": {
       "body": {
@@ -4099,8 +4099,8 @@ const definitions = {
           }
         ]
       },
-      "contacts": {
-        "$ref": "#/$defs/activitiescontactsCreateRelatedInput"
+      "contact": {
+        "$ref": "#/$defs/activitiescontactCreateRelatedInput"
       },
       "createdAt": {
         "type": "string",
@@ -4109,8 +4109,8 @@ const definitions = {
       "createdBy": {
         "$ref": "#/$defs/activitiescreatedByCreateRelatedInput"
       },
-      "deals": {
-        "$ref": "#/$defs/activitiesdealsCreateRelatedInput"
+      "deal": {
+        "$ref": "#/$defs/activitiesdealCreateRelatedInput"
       },
       "direction": {
         "type": "string"
@@ -4134,8 +4134,8 @@ const definitions = {
         "type": "string",
         "format": "date-time"
       },
-      "organizations": {
-        "$ref": "#/$defs/activitiesorganizationsCreateRelatedInput"
+      "organization": {
+        "$ref": "#/$defs/activitiesorganizationCreateRelatedInput"
       },
       "owner": {
         "$ref": "#/$defs/activitiesownerCreateRelatedInput"
@@ -4158,20 +4158,20 @@ const definitions = {
       }
     },
     "required": [
-      "organizations",
+      "organization",
       "status",
       "subject",
       "type"
     ]
   },
-  "attachmentsactivitiesUpdateOneRelatedOperationsInput": {
+  "attachmentsactivityUpdateOneRelatedOperationsInput": {
     "type": "object",
     "properties": {
       "_connect": {
-        "$ref": "#/$defs/attachmentsactivitiesConnectInput"
+        "$ref": "#/$defs/attachmentsactivityConnectInput"
       },
       "_create": {
-        "$ref": "#/$defs/attachmentsactivitiesCreateArguments"
+        "$ref": "#/$defs/attachmentsactivityCreateArguments"
       },
       "_delete": {
         "$ref": "#/$defs/activitiesDeleteArguments"
@@ -4185,7 +4185,7 @@ const definitions = {
     },
     "required": []
   },
-  "attachmentscontactsConnectForwardKeyInput": {
+  "attachmentscontactConnectForwardKeyInput": {
     "type": "object",
     "properties": {
       "id": {
@@ -4204,41 +4204,41 @@ const definitions = {
       "id"
     ]
   },
-  "attachmentscontactsConnectInput": {
+  "attachmentscontactConnectInput": {
     "type": "object",
     "properties": {
       "key": {
-        "$ref": "#/$defs/attachmentscontactsConnectForwardKeyInput"
+        "$ref": "#/$defs/attachmentscontactConnectForwardKeyInput"
       }
     },
     "required": [
       "key"
     ]
   },
-  "attachmentscontactsCreateArguments": {
+  "attachmentscontactCreateArguments": {
     "type": "object",
     "properties": {
       "data": {
-        "$ref": "#/$defs/attachmentscontactsCreateRelatedWithoutTypeInput"
+        "$ref": "#/$defs/attachmentscontactCreateRelatedWithoutTypeInput"
       }
     },
     "required": [
       "data"
     ]
   },
-  "attachmentscontactsCreateRelatedInput": {
+  "attachmentscontactCreateRelatedInput": {
     "type": "object",
     "properties": {
       "_connect": {
-        "$ref": "#/$defs/attachmentscontactsConnectInput"
+        "$ref": "#/$defs/attachmentscontactConnectInput"
       },
       "_create": {
-        "$ref": "#/$defs/attachmentscontactsCreateArguments"
+        "$ref": "#/$defs/attachmentscontactCreateArguments"
       }
     },
     "required": []
   },
-  "attachmentscontactsCreateRelatedWithoutTypeInput": {
+  "attachmentscontactCreateRelatedWithoutTypeInput": {
     "type": "object",
     "properties": {
       "activities": {
@@ -4328,14 +4328,14 @@ const definitions = {
       "lastName"
     ]
   },
-  "attachmentscontactsUpdateOneRelatedOperationsInput": {
+  "attachmentscontactUpdateOneRelatedOperationsInput": {
     "type": "object",
     "properties": {
       "_connect": {
-        "$ref": "#/$defs/attachmentscontactsConnectInput"
+        "$ref": "#/$defs/attachmentscontactConnectInput"
       },
       "_create": {
-        "$ref": "#/$defs/attachmentscontactsCreateArguments"
+        "$ref": "#/$defs/attachmentscontactCreateArguments"
       },
       "_delete": {
         "$ref": "#/$defs/contactsDeleteArguments"
@@ -4566,8 +4566,8 @@ const definitions = {
   "attachmentsCreateInput": {
     "type": "object",
     "properties": {
-      "activities": {
-        "$ref": "#/$defs/attachmentsactivitiesCreateRelatedInput"
+      "activity": {
+        "$ref": "#/$defs/attachmentsactivityCreateRelatedInput"
       },
       "assetId": {
         "oneOf": [
@@ -4580,8 +4580,8 @@ const definitions = {
           }
         ]
       },
-      "contacts": {
-        "$ref": "#/$defs/attachmentscontactsCreateRelatedInput"
+      "contact": {
+        "$ref": "#/$defs/attachmentscontactCreateRelatedInput"
       },
       "contentType": {
         "oneOf": [
@@ -4600,8 +4600,8 @@ const definitions = {
       "createdBy": {
         "$ref": "#/$defs/attachmentscreatedByCreateRelatedInput"
       },
-      "deals": {
-        "$ref": "#/$defs/attachmentsdealsCreateRelatedInput"
+      "deal": {
+        "$ref": "#/$defs/attachmentsdealCreateRelatedInput"
       },
       "fileName": {
         "type": "string"
@@ -4610,8 +4610,8 @@ const definitions = {
         "type": "string",
         "format": "uuid"
       },
-      "organizations": {
-        "$ref": "#/$defs/attachmentsorganizationsCreateRelatedInput"
+      "organization": {
+        "$ref": "#/$defs/attachmentsorganizationCreateRelatedInput"
       },
       "sizeBytes": {
         "oneOf": [
@@ -4636,10 +4636,10 @@ const definitions = {
     },
     "required": [
       "fileName",
-      "organizations"
+      "organization"
     ]
   },
-  "attachmentsdealsConnectForwardKeyInput": {
+  "attachmentsdealConnectForwardKeyInput": {
     "type": "object",
     "properties": {
       "id": {
@@ -4658,41 +4658,41 @@ const definitions = {
       "id"
     ]
   },
-  "attachmentsdealsConnectInput": {
+  "attachmentsdealConnectInput": {
     "type": "object",
     "properties": {
       "key": {
-        "$ref": "#/$defs/attachmentsdealsConnectForwardKeyInput"
+        "$ref": "#/$defs/attachmentsdealConnectForwardKeyInput"
       }
     },
     "required": [
       "key"
     ]
   },
-  "attachmentsdealsCreateArguments": {
+  "attachmentsdealCreateArguments": {
     "type": "object",
     "properties": {
       "data": {
-        "$ref": "#/$defs/attachmentsdealsCreateRelatedWithoutTypeInput"
+        "$ref": "#/$defs/attachmentsdealCreateRelatedWithoutTypeInput"
       }
     },
     "required": [
       "data"
     ]
   },
-  "attachmentsdealsCreateRelatedInput": {
+  "attachmentsdealCreateRelatedInput": {
     "type": "object",
     "properties": {
       "_connect": {
-        "$ref": "#/$defs/attachmentsdealsConnectInput"
+        "$ref": "#/$defs/attachmentsdealConnectInput"
       },
       "_create": {
-        "$ref": "#/$defs/attachmentsdealsCreateArguments"
+        "$ref": "#/$defs/attachmentsdealCreateArguments"
       }
     },
     "required": []
   },
-  "attachmentsdealsCreateRelatedWithoutTypeInput": {
+  "attachmentsdealCreateRelatedWithoutTypeInput": {
     "type": "object",
     "properties": {
       "activities": {
@@ -4701,8 +4701,8 @@ const definitions = {
           "$ref": "#/$defs/dealsactivitiesCreateRelatedInput"
         }
       },
-      "contacts": {
-        "$ref": "#/$defs/dealscontactsCreateRelatedInput"
+      "contact": {
+        "$ref": "#/$defs/dealscontactCreateRelatedInput"
       },
       "createdAt": {
         "type": "string",
@@ -4739,14 +4739,14 @@ const definitions = {
           }
         ]
       },
-      "organizations": {
-        "$ref": "#/$defs/dealsorganizationsCreateRelatedInput"
+      "organization": {
+        "$ref": "#/$defs/dealsorganizationCreateRelatedInput"
       },
       "owner": {
         "$ref": "#/$defs/dealsownerCreateRelatedInput"
       },
-      "pipeline_stages": {
-        "$ref": "#/$defs/dealspipeline_stagesCreateRelatedInput"
+      "stage": {
+        "$ref": "#/$defs/dealsstageCreateRelatedInput"
       },
       "status": {
         "type": "string"
@@ -4775,19 +4775,19 @@ const definitions = {
       }
     },
     "required": [
-      "organizations",
-      "pipeline_stages",
+      "organization",
+      "stage",
       "title"
     ]
   },
-  "attachmentsdealsUpdateOneRelatedOperationsInput": {
+  "attachmentsdealUpdateOneRelatedOperationsInput": {
     "type": "object",
     "properties": {
       "_connect": {
-        "$ref": "#/$defs/attachmentsdealsConnectInput"
+        "$ref": "#/$defs/attachmentsdealConnectInput"
       },
       "_create": {
-        "$ref": "#/$defs/attachmentsdealsCreateArguments"
+        "$ref": "#/$defs/attachmentsdealCreateArguments"
       },
       "_delete": {
         "$ref": "#/$defs/dealsDeleteArguments"
@@ -4837,7 +4837,7 @@ const definitions = {
           "$ref": "#/$defs/attachmentsFilterInput"
         }
       },
-      "activities": {
+      "activity": {
         "$ref": "#/$defs/activitiesFilterInput"
       },
       "activityId": {
@@ -4876,6 +4876,9 @@ const definitions = {
           }
         ]
       },
+      "contact": {
+        "$ref": "#/$defs/contactsFilterInput"
+      },
       "contactId": {
         "oneOf": [
           {
@@ -4893,9 +4896,6 @@ const definitions = {
             ]
           }
         ]
-      },
-      "contacts": {
-        "$ref": "#/$defs/contactsFilterInput"
       },
       "contentType": {
         "oneOf": [
@@ -4944,6 +4944,9 @@ const definitions = {
           }
         ]
       },
+      "deal": {
+        "$ref": "#/$defs/dealsFilterInput"
+      },
       "dealId": {
         "oneOf": [
           {
@@ -4961,9 +4964,6 @@ const definitions = {
             ]
           }
         ]
-      },
-      "deals": {
-        "$ref": "#/$defs/dealsFilterInput"
       },
       "fileName": {
         "oneOf": [
@@ -4986,6 +4986,9 @@ const definitions = {
           }
         ]
       },
+      "organization": {
+        "$ref": "#/$defs/organizationsFilterInput"
+      },
       "organizationId": {
         "oneOf": [
           {
@@ -4996,9 +4999,6 @@ const definitions = {
             "format": "uuid"
           }
         ]
-      },
-      "organizations": {
-        "$ref": "#/$defs/organizationsFilterInput"
       },
       "sizeBytes": {
         "oneOf": [
@@ -5052,7 +5052,7 @@ const definitions = {
     },
     "required": []
   },
-  "attachmentsorganizationsConnectForwardKeyInput": {
+  "attachmentsorganizationConnectForwardKeyInput": {
     "type": "object",
     "properties": {
       "id": {
@@ -5064,41 +5064,41 @@ const definitions = {
       "id"
     ]
   },
-  "attachmentsorganizationsConnectInput": {
+  "attachmentsorganizationConnectInput": {
     "type": "object",
     "properties": {
       "key": {
-        "$ref": "#/$defs/attachmentsorganizationsConnectForwardKeyInput"
+        "$ref": "#/$defs/attachmentsorganizationConnectForwardKeyInput"
       }
     },
     "required": [
       "key"
     ]
   },
-  "attachmentsorganizationsCreateArguments": {
+  "attachmentsorganizationCreateArguments": {
     "type": "object",
     "properties": {
       "data": {
-        "$ref": "#/$defs/attachmentsorganizationsCreateRelatedWithoutTypeInput"
+        "$ref": "#/$defs/attachmentsorganizationCreateRelatedWithoutTypeInput"
       }
     },
     "required": [
       "data"
     ]
   },
-  "attachmentsorganizationsCreateRelatedInput": {
+  "attachmentsorganizationCreateRelatedInput": {
     "type": "object",
     "properties": {
       "_connect": {
-        "$ref": "#/$defs/attachmentsorganizationsConnectInput"
+        "$ref": "#/$defs/attachmentsorganizationConnectInput"
       },
       "_create": {
-        "$ref": "#/$defs/attachmentsorganizationsCreateArguments"
+        "$ref": "#/$defs/attachmentsorganizationCreateArguments"
       }
     },
     "required": []
   },
-  "attachmentsorganizationsCreateRelatedWithoutTypeInput": {
+  "attachmentsorganizationCreateRelatedWithoutTypeInput": {
     "type": "object",
     "properties": {
       "activities": {
@@ -5194,14 +5194,14 @@ const definitions = {
       "name"
     ]
   },
-  "attachmentsorganizationsUpdateOneRelatedOperationsInput": {
+  "attachmentsorganizationUpdateOneRelatedOperationsInput": {
     "type": "object",
     "properties": {
       "_connect": {
-        "$ref": "#/$defs/attachmentsorganizationsConnectInput"
+        "$ref": "#/$defs/attachmentsorganizationConnectInput"
       },
       "_create": {
-        "$ref": "#/$defs/attachmentsorganizationsCreateArguments"
+        "$ref": "#/$defs/attachmentsorganizationCreateArguments"
       },
       "_update": {
         "$ref": "#/$defs/organizationsUpdateInput"
@@ -5212,10 +5212,10 @@ const definitions = {
   "attachmentsUpdateDataInput": {
     "type": "object",
     "properties": {
-      "activities": {
+      "activity": {
         "type": "array",
         "items": {
-          "$ref": "#/$defs/attachmentsactivitiesUpdateOneRelatedOperationsInput"
+          "$ref": "#/$defs/attachmentsactivityUpdateOneRelatedOperationsInput"
         }
       },
       "activityId": {
@@ -5240,6 +5240,12 @@ const definitions = {
           }
         ]
       },
+      "contact": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/attachmentscontactUpdateOneRelatedOperationsInput"
+        }
+      },
       "contactId": {
         "oneOf": [
           {
@@ -5250,12 +5256,6 @@ const definitions = {
             "type": "null"
           }
         ]
-      },
-      "contacts": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/attachmentscontactsUpdateOneRelatedOperationsInput"
-        }
       },
       "contentType": {
         "oneOf": [
@@ -5288,6 +5288,12 @@ const definitions = {
           }
         ]
       },
+      "deal": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/attachmentsdealUpdateOneRelatedOperationsInput"
+        }
+      },
       "dealId": {
         "oneOf": [
           {
@@ -5299,12 +5305,6 @@ const definitions = {
           }
         ]
       },
-      "deals": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/attachmentsdealsUpdateOneRelatedOperationsInput"
-        }
-      },
       "fileName": {
         "type": "string"
       },
@@ -5312,15 +5312,15 @@ const definitions = {
         "type": "string",
         "format": "uuid"
       },
+      "organization": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/attachmentsorganizationUpdateOneRelatedOperationsInput"
+        }
+      },
       "organizationId": {
         "type": "string",
         "format": "uuid"
-      },
-      "organizations": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/attachmentsorganizationsUpdateOneRelatedOperationsInput"
-        }
       },
       "sizeBytes": {
         "oneOf": [
@@ -5458,8 +5458,8 @@ const definitions = {
       "createdBy": {
         "$ref": "#/$defs/activitiescreatedByCreateRelatedInput"
       },
-      "deals": {
-        "$ref": "#/$defs/activitiesdealsCreateRelatedInput"
+      "deal": {
+        "$ref": "#/$defs/activitiesdealCreateRelatedInput"
       },
       "direction": {
         "type": "string"
@@ -5483,8 +5483,8 @@ const definitions = {
         "type": "string",
         "format": "date-time"
       },
-      "organizations": {
-        "$ref": "#/$defs/activitiesorganizationsCreateRelatedInput"
+      "organization": {
+        "$ref": "#/$defs/activitiesorganizationCreateRelatedInput"
       },
       "owner": {
         "$ref": "#/$defs/activitiesownerCreateRelatedInput"
@@ -5507,7 +5507,7 @@ const definitions = {
       }
     },
     "required": [
-      "organizations",
+      "organization",
       "status",
       "subject",
       "type"
@@ -5612,8 +5612,8 @@ const definitions = {
       "isPrimary": {
         "type": "boolean"
       },
-      "organizations": {
-        "$ref": "#/$defs/affiliationsorganizationsCreateRelatedInput"
+      "organization": {
+        "$ref": "#/$defs/affiliationsorganizationCreateRelatedInput"
       },
       "role": {
         "oneOf": [
@@ -5655,7 +5655,7 @@ const definitions = {
       }
     },
     "required": [
-      "organizations"
+      "organization"
     ]
   },
   "contactsaffiliationsUpdateManyRelatedOperationsInput": {
@@ -5733,8 +5733,8 @@ const definitions = {
   "contactsattachmentsCreateRelatedWithoutTypeInput": {
     "type": "object",
     "properties": {
-      "activities": {
-        "$ref": "#/$defs/attachmentsactivitiesCreateRelatedInput"
+      "activity": {
+        "$ref": "#/$defs/attachmentsactivityCreateRelatedInput"
       },
       "assetId": {
         "oneOf": [
@@ -5764,8 +5764,8 @@ const definitions = {
       "createdBy": {
         "$ref": "#/$defs/attachmentscreatedByCreateRelatedInput"
       },
-      "deals": {
-        "$ref": "#/$defs/attachmentsdealsCreateRelatedInput"
+      "deal": {
+        "$ref": "#/$defs/attachmentsdealCreateRelatedInput"
       },
       "fileName": {
         "type": "string"
@@ -5774,8 +5774,8 @@ const definitions = {
         "type": "string",
         "format": "uuid"
       },
-      "organizations": {
-        "$ref": "#/$defs/attachmentsorganizationsCreateRelatedInput"
+      "organization": {
+        "$ref": "#/$defs/attachmentsorganizationCreateRelatedInput"
       },
       "sizeBytes": {
         "oneOf": [
@@ -5800,7 +5800,7 @@ const definitions = {
     },
     "required": [
       "fileName",
-      "organizations"
+      "organization"
     ]
   },
   "contactsattachmentsUpdateManyRelatedOperationsInput": {
@@ -6234,14 +6234,14 @@ const definitions = {
           }
         ]
       },
-      "organizations": {
-        "$ref": "#/$defs/dealsorganizationsCreateRelatedInput"
+      "organization": {
+        "$ref": "#/$defs/dealsorganizationCreateRelatedInput"
       },
       "owner": {
         "$ref": "#/$defs/dealsownerCreateRelatedInput"
       },
-      "pipeline_stages": {
-        "$ref": "#/$defs/dealspipeline_stagesCreateRelatedInput"
+      "stage": {
+        "$ref": "#/$defs/dealsstageCreateRelatedInput"
       },
       "status": {
         "type": "string"
@@ -6270,8 +6270,8 @@ const definitions = {
       }
     },
     "required": [
-      "organizations",
-      "pipeline_stages",
+      "organization",
+      "stage",
       "title"
     ]
   },
@@ -7613,8 +7613,8 @@ const definitions = {
           }
         ]
       },
-      "contacts": {
-        "$ref": "#/$defs/activitiescontactsCreateRelatedInput"
+      "contact": {
+        "$ref": "#/$defs/activitiescontactCreateRelatedInput"
       },
       "createdAt": {
         "type": "string",
@@ -7645,8 +7645,8 @@ const definitions = {
         "type": "string",
         "format": "date-time"
       },
-      "organizations": {
-        "$ref": "#/$defs/activitiesorganizationsCreateRelatedInput"
+      "organization": {
+        "$ref": "#/$defs/activitiesorganizationCreateRelatedInput"
       },
       "owner": {
         "$ref": "#/$defs/activitiesownerCreateRelatedInput"
@@ -7669,7 +7669,7 @@ const definitions = {
       }
     },
     "required": [
-      "organizations",
+      "organization",
       "status",
       "subject",
       "type"
@@ -7753,8 +7753,8 @@ const definitions = {
   "dealsattachmentsCreateRelatedWithoutTypeInput": {
     "type": "object",
     "properties": {
-      "activities": {
-        "$ref": "#/$defs/attachmentsactivitiesCreateRelatedInput"
+      "activity": {
+        "$ref": "#/$defs/attachmentsactivityCreateRelatedInput"
       },
       "assetId": {
         "oneOf": [
@@ -7767,8 +7767,8 @@ const definitions = {
           }
         ]
       },
-      "contacts": {
-        "$ref": "#/$defs/attachmentscontactsCreateRelatedInput"
+      "contact": {
+        "$ref": "#/$defs/attachmentscontactCreateRelatedInput"
       },
       "contentType": {
         "oneOf": [
@@ -7794,8 +7794,8 @@ const definitions = {
         "type": "string",
         "format": "uuid"
       },
-      "organizations": {
-        "$ref": "#/$defs/attachmentsorganizationsCreateRelatedInput"
+      "organization": {
+        "$ref": "#/$defs/attachmentsorganizationCreateRelatedInput"
       },
       "sizeBytes": {
         "oneOf": [
@@ -7820,7 +7820,7 @@ const definitions = {
     },
     "required": [
       "fileName",
-      "organizations"
+      "organization"
     ]
   },
   "dealsattachmentsUpdateManyRelatedOperationsInput": {
@@ -7844,7 +7844,7 @@ const definitions = {
     },
     "required": []
   },
-  "dealscontactsConnectForwardKeyInput": {
+  "dealscontactConnectForwardKeyInput": {
     "type": "object",
     "properties": {
       "id": {
@@ -7863,41 +7863,41 @@ const definitions = {
       "id"
     ]
   },
-  "dealscontactsConnectInput": {
+  "dealscontactConnectInput": {
     "type": "object",
     "properties": {
       "key": {
-        "$ref": "#/$defs/dealscontactsConnectForwardKeyInput"
+        "$ref": "#/$defs/dealscontactConnectForwardKeyInput"
       }
     },
     "required": [
       "key"
     ]
   },
-  "dealscontactsCreateArguments": {
+  "dealscontactCreateArguments": {
     "type": "object",
     "properties": {
       "data": {
-        "$ref": "#/$defs/dealscontactsCreateRelatedWithoutTypeInput"
+        "$ref": "#/$defs/dealscontactCreateRelatedWithoutTypeInput"
       }
     },
     "required": [
       "data"
     ]
   },
-  "dealscontactsCreateRelatedInput": {
+  "dealscontactCreateRelatedInput": {
     "type": "object",
     "properties": {
       "_connect": {
-        "$ref": "#/$defs/dealscontactsConnectInput"
+        "$ref": "#/$defs/dealscontactConnectInput"
       },
       "_create": {
-        "$ref": "#/$defs/dealscontactsCreateArguments"
+        "$ref": "#/$defs/dealscontactCreateArguments"
       }
     },
     "required": []
   },
-  "dealscontactsCreateRelatedWithoutTypeInput": {
+  "dealscontactCreateRelatedWithoutTypeInput": {
     "type": "object",
     "properties": {
       "activities": {
@@ -7987,14 +7987,14 @@ const definitions = {
       "lastName"
     ]
   },
-  "dealscontactsUpdateOneRelatedOperationsInput": {
+  "dealscontactUpdateOneRelatedOperationsInput": {
     "type": "object",
     "properties": {
       "_connect": {
-        "$ref": "#/$defs/dealscontactsConnectInput"
+        "$ref": "#/$defs/dealscontactConnectInput"
       },
       "_create": {
-        "$ref": "#/$defs/dealscontactsCreateArguments"
+        "$ref": "#/$defs/dealscontactCreateArguments"
       },
       "_delete": {
         "$ref": "#/$defs/contactsDeleteArguments"
@@ -8237,8 +8237,8 @@ const definitions = {
           "$ref": "#/$defs/dealsattachmentsCreateRelatedInput"
         }
       },
-      "contacts": {
-        "$ref": "#/$defs/dealscontactsCreateRelatedInput"
+      "contact": {
+        "$ref": "#/$defs/dealscontactCreateRelatedInput"
       },
       "createdAt": {
         "type": "string",
@@ -8275,14 +8275,14 @@ const definitions = {
           }
         ]
       },
-      "organizations": {
-        "$ref": "#/$defs/dealsorganizationsCreateRelatedInput"
+      "organization": {
+        "$ref": "#/$defs/dealsorganizationCreateRelatedInput"
       },
       "owner": {
         "$ref": "#/$defs/dealsownerCreateRelatedInput"
       },
-      "pipeline_stages": {
-        "$ref": "#/$defs/dealspipeline_stagesCreateRelatedInput"
+      "stage": {
+        "$ref": "#/$defs/dealsstageCreateRelatedInput"
       },
       "status": {
         "type": "string"
@@ -8311,8 +8311,8 @@ const definitions = {
       }
     },
     "required": [
-      "organizations",
-      "pipeline_stages",
+      "organization",
+      "stage",
       "title"
     ]
   },
@@ -8377,6 +8377,9 @@ const definitions = {
           }
         ]
       },
+      "contact": {
+        "$ref": "#/$defs/contactsFilterInput"
+      },
       "contactId": {
         "oneOf": [
           {
@@ -8394,9 +8397,6 @@ const definitions = {
             ]
           }
         ]
-      },
-      "contacts": {
-        "$ref": "#/$defs/contactsFilterInput"
       },
       "createdAt": {
         "oneOf": [
@@ -8484,6 +8484,9 @@ const definitions = {
           }
         ]
       },
+      "organization": {
+        "$ref": "#/$defs/organizationsFilterInput"
+      },
       "organizationId": {
         "oneOf": [
           {
@@ -8494,9 +8497,6 @@ const definitions = {
             "format": "uuid"
           }
         ]
-      },
-      "organizations": {
-        "$ref": "#/$defs/organizationsFilterInput"
       },
       "owner": {},
       "ownerUserId": {
@@ -8517,7 +8517,7 @@ const definitions = {
           }
         ]
       },
-      "pipeline_stages": {
+      "stage": {
         "$ref": "#/$defs/pipelineStagesFilterInput"
       },
       "stageId": {
@@ -8618,7 +8618,7 @@ const definitions = {
     },
     "required": []
   },
-  "dealsorganizationsConnectForwardKeyInput": {
+  "dealsorganizationConnectForwardKeyInput": {
     "type": "object",
     "properties": {
       "id": {
@@ -8630,41 +8630,41 @@ const definitions = {
       "id"
     ]
   },
-  "dealsorganizationsConnectInput": {
+  "dealsorganizationConnectInput": {
     "type": "object",
     "properties": {
       "key": {
-        "$ref": "#/$defs/dealsorganizationsConnectForwardKeyInput"
+        "$ref": "#/$defs/dealsorganizationConnectForwardKeyInput"
       }
     },
     "required": [
       "key"
     ]
   },
-  "dealsorganizationsCreateArguments": {
+  "dealsorganizationCreateArguments": {
     "type": "object",
     "properties": {
       "data": {
-        "$ref": "#/$defs/dealsorganizationsCreateRelatedWithoutTypeInput"
+        "$ref": "#/$defs/dealsorganizationCreateRelatedWithoutTypeInput"
       }
     },
     "required": [
       "data"
     ]
   },
-  "dealsorganizationsCreateRelatedInput": {
+  "dealsorganizationCreateRelatedInput": {
     "type": "object",
     "properties": {
       "_connect": {
-        "$ref": "#/$defs/dealsorganizationsConnectInput"
+        "$ref": "#/$defs/dealsorganizationConnectInput"
       },
       "_create": {
-        "$ref": "#/$defs/dealsorganizationsCreateArguments"
+        "$ref": "#/$defs/dealsorganizationCreateArguments"
       }
     },
     "required": []
   },
-  "dealsorganizationsCreateRelatedWithoutTypeInput": {
+  "dealsorganizationCreateRelatedWithoutTypeInput": {
     "type": "object",
     "properties": {
       "activities": {
@@ -8760,14 +8760,14 @@ const definitions = {
       "name"
     ]
   },
-  "dealsorganizationsUpdateOneRelatedOperationsInput": {
+  "dealsorganizationUpdateOneRelatedOperationsInput": {
     "type": "object",
     "properties": {
       "_connect": {
-        "$ref": "#/$defs/dealsorganizationsConnectInput"
+        "$ref": "#/$defs/dealsorganizationConnectInput"
       },
       "_create": {
-        "$ref": "#/$defs/dealsorganizationsCreateArguments"
+        "$ref": "#/$defs/dealsorganizationCreateArguments"
       },
       "_update": {
         "$ref": "#/$defs/organizationsUpdateInput"
@@ -8989,7 +8989,7 @@ const definitions = {
     },
     "required": []
   },
-  "dealspipeline_stagesConnectForwardKeyInput": {
+  "dealsstageConnectForwardKeyInput": {
     "type": "object",
     "properties": {
       "id": {
@@ -9001,41 +9001,41 @@ const definitions = {
       "id"
     ]
   },
-  "dealspipeline_stagesConnectInput": {
+  "dealsstageConnectInput": {
     "type": "object",
     "properties": {
       "key": {
-        "$ref": "#/$defs/dealspipeline_stagesConnectForwardKeyInput"
+        "$ref": "#/$defs/dealsstageConnectForwardKeyInput"
       }
     },
     "required": [
       "key"
     ]
   },
-  "dealspipeline_stagesCreateArguments": {
+  "dealsstageCreateArguments": {
     "type": "object",
     "properties": {
       "data": {
-        "$ref": "#/$defs/dealspipeline_stagesCreateRelatedWithoutTypeInput"
+        "$ref": "#/$defs/dealsstageCreateRelatedWithoutTypeInput"
       }
     },
     "required": [
       "data"
     ]
   },
-  "dealspipeline_stagesCreateRelatedInput": {
+  "dealsstageCreateRelatedInput": {
     "type": "object",
     "properties": {
       "_connect": {
-        "$ref": "#/$defs/dealspipeline_stagesConnectInput"
+        "$ref": "#/$defs/dealsstageConnectInput"
       },
       "_create": {
-        "$ref": "#/$defs/dealspipeline_stagesCreateArguments"
+        "$ref": "#/$defs/dealsstageCreateArguments"
       }
     },
     "required": []
   },
-  "dealspipeline_stagesCreateRelatedWithoutTypeInput": {
+  "dealsstageCreateRelatedWithoutTypeInput": {
     "type": "object",
     "properties": {
       "color": {
@@ -9070,14 +9070,14 @@ const definitions = {
       "position"
     ]
   },
-  "dealspipeline_stagesUpdateOneRelatedOperationsInput": {
+  "dealsstageUpdateOneRelatedOperationsInput": {
     "type": "object",
     "properties": {
       "_connect": {
-        "$ref": "#/$defs/dealspipeline_stagesConnectInput"
+        "$ref": "#/$defs/dealsstageConnectInput"
       },
       "_create": {
-        "$ref": "#/$defs/dealspipeline_stagesCreateArguments"
+        "$ref": "#/$defs/dealsstageCreateArguments"
       },
       "_update": {
         "$ref": "#/$defs/pipelineStagesUpdateInput"
@@ -9100,6 +9100,12 @@ const definitions = {
           "$ref": "#/$defs/dealsattachmentsUpdateManyRelatedOperationsInput"
         }
       },
+      "contact": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/dealscontactUpdateOneRelatedOperationsInput"
+        }
+      },
       "contactId": {
         "oneOf": [
           {
@@ -9110,12 +9116,6 @@ const definitions = {
             "type": "null"
           }
         ]
-      },
-      "contacts": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/dealscontactsUpdateOneRelatedOperationsInput"
-        }
       },
       "createdAt": {
         "type": "string",
@@ -9166,15 +9166,15 @@ const definitions = {
           }
         ]
       },
+      "organization": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/dealsorganizationUpdateOneRelatedOperationsInput"
+        }
+      },
       "organizationId": {
         "type": "string",
         "format": "uuid"
-      },
-      "organizations": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/dealsorganizationsUpdateOneRelatedOperationsInput"
-        }
       },
       "owner": {
         "type": "array",
@@ -9193,10 +9193,10 @@ const definitions = {
           }
         ]
       },
-      "pipeline_stages": {
+      "stage": {
         "type": "array",
         "items": {
-          "$ref": "#/$defs/dealspipeline_stagesUpdateOneRelatedOperationsInput"
+          "$ref": "#/$defs/dealsstageUpdateOneRelatedOperationsInput"
         }
       },
       "stageId": {
@@ -10338,8 +10338,8 @@ const definitions = {
           }
         ]
       },
-      "contacts": {
-        "$ref": "#/$defs/activitiescontactsCreateRelatedInput"
+      "contact": {
+        "$ref": "#/$defs/activitiescontactCreateRelatedInput"
       },
       "createdAt": {
         "type": "string",
@@ -10348,8 +10348,8 @@ const definitions = {
       "createdBy": {
         "$ref": "#/$defs/activitiescreatedByCreateRelatedInput"
       },
-      "deals": {
-        "$ref": "#/$defs/activitiesdealsCreateRelatedInput"
+      "deal": {
+        "$ref": "#/$defs/activitiesdealCreateRelatedInput"
       },
       "direction": {
         "type": "string"
@@ -10470,8 +10470,8 @@ const definitions = {
   "organizationsaffiliationsCreateRelatedWithoutTypeInput": {
     "type": "object",
     "properties": {
-      "contacts": {
-        "$ref": "#/$defs/affiliationscontactsCreateRelatedInput"
+      "contact": {
+        "$ref": "#/$defs/affiliationscontactCreateRelatedInput"
       },
       "createdAt": {
         "type": "string",
@@ -10538,7 +10538,7 @@ const definitions = {
       }
     },
     "required": [
-      "contacts"
+      "contact"
     ]
   },
   "organizationsaffiliationsUpdateManyRelatedOperationsInput": {
@@ -10616,8 +10616,8 @@ const definitions = {
   "organizationsattachmentsCreateRelatedWithoutTypeInput": {
     "type": "object",
     "properties": {
-      "activities": {
-        "$ref": "#/$defs/attachmentsactivitiesCreateRelatedInput"
+      "activity": {
+        "$ref": "#/$defs/attachmentsactivityCreateRelatedInput"
       },
       "assetId": {
         "oneOf": [
@@ -10630,8 +10630,8 @@ const definitions = {
           }
         ]
       },
-      "contacts": {
-        "$ref": "#/$defs/attachmentscontactsCreateRelatedInput"
+      "contact": {
+        "$ref": "#/$defs/attachmentscontactCreateRelatedInput"
       },
       "contentType": {
         "oneOf": [
@@ -10650,8 +10650,8 @@ const definitions = {
       "createdBy": {
         "$ref": "#/$defs/attachmentscreatedByCreateRelatedInput"
       },
-      "deals": {
-        "$ref": "#/$defs/attachmentsdealsCreateRelatedInput"
+      "deal": {
+        "$ref": "#/$defs/attachmentsdealCreateRelatedInput"
       },
       "fileName": {
         "type": "string"
@@ -11084,8 +11084,8 @@ const definitions = {
           "$ref": "#/$defs/dealsattachmentsCreateRelatedInput"
         }
       },
-      "contacts": {
-        "$ref": "#/$defs/dealscontactsCreateRelatedInput"
+      "contact": {
+        "$ref": "#/$defs/dealscontactCreateRelatedInput"
       },
       "createdAt": {
         "type": "string",
@@ -11125,8 +11125,8 @@ const definitions = {
       "owner": {
         "$ref": "#/$defs/dealsownerCreateRelatedInput"
       },
-      "pipeline_stages": {
-        "$ref": "#/$defs/dealspipeline_stagesCreateRelatedInput"
+      "stage": {
+        "$ref": "#/$defs/dealsstageCreateRelatedInput"
       },
       "status": {
         "type": "string"
@@ -11155,7 +11155,7 @@ const definitions = {
       }
     },
     "required": [
-      "pipeline_stages",
+      "stage",
       "title"
     ]
   },
@@ -12144,8 +12144,8 @@ const definitions = {
           "$ref": "#/$defs/dealsattachmentsCreateRelatedInput"
         }
       },
-      "contacts": {
-        "$ref": "#/$defs/dealscontactsCreateRelatedInput"
+      "contact": {
+        "$ref": "#/$defs/dealscontactCreateRelatedInput"
       },
       "createdAt": {
         "type": "string",
@@ -12182,8 +12182,8 @@ const definitions = {
           }
         ]
       },
-      "organizations": {
-        "$ref": "#/$defs/dealsorganizationsCreateRelatedInput"
+      "organization": {
+        "$ref": "#/$defs/dealsorganizationCreateRelatedInput"
       },
       "owner": {
         "$ref": "#/$defs/dealsownerCreateRelatedInput"
@@ -12215,7 +12215,7 @@ const definitions = {
       }
     },
     "required": [
-      "organizations",
+      "organization",
       "title"
     ]
   },

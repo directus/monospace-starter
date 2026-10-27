@@ -20,6 +20,7 @@ import { LoadMoreSentinel } from '@/components/data-table/load-more-sentinel'
 import { GridScrollArea } from '@/components/data-table/scroll-area'
 import { useIsMobile } from '@/hooks/use-mobile'
 import { appCopy } from '@/lib/app.copy'
+import { appStorageKey } from '@/lib/storage'
 import { cn } from '@/lib/utils'
 
 // List-page table: sortable, hideable, resizable,
@@ -139,7 +140,7 @@ export function useDataTable<TData extends object, TId extends string = string>(
   // Selection is dropped whenever this changes (the page's search, filters, sort).
   selectionKey?: string
 }) {
-  const storageKey = `table:${id}`
+  const storageKey = appStorageKey(`table:${id}`)
   const ids = useMemo(() => columns.map((column) => column.id), [columns])
 
   const [layout, setLayout] = useState<Layout>(() => {

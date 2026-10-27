@@ -32,7 +32,7 @@ export type StripeCustomer = NonNullable<Awaited<ReturnType<typeof fetchBilling>
 
 export function billingQuery(accountId: string | null | undefined) {
   return queryOptions({
-    queryKey: ['billing', accountId],
+    queryKey: ['stripeCustomers', 'billing', accountId],
     queryFn: () => fetchBilling(accountId ?? ''),
     enabled: Boolean(accountId),
   })

@@ -6,7 +6,7 @@ Portal is the optional read-only MySQL demo. It adds account, plan, seat, ticket
 
 1. Keep or copy the whole `connectors/portal` folder. Add `portal` to a module's connector declarations, or include it in `OPTIONAL_SOURCES` if you use an override.
 2. For the bundled demo, keep the local defaults. Its MySQL host port is 3307. For an existing server, set `CUSTOMER_MYSQL_HOST`, `CUSTOMER_MYSQL_INTERNAL_PORT`, and `PORTAL_READER_PASSWORD` in `.env`. Set `source.user` and `source.dbname` in `connector.json` to your read-only login and database.
-3. Adapt `monospace/schema/portal.json`, CRM's `connectors/portal/monospace/setup/portal-relations.mjs`, and the feature's queries if your tables differ.
+3. Adapt `monospace/schema/portal.json`, `connectors/portal/monospace/setup/portal-relations.mjs`, and the feature's queries if your tables differ.
 4. Run the [shared setup commands](../README.md#add-a-connector), then `pnpm verify` and browser tests for any UI changes.
 
 ## Remove Portal

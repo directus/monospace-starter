@@ -203,11 +203,9 @@ export function ActivityForm({
         } else {
           await create.mutateAsync({
             ...base,
-            organizations: { _connect: { key: { id: value.organization.value } } },
-            contacts: value.contact
-              ? { _connect: { key: { id: value.contact.value } } }
-              : undefined,
-            deals: value.deal ? { _connect: { key: { id: value.deal.value } } } : undefined,
+            organization: { _connect: { key: { id: value.organization.value } } },
+            contact: value.contact ? { _connect: { key: { id: value.contact.value } } } : undefined,
+            deal: value.deal ? { _connect: { key: { id: value.deal.value } } } : undefined,
             owner: value.owner ? { _connect: { key: { id: value.owner.value } } } : undefined,
           })
         }

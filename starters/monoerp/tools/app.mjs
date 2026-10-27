@@ -65,7 +65,10 @@ function validateManifests(root = repository) {
       }
     }
 
-    const references = [manifestPath(manifest)]
+    const references = [
+      ...(manifest.kind === 'addon' && manifest.lint ? [manifest.lint] : []),
+      manifestPath(manifest),
+    ]
 
     if (manifest.kind === 'module' || manifest.kind === 'connector') {
       const scripts = [...manifest.setup.beforeSchema, ...manifest.setup.afterSchema].map(

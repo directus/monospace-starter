@@ -1,6 +1,5 @@
-import { MonospaceNotFoundError } from '@monospace/sdk'
 import { noop, useQueries, useSuspenseQuery } from '@tanstack/react-query'
-import { createFileRoute, notFound, useNavigate } from '@tanstack/react-router'
+import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import { ArrowUpRight, ExternalLink, Link2, Paperclip, Plus, UserPlus } from 'lucide-react'
 import { useState } from 'react'
 
@@ -100,17 +99,13 @@ function OrganizationDetailPage() {
     email?: string | null
   }>()
 
-  if (detail.isError && detail.error instanceof MonospaceNotFoundError) {
-    throw notFound()
-  }
-
   const organization = detail.data
   const extraEntries = history.flatMap((query) => query.data ?? [])
   const affiliations = organization.affiliations?.data ?? []
 
   const groups = groupAffiliations(
     affiliations.filter(isCurrentAffiliation),
-    (row) => row.contacts?.id,
+    (row) => row.contact?.id,
   )
 
   const deals = organization.deals?.data ?? []
@@ -126,7 +121,7 @@ function OrganizationDetailPage() {
   const toInitial = (row: (typeof affiliations)[number]): AffiliationInitial => ({
     id: row.id,
     organization: organizationOption,
-    contact: toContactOption(row.contacts),
+    contact: toContactOption(row.contact),
     title: row.title,
     startedAt: row.startedAt,
     endedAt: row.endedAt,
@@ -143,7 +138,6 @@ function OrganizationDetailPage() {
               label={crmCopy.organizations.form.name}
               value={organization.name}
               validate={requiredText(crmCopy.organizations.form.name)}
-
               onSave={(value) => save({ name: value ?? organizationName })}
             />
           </InlineReadOnly>
@@ -316,7 +310,7 @@ function OrganizationDetailPage() {
               ) : null
             }
             label={(group) => {
-              const contact = group.roles[0]?.contacts
+              const contact = group.roles[0]?.contact
 
               return (
                 <ContactLabel

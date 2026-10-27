@@ -87,7 +87,7 @@ export const Route = createFileRoute('/_app/crm/contacts')({
 })
 
 function groupsFor(contact: ContactRow) {
-  return groupAffiliations(contact.affiliations?.data ?? [], (row) => row.organizations?.id).filter(
+  return groupAffiliations(contact.affiliations?.data ?? [], (row) => row.organization?.id).filter(
     (group) => !group.isFormer,
   )
 }
@@ -102,7 +102,7 @@ function OrganizationsCell({ contact }: { contact: ContactRow }) {
 
   return (
     <div className="flex min-w-0 items-center gap-2">
-      <OrganizationLabel organization={first.current?.organizations} size="sm" />
+      <OrganizationLabel organization={first.current?.organization} size="sm" />
       {rest.length ? (
         <Popover>
           <PopoverTrigger
@@ -122,7 +122,7 @@ function OrganizationsCell({ contact }: { contact: ContactRow }) {
             {rest.map((group) => (
               <OrganizationLabel
                 key={group.key}
-                organization={group.current?.organizations}
+                organization={group.current?.organization}
                 size="sm"
               />
             ))}
@@ -184,7 +184,7 @@ function ContactRowMobile({ contact }: { contact: ContactRow }) {
 
   const meta = [
     groups.map(groupTitle).find(Boolean),
-    groups[0] ? organizationName(groups[0].current?.organizations) : null,
+    groups[0] ? organizationName(groups[0].current?.organization) : null,
   ]
     .filter(Boolean)
     .join(' · ')

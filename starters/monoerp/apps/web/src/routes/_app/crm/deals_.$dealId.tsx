@@ -1,6 +1,5 @@
-import { MonospaceNotFoundError } from '@monospace/sdk'
 import { noop, useQuery, useSuspenseQuery } from '@tanstack/react-query'
-import { createFileRoute, notFound, useNavigate } from '@tanstack/react-router'
+import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import { Paperclip } from 'lucide-react'
 import { useState } from 'react'
 
@@ -67,7 +66,7 @@ export const Route = createFileRoute('/_app/crm/deals_/$dealId')({
     ])
 
     for (const summary of dealSummaries)
-      summary.prefetch?.(queryClient, { organization: deal.organizations })
+      summary.prefetch?.(queryClient, { organization: deal.organization })
     void queryClient.query(attachmentsQuery({ dealId })).catch(noop)
   },
   component: DealDetailPage,
@@ -89,20 +88,16 @@ function DealDetailPage() {
   const [pendingStageId, setPendingStageId] = useState<Uuid>()
   const [closingStage, setClosingStage] = useState<PipelineStage>()
 
-  if (dealQuery.isError && dealQuery.error instanceof MonospaceNotFoundError) {
-    throw notFound()
-  }
-
   const deal = dealQuery.data
   const title = deal.title ?? crmCopy.deals.restricted
-  const organization = toOrganizationOption(deal.organizations)
+  const organization = toOrganizationOption(deal.organization)
 
   // Every file belongs to an organization, so without a readable one there's nowhere to attach.
   const attachTarget = deal.organizationId
     ? { organizationId: deal.organizationId, contactId: deal.contactId, dealId: dealId }
     : undefined
 
-  const contact = toContactOption(deal.contacts)
+  const contact = toContactOption(deal.contact)
   const dealOption = { value: dealId, label: title }
   const activities = deal.activities?.data ?? []
 
@@ -195,7 +190,7 @@ function DealDetailPage() {
                   clearable={false}
                   render={() => (
                     <OrganizationLabel
-                      organization={deal.organizations}
+                      organization={deal.organization}
                       size="sm"
                       className="[&_a]:contents"
                     />
@@ -210,7 +205,7 @@ function DealDetailPage() {
               {dealSummaries.map(({ id, title, component: Summary }) => (
                 <Property key={id} label={title}>
                   <SectionBoundary resetKey={dealId}>
-                    <Summary organization={deal.organizations} />
+                    <Summary organization={deal.organization} />
                   </SectionBoundary>
                 </Property>
               ))}
@@ -220,7 +215,7 @@ function DealDetailPage() {
                   value={contact}
                   search={(query) => lookupContacts(query, organization?.value)}
                   emptyLabel={appCopy.inline.assign}
-                  render={() => <ContactLabel contact={deal.contacts} size="sm" />}
+                  render={() => <ContactLabel contact={deal.contact} size="sm" />}
                   onSave={(option) => save({ contactId: option?.value ?? null })}
                 />
               </Property>

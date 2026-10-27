@@ -14,6 +14,7 @@ import { buttonVariants } from '@/components/ui/button'
 import { appCopy } from '@/lib/app.copy'
 import { earlySessionScript } from '@/lib/auth'
 import { reportUnexpectedError } from '@/lib/errors'
+import { appStorageKey } from '@/lib/storage'
 
 import appCss from '../styles.css?url'
 
@@ -82,8 +83,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <HeadContent />
         <script
           dangerouslySetInnerHTML={{
-            __html:
-              "document.documentElement.classList.toggle('dark', localStorage.getItem('crm-theme') === 'dark' || (!localStorage.getItem('crm-theme') && matchMedia('(prefers-color-scheme: dark)').matches))",
+            __html: `document.documentElement.classList.toggle('dark', localStorage.getItem(${JSON.stringify(appStorageKey('theme'))}) === 'dark' || (!localStorage.getItem(${JSON.stringify(appStorageKey('theme'))}) && matchMedia('(prefers-color-scheme: dark)').matches))`,
           }}
         />
       </head>

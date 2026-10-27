@@ -133,7 +133,7 @@ function OrganizationForm({
                   _create: {
                     data: [
                       {
-                        contacts: { _connect: { key: { id: defaultContact.value } } },
+                        contact: { _connect: { key: { id: defaultContact.value } } },
                         isPrimary: false,
                       },
                     ],
@@ -149,7 +149,7 @@ function OrganizationForm({
               _create: {
                 data: [
                   {
-                    contacts: {
+                    contact: {
                       _create: {
                         data: {
                           firstName: contact.firstName.trim(),

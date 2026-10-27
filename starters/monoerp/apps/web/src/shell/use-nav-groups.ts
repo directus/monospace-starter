@@ -1,7 +1,9 @@
 import { useState } from 'react'
 import { z } from 'zod'
 
-const STORAGE_KEY = 'crm-sidebar-closed-groups'
+import { appStorageKey } from '@/lib/storage'
+
+const STORAGE_KEY = appStorageKey('sidebar-closed-groups')
 
 const closedGroups = z.array(z.string())
 

@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 
 import { affiliationSpan, groupAffiliations, groupTitle } from './affiliations'
 
-const org = (id: string) => ({ organizations: { id } })
+const org = (id: string) => ({ organization: { id } })
 
 describe('groupAffiliations', () => {
   it('collapses repeat roles at one organization and leads with the open one', () => {
@@ -25,7 +25,7 @@ describe('groupAffiliations', () => {
           ...org('globex'),
         },
       ],
-      (row) => row.organizations.id,
+      (row) => row.organization.id,
     )
 
     expect(groups.map((group) => group.key)).toEqual(['globex', 'acme'])
@@ -42,7 +42,7 @@ describe('groupAffiliations', () => {
         { id: 'a', title: 'Old', startedAt: '2018-01-01', endedAt: '2020-01-01', ...org('acme') },
         { id: 'b', title: 'Now', startedAt: '2023-01-01', endedAt: null, ...org('globex') },
       ],
-      (row) => row.organizations.id,
+      (row) => row.organization.id,
     )
 
     expect(groups.map((group) => [group.key, group.isFormer])).toEqual([

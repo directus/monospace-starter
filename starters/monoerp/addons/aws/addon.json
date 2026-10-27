@@ -21,5 +21,6 @@
       "section": "patchedDependencies",
       "names": ["alchemy@2.0.0-beta.79"]
     }
-  ]
+  ],
+  "lint": "infra/aws/lint/config.ts"
 }

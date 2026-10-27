@@ -1,5 +1,4 @@
 {
-  "source": "Portal",
   "collections": {
     "accounts": {
       "meta": {
@@ -109,7 +108,6 @@
       },
       "optionalRelations": {
         "organization": {
-          "source": "App",
           "collection": "organizations",
           "owner": "crm"
         },
@@ -689,7 +687,6 @@
       },
       "optionalRelations": {
         "contacts": {
-          "source": "App",
           "collection": "contacts",
           "owner": "crm"
         }

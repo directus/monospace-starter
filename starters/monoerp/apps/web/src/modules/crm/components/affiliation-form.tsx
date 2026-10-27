@@ -115,8 +115,8 @@ function AffiliationForm({
         } else {
           await create.mutateAsync({
             ...base,
-            contacts: { _connect: { key: { id: contactId } } },
-            organizations: { _connect: { key: { id: organizationId } } },
+            contact: { _connect: { key: { id: contactId } } },
+            organization: { _connect: { key: { id: organizationId } } },
           })
         }
 

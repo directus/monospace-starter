@@ -5544,14 +5544,14 @@ export type MonospaceSystemUseractivitiesCreatedByCreateRelatedWithoutTypeInput 
 	attachments?: readonly activitiesattachmentsCreateRelatedInput[];
 	body?: string | null;
 	completedAt?: string | null;
-	contacts?: activitiescontactsCreateRelatedInput;
+	contact?: activitiescontactCreateRelatedInput;
 	createdAt?: string;
-	deals?: activitiesdealsCreateRelatedInput;
+	deal?: activitiesdealCreateRelatedInput;
 	direction?: string;
 	dueAt?: string | null;
 	id?: Uuid;
 	occurredAt?: string;
-	organizations: activitiesorganizationsCreateRelatedInput;
+	organization: activitiesorganizationCreateRelatedInput;
 	owner?: activitiesownerCreateRelatedInput;
 	status: string;
 	subject: string;
@@ -5596,15 +5596,15 @@ export type MonospaceSystemUseractivitiesOwnerCreateRelatedWithoutTypeInput = {
 	attachments?: readonly activitiesattachmentsCreateRelatedInput[];
 	body?: string | null;
 	completedAt?: string | null;
-	contacts?: activitiescontactsCreateRelatedInput;
+	contact?: activitiescontactCreateRelatedInput;
 	createdAt?: string;
 	createdBy?: activitiescreatedByCreateRelatedInput;
-	deals?: activitiesdealsCreateRelatedInput;
+	deal?: activitiesdealCreateRelatedInput;
 	direction?: string;
 	dueAt?: string | null;
 	id?: Uuid;
 	occurredAt?: string;
-	organizations: activitiesorganizationsCreateRelatedInput;
+	organization: activitiesorganizationCreateRelatedInput;
 	status: string;
 	subject: string;
 	type: string;
@@ -5648,15 +5648,15 @@ export type MonospaceSystemUseractivitiesUpdatedByCreateRelatedWithoutTypeInput 
 	attachments?: readonly activitiesattachmentsCreateRelatedInput[];
 	body?: string | null;
 	completedAt?: string | null;
-	contacts?: activitiescontactsCreateRelatedInput;
+	contact?: activitiescontactCreateRelatedInput;
 	createdAt?: string;
 	createdBy?: activitiescreatedByCreateRelatedInput;
-	deals?: activitiesdealsCreateRelatedInput;
+	deal?: activitiesdealCreateRelatedInput;
 	direction?: string;
 	dueAt?: string | null;
 	id?: Uuid;
 	occurredAt?: string;
-	organizations: activitiesorganizationsCreateRelatedInput;
+	organization: activitiesorganizationCreateRelatedInput;
 	owner?: activitiesownerCreateRelatedInput;
 	status: string;
 	subject: string;
@@ -5697,12 +5697,12 @@ export type MonospaceSystemUseraffiliationsCreatedByCreateRelatedInput = {
 }
 
 export type MonospaceSystemUseraffiliationsCreatedByCreateRelatedWithoutTypeInput = {
-	contacts: affiliationscontactsCreateRelatedInput;
+	contact: affiliationscontactCreateRelatedInput;
 	createdAt?: string;
 	endedAt?: string | null;
 	id?: Uuid;
 	isPrimary?: boolean;
-	organizations: affiliationsorganizationsCreateRelatedInput;
+	organization: affiliationsorganizationCreateRelatedInput;
 	role?: string | null;
 	startedAt?: string | null;
 	title?: string | null;
@@ -5743,13 +5743,13 @@ export type MonospaceSystemUseraffiliationsUpdatedByCreateRelatedInput = {
 }
 
 export type MonospaceSystemUseraffiliationsUpdatedByCreateRelatedWithoutTypeInput = {
-	contacts: affiliationscontactsCreateRelatedInput;
+	contact: affiliationscontactCreateRelatedInput;
 	createdAt?: string;
 	createdBy?: affiliationscreatedByCreateRelatedInput;
 	endedAt?: string | null;
 	id?: Uuid;
 	isPrimary?: boolean;
-	organizations: affiliationsorganizationsCreateRelatedInput;
+	organization: affiliationsorganizationCreateRelatedInput;
 	role?: string | null;
 	startedAt?: string | null;
 	title?: string | null;
@@ -5790,15 +5790,15 @@ export type MonospaceSystemUserattachmentsCreatedByCreateRelatedInput = {
 }
 
 export type MonospaceSystemUserattachmentsCreatedByCreateRelatedWithoutTypeInput = {
-	activities?: attachmentsactivitiesCreateRelatedInput;
+	activity?: attachmentsactivityCreateRelatedInput;
 	assetId?: Uuid | null;
-	contacts?: attachmentscontactsCreateRelatedInput;
+	contact?: attachmentscontactCreateRelatedInput;
 	contentType?: string | null;
 	createdAt?: string;
-	deals?: attachmentsdealsCreateRelatedInput;
+	deal?: attachmentsdealCreateRelatedInput;
 	fileName: string;
 	id?: Uuid;
-	organizations: attachmentsorganizationsCreateRelatedInput;
+	organization: attachmentsorganizationCreateRelatedInput;
 	sizeBytes?: Int64Input | null;
 	url?: string | null;
 }
@@ -5991,15 +5991,15 @@ export type MonospaceSystemUserdealsCreatedByCreateRelatedInput = {
 export type MonospaceSystemUserdealsCreatedByCreateRelatedWithoutTypeInput = {
 	activities?: readonly dealsactivitiesCreateRelatedInput[];
 	attachments?: readonly dealsattachmentsCreateRelatedInput[];
-	contacts?: dealscontactsCreateRelatedInput;
+	contact?: dealscontactCreateRelatedInput;
 	createdAt?: string;
 	currency?: string;
 	expectedCloseDate?: string | null;
 	id?: Uuid;
 	notes?: string | null;
-	organizations: dealsorganizationsCreateRelatedInput;
+	organization: dealsorganizationCreateRelatedInput;
 	owner?: dealsownerCreateRelatedInput;
-	pipeline_stages: dealspipeline_stagesCreateRelatedInput;
+	stage: dealsstageCreateRelatedInput;
 	status?: string;
 	title: string;
 	updatedAt?: string;
@@ -6042,15 +6042,15 @@ export type MonospaceSystemUserdealsOwnerCreateRelatedInput = {
 export type MonospaceSystemUserdealsOwnerCreateRelatedWithoutTypeInput = {
 	activities?: readonly dealsactivitiesCreateRelatedInput[];
 	attachments?: readonly dealsattachmentsCreateRelatedInput[];
-	contacts?: dealscontactsCreateRelatedInput;
+	contact?: dealscontactCreateRelatedInput;
 	createdAt?: string;
 	createdBy?: dealscreatedByCreateRelatedInput;
 	currency?: string;
 	expectedCloseDate?: string | null;
 	id?: Uuid;
 	notes?: string | null;
-	organizations: dealsorganizationsCreateRelatedInput;
-	pipeline_stages: dealspipeline_stagesCreateRelatedInput;
+	organization: dealsorganizationCreateRelatedInput;
+	stage: dealsstageCreateRelatedInput;
 	status?: string;
 	title: string;
 	updatedAt?: string;
@@ -6093,16 +6093,16 @@ export type MonospaceSystemUserdealsUpdatedByCreateRelatedInput = {
 export type MonospaceSystemUserdealsUpdatedByCreateRelatedWithoutTypeInput = {
 	activities?: readonly dealsactivitiesCreateRelatedInput[];
 	attachments?: readonly dealsattachmentsCreateRelatedInput[];
-	contacts?: dealscontactsCreateRelatedInput;
+	contact?: dealscontactCreateRelatedInput;
 	createdAt?: string;
 	createdBy?: dealscreatedByCreateRelatedInput;
 	currency?: string;
 	expectedCloseDate?: string | null;
 	id?: Uuid;
 	notes?: string | null;
-	organizations: dealsorganizationsCreateRelatedInput;
+	organization: dealsorganizationCreateRelatedInput;
 	owner?: dealsownerCreateRelatedInput;
-	pipeline_stages: dealspipeline_stagesCreateRelatedInput;
+	stage: dealsstageCreateRelatedInput;
 	status?: string;
 	title: string;
 	updatedAt?: string;
@@ -6942,19 +6942,19 @@ export type activitiesCollectionOutput = {
 	attachments?: { data: attachmentsCollectionOutput[] };
 	body?: string | null;
 	completedAt?: string | null;
+	contact?: contactsCollectionOutput | null;
 	contactId?: Uuid | null;
-	contacts?: contactsCollectionOutput | null;
 	createdAt?: string;
 	createdBy?: MonospaceSystemUserCollectionOutput | null;
 	createdById?: Uuid | null;
+	deal?: dealsCollectionOutput | null;
 	dealId?: Uuid | null;
-	deals?: dealsCollectionOutput | null;
 	direction?: string;
 	dueAt?: string | null;
 	id?: Uuid;
 	occurredAt?: string;
+	organization?: organizationsCollectionOutput;
 	organizationId?: Uuid;
-	organizations?: organizationsCollectionOutput;
 	owner?: MonospaceSystemUserCollectionOutput | null;
 	ownerUserId?: Uuid | null;
 	status?: string;
@@ -6969,13 +6969,13 @@ export type activitiesCollectionOutputFieldsInput = readonly ("body" | "complete
 
 export type activitiesCollectionOutputIncludeInput = {
 	"attachments"?: (activitiesattachmentsRelationFieldArguments & { "fields"?: attachmentsCollectionOutputFieldsInput; "include"?: attachmentsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (activitiesattachmentsRelationFieldArguments & { "fields"?: attachmentsCollectionOutputFieldsInput; "include"?: attachmentsCollectionOutputIncludeInput })>]?: never };
-	"contacts"?: (activitiescontactsRelationFieldArguments & { "fields"?: contactsCollectionOutputFieldsInput; "include"?: contactsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (activitiescontactsRelationFieldArguments & { "fields"?: contactsCollectionOutputFieldsInput; "include"?: contactsCollectionOutputIncludeInput })>]?: never };
+	"contact"?: (activitiescontactRelationFieldArguments & { "fields"?: contactsCollectionOutputFieldsInput; "include"?: contactsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (activitiescontactRelationFieldArguments & { "fields"?: contactsCollectionOutputFieldsInput; "include"?: contactsCollectionOutputIncludeInput })>]?: never };
 	"createdBy"?: (activitiescreatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (activitiescreatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput })>]?: never };
-	"deals"?: (activitiesdealsRelationFieldArguments & { "fields"?: dealsCollectionOutputFieldsInput; "include"?: dealsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (activitiesdealsRelationFieldArguments & { "fields"?: dealsCollectionOutputFieldsInput; "include"?: dealsCollectionOutputIncludeInput })>]?: never };
-	"organizations"?: ({ "fields"?: organizationsCollectionOutputFieldsInput; "include"?: organizationsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof ({ "fields"?: organizationsCollectionOutputFieldsInput; "include"?: organizationsCollectionOutputIncludeInput })>]?: never };
+	"deal"?: (activitiesdealRelationFieldArguments & { "fields"?: dealsCollectionOutputFieldsInput; "include"?: dealsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (activitiesdealRelationFieldArguments & { "fields"?: dealsCollectionOutputFieldsInput; "include"?: dealsCollectionOutputIncludeInput })>]?: never };
+	"organization"?: ({ "fields"?: organizationsCollectionOutputFieldsInput; "include"?: organizationsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof ({ "fields"?: organizationsCollectionOutputFieldsInput; "include"?: organizationsCollectionOutputIncludeInput })>]?: never };
 	"owner"?: (activitiesownerRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (activitiesownerRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput })>]?: never };
 	"updatedBy"?: (activitiesupdatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (activitiesupdatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput })>]?: never };
-} & { [K in `${string}:${"attachments"}`]?: activitiesCollectionOutputIncludeInput["attachments"] } & { [K in `${string}:${"contacts"}`]?: activitiesCollectionOutputIncludeInput["contacts"] } & { [K in `${string}:${"createdBy"}`]?: activitiesCollectionOutputIncludeInput["createdBy"] } & { [K in `${string}:${"deals"}`]?: activitiesCollectionOutputIncludeInput["deals"] } & { [K in `${string}:${"organizations"}`]?: activitiesCollectionOutputIncludeInput["organizations"] } & { [K in `${string}:${"owner"}`]?: activitiesCollectionOutputIncludeInput["owner"] } & { [K in `${string}:${"updatedBy"}`]?: activitiesCollectionOutputIncludeInput["updatedBy"] };
+} & { [K in `${string}:${"attachments"}`]?: activitiesCollectionOutputIncludeInput["attachments"] } & { [K in `${string}:${"contact"}`]?: activitiesCollectionOutputIncludeInput["contact"] } & { [K in `${string}:${"createdBy"}`]?: activitiesCollectionOutputIncludeInput["createdBy"] } & { [K in `${string}:${"deal"}`]?: activitiesCollectionOutputIncludeInput["deal"] } & { [K in `${string}:${"organization"}`]?: activitiesCollectionOutputIncludeInput["organization"] } & { [K in `${string}:${"owner"}`]?: activitiesCollectionOutputIncludeInput["owner"] } & { [K in `${string}:${"updatedBy"}`]?: activitiesCollectionOutputIncludeInput["updatedBy"] };
 
 export type activitiesCreateArguments = {
 	data: readonly activitiesCreateInput[];
@@ -6985,15 +6985,15 @@ export type activitiesCreateInput = {
 	attachments?: readonly activitiesattachmentsCreateRelatedInput[];
 	body?: string | null;
 	completedAt?: string | null;
-	contacts?: activitiescontactsCreateRelatedInput;
+	contact?: activitiescontactCreateRelatedInput;
 	createdAt?: string;
 	createdBy?: activitiescreatedByCreateRelatedInput;
-	deals?: activitiesdealsCreateRelatedInput;
+	deal?: activitiesdealCreateRelatedInput;
 	direction?: string;
 	dueAt?: string | null;
 	id?: Uuid;
 	occurredAt?: string;
-	organizations: activitiesorganizationsCreateRelatedInput;
+	organization: activitiesorganizationCreateRelatedInput;
 	owner?: activitiesownerCreateRelatedInput;
 	status: string;
 	subject: string;
@@ -7024,19 +7024,19 @@ export type activitiesFilterInput = {
 	attachments?: attachmentsFilterQuantifierInput | attachmentsFilterInput;
 	body?: StringFilterNullablePrimitiveInput | string | null;
 	completedAt?: DateTimeFilterNullablePrimitiveInput | string | null;
+	contact?: contactsFilterInput;
 	contactId?: UuidFilterNullablePrimitiveInput | Uuid | null;
-	contacts?: contactsFilterInput;
 	createdAt?: DateTimeFilterPrimitiveInput | string;
 	createdBy?: MonospaceSystemUserFilterInput;
 	createdById?: UuidFilterNullablePrimitiveInput | Uuid | null;
+	deal?: dealsFilterInput;
 	dealId?: UuidFilterNullablePrimitiveInput | Uuid | null;
-	deals?: dealsFilterInput;
 	direction?: StringFilterPrimitiveInput | string;
 	dueAt?: DateTimeFilterNullablePrimitiveInput | string | null;
 	id?: UuidFilterPrimitiveInput | Uuid;
 	occurredAt?: DateTimeFilterPrimitiveInput | string;
+	organization?: organizationsFilterInput;
 	organizationId?: UuidFilterPrimitiveInput | Uuid;
-	organizations?: organizationsFilterInput;
 	owner?: MonospaceSystemUserFilterInput;
 	ownerUserId?: UuidFilterNullablePrimitiveInput | Uuid | null;
 	status?: StringFilterPrimitiveInput | string;
@@ -7095,19 +7095,19 @@ export type activitiesUpdateDataInput = {
 	attachments?: readonly activitiesattachmentsUpdateManyRelatedOperationsInput[];
 	body?: string | null;
 	completedAt?: string | null;
+	contact?: readonly activitiescontactUpdateOneRelatedOperationsInput[];
 	contactId?: Uuid | null;
-	contacts?: readonly activitiescontactsUpdateOneRelatedOperationsInput[];
 	createdAt?: string;
 	createdBy?: readonly activitiescreatedByUpdateOneRelatedOperationsInput[];
 	createdById?: Uuid | null;
+	deal?: readonly activitiesdealUpdateOneRelatedOperationsInput[];
 	dealId?: Uuid | null;
-	deals?: readonly activitiesdealsUpdateOneRelatedOperationsInput[];
 	direction?: string;
 	dueAt?: string | null;
 	id?: Uuid;
 	occurredAt?: string;
+	organization?: readonly activitiesorganizationUpdateOneRelatedOperationsInput[];
 	organizationId?: Uuid;
-	organizations?: readonly activitiesorganizationsUpdateOneRelatedOperationsInput[];
 	owner?: readonly activitiesownerUpdateOneRelatedOperationsInput[];
 	ownerUserId?: Uuid | null;
 	status?: string;
@@ -7149,14 +7149,14 @@ export type activitiesattachmentsCreateRelatedInput = {
 
 export type activitiesattachmentsCreateRelatedWithoutTypeInput = {
 	assetId?: Uuid | null;
-	contacts?: attachmentscontactsCreateRelatedInput;
+	contact?: attachmentscontactCreateRelatedInput;
 	contentType?: string | null;
 	createdAt?: string;
 	createdBy?: attachmentscreatedByCreateRelatedInput;
-	deals?: attachmentsdealsCreateRelatedInput;
+	deal?: attachmentsdealCreateRelatedInput;
 	fileName: string;
 	id?: Uuid;
-	organizations: attachmentsorganizationsCreateRelatedInput;
+	organization: attachmentsorganizationCreateRelatedInput;
 	sizeBytes?: Int64Input | null;
 	url?: string | null;
 }
@@ -7176,24 +7176,24 @@ export type activitiesattachmentsUpdateManyRelatedOperationsInput = {
 	_update?: attachmentsUpdateInput;
 }
 
-export type activitiescontactsConnectForwardKeyInput = {
+export type activitiescontactConnectForwardKeyInput = {
 	id: Uuid | null;
 }
 
-export type activitiescontactsConnectInput = {
-	key: activitiescontactsConnectForwardKeyInput;
+export type activitiescontactConnectInput = {
+	key: activitiescontactConnectForwardKeyInput;
 }
 
-export type activitiescontactsCreateArguments = {
-	data: activitiescontactsCreateRelatedWithoutTypeInput;
+export type activitiescontactCreateArguments = {
+	data: activitiescontactCreateRelatedWithoutTypeInput;
 }
 
-export type activitiescontactsCreateRelatedInput = {
-	_connect?: activitiescontactsConnectInput;
-	_create?: activitiescontactsCreateArguments;
+export type activitiescontactCreateRelatedInput = {
+	_connect?: activitiescontactConnectInput;
+	_create?: activitiescontactCreateArguments;
 }
 
-export type activitiescontactsCreateRelatedWithoutTypeInput = {
+export type activitiescontactCreateRelatedWithoutTypeInput = {
 	affiliations?: readonly contactsaffiliationsCreateRelatedInput[];
 	attachments?: readonly contactsattachmentsCreateRelatedInput[];
 	createdAt?: string;
@@ -7212,13 +7212,13 @@ export type activitiescontactsCreateRelatedWithoutTypeInput = {
 	updatedBy?: contactsupdatedByCreateRelatedInput;
 }
 
-export type activitiescontactsRelationFieldArguments = {
+export type activitiescontactRelationFieldArguments = {
 	filter?: contactsFilterInput;
 }
 
-export type activitiescontactsUpdateOneRelatedOperationsInput = {
-	_connect?: activitiescontactsConnectInput;
-	_create?: activitiescontactsCreateArguments;
+export type activitiescontactUpdateOneRelatedOperationsInput = {
+	_connect?: activitiescontactConnectInput;
+	_create?: activitiescontactCreateArguments;
 	_delete?: contactsDeleteArguments;
 	_disconnect?: contactsDisconnectOneInput;
 	_update?: contactsUpdateInput;
@@ -7281,35 +7281,35 @@ export type activitiescreatedByUpdateOneRelatedOperationsInput = {
 	_update?: MonospaceSystemUserUpdateInput;
 }
 
-export type activitiesdealsConnectForwardKeyInput = {
+export type activitiesdealConnectForwardKeyInput = {
 	id: Uuid | null;
 }
 
-export type activitiesdealsConnectInput = {
-	key: activitiesdealsConnectForwardKeyInput;
+export type activitiesdealConnectInput = {
+	key: activitiesdealConnectForwardKeyInput;
 }
 
-export type activitiesdealsCreateArguments = {
-	data: activitiesdealsCreateRelatedWithoutTypeInput;
+export type activitiesdealCreateArguments = {
+	data: activitiesdealCreateRelatedWithoutTypeInput;
 }
 
-export type activitiesdealsCreateRelatedInput = {
-	_connect?: activitiesdealsConnectInput;
-	_create?: activitiesdealsCreateArguments;
+export type activitiesdealCreateRelatedInput = {
+	_connect?: activitiesdealConnectInput;
+	_create?: activitiesdealCreateArguments;
 }
 
-export type activitiesdealsCreateRelatedWithoutTypeInput = {
+export type activitiesdealCreateRelatedWithoutTypeInput = {
 	attachments?: readonly dealsattachmentsCreateRelatedInput[];
-	contacts?: dealscontactsCreateRelatedInput;
+	contact?: dealscontactCreateRelatedInput;
 	createdAt?: string;
 	createdBy?: dealscreatedByCreateRelatedInput;
 	currency?: string;
 	expectedCloseDate?: string | null;
 	id?: Uuid;
 	notes?: string | null;
-	organizations: dealsorganizationsCreateRelatedInput;
+	organization: dealsorganizationCreateRelatedInput;
 	owner?: dealsownerCreateRelatedInput;
-	pipeline_stages: dealspipeline_stagesCreateRelatedInput;
+	stage: dealsstageCreateRelatedInput;
 	status?: string;
 	title: string;
 	updatedAt?: string;
@@ -7317,36 +7317,36 @@ export type activitiesdealsCreateRelatedWithoutTypeInput = {
 	valueAmount?: string | null;
 }
 
-export type activitiesdealsRelationFieldArguments = {
+export type activitiesdealRelationFieldArguments = {
 	filter?: dealsFilterInput;
 }
 
-export type activitiesdealsUpdateOneRelatedOperationsInput = {
-	_connect?: activitiesdealsConnectInput;
-	_create?: activitiesdealsCreateArguments;
+export type activitiesdealUpdateOneRelatedOperationsInput = {
+	_connect?: activitiesdealConnectInput;
+	_create?: activitiesdealCreateArguments;
 	_delete?: dealsDeleteArguments;
 	_disconnect?: dealsDisconnectOneInput;
 	_update?: dealsUpdateInput;
 }
 
-export type activitiesorganizationsConnectForwardKeyInput = {
+export type activitiesorganizationConnectForwardKeyInput = {
 	id: Uuid;
 }
 
-export type activitiesorganizationsConnectInput = {
-	key: activitiesorganizationsConnectForwardKeyInput;
+export type activitiesorganizationConnectInput = {
+	key: activitiesorganizationConnectForwardKeyInput;
 }
 
-export type activitiesorganizationsCreateArguments = {
-	data: activitiesorganizationsCreateRelatedWithoutTypeInput;
+export type activitiesorganizationCreateArguments = {
+	data: activitiesorganizationCreateRelatedWithoutTypeInput;
 }
 
-export type activitiesorganizationsCreateRelatedInput = {
-	_connect?: activitiesorganizationsConnectInput;
-	_create?: activitiesorganizationsCreateArguments;
+export type activitiesorganizationCreateRelatedInput = {
+	_connect?: activitiesorganizationConnectInput;
+	_create?: activitiesorganizationCreateArguments;
 }
 
-export type activitiesorganizationsCreateRelatedWithoutTypeInput = {
+export type activitiesorganizationCreateRelatedWithoutTypeInput = {
 	affiliations?: readonly organizationsaffiliationsCreateRelatedInput[];
 	attachments?: readonly organizationsattachmentsCreateRelatedInput[];
 	createdAt?: string;
@@ -7365,9 +7365,9 @@ export type activitiesorganizationsCreateRelatedWithoutTypeInput = {
 	updatedBy?: organizationsupdatedByCreateRelatedInput;
 }
 
-export type activitiesorganizationsUpdateOneRelatedOperationsInput = {
-	_connect?: activitiesorganizationsConnectInput;
-	_create?: activitiesorganizationsCreateArguments;
+export type activitiesorganizationUpdateOneRelatedOperationsInput = {
+	_connect?: activitiesorganizationConnectInput;
+	_create?: activitiesorganizationCreateArguments;
 	_update?: organizationsUpdateInput;
 }
 
@@ -7486,16 +7486,16 @@ export type activitiesupdatedByUpdateOneRelatedOperationsInput = {
 }
 
 export type affiliationsCollectionOutput = {
+	contact?: contactsCollectionOutput;
 	contactId?: Uuid;
-	contacts?: contactsCollectionOutput;
 	createdAt?: string;
 	createdBy?: MonospaceSystemUserCollectionOutput | null;
 	createdById?: Uuid | null;
 	endedAt?: string | null;
 	id?: Uuid;
 	isPrimary?: boolean;
+	organization?: organizationsCollectionOutput;
 	organizationId?: Uuid;
-	organizations?: organizationsCollectionOutput;
 	role?: string | null;
 	startedAt?: string | null;
 	title?: string | null;
@@ -7507,24 +7507,24 @@ export type affiliationsCollectionOutput = {
 export type affiliationsCollectionOutputFieldsInput = readonly ("contactId" | "createdAt" | "createdById" | "endedAt" | "id" | "isPrimary" | "organizationId" | "role" | "startedAt" | "title" | "updatedAt" | "updatedById" | "*" | `${string}:${"contactId" | "createdAt" | "createdById" | "endedAt" | "id" | "isPrimary" | "organizationId" | "role" | "startedAt" | "title" | "updatedAt" | "updatedById"}`)[];
 
 export type affiliationsCollectionOutputIncludeInput = {
-	"contacts"?: ({ "fields"?: contactsCollectionOutputFieldsInput; "include"?: contactsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof ({ "fields"?: contactsCollectionOutputFieldsInput; "include"?: contactsCollectionOutputIncludeInput })>]?: never };
+	"contact"?: ({ "fields"?: contactsCollectionOutputFieldsInput; "include"?: contactsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof ({ "fields"?: contactsCollectionOutputFieldsInput; "include"?: contactsCollectionOutputIncludeInput })>]?: never };
 	"createdBy"?: (affiliationscreatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (affiliationscreatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput })>]?: never };
-	"organizations"?: ({ "fields"?: organizationsCollectionOutputFieldsInput; "include"?: organizationsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof ({ "fields"?: organizationsCollectionOutputFieldsInput; "include"?: organizationsCollectionOutputIncludeInput })>]?: never };
+	"organization"?: ({ "fields"?: organizationsCollectionOutputFieldsInput; "include"?: organizationsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof ({ "fields"?: organizationsCollectionOutputFieldsInput; "include"?: organizationsCollectionOutputIncludeInput })>]?: never };
 	"updatedBy"?: (affiliationsupdatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (affiliationsupdatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput })>]?: never };
-} & { [K in `${string}:${"contacts"}`]?: affiliationsCollectionOutputIncludeInput["contacts"] } & { [K in `${string}:${"createdBy"}`]?: affiliationsCollectionOutputIncludeInput["createdBy"] } & { [K in `${string}:${"organizations"}`]?: affiliationsCollectionOutputIncludeInput["organizations"] } & { [K in `${string}:${"updatedBy"}`]?: affiliationsCollectionOutputIncludeInput["updatedBy"] };
+} & { [K in `${string}:${"contact"}`]?: affiliationsCollectionOutputIncludeInput["contact"] } & { [K in `${string}:${"createdBy"}`]?: affiliationsCollectionOutputIncludeInput["createdBy"] } & { [K in `${string}:${"organization"}`]?: affiliationsCollectionOutputIncludeInput["organization"] } & { [K in `${string}:${"updatedBy"}`]?: affiliationsCollectionOutputIncludeInput["updatedBy"] };
 
 export type affiliationsCreateArguments = {
 	data: readonly affiliationsCreateInput[];
 }
 
 export type affiliationsCreateInput = {
-	contacts: affiliationscontactsCreateRelatedInput;
+	contact: affiliationscontactCreateRelatedInput;
 	createdAt?: string;
 	createdBy?: affiliationscreatedByCreateRelatedInput;
 	endedAt?: string | null;
 	id?: Uuid;
 	isPrimary?: boolean;
-	organizations: affiliationsorganizationsCreateRelatedInput;
+	organization: affiliationsorganizationCreateRelatedInput;
 	role?: string | null;
 	startedAt?: string | null;
 	title?: string | null;
@@ -7549,16 +7549,16 @@ export type affiliationsFilterInput = {
 	_and?: readonly affiliationsFilterInput[];
 	_not?: affiliationsFilterInput;
 	_or?: readonly affiliationsFilterInput[];
+	contact?: contactsFilterInput;
 	contactId?: UuidFilterPrimitiveInput | Uuid;
-	contacts?: contactsFilterInput;
 	createdAt?: DateTimeFilterPrimitiveInput | string;
 	createdBy?: MonospaceSystemUserFilterInput;
 	createdById?: UuidFilterNullablePrimitiveInput | Uuid | null;
 	endedAt?: DateFilterNullablePrimitiveInput | string | null;
 	id?: UuidFilterPrimitiveInput | Uuid;
 	isPrimary?: BooleanFilterPrimitiveInput | boolean;
+	organization?: organizationsFilterInput;
 	organizationId?: UuidFilterPrimitiveInput | Uuid;
-	organizations?: organizationsFilterInput;
 	role?: StringFilterNullablePrimitiveInput | string | null;
 	startedAt?: DateFilterNullablePrimitiveInput | string | null;
 	title?: StringFilterNullablePrimitiveInput | string | null;
@@ -7607,16 +7607,16 @@ export type affiliationsUpdateArguments = {
 }
 
 export type affiliationsUpdateDataInput = {
+	contact?: readonly affiliationscontactUpdateOneRelatedOperationsInput[];
 	contactId?: Uuid;
-	contacts?: readonly affiliationscontactsUpdateOneRelatedOperationsInput[];
 	createdAt?: string;
 	createdBy?: readonly affiliationscreatedByUpdateOneRelatedOperationsInput[];
 	createdById?: Uuid | null;
 	endedAt?: string | null;
 	id?: Uuid;
 	isPrimary?: boolean;
+	organization?: readonly affiliationsorganizationUpdateOneRelatedOperationsInput[];
 	organizationId?: Uuid;
-	organizations?: readonly affiliationsorganizationsUpdateOneRelatedOperationsInput[];
 	role?: string | null;
 	startedAt?: string | null;
 	title?: string | null;
@@ -7636,24 +7636,24 @@ export type affiliationsUpdateOneArguments = {
 	key: Uuid;
 }
 
-export type affiliationscontactsConnectForwardKeyInput = {
+export type affiliationscontactConnectForwardKeyInput = {
 	id: Uuid;
 }
 
-export type affiliationscontactsConnectInput = {
-	key: affiliationscontactsConnectForwardKeyInput;
+export type affiliationscontactConnectInput = {
+	key: affiliationscontactConnectForwardKeyInput;
 }
 
-export type affiliationscontactsCreateArguments = {
-	data: affiliationscontactsCreateRelatedWithoutTypeInput;
+export type affiliationscontactCreateArguments = {
+	data: affiliationscontactCreateRelatedWithoutTypeInput;
 }
 
-export type affiliationscontactsCreateRelatedInput = {
-	_connect?: affiliationscontactsConnectInput;
-	_create?: affiliationscontactsCreateArguments;
+export type affiliationscontactCreateRelatedInput = {
+	_connect?: affiliationscontactConnectInput;
+	_create?: affiliationscontactCreateArguments;
 }
 
-export type affiliationscontactsCreateRelatedWithoutTypeInput = {
+export type affiliationscontactCreateRelatedWithoutTypeInput = {
 	activities?: readonly contactsactivitiesCreateRelatedInput[];
 	attachments?: readonly contactsattachmentsCreateRelatedInput[];
 	createdAt?: string;
@@ -7672,9 +7672,9 @@ export type affiliationscontactsCreateRelatedWithoutTypeInput = {
 	updatedBy?: contactsupdatedByCreateRelatedInput;
 }
 
-export type affiliationscontactsUpdateOneRelatedOperationsInput = {
-	_connect?: affiliationscontactsConnectInput;
-	_create?: affiliationscontactsCreateArguments;
+export type affiliationscontactUpdateOneRelatedOperationsInput = {
+	_connect?: affiliationscontactConnectInput;
+	_create?: affiliationscontactCreateArguments;
 	_update?: contactsUpdateInput;
 }
 
@@ -7735,24 +7735,24 @@ export type affiliationscreatedByUpdateOneRelatedOperationsInput = {
 	_update?: MonospaceSystemUserUpdateInput;
 }
 
-export type affiliationsorganizationsConnectForwardKeyInput = {
+export type affiliationsorganizationConnectForwardKeyInput = {
 	id: Uuid;
 }
 
-export type affiliationsorganizationsConnectInput = {
-	key: affiliationsorganizationsConnectForwardKeyInput;
+export type affiliationsorganizationConnectInput = {
+	key: affiliationsorganizationConnectForwardKeyInput;
 }
 
-export type affiliationsorganizationsCreateArguments = {
-	data: affiliationsorganizationsCreateRelatedWithoutTypeInput;
+export type affiliationsorganizationCreateArguments = {
+	data: affiliationsorganizationCreateRelatedWithoutTypeInput;
 }
 
-export type affiliationsorganizationsCreateRelatedInput = {
-	_connect?: affiliationsorganizationsConnectInput;
-	_create?: affiliationsorganizationsCreateArguments;
+export type affiliationsorganizationCreateRelatedInput = {
+	_connect?: affiliationsorganizationConnectInput;
+	_create?: affiliationsorganizationCreateArguments;
 }
 
-export type affiliationsorganizationsCreateRelatedWithoutTypeInput = {
+export type affiliationsorganizationCreateRelatedWithoutTypeInput = {
 	activities?: readonly organizationsactivitiesCreateRelatedInput[];
 	attachments?: readonly organizationsattachmentsCreateRelatedInput[];
 	createdAt?: string;
@@ -7771,9 +7771,9 @@ export type affiliationsorganizationsCreateRelatedWithoutTypeInput = {
 	updatedBy?: organizationsupdatedByCreateRelatedInput;
 }
 
-export type affiliationsorganizationsUpdateOneRelatedOperationsInput = {
-	_connect?: affiliationsorganizationsConnectInput;
-	_create?: affiliationsorganizationsCreateArguments;
+export type affiliationsorganizationUpdateOneRelatedOperationsInput = {
+	_connect?: affiliationsorganizationConnectInput;
+	_create?: affiliationsorganizationCreateArguments;
 	_update?: organizationsUpdateInput;
 }
 
@@ -7835,21 +7835,21 @@ export type affiliationsupdatedByUpdateOneRelatedOperationsInput = {
 }
 
 export type attachmentsCollectionOutput = {
-	activities?: activitiesCollectionOutput | null;
+	activity?: activitiesCollectionOutput | null;
 	activityId?: Uuid | null;
 	assetId?: Uuid | null;
+	contact?: contactsCollectionOutput | null;
 	contactId?: Uuid | null;
-	contacts?: contactsCollectionOutput | null;
 	contentType?: string | null;
 	createdAt?: string;
 	createdBy?: MonospaceSystemUserCollectionOutput | null;
 	createdById?: Uuid | null;
+	deal?: dealsCollectionOutput | null;
 	dealId?: Uuid | null;
-	deals?: dealsCollectionOutput | null;
 	fileName?: string;
 	id?: Uuid;
+	organization?: organizationsCollectionOutput;
 	organizationId?: Uuid;
-	organizations?: organizationsCollectionOutput;
 	sizeBytes?: Int64 | null;
 	url?: string | null;
 }
@@ -7857,28 +7857,28 @@ export type attachmentsCollectionOutput = {
 export type attachmentsCollectionOutputFieldsInput = readonly ("activityId" | "assetId" | "contactId" | "contentType" | "createdAt" | "createdById" | "dealId" | "fileName" | "id" | "organizationId" | "sizeBytes" | "url" | "*" | `${string}:${"activityId" | "assetId" | "contactId" | "contentType" | "createdAt" | "createdById" | "dealId" | "fileName" | "id" | "organizationId" | "sizeBytes" | "url"}`)[];
 
 export type attachmentsCollectionOutputIncludeInput = {
-	"activities"?: (attachmentsactivitiesRelationFieldArguments & { "fields"?: activitiesCollectionOutputFieldsInput; "include"?: activitiesCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (attachmentsactivitiesRelationFieldArguments & { "fields"?: activitiesCollectionOutputFieldsInput; "include"?: activitiesCollectionOutputIncludeInput })>]?: never };
-	"contacts"?: (attachmentscontactsRelationFieldArguments & { "fields"?: contactsCollectionOutputFieldsInput; "include"?: contactsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (attachmentscontactsRelationFieldArguments & { "fields"?: contactsCollectionOutputFieldsInput; "include"?: contactsCollectionOutputIncludeInput })>]?: never };
+	"activity"?: (attachmentsactivityRelationFieldArguments & { "fields"?: activitiesCollectionOutputFieldsInput; "include"?: activitiesCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (attachmentsactivityRelationFieldArguments & { "fields"?: activitiesCollectionOutputFieldsInput; "include"?: activitiesCollectionOutputIncludeInput })>]?: never };
+	"contact"?: (attachmentscontactRelationFieldArguments & { "fields"?: contactsCollectionOutputFieldsInput; "include"?: contactsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (attachmentscontactRelationFieldArguments & { "fields"?: contactsCollectionOutputFieldsInput; "include"?: contactsCollectionOutputIncludeInput })>]?: never };
 	"createdBy"?: (attachmentscreatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (attachmentscreatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput })>]?: never };
-	"deals"?: (attachmentsdealsRelationFieldArguments & { "fields"?: dealsCollectionOutputFieldsInput; "include"?: dealsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (attachmentsdealsRelationFieldArguments & { "fields"?: dealsCollectionOutputFieldsInput; "include"?: dealsCollectionOutputIncludeInput })>]?: never };
-	"organizations"?: ({ "fields"?: organizationsCollectionOutputFieldsInput; "include"?: organizationsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof ({ "fields"?: organizationsCollectionOutputFieldsInput; "include"?: organizationsCollectionOutputIncludeInput })>]?: never };
-} & { [K in `${string}:${"activities"}`]?: attachmentsCollectionOutputIncludeInput["activities"] } & { [K in `${string}:${"contacts"}`]?: attachmentsCollectionOutputIncludeInput["contacts"] } & { [K in `${string}:${"createdBy"}`]?: attachmentsCollectionOutputIncludeInput["createdBy"] } & { [K in `${string}:${"deals"}`]?: attachmentsCollectionOutputIncludeInput["deals"] } & { [K in `${string}:${"organizations"}`]?: attachmentsCollectionOutputIncludeInput["organizations"] };
+	"deal"?: (attachmentsdealRelationFieldArguments & { "fields"?: dealsCollectionOutputFieldsInput; "include"?: dealsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (attachmentsdealRelationFieldArguments & { "fields"?: dealsCollectionOutputFieldsInput; "include"?: dealsCollectionOutputIncludeInput })>]?: never };
+	"organization"?: ({ "fields"?: organizationsCollectionOutputFieldsInput; "include"?: organizationsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof ({ "fields"?: organizationsCollectionOutputFieldsInput; "include"?: organizationsCollectionOutputIncludeInput })>]?: never };
+} & { [K in `${string}:${"activity"}`]?: attachmentsCollectionOutputIncludeInput["activity"] } & { [K in `${string}:${"contact"}`]?: attachmentsCollectionOutputIncludeInput["contact"] } & { [K in `${string}:${"createdBy"}`]?: attachmentsCollectionOutputIncludeInput["createdBy"] } & { [K in `${string}:${"deal"}`]?: attachmentsCollectionOutputIncludeInput["deal"] } & { [K in `${string}:${"organization"}`]?: attachmentsCollectionOutputIncludeInput["organization"] };
 
 export type attachmentsCreateArguments = {
 	data: readonly attachmentsCreateInput[];
 }
 
 export type attachmentsCreateInput = {
-	activities?: attachmentsactivitiesCreateRelatedInput;
+	activity?: attachmentsactivityCreateRelatedInput;
 	assetId?: Uuid | null;
-	contacts?: attachmentscontactsCreateRelatedInput;
+	contact?: attachmentscontactCreateRelatedInput;
 	contentType?: string | null;
 	createdAt?: string;
 	createdBy?: attachmentscreatedByCreateRelatedInput;
-	deals?: attachmentsdealsCreateRelatedInput;
+	deal?: attachmentsdealCreateRelatedInput;
 	fileName: string;
 	id?: Uuid;
-	organizations: attachmentsorganizationsCreateRelatedInput;
+	organization: attachmentsorganizationCreateRelatedInput;
 	sizeBytes?: Int64Input | null;
 	url?: string | null;
 }
@@ -7900,21 +7900,21 @@ export type attachmentsFilterInput = {
 	_and?: readonly attachmentsFilterInput[];
 	_not?: attachmentsFilterInput;
 	_or?: readonly attachmentsFilterInput[];
-	activities?: activitiesFilterInput;
+	activity?: activitiesFilterInput;
 	activityId?: UuidFilterNullablePrimitiveInput | Uuid | null;
 	assetId?: UuidFilterNullablePrimitiveInput | Uuid | null;
+	contact?: contactsFilterInput;
 	contactId?: UuidFilterNullablePrimitiveInput | Uuid | null;
-	contacts?: contactsFilterInput;
 	contentType?: StringFilterNullablePrimitiveInput | string | null;
 	createdAt?: DateTimeFilterPrimitiveInput | string;
 	createdBy?: MonospaceSystemUserFilterInput;
 	createdById?: UuidFilterNullablePrimitiveInput | Uuid | null;
+	deal?: dealsFilterInput;
 	dealId?: UuidFilterNullablePrimitiveInput | Uuid | null;
-	deals?: dealsFilterInput;
 	fileName?: StringFilterPrimitiveInput | string;
 	id?: UuidFilterPrimitiveInput | Uuid;
+	organization?: organizationsFilterInput;
 	organizationId?: UuidFilterPrimitiveInput | Uuid;
-	organizations?: organizationsFilterInput;
 	sizeBytes?: Int64FilterNullablePrimitiveInput | Int64Input | null;
 	url?: StringFilterNullablePrimitiveInput | string | null;
 }
@@ -7959,21 +7959,21 @@ export type attachmentsUpdateArguments = {
 }
 
 export type attachmentsUpdateDataInput = {
-	activities?: readonly attachmentsactivitiesUpdateOneRelatedOperationsInput[];
+	activity?: readonly attachmentsactivityUpdateOneRelatedOperationsInput[];
 	activityId?: Uuid | null;
 	assetId?: Uuid | null;
+	contact?: readonly attachmentscontactUpdateOneRelatedOperationsInput[];
 	contactId?: Uuid | null;
-	contacts?: readonly attachmentscontactsUpdateOneRelatedOperationsInput[];
 	contentType?: string | null;
 	createdAt?: string;
 	createdBy?: readonly attachmentscreatedByUpdateOneRelatedOperationsInput[];
 	createdById?: Uuid | null;
+	deal?: readonly attachmentsdealUpdateOneRelatedOperationsInput[];
 	dealId?: Uuid | null;
-	deals?: readonly attachmentsdealsUpdateOneRelatedOperationsInput[];
 	fileName?: string;
 	id?: Uuid;
+	organization?: readonly attachmentsorganizationUpdateOneRelatedOperationsInput[];
 	organizationId?: Uuid;
-	organizations?: readonly attachmentsorganizationsUpdateOneRelatedOperationsInput[];
 	sizeBytes?: Int64Input | null;
 	url?: string | null;
 }
@@ -7989,35 +7989,35 @@ export type attachmentsUpdateOneArguments = {
 	key: Uuid;
 }
 
-export type attachmentsactivitiesConnectForwardKeyInput = {
+export type attachmentsactivityConnectForwardKeyInput = {
 	id: Uuid | null;
 }
 
-export type attachmentsactivitiesConnectInput = {
-	key: attachmentsactivitiesConnectForwardKeyInput;
+export type attachmentsactivityConnectInput = {
+	key: attachmentsactivityConnectForwardKeyInput;
 }
 
-export type attachmentsactivitiesCreateArguments = {
-	data: attachmentsactivitiesCreateRelatedWithoutTypeInput;
+export type attachmentsactivityCreateArguments = {
+	data: attachmentsactivityCreateRelatedWithoutTypeInput;
 }
 
-export type attachmentsactivitiesCreateRelatedInput = {
-	_connect?: attachmentsactivitiesConnectInput;
-	_create?: attachmentsactivitiesCreateArguments;
+export type attachmentsactivityCreateRelatedInput = {
+	_connect?: attachmentsactivityConnectInput;
+	_create?: attachmentsactivityCreateArguments;
 }
 
-export type attachmentsactivitiesCreateRelatedWithoutTypeInput = {
+export type attachmentsactivityCreateRelatedWithoutTypeInput = {
 	body?: string | null;
 	completedAt?: string | null;
-	contacts?: activitiescontactsCreateRelatedInput;
+	contact?: activitiescontactCreateRelatedInput;
 	createdAt?: string;
 	createdBy?: activitiescreatedByCreateRelatedInput;
-	deals?: activitiesdealsCreateRelatedInput;
+	deal?: activitiesdealCreateRelatedInput;
 	direction?: string;
 	dueAt?: string | null;
 	id?: Uuid;
 	occurredAt?: string;
-	organizations: activitiesorganizationsCreateRelatedInput;
+	organization: activitiesorganizationCreateRelatedInput;
 	owner?: activitiesownerCreateRelatedInput;
 	status: string;
 	subject: string;
@@ -8026,36 +8026,36 @@ export type attachmentsactivitiesCreateRelatedWithoutTypeInput = {
 	updatedBy?: activitiesupdatedByCreateRelatedInput;
 }
 
-export type attachmentsactivitiesRelationFieldArguments = {
+export type attachmentsactivityRelationFieldArguments = {
 	filter?: activitiesFilterInput;
 }
 
-export type attachmentsactivitiesUpdateOneRelatedOperationsInput = {
-	_connect?: attachmentsactivitiesConnectInput;
-	_create?: attachmentsactivitiesCreateArguments;
+export type attachmentsactivityUpdateOneRelatedOperationsInput = {
+	_connect?: attachmentsactivityConnectInput;
+	_create?: attachmentsactivityCreateArguments;
 	_delete?: activitiesDeleteArguments;
 	_disconnect?: activitiesDisconnectOneInput;
 	_update?: activitiesUpdateInput;
 }
 
-export type attachmentscontactsConnectForwardKeyInput = {
+export type attachmentscontactConnectForwardKeyInput = {
 	id: Uuid | null;
 }
 
-export type attachmentscontactsConnectInput = {
-	key: attachmentscontactsConnectForwardKeyInput;
+export type attachmentscontactConnectInput = {
+	key: attachmentscontactConnectForwardKeyInput;
 }
 
-export type attachmentscontactsCreateArguments = {
-	data: attachmentscontactsCreateRelatedWithoutTypeInput;
+export type attachmentscontactCreateArguments = {
+	data: attachmentscontactCreateRelatedWithoutTypeInput;
 }
 
-export type attachmentscontactsCreateRelatedInput = {
-	_connect?: attachmentscontactsConnectInput;
-	_create?: attachmentscontactsCreateArguments;
+export type attachmentscontactCreateRelatedInput = {
+	_connect?: attachmentscontactConnectInput;
+	_create?: attachmentscontactCreateArguments;
 }
 
-export type attachmentscontactsCreateRelatedWithoutTypeInput = {
+export type attachmentscontactCreateRelatedWithoutTypeInput = {
 	activities?: readonly contactsactivitiesCreateRelatedInput[];
 	affiliations?: readonly contactsaffiliationsCreateRelatedInput[];
 	createdAt?: string;
@@ -8074,13 +8074,13 @@ export type attachmentscontactsCreateRelatedWithoutTypeInput = {
 	updatedBy?: contactsupdatedByCreateRelatedInput;
 }
 
-export type attachmentscontactsRelationFieldArguments = {
+export type attachmentscontactRelationFieldArguments = {
 	filter?: contactsFilterInput;
 }
 
-export type attachmentscontactsUpdateOneRelatedOperationsInput = {
-	_connect?: attachmentscontactsConnectInput;
-	_create?: attachmentscontactsCreateArguments;
+export type attachmentscontactUpdateOneRelatedOperationsInput = {
+	_connect?: attachmentscontactConnectInput;
+	_create?: attachmentscontactCreateArguments;
 	_delete?: contactsDeleteArguments;
 	_disconnect?: contactsDisconnectOneInput;
 	_update?: contactsUpdateInput;
@@ -8143,35 +8143,35 @@ export type attachmentscreatedByUpdateOneRelatedOperationsInput = {
 	_update?: MonospaceSystemUserUpdateInput;
 }
 
-export type attachmentsdealsConnectForwardKeyInput = {
+export type attachmentsdealConnectForwardKeyInput = {
 	id: Uuid | null;
 }
 
-export type attachmentsdealsConnectInput = {
-	key: attachmentsdealsConnectForwardKeyInput;
+export type attachmentsdealConnectInput = {
+	key: attachmentsdealConnectForwardKeyInput;
 }
 
-export type attachmentsdealsCreateArguments = {
-	data: attachmentsdealsCreateRelatedWithoutTypeInput;
+export type attachmentsdealCreateArguments = {
+	data: attachmentsdealCreateRelatedWithoutTypeInput;
 }
 
-export type attachmentsdealsCreateRelatedInput = {
-	_connect?: attachmentsdealsConnectInput;
-	_create?: attachmentsdealsCreateArguments;
+export type attachmentsdealCreateRelatedInput = {
+	_connect?: attachmentsdealConnectInput;
+	_create?: attachmentsdealCreateArguments;
 }
 
-export type attachmentsdealsCreateRelatedWithoutTypeInput = {
+export type attachmentsdealCreateRelatedWithoutTypeInput = {
 	activities?: readonly dealsactivitiesCreateRelatedInput[];
-	contacts?: dealscontactsCreateRelatedInput;
+	contact?: dealscontactCreateRelatedInput;
 	createdAt?: string;
 	createdBy?: dealscreatedByCreateRelatedInput;
 	currency?: string;
 	expectedCloseDate?: string | null;
 	id?: Uuid;
 	notes?: string | null;
-	organizations: dealsorganizationsCreateRelatedInput;
+	organization: dealsorganizationCreateRelatedInput;
 	owner?: dealsownerCreateRelatedInput;
-	pipeline_stages: dealspipeline_stagesCreateRelatedInput;
+	stage: dealsstageCreateRelatedInput;
 	status?: string;
 	title: string;
 	updatedAt?: string;
@@ -8179,36 +8179,36 @@ export type attachmentsdealsCreateRelatedWithoutTypeInput = {
 	valueAmount?: string | null;
 }
 
-export type attachmentsdealsRelationFieldArguments = {
+export type attachmentsdealRelationFieldArguments = {
 	filter?: dealsFilterInput;
 }
 
-export type attachmentsdealsUpdateOneRelatedOperationsInput = {
-	_connect?: attachmentsdealsConnectInput;
-	_create?: attachmentsdealsCreateArguments;
+export type attachmentsdealUpdateOneRelatedOperationsInput = {
+	_connect?: attachmentsdealConnectInput;
+	_create?: attachmentsdealCreateArguments;
 	_delete?: dealsDeleteArguments;
 	_disconnect?: dealsDisconnectOneInput;
 	_update?: dealsUpdateInput;
 }
 
-export type attachmentsorganizationsConnectForwardKeyInput = {
+export type attachmentsorganizationConnectForwardKeyInput = {
 	id: Uuid;
 }
 
-export type attachmentsorganizationsConnectInput = {
-	key: attachmentsorganizationsConnectForwardKeyInput;
+export type attachmentsorganizationConnectInput = {
+	key: attachmentsorganizationConnectForwardKeyInput;
 }
 
-export type attachmentsorganizationsCreateArguments = {
-	data: attachmentsorganizationsCreateRelatedWithoutTypeInput;
+export type attachmentsorganizationCreateArguments = {
+	data: attachmentsorganizationCreateRelatedWithoutTypeInput;
 }
 
-export type attachmentsorganizationsCreateRelatedInput = {
-	_connect?: attachmentsorganizationsConnectInput;
-	_create?: attachmentsorganizationsCreateArguments;
+export type attachmentsorganizationCreateRelatedInput = {
+	_connect?: attachmentsorganizationConnectInput;
+	_create?: attachmentsorganizationCreateArguments;
 }
 
-export type attachmentsorganizationsCreateRelatedWithoutTypeInput = {
+export type attachmentsorganizationCreateRelatedWithoutTypeInput = {
 	activities?: readonly organizationsactivitiesCreateRelatedInput[];
 	affiliations?: readonly organizationsaffiliationsCreateRelatedInput[];
 	createdAt?: string;
@@ -8227,9 +8227,9 @@ export type attachmentsorganizationsCreateRelatedWithoutTypeInput = {
 	updatedBy?: organizationsupdatedByCreateRelatedInput;
 }
 
-export type attachmentsorganizationsUpdateOneRelatedOperationsInput = {
-	_connect?: attachmentsorganizationsConnectInput;
-	_create?: attachmentsorganizationsCreateArguments;
+export type attachmentsorganizationUpdateOneRelatedOperationsInput = {
+	_connect?: attachmentsorganizationConnectInput;
+	_create?: attachmentsorganizationCreateArguments;
 	_update?: organizationsUpdateInput;
 }
 
@@ -8430,12 +8430,12 @@ export type contactsactivitiesCreateRelatedWithoutTypeInput = {
 	completedAt?: string | null;
 	createdAt?: string;
 	createdBy?: activitiescreatedByCreateRelatedInput;
-	deals?: activitiesdealsCreateRelatedInput;
+	deal?: activitiesdealCreateRelatedInput;
 	direction?: string;
 	dueAt?: string | null;
 	id?: Uuid;
 	occurredAt?: string;
-	organizations: activitiesorganizationsCreateRelatedInput;
+	organization: activitiesorganizationCreateRelatedInput;
 	owner?: activitiesownerCreateRelatedInput;
 	status: string;
 	subject: string;
@@ -8482,7 +8482,7 @@ export type contactsaffiliationsCreateRelatedWithoutTypeInput = {
 	endedAt?: string | null;
 	id?: Uuid;
 	isPrimary?: boolean;
-	organizations: affiliationsorganizationsCreateRelatedInput;
+	organization: affiliationsorganizationCreateRelatedInput;
 	role?: string | null;
 	startedAt?: string | null;
 	title?: string | null;
@@ -8523,15 +8523,15 @@ export type contactsattachmentsCreateRelatedInput = {
 }
 
 export type contactsattachmentsCreateRelatedWithoutTypeInput = {
-	activities?: attachmentsactivitiesCreateRelatedInput;
+	activity?: attachmentsactivityCreateRelatedInput;
 	assetId?: Uuid | null;
 	contentType?: string | null;
 	createdAt?: string;
 	createdBy?: attachmentscreatedByCreateRelatedInput;
-	deals?: attachmentsdealsCreateRelatedInput;
+	deal?: attachmentsdealCreateRelatedInput;
 	fileName: string;
 	id?: Uuid;
-	organizations: attachmentsorganizationsCreateRelatedInput;
+	organization: attachmentsorganizationCreateRelatedInput;
 	sizeBytes?: Int64Input | null;
 	url?: string | null;
 }
@@ -8634,9 +8634,9 @@ export type contactsdealsCreateRelatedWithoutTypeInput = {
 	expectedCloseDate?: string | null;
 	id?: Uuid;
 	notes?: string | null;
-	organizations: dealsorganizationsCreateRelatedInput;
+	organization: dealsorganizationCreateRelatedInput;
 	owner?: dealsownerCreateRelatedInput;
-	pipeline_stages: dealspipeline_stagesCreateRelatedInput;
+	stage: dealsstageCreateRelatedInput;
 	status?: string;
 	title: string;
 	updatedAt?: string;
@@ -8816,8 +8816,8 @@ export type contactsupdatedByUpdateOneRelatedOperationsInput = {
 export type dealsCollectionOutput = {
 	activities?: { data: activitiesCollectionOutput[] };
 	attachments?: { data: attachmentsCollectionOutput[] };
+	contact?: contactsCollectionOutput | null;
 	contactId?: Uuid | null;
-	contacts?: contactsCollectionOutput | null;
 	createdAt?: string;
 	createdBy?: MonospaceSystemUserCollectionOutput | null;
 	createdById?: Uuid | null;
@@ -8825,11 +8825,11 @@ export type dealsCollectionOutput = {
 	expectedCloseDate?: string | null;
 	id?: Uuid;
 	notes?: string | null;
+	organization?: organizationsCollectionOutput;
 	organizationId?: Uuid;
-	organizations?: organizationsCollectionOutput;
 	owner?: MonospaceSystemUserCollectionOutput | null;
 	ownerUserId?: Uuid | null;
-	pipeline_stages?: pipelineStagesCollectionOutput;
+	stage?: pipelineStagesCollectionOutput;
 	stageId?: Uuid;
 	status?: string;
 	title?: string;
@@ -8844,13 +8844,13 @@ export type dealsCollectionOutputFieldsInput = readonly ("contactId" | "createdA
 export type dealsCollectionOutputIncludeInput = {
 	"activities"?: (dealsactivitiesRelationFieldArguments & { "fields"?: activitiesCollectionOutputFieldsInput; "include"?: activitiesCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (dealsactivitiesRelationFieldArguments & { "fields"?: activitiesCollectionOutputFieldsInput; "include"?: activitiesCollectionOutputIncludeInput })>]?: never };
 	"attachments"?: (dealsattachmentsRelationFieldArguments & { "fields"?: attachmentsCollectionOutputFieldsInput; "include"?: attachmentsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (dealsattachmentsRelationFieldArguments & { "fields"?: attachmentsCollectionOutputFieldsInput; "include"?: attachmentsCollectionOutputIncludeInput })>]?: never };
-	"contacts"?: (dealscontactsRelationFieldArguments & { "fields"?: contactsCollectionOutputFieldsInput; "include"?: contactsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (dealscontactsRelationFieldArguments & { "fields"?: contactsCollectionOutputFieldsInput; "include"?: contactsCollectionOutputIncludeInput })>]?: never };
+	"contact"?: (dealscontactRelationFieldArguments & { "fields"?: contactsCollectionOutputFieldsInput; "include"?: contactsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (dealscontactRelationFieldArguments & { "fields"?: contactsCollectionOutputFieldsInput; "include"?: contactsCollectionOutputIncludeInput })>]?: never };
 	"createdBy"?: (dealscreatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (dealscreatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput })>]?: never };
-	"organizations"?: ({ "fields"?: organizationsCollectionOutputFieldsInput; "include"?: organizationsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof ({ "fields"?: organizationsCollectionOutputFieldsInput; "include"?: organizationsCollectionOutputIncludeInput })>]?: never };
+	"organization"?: ({ "fields"?: organizationsCollectionOutputFieldsInput; "include"?: organizationsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof ({ "fields"?: organizationsCollectionOutputFieldsInput; "include"?: organizationsCollectionOutputIncludeInput })>]?: never };
 	"owner"?: (dealsownerRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (dealsownerRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput })>]?: never };
-	"pipeline_stages"?: ({ "fields"?: pipelineStagesCollectionOutputFieldsInput; "include"?: pipelineStagesCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof ({ "fields"?: pipelineStagesCollectionOutputFieldsInput; "include"?: pipelineStagesCollectionOutputIncludeInput })>]?: never };
+	"stage"?: ({ "fields"?: pipelineStagesCollectionOutputFieldsInput; "include"?: pipelineStagesCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof ({ "fields"?: pipelineStagesCollectionOutputFieldsInput; "include"?: pipelineStagesCollectionOutputIncludeInput })>]?: never };
 	"updatedBy"?: (dealsupdatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (dealsupdatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput })>]?: never };
-} & { [K in `${string}:${"activities"}`]?: dealsCollectionOutputIncludeInput["activities"] } & { [K in `${string}:${"attachments"}`]?: dealsCollectionOutputIncludeInput["attachments"] } & { [K in `${string}:${"contacts"}`]?: dealsCollectionOutputIncludeInput["contacts"] } & { [K in `${string}:${"createdBy"}`]?: dealsCollectionOutputIncludeInput["createdBy"] } & { [K in `${string}:${"organizations"}`]?: dealsCollectionOutputIncludeInput["organizations"] } & { [K in `${string}:${"owner"}`]?: dealsCollectionOutputIncludeInput["owner"] } & { [K in `${string}:${"pipeline_stages"}`]?: dealsCollectionOutputIncludeInput["pipeline_stages"] } & { [K in `${string}:${"updatedBy"}`]?: dealsCollectionOutputIncludeInput["updatedBy"] };
+} & { [K in `${string}:${"activities"}`]?: dealsCollectionOutputIncludeInput["activities"] } & { [K in `${string}:${"attachments"}`]?: dealsCollectionOutputIncludeInput["attachments"] } & { [K in `${string}:${"contact"}`]?: dealsCollectionOutputIncludeInput["contact"] } & { [K in `${string}:${"createdBy"}`]?: dealsCollectionOutputIncludeInput["createdBy"] } & { [K in `${string}:${"organization"}`]?: dealsCollectionOutputIncludeInput["organization"] } & { [K in `${string}:${"owner"}`]?: dealsCollectionOutputIncludeInput["owner"] } & { [K in `${string}:${"stage"}`]?: dealsCollectionOutputIncludeInput["stage"] } & { [K in `${string}:${"updatedBy"}`]?: dealsCollectionOutputIncludeInput["updatedBy"] };
 
 export type dealsCreateArguments = {
 	data: readonly dealsCreateInput[];
@@ -8859,16 +8859,16 @@ export type dealsCreateArguments = {
 export type dealsCreateInput = {
 	activities?: readonly dealsactivitiesCreateRelatedInput[];
 	attachments?: readonly dealsattachmentsCreateRelatedInput[];
-	contacts?: dealscontactsCreateRelatedInput;
+	contact?: dealscontactCreateRelatedInput;
 	createdAt?: string;
 	createdBy?: dealscreatedByCreateRelatedInput;
 	currency?: string;
 	expectedCloseDate?: string | null;
 	id?: Uuid;
 	notes?: string | null;
-	organizations: dealsorganizationsCreateRelatedInput;
+	organization: dealsorganizationCreateRelatedInput;
 	owner?: dealsownerCreateRelatedInput;
-	pipeline_stages: dealspipeline_stagesCreateRelatedInput;
+	stage: dealsstageCreateRelatedInput;
 	status?: string;
 	title: string;
 	updatedAt?: string;
@@ -8897,8 +8897,8 @@ export type dealsFilterInput = {
 	_or?: readonly dealsFilterInput[];
 	activities?: activitiesFilterQuantifierInput | activitiesFilterInput;
 	attachments?: attachmentsFilterQuantifierInput | attachmentsFilterInput;
+	contact?: contactsFilterInput;
 	contactId?: UuidFilterNullablePrimitiveInput | Uuid | null;
-	contacts?: contactsFilterInput;
 	createdAt?: DateTimeFilterPrimitiveInput | string;
 	createdBy?: MonospaceSystemUserFilterInput;
 	createdById?: UuidFilterNullablePrimitiveInput | Uuid | null;
@@ -8906,11 +8906,11 @@ export type dealsFilterInput = {
 	expectedCloseDate?: DateFilterNullablePrimitiveInput | string | null;
 	id?: UuidFilterPrimitiveInput | Uuid;
 	notes?: StringFilterNullablePrimitiveInput | string | null;
+	organization?: organizationsFilterInput;
 	organizationId?: UuidFilterPrimitiveInput | Uuid;
-	organizations?: organizationsFilterInput;
 	owner?: MonospaceSystemUserFilterInput;
 	ownerUserId?: UuidFilterNullablePrimitiveInput | Uuid | null;
-	pipeline_stages?: pipelineStagesFilterInput;
+	stage?: pipelineStagesFilterInput;
 	stageId?: UuidFilterPrimitiveInput | Uuid;
 	status?: StringFilterPrimitiveInput | string;
 	title?: StringFilterPrimitiveInput | string;
@@ -8965,8 +8965,8 @@ export type dealsUpdateArguments = {
 export type dealsUpdateDataInput = {
 	activities?: readonly dealsactivitiesUpdateManyRelatedOperationsInput[];
 	attachments?: readonly dealsattachmentsUpdateManyRelatedOperationsInput[];
+	contact?: readonly dealscontactUpdateOneRelatedOperationsInput[];
 	contactId?: Uuid | null;
-	contacts?: readonly dealscontactsUpdateOneRelatedOperationsInput[];
 	createdAt?: string;
 	createdBy?: readonly dealscreatedByUpdateOneRelatedOperationsInput[];
 	createdById?: Uuid | null;
@@ -8974,11 +8974,11 @@ export type dealsUpdateDataInput = {
 	expectedCloseDate?: string | null;
 	id?: Uuid;
 	notes?: string | null;
+	organization?: readonly dealsorganizationUpdateOneRelatedOperationsInput[];
 	organizationId?: Uuid;
-	organizations?: readonly dealsorganizationsUpdateOneRelatedOperationsInput[];
 	owner?: readonly dealsownerUpdateOneRelatedOperationsInput[];
 	ownerUserId?: Uuid | null;
-	pipeline_stages?: readonly dealspipeline_stagesUpdateOneRelatedOperationsInput[];
+	stage?: readonly dealsstageUpdateOneRelatedOperationsInput[];
 	stageId?: Uuid;
 	status?: string;
 	title?: string;
@@ -9020,14 +9020,14 @@ export type dealsactivitiesCreateRelatedWithoutTypeInput = {
 	attachments?: readonly activitiesattachmentsCreateRelatedInput[];
 	body?: string | null;
 	completedAt?: string | null;
-	contacts?: activitiescontactsCreateRelatedInput;
+	contact?: activitiescontactCreateRelatedInput;
 	createdAt?: string;
 	createdBy?: activitiescreatedByCreateRelatedInput;
 	direction?: string;
 	dueAt?: string | null;
 	id?: Uuid;
 	occurredAt?: string;
-	organizations: activitiesorganizationsCreateRelatedInput;
+	organization: activitiesorganizationCreateRelatedInput;
 	owner?: activitiesownerCreateRelatedInput;
 	status: string;
 	subject: string;
@@ -9070,15 +9070,15 @@ export type dealsattachmentsCreateRelatedInput = {
 }
 
 export type dealsattachmentsCreateRelatedWithoutTypeInput = {
-	activities?: attachmentsactivitiesCreateRelatedInput;
+	activity?: attachmentsactivityCreateRelatedInput;
 	assetId?: Uuid | null;
-	contacts?: attachmentscontactsCreateRelatedInput;
+	contact?: attachmentscontactCreateRelatedInput;
 	contentType?: string | null;
 	createdAt?: string;
 	createdBy?: attachmentscreatedByCreateRelatedInput;
 	fileName: string;
 	id?: Uuid;
-	organizations: attachmentsorganizationsCreateRelatedInput;
+	organization: attachmentsorganizationCreateRelatedInput;
 	sizeBytes?: Int64Input | null;
 	url?: string | null;
 }
@@ -9098,24 +9098,24 @@ export type dealsattachmentsUpdateManyRelatedOperationsInput = {
 	_update?: attachmentsUpdateInput;
 }
 
-export type dealscontactsConnectForwardKeyInput = {
+export type dealscontactConnectForwardKeyInput = {
 	id: Uuid | null;
 }
 
-export type dealscontactsConnectInput = {
-	key: dealscontactsConnectForwardKeyInput;
+export type dealscontactConnectInput = {
+	key: dealscontactConnectForwardKeyInput;
 }
 
-export type dealscontactsCreateArguments = {
-	data: dealscontactsCreateRelatedWithoutTypeInput;
+export type dealscontactCreateArguments = {
+	data: dealscontactCreateRelatedWithoutTypeInput;
 }
 
-export type dealscontactsCreateRelatedInput = {
-	_connect?: dealscontactsConnectInput;
-	_create?: dealscontactsCreateArguments;
+export type dealscontactCreateRelatedInput = {
+	_connect?: dealscontactConnectInput;
+	_create?: dealscontactCreateArguments;
 }
 
-export type dealscontactsCreateRelatedWithoutTypeInput = {
+export type dealscontactCreateRelatedWithoutTypeInput = {
 	activities?: readonly contactsactivitiesCreateRelatedInput[];
 	affiliations?: readonly contactsaffiliationsCreateRelatedInput[];
 	attachments?: readonly contactsattachmentsCreateRelatedInput[];
@@ -9134,13 +9134,13 @@ export type dealscontactsCreateRelatedWithoutTypeInput = {
 	updatedBy?: contactsupdatedByCreateRelatedInput;
 }
 
-export type dealscontactsRelationFieldArguments = {
+export type dealscontactRelationFieldArguments = {
 	filter?: contactsFilterInput;
 }
 
-export type dealscontactsUpdateOneRelatedOperationsInput = {
-	_connect?: dealscontactsConnectInput;
-	_create?: dealscontactsCreateArguments;
+export type dealscontactUpdateOneRelatedOperationsInput = {
+	_connect?: dealscontactConnectInput;
+	_create?: dealscontactCreateArguments;
 	_delete?: contactsDeleteArguments;
 	_disconnect?: contactsDisconnectOneInput;
 	_update?: contactsUpdateInput;
@@ -9203,24 +9203,24 @@ export type dealscreatedByUpdateOneRelatedOperationsInput = {
 	_update?: MonospaceSystemUserUpdateInput;
 }
 
-export type dealsorganizationsConnectForwardKeyInput = {
+export type dealsorganizationConnectForwardKeyInput = {
 	id: Uuid;
 }
 
-export type dealsorganizationsConnectInput = {
-	key: dealsorganizationsConnectForwardKeyInput;
+export type dealsorganizationConnectInput = {
+	key: dealsorganizationConnectForwardKeyInput;
 }
 
-export type dealsorganizationsCreateArguments = {
-	data: dealsorganizationsCreateRelatedWithoutTypeInput;
+export type dealsorganizationCreateArguments = {
+	data: dealsorganizationCreateRelatedWithoutTypeInput;
 }
 
-export type dealsorganizationsCreateRelatedInput = {
-	_connect?: dealsorganizationsConnectInput;
-	_create?: dealsorganizationsCreateArguments;
+export type dealsorganizationCreateRelatedInput = {
+	_connect?: dealsorganizationConnectInput;
+	_create?: dealsorganizationCreateArguments;
 }
 
-export type dealsorganizationsCreateRelatedWithoutTypeInput = {
+export type dealsorganizationCreateRelatedWithoutTypeInput = {
 	activities?: readonly organizationsactivitiesCreateRelatedInput[];
 	affiliations?: readonly organizationsaffiliationsCreateRelatedInput[];
 	attachments?: readonly organizationsattachmentsCreateRelatedInput[];
@@ -9239,9 +9239,9 @@ export type dealsorganizationsCreateRelatedWithoutTypeInput = {
 	updatedBy?: organizationsupdatedByCreateRelatedInput;
 }
 
-export type dealsorganizationsUpdateOneRelatedOperationsInput = {
-	_connect?: dealsorganizationsConnectInput;
-	_create?: dealsorganizationsCreateArguments;
+export type dealsorganizationUpdateOneRelatedOperationsInput = {
+	_connect?: dealsorganizationConnectInput;
+	_create?: dealsorganizationCreateArguments;
 	_update?: organizationsUpdateInput;
 }
 
@@ -9302,24 +9302,24 @@ export type dealsownerUpdateOneRelatedOperationsInput = {
 	_update?: MonospaceSystemUserUpdateInput;
 }
 
-export type dealspipeline_stagesConnectForwardKeyInput = {
+export type dealsstageConnectForwardKeyInput = {
 	id: Uuid;
 }
 
-export type dealspipeline_stagesConnectInput = {
-	key: dealspipeline_stagesConnectForwardKeyInput;
+export type dealsstageConnectInput = {
+	key: dealsstageConnectForwardKeyInput;
 }
 
-export type dealspipeline_stagesCreateArguments = {
-	data: dealspipeline_stagesCreateRelatedWithoutTypeInput;
+export type dealsstageCreateArguments = {
+	data: dealsstageCreateRelatedWithoutTypeInput;
 }
 
-export type dealspipeline_stagesCreateRelatedInput = {
-	_connect?: dealspipeline_stagesConnectInput;
-	_create?: dealspipeline_stagesCreateArguments;
+export type dealsstageCreateRelatedInput = {
+	_connect?: dealsstageConnectInput;
+	_create?: dealsstageCreateArguments;
 }
 
-export type dealspipeline_stagesCreateRelatedWithoutTypeInput = {
+export type dealsstageCreateRelatedWithoutTypeInput = {
 	color?: string | null;
 	id?: Uuid;
 	isClosed?: boolean;
@@ -9328,9 +9328,9 @@ export type dealspipeline_stagesCreateRelatedWithoutTypeInput = {
 	position: number;
 }
 
-export type dealspipeline_stagesUpdateOneRelatedOperationsInput = {
-	_connect?: dealspipeline_stagesConnectInput;
-	_create?: dealspipeline_stagesCreateArguments;
+export type dealsstageUpdateOneRelatedOperationsInput = {
+	_connect?: dealsstageConnectInput;
+	_create?: dealsstageCreateArguments;
 	_update?: pipelineStagesUpdateInput;
 }
 
@@ -9774,10 +9774,10 @@ export type organizationsactivitiesCreateRelatedWithoutTypeInput = {
 	attachments?: readonly activitiesattachmentsCreateRelatedInput[];
 	body?: string | null;
 	completedAt?: string | null;
-	contacts?: activitiescontactsCreateRelatedInput;
+	contact?: activitiescontactCreateRelatedInput;
 	createdAt?: string;
 	createdBy?: activitiescreatedByCreateRelatedInput;
-	deals?: activitiesdealsCreateRelatedInput;
+	deal?: activitiesdealCreateRelatedInput;
 	direction?: string;
 	dueAt?: string | null;
 	id?: Uuid;
@@ -9822,7 +9822,7 @@ export type organizationsaffiliationsCreateRelatedInput = {
 }
 
 export type organizationsaffiliationsCreateRelatedWithoutTypeInput = {
-	contacts: affiliationscontactsCreateRelatedInput;
+	contact: affiliationscontactCreateRelatedInput;
 	createdAt?: string;
 	createdBy?: affiliationscreatedByCreateRelatedInput;
 	endedAt?: string | null;
@@ -9868,13 +9868,13 @@ export type organizationsattachmentsCreateRelatedInput = {
 }
 
 export type organizationsattachmentsCreateRelatedWithoutTypeInput = {
-	activities?: attachmentsactivitiesCreateRelatedInput;
+	activity?: attachmentsactivityCreateRelatedInput;
 	assetId?: Uuid | null;
-	contacts?: attachmentscontactsCreateRelatedInput;
+	contact?: attachmentscontactCreateRelatedInput;
 	contentType?: string | null;
 	createdAt?: string;
 	createdBy?: attachmentscreatedByCreateRelatedInput;
-	deals?: attachmentsdealsCreateRelatedInput;
+	deal?: attachmentsdealCreateRelatedInput;
 	fileName: string;
 	id?: Uuid;
 	sizeBytes?: Int64Input | null;
@@ -9972,7 +9972,7 @@ export type organizationsdealsCreateRelatedInput = {
 export type organizationsdealsCreateRelatedWithoutTypeInput = {
 	activities?: readonly dealsactivitiesCreateRelatedInput[];
 	attachments?: readonly dealsattachmentsCreateRelatedInput[];
-	contacts?: dealscontactsCreateRelatedInput;
+	contact?: dealscontactCreateRelatedInput;
 	createdAt?: string;
 	createdBy?: dealscreatedByCreateRelatedInput;
 	currency?: string;
@@ -9980,7 +9980,7 @@ export type organizationsdealsCreateRelatedWithoutTypeInput = {
 	id?: Uuid;
 	notes?: string | null;
 	owner?: dealsownerCreateRelatedInput;
-	pipeline_stages: dealspipeline_stagesCreateRelatedInput;
+	stage: dealsstageCreateRelatedInput;
 	status?: string;
 	title: string;
 	updatedAt?: string;
@@ -10269,14 +10269,14 @@ export type pipelineStagesdealsCreateRelatedInput = {
 export type pipelineStagesdealsCreateRelatedWithoutTypeInput = {
 	activities?: readonly dealsactivitiesCreateRelatedInput[];
 	attachments?: readonly dealsattachmentsCreateRelatedInput[];
-	contacts?: dealscontactsCreateRelatedInput;
+	contact?: dealscontactCreateRelatedInput;
 	createdAt?: string;
 	createdBy?: dealscreatedByCreateRelatedInput;
 	currency?: string;
 	expectedCloseDate?: string | null;
 	id?: Uuid;
 	notes?: string | null;
-	organizations: dealsorganizationsCreateRelatedInput;
+	organization: dealsorganizationCreateRelatedInput;
 	owner?: dealsownerCreateRelatedInput;
 	status?: string;
 	title: string;
@@ -11504,9 +11504,9 @@ export type activitiesCollection = {
   '~primitiveKeys': 'body' | 'completedAt' | 'contactId' | 'createdAt' | 'createdById' | 'dealId' | 'direction' | 'dueAt' | 'id' | 'occurredAt' | 'organizationId' | 'ownerUserId' | 'status' | 'subject' | 'type' | 'updatedAt' | 'updatedById';
   '~relations': {
     attachments: attachmentsCollection[];
-    contacts: contactsCollection;
-    deals: dealsCollection;
-    organizations: organizationsCollection;
+    contact: contactsCollection;
+    deal: dealsCollection;
+    organization: organizationsCollection;
   };
 
   '~readOne': {
@@ -11586,8 +11586,8 @@ export type activitiesCollection = {
 export type affiliationsCollection = {
   '~primitiveKeys': 'contactId' | 'createdAt' | 'createdById' | 'endedAt' | 'id' | 'isPrimary' | 'organizationId' | 'role' | 'startedAt' | 'title' | 'updatedAt' | 'updatedById';
   '~relations': {
-    contacts: contactsCollection;
-    organizations: organizationsCollection;
+    contact: contactsCollection;
+    organization: organizationsCollection;
   };
 
   '~readOne': {
@@ -11667,10 +11667,10 @@ export type affiliationsCollection = {
 export type attachmentsCollection = {
   '~primitiveKeys': 'activityId' | 'assetId' | 'contactId' | 'contentType' | 'createdAt' | 'createdById' | 'dealId' | 'fileName' | 'id' | 'organizationId' | 'sizeBytes' | 'url';
   '~relations': {
-    activities: activitiesCollection;
-    contacts: contactsCollection;
-    deals: dealsCollection;
-    organizations: organizationsCollection;
+    activity: activitiesCollection;
+    contact: contactsCollection;
+    deal: dealsCollection;
+    organization: organizationsCollection;
   };
 
   '~readOne': {
@@ -11836,9 +11836,9 @@ export type dealsCollection = {
   '~relations': {
     activities: activitiesCollection[];
     attachments: attachmentsCollection[];
-    contacts: contactsCollection;
-    organizations: organizationsCollection;
-    pipeline_stages: pipelineStagesCollection;
+    contact: contactsCollection;
+    organization: organizationsCollection;
+    stage: pipelineStagesCollection;
   };
 
   '~readOne': {
@@ -13399,19 +13399,19 @@ export type Schema = {
    *   "attachments": { "data": attachmentsCollectionOutput[]; "meta"?: ResponseMeta };
    *   "body": string | null;
    *   "completedAt": string | null;
+   *   "contact": contactsCollectionOutput | null;
    *   "contactId": Uuid | null;
-   *   "contacts": contactsCollectionOutput | null;
    *   "createdAt": string;
    *   "createdBy": MonospaceSystemUserCollectionOutput | null;
    *   "createdById": Uuid | null;
+   *   "deal": dealsCollectionOutput | null;
    *   "dealId": Uuid | null;
-   *   "deals": dealsCollectionOutput | null;
    *   "direction": string;
    *   "dueAt": string | null;
    *   "id": Uuid;
    *   "occurredAt": string;
+   *   "organization": organizationsCollectionOutput;
    *   "organizationId": Uuid;
-   *   "organizations": organizationsCollectionOutput;
    *   "owner": MonospaceSystemUserCollectionOutput | null;
    *   "ownerUserId": Uuid | null;
    *   "status": string;
@@ -13433,16 +13433,16 @@ export type Schema = {
    *
    * ```typescript
    * {
+   *   "contact": contactsCollectionOutput;
    *   "contactId": Uuid;
-   *   "contacts": contactsCollectionOutput;
    *   "createdAt": string;
    *   "createdBy": MonospaceSystemUserCollectionOutput | null;
    *   "createdById": Uuid | null;
    *   "endedAt": string | null;
    *   "id": Uuid;
    *   "isPrimary": boolean;
+   *   "organization": organizationsCollectionOutput;
    *   "organizationId": Uuid;
-   *   "organizations": organizationsCollectionOutput;
    *   "role": string | null;
    *   "startedAt": string | null;
    *   "title": string | null;
@@ -13462,21 +13462,21 @@ export type Schema = {
    *
    * ```typescript
    * {
-   *   "activities": activitiesCollectionOutput | null;
+   *   "activity": activitiesCollectionOutput | null;
    *   "activityId": Uuid | null;
    *   "assetId": Uuid | null;
+   *   "contact": contactsCollectionOutput | null;
    *   "contactId": Uuid | null;
-   *   "contacts": contactsCollectionOutput | null;
    *   "contentType": string | null;
    *   "createdAt": string;
    *   "createdBy": MonospaceSystemUserCollectionOutput | null;
    *   "createdById": Uuid | null;
+   *   "deal": dealsCollectionOutput | null;
    *   "dealId": Uuid | null;
-   *   "deals": dealsCollectionOutput | null;
    *   "fileName": string;
    *   "id": Uuid;
+   *   "organization": organizationsCollectionOutput;
    *   "organizationId": Uuid;
-   *   "organizations": organizationsCollectionOutput;
    *   "sizeBytes": Int64 | null;
    *   "url": string | null;
    * }
@@ -13527,8 +13527,8 @@ export type Schema = {
    * {
    *   "activities": { "data": activitiesCollectionOutput[]; "meta"?: ResponseMeta };
    *   "attachments": { "data": attachmentsCollectionOutput[]; "meta"?: ResponseMeta };
+   *   "contact": contactsCollectionOutput | null;
    *   "contactId": Uuid | null;
-   *   "contacts": contactsCollectionOutput | null;
    *   "createdAt": string;
    *   "createdBy": MonospaceSystemUserCollectionOutput | null;
    *   "createdById": Uuid | null;
@@ -13536,11 +13536,11 @@ export type Schema = {
    *   "expectedCloseDate": string | null;
    *   "id": Uuid;
    *   "notes": string | null;
+   *   "organization": organizationsCollectionOutput;
    *   "organizationId": Uuid;
-   *   "organizations": organizationsCollectionOutput;
    *   "owner": MonospaceSystemUserCollectionOutput | null;
    *   "ownerUserId": Uuid | null;
-   *   "pipeline_stages": pipelineStagesCollectionOutput;
+   *   "stage": pipelineStagesCollectionOutput;
    *   "stageId": Uuid;
    *   "status": string;
    *   "title": string;

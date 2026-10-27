@@ -11,10 +11,7 @@
     "compose": "connectors/portal/compose.yml",
     "schemaFiles": ["connectors/portal/monospace/schema/portal.json"],
     "source": {
-      "apiName": {
-        "env": "MONOSPACE_PORTAL_SOURCE",
-        "default": "Portal"
-      },
+      "apiName": "Portal",
       "provider": "mysql",
       "host": {
         "env": "CUSTOMER_MYSQL_HOST",

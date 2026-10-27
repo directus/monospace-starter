@@ -40,7 +40,7 @@ More modules can plug in next to the CRM. The app is TanStack Start, React, Tail
 
 ## Quickstart
 
-You need Node 24, pnpm, and Docker.
+You need Node 24, pnpm, and Docker. Run `pnpm install` before Docker; it generates the Compose include file.
 
 ```bash
 npx giget@latest gh:directus/monospace-starter/starters/monoerp monoerp
@@ -78,7 +78,7 @@ This repo is set up for working with AI coding agents like Claude Code, Codex, a
 
 - **[`AGENTS.md`](AGENTS.md)** is a short map: how to get a working stack, the rules, and which doc in [`docs/`](docs) to read for the area you're changing. The docs describe how things actually work, with file paths to jump to.
 - **One command checks everything:** `pnpm verify`. An agent knows when it's done.
-- **Lint rules catch sloppy code:** with the optional strict-lint add-on, casts without a reason, `unknown` types, and module mocks fail lint (`tools/oxlint`).
+- **Lint rules catch sloppy code:** with the optional strict lint add-on, casts without a reason, `unknown` types, and module mocks fail lint ([strict lint add-on](tools/oxlint/README.md)).
 - **Access rules live in one place.** Monospace decides permissions on every request, and the app's API client is generated from the schema, so there's no hand-written data layer for an agent to get wrong.
 
 ## Everyday commands
@@ -95,7 +95,7 @@ This repo is set up for working with AI coding agents like Claude Code, Codex, a
 | `pnpm setup:all`                              | Configure the Monospace workspace. Safe to rerun after pulling        |
 | `pnpm build:extensions`                       | Rebuild selected connectors; Monospace picks them up on its own       |
 | `pnpm generate`                               | Rebuild the typed Monospace client after a schema change              |
-| `pnpm db:migrate`                             | Apply new CRM database migrations                                     |
+| `pnpm db:migrate`                             | Apply new app database migrations                                     |
 | `pnpm schema:export`                          | Save Studio changes (labels, field order, and so on) back to the repo |
 | `docker compose --profile full up -d --build` | Run the app in a container too, behind Caddy                          |
 
@@ -103,7 +103,7 @@ This repo is set up for working with AI coding agents like Claude Code, Codex, a
 
 The browser only talks to the app's own address. The app's server proxies `/api/*` to Monospace, so the Monospace session cookie stays same-origin. Screens call Monospace straight from the browser with the generated SDK and TanStack Query. There's no app database and no API layer of our own.
 
-A module is four folders: manifest, UI, infrastructure, and routes. See [the module layout](docs/modules.md#add-a-module).
+A module is four folders, plus any settings routes: manifest, UI, infrastructure, and routes. See [the module layout](docs/modules.md#add-a-module).
 
 | Area       | Path                                                                | Purpose                                              |
 | ---------- | ------------------------------------------------------------------- | ---------------------------------------------------- |
@@ -132,7 +132,7 @@ To change the CRM schema, add a migration in `infra/modules/crm/postgres/migrati
 | [`data-model.md`](docs/data-model.md)           | The tables, how the databases connect, schema changes, demo data           |
 | [`monospace.md`](docs/monospace.md)             | Setup scripts, connectors, the generated client, Monospace issues          |
 | [`testing.md`](docs/testing.md)                 | Tests, lint rules, CI                                                      |
-| [`docs/deploy.md`](docs/deploy.md)              | Hosting the app                                                            |
+| [`deploy.md`](docs/deploy.md)                   | Hosting the app                                                            |
 
 ## Deploy
 
@@ -140,4 +140,4 @@ See [deployment](docs/deploy.md) for hosting requirements and the optional deplo
 
 ## License
 
-MIT, see [`LICENSE`](LICENSE). Code copied from other projects keeps its own license next to it: the ReUI components (`apps/web/src/components/data-table` and `apps/web/src/components/filters`) and the lint rules in `tools/oxlint/anti-slop`, both MIT.
+MIT, see [`LICENSE`](LICENSE). Code copied from other projects keeps its own license next to it: the ReUI components (`apps/web/src/components/data-table` and `apps/web/src/components/filters`) and the lint rules in [strict lint rules](tools/oxlint/anti-slop), both MIT.

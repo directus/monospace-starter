@@ -1,10 +1,12 @@
+import { cleanup, render, screen } from '@testing-library/react'
+
 import '@/styles.css'
 import '@testing-library/jest-dom/vitest'
-import { cleanup, render, screen } from '@testing-library/react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { DataTable, DataTableMobileRow, useDataTable } from '@/components/data-table/data-table'
 import type { DataTableColumn } from '@/components/data-table/data-table'
+import { appStorageKey } from '@/lib/storage'
 
 const columns: Array<DataTableColumn<{ name: string; email: string }>> = [
   { id: 'name', header: 'Name', accessorKey: 'name' },
@@ -37,7 +39,7 @@ describe('useDataTable layout persistence', () => {
 
   it('restores widths, order, and visibility for every column', () => {
     window.localStorage.setItem(
-      'table:persistence-test',
+      appStorageKey('table:persistence-test'),
       JSON.stringify({
         sizing: { name: 320, email: 180 },
         order: ['email', 'name'],

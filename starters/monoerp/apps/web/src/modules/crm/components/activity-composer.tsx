@@ -205,11 +205,11 @@ export function Composer({ defaults }: { defaults: ActivityDefaults }) {
         occurredAt: due ?? new Date().toISOString(),
         dueAt: due,
         completedAt: null,
-        organizations: { _connect: { key: { id: organization.value } } },
-        contacts: defaults.contact
+        organization: { _connect: { key: { id: organization.value } } },
+        contact: defaults.contact
           ? { _connect: { key: { id: defaults.contact.value } } }
           : undefined,
-        deals: defaults.deal ? { _connect: { key: { id: defaults.deal.value } } } : undefined,
+        deal: defaults.deal ? { _connect: { key: { id: defaults.deal.value } } } : undefined,
         owner: currentUser ? { _connect: { key: { id: currentUser.id } } } : undefined,
       },
       { onSuccess: () => setSubject('') },

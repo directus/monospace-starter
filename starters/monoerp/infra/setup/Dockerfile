@@ -17,7 +17,7 @@ COPY tools/manifest-schema.mjs tools/manifest-schema.mjs
 COPY infra/postgres infra/postgres
 COPY infra/modules infra/modules
 COPY modules modules
-COPY starter.json starter.json
+COPY starter.json app.config.json ./
 COPY infra/manifests.mjs infra/manifests.mjs
 COPY connectors connectors
 COPY infra/monospace infra/monospace

@@ -123,9 +123,9 @@ function DealForm({
 
         await create.mutateAsync({
           ...base,
-          organizations: { _connect: { key: { id: value.organization.value } } },
-          contacts: value.contact ? { _connect: { key: { id: value.contact.value } } } : undefined,
-          pipeline_stages: { _connect: { key: { id: stage.id } } },
+          organization: { _connect: { key: { id: value.organization.value } } },
+          contact: value.contact ? { _connect: { key: { id: value.contact.value } } } : undefined,
+          stage: { _connect: { key: { id: stage.id } } },
         })
         onSuccess?.()
       }),

@@ -86,34 +86,34 @@ export function FileDrawer({
             {copy.linked}
           </h3>
           <div className="space-y-1 text-sm [&_a]:flex [&_a]:items-center [&_a]:gap-2.5 [&_a]:py-1 [&_a]:hover:underline [&_svg]:size-4 [&_svg]:shrink-0 [&_svg]:text-muted-foreground">
-            {row.activities?.id && !hide.includes('activity') ? (
+            {row.activity?.id && !hide.includes('activity') ? (
               <div className="flex items-center gap-2.5 py-1">
-                <ActivityTypeIcon type={row.activities.type} />
+                <ActivityTypeIcon type={row.activity.type} />
                 <span className="truncate">
-                  {row.activities.subject ?? crmCopy.activity.untitled}
+                  {row.activity.subject ?? crmCopy.activity.untitled}
                 </span>
               </div>
             ) : null}
-            {row.deals?.id && !hide.includes('deal') ? (
-              <Link to="/crm/deals/$dealId" params={{ dealId: row.deals.id }}>
+            {row.deal?.id && !hide.includes('deal') ? (
+              <Link to="/crm/deals/$dealId" params={{ dealId: row.deal.id }}>
                 <DealIcon />
-                <span className="truncate">{row.deals.title ?? crmCopy.deals.restricted}</span>
+                <span className="truncate">{row.deal.title ?? crmCopy.deals.restricted}</span>
               </Link>
             ) : null}
-            {row.contacts?.id && !hide.includes('contact') ? (
-              <Link to="/crm/contacts/$contactId" params={{ contactId: row.contacts.id }}>
+            {row.contact?.id && !hide.includes('contact') ? (
+              <Link to="/crm/contacts/$contactId" params={{ contactId: row.contact.id }}>
                 <ContactIcon />
-                <span className="truncate">{contactName(row.contacts) ?? ''}</span>
+                <span className="truncate">{contactName(row.contact) ?? ''}</span>
               </Link>
             ) : null}
-            {row.organizations?.id && !hide.includes('organization') ? (
+            {row.organization?.id && !hide.includes('organization') ? (
               <Link
                 to="/crm/organizations/$organizationId"
-                params={{ organizationId: row.organizations.id }}
+                params={{ organizationId: row.organization.id }}
               >
                 <OrganizationIcon />
                 <span className="truncate">
-                  {row.organizations.name ?? crmCopy.organizations.restricted}
+                  {row.organization.name ?? crmCopy.organizations.restricted}
                 </span>
               </Link>
             ) : null}
@@ -135,25 +135,25 @@ function ActivityTypeIcon({ type }: { type: string | null | undefined }) {
 export function ContextPill({ row, hide }: { row: AttachmentRow; hide: Hide }) {
   let content: ReactNode = null
 
-  if (row.activities?.id && !hide.includes('activity')) {
+  if (row.activity?.id && !hide.includes('activity')) {
     content = (
       <>
-        <ActivityTypeIcon type={row.activities.type} />
-        <span className="truncate">{row.activities.subject ?? crmCopy.activity.untitled}</span>
+        <ActivityTypeIcon type={row.activity.type} />
+        <span className="truncate">{row.activity.subject ?? crmCopy.activity.untitled}</span>
       </>
     )
-  } else if (row.deals?.id && !hide.includes('deal')) {
+  } else if (row.deal?.id && !hide.includes('deal')) {
     content = (
       <>
         <DealIcon />
-        <span className="truncate">{row.deals.title ?? crmCopy.deals.restricted}</span>
+        <span className="truncate">{row.deal.title ?? crmCopy.deals.restricted}</span>
       </>
     )
-  } else if (row.contacts?.id && !hide.includes('contact')) {
+  } else if (row.contact?.id && !hide.includes('contact')) {
     content = (
       <>
         <ContactIcon />
-        <span className="truncate">{contactName(row.contacts) ?? ''}</span>
+        <span className="truncate">{contactName(row.contact) ?? ''}</span>
       </>
     )
   }

@@ -137,6 +137,7 @@ export const manifestSchema = z
     z.strictObject({
       ...common,
       kind: z.literal('addon'),
+      lint: path.optional(),
       format: z.literal('urn:monospace:manifest:addon:1'),
     }),
     z.strictObject({

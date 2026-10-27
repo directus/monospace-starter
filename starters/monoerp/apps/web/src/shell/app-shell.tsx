@@ -19,6 +19,7 @@ import { TooltipProvider } from '@/components/ui/tooltip'
 import { useIsMobile } from '@/hooks/use-mobile'
 import { appCopy } from '@/lib/app.copy'
 import { sessionQuery, signOut } from '@/lib/auth'
+import { appStorageKey } from '@/lib/storage'
 import { cn } from '@/lib/utils'
 import { moduleById } from '@/modules'
 import { usePages } from '@/modules/pages'
@@ -55,7 +56,7 @@ export function AppShell({ children }: { children: ReactNode }) {
 
     root.dataset.themeChanging = ''
     root.classList.toggle('dark', nextTheme === 'dark')
-    localStorage.setItem('crm-theme', nextTheme)
+    localStorage.setItem(appStorageKey('theme'), nextTheme)
     setTheme(nextTheme)
 
     void root.offsetWidth

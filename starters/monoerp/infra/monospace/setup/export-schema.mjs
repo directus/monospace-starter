@@ -157,7 +157,6 @@ for (const { url, schema: owned } of schemas) {
   if (!source) continue
 
   const schema = {
-    source: owned.source,
     collections: Object.fromEntries(
       Object.keys(owned.collections).map((name) => {
         const collection = source.collections[name]
@@ -167,6 +166,15 @@ for (const { url, schema: owned } of schemas) {
         const optionalRelations = owned.collections[name].optionalRelations
 
         const definition = { ...collection }
+
+        for (const [original, item] of Object.entries(owned.collections[name].relations ?? {})) {
+          if (!item.apiName) continue
+          const meta = definition.relations?.[item.apiName]
+          definition.relations ??= {}
+          delete definition.relations[item.apiName]
+          definition.relations[original] = { apiName: item.apiName, ...meta }
+          definition.order = definition.order?.map((key) => (key === item.apiName ? original : key))
+        }
 
         if (optionalRelations) {
           definition.optionalRelations = optionalRelations

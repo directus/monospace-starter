@@ -1,5 +1,15 @@
-export function schemaRelation(file, collection, apiName, optional, collections, ownerAvailable) {
-  const relation = collection.relationFields.find((field) => field.apiName === apiName)
+export function schemaRelation(
+  file,
+  collection,
+  apiName,
+  optional,
+  collections,
+  ownerAvailable,
+  renamedApiName = apiName,
+) {
+  const relation = collection.relationFields.find(
+    (field) => field.apiName === apiName || field.apiName === renamedApiName,
+  )
 
   if (relation) return relation
 

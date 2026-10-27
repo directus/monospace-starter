@@ -7,7 +7,7 @@ import type { FileRouteTypes } from '@/routeTree.gen'
 
 export type RoutePath = FileRouteTypes['to']
 
-// Each module adds its own key through declaration merging in its manifest.
+// Each module adds its own key through declaration merging in its UI entry.
 export interface ModuleRegistry {}
 
 export type ModuleId = keyof ModuleRegistry
@@ -16,16 +16,16 @@ export type PageMeta = {
   title: string
   icon?: LucideIcon
   module?: ModuleId
-  /** Present means the page shows in the sidebar. Value sets the order. */
+  // Present means the page shows in the sidebar. Value sets the order.
   nav?: number
   // Lets a page use the whole content width (boards, wide tables).
   fullWidth?: boolean
   // Pins the content box to the viewport height so the page's own scroller (board, virtualized
   // table) fills what's left instead of growing the page.
   fill?: boolean
-  /** List page this page hangs under in breadcrumbs, for detail routes. */
+  // List page this page hangs under in breadcrumbs, for detail routes.
   parent?: RoutePath
-  /** Extra terms the command palette matches on. */
+  // Extra terms the command palette matches on.
   keywords?: readonly string[]
 }
 
@@ -63,7 +63,7 @@ export type ModuleSearch = {
   search: (q: string, scopeId?: string) => Promise<SearchGroup[]>
 }
 
-export type ModuleManifest = {
+export type ModuleEntry = {
   id: ModuleId
   order: number
   label: string

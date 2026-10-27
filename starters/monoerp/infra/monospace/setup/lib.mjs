@@ -4,6 +4,7 @@
 import { randomUUID } from 'node:crypto'
 import { loadEnvFile } from 'node:process'
 
+import appConfig from '../../../app.config.json' with { type: 'json' }
 import { readManifests, resolveSource } from '../../manifests.mjs'
 
 try {
@@ -17,11 +18,9 @@ const baseUrl =
 
 export const apiUrl = `${baseUrl.replace(/\/$/, '')}/api`
 
-export const workspace = 'monoerp'
+export const { workspace, appSource } = appConfig
 
 export const workspacePath = `/${encodeURIComponent(workspace)}`
-
-export const appSource = 'App'
 
 // Exclude bookkeeping schemas from the shared API (applied migrations live in ops).
 export const excludedNamespaces = { [appSource]: ['ops'] }

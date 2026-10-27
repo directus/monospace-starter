@@ -23,6 +23,7 @@
     "effect": "4.0.0-rc.117"
   },
   "devDependencies": {
+    "@oxlint/plugins": "1.79.0",
     "@types/node": "24.10.13",
     "typescript": "6.0.3"
   }

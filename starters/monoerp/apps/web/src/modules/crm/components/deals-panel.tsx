@@ -65,7 +65,7 @@ export function DealsPanel({
       </FrameHeader>
       {rows.length ? (
         rows.map((deal, index) => {
-          const stage = deal.pipeline_stages
+          const stage = deal.stage
           const stageName = stage?.name ?? crmCopy.deals.restrictedStage
 
           const outcome =

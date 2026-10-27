@@ -43,6 +43,7 @@ export function manifestDocument(input) {
     'ownedPaths',
     'requires',
     'packageEntries',
+    'lint',
   ])
 
   const envelope = Object.fromEntries(Object.entries(manifest).filter(([key]) => fields.has(key)))

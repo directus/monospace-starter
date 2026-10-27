@@ -16,10 +16,6 @@ New installations can use different names; follow [Rename it](getting-started.md
 
 ### Running without the portal or Stripe
 
-The shared PostgreSQL source is required; CRM uses it. By default setup selects the connector IDs declared by installed modules: CRM uses `portal,stripe`. If set, `OPTIONAL_SOURCES` replaces that list (empty disables all); it can also select a connector no installed module uses. The example `.env` leaves this unset so installed modules choose. A connector folder must exist before setup will connect its source, apply its schema, or run dependent module steps. Use `pnpm app:remove <id>` and the [shared removal steps](../connectors/README.md#remove-a-module-or-connector) to remove its code and local service too.
-
-Taking a source out of `OPTIONAL_SOURCES` doesn't remove one that's already connected. Delete it in Studio (Data Model > Sources). Delete the portal's `stripeCustomer` relation before the Stripe source: Monospace won't delete a source while a constrained relation points at it.
-
 With a connector's code still selected, an unavailable backend shows the existing "isn't set up" or retry state (see `docs/architecture.md`). Portal and Stripe own their optional CRM frontend features: deleting a connector's folder, disabling its selection, or removing CRM drops its feature's collection requirements and UI automatically. Stripe's Billing feature also requires selected Portal. `pnpm generate` requires the installed modules' unconditional collections plus active connector features' collections.
 
 ## Setup: `pnpm setup:all`
@@ -58,7 +54,7 @@ One file per owning module or connector and source. Connector files live in `con
 - To change these settings in code: edit the JSON, then `pnpm schema:apply`.
 - If you changed them in Studio: run `pnpm schema:export` to write them back to their owning module or connector JSON, then commit it. When adding a collection, first add its database name to that owner's JSON so export knows who owns it. Otherwise the next fresh install loses them.
 
-The `optionalRelations` map keys optional relation names to their target `source`, database `collection`, and `owner` ID (module or connector). Apply logs and skips a missing entry only when that source is absent or its module or connector is absent or disabled. Required relations and optional joins whose source and module or connector are present still fail when missing, including when a target table is missing. This also handles Portal reverse joins when CRM tables are absent from the shared PostgreSQL source. Export keeps the dependency map and presentation metadata for later reattachment.
+The `optionalRelations` map keys optional relation names to their target `source`, database `collection`, and `owner` ID (module or connector). Apply logs and skips a missing entry only when that source is absent or its module or connector is absent or disabled. Required relations and optional joins whose source and module or connector are present still fail when missing, including when a target table is missing. This also handles Portal reverse joins when CRM tables are absent from the app database (PostgreSQL) source. Export keeps the dependency map and presentation metadata for later reattachment.
 
 Cross-source relation creation isn't in the JSON. Audit joins live in `audit-user-relations.mjs`, CRM-to-Portal joins in Portal's `portal-relations.mjs`, and the Portal-to-Stripe join in Stripe's `portal-stripe-relation.mjs`. Stripe declares that step before schema presentation with `requires: ['portal']`, so it also runs without CRM.
 
@@ -97,11 +93,11 @@ With a key, Monospace checks in with `licensing.monospace.io` at startup. An onl
 
 ## Known Monospace issues and workarounds
 
+The workarounds are implemented in the code. These notes explain what they cover and where they stop.
+
 **Recursive SDK query inference can exceed the compiler depth limit.** Check a named argument object with its generated `ReadManyArgs` type, then supply `readMany<typeof args>(args)`. Portal's user lookup in `connectors/portal/frontend/crm/data.ts` demonstrates this while retaining generated argument and result checks.
 
 **Empty workspaces:** CLI 0.2.1 emits an unused private type namespace when there are no collection mappings. `patches/@monospace__cli@0.2.1.patch` exports that namespace only for the empty case. Remove the patch when the CLI fixes this upstream. Core creates its client with the SDK factory and the generated `Schema`, which exists even without collections. Our write-schema generator emits an empty module when there are no write collections.
-
-Each of these has a workaround in the code. When a fix ships in Monospace, remove the workaround.
 
 **Filters can't be checked against the generated filter types.** List pages build filters at runtime from the URL (`apps/web/src/lib/filters.tsx`), so TypeScript can't check their shape. The fix would be to validate them with schemas generated from the OpenAPI filter types, but those reject valid filters: relation filters use `oneOf` where both options match, and date-time fields reject plain dates that the server accepts. Workaround: each list route casts the clause, with a `SAFETY` comment (`clauseFor` in `apps/web/src/routes/_app/crm/{organizations,contacts,deals,activity}.tsx`).
 
@@ -118,3 +114,5 @@ Each of these has a workaround in the code. When a fix ships in Monospace, remov
 **A relation into an extension source needs the other side to hold the key.** A relation pair with both sides unconstrained counts as editing the extension's data model and is refused. Workaround: the portal-to-Stripe relation marks the portal side constrained (`isConstrained: true` in `connectors/stripe/monospace/setup/portal-stripe-relation.mjs`). It's metadata only; MySQL gets no foreign key.
 
 **Monospace's own tables aren't served through `/items`.** Users, roles, policies, files, data sources, and schema metadata each have their own endpoint (`/members`, `/system/user-role`, `/roles/{id}/policies`, `/schema/...`), which need an explicit `fields` list and allow no `include`. They're also left out of the OpenAPI document as collections, so the generated client doesn't cover them. Collections and fields have no list endpoint at all; they're only in the schema manifest Studio reads (`GET /{workspace}/schema`). Workaround: the app reads members, roles, and policies in `apps/web/src/lib/monospace-system.ts`, and the setup scripts read collections through `readSources`, `readCollections`, and `metaPaths` in `infra/monospace/setup/lib.mjs`. Relations to them, such as `owner`, still work in `include`.
+
+For `OPTIONAL_SOURCES`, see [Source selection](../connectors/README.md#source-selection).

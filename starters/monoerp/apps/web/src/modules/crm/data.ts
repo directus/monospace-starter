@@ -96,11 +96,11 @@ const ACTIVITY_FIELDS = [
 ] as const
 
 const ACTIVITY_INCLUDE = {
-  organizations: { fields: ['id', 'name', 'domain'] },
-  contacts: { fields: ['id', 'firstName', 'lastName', 'email'] },
-  deals: {
+  organization: { fields: ['id', 'name', 'domain'] },
+  contact: { fields: ['id', 'firstName', 'lastName', 'email'] },
+  deal: {
     fields: ['id', 'title', 'valueAmount', 'currency'],
-    include: { pipeline_stages: { fields: ['name'] } },
+    include: { stage: { fields: ['name'] } },
   },
   attachments: { fields: ['id'], limit: RELATED_LIMIT },
 } as const
@@ -121,10 +121,10 @@ const ATTACHMENT_FIELDS = [
 ] as const
 
 const ATTACHMENT_INCLUDE = {
-  organizations: { fields: ['id', 'name', 'domain'] },
-  contacts: { fields: ['id', 'firstName', 'lastName', 'email'] },
-  deals: { fields: ['id', 'title'] },
-  activities: { fields: ['id', 'subject', 'type'] },
+  organization: { fields: ['id', 'name', 'domain'] },
+  contact: { fields: ['id', 'firstName', 'lastName', 'email'] },
+  deal: { fields: ['id', 'title'] },
+  activity: { fields: ['id', 'subject', 'type'] },
 } as const
 
 // Where a file lives. Every attachment has an organization; the rest narrow it further.
@@ -199,7 +199,7 @@ export function contactSearchFilter(q: string) {
 
 export function dealSearchFilter(q: string) {
   return {
-    _or: [{ title: { _icontains: q } }, { organizations: { name: { _icontains: q } } }],
+    _or: [{ title: { _icontains: q } }, { organization: { name: { _icontains: q } } }],
   }
 }
 
@@ -257,7 +257,7 @@ async function fetchContacts({
     include: {
       affiliations: {
         fields: ['id', 'title', 'startedAt', 'endedAt', 'isPrimary'],
-        include: { organizations: { fields: ['id', 'name', 'domain'] } },
+        include: { organization: { fields: ['id', 'name', 'domain'] } },
         sort: [{ isPrimary: { direction: 'desc' } }],
         limit: RELATED_LIMIT,
       },
@@ -302,9 +302,9 @@ async function fetchDeals({
       'updatedAt',
     ],
     include: {
-      contacts: { fields: ['id', 'firstName', 'lastName', 'email'] },
-      organizations: { fields: ['id', 'name', 'domain'] },
-      pipeline_stages: { fields: ['id', 'name', 'position', 'color'] },
+      contact: { fields: ['id', 'firstName', 'lastName', 'email'] },
+      organization: { fields: ['id', 'name', 'domain'] },
+      stage: { fields: ['id', 'name', 'position', 'color'] },
     },
     filter: whereAll<DealsFilter>(q ? dealSearchFilter(q) : undefined, filter),
     sort: sortSpec<DealSort>(DEAL_SORTS, sort, [{ updatedAt: { direction: 'desc' } }]),
@@ -348,7 +348,7 @@ async function fetchOrganizationDetail(organizationId: Uuid) {
       affiliations: {
         fields: ['id', 'title', 'startedAt', 'endedAt', 'isPrimary'],
         include: {
-          contacts: {
+          contact: {
             fields: ['id', 'firstName', 'lastName', 'email', 'status'],
           },
         },
@@ -358,7 +358,7 @@ async function fetchOrganizationDetail(organizationId: Uuid) {
       deals: {
         fields: ['id', 'title', 'status', 'valueAmount', 'currency', 'expectedCloseDate'],
         include: {
-          pipeline_stages: { fields: ['id', 'name', 'position', 'color', 'isClosed', 'isWon'] },
+          stage: { fields: ['id', 'name', 'position', 'color', 'isClosed', 'isWon'] },
         },
         sort: [{ updatedAt: { direction: 'desc' } }],
         limit: RELATED_LIMIT,
@@ -408,7 +408,7 @@ async function fetchContactDetail(contactId: Uuid) {
     include: {
       affiliations: {
         fields: ['id', 'title', 'startedAt', 'endedAt', 'isPrimary'],
-        include: { organizations: { fields: ['id', 'name', 'domain', 'status'] } },
+        include: { organization: { fields: ['id', 'name', 'domain', 'status'] } },
         sort: [{ startedAt: { direction: 'desc' } }],
         limit: RELATED_LIMIT,
       },
@@ -556,7 +556,7 @@ export async function lookupDeals(
 ): Promise<Array<RelationOption>> {
   const rows = await monospace.deals.readMany({
     fields: ['id', 'title'],
-    include: { organizations: { fields: ['name'] } },
+    include: { organization: { fields: ['name'] } },
     filter: whereAll<DealsFilter>(
       q ? dealSearchFilter(q) : undefined,
       organizationId ? { organizationId } : undefined,
@@ -567,7 +567,7 @@ export async function lookupDeals(
 
   return rows.flatMap((row) =>
     row.id && row.title
-      ? [{ value: row.id, label: row.title, description: row.organizations?.name ?? undefined }]
+      ? [{ value: row.id, label: row.title, description: row.organization?.name ?? undefined }]
       : [],
   )
 }
@@ -591,9 +591,9 @@ async function fetchDealDetail(dealId: Uuid) {
       'updatedAt',
     ],
     include: {
-      contacts: { fields: ['id', 'firstName', 'lastName', 'email'] },
-      organizations: { fields: ['id', 'name', 'domain', 'industry', 'status', 'portalAccountId'] },
-      pipeline_stages: { fields: ['id', 'name', 'position', 'color'] },
+      contact: { fields: ['id', 'firstName', 'lastName', 'email'] },
+      organization: { fields: ['id', 'name', 'domain', 'industry', 'status', 'portalAccountId'] },
+      stage: { fields: ['id', 'name', 'position', 'color'] },
       activities: {
         fields: ACTIVITY_FIELDS,
         include: ACTIVITY_INCLUDE,

@@ -99,7 +99,7 @@ function describe(row: ActivityRecord, hide: ReadonlyArray<LinkedRecord>) {
   return [
     type,
     hide.includes('contact') ? null : contactName(row),
-    hide.includes('organization') ? null : row.organizations?.name,
+    hide.includes('organization') ? null : row.organization?.name,
   ]
     .filter(Boolean)
     .join(' · ')
@@ -154,51 +154,51 @@ function DetailView({
       )}
 
       <Section title={copy.sheet.linked}>
-        {row.deals?.id && !hide.includes('deal') ? (
+        {row.deal?.id && !hide.includes('deal') ? (
           <LinkedRow
             icon={<DealIcon />}
             to="/crm/deals/$dealId"
-            params={{ dealId: row.deals.id }}
-            primary={row.deals.title ?? crmCopy.deals.restricted}
+            params={{ dealId: row.deal.id }}
+            primary={row.deal.title ?? crmCopy.deals.restricted}
             secondary={[
-              row.deals.pipeline_stages?.name,
-              formatMoney(row.deals.valueAmount, row.deals.currency ?? undefined),
+              row.deal.stage?.name,
+              formatMoney(row.deal.valueAmount, row.deal.currency ?? undefined),
             ]
               .filter(Boolean)
               .join(' · ')}
           />
         ) : null}
-        {row.contacts?.id && !hide.includes('contact') ? (
+        {row.contact?.id && !hide.includes('contact') ? (
           <LinkedRow
             icon={<ContactIcon />}
             to="/crm/contacts/$contactId"
-            params={{ contactId: row.contacts.id }}
+            params={{ contactId: row.contact.id }}
             primary={
               person ??
               `${crmCopy.contacts.restrictedName.first} ${crmCopy.contacts.restrictedName.last}`
             }
           />
         ) : null}
-        {row.organizations?.id && !hide.includes('organization') ? (
+        {row.organization?.id && !hide.includes('organization') ? (
           <LinkedRow
             icon={<OrganizationIcon />}
             to="/crm/organizations/$organizationId"
-            params={{ organizationId: row.organizations.id }}
-            primary={row.organizations.name ?? crmCopy.organizations.restricted}
-            secondary={row.organizations.domain ?? undefined}
+            params={{ organizationId: row.organization.id }}
+            primary={row.organization.name ?? crmCopy.organizations.restricted}
+            secondary={row.organization.domain ?? undefined}
           />
         ) : null}
       </Section>
 
-      {row.id && row.organizations?.id ? (
+      {row.id && row.organization?.id ? (
         <Section title={crmCopy.files.title}>
           <AttachmentsPanel
             variant="inline"
             scope={{ activityId: row.id }}
             target={{
-              organizationId: row.organizations.id,
-              contactId: row.contacts?.id,
-              dealId: row.deals?.id,
+              organizationId: row.organization.id,
+              contactId: row.contact?.id,
+              dealId: row.deal?.id,
               activityId: row.id,
             }}
             hide={['activity', 'deal', 'contact', 'organization']}
@@ -218,8 +218,8 @@ function DetailView({
         </InlineReadOnly>
       </Section>
 
-      {row.organizations?.id && row.id && !hide.includes('organization') ? (
-        <RecentSection organizationId={row.organizations.id} excludeId={row.id} />
+      {row.organization?.id && row.id && !hide.includes('organization') ? (
+        <RecentSection organizationId={row.organization.id} excludeId={row.id} />
       ) : null}
     </>
   )
@@ -355,7 +355,7 @@ function CompleteForm({
       },
     })
 
-    if (next?.subject.trim() && row.organizations?.id) {
+    if (next?.subject.trim() && row.organization?.id) {
       const when = next.due ?? now()
       const ownerId = row.ownerUserId ?? currentUser?.id
       await create.mutateAsync({
@@ -367,9 +367,9 @@ function CompleteForm({
         occurredAt: when,
         dueAt: next.due,
         completedAt: null,
-        organizations: { _connect: { key: { id: row.organizations.id } } },
-        contacts: row.contacts?.id ? { _connect: { key: { id: row.contacts.id } } } : undefined,
-        deals: row.deals?.id ? { _connect: { key: { id: row.deals.id } } } : undefined,
+        organization: { _connect: { key: { id: row.organization.id } } },
+        contact: row.contact?.id ? { _connect: { key: { id: row.contact.id } } } : undefined,
+        deal: row.deal?.id ? { _connect: { key: { id: row.deal.id } } } : undefined,
         owner: ownerId ? { _connect: { key: { id: ownerId } } } : undefined,
       })
     }

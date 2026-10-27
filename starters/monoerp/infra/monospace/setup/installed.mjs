@@ -1,6 +1,7 @@
 import { readFile } from 'node:fs/promises'
 import { loadEnvFile } from 'node:process'
 
+import appConfig from '../../../app.config.json' with { type: 'json' }
 import {
   readManifests,
   repository,
@@ -74,7 +75,13 @@ export async function readSchemas() {
   for (const manifest of [...modules, ...connectors]) {
     for (const path of manifest.schemaFiles) {
       const url = new URL(path, repository)
-      const schema = JSON.parse(await readFile(url, 'utf8'))
+      const definition = JSON.parse(await readFile(url, 'utf8'))
+
+      const schema = {
+        ...definition,
+        source: manifest.kind === 'module' ? appConfig.appSource : manifest.source.apiName,
+      }
+
       schemas.push({ file: `${manifest.id}/${path.split('/').at(-1)}`, url, schema })
     }
   }

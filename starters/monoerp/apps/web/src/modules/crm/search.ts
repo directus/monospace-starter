@@ -62,7 +62,7 @@ async function searchContacts(q: string): Promise<SearchHit[]> {
 async function searchDeals(q: string): Promise<SearchHit[]> {
   const rows = await monospace.deals.readMany({
     fields: ['id', 'title'],
-    include: { organizations: { fields: ['name'] } },
+    include: { organization: { fields: ['name'] } },
     filter: dealSearchFilter(q),
     sort: [{ updatedAt: { direction: 'desc' } }],
     limit: LIMIT,
@@ -74,7 +74,7 @@ async function searchDeals(q: string): Promise<SearchHit[]> {
           {
             id: row.id,
             title: row.title,
-            subtitle: row.organizations?.name ?? undefined,
+            subtitle: row.organization?.name ?? undefined,
             link: linkOptions({ to: '/crm/deals/$dealId', params: { dealId: row.id } }),
           },
         ]

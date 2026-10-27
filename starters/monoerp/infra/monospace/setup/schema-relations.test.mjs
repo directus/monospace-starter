@@ -94,3 +94,20 @@ describe('schema relation presentation', () => {
     ).toThrow('organizations.portalAccount is not a relation')
   })
 })
+
+it('finds a to-one relation after its API alias has already been applied', () => {
+  const relation = { id: 'same-field', apiName: 'organization' }
+  const collection = { dbName: 'deals', relationFields: [relation] }
+
+  expect(
+    schemaRelation(
+      'crm/app.json',
+      collection,
+      'organizations',
+      undefined,
+      [],
+      () => true,
+      'organization',
+    ),
+  ).toBe(relation)
+})

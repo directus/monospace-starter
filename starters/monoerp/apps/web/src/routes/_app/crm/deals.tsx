@@ -169,7 +169,7 @@ const columns: Array<DataTableColumn<DealRow>> = [
     header: crmCopy.organizations.singular,
     enableSorting: false,
     size: 220,
-    cell: ({ row }) => <OrganizationLabel organization={row.original.organizations} size="sm" />,
+    cell: ({ row }) => <OrganizationLabel organization={row.original.organization} size="sm" />,
   },
   {
     id: 'contact',
@@ -177,8 +177,8 @@ const columns: Array<DataTableColumn<DealRow>> = [
     enableSorting: false,
     size: 200,
     cell: ({ row }) =>
-      row.original.contacts ? (
-        <ContactLabel contact={row.original.contacts} size="sm" secondary={null} />
+      row.original.contact ? (
+        <ContactLabel contact={row.original.contact} size="sm" secondary={null} />
       ) : null,
   },
   {
@@ -187,7 +187,7 @@ const columns: Array<DataTableColumn<DealRow>> = [
     enableSorting: false,
     size: 160,
     cell: ({ row }) => {
-      const stage = row.original.pipeline_stages
+      const stage = row.original.stage
 
       return (
         <Badge variant="secondary" className="gap-1.5">
@@ -230,21 +230,21 @@ const columns: Array<DataTableColumn<DealRow>> = [
 ]
 
 function DealRowMobile({ deal }: { deal: DealRow }) {
-  const stage = deal.pipeline_stages
+  const stage = deal.stage
 
   return (
     <DataTableMobileRow
       render={deal.id ? <Link to="/crm/deals/$dealId" params={{ dealId: deal.id }} /> : undefined}
       title={deal.title ?? crmCopy.deals.restricted}
       meta={[
-        deal.organizations ? (
+        deal.organization ? (
           <span key="organization" className="flex min-w-0 items-center gap-1.5">
             <OrganizationAvatar
-              organization={deal.organizations}
+              organization={deal.organization}
               size="sm"
               className="data-[size=sm]:size-4"
             />
-            <span className="truncate">{organizationName(deal.organizations)}</span>
+            <span className="truncate">{organizationName(deal.organization)}</span>
           </span>
         ) : null,
         <span key="stage" className="flex min-w-0 items-center gap-1.5">

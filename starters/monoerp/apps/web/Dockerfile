@@ -12,7 +12,7 @@ COPY apps/web/package.json apps/web/package.json
 # Optional frontend packages need their workspace dependency links before the app builds.
 COPY connectors connectors
 # Prepare discovers modules and connectors before the full build source is copied.
-COPY starter.json starter.json
+COPY starter.json app.config.json ./
 COPY modules modules
 COPY infra infra
 COPY tools/prepare.mjs tools/manifest-schema.mjs tools/

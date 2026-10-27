@@ -4,9 +4,24 @@ import { fileURLToPath } from 'node:url'
 
 import { expect, it } from 'vitest'
 
+import { readManifests } from '../infra/manifests.mjs'
+
 const root = fileURLToPath(new URL('../', import.meta.url))
 
-const roots = ['apps', 'infra', 'connectors', 'modules', 'tools', 'docs', 'addons', 'tooling']
+const toolPaths = readManifests().flatMap((manifest) =>
+  manifest.kind === 'addon' ? manifest.ownedPaths : [],
+)
+
+const roots = [
+  'apps',
+  'infra',
+  'connectors',
+  'modules',
+  'tools',
+  'docs',
+  'addons',
+  ...toolPaths.map((path) => path.split('/')[0]),
+]
 
 function markdown(directory) {
   return readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
@@ -29,19 +44,10 @@ it('keeps literal repository paths in documentation valid', () => {
       if (
         /[\s*<>{}|]/.test(path) ||
         !path.includes('/') ||
-        path.includes('inventory') ||
         path.split('/').includes('node_modules') ||
         path.startsWith('infra/monospace/extensions')
       )
         continue
-
-      const optionalTool = [
-        ['infra/aws', 'addons/aws'],
-        ['tools/oxlint', 'addons/anti-slop'],
-        ['tooling/workshop', 'addons/workshop'],
-      ].find(([prefix]) => path.startsWith(prefix))
-
-      if (optionalTool && !existsSync(resolve(root, optionalTool[1]))) continue
 
       const first = path.split('/')[0]
 

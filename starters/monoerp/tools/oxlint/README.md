@@ -1,4 +1,4 @@
-# Strict lint rules
+# Strict lint add-on
 
 Derived from dmmulroy/anti-slop at c44ef22, MIT. These rules are maintained here. The spacing visitor derives from ESLint Stylistic at 435c3ea0fd26a5fef9042c4b36b6e165fbbf8d08 (MIT); its license remains in `anti-slop/vendor/eslint-stylistic/LICENSE`.
 
@@ -26,6 +26,6 @@ All of these are errors, so `pnpm check` fails on them. They come from `tools/ox
 - **`no-conditional-empty-object-spread`:** no `...(ok ? { a } : {})`. Build the object directly.
 - **`no-shape-in-symbol-names`:** don't name things `...Shape`. Name them for what they are.
 
-`infra/aws` also gets the Effect rules in `infra/aws/lint`.
+[AWS add-on](../../infra/aws/README.md) also gets the Effect rules in [AWS lint](../../infra/aws/lint).
 
 The AST visitor files use the normal formatter and base lint rules plus spacing. App-specific data boundary rules are disabled there because visitors inspect parser unions directly.

@@ -3,7 +3,7 @@
 Any host can run the same app and setup task used locally.
 
 - Use the Monospace image pinned by digest in `docker-compose.yml`.
-- Provide a system PostgreSQL database for Monospace and a separate shared PostgreSQL database with pgvector for application data.
+- Provide a system PostgreSQL database for Monospace and a separate app database (PostgreSQL) with pgvector for application data.
 - Provide the external MySQL connection when Portal is selected. Its runtime login is read-only.
 - Provide RabbitMQ and Valkey for clustered Monospace installations.
 - Configure JWT signing and KMS keys, the public base URL, and a Monospace license covering the deployment.
@@ -15,4 +15,4 @@ Any host can run the same app and setup task used locally.
 
 The Compose `full` profile is a local example of the app, Monospace, and a Caddy reverse proxy running together.
 
-Optional: `infra/aws` deploys this stack to AWS (`pnpm aws deploy`); see [the AWS guide](../infra/aws/README.md) for its supported connectors and setup.
+Optional: [AWS add-on](../infra/aws/README.md) deploys this stack to AWS (`pnpm aws deploy`); see [the AWS guide](../infra/aws/README.md) for its supported connectors and setup.

@@ -14,10 +14,7 @@
     "compose": "connectors/stripe/compose.yml",
     "schemaFiles": ["connectors/stripe/monospace/schema/stripe.json"],
     "source": {
-      "apiName": {
-        "env": "MONOSPACE_STRIPE_SOURCE",
-        "default": "Stripe"
-      },
+      "apiName": "Stripe",
       "provider": "monoerp/stripe-data-connector",
       "config": {
         "apiKey": {

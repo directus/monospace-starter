@@ -35,7 +35,7 @@ What's running:
 | ---------------- | --------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
 | The app          | http://localhost:3000 | TanStack Start, React, Tailwind, shadcn/ui                                                                                    |
 | Monospace Studio | http://localhost:8100 | Monospace's admin UI: data model, content, users, roles                                                                       |
-| `app-postgres`   | port 5433             | The CRM's database. The app reads and writes it                                                                               |
+| `app-postgres`   | port 5433             | The app database. The app reads and writes it                                                                                 |
 | `customer-mysql` | port 3307             | A stand-in for another team's product database. Monospace can only read it                                                    |
 | `stripe`         | port 4010             | A local Stripe ([`@emulators/stripe`](https://www.npmjs.com/package/@emulators/stripe)) with billing history for each account |
 | Mailpit          | http://localhost:8025 | Catches invite and password reset mail                                                                                        |
@@ -54,7 +54,7 @@ A few things to know on the first run:
 ### In the app
 
 - **Home** lists the modules. There's one so far, the CRM, and more can sit next to it.
-- **Organizations** is a list over the CRM database. The Plan, Seats, Renews, and Open tickets columns come from the portal's MySQL, joined in by Monospace. Try filtering by plan: the filter crosses from one database into the other.
+- **Organizations** is a list over the app database. The Plan, Seats, Renews, and Open tickets columns come from the portal's MySQL, joined in by Monospace. Try filtering by plan: the filter crosses from one database into the other.
 - **An organization's page** shows the CRM record (details, contacts, deals, activity, notes, files) next to what the other systems know. The Portal tab shows the account, plan, seats, users, and tickets from MySQL. The Billing tab shows lifetime value and payments from Stripe. McKesson is a good one to open: its last payment failed.
 - **Deals** is a table or a board. Drag a deal to another stage on the board.
 - **Activity** is everyone's to-dos and history in one place.
@@ -80,7 +80,7 @@ docker compose start stripe customer-mysql
 The browser only talks to the app's own address. Anything under `/api/*` is passed to Monospace, so the Monospace session cookie stays on the app's address and there's no CORS setup. Pages call Monospace straight from the browser, with a typed client generated from the workspace's schema and TanStack Query. There's no app database and no API layer of the app's own.
 
 ```text
-browser ──> app ──┬── /api/*  ──> Monospace ──┬── shared PostgreSQL (read and write)
+browser ──> app ──┬── /api/*  ──> Monospace ──┬── app database (PostgreSQL) (read and write)
                   │                           ├── portal MySQL (read-only)
                   │                           └── Stripe (connector)
                   └── pages ──> TanStack Start
@@ -90,18 +90,18 @@ Monospace decides permissions on every request. The app only reads the signed-in
 
 Where things live:
 
-| Path                         | What                                                               |
-| ---------------------------- | ------------------------------------------------------------------ |
-| `apps/web/src/routes`        | Pages. File names are URLs                                         |
-| `apps/web/src/modules`       | Each module's reads (`data.ts`), writes (`mutations.ts`), and copy |
-| `apps/web/src/generated`     | The typed Monospace client. Generated; don't edit                  |
-| `starter.json`               | Shared ownership manifest                                          |
-| `modules/`                   | Module manifests                                                   |
-| `infra/modules`              | The Module schemas, migrations, demo data, and Monospace setup     |
-| `connectors/portal/emulator` | The portal stand-in's schema and demo data                         |
-| `infra/monospace`            | The `pnpm setup:*` scripts, and names and labels for each source   |
-| `connectors/stripe`          | The Stripe data connector                                          |
-| `connectors/stripe/emulator` | The local Stripe and its billing data                              |
+| Path                         | What                                                                                                                            |
+| ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| `apps/web/src/routes`        | Pages. File names are URLs                                                                                                      |
+| `apps/web/src/modules`       | Each module's reads (`data.ts`), writes (`mutations.ts`), and copy                                                              |
+| `apps/web/src/generated`     | The typed Monospace client. Generated; don't edit                                                                               |
+| `starter.json`               | Shared ownership manifest                                                                                                       |
+| `modules/`                   | Module manifests                                                                                                                |
+| `infra/modules`              | The module schemas, migrations, demo data, and Monospace setup                                                                  |
+| `connectors/portal/emulator` | The portal stand-in's schema and demo data                                                                                      |
+| `infra/monospace`            | The `pnpm setup:*` scripts, and setup and installed connector extensions; labels live in each owner’s `monospace/schema/*.json` |
+| `connectors/stripe`          | The Stripe data connector                                                                                                       |
+| `connectors/stripe/emulator` | The local Stripe and its billing data                                                                                           |
 
 More in [`architecture.md`](architecture.md).
 
@@ -111,15 +111,19 @@ To build on monoERP, give it a repo of its own: `git init` in the folder `giget`
 
 ### Rename it
 
-Start with the display name; keep existing workspace, database, and resource IDs unless you are planning a data migration.
+Use a fresh stack when changing infrastructure names; keep the old volumes as a backup. API names and generated clients must match before you build.
 
-1. Change `appName` and the description in `apps/web/src/lib/app.copy.ts`, plus your README and brand assets. The root route reads its page metadata from that copy.
-2. Choose package and deployment names before your first deployment. Use the table below to find the related settings.
-3. Run `pnpm install` and `pnpm verify`. If you change workspace or source names on a new install, also run setup and regenerate the SDK before building.
-
-The product name and tagline live in `apps/web/src/lib/app.copy.ts`; each module owns its copy. Package names live in the root and workspace `package.json` files. Change matching filters together, then run install and verify.
-
-All modules share workspace `monoerp`, PostgreSQL service `app-postgres` (database/user `app`), and source `App`. Workspace constants live in `apps/web/src/lib/workspace.ts` and `infra/monospace/setup/lib.mjs`. Choose these infrastructure names before creating data, then run setup and regenerate the SDK.
+| What                                            | Where                                                                                                                                            | Safe after first setup?                     |
+| ----------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------- |
+| Display name and description                    | [app.copy.ts:1](../apps/web/src/lib/app.copy.ts#L1), README and brand assets                                                                     | Yes                                         |
+| App ID (browser storage prefix)                 | [app.config.json:2](../app.config.json#L2) `appId`                                                                                               | Yes (preferences reset)                     |
+| Package scope `@monoerp/*`                      | [package.json:2](../package.json#L2), [apps/web/package.json:2](../apps/web/package.json#L2), other workspace packages and matching pnpm filters | Yes                                         |
+| Workspace `monoerp`                             | [app.config.json:3](../app.config.json#L3) `workspace`; run setup and regenerate                                                                 | No                                          |
+| App source `App`                                | [app.config.json:4](../app.config.json#L4) `appSource`; run setup and regenerate                                                                 | No                                          |
+| Database/user `app`, service `app-postgres`     | [docker-compose.yml:28](../docker-compose.yml#L28), [sources.mjs:20](../infra/monospace/setup/sources.mjs#L20), deployment configuration         | No                                          |
+| Stripe provider `monoerp/stripe-data-connector` | [extension.config.json:11](../connectors/stripe/extension/extension.config.json#L11) and [connector.json](../connectors/stripe/connector.json)   | No                                          |
+| Extension `monoerp__stripe`                     | [connector.json](../connectors/stripe/connector.json) `extension.installed`                                                                      | No                                          |
+| Runtime key `x-monoerp`                         | All manifests, [manifest-schema.mjs](../tools/manifest-schema.mjs), [manifest-fixtures.mjs](../tools/manifest-fixtures.mjs)                      | Yes (update readers and manifests together) |
 
 ### Add a field
 
@@ -148,7 +152,7 @@ Labels, field order, and icons live in each module or connector’s `monospace/s
 
 The two databases are stand-ins. `infra/monospace/setup/sources.mjs` creates the data sources, and reads their connection details from `.env`:
 
-- **Your shared database:** `APP_DB_HOST`, `APP_DB_INTERNAL_PORT`, `APP_DB_USER`, `APP_DB_PASSWORD`, `APP_DB_NAME`, and `DB_SSL_MODE=require` for managed databases like RDS.
+- **Your app database:** `APP_DB_HOST`, `APP_DB_INTERNAL_PORT`, `APP_DB_USER`, `APP_DB_PASSWORD`, `APP_DB_NAME`, and `DB_SSL_MODE=require` for managed databases like RDS.
 - **Your product database:** `CUSTOMER_MYSQL_HOST`, `CUSTOMER_MYSQL_INTERNAL_PORT`, and `PORTAL_READER_PASSWORD`. The user and database name (`monospace_reader`, `customer_portal`) are set in `connectors/portal/connector.json` under `source.user` and `source.dbname`, so change them there. Give Monospace a login that can only read; that's what keeps another team's data safe, whatever anyone clicks in Studio.
 
 Monospace connects from inside Docker, so a database on your machine is `host.docker.internal` (on Docker Desktop), not `localhost`.
@@ -172,11 +176,7 @@ Portal accounts link to Stripe customers by `stripe_customer_id`, so those IDs n
 
 Preview with `pnpm app:remove portal --dry-run`, then remove Portal or Stripe with `pnpm app:remove portal` or `pnpm app:remove stripe`. Follow the [shared removal steps](../connectors/README.md#remove-a-module-or-connector) to retire an existing source and regenerate the app.
 
-To keep a connector's code without connecting its source, use `OPTIONAL_SOURCES` instead.
-
-The shared PostgreSQL source is required. Installed modules declare their external connector IDs. `OPTIONAL_SOURCES`, when set, replaces that selection; the example `.env` leaves this unset so installed modules choose. Leave an ID out, and setup skips it and everything that depends on it. A missing `connectors/<id>/` folder always skips that source too. After copying or deleting a module or connector, run `pnpm install` before `docker compose up -d --remove-orphans`. Disabled connector features disappear from the app. A selected connector whose backend source is missing shows "isn't set up" instead of a retry error.
-
-On a workspace that already has the source, also delete it in Studio. [`monospace.md`](monospace.md) has the details, including how to take it out of the code entirely.
+For connector selection and `OPTIONAL_SOURCES`, see [Source selection](../connectors/README.md#source-selection). After copying or deleting module or connector folders, run `pnpm install` before starting Compose.
 
 ### Add a module
 

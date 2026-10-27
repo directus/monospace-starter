@@ -2,27 +2,27 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
 
 import type {
-  Uuid,
-  attachmentsCreateOneInput,
-  affiliationsCreateOneInput,
-  affiliationsUpdateOneInput,
-  contactsCreateOneInput,
-  contactsUpdateOneInput,
   activitiesCreateOneInput,
   activitiesUpdateOneInput,
+  affiliationsCreateOneInput,
+  affiliationsUpdateOneInput,
+  attachmentsCreateOneInput,
+  contactsCreateOneInput,
+  contactsUpdateOneInput,
   dealsCreateOneInput,
   dealsUpdateOneInput,
   organizationsCreateOneInput,
   organizationsUpdateOneInput,
+  Uuid,
 } from '@/generated/monospace'
 import {
-  attachmentsCreateSchema,
-  affiliationsCreateSchema,
-  affiliationsUpdateSchema,
-  contactsCreateSchema,
-  contactsUpdateSchema,
   activitiesCreateSchema,
   activitiesUpdateSchema,
+  affiliationsCreateSchema,
+  affiliationsUpdateSchema,
+  attachmentsCreateSchema,
+  contactsCreateSchema,
+  contactsUpdateSchema,
   dealsCreateSchema,
   dealsUpdateSchema,
   organizationsCreateSchema,
@@ -34,6 +34,7 @@ import { formatMoney } from '@/lib/format'
 import { monospace } from '@/lib/monospace'
 import { knownMember } from '@/lib/monospace-system'
 import { useCollectionAccess } from '@/lib/permissions'
+import { patchCached, patchRow } from '@/lib/query-cache'
 import { crmCopy } from '@/modules/crm/crm.copy'
 import {
   contactDetailQuery,
@@ -41,18 +42,23 @@ import {
   organizationDetailQuery,
   pipelineStagesQuery,
 } from '@/modules/crm/data'
-import type { ContactDetail, DealDetail, DealRow, OrganizationDetail } from '@/modules/crm/data'
-import type { PipelineStage } from '@/modules/crm/data'
-import type { AttachmentTarget } from '@/modules/crm/data'
+import type {
+  AttachmentTarget,
+  ContactDetail,
+  DealDetail,
+  DealRow,
+  OrganizationDetail,
+  PipelineStage,
+} from '@/modules/crm/data'
 import { statusForStage } from '@/modules/crm/deals'
-import { patchCached, patchRow, refreshCrm } from '@/modules/crm/refresh'
+import { refreshCrm } from '@/modules/crm/refresh'
 
 function connectTarget(target: AttachmentTarget) {
   return {
-    organizations: { _connect: { key: { id: target.organizationId } } },
-    contacts: target.contactId ? { _connect: { key: { id: target.contactId } } } : undefined,
-    deals: target.dealId ? { _connect: { key: { id: target.dealId } } } : undefined,
-    activities: target.activityId ? { _connect: { key: { id: target.activityId } } } : undefined,
+    organization: { _connect: { key: { id: target.organizationId } } },
+    contact: target.contactId ? { _connect: { key: { id: target.contactId } } } : undefined,
+    deal: target.dealId ? { _connect: { key: { id: target.dealId } } } : undefined,
+    activity: target.activityId ? { _connect: { key: { id: target.activityId } } } : undefined,
   }
 }
 
@@ -89,7 +95,7 @@ export function useUploadAttachment({ notify = true }: { notify?: boolean } = {}
       const assetId = await uploadAsset(file, { signal, onProgress })
 
       const input: attachmentsCreateOneInput = {
-        assetId: assetId,
+        assetId,
         fileName: file.name,
         contentType: file.type || null,
         sizeBytes: file.size,
@@ -349,13 +355,13 @@ export function useUpdateDeal({ notify = true }: { notify?: boolean } = {}) {
         patchCached<DealDetail>(
           queryClient,
           { queryKey: dealDetailQuery(id).queryKey, exact: true },
-          (detail) => ({ ...detail, ...patch, pipeline_stages: stage ?? detail.pipeline_stages }),
+          (detail) => ({ ...detail, ...patch, stage: stage ?? detail.stage }),
         ),
         // Every-deal reads (board, dashboard) are arrays under ['deals', filters].
         patchCached<DealRow[]>(
           queryClient,
           { queryKey: ['deals'], predicate: (query) => Array.isArray(query.state.data) },
-          (rows) => patchRow(rows, id, stage ? { ...patch, pipeline_stages: stage } : patch),
+          (rows) => patchRow(rows, id, stage ? { ...patch, stage: stage } : patch),
         ),
       ])
 
@@ -661,8 +667,8 @@ export function useCloseDeal() {
             occurredAt,
             completedAt: occurredAt,
             dueAt: null,
-            organizations: { _connect: { key: { id: organizationId } } },
-            deals: { _connect: { key: { id } } },
+            organization: { _connect: { key: { id: organizationId } } },
+            deal: { _connect: { key: { id } } },
           }),
           fields: ['id'],
         })

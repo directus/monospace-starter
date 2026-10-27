@@ -106,7 +106,7 @@ function ContactForm({
                   _create: {
                     data: [
                       {
-                        organizations: {
+                        organization: {
                           _connect: { key: { id: value.organization.value } },
                         },
                         title: value.title.trim() || null,

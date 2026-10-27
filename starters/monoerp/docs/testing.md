@@ -6,16 +6,16 @@ How to check your work, where tests go, and what the lint rules want from you.
 
 Run `pnpm verify` before calling a change done. CI runs that same command: module or connector checks, formatting/lint, typecheck, unit tests, and production build. Browser tests are an additional check for component changes.
 
-| Command                                   | What it runs                                                                                                                                      |
-| ----------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `pnpm app:doctor`                         | Module and connector schema, required dependencies, existing paths, and exclusive source ownership                                                |
-| `pnpm verify`                             | `pnpm check && pnpm typecheck && pnpm test && pnpm build`                                                                                         |
-| `pnpm build`                              | Production app build                                                                                                                              |
-| `pnpm check`                              | Module and connector validation, then `vp check`: Oxfmt formatting, then Oxlint with type-aware rules and optional strict rules in `tools/oxlint` |
-| `pnpm typecheck`                          | Every installed workspace package with a `typecheck` script                                                                                       |
-| `pnpm test`                               | Vitest unit tests (`*.test.ts`, `*.test.tsx`)                                                                                                     |
-| `pnpm --filter @monoerp/web test:browser` | Vitest browser tests (`*.browser.tsx`) in headless Chromium                                                                                       |
-| `pnpm format`                             | Fixes formatting. `pnpm check` only reports it                                                                                                    |
+| Command                                   | What it runs                                                                                                                                                                       |
+| ----------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `pnpm app:doctor`                         | Module and connector schema, required dependencies, existing paths, and exclusive source ownership                                                                                 |
+| `pnpm verify`                             | `pnpm check && pnpm typecheck && pnpm test && pnpm build`                                                                                                                          |
+| `pnpm build`                              | Production app build                                                                                                                                                               |
+| `pnpm check`                              | Module and connector validation, then `vp check`: Oxfmt formatting, then Oxlint with type-aware rules and optional strict rules in [strict lint add-on](../tools/oxlint/README.md) |
+| `pnpm typecheck`                          | Every installed workspace package with a `typecheck` script                                                                                                                        |
+| `pnpm test`                               | Vitest unit tests (`*.test.ts`, `*.test.tsx`)                                                                                                                                      |
+| `pnpm --filter @monoerp/web test:browser` | Vitest browser tests (`*.browser.tsx`) in headless Chromium                                                                                                                        |
+| `pnpm format`                             | Fixes formatting. `pnpm check` only reports it                                                                                                                                     |
 
 Lint and format settings live in the root `vite.config.ts`. Formatting sorts imports and Tailwind classes. Generated files (`apps/web/src/generated`, `routeTree.gen.ts`) are skipped. Connector extension source runs the base lint rules; optional strict application conventions do not apply there.
 
@@ -80,9 +80,9 @@ worker.use(
 
 Parse request bodies with the generated Zod schemas (`@/generated/monospace/schemas`) so a wrong payload fails the test.
 
-With the strict-lint add-on, module mocking (`vi.mock`, `vi.doMock`, `jest.mock`) fails lint. Fake the network with MSW, or pass the dependency in. In unit tests, `vi.stubGlobal` and `vi.spyOn` are fine for globals like `fetch` (see `apps/web/src/lib/monospace.test.ts`).
+With the strict lint add-on (ID `anti-slop`), module mocking (`vi.mock`, `vi.doMock`, `jest.mock`) fails lint. Fake the network with MSW, or pass the dependency in. In unit tests, `vi.stubGlobal` and `vi.spyOn` are fine for globals like `fetch` (see `apps/web/src/lib/monospace.test.ts`).
 
-If `tools/oxlint` is installed, it adds stricter rules; see [its README](../tools/oxlint/README.md).
+The strict lint add-on adds stricter rules; see [its README](../tools/oxlint/README.md).
 
 ## Pre-commit hook
 

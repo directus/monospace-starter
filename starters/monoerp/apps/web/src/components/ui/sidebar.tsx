@@ -13,11 +13,12 @@ import {
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import { useIsMobile } from '@/hooks/use-mobile'
 import { appCopy } from '@/lib/app.copy'
+import { appStorageKey } from '@/lib/storage'
 import { cn } from '@/lib/utils'
 
-const SIDEBAR_STORAGE_KEY = 'sidebar-open'
+const SIDEBAR_STORAGE_KEY = appStorageKey('sidebar-open')
 
-const SIDEBAR_STORAGE_EVENT = 'sidebar-open-change'
+const SIDEBAR_STORAGE_EVENT = appStorageKey('sidebar-open-change')
 
 const SIDEBAR_WIDTH = '12rem'
 

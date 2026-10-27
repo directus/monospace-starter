@@ -1,52 +1,25 @@
-import { existsSync } from 'node:fs'
+const rules = {
+  'anti-slop/no-array-filter-map': 'error',
+  'anti-slop/no-reduce-accumulator-copy': 'error',
+  'anti-slop/no-chained-type-assertions': 'error',
+  'anti-slop/no-conditional-empty-object-spread': 'error',
+  'anti-slop/no-known-value-widening': 'error',
+  'anti-slop/no-module-mocking': 'error',
+  'anti-slop/no-object-parameters': 'error',
+  'anti-slop/no-reflect-apply': 'error',
+  'anti-slop/no-reflect-get': 'error',
+  'anti-slop/no-runtime-typeof': 'error',
+  'anti-slop/no-shape-in-symbol-names': 'error',
+  'anti-slop/no-unknown-parameters': 'error',
+  'anti-slop/no-unknown-returns': 'error',
+  'anti-slop/no-unknown-type-aliases': 'error',
+  'anti-slop/no-unsafe-dictionary-type': 'error',
+  'anti-slop/no-widen-then-assert': 'error',
+  'anti-slop/require-readable-spacing': 'error',
+  'anti-slop/require-safety-comment-for-type-assertion': 'error',
+}
 
-export const lint = {
+export default {
   jsPlugins: [{ name: 'anti-slop', specifier: './tools/oxlint/anti-slop/index.ts' }],
-  rules: {
-    'anti-slop/no-array-filter-map': 'error',
-    'anti-slop/no-reduce-accumulator-copy': 'error',
-    'anti-slop/no-chained-type-assertions': 'error',
-    'anti-slop/no-conditional-empty-object-spread': 'error',
-    'anti-slop/no-known-value-widening': 'error',
-    'anti-slop/no-module-mocking': 'error',
-    'anti-slop/no-object-parameters': 'error',
-    'anti-slop/no-reflect-apply': 'error',
-    'anti-slop/no-reflect-get': 'error',
-    'anti-slop/no-runtime-typeof': 'error',
-    'anti-slop/no-shape-in-symbol-names': 'error',
-    'anti-slop/no-unknown-parameters': 'error',
-    'anti-slop/no-unknown-returns': 'error',
-    'anti-slop/no-unknown-type-aliases': 'error',
-    'anti-slop/no-unsafe-dictionary-type': 'error',
-    'anti-slop/no-widen-then-assert': 'error',
-    'anti-slop/require-readable-spacing': 'error',
-    'anti-slop/require-safety-comment-for-type-assertion': 'error',
-  },
-  overrides: [
-    {
-      // AST visitors inspect parser unions directly; application boundary rules do not apply.
-      files: ['tools/oxlint/anti-slop/**'],
-      rules: Object.fromEntries([
-        ['anti-slop/no-array-filter-map', 'off'],
-        ['anti-slop/no-reduce-accumulator-copy', 'off'],
-        ['anti-slop/no-chained-type-assertions', 'off'],
-        ['anti-slop/no-conditional-empty-object-spread', 'off'],
-        ['anti-slop/no-known-value-widening', 'off'],
-        ['anti-slop/no-module-mocking', 'off'],
-        ['anti-slop/no-object-parameters', 'off'],
-        ['anti-slop/no-reflect-apply', 'off'],
-        ['anti-slop/no-reflect-get', 'off'],
-        ['anti-slop/no-runtime-typeof', 'off'],
-        ['anti-slop/no-shape-in-symbol-names', 'off'],
-        ['anti-slop/no-unknown-parameters', 'off'],
-        ['anti-slop/no-unknown-returns', 'off'],
-        ['anti-slop/no-unknown-type-aliases', 'off'],
-        ['anti-slop/no-unsafe-dictionary-type', 'off'],
-        ['anti-slop/no-widen-then-assert', 'off'],
-      ]),
-    },
-    ...(existsSync(new URL('../../infra/aws/lint/config.ts', import.meta.url))
-      ? [(await import(new URL('../../infra/aws/lint/config.ts', import.meta.url).href)).effectLint]
-      : []),
-  ],
+  rules,
 }

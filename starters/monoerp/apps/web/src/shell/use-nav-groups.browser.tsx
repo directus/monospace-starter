@@ -1,9 +1,10 @@
 import { act, renderHook } from '@testing-library/react'
 import { beforeEach, describe, expect, it } from 'vitest'
 
+import { appStorageKey } from '@/lib/storage'
 import { useNavGroups } from '@/shell/use-nav-groups'
 
-const KEY = 'crm-sidebar-closed-groups'
+const KEY = appStorageKey('sidebar-closed-groups')
 
 type Page = { module: string | undefined; path: string }
 

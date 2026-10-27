@@ -66,6 +66,7 @@ export interface StarterManifest extends Envelope {
 
 export interface AddonManifest extends Envelope {
   kind: 'addon'
+  lint?: string
 }
 
 export type Manifest = StarterManifest | ModuleManifest | ConnectorManifest | AddonManifest

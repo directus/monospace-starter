@@ -1,6 +1,5 @@
-import { MonospaceNotFoundError } from '@monospace/sdk'
 import { noop, useQueries, useSuspenseQuery } from '@tanstack/react-query'
-import { createFileRoute, notFound, useNavigate } from '@tanstack/react-router'
+import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import { Link2, Mail, Phone, Plus, Paperclip } from 'lucide-react'
 import { useState } from 'react'
 
@@ -99,20 +98,16 @@ function ContactDetailPage() {
   const [addingOrganization, setAddingOrganization] = useState<'new' | 'existing'>()
   const [now] = useState(() => Date.now())
 
-  if (contactQuery.isError && contactQuery.error instanceof MonospaceNotFoundError) {
-    throw notFound()
-  }
-
   const contact = contactQuery.data
   const affiliations = contact.affiliations?.data ?? []
   const activities = contact.activities?.data ?? []
   const extraEntries = history.flatMap((query) => query.data ?? [])
   const name = `${contact.firstName ?? crmCopy.contacts.restrictedName.first} ${contact.lastName ?? crmCopy.contacts.restrictedName.last}`
-  const groups = groupAffiliations(affiliations, (row) => row.organizations?.id)
+  const groups = groupAffiliations(affiliations, (row) => row.organization?.id)
   const primaryAffiliation = groups.find((group) => group.isPrimary)?.current
 
   const organizationOptions = groups.flatMap((group) => {
-    const option = toOrganizationOption(group.current?.organizations)
+    const option = toOrganizationOption(group.current?.organization)
 
     return option ? [option] : []
   })
@@ -121,7 +116,7 @@ function ContactDetailPage() {
 
   const toInitial = (row: (typeof affiliations)[number]): AffiliationInitial => ({
     id: row.id,
-    organization: toOrganizationOption(row.organizations),
+    organization: toOrganizationOption(row.organization),
     title: row.title,
     startedAt: row.startedAt,
     endedAt: row.endedAt,
@@ -134,7 +129,7 @@ function ContactDetailPage() {
 
   const contactOption = toContactOption({ ...contact, id: contactId })
 
-  const primaryOrganization = toOrganizationOption(primaryAffiliation?.organizations) ?? undefined
+  const primaryOrganization = toOrganizationOption(primaryAffiliation?.organization) ?? undefined
   // Files roll up to an organization, so a contact needs one to attach anything.
   const attachOrganization = primaryOrganization ?? activityOrganization
 
@@ -378,7 +373,7 @@ function ContactDetailPage() {
             }
             label={(group) => (
               <OrganizationLabel
-                organization={group.roles[0]?.organizations}
+                organization={group.roles[0]?.organization}
                 className={group.isFormer ? 'text-muted-foreground' : undefined}
                 secondary={
                   [

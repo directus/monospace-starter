@@ -1,5 +1,4 @@
 {
-  "source": "Stripe",
   "collections": {
     "charges": {
       "apiName": "stripeCharges",

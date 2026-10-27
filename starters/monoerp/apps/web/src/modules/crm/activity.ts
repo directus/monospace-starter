@@ -24,18 +24,18 @@ export type ActivityLike = {
   completedAt?: string | null
   ownerUserId?: string | null
   owner?: OwnerLike | null
-  organizations?: { id?: Uuid | null; name?: string | null; domain?: string | null } | null
-  contacts?: {
+  organization?: { id?: Uuid | null; name?: string | null; domain?: string | null } | null
+  contact?: {
     id?: Uuid | null
     firstName?: string | null
     lastName?: string | null
     email?: string | null
   } | null
-  deals?: { id?: Uuid | null; title?: string | null } | null
+  deal?: { id?: Uuid | null; title?: string | null } | null
 }
 
 export function contactName(row: ActivityLike) {
-  return row.contacts ? entityContactName(row.contacts) : null
+  return row.contact ? entityContactName(row.contact) : null
 }
 
 export function isOpen(row: ActivityLike) {
@@ -126,11 +126,11 @@ export function toActivityInitial(
   fallback: { organization?: RelationOption; contact?: RelationOption; deal?: RelationOption } = {},
 ): ActivityInitial | null {
   if (!row.id) return null
-  const organization = organizationOption(row.organizations) ?? fallback.organization
-  const contact = contactOption(row.contacts) ?? fallback.contact
+  const organization = organizationOption(row.organization) ?? fallback.organization
+  const contact = contactOption(row.contact) ?? fallback.contact
 
-  const deal = row.deals?.id
-    ? { value: row.deals.id, label: row.deals.title ?? crmCopy.deals.restricted }
+  const deal = row.deal?.id
+    ? { value: row.deal.id, label: row.deal.title ?? crmCopy.deals.restricted }
     : fallback.deal
 
   return {

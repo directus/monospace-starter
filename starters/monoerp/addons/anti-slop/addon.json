@@ -2,7 +2,7 @@
   "format": "urn:monospace:manifest:addon:1",
   "kind": "addon",
   "id": "anti-slop",
-  "label": "Strict lint rules",
+  "label": "Strict lint add-on",
   "description": "Additional code conventions",
   "ownedPaths": ["addons/anti-slop", "tools/oxlint"],
   "packageEntries": [
@@ -11,5 +11,6 @@
       "section": "devDependencies",
       "names": ["@oxlint/plugins"]
     }
-  ]
+  ],
+  "lint": "tools/oxlint/lint.config.ts"
 }

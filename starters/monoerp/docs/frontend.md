@@ -116,7 +116,7 @@ Every write is a hook in the module's `mutations.ts` (`modules/crm/mutations.ts`
   onSettled: () => void refreshCrm(queryClient),
   ```
 
-  `patchCached` cancels refetches in flight and returns the rollback. Only patch what the cache can show: an id whose label comes from a relation (a deal's organization) only appears after the refetch, so `useUpdateDeal` returns the refresh from `onSettled` for those saves to stay pending until it lands. Creates, deletes, bulk edits, and activity completion still await the refresh, since their rows appear, leave, or move.
+  `patchCached` and `patchRow` live in `lib/query-cache.ts`. `patchCached` cancels refetches in flight and returns the rollback. Only patch what the cache can show: an id whose label comes from a relation (a deal's organization) only appears after the refetch, so `useUpdateDeal` returns the refresh from `onSettled` for those saves to stay pending until it lands. Creates, deletes, bulk edits, and activity completion still await the refresh, since their rows appear, leave, or move.
 
 - `useCloseDeal` confirms the value and close date, updates the deal, and files an optional outcome note. The board and detail page share this workflow. These are separate requests; refreshing on failure shows a close that succeeded even when its note failed.
 - Hooks that fire on every keystroke or inline save take `{ notify: false }` to skip the toast.
@@ -144,7 +144,6 @@ CRM board and dashboard queries load all matching deals in 500-row pages (`readA
 - Showing values: `formatDate`, `formatDateTime`, `formatMoney`, and `formatRelative` in `lib/format.ts`. `RelativeTime` (`components/relative-time.tsx`) shows "3 days ago" with the exact time in a tooltip.
 - Date inputs and defaults ("later today", "next week"): `lib/dates.ts`.
 - Portal (MySQL) times are UTC.
-- Totals and dashboard charts stay separate per currency; no exchange rate is assumed.
 
 ## Copy
 
@@ -175,3 +174,5 @@ Below 768px `useIsMobile` (`hooks/use-mobile.ts`) is true, and Tailwind's `max-m
 - `FormDrawer` and `FormDialog` open as bottom sheets with the actions pinned above the keyboard.
 - The sidebar becomes a sheet and closes when you pick a page. Breadcrumbs shrink to home and the current page.
 - Toasts move to the bottom. Inline fields get taller rows for touch.
+
+Browser preferences use `appStorageKey()` (`lib/storage.ts`), prefixed by the app ID in `app.config.json`.
