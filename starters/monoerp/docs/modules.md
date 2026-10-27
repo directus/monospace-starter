@@ -43,9 +43,10 @@ command arguments (`{ "command": ["cp", "-n", ".env.example", ".env"] }`). Steps
 `"when": "choices-changed"` run only after modules or connectors are left out. These are printed
 instructions, not code that the CLI evaluates. Package scripts use the detected package manager.
 
-The source keeps `pnpm app:doctor` / `pnpm app:remove` until the new CLI is published. Then those
-scripts will call `monospace app check` / `monospace app remove`, and the duplicate local checker
-will be removed.
+The source keeps `pnpm app:doctor` / `pnpm app:remove` until the new CLI is published. Then the
+check script will call `monospace check`. Removal will use the explicit kind: `monospace module remove <id>`
+or `monospace connector remove <id>`. The duplicate local checker/remover will be removed;
+monoERP runtime validation stays with the starter.
 
 The starter declares shared ownership in root `starter.json`. Each module uses `modules/<id>/module.json`; each connector uses `connectors/<id>/connector.json`. The starter owns the shared shell and services and cannot be removed.
 
