@@ -15,6 +15,7 @@ import { afterEach, expect, it } from 'vitest'
 
 import { resolveSource } from '../infra/manifests.mjs'
 import { checkApp, removeInstalled } from './app.mjs'
+import { manifestDocument } from './manifest-fixtures.mjs'
 
 const directories = []
 
@@ -25,7 +26,7 @@ function write(root, path, value = '') {
 }
 
 function save(root, path, manifest) {
-  write(root, path, JSON.stringify(manifest))
+  write(root, path, JSON.stringify(manifestDocument(manifest)))
 }
 
 function fixture() {
@@ -303,4 +304,18 @@ it('removes declared package entries and keeps unrelated commands and dependenci
     JSON.parse(readFileSync(new URL('apps/web/package.json', root), 'utf8')).dependencies,
   ).toEqual({ shared: '1.0.0' })
   expect(checkApp(root).map((manifest) => manifest.id)).toEqual(['starter'])
+})
+
+it.each(['?query', '#fragment'])('rejects URL punctuation in literal file lists (%s)', (suffix) => {
+  const { root, manifest } = fixture()
+  const file = new URL('starter.json', root)
+  const starter = JSON.parse(readFileSync(file, 'utf8'))
+  starter.ownedPaths.push('docs')
+  writeFileSync(file, JSON.stringify(starter))
+  write(root, 'docs/keep.txt', 'keep')
+  manifest.ownedPaths.push(`docs${suffix}`)
+  save(root, 'modules/sales/module.json', manifest)
+
+  expect(() => removeInstalled('sales', { root })).toThrow('literal repository-relative path')
+  expect(readFileSync(new URL('docs/keep.txt', root), 'utf8')).toBe('keep')
 })

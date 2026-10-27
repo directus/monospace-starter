@@ -27,6 +27,26 @@ Preview with `pnpm app:remove crm --dry-run`, then run `pnpm app:remove crm` and
 
 ## Starter, module, and connector manifests
 
+Each file has a required `format` marker, such as `urn:monospace:manifest:module:1`.
+The shared envelope contains `kind`, `id`, `label`, `description`, `ownedPaths`, `requires`
+and `packageEntries`. `requires` defaults to an empty list. Conditional requirements use
+`requiresWhenInstalled`, for example `{ "crm": ["portal"] }` on Stripe.
+
+monoERP runtime settings live under `x-monoerp`: module app/infra paths, collections, setup,
+connector source settings and frontend features. Optional connector defaults are there too.
+The source reader validates those settings and returns the flattened runtime view to existing
+setup and app scripts. The CLI validates the shared envelope without interpreting monoERP settings.
+
+`starter.json` also declares `sourceRoots`, literal `ignorePaths`, and `nextSteps.create` /
+`nextSteps.remove`. Next steps name package scripts (`{ "script": "setup:all" }`) or explicit
+command arguments (`{ "command": ["cp", "-n", ".env.example", ".env"] }`). Steps with
+`"when": "choices-changed"` run only after modules or connectors are left out. These are printed
+instructions, not code that the CLI evaluates. Package scripts use the detected package manager.
+
+The source keeps `pnpm app:doctor` / `pnpm app:remove` until the new CLI is published. Then those
+scripts will call `monospace app check` / `monospace app remove`, and the duplicate local checker
+will be removed.
+
 The starter declares shared ownership in root `starter.json`. Each module uses `modules/<id>/module.json`; each connector uses `connectors/<id>/connector.json`. The starter owns the shared shell and services and cannot be removed.
 
 | Field                                     | Contract                                                                                                   |
@@ -98,7 +118,7 @@ Copy `apps/web/src/modules/crm/search.ts`: a small `readMany` per record type wi
 
 ## Copy
 
-All user-facing text for a module lives in `modules/<id>/<id>.copy.ts` (`crmCopy` in `modules/crm/crm.copy.ts`). Shell and shared text is in `lib/app.copy.ts`, shared settings text in `settings/settings.copy.ts`, and module settings text in `modules/<id>/settings/settings.copy.ts`. The manifest's label and description come from the copy file too. The comment at the top of `crm.copy.ts` sets the CRM's naming ("deals", not "opportunities"); a new module should state its own.
+All user-facing text for a module lives in `modules/<id>/<id>.copy.ts` (`crmCopy` in `modules/crm/crm.copy.ts`). Shell and shared text is in `lib/app.copy.ts`, shared settings text in `settings/settings.copy.ts`, and module settings text in `modules/<id>/settings/settings.copy.ts`. The app module entry uses the copy file. The JSON manifest label and description describe choices during app creation. The comment at the top of `crm.copy.ts` sets the CRM's naming ("deals", not "opportunities"); a new module should state its own.
 
 ## Optional connector UI
 

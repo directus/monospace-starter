@@ -14,7 +14,7 @@ declare module '@/modules/types' {
 
 const crmModule: ModuleManifest = {
   id: 'crm',
-  order: moduleConfig.order,
+  order: moduleConfig['x-monoerp'].order,
   label: crmCopy.module.label,
   description: crmCopy.module.description,
   icon: Handshake,

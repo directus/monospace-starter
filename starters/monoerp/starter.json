@@ -1,4 +1,5 @@
 {
+  "format": "urn:monospace:manifest:starter:1",
   "kind": "starter",
   "id": "starter",
   "label": "monoERP starter",
@@ -70,5 +71,64 @@
     ".github/assets"
   ],
   "requires": [],
-  "optional": []
+  "sourceRoots": ["apps/web/src/routes", "apps/web/src/modules", "infra/modules", "connectors"],
+  "ignorePaths": [
+    "dist",
+    ".output",
+    ".cache",
+    "apps/web/dist",
+    "apps/web/.output",
+    "apps/web/.nitro",
+    "apps/web/.tanstack"
+  ],
+  "nextSteps": {
+    "create": [
+      {
+        "command": ["cp", "-n", ".env.example", ".env"]
+      },
+      {
+        "command": ["docker", "compose", "up", "-d", "--wait", "--wait-timeout", "180"]
+      },
+      {
+        "script": "setup:all"
+      },
+      {
+        "script": "generate:routes",
+        "when": "choices-changed"
+      },
+      {
+        "script": "generate",
+        "when": "choices-changed"
+      },
+      {
+        "script": "dev"
+      }
+    ],
+    "remove": [
+      {
+        "command": [
+          "docker",
+          "compose",
+          "up",
+          "-d",
+          "--wait",
+          "--wait-timeout",
+          "180",
+          "--remove-orphans"
+        ]
+      },
+      {
+        "script": "setup:all"
+      },
+      {
+        "script": "generate:routes"
+      },
+      {
+        "script": "generate"
+      }
+    ]
+  },
+  "x-monoerp": {
+    "optional": []
+  }
 }

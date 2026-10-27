@@ -1,5 +1,7 @@
 import { existsSync, readdirSync, readFileSync } from 'node:fs'
 
+import { manifestSchema } from '../tools/manifest-schema.mjs'
+
 export const repository = new URL('../', import.meta.url)
 
 export function manifestPath(manifest) {
@@ -37,7 +39,7 @@ export function readManifests(root = repository) {
   }
 
   return paths.map((path) => {
-    const manifest = JSON.parse(readFileSync(new URL(path, root), 'utf8'))
+    const manifest = manifestSchema.parse(JSON.parse(readFileSync(new URL(path, root), 'utf8')))
 
     if (path !== manifestPath(manifest))
       throw new Error(`${path}: kind and id must match the manifest location`)

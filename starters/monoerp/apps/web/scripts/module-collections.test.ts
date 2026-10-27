@@ -1,3 +1,4 @@
+import { manifestDocument } from '../../../tools/manifest-fixtures.mjs'
 import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
@@ -27,23 +28,28 @@ function addModule(root: URL, id: string, order: number, collections: string[], 
   mkdirSync(new URL(`${app}/`, root), { recursive: true })
   writeFileSync(
     new URL('module.json', directory),
-    JSON.stringify({
-      kind: 'module',
-      id,
-      app,
-      order,
-      collections,
-      schemas,
-      requires: [],
-      optional: [],
-    }),
+    JSON.stringify(
+      manifestDocument({
+        kind: 'module',
+        id,
+        app,
+        order,
+        collections,
+        schemas,
+        requires: [],
+        optional: [],
+      }),
+    ),
   )
 }
 
 function addConnector(root: URL, id: string) {
   const directory = new URL(`connectors/${id}/`, root)
   mkdirSync(directory, { recursive: true })
-  writeFileSync(new URL('connector.json', directory), JSON.stringify({ kind: 'connector', id }))
+  writeFileSync(
+    new URL('connector.json', directory),
+    JSON.stringify(manifestDocument({ kind: 'connector', id })),
+  )
 }
 
 afterEach(() => {
@@ -91,21 +97,23 @@ describe('module collection discovery', () => {
     addConnector(root, 'stripe')
     writeFileSync(
       new URL('connectors/stripe/connector.json', root),
-      JSON.stringify({
-        kind: 'connector',
-        id: 'stripe',
-        frontend: [
-          {
-            module: 'crm',
-            slot: 'organization-panel',
-            path: 'connectors/stripe/frontend/crm',
-            requires: ['portal'],
-            order: 10,
-            collections: ['stripeCustomers', 'stripeCharges'],
-            schemas: [],
-          },
-        ],
-      }),
+      JSON.stringify(
+        manifestDocument({
+          kind: 'connector',
+          id: 'stripe',
+          frontend: [
+            {
+              module: 'crm',
+              slot: 'organization-panel',
+              path: 'connectors/stripe/frontend/crm',
+              requires: ['portal'],
+              order: 10,
+              collections: ['stripeCustomers', 'stripeCharges'],
+              schemas: [],
+            },
+          ],
+        }),
+      ),
     )
 
     const entry = new URL('connectors/stripe/frontend/crm/feature.tsx', root)
@@ -174,7 +182,7 @@ it('keeps an installed inventory-targeted feature out of the CRM organization sl
 
     writeFileSync(
       new URL(`connectors/${connector}/connector.json`, root),
-      JSON.stringify({ kind: 'connector', id: connector, frontend: [feature] }),
+      JSON.stringify(manifestDocument({ kind: 'connector', id: connector, frontend: [feature] })),
     )
     mkdirSync(new URL(`${path}/`, root), { recursive: true })
     writeFileSync(new URL(`${path}/feature.tsx`, root), '')
@@ -196,21 +204,23 @@ it('drops Portal and conditional Stripe collections when Portal is removed', () 
     writeFileSync(new URL(`${path}/feature.tsx`, root), '')
     writeFileSync(
       new URL(`connectors/${connector}/connector.json`, root),
-      JSON.stringify({
-        kind: 'connector',
-        id: connector,
-        frontend: [
-          {
-            module: 'crm',
-            slot: 'organization-panel',
-            path,
-            requires: connector === 'stripe' ? ['portal'] : [],
-            order: 10,
-            collections: connector === 'portal' ? ['accounts', 'users'] : ['stripeCustomers'],
-            schemas: [],
-          },
-        ],
-      }),
+      JSON.stringify(
+        manifestDocument({
+          kind: 'connector',
+          id: connector,
+          frontend: [
+            {
+              module: 'crm',
+              slot: 'organization-panel',
+              path,
+              requires: connector === 'stripe' ? ['portal'] : [],
+              order: 10,
+              collections: connector === 'portal' ? ['accounts', 'users'] : ['stripeCustomers'],
+              schemas: [],
+            },
+          ],
+        }),
+      ),
     )
   }
 
@@ -235,21 +245,23 @@ it('explains when connector selection disables a frontend feature', () => {
   addConnector(root, 'portal')
   writeFileSync(
     new URL('connectors/portal/connector.json', root),
-    JSON.stringify({
-      kind: 'connector',
-      id: 'portal',
-      frontend: [
-        {
-          module: 'crm',
-          slot: 'organization-panel',
-          path: 'connectors/portal/frontend/crm',
-          requires: [],
-          order: 10,
-          collections: ['accounts'],
-          schemas: [],
-        },
-      ],
-    }),
+    JSON.stringify(
+      manifestDocument({
+        kind: 'connector',
+        id: 'portal',
+        frontend: [
+          {
+            module: 'crm',
+            slot: 'organization-panel',
+            path: 'connectors/portal/frontend/crm',
+            requires: [],
+            order: 10,
+            collections: ['accounts'],
+            schemas: [],
+          },
+        ],
+      }),
+    ),
   )
   vi.stubEnv('OPTIONAL_SOURCES', undefined)
   const log = vi.spyOn(console, 'log').mockImplementation(() => {})

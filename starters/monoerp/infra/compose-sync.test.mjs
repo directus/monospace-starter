@@ -1,3 +1,4 @@
+import { manifestDocument } from '../tools/manifest-fixtures.mjs'
 import { mkdtemp, mkdir, readFile, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
@@ -26,7 +27,14 @@ it('uses manifest compose paths and overlays, dropping removed manifests', async
     await mkdir(folder, { recursive: true })
     await writeFile(
       new URL(`${kind}.json`, folder),
-      JSON.stringify({ kind, id, compose, composeProfiles: { bench: `${base}/${id}/bench.yml` } }),
+      JSON.stringify(
+        manifestDocument({
+          kind,
+          id,
+          compose,
+          composeProfiles: { bench: `${base}/${id}/bench.yml` },
+        }),
+      ),
     )
   }
 

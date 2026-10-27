@@ -3,7 +3,6 @@ import { existsSync, lstatSync, readdirSync, readFileSync, rmSync, writeFileSync
 import { fileURLToPath } from 'node:url'
 
 import { manifestPath, readManifests, repository } from '../infra/manifests.mjs'
-import { manifestSchema } from './manifest-schema.mjs'
 
 function contains(parent, child) {
   return child === parent || child.startsWith(`${parent}/`)
@@ -27,7 +26,7 @@ function safePath(root, path) {
 }
 
 function validateManifests(root = repository) {
-  const manifests = readManifests(root).map((manifest) => manifestSchema.parse(manifest))
+  const manifests = readManifests(root)
   const ids = manifests.map((manifest) => manifest.id)
 
   if (new Set(ids).size !== ids.length)
@@ -75,6 +74,17 @@ function validateManifests(root = repository) {
 
       if (new Set(scripts).size !== scripts.length)
         throw new Error(`${manifest.id}: setup scripts must be unique within the manifest`)
+
+      const known = new Set([...ids, ...manifest.requires, ...manifest.optional])
+
+      for (const step of [...manifest.setup.beforeSchema, ...manifest.setup.afterSchema]) {
+        for (const required of step.requires ?? []) {
+          if (!known.has(required))
+            throw new Error(
+              `${manifest.id}: setup step ${step.script} names unknown requirement ${required}`,
+            )
+        }
+      }
 
       if (manifest.kind === 'connector') {
         const targets = (manifest.frontend ?? []).map((feature) => feature.path)

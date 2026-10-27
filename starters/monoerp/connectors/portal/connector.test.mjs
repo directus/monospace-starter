@@ -3,7 +3,9 @@ import { expect, it } from 'vitest'
 
 import { resolveSource } from '../../infra/manifests.mjs'
 
-const { source } = JSON.parse(readFileSync(new URL('connector.json', import.meta.url), 'utf8'))
+const {
+  'x-monoerp': { source },
+} = JSON.parse(readFileSync(new URL('connector.json', import.meta.url), 'utf8'))
 
 it('keeps Portal TLS optional and converts configured database ports to numbers', () => {
   expect(resolveSource(source, {})).not.toHaveProperty('ssl')
