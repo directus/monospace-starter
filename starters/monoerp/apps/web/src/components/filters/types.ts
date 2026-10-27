@@ -1,8 +1,8 @@
-import type { appCopy } from '@/lib/app.copy'
+import type * as React from 'react'
 // Title: Filters
 // Description: Stepped filter builder with nested fields, popover value editors and a boolean query tree.
 
-import type * as React from 'react'
+import type { appCopy } from '@/lib/app.copy'
 
 export interface FilterRule<V = unknown> {
   id: string

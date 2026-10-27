@@ -1,5 +1,6 @@
 import { spawnSync } from 'node:child_process'
 import { fileURLToPath } from 'node:url'
+
 import { expect, it } from 'vitest'
 
 import { selectSetupStep } from '../../manifests.mjs'
@@ -44,3 +45,19 @@ it.each(['typo', 'source', 'extension', undefined])(
     expect(result.stderr).toContain('Connector action must be migrate or provision')
   },
 )
+
+it('runs connector steps requiring an installed module and skips absent modules', () => {
+  const connector = {
+    id: 'portal',
+    kind: 'connector',
+    setup: {
+      beforeSchema: [{ title: 'CRM joins', script: 'crm.mjs', requires: ['sales'] }],
+      afterSchema: [],
+    },
+  }
+
+  expect(selectSetupStep('portal/crm.mjs', [...manifests, connector], ['portal'])?.title).toBe(
+    'CRM joins',
+  )
+  expect(selectSetupStep('portal/crm.mjs', [connector], ['portal'])).toBeUndefined()
+})

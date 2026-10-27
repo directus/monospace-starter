@@ -1,9 +1,9 @@
-import { useCollectionAccess } from '@/lib/permissions'
 import type { ChangeEvent } from 'react'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { toast } from 'sonner'
 
 import { fetchUploadLimit, formatBytes } from '@/lib/assets'
+import { useCollectionAccess } from '@/lib/permissions'
 import { crmCopy } from '@/modules/crm/crm.copy'
 import type { AttachmentTarget } from '@/modules/crm/data'
 import { useUploadAttachment } from '@/modules/crm/mutations'

@@ -1,12 +1,12 @@
-import { useCollectionAccess } from '@/lib/permissions'
-import { ListBulkActions } from '@/components/list-bulk-actions'
 import type { BulkField } from '@/components/form/bulk-edit-drawer'
+import { ListBulkActions } from '@/components/list-bulk-actions'
 import type { Uuid, interactionsUpdateOneInput } from '@/generated/monospace'
+import { interactionsUpdateSchema } from '@/generated/monospace/schemas'
 import { appCopy } from '@/lib/app.copy'
 import { now } from '@/lib/dates'
-import { interactionsUpdateSchema } from '@/generated/monospace/schemas'
-import { crmCopy } from '@/modules/crm/crm.copy'
+import { useCollectionAccess } from '@/lib/permissions'
 import { lookupUsers } from '@/lib/users'
+import { crmCopy } from '@/modules/crm/crm.copy'
 import { useDeleteManyActivities, useUpdateManyActivities } from '@/modules/crm/mutations'
 
 const copy = crmCopy.activity

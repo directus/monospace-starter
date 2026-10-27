@@ -1,5 +1,4 @@
 import '@/styles.css'
-
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { cleanup, render } from '@testing-library/react'
 import { http, HttpResponse } from 'msw'
@@ -22,7 +21,7 @@ it.each([null, 'profile-photo'])(
       http.get('/api/system/assets/:id', () =>
         HttpResponse.text(avatar, { headers: { 'content-type': 'image/svg+xml' } }),
       ),
-      http.get('/api/crm/members', () => HttpResponse.json({ data: [] })),
+      http.get('/api/monoerp/members', () => HttpResponse.json({ data: [] })),
     )
 
     const { container } = render(

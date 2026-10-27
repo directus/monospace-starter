@@ -1,17 +1,17 @@
 import '@/styles.css'
-
 import { mapEngineError } from '@monospace/sdk'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { cleanup, render, screen, within } from '@testing-library/react'
 import { http, HttpResponse } from 'msw'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
+import { organizationPanels } from '@/modules/crm/slots'
+import { signedIn, worker } from '@/test/msw'
+
 import { BillingPanel } from './billing-panel'
 import { billingCopy } from './billing.copy'
 import type { StripeCustomer } from './data'
 import feature from './feature'
-import { signedIn, worker } from '@/test/msw'
-import { organizationPanels } from '@/modules/crm/slots'
 
 const copy = billingCopy
 
@@ -55,7 +55,7 @@ describe('BillingPanel', () => {
     const Panel = contribution.component
 
     worker.use(
-      http.get('/api/crm/items/accounts/:id', ({ params }) => {
+      http.get('/api/monoerp/items/accounts/:id', ({ params }) => {
         requests.push(String(params.id))
 
         if (requests.length === 1)
@@ -66,7 +66,7 @@ describe('BillingPanel', () => {
     )
     render(
       <QueryClientProvider client={new QueryClient()}>
-        <Panel portalAccountId="acct-0001" />
+        <Panel organization={{ portalAccountId: 'acct-0001' }} />
       </QueryClientProvider>,
     )
 

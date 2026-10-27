@@ -1,5 +1,4 @@
 import '@/styles.css'
-
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { cleanup, render, screen } from '@testing-library/react'
 import { http, HttpResponse } from 'msw'
@@ -12,9 +11,10 @@ import {
   dealSummaries,
 } from '@/modules/crm/slots'
 import { signedIn, worker } from '@/test/msw'
-import { portalCopy } from './portal.copy'
-import { PortalPanel } from './portal-panel'
+
 import feature from './feature'
+import { PortalPanel } from './portal-panel'
+import { portalCopy } from './portal.copy'
 
 const account = {
   id: 'acct-0001',
@@ -44,7 +44,7 @@ it('refreshes an expired session and shares the Portal panel/history read', asyn
   const client = new QueryClient({ defaultOptions: { queries: { staleTime: Infinity } } })
 
   worker.use(
-    http.get('/api/crm/items/accounts/:id', ({ params }) => {
+    http.get('/api/monoerp/items/accounts/:id', ({ params }) => {
       requests.push(String(params.id))
 
       if (requests.length === 1)
@@ -55,14 +55,14 @@ it('refreshes an expired session and shares the Portal panel/history read', asyn
   )
   render(
     <QueryClientProvider client={client}>
-      <Panel portalAccountId="acct-0001" />
+      <Panel organization={{ portalAccountId: 'acct-0001' }} />
     </QueryClientProvider>,
   )
 
   await expect.poll(() => screen.queryByText('Apple portal account')).not.toBeNull()
   expect(screen.getByText('Team')).toBeTruthy()
   expect(
-    await client.fetchQuery(panel.historyQuery({ portalAccountId: 'acct-0001' })),
+    await client.fetchQuery(panel.historyQuery({ organization: { portalAccountId: 'acct-0001' } })),
   ).toHaveLength(1)
   expect(requests).toEqual(['acct-0001', 'acct-0001'])
   expect(organizationLists.flatMap((list) => list.columns.map(({ id }) => id))).toEqual([
@@ -79,7 +79,7 @@ it('batches visible organization accounts across all Portal columns', async () =
   const requests: string[] = []
 
   worker.use(
-    http.get('/api/crm/items/accounts', ({ request }) => {
+    http.get('/api/monoerp/items/accounts', ({ request }) => {
       requests.push(request.url)
 
       return HttpResponse.json({ data: [account] })
@@ -89,7 +89,11 @@ it('batches visible organization accounts across all Portal columns', async () =
     <QueryClientProvider client={new QueryClient()}>
       {organizationLists.flatMap((list) =>
         list.columns.map(({ id, component: Cell }) => (
-          <Cell key={id} accountId="acct-0001" accountIds={['acct-0001', 'acct-0002']} />
+          <Cell
+            key={id}
+            organization={{ portalAccountId: 'acct-0001' }}
+            organizations={[{ portalAccountId: 'acct-0001' }, { portalAccountId: 'acct-0002' }]}
+          />
         )),
       )}
     </QueryClientProvider>,

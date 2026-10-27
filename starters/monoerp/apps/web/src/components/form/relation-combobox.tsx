@@ -4,10 +4,10 @@ import { Check, ChevronDown, X } from 'lucide-react'
 import { useState } from 'react'
 
 import { EntityAvatar } from '@/components/avatars'
+import type { Uuid } from '@/generated/monospace'
 import { useDebouncedValue } from '@/hooks/use-debounced-value'
 import { useIsMobile } from '@/hooks/use-mobile'
 import { appCopy } from '@/lib/app.copy'
-import type { Uuid } from '@/generated/monospace'
 import { cn } from '@/lib/utils'
 
 export type RelationOption = {

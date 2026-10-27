@@ -1,10 +1,11 @@
-import { manifestDocument } from '../tools/manifest-fixtures.mjs'
 import { mkdtemp, mkdir, readFile, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { pathToFileURL } from 'node:url'
+
 import { afterEach, expect, it } from 'vitest'
 
+import { manifestDocument } from '../tools/manifest-fixtures.mjs'
 import { syncCompose } from './compose-sync.mjs'
 import { requestedConnectors } from './manifests.mjs'
 

@@ -2,6 +2,7 @@
 // matches the customer portal (billing.json). It keeps everything in memory, so writes last until
 // the container restarts, like a test-mode account you reset.
 import { readFileSync } from 'node:fs'
+
 import { createServer, serve } from '@emulators/core'
 import { getStripeStore, seedFromConfig, stripePlugin } from '@emulators/stripe'
 

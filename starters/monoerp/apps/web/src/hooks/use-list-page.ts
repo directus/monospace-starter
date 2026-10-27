@@ -15,27 +15,24 @@ type SearchPatch = Partial<Pick<ListSearch, 'q' | 'sort' | 'filters' | 'display'
 export function useListSearch({
   search,
   onSearchChange,
-  defaultFilters,
 }: {
   search: ListSearch
   onSearchChange: (patch: SearchPatch) => void
-  defaultFilters?: ListFilterQuery
 }) {
   const sort = parseSort(search.sort)
   const display = search.display ?? 'table'
 
   return {
     q: search.q ?? '',
-    query: search.filters ?? defaultFilters ?? EMPTY_FILTERS,
+    query: search.filters ?? EMPTY_FILTERS,
     sort,
     display,
     setQ: (q: string) => onSearchChange({ q: q || undefined }),
     setSort: (next: typeof sort) => onSearchChange({ sort: serializeSort(next) }),
     setDisplay: (next: typeof display) => onSearchChange({ display: next }),
-    // An explicit empty query must survive when a list has a default filter.
     setFilters: (next: ListFilterQuery) =>
       onSearchChange({
-        filters: !defaultFilters && isFilterQueryEmpty(next) ? undefined : next,
+        filters: isFilterQueryEmpty(next) ? undefined : next,
       }),
   }
 }
@@ -50,7 +47,6 @@ export function useListPage<TData extends { id: Uuid }, TParams, TKey extends Qu
   query,
   selectable,
   board,
-  defaultFilters,
 }: {
   id: string
   columns?: DataTableColumn<TData>[]
@@ -63,9 +59,8 @@ export function useListPage<TData extends { id: Uuid }, TParams, TKey extends Qu
   ) => UseInfiniteQueryOptions<TData[], Error, InfiniteData<TData[]>, TKey, number>
   selectable?: boolean
   board?: boolean
-  defaultFilters?: ListFilterQuery
 }) {
-  const state = useListSearch({ search, onSearchChange, defaultFilters })
+  const state = useListSearch({ search, onSearchChange })
   const list = useInfiniteQuery({ ...query(params), enabled: !board || state.display === 'table' })
   const rows = useMemo(() => list.data?.pages.flat() ?? [], [list.data])
 

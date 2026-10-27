@@ -6,7 +6,7 @@ Portal is the optional read-only MySQL demo. It adds account, plan, seat, ticket
 
 1. Keep or copy the whole `connectors/portal` folder. Add `portal` to a module's connector declarations, or include it in `OPTIONAL_SOURCES` if you use an override.
 2. For the bundled demo, keep the local defaults. Its MySQL host port is 3307. For an existing server, set `CUSTOMER_MYSQL_HOST`, `CUSTOMER_MYSQL_INTERNAL_PORT`, and `PORTAL_READER_PASSWORD` in `.env`. Set `source.user` and `source.dbname` in `connector.json` to your read-only login and database.
-3. Adapt `monospace/schema/portal.json`, CRM's `infra/modules/crm/monospace/setup/portal-relations.mjs`, and the feature's queries if your tables differ.
+3. Adapt `monospace/schema/portal.json`, CRM's `connectors/portal/monospace/setup/portal-relations.mjs`, and the feature's queries if your tables differ.
 4. Run the [shared setup commands](../README.md#add-a-connector), then `pnpm verify` and browser tests for any UI changes.
 
 ## Remove Portal
@@ -29,6 +29,4 @@ Preview with `pnpm app:remove portal --dry-run`, then follow the [shared removal
 
 Demo migrations and provisioning act as the external team's schema changes. Apply them only to the stand-in. Never enable demo provisioning or run those migrations against another team's real database. Provisioning requires the explicit demo flag and never drops a database.
 
-## How app:doctor works
-
-Portal owns its entire folder. Its optional CRM feature is selected only when CRM and Portal are installed and Portal is selected. See [the shared validator rules](../../docs/modules.md#how-appdoctor-works).
+See [app:doctor](../docs/modules.md#how-appdoctor-works).

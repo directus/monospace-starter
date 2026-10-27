@@ -1,9 +1,11 @@
-import moduleConfig from '../../../../../modules/crm/module.json'
 import { Handshake } from 'lucide-react'
 
+import { settingsPaths } from '@/lib/module-settings'
+import { crmCopy } from '@/modules/crm/crm.copy'
 import { crmSearch } from '@/modules/crm/search'
 import type { ModuleManifest } from '@/modules/types'
-import { crmCopy } from '@/modules/crm/crm.copy'
+
+import moduleConfig from '../../../../../modules/crm/module.json'
 
 declare module '@/modules/types' {
   interface ModuleRegistry {
@@ -21,7 +23,7 @@ const crmModule: ModuleManifest = {
   search: crmSearch,
   settings: {
     title: crmCopy.module.label,
-    pages: ['/settings/crm/pipeline-stages'],
+    pages: settingsPaths(moduleConfig['x-monoerp'].settings),
   },
 }
 

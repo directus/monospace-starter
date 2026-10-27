@@ -7,6 +7,7 @@ import { generateKeyPairSync, randomBytes } from 'node:crypto'
 import { mkdtempSync, rmSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
+
 import { aws, hasValue, stackOutputs, stage } from './lib.mjs'
 
 const outputs = stackOutputs()

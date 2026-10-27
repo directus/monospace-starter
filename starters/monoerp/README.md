@@ -65,10 +65,10 @@ New here? [The getting started guide](docs/getting-started.md) shows you around 
 <summary>First-run notes, other ports, and the license key</summary>
 
 - The first `docker compose up` loads the demo data, which takes a minute or two. The `keygen` container generates Monospace's keys and exits; that's expected. `pnpm setup:all` waits for Monospace.
-- The first time you open Studio, it asks you to accept its terms and then to create a workspace, even though `crm` already exists. Open Studio in a new tab to skip that.
+- The first time you open Studio, it asks you to accept its terms and then to create a workspace, even though `monoerp` already exists. Open Studio in a new tab to skip that.
 - monoERP runs its own Monospace. If another app uses port 8100, choose different ports as described below.
 - **Ports** are in `.env`, and everything follows them, including `pnpm dev`. To run a second copy next to the first, use a different folder name and change all its ports. Compose uses each folder name to separate containers and volumes.
-- **License key:** optional. Without one, Monospace runs on its free tier, and the CRM quickstart works without skipped features. The free tier allows 1 workspace and 3 users, with no custom roles, service accounts, or SSO, and it sends usage telemetry. To use a key, set `MONOSPACE_LICENSE__KEY` in `.env`. Without one, leave that line commented out: Monospace refuses to start with an empty key.
+- **License key:** optional locally. See [the free tier and license setup](docs/monospace.md#license-key-and-the-free-tier).
 
 </details>
 
@@ -78,7 +78,7 @@ This repo is set up for working with AI coding agents like Claude Code, Codex, a
 
 - **[`AGENTS.md`](AGENTS.md)** is a short map: how to get a working stack, the rules, and which doc in [`docs/`](docs) to read for the area you're changing. The docs describe how things actually work, with file paths to jump to.
 - **One command checks everything:** `pnpm verify`. An agent knows when it's done.
-- **Lint rules catch sloppy code:** casts without a reason, `unknown` types, and module mocks all fail the build (`tools/oxlint`).
+- **Lint rules catch sloppy code:** with the optional strict-lint add-on, casts without a reason, `unknown` types, and module mocks fail lint (`tools/oxlint`).
 - **Access rules live in one place.** Monospace decides permissions on every request, and the app's API client is generated from the schema, so there's no hand-written data layer for an agent to get wrong.
 
 ## Everyday commands
@@ -140,4 +140,4 @@ See [deployment](docs/deploy.md) for hosting requirements and the optional deplo
 
 ## License
 
-MIT, see [`LICENSE`](LICENSE). Code copied from other projects keeps its own license next to it: the ReUI components (`apps/web/src/components/reui`) and the lint rules in `tools/oxlint/anti-slop`, both MIT.
+MIT, see [`LICENSE`](LICENSE). Code copied from other projects keeps its own license next to it: the ReUI components (`apps/web/src/components/data-table` and `apps/web/src/components/filters`) and the lint rules in `tools/oxlint/anti-slop`, both MIT.

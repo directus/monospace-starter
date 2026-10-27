@@ -1,5 +1,4 @@
 import '@/styles.css'
-
 import { cleanup, render } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { useState } from 'react'

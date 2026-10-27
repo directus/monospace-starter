@@ -1,8 +1,8 @@
 import { useState } from 'react'
 
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
-import type { OwnerLike } from '@/lib/users'
 import { UserAvatar, userName } from '@/components/users'
+import type { OwnerLike } from '@/lib/users'
 import { crmCopy } from '@/modules/crm/crm.copy'
 
 // Avatar that reveals who it is on hover, with a one-click "show only this person" filter.

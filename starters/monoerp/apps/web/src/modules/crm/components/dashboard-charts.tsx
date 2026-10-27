@@ -1,5 +1,3 @@
-import { dealsByCurrency } from '@/modules/crm/deals'
-import { formatMoney } from '@/lib/format'
 import { areaY, barX, barY, defineChart, lineY } from '@tanstack/charts'
 import { Chart } from '@tanstack/charts/react'
 import { scaleBand } from '@tanstack/charts/scales/band'
@@ -8,10 +6,12 @@ import { scalePoint } from '@tanstack/charts/scales/point'
 import { tooltip } from '@tanstack/charts/tooltip'
 import { useMemo } from 'react'
 
-import { useIsMobile } from '@/hooks/use-mobile'
 import { Frame, FrameDescription, FrameHeader, FramePanel, FrameTitle } from '@/components/ui/frame'
-import type { DealRow } from '@/modules/crm/data'
+import { useIsMobile } from '@/hooks/use-mobile'
+import { formatMoney } from '@/lib/format'
 import { crmCopy } from '@/modules/crm/crm.copy'
+import type { DealRow } from '@/modules/crm/data'
+import { dealsByCurrency } from '@/modules/crm/deals'
 
 const monthLabel = new Intl.DateTimeFormat('en-US', {
   month: 'short',

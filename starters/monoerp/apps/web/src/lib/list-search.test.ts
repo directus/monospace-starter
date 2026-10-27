@@ -61,26 +61,10 @@ describe('list filters in the URL', () => {
     })
   })
 
-  it('drops old group and or URLs without failing the page', () => {
-    for (const combinator of ['and', 'or']) {
-      expect(
-        listSearchSchema.parse({
-          q: 'acme',
-          filters: { id: 'root', type: 'group', combinator, rules: [] },
-        }),
-      ).toEqual({ q: 'acme', filters: undefined })
-    }
-
-    expect(
-      listSearchSchema.parse({
-        filters: { rules: [{ id: 'old', type: 'group', combinator: 'or', rules: [] }] },
-      }).filters,
-    ).toBeUndefined()
-  })
-
   it('drops filters it cannot read instead of failing the page', () => {
-    expect(
-      listSearchSchema.parse({ q: 'acme', filters: { type: 'group', rules: 'nope' } }),
-    ).toEqual({ q: 'acme', filters: undefined })
+    expect(listSearchSchema.parse({ q: 'acme', filters: { rules: 'nope' } })).toEqual({
+      q: 'acme',
+      filters: undefined,
+    })
   })
 })

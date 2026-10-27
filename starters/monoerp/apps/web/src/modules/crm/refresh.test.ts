@@ -19,7 +19,7 @@ describe('related record refresh', () => {
       client.setQueryData([group, 'example'], { label: 'Before' })
     }
 
-    await refreshCrm(client, 'contacts')
+    await refreshCrm(client)
 
     for (const group of [
       'contacts',
@@ -39,7 +39,7 @@ describe('related record refresh', () => {
     const client = new QueryClient()
     client.setQueryData(['pipelineStages'], [])
     client.setQueryData(['opportunities', 'pages'], [])
-    await refreshCrm(client, 'pipelineStages')
+    await refreshCrm(client, { pipelineStages: true })
     expect(client.getQueryState(['pipelineStages'])?.isInvalidated).toBe(true)
     expect(client.getQueryState(['opportunities', 'pages'])?.isInvalidated).toBe(true)
   })

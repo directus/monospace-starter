@@ -3,6 +3,7 @@
 //
 //   pnpm aws mail --stage staging
 import { execFileSync, spawn } from 'node:child_process'
+
 import { awsJson, region, stackOutputs, stage } from './lib.mjs'
 
 const localPort = process.env.MAILPIT_PORT ?? '8025'

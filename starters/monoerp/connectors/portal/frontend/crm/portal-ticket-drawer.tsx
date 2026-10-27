@@ -1,17 +1,18 @@
 import { Link } from '@tanstack/react-router'
+import { ContactRound as ContactIcon, Building2 as OrganizationIcon } from 'lucide-react'
 import { useState } from 'react'
 import type { ReactNode } from 'react'
 
 import { DrawerFormBody, FormDrawer } from '@/components/form/form-drawer'
 import { RelativeTime } from '@/components/relative-time'
 import { Badge } from '@/components/ui/badge'
-import { labelize, parseDate } from '@/lib/format'
-import { cn } from '@/lib/utils'
-import { enumLabel } from '@/lib/format'
-import { portalCopy } from './portal.copy'
-import { ContactRound as ContactIcon, Building2 as OrganizationIcon } from 'lucide-react'
-import { durationLabel } from './portal'
 import type { Uuid } from '@/generated/monospace'
+import { labelize, parseDate } from '@/lib/format'
+import { enumLabel } from '@/lib/format'
+import { cn } from '@/lib/utils'
+
+import { durationLabel } from './portal'
+import { portalCopy } from './portal.copy'
 
 const copy = portalCopy.organizations.portal
 

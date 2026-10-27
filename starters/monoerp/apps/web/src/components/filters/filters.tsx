@@ -1,4 +1,5 @@
 import * as React from 'react'
+
 import {
   createFilterFocusStore,
   createFilterResolutionStore,
@@ -21,7 +22,6 @@ import {
   resolveFilterEditor,
   type FilterEditorRegistry,
 } from '@/components/filters/filter-editors'
-import { appCopy } from '@/lib/app.copy'
 import {
   buildFilterIndex,
   computeFilterSchemaSignature,
@@ -55,6 +55,7 @@ import type {
   FilterRule,
   FilterValueDisplayContext,
 } from '@/components/filters/types'
+import { appCopy } from '@/lib/app.copy'
 
 function useControllableQuery<V, O>(
   controlled: FilterQuery<V> | undefined,

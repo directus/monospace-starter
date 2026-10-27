@@ -1,10 +1,8 @@
 import '@/styles.css'
-
 import '@testing-library/jest-dom/vitest'
-
+import { useTable } from '@tanstack/react-table'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { useTable } from '@tanstack/react-table'
 import { describe, expect, it, vi } from 'vitest'
 
 import { DisplayMenu } from '@/components/data-table/display-menu'

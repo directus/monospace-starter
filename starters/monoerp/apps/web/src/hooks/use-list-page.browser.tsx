@@ -1,5 +1,4 @@
 import '@/styles.css'
-
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { cleanup, render } from '@testing-library/react'
 import { Users } from 'lucide-react'
@@ -9,13 +8,12 @@ import { page } from 'vitest/browser'
 
 import { ListTable } from '@/components/data-table/list-table'
 import { ListControls } from '@/components/list-controls'
-import { useListPage } from '@/hooks/use-list-page'
 import type { Uuid } from '@/generated/monospace'
-import { uuidSchema } from '@/lib/uuid'
+import { useListPage } from '@/hooks/use-list-page'
 import { createFilterQuery } from '@/lib/filters'
-import type { ListFilterQuery } from '@/lib/filters'
 import { pagesQuery } from '@/lib/list-query'
 import type { ListSearch } from '@/lib/list-search'
+import { uuidSchema } from '@/lib/uuid'
 
 const records: { id: Uuid; name: string }[] = [
   { id: uuidSchema.parse('00000000-0000-4000-8000-000000000001'), name: 'Alice' },
@@ -24,11 +22,7 @@ const records: { id: Uuid; name: string }[] = [
 
 const columns = [{ id: 'name', header: 'Name', accessorKey: 'name' }]
 
-const defaultFilters: ListFilterQuery = {
-  rules: [{ id: 'active', type: 'rule', path: ['status'], operator: 'is', value: 'active' }],
-}
-
-function ListExample({ defaults = false }: { defaults?: boolean }) {
+function ListExample() {
   const [search, setSearch] = useState<ListSearch>({ view: 'pool' })
 
   const state = useListPage({
@@ -42,7 +36,6 @@ function ListExample({ defaults = false }: { defaults?: boolean }) {
         records.filter((row) => row.name.toLowerCase().includes(params.q?.toLowerCase() ?? '')),
       ),
     selectable: true,
-    defaultFilters: defaults ? defaultFilters : undefined,
   })
 
   return (
@@ -63,11 +56,11 @@ function ListExample({ defaults = false }: { defaults?: boolean }) {
   )
 }
 
-function mount(defaults = false) {
+function mount() {
   const client = new QueryClient({ defaultOptions: { queries: { retry: false } } })
   render(
     <QueryClientProvider client={client}>
-      <ListExample defaults={defaults} />
+      <ListExample />
     </QueryClientProvider>,
   )
 }
@@ -93,14 +86,4 @@ it('keeps the view in URL updates and clears selection when search changes', asy
   await expect
     .element(page.getByRole('status', { name: 'url' }))
     .toHaveTextContent('"sort":"name.desc"')
-})
-
-it('preserves an explicit empty filter query over the default', async () => {
-  mount(true)
-  await expect.element(page.getByRole('status', { name: 'filter count' })).toHaveTextContent('1')
-  await page.getByRole('button', { name: 'Clear filters', exact: true }).click()
-  await expect.element(page.getByRole('status', { name: 'filter count' })).toHaveTextContent('0')
-  await expect
-    .element(page.getByRole('status', { name: 'url' }))
-    .toHaveTextContent('"filters":{"rules":[]}')
 })

@@ -4,12 +4,22 @@
   "id": "aws",
   "label": "AWS deploy",
   "description": "Optional deployment tools",
-  "ownedPaths": ["addons/aws", "infra/aws", ".github/workflows/deploy.yml"],
+  "ownedPaths": [
+    "addons/aws",
+    "infra/aws",
+    ".github/workflows/deploy.yml",
+    "patches/alchemy@2.0.0-beta.79.patch"
+  ],
   "packageEntries": [
     {
       "path": "package.json",
       "section": "scripts",
       "names": ["aws"]
+    },
+    {
+      "path": "pnpm-workspace.yaml",
+      "section": "patchedDependencies",
+      "names": ["alchemy@2.0.0-beta.79"]
     }
   ]
 }

@@ -3,6 +3,7 @@ import { Database } from 'lucide-react'
 import { useState } from 'react'
 
 import { DataError, DataLoading } from '@/components/data-state'
+import { Empty, Metric, Unlinked } from '@/components/panel'
 import { RelativeTime } from '@/components/relative-time'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -18,12 +19,12 @@ import { appCopy } from '@/lib/app.copy'
 import { isMissingFromWorkspace } from '@/lib/errors'
 import { enumLabel, formatDate, labelize } from '@/lib/format'
 import { cn } from '@/lib/utils'
-import { TicketMeta, priorityClass } from './portal-panel'
-import { Empty, Metric, Unlinked } from '@/components/panel'
-import { PortalTicketDrawer } from './portal-ticket-drawer'
-import { portalCopy } from './portal.copy'
+
 import type { PortalUser } from './data'
 import { currentSubscription, eventLabel, renewalContext } from './portal'
+import { TicketMeta, priorityClass } from './portal-panel'
+import { PortalTicketDrawer } from './portal-ticket-drawer'
+import { portalCopy } from './portal.copy'
 
 const copy = portalCopy.organizations.portal
 

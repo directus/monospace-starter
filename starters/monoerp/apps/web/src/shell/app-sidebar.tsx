@@ -1,11 +1,7 @@
 import { Link, useLocation } from '@tanstack/react-router'
 import { ChevronRight, House, Settings } from 'lucide-react'
 
-import { NavUser } from '@/shell/nav-user'
-import { useNavGroups } from '@/shell/use-nav-groups'
-import type { CurrentUser } from '@/lib/auth'
-import { modules } from '@/modules'
-import { usePages } from '@/modules/pages'
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
 import {
   Sidebar,
   SidebarContent,
@@ -20,9 +16,13 @@ import {
   SidebarRail,
   useSidebar,
 } from '@/components/ui/sidebar'
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
 import { appCopy } from '@/lib/app.copy'
+import type { CurrentUser } from '@/lib/auth'
+import { modules } from '@/modules'
+import { usePages } from '@/modules/pages'
 import { settingsCopy } from '@/settings/settings.copy'
+import { NavUser } from '@/shell/nav-user'
+import { useNavGroups } from '@/shell/use-nav-groups'
 
 type AppSidebarProps = React.ComponentProps<typeof Sidebar> & {
   user?: CurrentUser

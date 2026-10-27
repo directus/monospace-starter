@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 
+import { Property, InlineText } from '@/components/inline/inline-field'
 import { isMissingFromWorkspace } from '@/lib/errors'
-import type { RecordHistoryEntry } from '@/modules/types'
 import type {
   OrganizationPanelContribution,
   OrganizationPanelProps,
@@ -9,15 +9,16 @@ import type {
   ContactPanelProps,
   DealSummaryContribution,
 } from '@/modules/crm/slots'
+import type { RecordHistoryEntry } from '@/modules/types'
 
-import { portalAccountQuery, portalUserQuery, portalSummaryQuery } from './data'
-import { portalCopy } from './portal.copy'
-import { PortalPanel } from './portal-panel'
-import { PortalUserPanel } from './portal-user-panel'
-import { PortalEventRow } from './portal-event-row'
 import { PortalUserSummary } from './contact-summary'
+import { portalAccountQuery, portalUserQuery, portalSummaryQuery } from './data'
 import { CurrentPlan } from './deal-summary'
 import type { PortalEvent } from './portal'
+import { PortalEventRow } from './portal-event-row'
+import { PortalPanel } from './portal-panel'
+import { PortalUserPanel } from './portal-user-panel'
+import { portalCopy } from './portal.copy'
 
 export { organizationList } from './organization-list'
 
@@ -37,7 +38,8 @@ function historyEntries(events: PortalEvent[]): RecordHistoryEntry[] {
   )
 }
 
-function OrganizationPortal({ portalAccountId, onAddContact }: OrganizationPanelProps) {
+function OrganizationPortal({ organization, onAddContact }: OrganizationPanelProps) {
+  const portalAccountId = organization?.portalAccountId
   const portal = useQuery(portalAccountQuery(portalAccountId))
 
   return (
@@ -74,7 +76,8 @@ function ContactSummary({ email }: ContactPanelProps) {
   )
 }
 
-function DealSummary({ portalAccountId }: OrganizationPanelProps) {
+function DealSummary({ organization }: OrganizationPanelProps) {
+  const portalAccountId = organization?.portalAccountId
   const portal = useQuery(portalSummaryQuery(portalAccountId))
 
   return (
@@ -111,13 +114,24 @@ export const dealSummary: DealSummaryContribution = {
 
 export default {
   id: 'portal',
-  title: portalCopy.contacts.portal.tab,
+  title: portalCopy.organizations.portal.tab,
   component: OrganizationPortal,
-  historyQuery: ({ portalAccountId }) => ({
-    queryKey: ['organizations', 'portal-history', portalAccountId],
-    enabled: Boolean(portalAccountId),
+  detailField: ({ organization, canUpdate, onSave }) => (
+    <Property label={portalCopy.organizations.accountId} readOnly={!canUpdate('portalAccountId')}>
+      <InlineText
+        label={portalCopy.organizations.accountId}
+        value={organization.portalAccountId}
+        inputClassName="font-mono text-xs"
+        format={(value) => <span className="font-mono text-xs">{value}</span>}
+        onSave={(value) => onSave({ portalAccountId: value })}
+      />
+    </Property>
+  ),
+  historyQuery: ({ organization }) => ({
+    queryKey: ['organizations', 'portal-history', organization?.id],
+    enabled: Boolean(organization?.portalAccountId),
     queryFn: async ({ client }) => {
-      const query = portalAccountQuery(portalAccountId)
+      const query = portalAccountQuery(organization?.portalAccountId)
 
       return historyEntries((await client.ensureQueryData(query))?.events?.data ?? [])
     },

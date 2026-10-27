@@ -1,8 +1,8 @@
 import { Outlet, createFileRoute, redirect } from '@tanstack/react-router'
 
+import { AuthRequestError, refreshSession, SESSION_QUERY_KEY } from '@/lib/auth'
 import { AppShell } from '@/shell/app-shell'
 import { AuthGate } from '@/shell/auth-gate'
-import { AuthRequestError, refreshSession, SESSION_QUERY_KEY } from '@/lib/auth'
 
 export const Route = createFileRoute('/_app')({
   ssr: false,

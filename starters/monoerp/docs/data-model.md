@@ -16,7 +16,7 @@ Schema: `infra/modules/crm/postgres/init/001_schema.sql`. Every table has a UUID
 | `pipeline_stages`       | The deal stages, in order. `position` is a float, so a stage can move between two others without renumbering. `is_closed` and `is_won` decide the generated `status`: `open`, `won`, or `lost`. Edited on the settings page                                      |
 | `opportunities`         | A deal (the UI calls them deals). Belongs to one organization, optionally one contact, and sits in one stage. Its `status` must match its stage's status; a trigger enforces that, and changing a stage's won or closed flags updates its deals                  |
 | `interactions`          | Activity: a `note`, `call`, `meeting`, or `email`, with a status (`open`, `completed`, `cancelled`) and a `due_at` for to-dos. Always belongs to an organization, and can also sit on a contact and a deal. A deal's activity must be on the deal's organization |
-| `attachments`           | A file or a link. `asset_id` is a Monospace file in the `crm` workspace; `url` is a link to somewhere else (Drive, a contract tool). Rolls up to an organization like activity does, and can sit on a contact, a deal, or one activity                           |
+| `attachments`           | A file or a link. `asset_id` is a Monospace file in the `monoerp` workspace; `url` is a link to somewhere else (Drive, a contract tool). Rolls up to an organization like activity does, and can sit on a contact, a deal, or one activity                       |
 
 Deleting is restricted on purpose. You can't delete an organization that still has contact history, deals, activity, or attachments, or a contact that still has organization history. A deal with activity can't move to another organization. Deleting a contact clears it from deals, activity, and attachments, and deleting a deal clears it from activity and attachments, rather than deleting those rows.
 
@@ -61,7 +61,7 @@ Amounts are in cents, sent as strings. The emulator has no invoices or subscript
 
 ## How they connect
 
-`pnpm setup:all` draws two CRM-to-Portal relations in `infra/modules/crm/monospace/setup/portal-relations.mjs` and the Portal-to-Stripe relation in `connectors/stripe/monospace/setup/portal-stripe-relation.mjs`:
+`pnpm setup:all` draws two CRM-to-Portal relations in `connectors/portal/monospace/setup/portal-relations.mjs` and the Portal-to-Stripe relation in `connectors/stripe/monospace/setup/portal-stripe-relation.mjs`:
 
 ```text
 organizations.portal_account_id -> accounts.id   (organizations.portalAccount, accounts.organization)
@@ -69,7 +69,7 @@ contacts.email                  -> users.email   (contacts.portalUser, users.con
 accounts.stripe_customer_id     -> customers.id  (accounts.stripeCustomer, stripeCustomers.portalAccount)
 ```
 
-So an organization's page reads `portalAccount` with its subscriptions, plan, and tickets in one request, and its Billing tab reads the account's `stripeCustomer` with its charges in another (`apps/web/src/modules/crm/data.ts`). The organization timeline merges CRM `interactions` with portal `events` in the browser; nothing is copied between the databases.
+So an organization's page reads `portalAccount` with its subscriptions, plan, and tickets in one request, and its Billing tab reads the account's `stripeCustomer` with its charges in another (`connectors/stripe/frontend/crm/data.ts`). The organization timeline merges CRM `interactions` with portal `events` in the browser; nothing is copied between the databases.
 
 Portal's own relations are renamed to singular names (`tickets.account`, `subscriptions.plan`, and so on) by `connectors/portal/monospace/setup/portal-source-relations.mjs`, even without the CRM module.
 

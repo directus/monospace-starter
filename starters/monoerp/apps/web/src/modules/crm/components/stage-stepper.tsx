@@ -1,12 +1,12 @@
-import { useCollectionAccess } from '@/lib/permissions'
 import { Check, Loader2, X } from 'lucide-react'
 import { useEffect, useRef } from 'react'
 
+import type { Uuid } from '@/generated/monospace'
+import { useCollectionAccess } from '@/lib/permissions'
 import { cn } from '@/lib/utils'
 import { crmCopy } from '@/modules/crm/crm.copy'
 import type { PipelineStage } from '@/modules/crm/data'
 import { stageStyle } from '@/modules/crm/stage-color'
-import type { Uuid } from '@/generated/monospace'
 
 // Chevron pipeline of the open stages under a deal header. Only the current stage carries color;
 // earlier stages are neutral and checked, later ones are muted. Click a stage to move the deal.

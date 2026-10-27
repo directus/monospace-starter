@@ -15,7 +15,6 @@ import {
   webDirectory,
 } from './generate-zod-schemas.ts'
 import type { JsonValue, OpenApiDocument } from './generate-zod-schemas.ts'
-
 import { appCollections } from './module-collections.ts'
 
 export const outputPath = resolve(webDirectory, 'monospace.openapi.json')

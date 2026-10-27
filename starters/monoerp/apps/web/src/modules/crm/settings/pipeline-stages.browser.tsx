@@ -1,5 +1,4 @@
 import '@/styles.css'
-
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { cleanup, render, screen, within } from '@testing-library/react'
 import { http, HttpResponse } from 'msw'
@@ -49,10 +48,10 @@ beforeEach(() => {
 function serve() {
   worker.use(
     ...signedIn,
-    http.get('/api/crm/items/pipelineStages', () =>
+    http.get('/api/monoerp/items/pipelineStages', () =>
       HttpResponse.json({ data: [...rows].sort((a, b) => a.position - b.position) }),
     ),
-    http.patch('/api/crm/items/pipelineStages/:id', async ({ params, request }) => {
+    http.patch('/api/monoerp/items/pipelineStages/:id', async ({ params, request }) => {
       const id = String(params.id)
       const data = stagePatch.parse(await request.json())
       patches.push({ id, data, url: new URL(request.url) })
@@ -60,12 +59,14 @@ function serve() {
 
       return HttpResponse.json({ data: { id } })
     }),
-    http.get('/api/crm/system/user-role', () => HttpResponse.json({ data: [{ roleId: 'role' }] })),
-    http.get('/api/crm/roles/:id/policies', () =>
+    http.get('/api/monoerp/system/user-role', () =>
+      HttpResponse.json({ data: [{ roleId: 'role' }] }),
+    ),
+    http.get('/api/monoerp/roles/:id/policies', () =>
       HttpResponse.json({ data: policies.map((content) => ({ content })) }),
     ),
     // The schema manifest: names are indexes into `strings`.
-    http.get('/api/crm/schema', () =>
+    http.get('/api/monoerp/schema', () =>
       HttpResponse.json({
         strings: ['pipelineStages', ...fieldNames],
         monospaceSchema: {
@@ -173,7 +174,7 @@ describe('pipeline settings', () => {
   it('restores the saved order after a rejected drop', async () => {
     await mount()
     worker.use(
-      http.patch('/api/crm/items/pipelineStages/:id', () =>
+      http.patch('/api/monoerp/items/pipelineStages/:id', () =>
         HttpResponse.json({ message: 'Forbidden' }, { status: 403 }),
       ),
     )

@@ -1,7 +1,7 @@
 import type { ComponentProps } from 'react'
 
-import { DataTable } from '@/components/data-table/data-table'
 import { DataError, DataLoading } from '@/components/data-state'
+import { DataTable } from '@/components/data-table/data-table'
 
 export function ListTable<TData extends object>({
   query,

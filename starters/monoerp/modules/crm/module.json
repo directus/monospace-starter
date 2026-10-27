@@ -3,7 +3,7 @@
   "kind": "module",
   "id": "crm",
   "label": "CRM",
-  "description": "Companies, contacts, deals and activity",
+  "description": "Organizations, contacts, and deals.",
   "ownedPaths": [
     "modules/crm",
     "apps/web/src/modules/crm",
@@ -44,13 +44,7 @@
       "attachments": ["created_by"]
     },
     "setup": {
-      "beforeSchema": [
-        {
-          "title": "Portal relations",
-          "script": "portal-relations.mjs",
-          "requires": ["portal"]
-        }
-      ],
+      "beforeSchema": [],
       "afterSchema": [
         {
           "title": "Activity owners",
@@ -58,6 +52,6 @@
         }
       ]
     },
-    "schemaFiles": ["infra/modules/crm/monospace/schema/crm.json"]
+    "schemaFiles": ["infra/modules/crm/monospace/schema/app.json"]
   }
 }

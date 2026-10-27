@@ -1,5 +1,6 @@
 import { execFileSync, spawnSync } from 'node:child_process'
 import { existsSync, lstatSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
+import { createRequire } from 'node:module'
 import { fileURLToPath } from 'node:url'
 
 import { manifestPath, readManifests, repository } from '../infra/manifests.mjs'
@@ -79,6 +80,7 @@ function validateManifests(root = repository) {
         ...manifest.requires,
         ...manifest.optional,
         ...Object.values(manifest.requiresWhenInstalled).flat(),
+        ...(manifest.frontend ?? []).map((feature) => feature.module),
       ])
 
       for (const step of [...manifest.setup.beforeSchema, ...manifest.setup.afterSchema]) {
@@ -231,14 +233,21 @@ export function removeInstalled(id, { root = repository, dryRun = false } = {}) 
 
   for (const entry of manifest.packageEntries ?? []) {
     const path = new URL(entry.path, root)
-    const manifest = JSON.parse(readFileSync(path, 'utf8'))
+    const yaml = entry.path.endsWith('.yaml')
+    const content = readFileSync(path, 'utf8')
+    const document = yaml ? createRequire(import.meta.url)('yaml').parseDocument(content) : null
+    const manifest = document ? document.toJS() : JSON.parse(content)
 
     for (const name of entry.names) {
       console.log(`${dryRun ? 'Would remove' : 'Removing'} ${entry.path} ${entry.section}.${name}`)
-      delete manifest[entry.section]?.[name]
+      const section = manifest[entry.section]
+
+      if (document) document.deleteIn([entry.section, name])
+      else if (section) delete section[name]
     }
 
-    if (!dryRun) writeFileSync(path, `${JSON.stringify(manifest, null, 2)}\n`)
+    if (!dryRun)
+      writeFileSync(path, document ? document.toString() : `${JSON.stringify(manifest, null, 2)}\n`)
   }
 
   for (const path of manifest.ownedPaths) {

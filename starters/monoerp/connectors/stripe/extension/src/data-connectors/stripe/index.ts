@@ -1,4 +1,5 @@
 import { defineDataConnector } from '@monospace/extension-kit/data-connector'
+
 import { StripeClient } from './client'
 import { stripeSchema } from './collections'
 import { apiBasePermission, parseConfig } from './config'

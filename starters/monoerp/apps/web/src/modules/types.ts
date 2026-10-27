@@ -1,7 +1,7 @@
+import type { QueryClient } from '@tanstack/react-query'
 import type { NavigateOptions } from '@tanstack/react-router'
 import type { LucideIcon } from 'lucide-react'
 import type { ReactNode } from 'react'
-import type { QueryClient } from '@tanstack/react-query'
 
 import type { FileRouteTypes } from '@/routeTree.gen'
 
@@ -73,7 +73,7 @@ export type ModuleManifest = {
   search?: ModuleSearch
   settings?: {
     title: string
-    pages: RoutePath[]
+    pages: string[]
   }
 }
 

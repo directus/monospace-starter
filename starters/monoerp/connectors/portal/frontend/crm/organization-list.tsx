@@ -1,13 +1,15 @@
-import { optionsFrom } from '@/lib/format'
 import { useQuery } from '@tanstack/react-query'
 import { CalendarDays, CreditCard } from 'lucide-react'
+
 import { dateField } from '@/components/filters/filter-date-editor'
+import { optionsFrom } from '@/lib/format'
 import { formatDate } from '@/lib/format'
 import { cn } from '@/lib/utils'
 import type { OrganizationListContribution } from '@/modules/crm/slots'
+
 import { portalSummariesQuery } from './data'
-import { portalCopy } from './portal.copy'
 import { currentSubscription, seatUsage, renewalContext, openTicketCount } from './portal'
+import { portalCopy } from './portal.copy'
 
 const PLAN_OPTIONS = optionsFrom(portalCopy.plans)
 
@@ -55,8 +57,11 @@ export const organizationList: OrganizationListContribution = {
       id: 'plan',
       header: portalCopy.organizations.portal.plan,
       size: 130,
-      component: ({ accountId, accountIds }) => {
-        const { account, unavailable } = useSummary(accountId, accountIds)
+      component: ({ organization, organizations }) => {
+        const { account, unavailable } = useSummary(
+          organization.portalAccountId,
+          organizations.map((row) => row.portalAccountId),
+        )
 
         return unavailable ? (
           <span className="text-muted-foreground">
@@ -73,8 +78,12 @@ export const organizationList: OrganizationListContribution = {
       header: portalCopy.organizations.portal.seats,
       size: 110,
       meta: { headerClassName: 'justify-end', cellClassName: 'text-right tabular-nums' },
-      component: ({ accountId, accountIds }) => {
-        const { account } = useSummary(accountId, accountIds)
+      component: ({ organization, organizations }) => {
+        const { account } = useSummary(
+          organization.portalAccountId,
+          organizations.map((row) => row.portalAccountId),
+        )
+
         const seats = seatUsage(account)
 
         if (!seats) return ''
@@ -91,8 +100,12 @@ export const organizationList: OrganizationListContribution = {
       id: 'renewsAt',
       header: portalCopy.organizations.portal.renews,
       size: 170,
-      component: ({ accountId, accountIds }) => {
-        const { account } = useSummary(accountId, accountIds)
+      component: ({ organization, organizations }) => {
+        const { account } = useSummary(
+          organization.portalAccountId,
+          organizations.map((row) => row.portalAccountId),
+        )
+
         const subscription = currentSubscription(account)
         const renewal = renewalContext(subscription)
 
@@ -112,8 +125,12 @@ export const organizationList: OrganizationListContribution = {
       header: portalCopy.organizations.portal.openTickets,
       size: 120,
       meta: { headerClassName: 'justify-end', cellClassName: 'text-right tabular-nums' },
-      component: ({ accountId, accountIds }) => {
-        const { account } = useSummary(accountId, accountIds)
+      component: ({ organization, organizations }) => {
+        const { account } = useSummary(
+          organization.portalAccountId,
+          organizations.map((row) => row.portalAccountId),
+        )
+
         const count = openTicketCount(account)
 
         if (!account) return ''

@@ -5,8 +5,8 @@ import type { ReactNode } from 'react'
 
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { AuthRequestError, sessionQuery } from '@/lib/auth'
 import { appCopy } from '@/lib/app.copy'
+import { AuthRequestError, sessionQuery } from '@/lib/auth'
 
 export function AuthGate({ children }: { children: ReactNode }) {
   const location = useLocation()

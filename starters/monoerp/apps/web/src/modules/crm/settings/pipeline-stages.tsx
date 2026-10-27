@@ -1,21 +1,21 @@
-import { Empty } from '@/components/panel'
-import { useQuery } from '@tanstack/react-query'
 import { DragDropProvider } from '@dnd-kit/react'
 import { isSortable, useSortable } from '@dnd-kit/react/sortable'
+import { useQuery } from '@tanstack/react-query'
 import { GripVertical, Check, ListFilter, LockKeyhole, Pencil, Plus, Trash2 } from 'lucide-react'
 import { useState } from 'react'
 import { flushSync } from 'react-dom'
 import { toast } from 'sonner'
 
 import { ConfirmDialog } from '@/components/confirm-dialog'
-import { FormDialog } from '@/components/form/form-dialog'
 import { DataError, DataLoading } from '@/components/data-state'
+import { FormDialog } from '@/components/form/form-dialog'
 import { PageHeader } from '@/components/page-header'
+import { Empty } from '@/components/panel'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
-import { Frame, FrameHeader, FramePanel, FrameTitle } from '@/components/ui/frame'
 import { DialogFooter } from '@/components/ui/dialog'
+import { Frame, FrameHeader, FramePanel, FrameTitle } from '@/components/ui/frame'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
@@ -24,8 +24,6 @@ import { errorMessage } from '@/lib/errors'
 import { collectionPermissionsQuery, type CollectionPermissions } from '@/lib/permissions'
 import { cn } from '@/lib/utils'
 import { pipelineStagesQuery, type PipelineStage } from '@/modules/crm/data'
-import { stageStyle } from '@/modules/crm/stage-color'
-import { StagePreview } from '@/modules/crm/settings/stage-preview'
 import {
   stageDraft,
   reorderedStage,
@@ -37,6 +35,8 @@ import {
   type StageField,
 } from '@/modules/crm/settings/pipeline-stage-data'
 import { crmSettingsCopy } from '@/modules/crm/settings/settings.copy'
+import { StagePreview } from '@/modules/crm/settings/stage-preview'
+import { stageStyle } from '@/modules/crm/stage-color'
 
 const copy = crmSettingsCopy.stages
 

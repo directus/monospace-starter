@@ -1,7 +1,8 @@
 import type { MonospaceObject, Value } from '@monospace/extension-kit/data-connector'
+import { QueryRejected } from '@monospace/extension-kit/data-connector'
+
 import type { StripeObject } from './client'
 import type { FieldKind, FieldSpec, ResourceSpec } from './resources'
-import { QueryRejected } from '@monospace/extension-kit/data-connector'
 import { fieldPath } from './resources'
 
 /** Converts a Stripe object to a record carrying every declared field in canonical encoding. */
@@ -46,7 +47,7 @@ export function comparable(kind: FieldKind, value: Value): string | number | boo
     const milliseconds = typeof value === 'string' ? Date.parse(value) : Number.NaN
 
     if (Number.isNaN(milliseconds))
-      throw new QueryRejected(`\`${String(value)}\` is not an RFC 3339 timestamp.`)
+      throw new QueryRejected(`\`${JSON.stringify(value)}\` is not an RFC 3339 timestamp.`)
 
     return milliseconds
   }
@@ -75,5 +76,5 @@ export function encodeFormValue(
   }
 
   if (typeof value === 'object') throw new QueryRejected(`\`${field.name}\` cannot be written.`)
-  form.set(key, String(value))
+  form.set(key, JSON.stringify(value))
 }

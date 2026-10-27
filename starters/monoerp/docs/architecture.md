@@ -7,7 +7,7 @@ How a request gets from the browser to the data, and where each rule lives.
 The browser only ever talks to the app's own address. Anything under `/api/*` goes to Monospace. Everything else is the app.
 
 ```text
-browser ──> app address ──┬── /api/*  ──> Monospace ──┬── CRM PostgreSQL (read and write)
+browser ──> app address ──┬── /api/*  ──> Monospace ──┬── shared PostgreSQL (read and write)
                           │                           ├── customer platform MySQL (read-only)
                           │                           └── Stripe API (Stripe connector)
                           └── everything else ──> the app (TanStack Start)
@@ -32,7 +32,7 @@ Sign-in goes through the same `/api/*` path, so Monospace's session cookies belo
 
 ## Reading and writing data
 
-- The typed client in `apps/web/src/generated/monospace` comes from the workspace's OpenAPI document (`pnpm generate`). `apps/web/src/lib/monospace.ts` creates it for the `crm` workspace.
+- The typed client in `apps/web/src/generated/monospace` comes from the workspace's OpenAPI document (`pnpm generate`). `apps/web/src/lib/monospace.ts` creates it for the `monoerp` workspace.
 - Screens call it straight from the browser, wrapped in TanStack Query. Query defaults are in `apps/web/src/router.tsx`.
 - Reads live in each module's `data.ts` (`apps/web/src/modules/crm/data.ts`). They ask for exactly the fields and related records a screen needs, in one request where possible.
 - Writes live in `mutations.ts`. Inputs are checked with the generated Zod schemas before they're sent, and the affected queries are refreshed after.
@@ -54,7 +54,7 @@ The workspace has three data sources:
 - **Portal** (MySQL): a stand-in for a product another team owns (accounts, users, plans, subscriptions, tickets, events). Monospace connects as a user with `SELECT` only (`connectors/portal/emulator/init/003_reader.sh`). Schema in `connectors/portal/emulator`.
 - **Stripe** (an API): customers, products, prices, payment intents, and charges, through the data connector extension in `connectors/stripe`. Locally it points at a Stripe emulator (`connectors/stripe/emulator`).
 
-`pnpm setup:all` draws two CRM-to-Portal relations in `infra/modules/crm/monospace/setup/portal-relations.mjs` and the Portal-to-Stripe relation in `connectors/stripe/monospace/setup/portal-stripe-relation.mjs`:
+`pnpm setup:all` draws two CRM-to-Portal relations in `connectors/portal/monospace/setup/portal-relations.mjs` and the Portal-to-Stripe relation in `connectors/stripe/monospace/setup/portal-stripe-relation.mjs`:
 
 ```text
 organizations.portal_account_id -> accounts.id   (organizations.portalAccount)

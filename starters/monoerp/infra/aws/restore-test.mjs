@@ -34,7 +34,7 @@ const counts = (host) => {
           command: [
             'psql',
             '-d',
-            'crm',
+            'app',
             '-Atc',
             "select 'organizations=' || (select count(*) from organizations) || ' contacts=' || (select count(*) from contacts) || ' interactions=' || (select count(*) from interactions)",
           ],

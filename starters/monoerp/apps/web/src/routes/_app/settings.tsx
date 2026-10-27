@@ -1,6 +1,5 @@
 import { createFileRoute, Link, Outlet } from '@tanstack/react-router'
 import { Settings, UserRound } from 'lucide-react'
-
 import { Fragment } from 'react'
 
 import { modules } from '@/modules'

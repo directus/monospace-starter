@@ -1,4 +1,5 @@
 import { parseDate } from '@/lib/format'
+
 import { portalCopy } from './portal.copy'
 
 // Shapes shared by every query that includes the portal account (list rows, the organization

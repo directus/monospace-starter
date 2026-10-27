@@ -18,8 +18,8 @@ function refuse(status, body) {
 
 describe('setup licensing', () => {
   it.each([
-    ['Demo colleagues', seats, 'the free Starter tier allows 3 users'],
-    ['Custom access policy', policies, 'the free Starter tier does not include custom policies'],
+    ['Demo colleagues', seats, 'the free tier allows 3 users'],
+    ['Custom access policy', policies, 'the free tier does not include custom policies'],
   ])('skips %s on a keyless install with a useful message', async (title, body, reason) => {
     vi.stubEnv('MONOSPACE_LICENSE__KEY', '')
     const log = vi.spyOn(console, 'log').mockImplementation(() => {})

@@ -72,7 +72,7 @@ const common = {
     .array(
       z.strictObject({
         path,
-        section: z.enum(['scripts', 'dependencies', 'devDependencies']),
+        section: z.enum(['scripts', 'dependencies', 'devDependencies', 'patchedDependencies']),
         names,
       }),
     )

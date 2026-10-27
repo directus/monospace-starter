@@ -1,13 +1,13 @@
-import { timeOnly } from '@/lib/format'
 import type { ReactNode } from 'react'
 
 import { Checkbox } from '@/components/ui/checkbox'
+import { timeOnly } from '@/lib/format'
 import { cn } from '@/lib/utils'
 import { ActivityRow, LIST_INSET } from '@/modules/crm/components/activity-row'
 import type { RowHandlers } from '@/modules/crm/components/activity-row'
-import type { RecordHistoryEntry } from '@/modules/types'
 import { crmCopy } from '@/modules/crm/crm.copy'
 import type { ActivityRecord } from '@/modules/crm/data'
+import type { RecordHistoryEntry } from '@/modules/types'
 
 const copy = crmCopy.activity
 

@@ -12,7 +12,7 @@
     "generate:routes": "vp run --filter @monoerp/web generate:routes",
     "generate:schemas": "vp run --filter @monoerp/web generate:schemas",
     "setup:all": "node infra/monospace/setup/setup.mjs",
-    "db:migrate": "docker compose run --rm --no-deps --entrypoint sh crm-postgres /infra/postgres/migrate.sh && node infra/monospace/setup/connector-hook.mjs migrate",
+    "db:migrate": "docker compose run --rm --no-deps --entrypoint sh app-postgres /infra/postgres/migrate.sh && node infra/monospace/setup/connector-hook.mjs migrate",
     "setup:sources": "node infra/monospace/setup/sources.mjs",
     "setup:introspect": "node infra/monospace/setup/introspect-sources.mjs",
     "schema:export": "node infra/monospace/setup/export-schema.mjs",
@@ -37,6 +37,7 @@
   "devDependencies": {
     "@oxlint/plugins": "1.79.0",
     "vite-plus": "catalog:",
+    "yaml": "2.9.1",
     "zod": "4.5.4"
   },
   "devEngines": {

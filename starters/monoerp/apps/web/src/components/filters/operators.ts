@@ -1,5 +1,5 @@
-import { appCopy } from '@/lib/app.copy'
 import type { FilterField, FilterOperator, FilterValueType } from '@/components/filters/types'
+import { appCopy } from '@/lib/app.copy'
 
 function operator(
   value: keyof typeof appCopy.filters.operators,

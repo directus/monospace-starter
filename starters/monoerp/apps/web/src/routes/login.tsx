@@ -7,8 +7,8 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { SESSION_QUERY_KEY, signIn } from '@/lib/auth'
 import { appCopy } from '@/lib/app.copy'
+import { SESSION_QUERY_KEY, signIn } from '@/lib/auth'
 
 const credentials = z.object({ email: z.string(), password: z.string() })
 

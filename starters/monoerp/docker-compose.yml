@@ -22,22 +22,22 @@ services:
     networks:
       - monospace
 
-  crm-postgres:
+  app-postgres:
     image: pgvector/pgvector:0.8.1-pg17-bookworm
     restart: unless-stopped
     environment:
-      POSTGRES_USER: crm
-      POSTGRES_PASSWORD: ${CRM_DB_PASSWORD:-monospace}
-      POSTGRES_DB: crm
+      POSTGRES_USER: app
+      POSTGRES_PASSWORD: ${APP_DB_PASSWORD:-monospace}
+      POSTGRES_DB: app
     ports:
-      - '127.0.0.1:${CRM_POSTGRES_PORT:-5433}:5432'
+      - '127.0.0.1:${APP_POSTGRES_PORT:-5433}:5432'
     volumes:
-      - crm_postgres_data:/var/lib/postgresql/data
+      - app_postgres_data:/var/lib/postgresql/data
       - ./infra/postgres/entrypoint:/docker-entrypoint-initdb.d:ro
       - ./infra/postgres:/infra/postgres:ro
       - ./infra/modules:/infra/modules:ro
     healthcheck:
-      test: ['CMD-SHELL', 'pg_isready -h 127.0.0.1 -U crm -d crm']
+      test: ['CMD-SHELL', 'pg_isready -h 127.0.0.1 -U app -d app']
       interval: 5s
       timeout: 5s
       retries: 10
@@ -102,7 +102,7 @@ services:
     depends_on:
       system-postgres:
         condition: service_healthy
-      crm-postgres:
+      app-postgres:
         condition: service_healthy
       rabbitmq:
         condition: service_healthy
@@ -164,10 +164,11 @@ services:
       MONOSPACE_ACCESS_TOKEN_TTL: '15m'
       MONOSPACE_REFRESH_TOKEN_TTL: '7days'
       MONOSPACE_COOKIE_SECURE: 'false'
+      # Show edits immediately during local development; production can cache reads.
       MONOSPACE_CACHE__ENABLED: 'false'
       MONOSPACE_ADMIN_EMAIL: ${MONOSPACE_ADMIN_EMAIL:-admin@example.com}
       MONOSPACE_ADMIN_PASSWORD: ${MONOSPACE_ADMIN_PASSWORD:-monospace}
-      # Passed only when set: Monospace rejects an empty key. Without one it runs on Starter.
+      # Passed only when set: Monospace rejects an empty key. Without one it runs on the free tier (see docs/monospace.md).
       MONOSPACE_LICENSE__KEY:
     networks:
       - monospace
@@ -217,7 +218,7 @@ services:
 
 volumes:
   system_postgres_data:
-  crm_postgres_data:
+  app_postgres_data:
   rabbitmq_data:
   keys_data:
   uploads_data:

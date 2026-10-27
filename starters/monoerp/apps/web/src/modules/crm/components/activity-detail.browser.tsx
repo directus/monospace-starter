@@ -1,5 +1,4 @@
 import '@/styles.css'
-
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { cleanup, render, screen } from '@testing-library/react'
 import { http, HttpResponse } from 'msw'
@@ -7,9 +6,9 @@ import type { ReactNode } from 'react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { page } from 'vitest/browser'
 
+import { interactionsCreateSchema, interactionsUpdateSchema } from '@/generated/monospace/schemas'
 import { sessionQuery } from '@/lib/auth'
 import { collectionPermissionsQuery } from '@/lib/permissions'
-import { interactionsCreateSchema, interactionsUpdateSchema } from '@/generated/monospace/schemas'
 import { ActivityDetailDrawer } from '@/modules/crm/components/activity-detail'
 import { crmCopy } from '@/modules/crm/crm.copy'
 import type { ActivityRecord } from '@/modules/crm/data'
@@ -44,11 +43,13 @@ function serve() {
 
   worker.use(
     ...signedIn,
-    http.get('/api/crm/system/user-role', () => HttpResponse.json({ data: [{ roleId: 'role' }] })),
-    http.get('/api/crm/roles/:id/policies', () =>
+    http.get('/api/monoerp/system/user-role', () =>
+      HttpResponse.json({ data: [{ roleId: 'role' }] }),
+    ),
+    http.get('/api/monoerp/roles/:id/policies', () =>
       HttpResponse.json({ data: [{ content: { access: 'admin' } }] }),
     ),
-    http.patch('/api/crm/items/interactions/:id', async ({ params, request }) => {
+    http.patch('/api/monoerp/items/interactions/:id', async ({ params, request }) => {
       const id = String(params.id)
       writes.push({
         method: 'PATCH',
@@ -58,7 +59,7 @@ function serve() {
 
       return HttpResponse.json({ data: { id } })
     }),
-    http.post('/api/crm/items/interactions', async ({ request }) => {
+    http.post('/api/monoerp/items/interactions', async ({ request }) => {
       writes.push({
         method: 'POST',
         data: interactionsCreateSchema.array().parse(await request.json()),

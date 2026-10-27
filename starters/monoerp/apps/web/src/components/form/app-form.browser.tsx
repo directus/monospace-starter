@@ -1,5 +1,4 @@
 import '@/styles.css'
-
 import { cleanup, render } from '@testing-library/react'
 import { afterEach, expect, it } from 'vitest'
 import { page } from 'vitest/browser'

@@ -31,7 +31,7 @@ Everything runs in private subnets. The databases, cache, and broker only accept
    ```
 2. **Tools:** AWS CLI v2, Node 24, pnpm, and Docker (Docker Desktop, OrbStack, or Colima). Docker builds the app and setup images for ARM. To read staging's mail, also the Session Manager plugin (`brew install --cask session-manager-plugin`).
 3. **`.env` at the repo root** (copy `.env.example`):
-   - `MONOSPACE_LICENSE__KEY`: required here, though monoERP itself runs on the free Starter tier. A deployed stage is for more than one admin, and Starter allows 3 users and no custom roles. The deploy copies it into Secrets Manager; it never appears in the repo, the logs, or on a command line.
+   - `MONOSPACE_LICENSE__KEY`: required for deployed stages. See [license requirements](../../docs/monospace.md#license-key-and-the-free-tier). The deploy copies it into Secrets Manager; it never appears in the repo, the logs, or on a command line.
    - `ALARM_EMAIL`: optional. Where alarms are sent.
    - `LOGO_DEV_TOKEN`: optional. Company logos in the app.
 
@@ -74,7 +74,7 @@ On staging this is optional: destroying staging deletes the data the key protect
 ## Check it works
 
 1. Open the **app address** (the first one printed). Sign in as `admin@example.com` with the password from the printed command. You should land in monoERP; Organizations lists 40 demo companies on staging, and prod starts empty.
-2. Open the **Studio address**. Studio is Monospace's own admin UI: data sources, collections, roles, users. Sign in with the same account. It has its own address because it's a single-page app that needs the site root. The first time, Studio asks you to accept its terms and then insists on creating a workspace, even though monoERP's workspace (`crm`) already exists. Open Studio in a new browser tab to get past it; the wizard only tracks its progress per tab.
+2. Open the **Studio address**. Studio is Monospace's own admin UI: data sources, collections, roles, users. Sign in with the same account. It has its own address because it's a single-page app that needs the site root. The first time, Studio asks you to accept its terms and then insists on creating a workspace, even though monoERP's workspace (`monoerp`) already exists. Open Studio in a new browser tab to get past it; the wizard only tracks its progress per tab.
 3. Health: `https://<app address>/api/system/ready` returns 200 when Monospace and its databases are up. The load balancer uses the same check.
 4. `pnpm aws probe --stage staging` checks the databases, cache, and broker answer from inside the network.
 
@@ -205,3 +205,5 @@ CloudFront-to-load-balancer traffic uses plain HTTP in this starter. Browser-to-
 ## Package and names
 
 The optional package is `@monoerp/aws`. `pnpm aws <command>` forwards to its scripts; run `pnpm --filter @monoerp/aws typecheck` to check it alone. Rename stack/resource IDs, database/final snapshot names, `monoerp.internal`, and the sender in this folder together. Review `pnpm aws plan` first, since identity changes may replace resources.
+
+A module may declare `x-monoerp.demoUserCredential` to name an environment variable used by deployed setup for demo users. Supply it separately from the admin credential.

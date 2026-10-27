@@ -6,7 +6,8 @@ import { BillingPanel } from './billing-panel'
 import { billingCopy } from './billing.copy'
 import { billingQuery } from './data'
 
-function OrganizationBilling({ portalAccountId }: OrganizationPanelProps) {
+function OrganizationBilling({ organization }: OrganizationPanelProps) {
+  const portalAccountId = organization?.portalAccountId
   const billing = useQuery(billingQuery(portalAccountId))
 
   return (

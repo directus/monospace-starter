@@ -1,15 +1,15 @@
-import type { ActivityFilter } from '@/modules/crm/data'
 import type { RelationOption } from '@/components/form/relation-combobox'
+import type { Uuid } from '@/generated/monospace'
 import type { OwnerLike } from '@/lib/users'
 import { ownerOption } from '@/lib/users'
+import type { ActivityInitial } from '@/modules/crm/components/activity-form'
 import { crmCopy } from '@/modules/crm/crm.copy'
+import type { ActivityFilter } from '@/modules/crm/data'
 import {
   contactName as entityContactName,
   contactOption,
   organizationOption,
 } from '@/modules/crm/entities'
-import type { ActivityInitial } from '@/modules/crm/components/activity-form'
-import type { Uuid } from '@/generated/monospace'
 
 // The shape every interactions selection in data.ts satisfies, so one mapper serves all pages.
 export type InteractionLike = {

@@ -5,14 +5,12 @@
 // Idempotent: skips anything already in place, and anything on a source that isn't connected.
 import {
   authenticate,
-  crmSource,
+  appSource,
   sourceName,
   ensureRelation,
   migrate,
   readCollections,
 } from '#setup'
-
-const CRM = crmSource
 
 const PORTAL = sourceName('portal')
 
@@ -20,7 +18,7 @@ const crossSourceRelations = [
   {
     relationName: 'organizations_portal_account',
     from: {
-      source: CRM,
+      source: appSource,
       collection: 'organizations',
       field: 'portal_account_id',
       apiName: 'portalAccount',
@@ -35,7 +33,7 @@ const crossSourceRelations = [
   },
   {
     relationName: 'contacts_portal_user',
-    from: { source: CRM, collection: 'contacts', field: 'email', apiName: 'portalUser' },
+    from: { source: appSource, collection: 'contacts', field: 'email', apiName: 'portalUser' },
     to: { source: PORTAL, collection: 'users', field: 'email', apiName: 'contacts', isList: true },
   },
 ]

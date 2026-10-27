@@ -14,16 +14,16 @@ import {
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import { SidebarInset, SidebarProvider, useSidebar } from '@/components/ui/sidebar'
+import { Toaster } from '@/components/ui/sonner'
 import { TooltipProvider } from '@/components/ui/tooltip'
+import { useIsMobile } from '@/hooks/use-mobile'
+import { appCopy } from '@/lib/app.copy'
 import { refreshSession, SESSION_QUERY_KEY, signOut } from '@/lib/auth'
+import { cn } from '@/lib/utils'
 import { moduleById } from '@/modules'
 import { usePages } from '@/modules/pages'
 import { AppSidebar } from '@/shell/app-sidebar'
-import { Toaster } from '@/components/ui/sonner'
-import { cn } from '@/lib/utils'
-import { useIsMobile } from '@/hooks/use-mobile'
 import { CommandPalette } from '@/shell/command-palette'
-import { appCopy } from '@/lib/app.copy'
 
 export function AppShell({ children }: { children: ReactNode }) {
   const navigate = useNavigate()

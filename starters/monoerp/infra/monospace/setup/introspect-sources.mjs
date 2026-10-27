@@ -1,5 +1,6 @@
+import { connectors } from './installed.mjs'
 import { readSources } from './lib.mjs'
-import { crmSource } from './lib.mjs'
+import { appSource } from './lib.mjs'
 // Re-introspects every non-system data source in the workspace. Run this after a SQL
 // migration, then regenerate the SDK. Introspection applies what it finds to Monospace's
 // model and never writes to the source.
@@ -14,9 +15,7 @@ import {
   workspacePath,
 } from './lib.mjs'
 
-import { connectors } from './installed.mjs'
-
-const selected = new Set([crmSource, ...connectors.map((connector) => connector.source.apiName)])
+const selected = new Set([appSource, ...connectors.map((connector) => connector.source.apiName)])
 
 await authenticate()
 

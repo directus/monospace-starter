@@ -54,7 +54,9 @@ async function withOwners<T extends { ownerUserId?: Uuid | null }>(rows: Readonl
 async function withOwner<T extends { ownerUserId?: Uuid | null }>(row: T) {
   const [filled] = await withOwners([row])
 
-  return filled!
+  if (!filled) throw new Error('Owner lookup did not return the record')
+
+  return filled
 }
 
 async function withCreators<T extends { createdById?: Uuid | null }>(rows: ReadonlyArray<T>) {
@@ -66,6 +68,10 @@ export type OrganizationsFilter = NonNullable<organizationsReadManyArgs['filter'
 export type ContactsFilter = NonNullable<contactsReadManyArgs['filter']>
 
 export type DealsFilter = NonNullable<opportunitiesReadManyArgs['filter']>
+
+function whereAll<T>(...clauses: (T | undefined)[]) {
+  return { _and: clauses.filter((clause): clause is T => clause !== undefined) }
+}
 
 const LIST_LIMIT = 250
 
@@ -222,7 +228,7 @@ async function fetchOrganizations({
         limit: RELATED_LIMIT,
       },
     },
-    filter: { _and: [...(q ? [organizationSearchFilter(q)] : []), ...(filter ? [filter] : [])] },
+    filter: whereAll<OrganizationsFilter>(q ? organizationSearchFilter(q) : undefined, filter),
     sort: sortSpec<OrganizationSort>(ORGANIZATION_SORTS, sort, [{ name: { direction: 'asc' } }]),
     offset,
     limit,
@@ -256,7 +262,7 @@ async function fetchContacts({
         limit: RELATED_LIMIT,
       },
     },
-    filter: { _and: [...(q ? [contactSearchFilter(q)] : []), ...(filter ? [filter] : [])] },
+    filter: whereAll<ContactsFilter>(q ? contactSearchFilter(q) : undefined, filter),
     sort: sortSpec<ContactSort>(CONTACT_SORTS, sort, [
       { lastName: { direction: 'asc' } },
       { firstName: { direction: 'asc' } },
@@ -300,7 +306,7 @@ async function fetchDeals({
       organizations: { fields: ['id', 'name', 'domain'] },
       pipeline_stages: { fields: ['id', 'name', 'position', 'color'] },
     },
-    filter: { _and: [...(q ? [dealSearchFilter(q)] : []), ...(filter ? [filter] : [])] },
+    filter: whereAll<DealsFilter>(q ? dealSearchFilter(q) : undefined, filter),
     sort: sortSpec<OpportunitySort>(OPPORTUNITY_SORTS, sort, [
       { updatedAt: { direction: 'desc' } },
     ]),
@@ -308,27 +314,22 @@ async function fetchDeals({
     limit,
   })
 
-  return rows
+  return withOwners(keyed(rows))
 }
 
-async function readDealsPage(params: ListParams<DealsFilter> & Page) {
-  return withOwners(keyed(await fetchDeals(params)))
-}
-
-export type DealRow = Awaited<ReturnType<typeof readDealsPage>>[number]
+export type DealRow = Awaited<ReturnType<typeof fetchDeals>>[number]
 
 // Every matching deal at once, for the board and the dashboard.
 export function dealsQuery(filters: ListParams<DealsFilter>) {
   return queryOptions({
     queryKey: ['opportunities', filters],
-    queryFn: async () =>
-      withOwners(keyed(await readAllPages((page) => fetchDeals({ ...filters, ...page })))),
+    queryFn: async () => readAllPages((page) => fetchDeals({ ...filters, ...page })),
   })
 }
 
 export function dealsPagesQuery(filters: ListParams<DealsFilter>) {
   return pagesQuery(['opportunities', 'pages', filters], (page) =>
-    readDealsPage({ ...filters, ...page }),
+    fetchDeals({ ...filters, ...page }),
   )
 }
 
@@ -536,12 +537,10 @@ export async function lookupContacts(
 ): Promise<Array<RelationOption>> {
   const rows = await monospace.contacts.readMany({
     fields: ['id', 'firstName', 'lastName', 'email'],
-    filter: {
-      _and: [
-        ...(q ? [contactSearchFilter(q)] : []),
-        ...(organizationId ? [{ contact_organizations: { organizationId } }] : []),
-      ],
-    },
+    filter: whereAll<ContactsFilter>(
+      q ? contactSearchFilter(q) : undefined,
+      organizationId ? { contact_organizations: { organizationId } } : undefined,
+    ),
     sort: [{ lastName: { direction: 'asc' } }, { firstName: { direction: 'asc' } }],
     limit: LOOKUP_LIMIT,
   })
@@ -560,9 +559,10 @@ export async function lookupOpportunities(
   const rows = await monospace.opportunities.readMany({
     fields: ['id', 'title'],
     include: { organizations: { fields: ['name'] } },
-    filter: {
-      _and: [...(q ? [dealSearchFilter(q)] : []), ...(organizationId ? [{ organizationId }] : [])],
-    },
+    filter: whereAll<DealsFilter>(
+      q ? dealSearchFilter(q) : undefined,
+      organizationId ? { organizationId } : undefined,
+    ),
     sort: [{ updatedAt: { direction: 'desc' } }],
     limit: LOOKUP_LIMIT,
   })
@@ -639,13 +639,11 @@ async function fetchActivities({
   const rows = await monospace.interactions.readMany({
     fields: INTERACTION_FIELDS,
     include: INTERACTION_INCLUDE,
-    filter: {
-      _and: [
-        view === 'todo' ? { status: 'open' } : { status: { _neq: 'open' } },
-        ...(q ? [interactionSearchFilter(q)] : []),
-        ...(filter ? [filter] : []),
-      ],
-    },
+    filter: whereAll<ActivityFilter>(
+      view === 'todo' ? { status: 'open' } : { status: { _neq: 'open' } },
+      q ? interactionSearchFilter(q) : undefined,
+      filter,
+    ),
     sort:
       view === 'todo'
         ? [{ dueAt: { direction: 'asc' } }, { occurredAt: { direction: 'asc' } }]
@@ -672,13 +670,11 @@ export function openDueDatesQuery(filters: ListParams<ActivityFilter>) {
     queryFn: () =>
       monospace.interactions.readMany({
         fields: ['id', 'dueAt', 'occurredAt'],
-        filter: {
-          _and: [
-            { status: 'open' },
-            ...(filters.q ? [interactionSearchFilter(filters.q)] : []),
-            ...(filters.filter ? [filters.filter] : []),
-          ],
-        },
+        filter: whereAll<ActivityFilter>(
+          { status: 'open' },
+          filters.q ? interactionSearchFilter(filters.q) : undefined,
+          filters.filter,
+        ),
         limit: 1000,
       }),
   })

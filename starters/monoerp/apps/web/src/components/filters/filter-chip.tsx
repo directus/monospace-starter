@@ -1,7 +1,7 @@
-import { appCopy } from '@/lib/app.copy'
 import { ArrowLeftRightIcon, CopyIcon, EllipsisVerticalIcon, Trash2Icon, XIcon } from 'lucide-react'
 import * as React from 'react'
 import { z } from 'zod'
+
 import {
   filterControlSizes,
   filterReadOnlyProps,
@@ -37,8 +37,6 @@ import type {
   FilterOperator,
   FilterRule,
 } from '@/components/filters/types'
-
-import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { ButtonGroup, ButtonGroupText } from '@/components/ui/button-group'
 import {
@@ -48,6 +46,8 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
+import { appCopy } from '@/lib/app.copy'
+import { cn } from '@/lib/utils'
 
 type ChipSegment = 'operator' | 'value' | 'menu'
 

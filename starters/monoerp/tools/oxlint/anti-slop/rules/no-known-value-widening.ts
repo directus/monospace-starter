@@ -1,4 +1,5 @@
 import { defineRule } from '@oxlint/plugins'
+import type { ESTree, SourceCode, Variable } from '@oxlint/plugins'
 
 import {
   classifyUnsafeDictionaryValue,
@@ -14,8 +15,6 @@ import {
   functionParameterTypeAnnotation,
 } from '../shared/function-parameters.ts'
 import { resolveVariable } from '../shared/scope.ts'
-
-import type { ESTree, SourceCode, Variable } from '@oxlint/plugins'
 
 type FunctionExpression = ESTree.ArrowFunctionExpression | ESTree.Function
 

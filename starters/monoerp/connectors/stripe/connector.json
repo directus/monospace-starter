@@ -47,7 +47,7 @@
     "frontend": [
       {
         "module": "crm",
-        "order": 10,
+        "order": 20,
         "collections": ["stripeCustomers", "stripeCharges"],
         "schemas": [],
         "path": "connectors/stripe/frontend/crm",

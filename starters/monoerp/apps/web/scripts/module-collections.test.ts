@@ -1,4 +1,3 @@
-import { manifestDocument } from '../../../tools/manifest-fixtures.mjs'
 import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
@@ -6,6 +5,7 @@ import { pathToFileURL } from 'node:url'
 
 import { afterEach, describe, expect, it, vi } from 'vitest'
 
+import { manifestDocument } from '../../../tools/manifest-fixtures.mjs'
 import {
   readFrontendFeatures,
   readModuleCollections,
@@ -245,7 +245,7 @@ it('drops Portal and conditional Stripe collections when Portal is removed', () 
   expect(readFrontendFeatures(root, ['portal', 'stripe']).active).toEqual([])
 })
 
-it('explains when connector selection disables a frontend feature', () => {
+it('keeps disabled connector discovery quiet', () => {
   const root = fixture()
   addModule(root, 'crm', 10, ['organizations'], [])
   addConnector(root, 'portal')
@@ -275,5 +275,5 @@ it('explains when connector selection disables a frontend feature', () => {
   expect(log).not.toHaveBeenCalled()
   vi.stubEnv('OPTIONAL_SOURCES', '')
   expect(readFrontendFeatures(root, []).active).toEqual([])
-  expect(log).toHaveBeenCalledWith('portal: skipped, disabled in OPTIONAL_SOURCES')
+  expect(log).not.toHaveBeenCalled()
 })

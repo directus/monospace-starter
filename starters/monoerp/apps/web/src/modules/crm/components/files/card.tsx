@@ -1,4 +1,3 @@
-import { useCollectionAccess } from '@/lib/permissions'
 import { ExternalLink } from 'lucide-react'
 import { useState } from 'react'
 
@@ -7,6 +6,7 @@ import { appCopy } from '@/lib/app.copy'
 import { formatBytes } from '@/lib/assets'
 import { errorMessage } from '@/lib/errors'
 import { formatDate } from '@/lib/format'
+import { useCollectionAccess } from '@/lib/permissions'
 import { cn } from '@/lib/utils'
 import { crmCopy } from '@/modules/crm/crm.copy'
 import type { AttachmentRow } from '@/modules/crm/data'

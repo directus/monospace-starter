@@ -109,7 +109,7 @@
       },
       "optionalRelations": {
         "organization": {
-          "source": "CRM",
+          "source": "App",
           "collection": "organizations",
           "owner": "crm"
         },
@@ -689,7 +689,7 @@
       },
       "optionalRelations": {
         "contacts": {
-          "source": "CRM",
+          "source": "App",
           "collection": "contacts",
           "owner": "crm"
         }

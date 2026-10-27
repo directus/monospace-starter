@@ -4,6 +4,7 @@ import { z } from 'zod'
 import type { JsonValue, Uuid } from '@/generated/monospace'
 import { useCurrentUser } from '@/lib/auth'
 import { readUserPolicies } from '@/lib/monospace-system'
+import { workspace } from '@/lib/workspace'
 
 type Action = 'read' | 'create' | 'update' | 'delete'
 
@@ -68,7 +69,7 @@ async function fetchCollectionPermissions(userId: Uuid, apiName: string) {
 
 export function collectionPermissionsQuery(userId: Uuid | undefined, apiName: string) {
   return queryOptions({
-    queryKey: ['permissions', import.meta.env.VITE_MONOSPACE_WORKSPACE ?? 'crm', userId, apiName],
+    queryKey: ['permissions', workspace, userId, apiName],
     staleTime: 30_000,
     queryFn: userId ? () => fetchCollectionPermissions(userId, apiName) : skipToken,
   })

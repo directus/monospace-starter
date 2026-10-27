@@ -1,5 +1,4 @@
 import '@/styles.css'
-
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { cleanup, render } from '@testing-library/react'
 import { http, HttpResponse } from 'msw'
@@ -7,9 +6,9 @@ import { afterEach, describe, expect, it } from 'vitest'
 import { page } from 'vitest/browser'
 import { z } from 'zod'
 
+import { interactionsCreateSchema, opportunitiesUpdateSchema } from '@/generated/monospace/schemas'
 import { sessionQuery } from '@/lib/auth'
 import { collectionPermissions, collectionPermissionsQuery } from '@/lib/permissions'
-import { interactionsCreateSchema, opportunitiesUpdateSchema } from '@/generated/monospace/schemas'
 import { CloseDealDialog } from '@/modules/crm/components/close-deal-dialog'
 import type { PipelineStage } from '@/modules/crm/data'
 import { useCloseDeal } from '@/modules/crm/mutations'
@@ -51,13 +50,13 @@ describe('closing a deal', () => {
     const writes: Array<string> = []
     worker.use(
       ...signedIn,
-      http.get('/api/crm/system/user-role', () =>
+      http.get('/api/monoerp/system/user-role', () =>
         HttpResponse.json({ data: [{ roleId: 'role' }] }),
       ),
-      http.get('/api/crm/roles/:id/policies', () =>
+      http.get('/api/monoerp/roles/:id/policies', () =>
         HttpResponse.json({ data: [{ access: 'admin' }].map((content) => ({ content })) }),
       ),
-      http.patch('/api/crm/items/opportunities/:id', async ({ request }) => {
+      http.patch('/api/monoerp/items/opportunities/:id', async ({ request }) => {
         const data = opportunitiesUpdateSchema.parse(await request.json())
         expect(data).toMatchObject({
           stageId: id,
@@ -69,7 +68,7 @@ describe('closing a deal', () => {
 
         return HttpResponse.json({ data: { id } })
       }),
-      http.post('/api/crm/items/interactions', async ({ request }) => {
+      http.post('/api/monoerp/items/interactions', async ({ request }) => {
         const [data] = z.array(interactionsCreateSchema).parse(await request.json())
         expect(data).toMatchObject({
           type: 'note',

@@ -6,6 +6,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url'
 
 import { z } from 'zod'
 
+import { workspace } from '../src/lib/workspace.ts'
 import { schemaCollections } from './module-collections.ts'
 
 const OPERATIONS = ['create', 'update'] as const
@@ -305,7 +306,6 @@ export async function fetchOpenApiDocument(): Promise<OpenApiDocument> {
 
   const port = process.env.MONOSPACE_PORT ?? '8100'
   const baseUrl = (process.env.MONOSPACE_URL ?? `http://127.0.0.1:${port}`).replace(/\/$/, '')
-  const workspace = process.env.MONOSPACE_WORKSPACE ?? 'crm'
   const headers = new Headers({ accept: 'application/json' })
   const apiKey = process.env.MONOSPACE_API_KEY
 

@@ -1,4 +1,3 @@
-import { contactStatusOptions } from '@/modules/crm/entities'
 import type { ReactElement } from 'react'
 
 import { useAppForm, submitForm } from '@/components/form/app-form'
@@ -15,6 +14,7 @@ import { appCopy } from '@/lib/app.copy'
 import { todayInput } from '@/lib/dates'
 import { crmCopy } from '@/modules/crm/crm.copy'
 import { lookupOrganizations } from '@/modules/crm/data'
+import { contactStatusOptions } from '@/modules/crm/entities'
 import { useCreateContact } from '@/modules/crm/mutations'
 
 const copy = crmCopy.contacts

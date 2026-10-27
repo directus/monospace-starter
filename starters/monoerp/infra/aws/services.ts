@@ -1,8 +1,10 @@
 import { readFileSync } from 'node:fs'
-import { z } from 'zod'
+
 import * as AWS from 'alchemy/AWS'
 import * as Output from 'alchemy/Output'
 import * as Effect from 'effect/Effect'
+import { z } from 'zod'
+
 import type { Data } from './data.ts'
 import type { Network } from './network.ts'
 import { ports, servicePorts } from './network.ts'
@@ -436,17 +438,17 @@ export const OneOffTask = (
     })
   })
 
-// Creates the `monospace` and `crm` Postgres users and databases, and keeps their passwords in
+// Creates the `monospace` and `app` Postgres users and databases, and keeps their passwords in
 // sync with the secrets. Runs before any service on a stage's first deploy.
 const dbInitSql = `
-SELECT format('CREATE ROLE %I LOGIN', name) FROM (VALUES ('monospace'), ('crm')) AS roles(name)
+SELECT format('CREATE ROLE %I LOGIN', name) FROM (VALUES ('monospace'), ('app')) AS roles(name)
   WHERE NOT EXISTS (SELECT FROM pg_roles WHERE rolname = name) \\gexec
 ALTER ROLE monospace PASSWORD :'monospace_password';
-ALTER ROLE crm PASSWORD :'crm_password';
-GRANT monospace, crm TO CURRENT_USER;
+ALTER ROLE app PASSWORD :'app_password';
+GRANT monospace, app TO CURRENT_USER;
 ALTER DATABASE monospace OWNER TO monospace;
-SELECT 'CREATE DATABASE crm OWNER crm'
-  WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'crm') \\gexec
+SELECT 'CREATE DATABASE app OWNER app'
+  WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'app') \\gexec
 `
 
 export const DbInit = (data: Effect.Success<ReturnType<typeof Data>>) =>
@@ -455,7 +457,7 @@ export const DbInit = (data: Effect.Success<ReturnType<typeof Data>>) =>
     command: [
       'sh',
       '-c',
-      `psql -v ON_ERROR_STOP=1 -v monospace_password="$MONOSPACE_PASSWORD" -v crm_password="$CRM_PASSWORD" <<'SQL'${dbInitSql}SQL`,
+      `psql -v ON_ERROR_STOP=1 -v monospace_password="$MONOSPACE_PASSWORD" -v app_password="$APP_PASSWORD" <<'SQL'${dbInitSql}SQL`,
     ],
     environment: {
       PGHOST: data.postgres.endpointAddress,
@@ -467,7 +469,7 @@ export const DbInit = (data: Effect.Success<ReturnType<typeof Data>>) =>
     secrets: {
       PGPASSWORD: data.postgresAdmin.secret.secretArn,
       MONOSPACE_PASSWORD: data.monospaceDb.secret.secretArn,
-      CRM_PASSWORD: data.crmDb.secret.secretArn,
+      APP_PASSWORD: data.appDb.secret.secretArn,
     },
   })
 
@@ -501,9 +503,9 @@ export const Setup = (
       SEED_DEMO_DATA: String(config.seedDemoData),
       DB_SSL_MODE: 'require',
       DB_ADMIN_USER: data.postgresAdmin.username,
-      CRM_DB_HOST: data.postgres.endpointAddress,
-      CRM_DB_NAME: 'crm',
-      CRM_DB_USER: data.crmDb.username,
+      APP_DB_HOST: data.postgres.endpointAddress,
+      APP_DB_NAME: 'app',
+      APP_DB_USER: data.appDb.username,
       MONOSPACE_URL: url,
       MONOSPACE_ADMIN_EMAIL: 'admin@example.com',
       // Stripe's connector isn't installed on AWS: nothing builds it into the Monospace task.
@@ -516,7 +518,7 @@ export const Setup = (
 
     const baseSecrets = {
       POSTGRES_ADMIN_PASSWORD: data.postgresAdmin.secret.secretArn,
-      CRM_DB_PASSWORD: data.crmDb.secret.secretArn,
+      APP_DB_PASSWORD: data.appDb.secret.secretArn,
       MONOSPACE_ADMIN_PASSWORD: secrets.admin.secret.secretArn,
     }
 

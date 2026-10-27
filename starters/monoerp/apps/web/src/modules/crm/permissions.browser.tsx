@@ -1,5 +1,4 @@
 import '@/styles.css'
-
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { cleanup, render } from '@testing-library/react'
 import { http, HttpResponse } from 'msw'
@@ -21,10 +20,10 @@ describe('read-only record details', () => {
   it('keeps activity and files readable without offering write controls', async () => {
     worker.use(
       ...signedIn,
-      http.get('/api/crm/system/user-role', () =>
+      http.get('/api/monoerp/system/user-role', () =>
         HttpResponse.json({ data: [{ roleId: 'role' }] }),
       ),
-      http.get('/api/crm/roles/:id/policies', () =>
+      http.get('/api/monoerp/roles/:id/policies', () =>
         HttpResponse.json({
           data: [
             {
@@ -35,7 +34,7 @@ describe('read-only record details', () => {
           ].map((content) => ({ content })),
         }),
       ),
-      http.get('/api/crm/items/attachments', () => HttpResponse.json({ data: [] })),
+      http.get('/api/monoerp/items/attachments', () => HttpResponse.json({ data: [] })),
       http.get('/api/system/info', () => HttpResponse.json({ data: {} })),
     )
     const client = new QueryClient()

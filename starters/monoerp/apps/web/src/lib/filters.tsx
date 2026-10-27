@@ -2,11 +2,11 @@ import { format } from 'date-fns'
 import { z } from 'zod'
 
 import { resolveFilterDate } from '@/components/filters/date'
+import { createFilterQuery } from '@/components/filters/filters'
+import { getFilterOperator, resolveFilterOperators } from '@/components/filters/operators'
 import type { FilterField, FilterOption, FilterQuery, FilterRule } from '@/components/filters/types'
 import { RelationOptionVisual } from '@/components/form/relation-combobox'
 import type { RelationOption } from '@/components/form/relation-combobox'
-import { createFilterQuery } from '@/components/filters/filters'
-import { getFilterOperator, resolveFilterOperators } from '@/components/filters/operators'
 import type { Uuid } from '@/generated/monospace'
 import { isUuid } from '@/lib/uuid'
 
@@ -72,7 +72,6 @@ const ruleSchema = z
   // reUI's rules always carry a `value` key, even when it's empty.
   .transform((rule) => ({ ...rule, value: rule.value }))
 
-// Reject old group/combinator URLs instead of silently changing their meaning.
 export const filterQuerySchema = z.strictObject({ rules: z.array(ruleSchema) })
 
 function nest(path: string, leaf: FilterClause) {
@@ -156,7 +155,6 @@ export function filtersToClause(
   return clauses?.length ? { _and: clauses } : undefined
 }
 
-// Whether the query holds a complete rule for a field (e.g. to drop a redundant column).
 export function hasRuleFor(
   fields: ReadonlyArray<ListFilterField>,
   query: ListFilterQuery | undefined,

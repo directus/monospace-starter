@@ -1,12 +1,14 @@
 import { fileURLToPath } from 'node:url'
 
-import { moduleFeaturePaths } from './scripts/module-collections'
+import tailwindcss from '@tailwindcss/vite'
 import { devtools } from '@tanstack/devtools-vite'
 import { tanstackStart } from '@tanstack/react-start/plugin/vite'
-import tailwindcss from '@tailwindcss/vite'
 import viteReact from '@vitejs/plugin-react'
 import { nitro } from 'nitro/vite'
 import { defineConfig, loadEnv } from 'vite-plus'
+
+import { moduleFeaturePaths } from './scripts/module-collections'
+import { workspace } from './src/lib/workspace'
 
 // The single .env lives at the repo root. Load it into process.env so server routes (which read
 // process.env, not import.meta.env) see it in dev. In containers the env comes from the runtime.
@@ -41,7 +43,7 @@ export default defineConfig(({ mode }) => {
         routes: {
           '/logo/:domain': './server/logo.ts',
           '/api/system/assets/:id': './server/asset.ts',
-          '/api/crm/assets/**': './server/asset.ts',
+          [`/api/${encodeURIComponent(workspace)}/assets/**`]: './server/asset.ts',
         },
         devProxy: {
           '/api/**': { target: monospaceTarget, changeOrigin: true },

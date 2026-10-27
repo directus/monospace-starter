@@ -13,7 +13,6 @@ type ASTNode = ESTree.Node
 
 type Token = SyntaxToken | Comment
 
-import type { RuleOptions, SelectorOption, StatementOption } from './padding-line-options.d.ts'
 import {
   isClosingBraceToken,
   isFunction,
@@ -26,6 +25,7 @@ import {
   LINEBREAKS,
   skipChainExpression,
 } from './padding-line-ast.ts'
+import type { RuleOptions, SelectorOption, StatementOption } from './padding-line-options.d.ts'
 
 const CJS_EXPORT = /^(?:module\s*\.\s*)?exports(?:\s*\.|\s*\[|$)/u
 

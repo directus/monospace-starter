@@ -2,22 +2,24 @@ import { useQuery } from '@tanstack/react-query'
 import { Link, createFileRoute } from '@tanstack/react-router'
 import { CalendarDays, CircleDot, Coins, Milestone } from 'lucide-react'
 
-import { useListPage } from '@/hooks/use-list-page'
-import { ListControls, ListAddButton } from '@/components/list-controls'
-import { ListTable } from '@/components/data-table/list-table'
+import { DataError, DataLoading } from '@/components/data-state'
 import { DataTableMobileRow } from '@/components/data-table/data-table'
 import type { DataTableColumn } from '@/components/data-table/data-table'
-import { DataError, DataLoading } from '@/components/data-state'
-import { ListBulkActions, ownerBulkField } from '@/components/list-bulk-actions'
-import { useDeleteManyDeals, useUpdateManyDeals } from '@/modules/crm/mutations'
+import { ListTable } from '@/components/data-table/list-table'
 import { dateField } from '@/components/filters/filter-date-editor'
+import { ListBulkActions, ownerBulkField } from '@/components/list-bulk-actions'
+import { ListControls, ListAddButton } from '@/components/list-controls'
 import { ListWorkspace } from '@/components/list-workspace'
 import { Badge } from '@/components/ui/badge'
+import { UserLabel } from '@/components/users'
+import { useListPage } from '@/hooks/use-list-page'
 import { appCopy } from '@/lib/app.copy'
 import { filtersToClause, hasRuleFor, relationField } from '@/lib/filters'
 import type { ListFilterField, ListFilterQuery } from '@/lib/filters'
 import { formatDate, formatMoney } from '@/lib/format'
 import { listSearchSchema, parseSort } from '@/lib/list-search'
+import { useCollectionAccess } from '@/lib/permissions'
+import { lookupUsers, resolveUsers } from '@/lib/users'
 import { DealBoard } from '@/modules/crm/components/deal-board'
 import { DealDrawer } from '@/modules/crm/components/deal-form'
 import {
@@ -25,12 +27,9 @@ import {
   OrganizationAvatar,
   OrganizationLabel,
 } from '@/modules/crm/components/entities'
-import { organizationName, dealStatusOptions } from '@/modules/crm/entities'
-import { UserLabel } from '@/components/users'
 import { StageDot } from '@/modules/crm/components/stage-dot'
 import { StatusBadge } from '@/modules/crm/components/status-badge'
 import { crmCopy } from '@/modules/crm/crm.copy'
-import { DealIcon, OrganizationIcon, OwnerIcon } from '@/modules/crm/icons'
 import {
   lookupOrganizations,
   lookupStages,
@@ -40,10 +39,11 @@ import {
   resolveOrganizations,
   resolveStages,
 } from '@/modules/crm/data'
-import { lookupUsers, resolveUsers } from '@/lib/users'
 import type { DealsFilter, DealRow } from '@/modules/crm/data'
+import { organizationName, dealStatusOptions } from '@/modules/crm/entities'
+import { DealIcon, OrganizationIcon, OwnerIcon } from '@/modules/crm/icons'
+import { useDeleteManyDeals, useUpdateManyDeals } from '@/modules/crm/mutations'
 import { stageColor } from '@/modules/crm/stage-color'
-import { useCollectionAccess } from '@/lib/permissions'
 
 const filterFields: Array<ListFilterField> = [
   {

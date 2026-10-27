@@ -1,3 +1,5 @@
+import { modules, readSchemas } from './installed.mjs'
+import { connectorAvailable } from './installed.mjs'
 // Pushes module and connector monospace/schema/*.json into the workspace: API names, engine-managed
 // defaults, and Studio presentation meta (labels, icons, colors, select options, display
 // templates, field order, hidden flags). Files are keyed by source apiName + collection
@@ -13,9 +15,6 @@ import {
   readCollections,
   request,
 } from './lib.mjs'
-
-import { modules, readSchemas } from './installed.mjs'
-import { connectorAvailable } from './installed.mjs'
 import { schemaRelation } from './schema-relations.mjs'
 
 const STRUCTURAL_KEYS = ['apiName', 'defaultValue']

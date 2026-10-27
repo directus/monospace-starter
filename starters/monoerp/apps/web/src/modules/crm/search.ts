@@ -1,11 +1,11 @@
 import { linkOptions } from '@tanstack/react-router'
 
 import { monospace } from '@/lib/monospace'
-import { contactSearchFilter, dealSearchFilter, organizationSearchFilter } from '@/modules/crm/data'
-import type { ModuleSearch, SearchGroup, SearchHit } from '@/modules/types'
 import { crmCopy } from '@/modules/crm/crm.copy'
+import { contactSearchFilter, dealSearchFilter, organizationSearchFilter } from '@/modules/crm/data'
 import { organizationLogo, contactName, organizationName } from '@/modules/crm/entities'
 import { ContactIcon, DealIcon, OrganizationIcon } from '@/modules/crm/icons'
+import type { ModuleSearch, SearchGroup, SearchHit } from '@/modules/types'
 
 const LIMIT = 5
 

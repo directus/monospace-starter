@@ -3,13 +3,12 @@ import { z } from 'zod'
 import type { Uuid } from '@/generated/monospace'
 import { UserError } from '@/lib/errors'
 import { uuidSchema } from '@/lib/uuid'
+import { workspace } from '@/lib/workspace'
 
 // Monospace file storage. The /assets routes sit outside the OpenAPI spec, so the generated
-// SDK has nothing for them; this is the same multipart POST Studio uses. CRM attachments use
+// SDK has nothing for them; this is the same multipart POST Studio uses. Attachments use
 // the workspace scope on purpose: those reads go through the permission engine. Avatars are
 // the exception, since the whole app needs to read them.
-
-const workspace = import.meta.env.VITE_MONOSPACE_WORKSPACE ?? 'crm'
 
 const base = `/api/${encodeURIComponent(workspace)}/assets`
 

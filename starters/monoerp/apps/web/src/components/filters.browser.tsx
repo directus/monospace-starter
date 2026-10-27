@@ -1,10 +1,9 @@
 import '@/styles.css'
-
 import { cleanup, render } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { useState } from 'react'
 import { afterEach, expect, it } from 'vitest'
 import { page } from 'vitest/browser'
-import userEvent from '@testing-library/user-event'
 
 import { ListFilters, FilterTrigger, FilterWell } from '@/components/filters/list-filters'
 import { createFilterQuery } from '@/lib/filters'

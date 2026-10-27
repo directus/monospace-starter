@@ -2,9 +2,10 @@ import { Database } from 'lucide-react'
 
 import { Badge } from '@/components/ui/badge'
 import { cn } from '@/lib/utils'
+
 import type { PortalEvent } from './portal'
-import { portalCopy } from './portal.copy'
 import { eventLabel } from './portal'
+import { portalCopy } from './portal.copy'
 
 // A portal event in the history list, on the same grid as ActivityRow so the columns line
 // up: no checkbox (nothing to select, it isn't ours), source icon, what happened, a Portal

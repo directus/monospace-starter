@@ -6,8 +6,8 @@ import { Frame, FrameHeader, FramePanel, FrameTitle } from '@/components/ui/fram
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { StageStepper } from '@/modules/crm/components/stage-stepper'
 import type { PipelineStage } from '@/modules/crm/data'
-import { stageStyle } from '@/modules/crm/stage-color'
 import { crmSettingsCopy } from '@/modules/crm/settings/settings.copy'
+import { stageStyle } from '@/modules/crm/stage-color'
 
 const copy = crmSettingsCopy.stages
 

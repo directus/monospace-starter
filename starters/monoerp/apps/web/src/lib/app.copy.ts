@@ -6,7 +6,7 @@ const appName = 'monoERP'
 export const appCopy = {
   app: {
     name: appName,
-    description: 'A federated business hub powered by Monospace.',
+    description: 'An open business app.',
   },
   fallback: {
     unknown: 'Unknown',

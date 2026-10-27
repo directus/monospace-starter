@@ -1,4 +1,3 @@
-import { appCopy } from '@/lib/app.copy'
 import { useState } from 'react'
 import type { ReactNode } from 'react'
 import { z } from 'zod'
@@ -14,6 +13,7 @@ import type { FilterEditorProps, FilterOperator } from '@/components/filters/typ
 import { Button } from '@/components/ui/button'
 import { Calendar } from '@/components/ui/calendar'
 import { Input } from '@/components/ui/input'
+import { appCopy } from '@/lib/app.copy'
 import { filterDateValue } from '@/lib/filters'
 import type { FilterValue, ListFilterField } from '@/lib/filters'
 

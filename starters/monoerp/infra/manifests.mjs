@@ -109,7 +109,11 @@ export function selectSetupStep(selector, manifests, selected) {
 
   if (
     (owner.kind === 'connector' && !selected.includes(owner.id)) ||
-    !(step.requires ?? []).every((id) => selected.includes(id))
+    !(step.requires ?? []).every(
+      (id) =>
+        selected.includes(id) ||
+        manifests.some((manifest) => manifest.kind === 'module' && manifest.id === id),
+    )
   )
     return undefined
 

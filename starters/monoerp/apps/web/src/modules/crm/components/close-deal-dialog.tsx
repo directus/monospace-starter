@@ -1,4 +1,3 @@
-import { useCollectionAccess } from '@/lib/permissions'
 import { useAppForm } from '@/components/form/app-form'
 import { FormDialog } from '@/components/form/form-dialog'
 import { requiredText } from '@/components/form/validators'
@@ -6,6 +5,7 @@ import { Button } from '@/components/ui/button'
 import { DialogFooter } from '@/components/ui/dialog'
 import { appCopy } from '@/lib/app.copy'
 import { todayInput, toDateInput } from '@/lib/dates'
+import { useCollectionAccess } from '@/lib/permissions'
 import { crmCopy } from '@/modules/crm/crm.copy'
 import type { PipelineStage } from '@/modules/crm/data'
 

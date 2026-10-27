@@ -2,11 +2,11 @@ import { useQuery } from '@tanstack/react-query'
 import { createFileRoute } from '@tanstack/react-router'
 import { LayoutDashboard } from 'lucide-react'
 
-import { DashboardCharts } from '@/modules/crm/components/dashboard-charts'
 import { DataError, DataLoading } from '@/components/data-state'
 import { PageHeader } from '@/components/page-header'
-import { dealsQuery } from '@/modules/crm/data'
+import { DashboardCharts } from '@/modules/crm/components/dashboard-charts'
 import { crmCopy } from '@/modules/crm/crm.copy'
+import { dealsQuery } from '@/modules/crm/data'
 
 const homeDealsQuery = dealsQuery({})
 

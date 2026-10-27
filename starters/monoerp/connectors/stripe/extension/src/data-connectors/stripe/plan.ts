@@ -1,6 +1,7 @@
 import type { FilterSerialized, Value } from '@monospace/extension-kit/data-connector'
-import type { FieldSpec, ResourceSpec } from './resources'
 import { QueryRejected } from '@monospace/extension-kit/data-connector'
+
+import type { FieldSpec, ResourceSpec } from './resources'
 
 /**
  * One Stripe request. A `list` source returns exactly the records of one filter branch, in
@@ -149,7 +150,7 @@ function createdBranch(operator: string, isReversed: boolean, value: Value): Bra
   const milliseconds = typeof value === 'string' ? Date.parse(value) : Number.NaN
 
   if (Number.isNaN(milliseconds))
-    throw new QueryRejected(`\`${String(value)}\` is not an RFC 3339 timestamp.`)
+    throw new QueryRejected(`\`${JSON.stringify(value)}\` is not an RFC 3339 timestamp.`)
 
   const seconds = milliseconds / 1000
 
@@ -262,7 +263,7 @@ function literal(field: FieldSpec, value: Value): string {
   if (typeof value === 'object')
     throw new QueryRejected(`\`${field.name}\` cannot be compared with a structured value.`)
 
-  return String(value)
+  return JSON.stringify(value)
 }
 
 function tooManyRequests(resource: ResourceSpec): QueryRejected {

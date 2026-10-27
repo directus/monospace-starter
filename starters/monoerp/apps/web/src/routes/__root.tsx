@@ -1,3 +1,4 @@
+import { TanStackDevtools } from '@tanstack/react-devtools'
 import type { QueryClient } from '@tanstack/react-query'
 import {
   type ErrorComponentProps,
@@ -6,15 +7,14 @@ import {
   Scripts,
   createRootRouteWithContext,
 } from '@tanstack/react-router'
-import { useEffect } from 'react'
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
-import { TanStackDevtools } from '@tanstack/react-devtools'
+import { useEffect } from 'react'
 
 import { buttonVariants } from '@/components/ui/button'
-
-import appCss from '../styles.css?url'
 import { appCopy } from '@/lib/app.copy'
 import { reportUnexpectedError } from '@/lib/errors'
+
+import appCss from '../styles.css?url'
 
 export const Route = createRootRouteWithContext<{
   queryClient: QueryClient

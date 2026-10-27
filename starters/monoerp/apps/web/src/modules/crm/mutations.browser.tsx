@@ -36,7 +36,7 @@ describe('activity completion', () => {
     const writes: Array<{ id: string; data: object }> = []
 
     worker.use(
-      http.patch('/api/crm/items/interactions/:id', async ({ params, request }) => {
+      http.patch('/api/monoerp/items/interactions/:id', async ({ params, request }) => {
         writes.push({
           id: String(params.id),
           data: interactionsUpdateSchema.parse(await request.json()),

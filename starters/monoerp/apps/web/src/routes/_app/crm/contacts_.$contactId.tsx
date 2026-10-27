@@ -4,13 +4,8 @@ import { createFileRoute, notFound, useNavigate } from '@tanstack/react-router'
 import { Link2, Mail, Phone, Plus, Paperclip } from 'lucide-react'
 import { useState } from 'react'
 
-import { RecordTabs } from '@/modules/crm/components/record-tabs'
-import { AffiliationsPanel } from '@/modules/crm/components/affiliations-panel'
-import { ensureOrNotFound } from '@/lib/route-loaders'
-import { contactStatusOptions } from '@/modules/crm/entities'
 import { DeleteDialog } from '@/components/confirm-dialog'
 import { DataError, DataLoading, SectionBoundary } from '@/components/data-state'
-import { NotesEditor } from '@/components/notes-editor'
 import { optionalPhone, requiredEmail } from '@/components/form/validators'
 import {
   InlineReadOnly,
@@ -19,9 +14,12 @@ import {
   Property,
   PropertyList,
 } from '@/components/inline/inline-field'
-import { useCollectionAccess } from '@/lib/permissions'
+import { InlineOwner } from '@/components/inline/inline-owner'
+import { NotesEditor } from '@/components/notes-editor'
 import { PageHeader } from '@/components/page-header'
+import { RecordDetails } from '@/components/record-details'
 import { RecordMenu } from '@/components/record-menu'
+import { RecordName } from '@/components/record-title'
 import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
@@ -29,40 +27,39 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { RecordDetails } from '@/components/record-details'
-import { RecordName } from '@/components/record-title'
-
 import { appCopy } from '@/lib/app.copy'
-
 import { errorMessage } from '@/lib/errors'
 import { formatDate } from '@/lib/format'
+import { useCollectionAccess } from '@/lib/permissions'
+import { ensureOrNotFound } from '@/lib/route-loaders'
+import { uuidParam } from '@/lib/uuid'
 import {
   affiliationSpan,
   groupAffiliations,
   groupTenure,
   groupTitle,
 } from '@/modules/crm/affiliations'
-import { RecordActivity } from '@/modules/crm/components/record-activity'
-import { AttachmentsPanel } from '@/modules/crm/components/files/panel'
-import { useAttachFiles } from '@/modules/crm/components/files/uploads'
-
-import { DealDrawer } from '@/modules/crm/components/deal-form'
-import { ContactAvatar, OrganizationLabel } from '@/modules/crm/components/entities'
 import { AffiliationDrawer } from '@/modules/crm/components/affiliation-form'
 import type { AffiliationInitial } from '@/modules/crm/components/affiliation-form'
-import { InlineOwner } from '@/components/inline/inline-owner'
-import { contactPanels } from '@/modules/crm/slots'
+import { AffiliationsPanel } from '@/modules/crm/components/affiliations-panel'
+import { DealDrawer } from '@/modules/crm/components/deal-form'
+import { ContactAvatar, OrganizationLabel } from '@/modules/crm/components/entities'
+import { AttachmentsPanel } from '@/modules/crm/components/files/panel'
+import { useAttachFiles } from '@/modules/crm/components/files/uploads'
 import { OrganizationDrawer } from '@/modules/crm/components/organization-form'
+import { RecordActivity } from '@/modules/crm/components/record-activity'
+import { RecordTabs } from '@/modules/crm/components/record-tabs'
 import { StatusBadge } from '@/modules/crm/components/status-badge'
 import { crmCopy } from '@/modules/crm/crm.copy'
-import { DealIcon, OrganizationIcon } from '@/modules/crm/icons'
+import { contactDetailQuery } from '@/modules/crm/data'
+import { contactStatusOptions } from '@/modules/crm/entities'
 import {
   contactOption as toContactOption,
   organizationOption as toOrganizationOption,
 } from '@/modules/crm/entities'
-import { contactDetailQuery } from '@/modules/crm/data'
+import { DealIcon, OrganizationIcon } from '@/modules/crm/icons'
 import { useDeleteContact, useUpdateAffiliation, useUpdateContact } from '@/modules/crm/mutations'
-import { uuidParam } from '@/lib/uuid'
+import { contactPanels } from '@/modules/crm/slots'
 
 export const Route = createFileRoute('/_app/crm/contacts_/$contactId')({
   params: { parse: ({ contactId }) => ({ contactId: uuidParam(contactId) }) },

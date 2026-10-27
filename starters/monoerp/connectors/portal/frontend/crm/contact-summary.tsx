@@ -1,6 +1,7 @@
 import { formatDateTime, labelize } from '@/lib/format'
-import { portalCopy } from './portal.copy'
+
 import type { PortalUser } from './data'
+import { portalCopy } from './portal.copy'
 
 // What the customer portal knows about this person: role and last sign-in on their account.
 // Matched by email, so it follows the contact if the address changes.

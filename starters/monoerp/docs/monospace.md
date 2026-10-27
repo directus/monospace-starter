@@ -4,15 +4,15 @@ Monospace is the backend. It holds users, roles, and permissions, connects to bo
 
 ## The workspace
 
-Everything lives in one workspace, `crm`, with three data sources:
+Everything lives in one workspace, `monoerp`, with three data sources:
 
 | Source   | Database                            | Access                                              |
 | -------- | ----------------------------------- | --------------------------------------------------- |
-| `CRM`    | PostgreSQL `crm` (`crm-postgres`)   | read/write                                          |
+| `App`    | PostgreSQL `app` (`app-postgres`)   | read/write                                          |
 | `Portal` | MySQL `customer_portal`             | read-only                                           |
 | `Stripe` | Stripe, through `connectors/stripe` | read, and writes to customers, products, and prices |
 
-New installations can use different names; follow [Rename it](getting-started.md#rename-it) to update the app, schema settings, and setup together. Changing an override does not migrate an existing workspace or source. Monospace's own tables live in a separate Postgres (`system-postgres`), which the app never touches.
+New installations can use different names; follow [Rename it](getting-started.md#rename-it) to update the app, schema settings, and setup together. Monospace's own tables live in a separate Postgres (`system-postgres`), which the app never touches.
 
 ### Running without the portal or Stripe
 
@@ -53,14 +53,14 @@ For the manifest contract and validator details, see [module or connector manife
 
 ## Schema settings
 
-One file per owning module or connector and source. Connector files live in `connectors/<id>/monospace/schema/`. Modules contribute collections to the shared `CRM` source. It holds everything set in Studio or through the API that isn't in the SQL: hand-set API names, engine-managed defaults, and Studio presentation (labels, icons, colors, select options, display templates, field order, hidden flags). Entries are keyed by database name, not by ID, so the same file works on any install.
+One file per owning module or connector and source. Connector files live in `connectors/<id>/monospace/schema/`. Modules contribute collections to the shared `App` source. It holds everything set in Studio or through the API that isn't in the SQL: hand-set API names, engine-managed defaults, and Studio presentation (labels, icons, colors, select options, display templates, field order, hidden flags). Entries are keyed by database name, not by ID, so the same file works on any install.
 
 - To change these settings in code: edit the JSON, then `pnpm schema:apply`.
 - If you changed them in Studio: run `pnpm schema:export` to write them back to their owning module or connector JSON, then commit it. When adding a collection, first add its database name to that owner's JSON so export knows who owns it. Otherwise the next fresh install loses them.
 
 The `optionalRelations` map keys optional relation names to their target `source`, database `collection`, and `owner` ID (module or connector). Apply logs and skips a missing entry only when that source is absent or its module or connector is absent or disabled. Required relations and optional joins whose source and module or connector are present still fail when missing, including when a target table is missing. This also handles Portal reverse joins when CRM tables are absent from the shared PostgreSQL source. Export keeps the dependency map and presentation metadata for later reattachment.
 
-Cross-source relation creation isn't in the JSON. Audit joins live in `audit-user-relations.mjs`, CRM-to-Portal joins in CRM's `portal-relations.mjs`, and the Portal-to-Stripe join in Stripe's `portal-stripe-relation.mjs`. Stripe declares that step before schema presentation with `requires: ['portal']`, so it also runs without CRM.
+Cross-source relation creation isn't in the JSON. Audit joins live in `audit-user-relations.mjs`, CRM-to-Portal joins in Portal's `portal-relations.mjs`, and the Portal-to-Stripe join in Stripe's `portal-stripe-relation.mjs`. Stripe declares that step before schema presentation with `requires: ['portal']`, so it also runs without CRM.
 
 ## The typed client: `pnpm generate`
 
@@ -86,7 +86,7 @@ Monospace can read APIs as well as databases through data connector extensions: 
 
 Studio is Monospace's admin UI, at http://localhost:8100 locally. Use it to look at data, roles, and users, and to try schema changes before putting them in code.
 
-- The first time, it asks you to accept its terms and then insists on creating a workspace, even though `crm` exists. Open Studio in a new tab to get past it; the wizard only tracks its progress per tab.
+- The first time, it asks you to accept its terms and then insists on creating a workspace, even though `monoerp` exists. Open Studio in a new tab to get past it; the wizard only tracks its progress per tab.
 - Changes made in Studio only live in that install. Export them (above) to keep them.
 
 ## License key and the free tier
@@ -105,11 +105,11 @@ Each of these has a workaround in the code. When a fix ships in Monospace, remov
 
 **Select fields are typed as plain strings.** A field with fixed options (activity `type` and `status`, portal statuses and event types) comes through the SDK as `string`, because the OpenAPI output doesn't list the options as an `enum`. Workaround: casts with `SAFETY` comments that fall back to the raw value (`connectors/portal/frontend/crm/portal.ts`, `modules/crm/components/activity-detail.tsx`, `activity-form.tsx`).
 
-**A failed field rule nulls the whole field, including `id`.** When a conditional field rule fails, Monospace returns the field as `null`, the primary key too. Workaround: `keyed()` in `apps/web/src/modules/crm/data.ts` drops rows without an `id`, since they can't be opened or edited.
+**A failed field rule nulls the whole field, including `id`.** When a conditional field rule fails, Monospace returns the field as `null`, the primary key too. Workaround: `keyed()` in `apps/web/src/lib/monospace.ts` drops rows without an `id`, since they can't be opened or edited.
 
 **File uploads aren't in the OpenAPI document.** The `/assets` routes have no generated client. Workaround: `apps/web/src/lib/assets.ts` sends the same multipart request Studio does.
 
-**Queries that include a system user are never cached.** Anything that includes `owner`, `createdBy`, or `updatedBy` (relations to `MonospaceSystemUser`) skips the result cache. Workaround: CRM reads never include them. `usersById` in `apps/web/src/modules/crm/data.ts` looks up owners and uploaders by ID in a separate request, keeps them for 5 minutes, and fills in `owner` and `createdBy` on each row, so every other read stays cacheable.
+**Queries that include a system user are never cached.** Anything that includes `owner`, `createdBy`, or `updatedBy` (relations to `MonospaceSystemUser`) skips the result cache. Workaround: CRM reads never include them. `usersById` in `apps/web/src/lib/monospace-system.ts` looks up owners and uploaders by ID in a separate request, keeps them for 5 minutes, and fills in `owner` and `createdBy` on each row, so every other read stays cacheable.
 
 **64-bit integers come through as strings.** Postgres `bigint` columns (an attachment's `size_bytes`) and Stripe amounts are strings in the API and the generated client. Workaround: convert where they're shown (`formatBytes` in `apps/web/src/lib/assets.ts`, `connectors/stripe/frontend/crm/billing.ts`).
 

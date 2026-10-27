@@ -5,8 +5,8 @@ import { ArrowRight, CornerDownLeft } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
 
-import { Badge } from '@/components/ui/badge'
 import { EntityAvatar } from '@/components/avatars'
+import { Badge } from '@/components/ui/badge'
 import {
   Command,
   CommandDialog,
@@ -18,11 +18,12 @@ import {
   CommandSeparator,
 } from '@/components/ui/command'
 import { useDebouncedValue } from '@/hooks/use-debounced-value'
+import { appCopy } from '@/lib/app.copy'
 import { cn } from '@/lib/utils'
 import { moduleById, modules } from '@/modules'
-import { usePages } from '@/modules/pages'
 import type { SearchHit, SearchScope } from '@/modules'
-import { appCopy } from '@/lib/app.copy'
+import { usePages } from '@/modules/pages'
+import { commandPaletteKey } from '@/shell/query-keys'
 
 const MIN_QUERY_LENGTH = 2
 
@@ -55,7 +56,7 @@ export function CommandPalette({
   const canSearch = debouncedQuery.length >= MIN_QUERY_LENGTH
 
   const results = useQuery({
-    queryKey: ['command-palette', scopeId ?? 'all', debouncedQuery],
+    queryKey: [...commandPaletteKey, scopeId ?? 'all', debouncedQuery],
     queryFn: () => searchAll(debouncedQuery, scopeId),
     enabled: open && canSearch,
     placeholderData: keepPreviousData,

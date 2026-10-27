@@ -1,7 +1,7 @@
-import { crmSource } from './lib.mjs'
 import { randomUUID } from 'node:crypto'
-import { modules } from './installed.mjs'
 
+import { modules } from './installed.mjs'
+import { appSource } from './lib.mjs'
 import { authenticate, canonicalJson, readCollections, request, workspace } from './lib.mjs'
 
 const currentUserOnCreate = {
@@ -43,7 +43,7 @@ await authenticate()
 
 const data = await readCollections()
 
-const source = crmSource
+const source = appSource
 
 const byDbName = new Map(
   data.flatMap((collection) =>

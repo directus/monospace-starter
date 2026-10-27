@@ -1,10 +1,11 @@
+import { readFileSync } from 'node:fs'
+import { parseEnv } from 'node:util'
+
 import * as Alchemy from 'alchemy'
 import * as AWS from 'alchemy/AWS'
 import * as RemovalPolicy from 'alchemy/RemovalPolicy'
 import * as Effect from 'effect/Effect'
 import * as Redacted from 'effect/Redacted'
-import { readFileSync } from 'node:fs'
-import { parseEnv } from 'node:util'
 
 // A generated password in its own secret. Secrets hold one plain value each: Alchemy's ECS
 // services grant read access per secret ARN, which doesn't cover `arn:...:jsonKey::` refs.

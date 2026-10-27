@@ -7,7 +7,6 @@ RUN npm install --global pnpm@11.20.0
 
 WORKDIR /app
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml .npmrc ./
-# pnpm checks every patch listed in pnpm-workspace.yaml, even for packages this image skips.
 COPY patches patches
 COPY apps/web/package.json apps/web/package.json
 # Optional frontend packages need their workspace dependency links before the app builds.
@@ -15,15 +14,13 @@ COPY connectors connectors
 # Prepare discovers modules and connectors before the full build source is copied.
 COPY starter.json starter.json
 COPY modules modules
-COPY infra/compose-sync.mjs infra/manifests.mjs infra/
-COPY tools/prepare.mjs tools/prepare.mjs
+COPY infra infra
+COPY tools/prepare.mjs tools/manifest-schema.mjs tools/
 RUN pnpm install --frozen-lockfile
 
 FROM dependencies AS build
 COPY . .
-# The full source adds workspace packages the install above skipped, so pnpm's pre-run check
-# would reinstall, and fail on the alchemy patch (infra/aws is dockerignored).
-RUN pnpm --config.verify-deps-before-run=false --filter @monoerp/web build
+RUN pnpm --filter @monoerp/web build
 
 FROM node:24.14.0-bookworm-slim AS runtime
 

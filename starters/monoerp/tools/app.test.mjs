@@ -11,6 +11,7 @@ import {
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { fileURLToPath, pathToFileURL } from 'node:url'
+
 import { afterEach, expect, it } from 'vitest'
 
 import { resolveSource } from '../infra/manifests.mjs'
@@ -380,4 +381,24 @@ it('recognizes conditional setup dependencies after their optional connector is 
   write(root, 'connectors/billing/frontend/sales/feature.tsx')
   expect(checkApp(root).map((manifest) => manifest.id)).toContain('billing')
   expect(() => removeInstalled('billing', { root })).not.toThrow()
+})
+
+it('removes an owned YAML patch entry and preserves unrelated patches', () => {
+  const { root, manifest } = fixture()
+  write(
+    root,
+    'pnpm-workspace.yaml',
+    '# Keep this comment\npatchedDependencies:\n  alchemy: patches/alchemy.patch\n  cli: patches/cli.patch\n',
+  )
+  manifest.packageEntries = [
+    { path: 'pnpm-workspace.yaml', section: 'patchedDependencies', names: ['alchemy'] },
+  ]
+  save(root, 'modules/sales/module.json', manifest)
+  removeInstalled('sales', { root, dryRun: true })
+  expect(readFileSync(new URL('pnpm-workspace.yaml', root), 'utf8')).toContain('alchemy:')
+  removeInstalled('sales', { root })
+  const remaining = readFileSync(new URL('pnpm-workspace.yaml', root), 'utf8')
+  expect(remaining).not.toContain('alchemy:')
+  expect(remaining).toContain('cli: patches/cli.patch')
+  expect(remaining).toContain('# Keep this comment')
 })

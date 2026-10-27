@@ -5,9 +5,10 @@ import type {
   MonospaceObject,
   Value,
 } from '@monospace/extension-kit/data-connector'
-import type { FieldSpec, ResourceSpec } from './resources'
 import { QueryRejected } from '@monospace/extension-kit/data-connector'
+
 import { comparable } from './records'
+import type { FieldSpec, ResourceSpec } from './resources'
 
 /**
  * In-memory filter evaluation, used only on candidates the plan already bounded by id: Engine can

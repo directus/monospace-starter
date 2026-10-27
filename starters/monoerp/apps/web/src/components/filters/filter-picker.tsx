@@ -1,5 +1,6 @@
 import { ListFilterPlusIcon } from 'lucide-react'
 import * as React from 'react'
+
 import { Cascader } from '@/components/filters/cascader'
 import {
   filterControlSizes,
@@ -9,10 +10,9 @@ import {
 } from '@/components/filters/context'
 import { FILTER_FIELD_PICKER_CLASS, getFilterField } from '@/components/filters/helpers'
 import { getDefaultFilterOperator } from '@/components/filters/operators'
-
-import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
+import { cn } from '@/lib/utils'
 
 function FilterFieldPicker<V, O>({
   query,

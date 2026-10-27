@@ -1,8 +1,10 @@
-import { randomUUID } from 'node:crypto'
-import { readManifests, resolveSource } from '../../manifests.mjs'
 // Shared bits for the setup scripts: env loading, an authenticated fetch against the
 // Monospace API, and workspace schema reads keyed by dbName (ids differ per install).
+
+import { randomUUID } from 'node:crypto'
 import { loadEnvFile } from 'node:process'
+
+import { readManifests, resolveSource } from '../../manifests.mjs'
 
 try {
   loadEnvFile(new URL('../../../.env', import.meta.url))
@@ -15,15 +17,14 @@ const baseUrl =
 
 export const apiUrl = `${baseUrl.replace(/\/$/, '')}/api`
 
-export const workspace = process.env.MONOSPACE_WORKSPACE ?? 'crm'
+export const workspace = 'monoerp'
 
 export const workspacePath = `/${encodeURIComponent(workspace)}`
 
-// Schemas in a source that Monospace should never import. `ops` holds database bookkeeping
-// (applied migrations, see infra/postgres/migrate.sh), not CRM data.
-export const crmSource = process.env.MONOSPACE_CRM_SOURCE ?? 'CRM'
+export const appSource = 'App'
 
-export const excludedNamespaces = { [crmSource]: ['ops'] }
+// Exclude bookkeeping schemas from the shared API (applied migrations live in ops).
+export const excludedNamespaces = { [appSource]: ['ops'] }
 
 // Drops introspection operations that would import an excluded schema or anything in it.
 // `namespaceIds` maps already-imported namespace ids to their dbName.
@@ -122,10 +123,10 @@ export async function runSetupStep(title, action) {
     const policies = violations.some((violation) => violation.entitlement === 'custom_policies')
 
     const reason = seats
-      ? `the free Starter tier allows ${seats.hard_limit} users`
+      ? `the free tier allows ${seats.hard_limit} users`
       : policies
-        ? 'the free Starter tier does not include custom policies'
-        : 'the free Starter tier does not include this feature'
+        ? 'the free tier does not include custom policies'
+        : 'the free tier does not include this feature'
 
     console.log(`Skipped ${title}: ${reason}. Add a license key to enable it.`)
 

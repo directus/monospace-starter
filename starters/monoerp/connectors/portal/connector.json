@@ -44,6 +44,11 @@
         {
           "title": "Portal relation names",
           "script": "portal-source-relations.mjs"
+        },
+        {
+          "title": "CRM Portal relations",
+          "script": "portal-relations.mjs",
+          "requires": ["crm"]
         }
       ],
       "afterSchema": []

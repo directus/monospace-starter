@@ -2,32 +2,32 @@ import { Link, createFileRoute } from '@tanstack/react-router'
 import { CalendarDays, CircleDot, Factory, Globe } from 'lucide-react'
 
 import { insertColumns } from '@/components/data-table/columns'
-import { useListPage } from '@/hooks/use-list-page'
-import { ListControls, ListAddButton } from '@/components/list-controls'
-import { ListTable } from '@/components/data-table/list-table'
 import { DataTableMobileRow } from '@/components/data-table/data-table'
 import type { DataTableColumn } from '@/components/data-table/data-table'
-import { ListBulkActions, ownerBulkField, statusBulkField } from '@/components/list-bulk-actions'
-import { useDeleteManyOrganizations, useUpdateManyOrganizations } from '@/modules/crm/mutations'
+import { ListTable } from '@/components/data-table/list-table'
 import { dateField } from '@/components/filters/filter-date-editor'
+import { ListBulkActions, ownerBulkField, statusBulkField } from '@/components/list-bulk-actions'
+import { ListControls, ListAddButton } from '@/components/list-controls'
 import { ListWorkspace } from '@/components/list-workspace'
+import { UserLabel } from '@/components/users'
+import { useListPage } from '@/hooks/use-list-page'
 import { appCopy } from '@/lib/app.copy'
 import { filtersToClause, relationField } from '@/lib/filters'
 import type { ListFilterField, ListFilterQuery } from '@/lib/filters'
 import { formatDate } from '@/lib/format'
 import { listSearchSchema, parseSort } from '@/lib/list-search'
+import { useCollectionAccess } from '@/lib/permissions'
+import { lookupUsers, resolveUsers } from '@/lib/users'
 import { OrganizationAvatar, OrganizationLabel } from '@/modules/crm/components/entities'
-import { organizationName, organizationStatusOptions } from '@/modules/crm/entities'
-import { UserLabel } from '@/components/users'
 import { OrganizationDrawer } from '@/modules/crm/components/organization-form'
 import { StatusBadge } from '@/modules/crm/components/status-badge'
 import { crmCopy } from '@/modules/crm/crm.copy'
-import { OrganizationIcon, OwnerIcon } from '@/modules/crm/icons'
 import { organizationsPagesQuery } from '@/modules/crm/data'
-import { lookupUsers, resolveUsers } from '@/lib/users'
-import { organizationLists } from '@/modules/crm/slots'
 import type { OrganizationRow, OrganizationsFilter } from '@/modules/crm/data'
-import { useCollectionAccess } from '@/lib/permissions'
+import { organizationName, organizationStatusOptions } from '@/modules/crm/entities'
+import { OrganizationIcon, OwnerIcon } from '@/modules/crm/icons'
+import { useDeleteManyOrganizations, useUpdateManyOrganizations } from '@/modules/crm/mutations'
+import { organizationLists } from '@/modules/crm/slots'
 
 const filterFields: Array<ListFilterField> = [
   {
@@ -156,10 +156,7 @@ function organizationColumns(rows: OrganizationRow[]): DataTableColumn<Organizat
           ...column,
           enableSorting: false,
           cell: ({ row }: { row: { original: OrganizationRow } }) => (
-            <Cell
-              accountId={row.original.portalAccountId}
-              accountIds={rows.map((item) => item.portalAccountId)}
-            />
+            <Cell organization={row.original} organizations={rows} />
           ),
         },
       })),

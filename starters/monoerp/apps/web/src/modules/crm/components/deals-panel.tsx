@@ -1,3 +1,8 @@
+import { Link } from '@tanstack/react-router'
+import { ArrowUpRight, Plus } from 'lucide-react'
+import type { ReactNode } from 'react'
+import { useState } from 'react'
+
 import type { RelationOption } from '@/components/form/relation-combobox'
 import { Button } from '@/components/ui/button'
 import { Frame, FrameHeader, FramePanel, FrameTitle } from '@/components/ui/frame'
@@ -9,10 +14,6 @@ import { DealDrawer } from '@/modules/crm/components/deal-form'
 import { StageDot } from '@/modules/crm/components/stage-dot'
 import { crmCopy } from '@/modules/crm/crm.copy'
 import type { OrganizationDetail } from '@/modules/crm/data'
-import { Link } from '@tanstack/react-router'
-import { ArrowUpRight, Plus } from 'lucide-react'
-import type { ReactNode } from 'react'
-import { useState } from 'react'
 
 type Deal = NonNullable<OrganizationDetail['opportunities']>['data'][number]
 

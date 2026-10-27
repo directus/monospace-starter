@@ -3,6 +3,9 @@ import type { ReactNode } from 'react'
 import { z } from 'zod'
 
 import { CheckboxCard } from '@/components/form/checkbox-card'
+import { useFieldContext } from '@/components/form/contexts'
+import { RelationCombobox } from '@/components/form/relation-combobox'
+import type { RelationOption } from '@/components/form/relation-combobox'
 import { DatePicker } from '@/components/ui/date-picker'
 import { Field, FieldDescription, FieldError, FieldLabel } from '@/components/ui/field'
 import { Input } from '@/components/ui/input'
@@ -17,9 +20,6 @@ import { Textarea } from '@/components/ui/textarea'
 import { useIsMobile } from '@/hooks/use-mobile'
 import { appCopy } from '@/lib/app.copy'
 import { cn } from '@/lib/utils'
-import { useFieldContext } from '@/components/form/contexts'
-import { RelationCombobox } from '@/components/form/relation-combobox'
-import type { RelationOption } from '@/components/form/relation-combobox'
 
 export type SelectOption = { value: string; label: string; color?: string }
 

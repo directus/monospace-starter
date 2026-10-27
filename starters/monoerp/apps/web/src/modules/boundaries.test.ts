@@ -1,6 +1,7 @@
 import { existsSync, readdirSync, readFileSync } from 'node:fs'
 import { dirname, join, posix, relative } from 'node:path'
 import { fileURLToPath } from 'node:url'
+
 import ts from 'typescript'
 import { describe, expect, it } from 'vitest'
 import { z } from 'zod'
@@ -26,7 +27,7 @@ function sourceFiles(directory: string): string[] {
   if (!existsSync(directory)) return []
 
   return readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
-    if (entry.name === 'node_modules') return []
+    if (['node_modules', 'generated', 'routeTree.gen.ts'].includes(entry.name)) return []
     const path = join(directory, entry.name)
 
     return entry.isDirectory() ? sourceFiles(path) : /\.[cm]?[jt]sx?$/.test(path) ? [path] : []

@@ -1,6 +1,7 @@
 import { CheckIcon, XIcon } from 'lucide-react'
 import * as React from 'react'
 import { z } from 'zod'
+
 import { Cascader } from '@/components/filters/cascader'
 import {
   FilterActionsContext,
@@ -26,11 +27,10 @@ import type {
   FilterOption,
   FilterOptionsState,
 } from '@/components/filters/types'
-
-import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { ButtonGroup } from '@/components/ui/button-group'
 import { Input } from '@/components/ui/input'
+import { cn } from '@/lib/utils'
 
 // What an editor reads back from a rule: what an editor wrote, or what came back through the URL.
 // Anything else shows as empty rather than "[object Object]".

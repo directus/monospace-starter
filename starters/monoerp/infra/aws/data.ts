@@ -3,6 +3,7 @@ import * as Output from 'alchemy/Output'
 import * as RemovalPolicy from 'alchemy/RemovalPolicy'
 import * as Duration from 'effect/Duration'
 import * as Effect from 'effect/Effect'
+
 import type { Network } from './network.ts'
 import { ports } from './network.ts'
 import { Credential } from './secrets.ts'
@@ -30,7 +31,7 @@ export const Data = (config: StageConfig, { vpc, data }: Network) =>
       skipFinalSnapshot: !config.retain,
     }
 
-    // One instance, two databases: `monospace` (system) here, and `crm`, which the setup task
+    // One instance, two databases: `monospace` (system) here, and `app`, which the setup task
     // creates along with each database's own user.
     const postgresAdmin = yield* Credential('PostgresAdminCredentials', 'admin_user')
 
@@ -46,11 +47,11 @@ export const Data = (config: StageConfig, { vpc, data }: Network) =>
       maxAllocatedStorage: config.postgres.storageGb * 5,
       port: ports.postgres,
       dbName: 'monospace',
-      finalDBSnapshotIdentifier: config.retain ? 'crm-postgres-final' : undefined,
+      finalDBSnapshotIdentifier: config.retain ? 'app-postgres-final' : undefined,
     }).pipe(RemovalPolicy.retain(config.retain))
 
     const monospaceDb = yield* Credential('MonospaceDbCredentials', 'monospace')
-    const crmDb = yield* Credential('CrmDbCredentials', 'crm')
+    const appDb = yield* Credential('AppDbCredentials', 'app')
 
     const mysqlAdmin = config.portalMysql
       ? yield* Credential('MysqlAdminCredentials', 'admin_user')
@@ -177,7 +178,7 @@ export const Data = (config: StageConfig, { vpc, data }: Network) =>
       postgres,
       postgresAdmin,
       monospaceDb,
-      crmDb,
+      appDb,
       portalMysql,
       mysqlAdmin,
       portalReader,

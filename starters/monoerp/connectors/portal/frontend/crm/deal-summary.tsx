@@ -1,7 +1,8 @@
 import { formatDate } from '@/lib/format'
-import { portalCopy } from './portal.copy'
+
 import { currentSubscription, seatUsage, renewalContext } from './portal'
 import type { PortalAccountSummary } from './portal'
+import { portalCopy } from './portal.copy'
 
 // The organization's plan in the customer portal, so the rep knows what they're selling
 // against: plan, seats used, and when it renews.

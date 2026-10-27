@@ -1,6 +1,6 @@
 import { mapEngineError, MonospaceError } from '@monospace/sdk'
-import { ofetch } from 'ofetch'
 import type { ClientConfig } from '@monospace/sdk'
+import { ofetch } from 'ofetch'
 import { z } from 'zod'
 
 import { AuthRequestError, refreshSession } from './auth'

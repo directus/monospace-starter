@@ -4,14 +4,8 @@ import { createFileRoute, notFound, useNavigate } from '@tanstack/react-router'
 import { ArrowUpRight, ExternalLink, Link2, Paperclip, Plus, UserPlus } from 'lucide-react'
 import { useState } from 'react'
 
-import { RecordTabs } from '@/modules/crm/components/record-tabs'
-import { AffiliationsPanel } from '@/modules/crm/components/affiliations-panel'
-import { DealsPanel } from '@/modules/crm/components/deals-panel'
-import { ensureOrNotFound } from '@/lib/route-loaders'
-import { organizationStatusOptions } from '@/modules/crm/entities'
 import { DeleteDialog } from '@/components/confirm-dialog'
 import { DataError, DataLoading, SectionBoundary } from '@/components/data-state'
-import { NotesEditor } from '@/components/notes-editor'
 import { optionalDomain, requiredText } from '@/components/form/validators'
 import {
   InlineSelect,
@@ -20,9 +14,12 @@ import {
   Property,
   PropertyList,
 } from '@/components/inline/inline-field'
-import { useCollectionAccess } from '@/lib/permissions'
+import { InlineOwner } from '@/components/inline/inline-owner'
+import { NotesEditor } from '@/components/notes-editor'
 import { PageHeader } from '@/components/page-header'
+import { RecordDetails } from '@/components/record-details'
 import { RecordMenu } from '@/components/record-menu'
+import { RecordTitle } from '@/components/record-title'
 import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
@@ -30,36 +27,33 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { RecordDetails } from '@/components/record-details'
-import { RecordTitle } from '@/components/record-title'
-
 import { appCopy } from '@/lib/app.copy'
 import { errorMessage } from '@/lib/errors'
-
 import { formatDate } from '@/lib/format'
+import { useCollectionAccess } from '@/lib/permissions'
+import { ensureOrNotFound } from '@/lib/route-loaders'
+import { uuidParam } from '@/lib/uuid'
 import { groupAffiliations, groupTitle, isCurrentAffiliation } from '@/modules/crm/affiliations'
-import { RecordActivity } from '@/modules/crm/components/record-activity'
-import { AttachmentsPanel } from '@/modules/crm/components/files/panel'
-import { useAttachFiles } from '@/modules/crm/components/files/uploads'
-
 import { AffiliationDrawer } from '@/modules/crm/components/affiliation-form'
-
 import type { AffiliationInitial } from '@/modules/crm/components/affiliation-form'
-import { ContactLabel, OrganizationAvatar } from '@/modules/crm/components/entities'
+import { AffiliationsPanel } from '@/modules/crm/components/affiliations-panel'
 import { ContactDrawer } from '@/modules/crm/components/contact-form'
 import { DealDrawer } from '@/modules/crm/components/deal-form'
-import { InlineOwner } from '@/components/inline/inline-owner'
-
+import { DealsPanel } from '@/modules/crm/components/deals-panel'
+import { ContactLabel, OrganizationAvatar } from '@/modules/crm/components/entities'
+import { AttachmentsPanel } from '@/modules/crm/components/files/panel'
+import { useAttachFiles } from '@/modules/crm/components/files/uploads'
+import { RecordActivity } from '@/modules/crm/components/record-activity'
+import { RecordTabs } from '@/modules/crm/components/record-tabs'
 import { crmCopy } from '@/modules/crm/crm.copy'
+import { organizationDetailQuery } from '@/modules/crm/data'
 import {
   contactOption as toContactOption,
   organizationOption as toOrganizationOption,
+  organizationStatusOptions,
 } from '@/modules/crm/entities'
-import { organizationDetailQuery } from '@/modules/crm/data'
-
 import { useDeleteOrganization, useUpdateOrganization } from '@/modules/crm/mutations'
 import { organizationPanels } from '@/modules/crm/slots'
-import { uuidParam } from '@/lib/uuid'
 
 export const Route = createFileRoute('/_app/crm/organizations_/$organizationId')({
   params: { parse: ({ organizationId }) => ({ organizationId: uuidParam(organizationId) }) },
@@ -83,9 +77,7 @@ function OrganizationDetailPage() {
 
   const history = useQueries({
     queries: organizationPanels.flatMap((panel) =>
-      panel.historyQuery
-        ? [panel.historyQuery({ portalAccountId: detail.data?.portalAccountId ?? null })]
-        : [],
+      panel.historyQuery ? [panel.historyQuery({ organization: detail.data })] : [],
     ),
   })
 
@@ -259,18 +251,18 @@ function OrganizationDetailPage() {
                   onSave={(ownerUserId) => save({ ownerUserId })}
                 />
               </Property>
-              <Property
-                label={crmCopy.organizations.portalAccountId}
-                readOnly={!access.canUpdate('portalAccountId')}
-              >
-                <InlineText
-                  label={crmCopy.organizations.portalAccountId}
-                  value={organization.portalAccountId}
-                  inputClassName="font-mono text-xs"
-                  format={(value) => <span className="font-mono text-xs">{value}</span>}
-                  onSave={(value) => save({ portalAccountId: value })}
-                />
-              </Property>
+              {organizationPanels.flatMap(({ id, detailField: Field }) =>
+                Field
+                  ? [
+                      <Field
+                        key={id}
+                        organization={organization}
+                        canUpdate={access.canUpdate}
+                        onSave={save}
+                      />,
+                    ]
+                  : [],
+              )}
               <Property label={appCopy.common.status} readOnly={!access.canUpdate('status')}>
                 <InlineSelect
                   label={appCopy.common.status}
@@ -380,7 +372,7 @@ function OrganizationDetailPage() {
             content: (
               <SectionBoundary resetKey={organizationId}>
                 <Panel
-                  portalAccountId={organization.portalAccountId ?? null}
+                  organization={organization}
                   onAddContact={
                     contactAccess.create && affiliationAccess.create
                       ? setAddingSourceContact

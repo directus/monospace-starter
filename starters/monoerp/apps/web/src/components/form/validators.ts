@@ -1,7 +1,7 @@
 import { z } from 'zod'
 
-import { appCopy } from '@/lib/app.copy'
 import type { RelationOption } from '@/components/form/relation-combobox'
+import { appCopy } from '@/lib/app.copy'
 
 export const requiredText = (label: string) =>
   z.string().trim().min(1, appCopy.form.required(label))

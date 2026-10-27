@@ -1,10 +1,8 @@
-import * as React from 'react'
 import { mergeProps } from '@base-ui/react/merge-props'
 import { useRender } from '@base-ui/react/use-render'
 import { cva, type VariantProps } from 'class-variance-authority'
+import * as React from 'react'
 
-import { useIsMobile } from '@/hooks/use-mobile'
-import { cn } from '@/lib/utils'
 import {
   Sheet,
   SheetContent,
@@ -13,7 +11,9 @@ import {
   SheetTitle,
 } from '@/components/ui/sheet'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
+import { useIsMobile } from '@/hooks/use-mobile'
 import { appCopy } from '@/lib/app.copy'
+import { cn } from '@/lib/utils'
 
 const SIDEBAR_STORAGE_KEY = 'sidebar-open'
 

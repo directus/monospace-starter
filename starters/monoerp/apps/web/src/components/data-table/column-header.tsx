@@ -1,5 +1,5 @@
-import { ArrowDown, ArrowUp, ChevronsUpDown, EyeOff, X } from 'lucide-react'
 import type { Column } from '@tanstack/react-table'
+import { ArrowDown, ArrowUp, ChevronsUpDown, EyeOff, X } from 'lucide-react'
 
 import type { GridFeatures } from '@/components/data-table/grid'
 import { getColumnHeaderLabel } from '@/components/data-table/grid'

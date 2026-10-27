@@ -5,6 +5,8 @@
 // pushes it back. Cross-source relations are not exported: they live in
 // audit-user-relations.mjs and the owning modules' and connectors' relation setup scripts.
 import { writeFile } from 'node:fs/promises'
+
+import { readSchemas } from './installed.mjs'
 import {
   authenticate,
   META_FIELDS,
@@ -13,8 +15,6 @@ import {
   readCollections,
   request,
 } from './lib.mjs'
-
-import { readSchemas } from './installed.mjs'
 
 const schemas = await readSchemas()
 

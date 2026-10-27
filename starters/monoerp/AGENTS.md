@@ -29,7 +29,7 @@ pnpm setup:all            # never `pnpm setup`: that's pnpm's own command and ed
 pnpm dev                  # http://localhost:3000, admin@example.com / monospace
 ```
 
-After install, check `docker compose ps` before starting services: someone else may already be using this copy. Compose uses the folder name for its containers and volumes. To run another copy alongside it, use a different folder name and change every `*_PORT` in its `.env`.
+Compose uses the folder name for its containers and volumes. If ports are taken, change the `*_PORT` settings in `.env`.
 
 ## Check your work
 
@@ -48,11 +48,15 @@ For component work, also run `pnpm --filter @monoerp/web test:browser`. If the p
 - **The MySQL customer platform is read-only.** It belongs to another team. No writes, no tables, no migrations.
 - **Permissions belong to Monospace.** The app only hides or disables UI. Don't add a role table or a proxy that goes around Monospace.
 - **Generated files are generated:** `apps/web/src/generated/` (from `pnpm generate`) and `routeTree.gen.ts`. Never edit them by hand.
-- **Every `as` cast needs a `// SAFETY:` comment** saying why it's true. Parse data where it enters the app instead.
+- **With the strict-lint add-on, every `as` cast needs a `// SAFETY:` comment** saying why it's true. Parse data where it enters the app instead.
 - **Ownership:** give every file under `apps/web/src/routes`, `apps/web/src/modules`, `infra/modules`, and `connectors` exactly one owner in `starter.json`, `module.json`, or `connector.json`, including settings routes.
 - **Import boundaries:** modules use core and their own code; keep other modules and connector code behind the shared feature contracts (see `docs/modules.md`).
 - **Match what's there.** Search for an existing helper before writing one. Keep diffs small.
 
 ## Names
 
-The product is **monoERP** (`monoerp` in code, packages `@monoerp/web` and optional `@monoerp/aws`). **CRM** is one module, with `/crm` routes. For compatibility, `crm` also names the shared Monospace workspace and shared PostgreSQL database (`crm-postgres`, source `CRM`, `CRM_*` settings). Every module uses that workspace and database; adding a module does not require a new one. See the "Rename it" guide in `docs/getting-started.md` before changing those names.
+The product is **monoERP** (`monoerp` in code). Modules share workspace `monoerp`, database/user `app`, PostgreSQL service `app-postgres`, and source `App`.
+
+CRM uses product names in functions and UI (`deals`, `activity`); SDK calls and query keys use the collection names `opportunities` and `interactions`. Keep those tables unchanged.
+
+To add a module, copy the four CRM folders; see `docs/modules.md`.

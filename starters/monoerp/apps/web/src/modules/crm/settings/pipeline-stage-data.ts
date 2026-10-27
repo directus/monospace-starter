@@ -1,4 +1,3 @@
-import { refreshCrm } from '@/modules/crm/refresh'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
 
@@ -11,8 +10,9 @@ import { UserError } from '@/lib/errors'
 import { monospace } from '@/lib/monospace'
 import type { CollectionPermissions } from '@/lib/permissions'
 import type { PipelineStage } from '@/modules/crm/data'
-import { stageColor } from '@/modules/crm/stage-color'
+import { refreshCrm } from '@/modules/crm/refresh'
 import { crmSettingsCopy } from '@/modules/crm/settings/settings.copy'
+import { stageColor } from '@/modules/crm/stage-color'
 
 export const stageFields = ['name', 'color', 'position', 'isClosed', 'isWon'] as const
 
@@ -198,7 +198,7 @@ export function reorderedStage(stages: PipelineStage[], from: number, to: number
 export function useStageMutations() {
   const queryClient = useQueryClient()
 
-  const refresh = () => refreshCrm(queryClient, 'pipelineStages')
+  const refresh = () => refreshCrm(queryClient, { pipelineStages: true })
 
   const save = useMutation({
     mutationFn: async ({ draft, stages, permissions, stage }: SaveStage) => {

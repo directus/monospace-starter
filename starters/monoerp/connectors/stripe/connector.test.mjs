@@ -1,4 +1,5 @@
 import { readFileSync } from 'node:fs'
+
 import { expect, it } from 'vitest'
 
 import { resolveSource } from '../../infra/manifests.mjs'

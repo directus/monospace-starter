@@ -35,7 +35,7 @@ What's running:
 | ---------------- | --------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
 | The app          | http://localhost:3000 | TanStack Start, React, Tailwind, shadcn/ui                                                                                    |
 | Monospace Studio | http://localhost:8100 | Monospace's admin UI: data model, content, users, roles                                                                       |
-| `crm-postgres`   | port 5433             | The CRM's database. The app reads and writes it                                                                               |
+| `app-postgres`   | port 5433             | The CRM's database. The app reads and writes it                                                                               |
 | `customer-mysql` | port 3307             | A stand-in for another team's product database. Monospace can only read it                                                    |
 | `stripe`         | port 4010             | A local Stripe ([`@emulators/stripe`](https://www.npmjs.com/package/@emulators/stripe)) with billing history for each account |
 | Mailpit          | http://localhost:8025 | Catches invite and password reset mail                                                                                        |
@@ -44,8 +44,8 @@ A few things to know on the first run:
 
 - The first `docker compose up` loads the demo data, which takes a minute or two. The `keygen` container creates Monospace's keys and exits; that's expected. `pnpm setup:all` waits for Monospace to be ready.
 - `pnpm setup:all` is safe to rerun. Run it again whenever you pull changes.
-- The first time you open Studio, it asks you to accept its terms and then to create a workspace, even though `crm` already exists. Open Studio in a new tab to get past that.
-- No license key is needed. Without one, Monospace runs on its free tier: 1 workspace, 3 users, no custom roles, required usage telemetry. The CRM quickstart works without skipped features. Add a license key when you need more seats or custom policies.
+- The first time you open Studio, it asks you to accept its terms and then to create a workspace, even though `monoerp` already exists. Open Studio in a new tab to get past that.
+- No license key is needed locally. See [the free tier and license setup](monospace.md#license-key-and-the-free-tier).
 - monoERP runs its own Monospace. If another app uses port 8100, choose different ports as described below.
 - Every port is in `.env`. To run a second copy next to the first, use a different folder name and change all its ports. Compose uses the folder name to separate containers and volumes.
 
@@ -63,7 +63,7 @@ A few things to know on the first run:
 
 ### In Studio
 
-Open http://localhost:8100 and look at **Data Model**. The `crm` workspace has three data sources: `CRM` (PostgreSQL), `Portal` (MySQL), and `Stripe`. The relations between them (an organization's portal account, a contact's portal user, an account's Stripe customer) are what let one request reach all three.
+Open http://localhost:8100 and look at **Data Model**. The `monoerp` workspace has three data sources: `App` (PostgreSQL), `Portal` (MySQL), and `Stripe`. The relations between them (an organization's portal account, a contact's portal user, an account's Stripe customer) are what let one request reach all three.
 
 ### Break something
 
@@ -80,7 +80,7 @@ docker compose start stripe customer-mysql
 The browser only talks to the app's own address. Anything under `/api/*` is passed to Monospace, so the Monospace session cookie stays on the app's address and there's no CORS setup. Pages call Monospace straight from the browser, with a typed client generated from the workspace's schema and TanStack Query. There's no app database and no API layer of the app's own.
 
 ```text
-browser ──> app ──┬── /api/*  ──> Monospace ──┬── CRM PostgreSQL (read and write)
+browser ──> app ──┬── /api/*  ──> Monospace ──┬── shared PostgreSQL (read and write)
                   │                           ├── portal MySQL (read-only)
                   │                           └── Stripe (connector)
                   └── pages ──> TanStack Start
@@ -117,20 +117,9 @@ Start with the display name; keep existing workspace, database, and resource IDs
 2. Choose package and deployment names before your first deployment. Use the table below to find the related settings.
 3. Run `pnpm install` and `pnpm verify`. If you change workspace or source names on a new install, also run setup and regenerate the SDK before building.
 
-| Name                                                      | Where to change it                                                                                                                                                                                            | Existing install?                                                                                                                                 |
-| --------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Product name and copy                                     | `apps/web/src/lib/app.copy.ts`, module copy files, `routes/__root.tsx`, README and `.github/assets/`                                                                                                          | Safe; changes labels, not stored data                                                                                                             |
-| Package names (`monoerp`, `@monoerp/*`, emulator package) | Root, `apps/web`, connector package files; matching `--filter` commands and Docker build filters; run install to update the lockfile                                                                          | Safe for app data; update every reference together                                                                                                |
-| Compose project (folder name)                             | Folder name by default; optional `COMPOSE_PROJECT_NAME` override in `.env`                                                                                                                                    | Creates a separate set of containers and volumes. It does not rename or copy your existing data                                                   |
-| Database/service `crm`, `crm-postgres`                    | Shared PostgreSQL service, credentials, mounts, and health checks in `docker-compose.yml`; `CRM_DB_*` defaults in `infra/monospace/setup/sources.mjs`; migration scripts                                      | Keep on an existing install. Changing environment names does not rename a database, user, Docker DNS name, or volume; migrate those explicitly    |
-| Workspace `crm`                                           | `MONOSPACE_WORKSPACE` for setup/generation and `VITE_MONOSPACE_WORKSPACE` for the app; workspace asset proxy in `apps/web/vite.config.ts`                                                                     | Setup creates a new workspace under a new name; it does not migrate the old one. On a new install, update the proxy path and regenerate the SDK   |
-| Source names `CRM`, `Portal`, `Stripe`                    | `MONOSPACE_CRM_SOURCE`, `MONOSPACE_PORTAL_SOURCE`, `MONOSPACE_STRIPE_SOURCE`; module/connector schema files, `optionalRelations` targets, and source references in setup steps                                | Keep on an existing install unless migrating sources and relations. Overrides alone do not rename connected sources or rewrite schema settings    |
-| Module ID `crm` and `/crm` pages                          | `modules/crm/module.json`, UI/infra/route folders and imports, UI entry, settings routes, connector feature targets, and generated routes                                                                     | A module identity, separate from the shared workspace/database. Renaming changes URLs and saved links; keep the shared database names independent |
-| Sender name/address                                       | `MONOSPACE_SYSTEM_EMAILER__FROM_NAME` and `FROM_ADDRESS` in `docker-compose.yml`                                                                                                                              | Safe for stored data; use a verified sender for real email                                                                                        |
-| Stripe extension/provider IDs                             | `connectors/stripe/extension/extension.config.json` (`monoerp/stripe`, `monoerp/stripe-data-connector`), `connector.json` (`source.provider`, `extension.installed: monoerp__stripe`), extension package name | Keep for connected sources. Renaming needs a rebuilt extension and recreated source/relations; display labels can change separately               |
-| Demo IDs and credentials                                  | SQL seeds, `connectors/stripe/emulator/billing.json`, local defaults                                                                                                                                          | Change before creating demo volumes. Existing data and cross-source IDs need a coordinated migration; replace credentials for shared environments |
+The product name and tagline live in `apps/web/src/lib/app.copy.ts`; each module owns its copy. Package names live in the root and workspace `package.json` files. Change matching filters together, then run install and verify.
 
-All modules use the shared workspace and PostgreSQL database even though their historical defaults are called `crm`. Adding a new module does not require renaming either.
+All modules share workspace `monoerp`, PostgreSQL service `app-postgres` (database/user `app`), and source `App`. Workspace constants live in `apps/web/src/lib/workspace.ts` and `infra/monospace/setup/lib.mjs`. Choose these infrastructure names before creating data, then run setup and regenerate the SDK.
 
 ### Add a field
 
@@ -159,12 +148,12 @@ Labels, field order, and icons live in each module or connector’s `monospace/s
 
 The two databases are stand-ins. `infra/monospace/setup/sources.mjs` creates the data sources, and reads their connection details from `.env`:
 
-- **Your CRM database:** `CRM_DB_HOST`, `CRM_DB_INTERNAL_PORT`, `CRM_DB_USER`, `CRM_DB_PASSWORD`, `CRM_DB_NAME`, and `DB_SSL_MODE=require` for managed databases like RDS.
+- **Your shared database:** `APP_DB_HOST`, `APP_DB_INTERNAL_PORT`, `APP_DB_USER`, `APP_DB_PASSWORD`, `APP_DB_NAME`, and `DB_SSL_MODE=require` for managed databases like RDS.
 - **Your product database:** `CUSTOMER_MYSQL_HOST`, `CUSTOMER_MYSQL_INTERNAL_PORT`, and `PORTAL_READER_PASSWORD`. The user and database name (`monospace_reader`, `customer_portal`) are set in `connectors/portal/connector.json` under `source.user` and `source.dbname`, so change them there. Give Monospace a login that can only read; that's what keeps another team's data safe, whatever anyone clicks in Studio.
 
 Monospace connects from inside Docker, so a database on your machine is `host.docker.internal` (on Docker Desktop), not `localhost`.
 
-Then update what depends on the demo schema: the cross-database relations in `infra/modules/crm/monospace/setup/portal-relations.mjs` (which column links an organization to an account), the names and labels in `connectors/portal/monospace/schema/portal.json`, the collections declared in `connectors/portal/connector.json`, and the pages that use them.
+Then update what depends on the demo schema: the cross-database relations in `connectors/portal/monospace/setup/portal-relations.mjs` (which column links an organization to an account), the names and labels in `connectors/portal/monospace/schema/portal.json`, the collections declared in `connectors/portal/connector.json`, and the pages that use them.
 
 ### Use real Stripe
 
@@ -191,7 +180,7 @@ On a workspace that already has the source, also delete it in Studio. [`monospac
 
 ### Add a module
 
-The CRM is one module. A new one (inventory, support, projects) is a copy file, a small manifest, and pages under `apps/web/src/routes/_app/<id>/`. The sidebar, breadcrumbs, home page, and ⌘K pick it up from the manifest, with no changes to the shell. [`modules.md`](modules.md) walks through it step by step, and [`frontend.md`](frontend.md) covers how lists, forms, and detail pages are built.
+To add a business area such as inventory or support, copy the four CRM folders and follow the [module guide](modules.md#add-a-module). The sidebar, breadcrumbs, home page, and ⌘K discover its UI entry without shell changes. [Frontend conventions](frontend.md) cover lists, forms, and detail pages.
 
 ### Start without the demo data
 
@@ -201,7 +190,7 @@ On a stack that already has data, `docker compose down --volumes` deletes all of
 
 ### Users and permissions
 
-Invite people in Studio, and they sign in to the app with their own Monospace account. What they can see and edit is set with roles and policies in Studio, and Monospace enforces it on every request; the app adjusts its buttons to match. The free tier allows 3 users and the built-in roles. Custom roles need a license key (`MONOSPACE_LICENSE__KEY` in `.env`).
+Invite people in Studio, and they sign in to the app with their own Monospace account. What they can see and edit is set with roles and policies in Studio, and Monospace enforces it on every request; the app adjusts its buttons to match. See [license requirements](monospace.md#license-key-and-the-free-tier) for custom roles.
 
 ## 5. Build with an agent
 

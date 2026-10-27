@@ -1,15 +1,15 @@
 import { Pencil, Trash2, X } from 'lucide-react'
 import { useState } from 'react'
-
 import type { ReactNode } from 'react'
+
+import { DeleteDialog } from '@/components/confirm-dialog'
 import { BulkEditDrawer } from '@/components/form/bulk-edit-drawer'
 import type { BulkField } from '@/components/form/bulk-edit-drawer'
-import { DeleteDialog } from '@/components/confirm-dialog'
 import { Button } from '@/components/ui/button'
 import type { Uuid } from '@/generated/monospace'
 import { appCopy } from '@/lib/app.copy'
-import { lookupUsers } from '@/lib/users'
 import { errorMessage } from '@/lib/errors'
+import { lookupUsers } from '@/lib/users'
 
 // Edit-and-delete selection actions for a list page's toolbar, plus the edit drawer and the
 // delete confirm, wired to whatever mutations the page hands in.

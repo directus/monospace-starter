@@ -1,10 +1,10 @@
 #!/bin/sh
 # Core first, then module-local migrations.
 set -eu
-export PGHOST="${PGHOST:-crm-postgres}"
-export PGUSER="${PGUSER:-${POSTGRES_USER:-crm}}"
+export PGHOST="${PGHOST:-app-postgres}"
+export PGUSER="${PGUSER:-${POSTGRES_USER:-app}}"
 export PGPASSWORD="${PGPASSWORD:-${POSTGRES_PASSWORD:-}}"
-export PGDATABASE="${PGDATABASE:-${POSTGRES_DB:-crm}}"
+export PGDATABASE="${PGDATABASE:-${POSTGRES_DB:-app}}"
 export PGOPTIONS="${PGOPTIONS:--c client_min_messages=warning}"
 export SEED_DEMO_DATA="${SEED_DEMO_DATA:-true}"
 infra_dir=$(CDPATH= cd -- "$(dirname "$0")/.." && pwd)

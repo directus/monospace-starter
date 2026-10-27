@@ -1,4 +1,4 @@
-// Creates the `monospace` and `crm` Postgres users and databases, and syncs their passwords
+// Creates the `monospace` and `app` Postgres users and databases, and syncs their passwords
 // with the secrets. Safe to rerun.
 //
 //   pnpm aws db-init --stage staging

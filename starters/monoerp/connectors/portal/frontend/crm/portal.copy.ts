@@ -1,7 +1,9 @@
 export const portalCopy = {
   plans: { starter: 'Starter', team: 'Team', business: 'Business', enterprise: 'Enterprise' },
   organizations: {
+    accountId: 'Portal account',
     portal: {
+      tab: 'Portal',
       title: 'Customer portal',
       readOnly: 'Read-only',
       unavailable: 'Portal unavailable',

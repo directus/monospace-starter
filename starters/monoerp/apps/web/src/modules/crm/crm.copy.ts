@@ -76,7 +76,6 @@ export const crmCopy = {
     industry: 'Industry',
     domain: 'Domain',
     openWebsite: 'Open website',
-    portalAccountId: 'Portal account',
     deals: {
       open: 'Open',
       all: 'All',

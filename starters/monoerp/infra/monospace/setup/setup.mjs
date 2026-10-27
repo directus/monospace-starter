@@ -4,9 +4,9 @@ import { execFileSync } from 'node:child_process'
 import { existsSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 
-import { apiUrl, runSetupStep } from './lib.mjs'
 import { buildExtensions, connectors } from './build-extensions.mjs'
 import { setupSteps } from './installed.mjs'
+import { apiUrl, runSetupStep } from './lib.mjs'
 
 const root = fileURLToPath(new URL('../../../', import.meta.url))
 

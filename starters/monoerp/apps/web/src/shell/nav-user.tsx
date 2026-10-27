@@ -18,8 +18,8 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from '@/components/ui/sidebar'
-import type { CurrentUser } from '@/lib/auth'
 import { appCopy } from '@/lib/app.copy'
+import type { CurrentUser } from '@/lib/auth'
 import { initials } from '@/lib/format'
 import { avatarUrl } from '@/lib/users'
 

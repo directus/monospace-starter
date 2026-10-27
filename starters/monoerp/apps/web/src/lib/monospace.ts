@@ -1,12 +1,14 @@
 import { createClient } from '@monospace/sdk'
+
 import type { Schema, Uuid } from '@/generated/monospace'
 import { authenticatedHttp } from '@/lib/monospace-http'
+import { workspace } from '@/lib/workspace'
 
 // The generated Schema exists even when the CLI omits its empty-workspace client factory.
 export const monospace = createClient<Schema>({
   url: '',
   http: authenticatedHttp,
-  workspace: import.meta.env.VITE_MONOSPACE_WORKSPACE ?? 'crm',
+  workspace,
 })
 
 // Monospace nulls any field, the primary key included, when a conditional field rule fails.

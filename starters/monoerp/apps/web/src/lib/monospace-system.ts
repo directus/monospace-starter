@@ -3,12 +3,13 @@ import { z } from 'zod'
 import type { JsonValue, Uuid } from '@/generated/monospace'
 import { authenticatedHttp } from '@/lib/monospace-http'
 import { uuidSchema } from '@/lib/uuid'
+import { workspace } from '@/lib/workspace'
 
 // Monospace's own tables (members, roles, policies) aren't collections in the generated client:
 // each has its own endpoint. They're read here, and every answer is parsed on the way in.
 const http = authenticatedHttp({
   url: '',
-  workspace: import.meta.env.VITE_MONOSPACE_WORKSPACE ?? 'crm',
+  workspace,
   credentials: 'include',
 })
 

@@ -1,5 +1,6 @@
-import { loadEnvFile } from 'node:process'
 import { readFile } from 'node:fs/promises'
+import { loadEnvFile } from 'node:process'
+
 import {
   readManifests,
   repository,
@@ -52,7 +53,9 @@ export function logMissingConnectors() {
 export function setupSteps(phase) {
   return [...connectors, ...modules].flatMap((owner) =>
     owner.setup[phase].flatMap(({ title, script, requires = [] }) => {
-      const missing = requires.filter((id) => !connectorAvailable(id))
+      const missing = requires.filter(
+        (id) => !connectorAvailable(id) && !modules.some((module) => module.id === id),
+      )
 
       if (missing.length) {
         console.log(`${title}: skipped, requires ${missing.join(', ')}`)

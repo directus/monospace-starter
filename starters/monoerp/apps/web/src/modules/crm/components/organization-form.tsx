@@ -1,4 +1,3 @@
-import { organizationStatusOptions } from '@/modules/crm/entities'
 import { Plus, Trash2 } from 'lucide-react'
 import { useState } from 'react'
 import type { ReactElement } from 'react'
@@ -11,18 +10,19 @@ import {
   FormDrawer,
   useControllableOpen,
 } from '@/components/form/form-drawer'
+import type { RelationOption } from '@/components/form/relation-combobox'
 import {
   optionalDomain,
   optionalPhone,
   requiredEmail,
   requiredText,
 } from '@/components/form/validators'
-import type { RelationOption } from '@/components/form/relation-combobox'
 import { Button } from '@/components/ui/button'
 import { FieldLegend, FieldSet } from '@/components/ui/field'
 import { appCopy } from '@/lib/app.copy'
 import { monospace } from '@/lib/monospace'
 import { crmCopy } from '@/modules/crm/crm.copy'
+import { organizationStatusOptions } from '@/modules/crm/entities'
 import { useCreateOrganization } from '@/modules/crm/mutations'
 
 const copy = crmCopy.organizations

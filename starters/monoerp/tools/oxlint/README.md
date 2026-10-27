@@ -26,6 +26,6 @@ All of these are errors, so `pnpm check` fails on them. They come from `tools/ox
 - **`no-conditional-empty-object-spread`:** no `...(ok ? { a } : {})`. Build the object directly.
 - **`no-shape-in-symbol-names`:** don't name things `...Shape`. Name them for what they are.
 
-`infra/aws` also gets the Effect rules in `tools/oxlint/anti-slop/effect`.
+`infra/aws` also gets the Effect rules in `infra/aws/lint`.
 
 The AST visitor files use the normal formatter and base lint rules plus spacing. App-specific data boundary rules are disabled there because visitors inspect parser unions directly.

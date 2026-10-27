@@ -1,4 +1,3 @@
-import { useCollectionAccess } from '@/lib/permissions'
 import { useStore } from '@tanstack/react-form'
 import { CalendarDays, Mail, MessageSquareText, Phone, Plus } from 'lucide-react'
 import { useCallback } from 'react'
@@ -21,11 +20,12 @@ import type { Uuid } from '@/generated/monospace'
 import { appCopy } from '@/lib/app.copy'
 import { useCurrentUser } from '@/lib/auth'
 import { fromDateTimeInput, nowInput, toDateTimeInput } from '@/lib/dates'
+import { useCollectionAccess } from '@/lib/permissions'
 import { ownerOption } from '@/lib/users'
+import { lookupUsers } from '@/lib/users'
 import { filterRelationOptions } from '@/modules/crm/activity'
 import { crmCopy } from '@/modules/crm/crm.copy'
 import { lookupContacts, lookupOpportunities, lookupOrganizations } from '@/modules/crm/data'
-import { lookupUsers } from '@/lib/users'
 import { useCreateActivity, useUpdateActivity } from '@/modules/crm/mutations'
 
 const copy = crmCopy.activity

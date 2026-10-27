@@ -1,8 +1,8 @@
+import { ScrollArea as ScrollAreaPrimitive } from '@base-ui/react/scroll-area'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import type { PointerEvent, ReactNode } from 'react'
-import { useGrid } from '@/components/data-table/grid'
-import { ScrollArea as ScrollAreaPrimitive } from '@base-ui/react/scroll-area'
 
+import { useGrid } from '@/components/data-table/grid'
 import { cn } from '@/lib/utils'
 
 const MIN_THUMB_SIZE = 24

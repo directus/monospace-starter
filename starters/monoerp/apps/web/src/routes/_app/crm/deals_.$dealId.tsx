@@ -4,12 +4,8 @@ import { createFileRoute, notFound, useNavigate } from '@tanstack/react-router'
 import { Paperclip } from 'lucide-react'
 import { useState } from 'react'
 
-import { RecordTabs } from '@/modules/crm/components/record-tabs'
-import { statusForStage } from '@/modules/crm/deals'
-import { ensureOrNotFound } from '@/lib/route-loaders'
 import { DeleteDialog } from '@/components/confirm-dialog'
 import { DataError, DataLoading, SectionBoundary } from '@/components/data-state'
-import { NotesEditor } from '@/components/notes-editor'
 import { requiredText } from '@/components/form/validators'
 import {
   InlineMoney,
@@ -19,32 +15,30 @@ import {
   Property,
   PropertyList,
 } from '@/components/inline/inline-field'
-import { useCollectionAccess } from '@/lib/permissions'
+import { InlineOwner } from '@/components/inline/inline-owner'
+import { NotesEditor } from '@/components/notes-editor'
 import { PageHeader } from '@/components/page-header'
-import { DropdownMenuItem } from '@/components/ui/dropdown-menu'
 import { RecordDetails } from '@/components/record-details'
 import { RecordTitle } from '@/components/record-title'
-
+import { DropdownMenuItem } from '@/components/ui/dropdown-menu'
 import type { Uuid } from '@/generated/monospace'
 import { appCopy } from '@/lib/app.copy'
 import { errorMessage } from '@/lib/errors'
 import { formatDate, formatMoney } from '@/lib/format'
-import { RecordActivity } from '@/modules/crm/components/record-activity'
-import { AttachmentsPanel } from '@/modules/crm/components/files/panel'
-import { useAttachFiles } from '@/modules/crm/components/files/uploads'
+import { useCollectionAccess } from '@/lib/permissions'
+import { ensureOrNotFound } from '@/lib/route-loaders'
+import { uuidParam } from '@/lib/uuid'
 import { CloseDealDialog } from '@/modules/crm/components/close-deal-dialog'
 import { DealActions } from '@/modules/crm/components/deal-actions'
-import { ContactLabel, OrganizationLabel } from '@/modules/crm/components/entities'
 import { DEAL_CURRENCIES } from '@/modules/crm/components/deal-form'
-import { InlineOwner } from '@/components/inline/inline-owner'
+import { ContactLabel, OrganizationLabel } from '@/modules/crm/components/entities'
+import { AttachmentsPanel } from '@/modules/crm/components/files/panel'
+import { useAttachFiles } from '@/modules/crm/components/files/uploads'
+import { RecordActivity } from '@/modules/crm/components/record-activity'
+import { RecordTabs } from '@/modules/crm/components/record-tabs'
 import { StageStepper } from '@/modules/crm/components/stage-stepper'
 import { StatusBadge } from '@/modules/crm/components/status-badge'
 import { crmCopy } from '@/modules/crm/crm.copy'
-import { dealSummaries } from '@/modules/crm/slots'
-import {
-  contactOption as toContactOption,
-  organizationOption as toOrganizationOption,
-} from '@/modules/crm/entities'
 import {
   lookupContacts,
   lookupOrganizations,
@@ -52,8 +46,13 @@ import {
   pipelineStagesQuery,
 } from '@/modules/crm/data'
 import type { PipelineStage } from '@/modules/crm/data'
+import { statusForStage } from '@/modules/crm/deals'
+import {
+  contactOption as toContactOption,
+  organizationOption as toOrganizationOption,
+} from '@/modules/crm/entities'
 import { useCloseDeal, useDeleteDeal, useUpdateDeal } from '@/modules/crm/mutations'
-import { uuidParam } from '@/lib/uuid'
+import { dealSummaries } from '@/modules/crm/slots'
 
 export const Route = createFileRoute('/_app/crm/deals_/$dealId')({
   params: { parse: ({ dealId }) => ({ dealId: uuidParam(dealId) }) },
@@ -214,7 +213,7 @@ function DealDetailPage() {
               {dealSummaries.map(({ id, title, component: Summary }) => (
                 <Property key={id} label={title}>
                   <SectionBoundary resetKey={dealId}>
-                    <Summary portalAccountId={deal.organizations?.portalAccountId ?? null} />
+                    <Summary organization={deal.organizations} />
                   </SectionBoundary>
                 </Property>
               ))}

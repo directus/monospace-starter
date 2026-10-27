@@ -6,6 +6,7 @@ import { existsSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'no
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { parseEnv } from 'node:util'
+
 import { aws, stackOutputs, stage } from './lib.mjs'
 
 const envFile = join(import.meta.dirname, '../../.env')

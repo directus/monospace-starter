@@ -1,3 +1,5 @@
+import { existsSync } from 'node:fs'
+
 export const lint = {
   jsPlugins: [{ name: 'anti-slop', specifier: './tools/oxlint/anti-slop/index.ts' }],
   rules: {
@@ -43,19 +45,8 @@ export const lint = {
         ['anti-slop/no-widen-then-assert', 'off'],
       ]),
     },
-    {
-      // Only infra/aws depends on Effect directly.
-      files: ['infra/aws/**'],
-      jsPlugins: [
-        { name: 'anti-slop-effect', specifier: './tools/oxlint/anti-slop/effect/index.ts' },
-      ],
-      rules: {
-        'anti-slop-effect/no-manual-effect-error-tag': 'error',
-        'anti-slop-effect/no-manual-tag-comparison': 'error',
-        'anti-slop-effect/no-manual-tagged-construction': 'error',
-        'anti-slop-effect/no-service-constructor-imports': 'error',
-        'anti-slop-effect/prefer-effect-match': 'error',
-      },
-    },
+    ...(existsSync(new URL('../../infra/aws/lint/config.ts', import.meta.url))
+      ? [(await import(new URL('../../infra/aws/lint/config.ts', import.meta.url).href)).effectLint]
+      : []),
   ],
 }

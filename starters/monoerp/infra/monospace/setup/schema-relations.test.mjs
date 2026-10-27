@@ -2,7 +2,7 @@ import { afterEach, describe, expect, it, vi } from 'vitest'
 
 import { schemaRelation } from './schema-relations.mjs'
 
-const collection = { source: 'CRM', dbName: 'organizations', relationFields: [] }
+const collection = { source: 'App', dbName: 'organizations', relationFields: [] }
 
 const optional = { source: 'Portal', collection: 'accounts', owner: 'portal' }
 
@@ -15,10 +15,10 @@ describe('schema relation presentation', () => {
     const log = vi.spyOn(console, 'log').mockImplementation(() => {})
 
     expect(
-      schemaRelation('crm.json', collection, 'portalAccount', optional, [collection], () => true),
+      schemaRelation('app.json', collection, 'portalAccount', optional, [collection], () => true),
     ).toBeUndefined()
     expect(log).toHaveBeenCalledExactlyOnceWith(
-      "crm.json: organizations.portalAccount skipped, optional target Portal.accounts isn't connected or selected",
+      "app.json: organizations.portalAccount skipped, optional target Portal.accounts isn't connected or selected",
     )
   })
 
@@ -26,7 +26,7 @@ describe('schema relation presentation', () => {
     const log = vi.spyOn(console, 'log').mockImplementation(() => {})
 
     expect(
-      schemaRelation('crm.json', collection, 'portalAccount', optional, [portal], () => false),
+      schemaRelation('app.json', collection, 'portalAccount', optional, [portal], () => false),
     ).toBeUndefined()
     expect(log).toHaveBeenCalledTimes(1)
   })
@@ -39,8 +39,8 @@ describe('schema relation presentation', () => {
         'portal.json',
         { ...portal, relationFields: [] },
         'organization',
-        { source: 'CRM', collection: 'organizations', owner: 'crm' },
-        [{ source: 'CRM', dbName: 'jobs' }],
+        { source: 'App', collection: 'organizations', owner: 'crm' },
+        [{ source: 'App', dbName: 'jobs' }],
         () => false,
       ),
     ).toBeUndefined()
@@ -48,19 +48,19 @@ describe('schema relation presentation', () => {
 
   it('fails a missing required relation', () => {
     expect(() =>
-      schemaRelation('crm.json', collection, 'owner', undefined, [collection], () => true),
+      schemaRelation('app.json', collection, 'owner', undefined, [collection], () => true),
     ).toThrow('organizations.owner is not a relation')
   })
 
   it('fails a typo in a required relation even when a connector is absent', () => {
     expect(() =>
-      schemaRelation('crm.json', collection, 'owenr', undefined, [collection], () => false),
+      schemaRelation('app.json', collection, 'owenr', undefined, [collection], () => false),
     ).toThrow('organizations.owenr is not a relation')
   })
 
   it('fails an optional relation when its target is connected and selected', () => {
     expect(() =>
-      schemaRelation('crm.json', collection, 'portalAccount', optional, [portal], () => true),
+      schemaRelation('app.json', collection, 'portalAccount', optional, [portal], () => true),
     ).toThrow('organizations.portalAccount is not a relation')
   })
 
@@ -70,7 +70,7 @@ describe('schema relation presentation', () => {
 
     expect(
       schemaRelation(
-        'crm.json',
+        'app.json',
         { ...collection, relationFields: [relation] },
         'portalAccount',
         optional,
@@ -84,7 +84,7 @@ describe('schema relation presentation', () => {
   it('fails when a selected optional source is connected but its target table is missing', () => {
     expect(() =>
       schemaRelation(
-        'crm.json',
+        'app.json',
         collection,
         'portalAccount',
         optional,

@@ -1,5 +1,6 @@
-import { crmSource } from './lib.mjs'
-// Makes sure the workspace and its data sources exist: the CRM and selected external sources
+import { connectors, logMissingConnectors } from './installed.mjs'
+import { appSource } from './lib.mjs'
+// Makes sure the workspace and its data sources exist: the shared database and selected external sources
 // unless OPTIONAL_SOURCES leaves them out. Hosts default to the compose service names, which is
 // what Monospace sees from inside the stack.
 // Creating a source introspects it, so on a fresh install the collections appear here.
@@ -12,8 +13,6 @@ import {
   workspacePath,
 } from './lib.mjs'
 
-import { connectors, logMissingConnectors } from './installed.mjs'
-
 logMissingConnectors()
 
 // Managed databases require TLS; local compose databases don't offer it.
@@ -21,13 +20,13 @@ const ssl = process.env.DB_SSL_MODE ? { ssl: { mode: process.env.DB_SSL_MODE } }
 
 const sources = [
   {
-    apiName: crmSource,
+    apiName: appSource,
     provider: 'postgres',
-    host: process.env.CRM_DB_HOST ?? 'crm-postgres',
-    port: Number(process.env.CRM_DB_INTERNAL_PORT ?? 5432),
-    user: process.env.CRM_DB_USER ?? 'crm',
-    password: process.env.CRM_DB_PASSWORD ?? 'monospace',
-    dbname: process.env.CRM_DB_NAME ?? 'crm',
+    host: process.env.APP_DB_HOST ?? 'app-postgres',
+    port: Number(process.env.APP_DB_INTERNAL_PORT ?? 5432),
+    user: process.env.APP_DB_USER ?? 'app',
+    password: process.env.APP_DB_PASSWORD ?? 'monospace',
+    dbname: process.env.APP_DB_NAME ?? 'app',
     ...ssl,
   },
   ...connectors.map((connector) => connector.source),

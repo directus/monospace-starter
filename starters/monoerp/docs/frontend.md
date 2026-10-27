@@ -19,7 +19,7 @@ Copy `routes/_app/crm/organizations.tsx`. A list page's route file defines every
 
 - **Columns:** a `DataTableColumn<Row>[]` array. Each column sets its header from copy, a size, and a `cell`. Right-aligned numbers use `meta.cellClassName`.
 - **Filters:** a `ListFilterField[]` array. Plain fields map straight to Monospace filters. `relationField` and `dateField` build the common kinds. A field on another record (here, the portal plan) sets `toClause` to write the nested filter. `filtersToClause` in `lib/filters.tsx` turns the filter state into a Monospace filter.
-- **Search params:** `validateSearch: listSearchSchema` (`lib/list-search.ts`) gives every list `q`, `sort`, `filters`, and `display`. All list state lives in the URL, so it survives reloads and can be shared. Filters are a flat AND list (`{ rules: [...] }`). Old group/combinator URLs fall back to no filters. Pass one `onSearchChange` callback that merges the patch into previous search. `useListSearch` owns q/sort/filter/display changes; it preserves explicit empty filters for lists with defaults (Jobs), and removes empty queries elsewhere. Activity uses this URL helper with its own bucket queries.
+- **Search params:** `validateSearch: listSearchSchema` (`lib/list-search.ts`) gives every list `q`, `sort`, `filters`, and `display`. All list state lives in the URL, so it survives reloads and can be shared. Filters are a flat AND list (`{ rules: [...] }`). Pass one `onSearchChange` callback that merges the patch into previous search. `useListSearch` owns q/sort/filter/display changes; it omits empty filter queries from the URL. Activity uses this URL helper with its own bucket queries.
 - **Paging:** `useListPage` (`hooks/use-list-page.ts`) shares the loader params with the query factory, flattens pages, clears selection when params change, and wires table sorting and paging. Pass `Route.useLoaderDeps()` so prefetching and rendering use identical params.
 
 The page is put together from shared components in `components/`:
@@ -33,7 +33,7 @@ The page is put together from shared components in `components/`:
 | `DisplayMenu`               | Sort and column visibility, with a reset                                                    |
 | `ListBulkActions`           | Bulk edit and delete for the selected rows                                                  |
 
-`ListAddButton` keeps create actions consistent on desktop and phones. `ListBulkActions` accepts field permissions, plus `statusBulkField` and `ownerBulkField`. CRM lists use their canonical entity status options. Connector columns name a `before` anchor; `insertColumns` resolves those positions.
+`ListAddButton` keeps create actions consistent on desktop and phones. `ListBulkActions` accepts field permissions, plus `statusBulkField` and `ownerBulkField`.
 
 A list with a board view as well (`routes/_app/crm/deals.tsx`) switches on `search.display`.
 
@@ -53,7 +53,7 @@ Create and full-edit forms use TanStack Form through `useAppForm` (`components/f
 
 ## Inline editing
 
-Detail pages edit fields in place with `components/inline/inline-field.tsx`. Each field saves on its own (blur, Enter, or pick) and shows its error under the value. Text fields take the same Zod validators as the forms. Use `PropertyList` for the details card.
+Detail pages edit fields in place with `components/inline/inline-field.tsx`. Each field saves on its own (blur, Enter, or pick) and shows its error under the value. Text fields take the same Zod validators as the forms. Use `PropertyList` for the details card. Pass notes-field access to `NotesEditor.readOnly` to keep editing consistent with other fields.
 
 ## Mutations
 
@@ -80,13 +80,12 @@ Monospace enforces access on every request. The app only hides or disables contr
 - Turn any caught error into a sentence with `errorMessage` (`lib/errors.ts`). It knows permission errors, conflicts, and duplicates.
 - Toasts are Sonner (`toast` from `sonner`). The `Toaster` is mounted once in `shell/app-shell.tsx`.
 
-CRM board and dashboard queries load all matching deals in pages. Currency totals and dashboard charts stay separate per currency; no exchange rate is assumed. List paging and sorting helpers live in `lib/list-query.ts`.
-
 ## Dates and numbers
 
 - Showing values: `formatDate`, `formatDateTime`, `formatMoney`, and `formatRelative` in `lib/format.ts`. `RelativeTime` (`components/relative-time.tsx`) shows "3 days ago" with the exact time in a tooltip.
 - Date inputs and defaults ("later today", "next week"): `lib/dates.ts`.
 - Portal (MySQL) times are UTC.
+- Totals and dashboard charts stay separate per currency; no exchange rate is assumed.
 
 ## Copy
 
@@ -98,8 +97,7 @@ Put user-facing text in copy files, not in components. Shell and shared text is 
 - `components/filters/` and `components/data-table/` are maintained here, derived from ReUI (MIT notices included). Use `ListFilters` and `DataTable` rather than their internals. Filter operators declare their Monospace `clause` in `filters/operators.ts`.
 - The [component inventory](../apps/web/src/components/README.md) maps the shared parts and examples. `components/` itself holds the app's shared components (lists, forms, inline fields, page header).
 - Module-specific components live in `modules/<id>/components/`.
-
-- Shared avatars live in `components/avatars.tsx`. `EntityAvatar` and relation options use `variant: circle | square`, so primitives do not name CRM records. The sidebar stores its collapsed state under `sidebar-open`.
+- Shared avatars live in `components/avatars.tsx`. `EntityAvatar` and relation options use `variant: circle | square`.
 
 ## Styling and icons
 
@@ -118,5 +116,3 @@ Below 768px `useIsMobile` (`hooks/use-mobile.ts`) is true, and Tailwind's `max-m
 - `FormDrawer` and `FormDialog` open as bottom sheets with the actions pinned above the keyboard.
 - The sidebar becomes a sheet and closes when you pick a page. Breadcrumbs shrink to home and the current page.
 - Toasts move to the bottom. Inline fields get taller rows for touch.
-
-`NotesEditor` accepts `readOnly`; record pages pass notes-field access so readers see markdown without edit controls or saves.

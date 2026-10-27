@@ -1,4 +1,3 @@
-import { appCopy } from '@/lib/app.copy'
 import {
   addDays,
   addMonths,
@@ -9,6 +8,8 @@ import {
   parse,
   startOfDay,
 } from 'date-fns'
+
+import { appCopy } from '@/lib/app.copy'
 
 export interface FilterDateValue {
   date?: string

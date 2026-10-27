@@ -10,18 +10,19 @@ import type {
   QueryResultSerialized,
   SortItemSerialized,
 } from '@monospace/extension-kit/data-connector'
-import type { StripeClient, StripeObject } from './client'
-import type { StripeConfig } from './config'
-import type { FieldSpec, ResourceSpec } from './resources'
 import {
   QueryRejected,
   CollectionNotFound,
   ForeignKeyConstraintViolation,
 } from '@monospace/extension-kit/data-connector'
+
+import type { StripeClient, StripeObject } from './client'
 import { StripeResourceMissing } from './client'
+import type { StripeConfig } from './config'
 import { matches } from './filter'
 import { planSources } from './plan'
 import { comparable, encodeFormValue, project, toRecord } from './records'
+import type { FieldSpec, ResourceSpec } from './resources'
 import { findResource } from './resources'
 
 /** Stripe's test-mode limit is 25 requests per second; stay well below it. */
@@ -155,6 +156,12 @@ async function updateMany(
   return { records: updated.map((record) => project(record, query.select)) }
 }
 
+function recordId(record: MonospaceObject): string {
+  if (typeof record.id !== 'string') throw new QueryRejected('Record is missing its string ID.')
+
+  return record.id
+}
+
 async function updateRecords(
   context: QueryContext,
   resource: ResourceSpec,
@@ -167,7 +174,7 @@ async function updateRecords(
   const updated = await mapConcurrently(
     targets,
     async (record) =>
-      await context.client.post(`${resource.path}/${encodeURIComponent(String(record.id))}`, form),
+      await context.client.post(`${resource.path}/${encodeURIComponent(recordId(record))}`, form),
   )
 
   return updated.map((object) => toRecord(resource, object))
@@ -202,7 +209,7 @@ async function deleteRecords(
 
   await mapConcurrently(targets, async (record) => {
     try {
-      await context.client.delete(resource.path, String(record.id))
+      await context.client.delete(resource.path, recordId(record))
     } catch (error) {
       throw toDeleteError(resource, error)
     }

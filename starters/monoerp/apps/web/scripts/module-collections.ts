@@ -61,22 +61,6 @@ export function readFrontendFeatures(
 
   const inactive = features.filter((feature) => !active.includes(feature))
 
-  const disabled = new Set(
-    inactive.flatMap((feature) =>
-      installed.has(feature.module)
-        ? [feature.connector, ...feature.requires].filter(
-            (id) =>
-              !selected.includes(id) &&
-              manifests.some((manifest) => manifest.kind === 'connector' && manifest.id === id),
-          )
-        : [],
-    ),
-  )
-
-  if (process.env.OPTIONAL_SOURCES !== undefined) {
-    for (const id of disabled) console.log(`${id}: skipped, disabled in OPTIONAL_SOURCES`)
-  }
-
   return { active, inactive }
 }
 

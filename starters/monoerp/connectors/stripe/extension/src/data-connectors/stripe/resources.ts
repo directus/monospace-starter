@@ -1,4 +1,5 @@
 import type { FieldDefinition } from '@monospace/extension-kit/data-connector/experimental'
+
 import type { FieldMapping, StripeResource } from './collections'
 import { STRIPE_RESOURCES } from './collections'
 

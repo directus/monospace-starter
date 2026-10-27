@@ -1,5 +1,4 @@
 import '@/styles.css'
-
 import { cleanup, render, screen } from '@testing-library/react'
 import { useState } from 'react'
 import { afterEach, describe, expect, it, vi } from 'vitest'

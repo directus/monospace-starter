@@ -14,9 +14,9 @@ import {
 } from 'lucide-react'
 
 import type { DataTableSort } from '@/components/data-table/data-table'
-import type { ListDisplay } from '@/components/list-toolbar'
 import type { GridFeatures, TableInstance } from '@/components/data-table/grid'
 import { getColumnHeaderLabel } from '@/components/data-table/grid'
+import type { ListDisplay } from '@/components/list-toolbar'
 import { Button } from '@/components/ui/button'
 import { ButtonGroup } from '@/components/ui/button-group'
 import { Checkbox } from '@/components/ui/checkbox'

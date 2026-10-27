@@ -3,8 +3,8 @@ import { Check, Search } from 'lucide-react'
 import { useEffect, useId, useRef, useState } from 'react'
 import type { ReactNode, RefCallback } from 'react'
 
-import { cn } from '@/lib/utils'
 import { appCopy } from '@/lib/app.copy'
+import { cn } from '@/lib/utils'
 
 type CascaderOption = {
   value: string

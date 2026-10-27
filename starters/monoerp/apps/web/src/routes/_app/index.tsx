@@ -4,10 +4,10 @@ import { ArrowRight } from 'lucide-react'
 
 import { PageHeader } from '@/components/page-header'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { appCopy } from '@/lib/app.copy'
 import { refreshSession, SESSION_QUERY_KEY } from '@/lib/auth'
 import { modules } from '@/modules'
 import { usePages } from '@/modules/pages'
-import { appCopy } from '@/lib/app.copy'
 
 export const Route = createFileRoute('/_app/')({
   component: HomePage,

@@ -227,6 +227,9 @@ importers:
       vite-plus:
         specifier: 'catalog:'
         version: 0.3.0(@types/node@24.10.13)(@vitest/browser-playwright@4.1.11(@voidzero-dev/vite-plus-core@0.3.0(@types/node@24.10.13)(jiti@2.7.0)(typescript@6.0.3)(yaml@2.9.1))(msw@2.15.0(@types/node@24.10.13)(typescript@6.0.3))(playwright@1.62.1)(vitest@4.1.11))(@voidzero-dev/vite-plus-core@0.3.0(@types/node@24.10.13)(jiti@2.7.0)(typescript@6.0.3)(yaml@2.9.1))(jiti@2.7.0)(jsdom@30.0.1)(msw@2.15.0(@types/node@24.10.13)(typescript@6.0.3))(typescript@6.0.3)(yaml@2.9.1)
+      yaml:
+        specifier: 2.9.1
+        version: 2.9.1
       zod:
         specifier: 4.5.4
         version: 4.5.4
@@ -237,22 +240,22 @@ importers:
         specifier: 1.7.0
         version: 1.7.0(@date-fns/tz@1.5.0)(@types/react@19.2.18)(date-fns@4.4.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       '@blocknote/core':
-        specifier: ^0.54.0
+        specifier: 0.54.0
         version: 0.54.0(@types/hast@3.0.5)
       '@blocknote/react':
-        specifier: ^0.54.0
+        specifier: 0.54.0
         version: 0.54.0(@floating-ui/dom@1.8.0)(@types/hast@3.0.5)(@types/react-dom@19.2.5(@types/react@19.2.18))(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       '@blocknote/shadcn':
-        specifier: ^0.54.0
+        specifier: 0.54.0
         version: 0.54.0(@date-fns/tz@1.5.0)(@floating-ui/dom@1.8.0)(@types/hast@3.0.5)(@types/react-dom@19.2.5(@types/react@19.2.18))(@types/react@19.2.18)(date-fns@4.4.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(tailwindcss@4.3.3)
       '@dnd-kit/abstract':
-        specifier: ^0.5.0
+        specifier: 0.5.0
         version: 0.5.0
       '@dnd-kit/helpers':
-        specifier: ^0.5.0
+        specifier: 0.5.0
         version: 0.5.0
       '@dnd-kit/react':
-        specifier: ^0.5.0
+        specifier: 0.5.0
         version: 0.5.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       '@floating-ui/react':
         specifier: 0.27.20
@@ -291,7 +294,7 @@ importers:
         specifier: 9.2.4
         version: 9.2.4(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       '@tanstack/react-virtual':
-        specifier: ^3.14.10
+        specifier: 3.14.10
         version: 3.14.10(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       class-variance-authority:
         specifier: 0.7.1
@@ -300,7 +303,7 @@ importers:
         specifier: 2.1.1
         version: 2.1.1
       cmdk:
-        specifier: ^1.1.1
+        specifier: 1.1.1
         version: 1.1.1(@types/react-dom@19.2.5(@types/react@19.2.18))(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       date-fns:
         specifier: 4.4.0
@@ -315,7 +318,7 @@ importers:
         specifier: 1.5.1
         version: 1.5.1
       pdfjs-dist:
-        specifier: ^6.3.289
+        specifier: 6.3.289
         version: 6.3.289
       react:
         specifier: 19.2.8
@@ -327,7 +330,7 @@ importers:
         specifier: 19.2.8
         version: 19.2.8(react@19.2.8)
       sonner:
-        specifier: ^2.0.8
+        specifier: 2.0.8
         version: 2.0.8(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       tailwind-merge:
         specifier: 3.6.0
@@ -352,13 +355,13 @@ importers:
         specifier: 1.167.33
         version: 1.167.33(supports-color@7.2.0)
       '@testing-library/jest-dom':
-        specifier: ^7.0.1
+        specifier: 7.0.1
         version: 7.0.1(@testing-library/dom@10.4.1)(vitest@4.1.11)
       '@testing-library/react':
-        specifier: ^16.3.3
+        specifier: 16.3.3
         version: 16.3.3(@testing-library/dom@10.4.1)(@types/react-dom@19.2.5(@types/react@19.2.18))(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       '@testing-library/user-event':
-        specifier: ^14.6.7
+        specifier: 14.6.7
         version: 14.6.7(@testing-library/dom@10.4.1)
       '@types/node':
         specifier: 24.10.13
@@ -376,7 +379,7 @@ importers:
         specifier: 4.1.11
         version: 4.1.11(@voidzero-dev/vite-plus-core@0.3.0(@types/node@24.10.13)(jiti@2.7.0)(typescript@6.0.3)(yaml@2.9.1))(msw@2.15.0(@types/node@24.10.13)(typescript@6.0.3))(playwright@1.62.1)(vitest@4.1.11)
       jsdom:
-        specifier: ^30.0.1
+        specifier: 30.0.1
         version: 30.0.1
       msw:
         specifier: 2.15.0
@@ -419,7 +422,7 @@ importers:
         specifier: 1.0.0
         version: 1.0.0(typescript@6.0.3)
       '@testing-library/react':
-        specifier: ^16.3.3
+        specifier: 16.3.3
         version: 16.3.3(@testing-library/dom@10.4.1)(@types/react-dom@19.2.5(@types/react@19.2.18))(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       '@types/react':
         specifier: 19.2.18
@@ -472,7 +475,7 @@ importers:
         specifier: 1.0.0
         version: 1.0.0(typescript@6.0.3)
       '@testing-library/react':
-        specifier: ^16.3.3
+        specifier: 16.3.3
         version: 16.3.3(@testing-library/dom@10.4.1)(@types/react-dom@19.2.5(@types/react@19.2.18))(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       '@types/react':
         specifier: 19.2.18

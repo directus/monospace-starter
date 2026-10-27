@@ -1,10 +1,15 @@
-import type { ListFilterField } from '@/lib/filters'
-import { selectFeatures } from '@/modules/features'
-import type { RecordHistoryQuery } from '@/modules/types'
 import type { ComponentType } from 'react'
 
+import type { organizationsUpdateOneInput } from '@/generated/monospace'
+import type { ListFilterField } from '@/lib/filters'
+import type { OrganizationRow } from '@/modules/crm/data'
+import { selectFeatures } from '@/modules/features'
+import type { RecordHistoryQuery } from '@/modules/types'
+
+type Organization = { [Field in keyof OrganizationRow]?: OrganizationRow[Field] | null }
+
 export type OrganizationPanelProps = {
-  portalAccountId: string | null
+  organization: Organization | null | undefined
   onAddContact?: (person: { name?: string | null; email?: string | null }) => void
 }
 
@@ -13,6 +18,11 @@ export type OrganizationPanelContribution = {
   title: string
   component: ComponentType<OrganizationPanelProps>
   historyQuery?: (props: OrganizationPanelProps) => RecordHistoryQuery
+  detailField?: ComponentType<{
+    organization: Organization
+    canUpdate: (field: string) => boolean
+    onSave: (values: organizationsUpdateOneInput) => Promise<void>
+  }>
 }
 
 export type OrganizationListContribution = {
@@ -24,8 +34,8 @@ export type OrganizationListContribution = {
     size: number
     meta?: { headerClassName: string; cellClassName: string }
     component: ComponentType<{
-      accountId: string | null | undefined
-      accountIds: readonly (string | null | undefined)[]
+      organization: Organization
+      organizations: readonly Organization[]
     }>
   }[]
 }

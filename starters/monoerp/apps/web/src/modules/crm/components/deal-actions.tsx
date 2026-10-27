@@ -1,5 +1,5 @@
-import { useCollectionAccess } from '@/lib/permissions'
 import { Check, ChevronDown, Loader2, RotateCcw, Trash2 } from 'lucide-react'
+import type { ReactNode } from 'react'
 
 import { Button } from '@/components/ui/button'
 import {
@@ -9,14 +9,13 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import type { ReactNode } from 'react'
-
+import type { Uuid } from '@/generated/monospace'
 import { appCopy } from '@/lib/app.copy'
+import { useCollectionAccess } from '@/lib/permissions'
 import { StageDot } from '@/modules/crm/components/stage-dot'
 import { crmCopy } from '@/modules/crm/crm.copy'
 import type { PipelineStage } from '@/modules/crm/data'
 import { stageColor } from '@/modules/crm/stage-color'
-import type { Uuid } from '@/generated/monospace'
 
 // One primary action for a deal (Mark won, or Reopen once closed) with the rest behind a chevron.
 export function DealActions({

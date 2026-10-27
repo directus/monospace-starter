@@ -1,10 +1,11 @@
 import { fileURLToPath } from 'node:url'
 
-import { frontendFeatures, moduleFeaturePaths } from './scripts/module-collections'
-import { playwright } from '@vitest/browser-playwright'
 import tailwindcss from '@tailwindcss/vite'
 import react from '@vitejs/plugin-react'
+import { playwright } from '@vitest/browser-playwright'
 import { defineConfig } from 'vite-plus'
+
+import { frontendFeatures, moduleFeaturePaths } from './scripts/module-collections'
 
 export default defineConfig({
   resolve: {
