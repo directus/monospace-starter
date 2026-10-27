@@ -1,3 +1,4 @@
+import { defaultRangeExtractor, useVirtualizer } from '@tanstack/react-virtual'
 import { Check, Search } from 'lucide-react'
 import { useEffect, useId, useRef, useState } from 'react'
 import type { ReactNode, RefCallback } from 'react'
@@ -67,13 +68,43 @@ export function Cascader({
   const active = enabled.find((item) => item.value === highlight) ?? enabled[0]
   const activeIndex = active ? visible.indexOf(active) : -1
 
+  // eslint-disable-next-line react-hooks/incompatible-library
+  const virtualizer = useVirtualizer({
+    count: visible.length,
+    getScrollElement: () => list.current,
+    getItemKey: (index) => visible[index].value,
+    estimateSize: (index) =>
+      (visible[index].description ? 48 : 32) + (visible[index].divider ? 8 : 0),
+    initialRect: { height: maxHeight, width: 0 },
+    paddingStart: 4,
+    paddingEnd: 4,
+    overscan: 4,
+    rangeExtractor: (range) => {
+      const indexes = defaultRangeExtractor(range)
+
+      // Keep aria-activedescendant valid even when the user scrolls away from the highlight.
+      if (activeIndex >= 0 && !indexes.includes(activeIndex)) {
+        indexes.push(activeIndex)
+        indexes.sort((left, right) => left - right)
+      }
+
+      return indexes
+    },
+  })
+
+  const virtualRows = virtualizer.getVirtualItems()
+
+  const activeId = virtualRows.some(({ index }) => index === activeIndex)
+    ? `${id}-${activeIndex}`
+    : undefined
+
   useEffect(() => {
     if (autoFocusProps?.autoFocus !== false) input.current?.focus()
   }, [autoFocusProps?.autoFocus])
 
   useEffect(() => {
-    if (activeIndex >= 0) list.current?.children[activeIndex]?.scrollIntoView({ block: 'nearest' })
-  }, [activeIndex])
+    if (activeIndex >= 0) virtualizer.scrollToIndex(activeIndex, { align: 'auto' })
+  }, [activeIndex, active?.value, query, virtualizer])
 
   function move(direction: number) {
     if (!enabled.length) return
@@ -96,7 +127,7 @@ export function Cascader({
           aria-autocomplete="list"
           aria-expanded="true"
           aria-controls={`${id}-list`}
-          aria-activedescendant={activeIndex >= 0 ? `${id}-${activeIndex}` : undefined}
+          aria-activedescendant={activeId}
           placeholder={placeholder}
           className="min-w-0 flex-1 bg-transparent outline-none placeholder:text-muted-foreground"
           value={query}
@@ -127,57 +158,80 @@ export function Cascader({
         aria-label={label}
         aria-multiselectable={multiple || undefined}
         style={{ maxHeight }}
-        className="overflow-y-auto overscroll-contain p-1"
+        className="overflow-y-auto overscroll-contain"
       >
-        {visible.map((item, index) => (
-          <div
-            key={item.value}
-            id={`${id}-${index}`}
-            role="option"
-            aria-selected={selected.includes(item.value)}
-            aria-disabled={item.disabled || undefined}
-            data-slot="cascader-item"
-            data-highlighted={item === active || undefined}
-            className={cn(
-              'relative flex min-h-8 cursor-default items-center gap-2 rounded-sm px-2 py-1.5 outline-none data-highlighted:bg-accent data-highlighted:text-accent-foreground',
-              item.disabled && 'pointer-events-none opacity-50',
-              item.divider &&
-                'mt-2 before:absolute before:inset-x-0 before:-top-1 before:h-px before:bg-border',
-            )}
-            onPointerMove={() => {
-              if (!item.disabled) setHighlight(item.value)
-            }}
-            onMouseDown={(event) => event.preventDefault()}
-            onClick={() => {
-              if (!item.disabled) {
-                setHighlight(item.value)
-                onSelect(item.value)
-              }
-            }}
-          >
-            {item.icon ? (
-              <span className="flex size-4 shrink-0 items-center justify-center text-muted-foreground">
-                {item.icon}
-              </span>
-            ) : null}
-            <span className="min-w-0 flex-1">
-              <span className="block truncate">{item.label}</span>
-              {item.description ? (
-                <span className="block truncate text-xs text-muted-foreground">
-                  {item.description}
-                </span>
-              ) : null}
-            </span>
-            {item.exclusive ? (
-              <span className="sr-only">{`, ${appCopy.filters.exclusiveHint}`}</span>
-            ) : null}
-            {selected.includes(item.value) ? (
-              <Check aria-hidden className="size-4 shrink-0" />
-            ) : (
-              <span className="size-4 shrink-0" />
-            )}
-          </div>
-        ))}
+        <div className="relative" style={{ height: virtualizer.getTotalSize() }}>
+          {virtualRows.map((virtualRow) => {
+            const { index } = virtualRow
+            const item = visible[index]
+
+            return (
+              <div
+                key={virtualRow.key}
+                role="presentation"
+                ref={virtualizer.measureElement}
+                data-index={index}
+                className={item.divider ? 'pt-2' : undefined}
+                style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 4,
+                  right: 4,
+                  transform: `translateY(${virtualRow.start}px)`,
+                }}
+              >
+                <div
+                  id={`${id}-${index}`}
+                  role="option"
+                  aria-posinset={index + 1}
+                  aria-setsize={visible.length}
+                  aria-selected={selected.includes(item.value)}
+                  aria-disabled={item.disabled || undefined}
+                  data-slot="cascader-item"
+                  data-highlighted={item === active || undefined}
+                  className={cn(
+                    'relative flex min-h-8 cursor-default items-center gap-2 rounded-sm px-2 py-1.5 outline-none data-highlighted:bg-accent data-highlighted:text-accent-foreground',
+                    item.disabled && 'pointer-events-none opacity-50',
+                    item.divider &&
+                      'before:absolute before:inset-x-0 before:-top-1 before:h-px before:bg-border',
+                  )}
+                  onPointerMove={() => {
+                    if (!item.disabled) setHighlight(item.value)
+                  }}
+                  onMouseDown={(event) => event.preventDefault()}
+                  onClick={() => {
+                    if (!item.disabled) {
+                      setHighlight(item.value)
+                      onSelect(item.value)
+                    }
+                  }}
+                >
+                  {item.icon ? (
+                    <span className="flex size-4 shrink-0 items-center justify-center text-muted-foreground">
+                      {item.icon}
+                    </span>
+                  ) : null}
+                  <span className="min-w-0 flex-1">
+                    <span className="block truncate">{item.label}</span>
+                    {item.description ? (
+                      <span className="block truncate text-xs text-muted-foreground">
+                        {item.description}
+                      </span>
+                    ) : null}
+                  </span>
+                  {item.exclusive ? (
+                    <span className="sr-only">{`, ${appCopy.filters.exclusiveHint}`}</span>
+                  ) : null}
+                  {selected.includes(item.value) ? (
+                    <Check aria-hidden className="size-4 shrink-0" />
+                  ) : (
+                    <span className="size-4 shrink-0" />
+                  )}
+                </div>
+              </div>
+            )
+          })}
+        </div>
       </div>
       {!visible.length ? (
         <p className="px-3 py-5 text-center text-muted-foreground">{empty}</p>
