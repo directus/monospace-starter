@@ -306,16 +306,32 @@ it('removes declared package entries and keeps unrelated commands and dependenci
   expect(checkApp(root).map((manifest) => manifest.id)).toEqual(['starter'])
 })
 
-it.each(['?query', '#fragment'])('rejects URL punctuation in literal file lists (%s)', (suffix) => {
-  const { root, manifest } = fixture()
-  const file = new URL('starter.json', root)
-  const starter = JSON.parse(readFileSync(file, 'utf8'))
-  starter.ownedPaths.push('docs')
-  writeFileSync(file, JSON.stringify(starter))
-  write(root, 'docs/keep.txt', 'keep')
-  manifest.ownedPaths.push(`docs${suffix}`)
-  save(root, 'modules/sales/module.json', manifest)
+it.each(['?query', '#fragment', ' '])(
+  'rejects URL punctuation in literal file lists (%s)',
+  (suffix) => {
+    const { root, manifest } = fixture()
+    const file = new URL('starter.json', root)
+    const starter = JSON.parse(readFileSync(file, 'utf8'))
+    starter.ownedPaths.push('docs')
+    writeFileSync(file, JSON.stringify(starter))
+    write(root, 'docs/keep.txt', 'keep')
+    manifest.ownedPaths.push(`docs${suffix}`)
+    save(root, 'modules/sales/module.json', manifest)
 
+    expect(() => removeInstalled('sales', { root })).toThrow('literal repository-relative path')
+    expect(readFileSync(new URL('docs/keep.txt', root), 'utf8')).toBe('keep')
+  },
+)
+
+it('rejects file URLs and case aliases for protected Git paths', () => {
+  const { root, manifest } = fixture()
+  manifest.ownedPaths.push(`file:${fileURLToPath(new URL('docs', root))}`)
+  save(root, 'modules/sales/module.json', manifest)
   expect(() => removeInstalled('sales', { root })).toThrow('literal repository-relative path')
-  expect(readFileSync(new URL('docs/keep.txt', root), 'utf8')).toBe('keep')
+
+  manifest.ownedPaths.pop()
+  manifest.ownedPaths.push('.GIT/config')
+  save(root, 'modules/sales/module.json', manifest)
+  expect(() => removeInstalled('sales', { root })).toThrow('literal repository-relative path')
+  expect(existsSync(new URL('.git/config', root))).toBe(true)
 })

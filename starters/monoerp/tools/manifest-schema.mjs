@@ -7,7 +7,8 @@ const path = z
   .refine(
     (value) =>
       !value.startsWith('/') &&
-      !/^[a-z]:/i.test(value) &&
+      value.trim() === value &&
+      !value.includes(':') &&
       !Array.from(value).some((character) => (character.codePointAt(0) ?? 0) < 32) &&
       !value.includes('\\') &&
       !value.includes('%') &&
@@ -17,7 +18,11 @@ const path = z
         .split('/')
         .some(
           (part) =>
-            !part || part === '.' || part === '..' || part === '.git' || part === 'node_modules',
+            !part ||
+            part === '.' ||
+            part === '..' ||
+            part.toLowerCase() === '.git' ||
+            part.toLowerCase() === 'node_modules',
         ),
     'Use a literal repository-relative path without traversal, URL punctuation or protected folders',
   )
