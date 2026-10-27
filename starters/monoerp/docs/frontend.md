@@ -156,11 +156,11 @@ Put user-facing text in copy files, not in components. Shell and shared text is 
 - `components/filters/` and `components/data-table/` are maintained here, derived from ReUI (MIT notices included). Use `ListFilters` and `DataTable` rather than their internals. Filter operators declare their Monospace `clause` in `filters/operators.ts`.
 - The [component inventory](../apps/web/src/components/README.md) maps the shared parts and examples. `components/` itself holds the app's shared components (lists, forms, inline fields, page header).
 - Module-specific components live in `modules/<id>/components/`.
-- Shared avatars live in `components/avatars.tsx`. `EntityAvatar` and relation options use `variant: circle | square`.
+- Shared avatars live in `components/avatars.tsx`. `EntityAvatar` and relation options use `variant: circle | square`; both show initials when an image is unavailable.
 
 ## Styling and icons
 
-- Tailwind CSS v4, configured in `styles.css`. Merge classes with `cn` from `lib/utils.ts`. The formatter sorts class names.
+- Tailwind CSS v4, configured in `styles.css`. Its recursive connector source glob includes optional frontend styles in the starter build. Merge classes with `cn` from `lib/utils.ts`. The formatter sorts class names.
 - Icons are Lucide. A module names its record icons once (`modules/crm/icons.ts`) and uses those names everywhere, so an organization always has the same icon.
 
 ## Settings pages

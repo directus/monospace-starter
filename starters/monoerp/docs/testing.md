@@ -90,4 +90,4 @@ When this folder is a Git repo root, `pnpm install` turns on a pre-commit hook (
 
 ## CI
 
-`.github/workflows/check.yml` runs on pull requests and pushes to `main`: frozen install, then `pnpm verify`. Copy this starter into its own Git repository to enable CI. Browser tests remain available locally. See the [deployment guide](deploy.md) for hosting.
+`.github/workflows/check.yml` runs on pull requests and pushes to `main`: frozen install, `pnpm verify`, and browser tests. Copy this starter into its own Git repository to enable CI. The optional AWS workflow waits for that check instead of repeating verification; unconfigured deployment skips cleanly. See the [deployment guide](deploy.md) for hosting.

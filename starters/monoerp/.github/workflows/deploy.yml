@@ -1,35 +1,17 @@
-# Checks every push and pull request. Pushes to main then deploy staging; version tags (v1.2.3)
-# deploy prod. Deploys sign in to AWS through GitHub's OIDC role for the stage, no stored keys;
-# setup steps are in infra/aws/README.md ("Automatic deploys").
-name: Check and deploy
+# Owned by the AWS add-on. Configuring its role and OIDC subject opts into deployment.
+# Checks run once in check.yml; configured deploys wait for that commit's successful run.
+name: Deploy AWS
 
 on:
   push:
     branches: [main]
     tags: ['v*']
-  pull_request:
 
 permissions:
   contents: read
 
 jobs:
-  check:
-    runs-on: ubuntu-24.04-arm
-    steps:
-      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
-      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1 # v4
-      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
-        with:
-          node-version-file: .node-version
-          cache: pnpm
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm verify
-      - run: pnpm --filter @monoerp/web exec playwright install --with-deps chromium
-      - run: pnpm --filter @monoerp/web test:browser
-
   deploy:
-    needs: check
-    if: github.event_name == 'push'
     # ARM like the Fargate tasks, so images build natively.
     runs-on: ubuntu-24.04-arm
     # Named after the stage: the stage's AWS role only trusts jobs in this environment, and
@@ -42,6 +24,7 @@ jobs:
     permissions:
       contents: read
       id-token: write
+      actions: read
     env:
       STAGE: ${{ startsWith(github.ref, 'refs/tags/') && 'prod' || 'staging' }}
       # The stack reads these every deploy; leaving one out removes what it configures.
@@ -51,15 +34,46 @@ jobs:
       # Only read on a stage's first deploy.
       MONOSPACE_LICENSE__KEY: ${{ secrets.MONOSPACE_LICENSE__KEY }}
     steps:
+      - name: Check deployment configuration
+        id: config
+        env:
+          AWS_CONFIGURED: ${{ vars.AWS_DEPLOY_ROLE_ARN != '' && vars.OIDC_SUBJECT != '' }}
+        run: |
+          echo "enabled=$AWS_CONFIGURED" >> "$GITHUB_OUTPUT"
+          if [ "$AWS_CONFIGURED" != true ]; then
+            echo "::notice::AWS deployment skipped. Configure AWS_DEPLOY_ROLE_ARN and OIDC_SUBJECT to opt in."
+          fi
+      - name: Wait for checks on this commit
+        if: steps.config.outputs.enabled == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          run_id=''
+          for attempt in $(seq 1 60); do
+            run_id=$(gh run list --repo "$GITHUB_REPOSITORY" --workflow check.yml --commit "$GITHUB_SHA" --event push --json databaseId --jq '.[0].databaseId // empty')
+            if [ -n "$run_id" ]; then break; fi
+            sleep 5
+          done
+          if [ -z "$run_id" ]; then
+            echo 'Check workflow was not found for this commit.' >&2
+            exit 1
+          fi
+          gh run watch "$run_id" --repo "$GITHUB_REPOSITORY" --exit-status
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        if: steps.config.outputs.enabled == 'true'
       - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1 # v4
+        if: steps.config.outputs.enabled == 'true'
       - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
+        if: steps.config.outputs.enabled == 'true'
         with:
           node-version-file: .node-version
           cache: pnpm
       - run: pnpm install --frozen-lockfile
+        if: steps.config.outputs.enabled == 'true'
       - uses: aws-actions/configure-aws-credentials@61815dcd50bd041e203e49132bacad1fd04d2708 # v5
+        if: steps.config.outputs.enabled == 'true'
         with:
           role-to-assume: ${{ vars.AWS_DEPLOY_ROLE_ARN }}
           aws-region: us-east-1
       - run: pnpm aws deploy --stage "$STAGE" --no-input --yes
+        if: steps.config.outputs.enabled == 'true'

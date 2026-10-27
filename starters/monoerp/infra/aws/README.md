@@ -107,7 +107,7 @@ Staging sends every email (invites, password resets) to a Mailpit task, like `do
 
 ## Optional automation
 
-The included CI workflow runs checks and builds without AWS credentials. Deploy explicitly with `pnpm aws deploy --stage staging` or `--stage prod`. The optional `.github/workflows/deploy.yml` verifies changes, deploys main to staging, and deploys version tags to prod. Configure its GitHub environments and variables before enabling it. The optional `pnpm aws github-oidc` helper creates the account identity provider; `GITHUB_OIDC_SUBJECT` enables a role with repo, environment, and ref-bound trust. See `github.ts` for its accepted subject format. The role has administrator access, so limit who can trigger it.
+The included CI workflow runs checks and builds without AWS credentials. Deploy explicitly with `pnpm aws deploy --stage staging` or `--stage prod`. The AWS add-on owns `.github/workflows/deploy.yml`. It skips deployment cleanly until `AWS_DEPLOY_ROLE_ARN` and `OIDC_SUBJECT` are configured. Configured deploys wait for the same commit’s successful `Check` run, then deploy main to staging or version tags to prod; verification runs once per push. The optional `pnpm aws github-oidc` helper creates the account identity provider; `GITHUB_OIDC_SUBJECT` enables a role with repo, environment, and ref-bound trust. See `github.ts` for its accepted subject format. The role has administrator access, so limit who can trigger it.
 
 One-time setup:
 

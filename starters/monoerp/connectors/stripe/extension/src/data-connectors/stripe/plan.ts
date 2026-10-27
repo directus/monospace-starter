@@ -263,7 +263,7 @@ function literal(field: FieldSpec, value: Value): string {
   if (typeof value === 'object')
     throw new QueryRejected(`\`${field.name}\` cannot be compared with a structured value.`)
 
-  return JSON.stringify(value)
+  return String(value)
 }
 
 function tooManyRequests(resource: ResourceSpec): QueryRejected {

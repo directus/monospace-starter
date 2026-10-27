@@ -89,6 +89,17 @@ describe('BillingPanel', () => {
     expect(screen.getAllByText(copy.chargeStatuses.failed).length).toBeGreaterThan(0)
   })
 
+  it('keeps the customer name and Stripe ID visibly separated', () => {
+    render(
+      <BillingPanel connected customer={customer} pending={false} error={null} onRetry={vi.fn()} />,
+    )
+
+    const name = screen.getByText('McKesson').getBoundingClientRect()
+    const id = screen.getByText('cus_MonoErp0011').getBoundingClientRect()
+
+    expect(id.left - name.right).toBeGreaterThanOrEqual(8)
+  })
+
   it('explains that billing needs a portal account', () => {
     render(
       <BillingPanel

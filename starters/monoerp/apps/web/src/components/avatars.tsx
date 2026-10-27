@@ -34,7 +34,7 @@ export function EntityAvatar({
           variant === 'circle' && 'text-xs group-data-[size=sm]/avatar:text-[10px]',
         )}
       >
-        {square ? null : initials(label)}
+        {initials(label)}
       </AvatarFallback>
     </Avatar>
   )

@@ -98,3 +98,13 @@ Offsets use cursors because Stripe documents only cursors and the local Stripe i
 ## How app:doctor works
 
 Stripe owns its entire folder. Removing it also removes the Billing feature and its SDK collection requirements. See [the shared validator rules](../../docs/modules.md#how-appdoctor-works).
+
+## Check demo billing
+
+After a fresh local setup with Portal and Stripe selected, run:
+
+```sh
+node connectors/stripe/monospace/setup/check-demo-billing.mjs
+```
+
+This checks the real nested Portal → Stripe customer → charges query. McKesson has 24 charges with one failed latest payment; Apple has 30 successful charges. Microsoft and Amazon each have 29, and Alphabet's trial has none. These assertions are only for the bundled demo, not your own Stripe account. String list filters must pass raw values to Stripe, without JSON quotation marks.

@@ -13,6 +13,7 @@
   "devDependencies": {
     "@monospace/cli": "0.2.1",
     "rolldown": "1.2.6",
-    "typescript": "6.0.3"
+    "typescript": "6.0.3",
+    "vitest": "catalog:"
   }
 }

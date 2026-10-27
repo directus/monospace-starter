@@ -6,7 +6,7 @@
 
 /* BlockNote's shadcn build styles itself with Tailwind classes; scan it so they get generated. */
 @source '../node_modules/@blocknote/shadcn';
-@source '../../../connectors/*/frontend';
+@source '../../../connectors/*/frontend/**/*.{ts,tsx}';
 
 @custom-variant dark (&:is(.dark *));
 

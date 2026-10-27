@@ -85,7 +85,7 @@ One exception: filtering the organization list by a portal field (plan, renewal 
 
 Two routes in `apps/web/server/`, registered in `apps/web/vite.config.ts`:
 
-- `logo.ts` (`/logo/:domain`): company logos from logo.dev, cached in memory. Needs `LOGO_DEV_TOKEN`; without it, logos are off and lists show an icon.
+- `logo.ts` (`/logo/:domain`): company logos from logo.dev, cached in memory. Needs `LOGO_DEV_TOKEN`; without it, logos are off and organization avatars show initials.
 - `asset.ts`: Monospace file downloads (avatars, attachments) in dev only. The dev server treats image requests as static files, so the `/api/*` proxy never sees them. In deployments, `/api/*` goes to Monospace before the app, so this route doesn't run.
 
 Both are nitro routes rather than TanStack Start routes for that same image-request reason.
