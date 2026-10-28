@@ -7,7 +7,7 @@ import { afterEach, expect, it } from 'vitest'
 
 import { manifestDocument, manifestPath } from '../tools/manifest-fixtures.mjs'
 import { syncCompose } from './compose-sync.mjs'
-import { requestedConnectors } from './manifests.mjs'
+import { requestedConnectors, selectConnectors } from './manifests.mjs'
 
 const directories = []
 
@@ -43,32 +43,17 @@ it('includes every compose.yml by convention, dropping removed parts', async () 
   expect(await readFile(new URL('compose.app.yml', root), 'utf8')).toContain('include: []')
 })
 
-it('selects every installed connector unless OPTIONAL_SOURCES overrides it', () => {
+it('selects installed connectors unless OPTIONAL_SOURCES names a different list', () => {
   const manifests = [
     { kind: 'module', id: 'sales', requires: ['demo'] },
     ...['portal', 'stripe'].map((id) => ({ kind: 'connector', id, requires: [] })),
   ]
 
+  const ids = (selected) => selected.map((manifest) => manifest.id)
+
   expect([...requestedConnectors(manifests)]).toEqual(['demo', 'portal', 'stripe'])
   expect([...requestedConnectors([], 'stripe, portal, stripe')]).toEqual(['stripe', 'portal'])
-  expect([...requestedConnectors(manifests, '')]).toEqual([])
-})
-
-it('selects only installed connectors, preserving unset and empty overrides', async () => {
-  const { selectConnectors } = await import('./manifests.mjs')
-
-  const manifests = [
-    { kind: 'module', id: 'sales', requires: [] },
-    ...['portal', 'stripe', 'demo'].map((id) => ({ kind: 'connector', id, requires: [] })),
-  ]
-
-  expect(selectConnectors(manifests).map((manifest) => manifest.id)).toEqual([
-    'portal',
-    'stripe',
-    'demo',
-  ])
-  expect(selectConnectors(manifests, '').map((manifest) => manifest.id)).toEqual([])
-  expect(selectConnectors(manifests, 'demo,absent').map((manifest) => manifest.id)).toEqual([
-    'demo',
-  ])
+  expect(ids(selectConnectors(manifests))).toEqual(['portal', 'stripe'])
+  expect(ids(selectConnectors(manifests, ''))).toEqual([])
+  expect(ids(selectConnectors(manifests, 'stripe,absent'))).toEqual(['stripe'])
 })
