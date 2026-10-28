@@ -32,16 +32,16 @@ Setup (`infra/monospace/setup/setup.mjs`) runs these stages in order:
 3. Link owner/audit fields to Monospace users, then run each module or connector's steps declared before schema application.
 4. Apply collection/field names, defaults, and Studio presentation, then run after-schema steps such as assigning demo activity owners.
 
-| Command / contract                                                | Purpose                                                                            |
-| ----------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
-| `pnpm build:extensions`                                           | Build selected connector packages into `infra/monospace/extensions/`               |
-| `pnpm setup:sources`                                              | Create workspace and data sources; approve extension hosts                         |
-| `pnpm setup:introspect`                                           | Reread connected sources after migrations, without writing to their databases      |
-| `pnpm setup:audit-relations`                                      | Configure owner and audit-user relations                                           |
-| `pnpm schema:apply`                                               | Apply module and connector `monospace/schema/*.json`                               |
-| `setup.beforeSchema`, `setup.afterSchema`                         | Module and connector steps run only for installed owners and selected dependencies |
-| `node infra/monospace/setup/run-step.mjs crm/backfill-owners.mjs` | Rerun one owner-qualified step; use the script name in its manifest                |
-| `connector-hook.mjs migrate` / `provision`                        | Dispatch installed connectors' migration or provisioning scripts                   |
+| Command / contract                                           | Purpose                                                                            |
+| ------------------------------------------------------------ | ---------------------------------------------------------------------------------- |
+| `pnpm build:extensions`                                      | Build selected connector packages into `infra/monospace/extensions/`               |
+| `pnpm setup:sources`                                         | Create workspace and data sources; approve extension hosts                         |
+| `pnpm setup:introspect`                                      | Reread connected sources after migrations, without writing to their databases      |
+| `pnpm setup:audit-relations`                                 | Configure owner and audit-user relations                                           |
+| `pnpm schema:apply`                                          | Apply module and connector `monospace/schema/*.json`                               |
+| `setup.beforeSchema`, `setup.afterSchema`                    | Module and connector steps run only for installed owners and selected dependencies |
+| `node modules/crm/infra/monospace/setup/backfill-owners.mjs` | Rerun one module or connector step on its own                                      |
+| `connector-hook.mjs migrate` / `provision`                   | Dispatch installed connectors' migration or provisioning scripts                   |
 
 The PostgreSQL `ops` schema holds migration bookkeeping and is excluded from the API. On local keyless installs, a licensed step refused with HTTP 402 logs an explanation and setup continues; other failures still stop setup. A configured key or production run makes licensing refusals fatal.
 

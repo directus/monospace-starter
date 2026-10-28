@@ -66,7 +66,7 @@ export function setupSteps(phase) {
         return []
       }
 
-      return [{ owner: owner.id, script, title, requires }]
+      return [{ title, url: new URL(`${owner.setupDirectory}/${script}`, repository) }]
     }),
   )
 }

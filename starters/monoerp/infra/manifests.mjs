@@ -191,33 +191,3 @@ export function selectConnectors(manifests, override) {
 
   return manifests.filter((manifest) => manifest.kind === 'connector' && requested.has(manifest.id))
 }
-
-export function selectSetupStep(selector, manifests, selected) {
-  if (!/^[a-z][a-z0-9-]*\/[a-zA-Z0-9_/-]+\.mjs$/.test(selector) || selector.includes('..')) {
-    throw new Error('Setup steps must be owner-qualified, for example crm/backfill-owners.mjs')
-  }
-
-  const separator = selector.indexOf('/')
-  const owner = manifests.find((manifest) => manifest.id === selector.slice(0, separator))
-
-  if (!owner) return undefined
-  const script = selector.slice(separator + 1)
-
-  const step = [...(owner.setup?.beforeSchema ?? []), ...(owner.setup?.afterSchema ?? [])].find(
-    (step) => step.script === script,
-  )
-
-  if (!step) throw new Error(`Unknown setup step: ${selector}`)
-
-  if (
-    (owner.kind === 'connector' && !selected.includes(owner.id)) ||
-    !(step.requires ?? []).every(
-      (id) =>
-        selected.includes(id) ||
-        manifests.some((manifest) => manifest.kind === 'module' && manifest.id === id),
-    )
-  )
-    return undefined
-
-  return { ...step, owner }
-}

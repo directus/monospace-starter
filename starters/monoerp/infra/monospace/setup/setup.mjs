@@ -71,33 +71,21 @@ function composePort() {
   }
 }
 
-const coreStep = (title, name) => ({
-  title,
-  run: () => runSetupStep(title, () => import(new URL(name, import.meta.url))),
-})
+const coreStep = (title, name) => ({ title, url: new URL(name, import.meta.url) })
 
-const ownerStep = ({ title, owner, script }) => ({
-  title,
-  run: () =>
-    execFileSync(
-      process.execPath,
-      [fileURLToPath(new URL('run-step.mjs', import.meta.url)), `${owner}/${script}`],
-      { stdio: 'inherit', cwd: root },
-    ),
-})
-
+// Each step is a self-contained script; importing it runs it against the shared session.
 const steps = [
   coreStep('Workspace and data sources', 'sources.mjs'),
   coreStep('Introspect sources', 'introspect-sources.mjs'),
   coreStep('Owner and audit user relations', 'audit-user-relations.mjs'),
-  ...setupSteps('beforeSchema').map(ownerStep),
+  ...setupSteps('beforeSchema'),
   coreStep('API names, defaults, presentation meta', 'apply-schema.mjs'),
-  ...setupSteps('afterSchema').map(ownerStep),
+  ...setupSteps('afterSchema'),
 ]
 
-for (const { title, run } of steps) {
+for (const { title, url } of steps) {
   console.log(`\n== ${title}`)
-  await run()
+  await runSetupStep(title, () => import(url))
 }
 
 console.log('\nMonospace is set up.')

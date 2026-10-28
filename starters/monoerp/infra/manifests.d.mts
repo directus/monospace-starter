@@ -94,8 +94,3 @@ export function resolveSource(
   value: SourceValue,
   env?: Record<string, string | undefined>,
 ): SourceValue
-export function selectSetupStep(
-  selector: string,
-  manifests: Manifest[],
-  selected: string[],
-): (SetupStep & { owner: ModuleManifest | ConnectorManifest }) | undefined
