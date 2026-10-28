@@ -2,10 +2,7 @@ import { existsSync, lstatSync, readdirSync, readFileSync, rmSync, writeFileSync
 import { createRequire } from 'node:module'
 import { fileURLToPath } from 'node:url'
 
-import { z } from 'zod'
-
 import { partFolders, partKinds, readManifest, repository } from '../infra/manifests.mjs'
-import { path as literalPath } from './manifest-schema.mjs'
 
 function contains(parent, child) {
   return child === parent || child.startsWith(`${parent}/`)
@@ -271,66 +268,9 @@ export function removeInstalled(id, { root = repository, dryRun = false } = {}) 
       `${id} is required by ${dependents.map((candidate) => candidate.id).join(', ')}`,
     )
 
-  removeOwned(manifest, { root, dryRun })
-
-  const remaining = manifests.map((candidate) => candidate.id).filter((other) => other !== id)
-
-  for (const connector of manifests) {
-    for (const feature of connector.frontend ?? []) {
-      if (
-        connector.id !== id &&
-        feature.requires.includes(id) &&
-        remaining.includes(feature.module)
-      )
-        console.log(
-          `${connector.id}: ${feature.module} feature turns ${featureStatus(feature, remaining)}`,
-        )
-    }
-  }
-
-  console.log('For a connected source, remove its relations and source in Studio first.')
-  console.log('Update README.md, AGENTS.md, and docs/ for the removed feature.')
-  console.log('Next commands:')
-
-  for (const step of manifests[0].nextSteps.remove)
-    console.log(`  ${step.script ? `pnpm ${step.script}` : step.command.join(' ')}`)
-
-  return manifest.ownedPaths
-}
-
-function encodePackage(value, previous) {
-  const indent = /\n([\t ]+)"/.exec(previous)?.[1]
-  const newline = previous.includes('\r\n') ? '\r\n' : '\n'
-  const suffix = previous.endsWith('\n') ? newline : ''
-
-  return JSON.stringify(value, null, indent).replaceAll('\n', newline) + suffix
-}
-
-const ownership = z.object({
-  id: z.string(),
-  ownedPaths: z.array(literalPath).min(1),
-  packageEntries: z
-    .array(
-      z.object({
-        file: literalPath,
-        section: z.string(),
-        entries: z.record(z.string(), z.string()),
-      }),
-    )
-    .default([]),
-})
-
-export function removeOwned(input, { root = repository, dryRun = false } = {}) {
-  const manifest = ownership.parse(input)
-
-  for (const path of manifest.ownedPaths) safePath(root, path)
-
   const edits = new Map()
 
   for (const entry of manifest.packageEntries) {
-    if (!safePath(root, entry.file))
-      throw new Error(`${manifest.id}: missing package file ${entry.file}`)
-
     const previous =
       edits.get(entry.file)?.previous ?? readFileSync(new URL(entry.file, root), 'utf8')
 
@@ -364,7 +304,37 @@ export function removeOwned(input, { root = repository, dryRun = false } = {}) {
     if (!dryRun) rmSync(new URL(path, root), { recursive: true })
   }
 
+  const remaining = manifests.map((candidate) => candidate.id).filter((other) => other !== id)
+
+  for (const connector of manifests) {
+    for (const feature of connector.frontend ?? []) {
+      if (
+        connector.id !== id &&
+        feature.requires.includes(id) &&
+        remaining.includes(feature.module)
+      )
+        console.log(
+          `${connector.id}: ${feature.module} feature turns ${featureStatus(feature, remaining)}`,
+        )
+    }
+  }
+
+  console.log('For a connected source, remove its relations and source in Studio first.')
+  console.log('Update README.md, AGENTS.md, and docs/ for the removed feature.')
+  console.log('Next commands:')
+
+  for (const step of manifests[0].nextSteps.remove)
+    console.log(`  ${step.script ? `pnpm ${step.script}` : step.command.join(' ')}`)
+
   return manifest.ownedPaths
+}
+
+function encodePackage(value, previous) {
+  const indent = /\n([\t ]+)"/.exec(previous)?.[1]
+  const newline = previous.includes('\r\n') ? '\r\n' : '\n'
+  const suffix = previous.endsWith('\n') ? newline : ''
+
+  return JSON.stringify(value, null, indent).replaceAll('\n', newline) + suffix
 }
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {

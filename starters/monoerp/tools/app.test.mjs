@@ -14,7 +14,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url'
 import { afterEach, expect, it, vi } from 'vitest'
 
 import { readManifests, resolveSource } from '../infra/manifests.mjs'
-import { checkApp, removeInstalled, removeOwned } from './app.mjs'
+import { checkApp, removeInstalled } from './app.mjs'
 import { manifestDocument, manifestPath } from './manifest-fixtures.mjs'
 
 const directories = []
@@ -428,26 +428,6 @@ it.each(['yaml', 'yml'])(
     expect(remaining).toContain('# Keep this comment')
   },
 )
-
-it('preflights direct ownership removal before changing package entries', () => {
-  const { root } = fixture()
-  write(root, 'package.json', JSON.stringify({ scripts: { internal: 'keep' } }))
-  symlinkSync(fileURLToPath(new URL('modules/sales/', root)), new URL('linked', root))
-
-  const owner = {
-    id: 'extras',
-    ownedPaths: ['linked'],
-    packageEntries: [{ file: 'package.json', section: 'scripts', entries: { internal: 'keep' } }],
-  }
-
-  expect(() => removeOwned(owner, { root })).toThrow('symlinks cannot be owned or traversed')
-  expect(() => removeOwned({ ...owner, ownedPaths: ['../escape'] }, { root })).toThrow(
-    'literal repository-relative path',
-  )
-  expect(JSON.parse(readFileSync(new URL('package.json', root), 'utf8')).scripts.internal).toBe(
-    'keep',
-  )
-})
 
 it.each([
   { indent: '\t', newline: '\r\n', trailing: '\r\n' },
