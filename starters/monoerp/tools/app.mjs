@@ -1,10 +1,11 @@
-import { execFileSync, spawnSync } from 'node:child_process'
 import { existsSync, lstatSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { createRequire } from 'node:module'
 import { fileURLToPath } from 'node:url'
 
-import { dependencies, manifestPath, readManifests, repository } from '../infra/manifests.mjs'
-import { ownershipSchema } from './manifest-schema.mjs'
+import { z } from 'zod'
+
+import { partFolders, partKinds, readManifest, repository } from '../infra/manifests.mjs'
+import { path as literalPath } from './manifest-schema.mjs'
 
 function contains(parent, child) {
   return child === parent || child.startsWith(`${parent}/`)
@@ -27,201 +28,235 @@ function safePath(root, path) {
   return true
 }
 
-function validateManifests(root = repository) {
-  const manifests = readManifests(root)
-  const ids = manifests.map((manifest) => manifest.id)
+function parsePackage(file, content) {
+  if (!/\.ya?ml$/.test(file)) return { document: null, value: JSON.parse(content) }
 
-  if (new Set(ids).size !== ids.length) throw new Error('Manifest ids must be unique')
+  const document = createRequire(import.meta.url)('yaml').parseDocument(content)
 
-  if (!ids.includes('starter')) throw new Error('starter.json is required')
+  return { document, value: document.toJS() }
+}
 
-  const owners = manifests.flatMap((manifest) =>
-    manifest.ownedPaths.map((path) => ({ manifest: manifest.id, path })),
-  )
+const plural = (count, word) => `${count} ${word}${count === 1 ? '' : 's'}`
 
-  for (const [index, owner] of owners.entries()) {
-    safePath(root, owner.path)
+function folders(root, path) {
+  const url = new URL(`${path}/`, root)
 
-    for (const other of owners.slice(index + 1)) {
-      if (contains(owner.path, other.path) || contains(other.path, owner.path)) {
-        throw new Error(
-          `Overlapping ownership: ${owner.manifest}:${owner.path} and ${other.manifest}:${other.path}`,
+  return existsSync(url)
+    ? readdirSync(url, { withFileTypes: true })
+        .filter(
+          (entry) =>
+            entry.isDirectory() && entry.name !== 'node_modules' && !entry.name.startsWith('.'),
         )
-      }
-    }
+        .map((entry) => entry.name)
+        .sort((left, right) => left.localeCompare(right))
+    : []
+}
+
+// A feature is on when its target module and every connector it needs are installed.
+function featureStatus(feature, ids) {
+  const missing = [feature.module, ...feature.requires].filter((id) => !ids.includes(id))
+
+  return missing.length ? `off: needs ${missing.join(', ')}` : 'on'
+}
+
+function describe(root, manifest, ids) {
+  if (manifest.kind === 'starter') return 'starter: owns every path outside the parts'
+
+  const details = []
+
+  if (manifest.kind === 'module') {
+    const routes = folders(root, `${manifest.folder}/routes`)
+    details.push(routes.length ? `routes ${routes.join('+')}` : 'no routes')
   }
 
-  const scripts = new Set()
+  if (manifest.compose)
+    details.push(
+      `compose${Object.keys(manifest.composeProfiles).length ? ` (+${Object.keys(manifest.composeProfiles).join(', ')})` : ''}`,
+    )
 
-  for (const manifest of manifests) {
-    for (const entry of manifest.packageEntries ?? []) {
-      if (!safePath(root, entry.path))
-        throw new Error(`${manifest.id}: missing package ${entry.path}`)
+  if (manifest.extension) details.push(`extension ${manifest.extension.installed}`)
 
-      for (const name of entry.names) {
-        const key = `${entry.path}:${entry.section}:${name}`
+  if (manifest.kind === 'module' || manifest.kind === 'connector') {
+    details.push(plural(manifest.schemaFiles.length, 'schema file'))
+    details.push(
+      plural(manifest.setup.beforeSchema.length + manifest.setup.afterSchema.length, 'setup step'),
+    )
+  }
 
-        if (scripts.has(key)) throw new Error(`Overlapping package entry ownership: ${key}`)
-        scripts.add(key)
-      }
+  if (manifest.migrate) details.push('migrate')
+
+  if (manifest.provision) details.push('provision')
+
+  for (const feature of manifest.frontend ?? [])
+    details.push(`${feature.module} feature ${featureStatus(feature, ids)}`)
+
+  if (manifest.lint) details.push('lint')
+
+  if (manifest.alsoOwns.length) details.push(`also owns ${manifest.alsoOwns.join(', ')}`)
+
+  const entries = manifest.packageEntries.flatMap((entry) =>
+    Object.keys(entry.entries).map((name) => `${entry.section}.${name}`),
+  )
+
+  if (entries.length) details.push(`package entries ${entries.join(', ')}`)
+
+  return `${manifest.id} (${manifest.kind}): ${details.join(', ')}`
+}
+
+function validateManifests(root = repository) {
+  if (!existsSync(new URL('starter.json', root))) throw new Error('starter.json is required')
+
+  const parts = partFolders(root)
+
+  for (const part of parts) {
+    safePath(root, part.folder)
+
+    if (!existsSync(new URL(part.file, root)))
+      throw new Error(`${part.folder}: every folder here is a ${part.kind}; add ${part.file}`)
+  }
+
+  const manifests = [
+    readManifest(root, { kind: 'starter', id: 'starter', folder: '', file: 'starter.json' }),
+    ...parts.map((part) => readManifest(root, part)),
+  ]
+
+  const ids = manifests.map((manifest) => manifest.id)
+
+  for (const [index, id] of ids.entries()) {
+    if (ids.indexOf(id) !== index) throw new Error(`Part ids must be unique across kinds: ${id}`)
+  }
+
+  // Parts own their folder; alsoOwns are root-only extras that cannot touch any part folder.
+  const owned = manifests.flatMap((manifest) =>
+    manifest.alsoOwns.map((path) => ({ id: manifest.id, path })),
+  )
+
+  const reserved = ['starter.json', ...partKinds.map(([base]) => base)]
+
+  for (const [index, owner] of owned.entries()) {
+    for (const other of [
+      ...reserved.map((path) => ({ id: 'starter', path })),
+      ...owned.slice(index + 1),
+    ]) {
+      if (contains(owner.path, other.path) || contains(other.path, owner.path))
+        throw new Error(
+          `Overlapping ownership: ${owner.id}:${owner.path} and ${other.id}:${other.path}`,
+        )
     }
 
-    const references = [
-      ...(manifest.kind === 'deploy' && manifest.lint ? [manifest.lint] : []),
-      manifestPath(manifest),
-    ]
+    if (!safePath(root, owner.path))
+      throw new Error(`${owner.id}: alsoOwns ${owner.path} is missing`)
+  }
 
-    if (manifest.kind === 'module' || manifest.kind === 'connector') {
-      const scripts = [...manifest.setup.beforeSchema, ...manifest.setup.afterSchema].map(
-        (step) => step.script,
-      )
+  const packageKeys = new Set()
 
-      if (new Set(scripts).size !== scripts.length)
-        throw new Error(`${manifest.id}: setup scripts must be unique within the manifest`)
+  for (const manifest of manifests) {
+    for (const entry of manifest.packageEntries) {
+      if (!safePath(root, entry.file))
+        throw new Error(`${manifest.id}: missing package file ${entry.file}`)
 
-      const known = new Set([
-        ...ids,
-        ...manifest.requires,
-        ...manifest.optional,
-        ...Object.values(manifest.requiresWhenInstalled).flat(),
-        ...(manifest.frontend ?? []).map((feature) => feature.module),
-      ])
+      const { value } = parsePackage(entry.file, readFileSync(new URL(entry.file, root), 'utf8'))
 
-      for (const step of [...manifest.setup.beforeSchema, ...manifest.setup.afterSchema]) {
-        for (const required of step.requires ?? []) {
-          if (!known.has(required))
-            throw new Error(
-              `${manifest.id}: setup step ${step.script} names unknown requirement ${required}`,
-            )
-        }
-      }
+      for (const [name, expected] of Object.entries(entry.entries)) {
+        const key = `${entry.file}:${entry.section}:${name}`
 
-      if (manifest.kind === 'connector') {
-        const targets = (manifest.frontend ?? []).map((feature) => feature.path)
+        if (packageKeys.has(key)) throw new Error(`Overlapping package entry ownership: ${key}`)
+        packageKeys.add(key)
 
-        if (new Set(targets).size !== targets.length)
-          throw new Error(`${manifest.id}: frontend paths must be unique`)
-
-        for (const feature of manifest.frontend ?? []) {
-          if (feature.path !== `connectors/${manifest.id}/frontend/${feature.module}`)
-            throw new Error(`${manifest.id}: frontend path must match its target module`)
-        }
+        if (value[entry.section]?.[name] !== expected)
+          throw new Error(
+            `${manifest.id}: ${entry.file} ${entry.section}.${name} must be ${JSON.stringify(expected)}`,
+          )
       }
     }
 
     for (const dependency of manifest.requires) {
-      if (!ids.includes(dependency))
-        throw new Error(`${manifest.id}: required manifest ${dependency} is absent`)
-
       if (dependency === manifest.id) throw new Error(`${manifest.id}: cannot require itself`)
+
+      if (!ids.includes(dependency))
+        throw new Error(`${manifest.id}: required part ${dependency} has no folder`)
     }
 
-    if (manifest.kind === 'module' || manifest.kind === 'connector') {
-      references.push(...manifest.schemaFiles)
+    if (manifest.kind === 'module' && !existsSync(new URL(`${manifest.app}/module.ts`, root)))
+      throw new Error(`${manifest.id}: ${manifest.app}/module.ts is missing`)
 
-      if (manifest.compose) references.push(manifest.compose)
-      references.push(...Object.values(manifest.composeProfiles ?? {}))
-      const directory = manifest.kind === 'module' ? manifest.infra : `connectors/${manifest.id}`
-      references.push(
-        ...[...manifest.setup.beforeSchema, ...manifest.setup.afterSchema].map(
-          (step) => `${directory}/monospace/setup/${step.script}`,
-        ),
-      )
+    if (manifest.kind !== 'module' && manifest.kind !== 'connector') continue
 
-      if (manifest.kind === 'module')
-        references.push(
-          manifest.app,
-          manifest.infra,
-          ...manifest.settings,
-          `${manifest.app}/module.ts`,
-        )
-      else {
-        if (manifest.extension) references.push(`${directory}/${manifest.extension.directory}`)
+    const steps = [...manifest.setup.beforeSchema, ...manifest.setup.afterSchema]
+    const scripts = steps.map((step) => step.script)
 
-        if (manifest.migrate) references.push(`${directory}/${manifest.migrate}`)
+    if (new Set(scripts).size !== scripts.length)
+      throw new Error(`${manifest.id}: setup scripts must be unique within the manifest`)
 
-        if (manifest.provision) references.push(`${directory}/${manifest.provision}`)
-        references.push(
-          ...(manifest.frontend ?? []).flatMap((feature) => [
-            feature.path,
-            `${feature.path}/feature.tsx`,
-          ]),
-        )
+    const known = new Set([
+      ...ids,
+      ...Object.keys(manifest.contributes ?? {}),
+      ...Object.values(manifest.contributes ?? {}).flatMap((feature) => feature.requires),
+    ])
+
+    for (const step of steps) {
+      const script = `${manifest.setupDirectory}/${step.script}`
+
+      if (!safePath(root, script))
+        throw new Error(`${manifest.id}: setup script ${script} is missing`)
+
+      for (const required of step.requires ?? []) {
+        if (!known.has(required))
+          throw new Error(
+            `${manifest.id}: setup step ${step.script} names unknown requirement ${required}`,
+          )
       }
     }
 
-    for (const path of references) {
-      if (!manifest.ownedPaths.some((owned) => contains(owned, path)))
-        throw new Error(`${manifest.id}: referenced path is not owned: ${path}`)
+    if (manifest.kind !== 'connector') continue
 
-      if (!safePath(root, path)) throw new Error(`${manifest.id}: ${path} is listed but missing`)
+    if (existsSync(new URL(`${manifest.folder}/extension/`, root)) && !manifest.extension)
+      throw new Error(`${manifest.id}: extension/ needs extension.config.json`)
+
+    for (const feature of manifest.frontend) {
+      if (!safePath(root, `${feature.path}/feature.tsx`))
+        throw new Error(
+          `${manifest.id}: contributes.${feature.module} needs ${feature.path}/feature.tsx`,
+        )
+    }
+
+    for (const module of folders(root, `${manifest.folder}/frontend`)) {
+      if (!Object.hasOwn(manifest.contributes, module))
+        throw new Error(
+          `${manifest.id}: ${manifest.folder}/frontend/${module} needs an x-monoerp.contributes.${module} entry`,
+        )
     }
   }
 
-  return { manifests, owners }
-}
+  const visiting = new Set()
+  const visited = new Set()
 
-const ownedTrees = [
-  'apps/web/src/routes',
-  'apps/web/src/modules',
-  'infra/modules',
-  'connectors',
-  'deploy',
-]
+  function visit(manifest) {
+    if (visited.has(manifest.id)) return
 
-function sourceFiles(root) {
-  const cwd = fileURLToPath(root)
+    if (visiting.has(manifest.id)) throw new Error(`Circular requirements through ${manifest.id}`)
+    visiting.add(manifest.id)
 
-  const git = spawnSync('git', ['rev-parse', '--is-inside-work-tree'], {
-    cwd,
-    encoding: 'utf8',
-    stdio: ['ignore', 'pipe', 'ignore'],
-  })
-
-  if (git.status === 0 && git.stdout.trim() === 'true') {
-    return execFileSync(
-      'git',
-      ['ls-files', '--cached', '--others', '--exclude-standard', '-z', '--', ...ownedTrees],
-      { cwd, encoding: 'utf8' },
-    )
-      .split('\0')
-      .filter(Boolean)
+    for (const dependency of manifest.requires)
+      visit(manifests.find((candidate) => candidate.id === dependency))
+    visiting.delete(manifest.id)
+    visited.add(manifest.id)
   }
 
-  const ignored = new Set(['node_modules', 'dist', '.output', '.git', '.pnpm-store', '.cache'])
-
-  function walk(path) {
-    if (!existsSync(new URL(path, root))) return []
-
-    return readdirSync(new URL(`${path}/`, root), { withFileTypes: true }).flatMap((entry) => {
-      if (ignored.has(entry.name)) return []
-      const child = `${path}/${entry.name}`
-
-      return entry.isDirectory() ? walk(child) : [child]
-    })
-  }
-
-  return ownedTrees.flatMap(walk)
-}
-
-export function checkApp(root = repository) {
-  const { manifests, owners } = validateManifests(root)
-  const files = sourceFiles(root)
-
-  for (const path of files) {
-    if (!ownedTrees.some((tree) => path.startsWith(`${tree}/`)) || !existsSync(new URL(path, root)))
-      continue
-    const matches = owners.filter((owner) => contains(owner.path, path))
-
-    if (matches.length !== 1)
-      throw new Error(`${path}: expected one owner, found ${matches.length}`)
-  }
+  for (const manifest of manifests) visit(manifest)
 
   return manifests
 }
 
+export function checkApp(root = repository) {
+  const manifests = validateManifests(root)
+  const ids = manifests.map((manifest) => manifest.id)
+
+  return { manifests, report: manifests.map((manifest) => describe(root, manifest, ids)) }
+}
+
 export function removeInstalled(id, { root = repository, dryRun = false } = {}) {
-  const { manifests } = validateManifests(root)
+  const manifests = validateManifests(root)
   const manifest = manifests.find((candidate) => candidate.id === id)
 
   if (!manifest) throw new Error(`Unknown module, connector, or deploy target: ${id}`)
@@ -229,13 +264,7 @@ export function removeInstalled(id, { root = repository, dryRun = false } = {}) 
   if (manifest.kind === 'starter')
     throw new Error('Starter is always installed and cannot be removed')
 
-  const installed = new Set(
-    manifests.filter((candidate) => candidate.id !== id).map(({ id }) => id),
-  )
-
-  const dependents = manifests.filter(
-    (candidate) => candidate.id !== id && dependencies(candidate, installed).includes(id),
-  )
+  const dependents = manifests.filter((candidate) => candidate.requires.includes(id))
 
   if (dependents.length)
     throw new Error(
@@ -244,12 +273,26 @@ export function removeInstalled(id, { root = repository, dryRun = false } = {}) 
 
   removeOwned(manifest, { root, dryRun })
 
-  const starter = manifests.find((manifest) => manifest.kind === 'starter')
+  const remaining = manifests.map((candidate) => candidate.id).filter((other) => other !== id)
+
+  for (const connector of manifests) {
+    for (const feature of connector.frontend ?? []) {
+      if (
+        connector.id !== id &&
+        feature.requires.includes(id) &&
+        remaining.includes(feature.module)
+      )
+        console.log(
+          `${connector.id}: ${feature.module} feature turns ${featureStatus(feature, remaining)}`,
+        )
+    }
+  }
+
   console.log('For a connected source, remove its relations and source in Studio first.')
   console.log('Update README.md, AGENTS.md, and docs/ for the removed feature.')
   console.log('Next commands:')
 
-  for (const step of starter.nextSteps.remove)
+  for (const step of manifests[0].nextSteps.remove)
     console.log(`  ${step.script ? `pnpm ${step.script}` : step.command.join(' ')}`)
 
   return manifest.ownedPaths
@@ -263,33 +306,44 @@ function encodePackage(value, previous) {
   return JSON.stringify(value, null, indent).replaceAll('\n', newline) + suffix
 }
 
+const ownership = z.object({
+  id: z.string(),
+  ownedPaths: z.array(literalPath).min(1),
+  packageEntries: z
+    .array(
+      z.object({
+        file: literalPath,
+        section: z.string(),
+        entries: z.record(z.string(), z.string()),
+      }),
+    )
+    .default([]),
+})
+
 export function removeOwned(input, { root = repository, dryRun = false } = {}) {
-  const manifest = ownershipSchema.parse(input)
+  const manifest = ownership.parse(input)
 
   for (const path of manifest.ownedPaths) safePath(root, path)
 
   const edits = new Map()
 
-  for (const entry of manifest.packageEntries ?? []) {
-    if (!safePath(root, entry.path))
-      throw new Error(`${manifest.id}: missing package ${entry.path}`)
+  for (const entry of manifest.packageEntries) {
+    if (!safePath(root, entry.file))
+      throw new Error(`${manifest.id}: missing package file ${entry.file}`)
 
-    const path = new URL(entry.path, root)
-    const previous = edits.get(entry.path)?.previous ?? readFileSync(path, 'utf8')
-    const content = edits.get(entry.path)?.content ?? previous
-    const yaml = /\.ya?ml$/.test(entry.path)
-    const document = yaml ? createRequire(import.meta.url)('yaml').parseDocument(content) : null
-    const value = document ? document.toJS() : JSON.parse(content)
+    const previous =
+      edits.get(entry.file)?.previous ?? readFileSync(new URL(entry.file, root), 'utf8')
 
-    for (const name of entry.names) {
-      console.log(`${dryRun ? 'Would remove' : 'Removing'} ${entry.path} ${entry.section}.${name}`)
-      const section = value[entry.section]
+    const { document, value } = parsePackage(entry.file, edits.get(entry.file)?.content ?? previous)
+
+    for (const name of Object.keys(entry.entries)) {
+      console.log(`${dryRun ? 'Would remove' : 'Removing'} ${entry.file} ${entry.section}.${name}`)
 
       if (document) document.deleteIn([entry.section, name])
-      else if (section) delete section[name]
+      else if (value[entry.section]) delete value[entry.section][name]
     }
 
-    edits.set(entry.path, {
+    edits.set(entry.file, {
       previous,
       content: document ? document.toString() : encodePackage(value, previous),
     })
@@ -317,13 +371,12 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
   try {
     const [command, id, ...flags] = process.argv.slice(2)
 
-    if (command === 'check' && !id)
-      console.log(
-        `Installed: ${checkApp()
-          .map((manifest) => manifest.id)
-          .join(', ')}`,
-      )
-    else if (command === 'remove' && id && flags.every((flag) => flag === '--dry-run'))
+    if (command === 'check' && !id) {
+      const { manifests, report } = checkApp()
+      console.log(`Installed: ${manifests.map((manifest) => manifest.id).join(', ')}`)
+
+      for (const line of report) console.log(`  ${line}`)
+    } else if (command === 'remove' && id && flags.every((flag) => flag === '--dry-run'))
       removeInstalled(id, { dryRun: flags.includes('--dry-run') })
     else throw new Error('Usage: pnpm app:doctor | pnpm app:remove <id> [--dry-run]')
   } catch (error) {

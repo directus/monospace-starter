@@ -1,11 +1,18 @@
-import { createFileRoute, redirect } from '@tanstack/react-router'
+import { createFileRoute, Navigate } from '@tanstack/react-router'
 
 import { modules } from '@/lib/modules'
+import { isSettingsPage, usePages } from '@/lib/modules/pages'
 
 export const Route = createFileRoute('/_app/settings/')({
-  beforeLoad: () => {
-    const firstPage = modules.flatMap((module) => module.settings?.pages ?? [])[0]
-
-    throw redirect({ href: firstPage ?? '/settings/account', replace: true })
-  },
+  component: SettingsIndex,
 })
+
+function SettingsIndex() {
+  const pages = usePages()
+
+  const firstPage = modules
+    .flatMap((module) => pages.filter((page) => isSettingsPage(page.to, module.id)))
+    .at(0)
+
+  return <Navigate to={firstPage?.to ?? '/settings/account'} replace />
+}

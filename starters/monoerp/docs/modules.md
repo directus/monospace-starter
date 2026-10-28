@@ -20,10 +20,10 @@ Copy `modules/crm` to `modules/<id>`. Inside it:
 | `modules/<id>/infra/monospace`                  | Schema settings (`schema/`) and setup scripts (`setup/`)                              |
 
 1. Replace the copied CRM IDs, imports, tables, demo records, queries, and tests with your module's data. Module code imports itself as `@/modules/<id>/...`; core as `@/...`. Put SQL in `infra/postgres/{init,migrations}/` and schema settings in `modules/<id>/infra/monospace/schema/`. Use the existing app database; see [schema changes](data-model.md#changing-the-schema).
-2. Edit `modules/<id>/module.json`: change the ID, owned paths, `app`, `infra`, collections, write schemas, audit columns, and setup scripts. Remove optional connectors you do not use, and clear settings entries unless you keep settings pages. Edit `package.json`: the package name and the dependencies your code imports.
+2. Edit `modules/<id>/module.json`: label, description, collections, `writes`, audit columns, and setup steps. The folder name is the ID; schema files, setup scripts, and routes are found by their folder.
 3. Rename `crm.copy.ts` to `inventory.copy.ts` and edit it with `module.ts`. Export a `ModuleEntry`, use `id: 'inventory'` and `basePath: '/inventory'`, and add `inventory: true` to `ModuleRegistry` through declaration merging. The registry discovers `modules/*/module.ts` automatically.
 4. Update each page's `createFileRoute` path and links, then set `staticData.page`: set `module`, `title`, and `icon`; add `nav` for sidebar pages and `parent` for detail pages. Use `index.tsx` for `/<id>` and `items_.$itemId.tsx` for a detail page outside the list layout. Follow [frontend conventions](frontend.md).
-5. Add search or settings only if needed. Copy `search.ts` for search; settings pages are `modules/<id>/routes/settings/<page>.tsx (URL `/settings/inventory/<page>`) and listed in the manifest's `settings` entries.
+5. Add search or settings only if needed. Copy `search.ts` for search. Settings pages go in `modules/<id>/routes/settings/` and appear under `/settings/<id>/` and in the settings sidebar automatically.
 6. Run `pnpm app:doctor`, `pnpm db:migrate`, `pnpm setup:all`, `pnpm generate:routes`, and `pnpm generate`.
 7. Run `pnpm verify` (plus browser tests for components). Open the module and check its sidebar group, home card, breadcrumbs, and command-palette entries.
 
@@ -33,32 +33,50 @@ Preview with `pnpm app:remove crm --dry-run`, then run `pnpm app:remove crm` and
 
 ## Starter, module, connector, and deploy manifests
 
-Each file has a required `format` marker, such as `urn:monospace:manifest:module:1`. The shared envelope contains `id`, `label`, `description`, `ownedPaths`, `requires` and `packageEntries`. `requires` defaults to an empty list. Active conditional requirements also block removal. Conditional requirements use `requiresWhenInstalled`, for example `{ "crm": ["portal"] }` on Stripe.
+A part is one folder: `modules/<id>`, `connectors/<id>`, or `deploy/<id>`. The folder name is the ID and the parent folder is the kind. Each part folder holds its manifest (`module.json`, `connector.json`, or `deploy.json`); a folder without one fails `pnpm app:doctor`. A part owns its whole folder. The starter (`starter.json`) owns every other path and cannot be removed.
 
-monoERP runtime settings live under `x-monoerp`: module app/infra paths, collections, setup, connector source settings and frontend features. Optional connector defaults are there too. Setup and app scripts validate these runtime settings alongside the shared envelope.
+Manifests declare only what cannot be found on disk. Two layers:
 
-`starter.json` also declares `sourceRoots`, literal `ignorePaths`, and `nextSteps.create` / `nextSteps.remove`. Next steps name package scripts (`{ "script": "setup:all" }`) or explicit command arguments (`{ "command": ["cp", "-n", ".env.example", ".env"] }`). Steps with `"when": "choices-changed"` run only after modules or connectors are left out. These are printed instructions, not code that the CLI evaluates. Package scripts use the detected package manager.
+| Envelope field (read by the CLI) | Contract                                                                                         |
+| -------------------------------- | ------------------------------------------------------------------------------------------------ |
+| `$schema`                        | `https://monospace.io/schemas/starter/v1/<kind>.json`; kind and contract version                 |
+| `label`, `description`           | Shown when picking parts                                                                         |
+| `requires`                       | Part IDs that must stay installed; they block removal                                            |
+| `alsoOwns`                       | Root files outside the folder that go with the part (a workflow, a patch); cannot overlap a part |
+| `packageEntries`                 | `{ file, section, entries }`: exact values in a root package or workspace file, removed with it  |
 
-The starter declares shared ownership in root `starter.json`. Each module uses `modules/<id>/module.json`; each connector uses `connectors/<id>/connector.json`; each deploy target uses `deploy/<id>/deploy.json`. The starter owns the shared shell and services and cannot be removed.
-
-| Field                        | Contract                                                                              |
-| ---------------------------- | ------------------------------------------------------------------------------------- |
-| `id`, `label`, `description` | Stable ID, label, and description                                                     |
-| `ownedPaths`                 | Literal repository-relative paths; a folder owns its contents, including its manifest |
-| `requires`                   | Required dependencies block removal                                                   |
-| `packageEntries`             | JSON package or YAML workspace file, section, and entry names deleted with the owner  |
+`starter.json` has `$schema`, `label`, `description`, literal `ignorePaths`, and `nextSteps.create` / `nextSteps.remove`. Next steps name package scripts (`{ "script": "setup:all" }`) or explicit command arguments (`{ "command": ["cp", "-n", ".env.example", ".env"] }`). Steps with `"when": "choices-changed"` run only after modules or connectors are left out. These are printed instructions, not code that the CLI evaluates. Package scripts use the detected package manager.
 
 ### `x-monoerp` runtime settings
 
-| Field                                     | Contract                                                                                                   |
-| ----------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
-| `optional`                                | Connector IDs selected by default                                                                          |
-| `app`, `infra`, `settings`                | Module UI/infra folders and settings route files                                                           |
-| `order`, `collections`, `schemas`         | Module order, required API collections, and collections needing write schemas                              |
-| `schemaFiles`, `auditTables`              | Schema settings files and SQL columns linked to Monospace users                                            |
-| `setup.beforeSchema`, `setup.afterSchema` | Ordered steps; each has a title and script relative to the module or connector's `monospace/setup/` folder |
-| Setup step `requires`                     | Skip unless each required module is installed or connector is selected                                     |
-| `compose`, `composeProfiles`              | Optional Compose file and profile overlays, relative to the repo root                                      |
+The CLI never reads `x-monoerp`; `tools/manifest-schema.mjs` validates it.
+
+| Field                                     | Contract                                                                                                 |
+| ----------------------------------------- | -------------------------------------------------------------------------------------------------------- |
+| `collections`, `writes`                   | Module API collections, and the ones that need write schemas                                             |
+| `auditColumns`                            | SQL columns per table linked to Monospace users                                                          |
+| `setup.beforeSchema`, `setup.afterSchema` | Ordered steps; each has a title and a script file name in the part's `monospace/setup/` folder           |
+| Setup step `requires`                     | Skip unless each named module is installed or connector is selected                                      |
+| `demoUserCredential`                      | Module only: environment variable for deployed demo users                                                |
+| `source`                                  | Connector only: provider and connection settings                                                         |
+| `contributes.<module>`                    | Connector only: a feature for that module, with its `collections` and the other connectors it `requires` |
+
+### Found by convention
+
+Paths are relative to the part folder.
+
+| Part      | Path                                                     | Meaning                                                             |
+| --------- | -------------------------------------------------------- | ------------------------------------------------------------------- |
+| Module    | `module.ts`                                              | UI entry (required)                                                 |
+| Module    | `routes/<kind>/`                                         | `app` pages at `/<id>`, `settings` pages at `/settings/<id>`        |
+| Module    | `infra/postgres/{init,migrations}`                       | SQL and demo data                                                   |
+| Module    | `infra/monospace/schema/*.json`, `infra/monospace/setup` | Schema settings files and setup scripts                             |
+| Connector | `monospace/schema/*.json`, `monospace/setup`             | Schema settings files and setup scripts                             |
+| Connector | `extension/extension.config.json`                        | Extension; installed as its ID with `/` replaced by `__`            |
+| Connector | `emulator/migrate.sh`, `emulator/provision.sh`           | Local migrations; `provision` also runs in the deployed setup task  |
+| Connector | `frontend/<module>/feature.tsx`                          | The feature declared in `contributes.<module>`                      |
+| Any       | `compose.yml`, `compose.<profile>.yml`                   | Local services, and overlays used when `COMPOSE_APP_PROFILE` is set |
+| Deploy    | `lint/config.ts`                                         | Vite+ lint fragment                                                 |
 
 For `OPTIONAL_SOURCES` and connector selection, see [Source selection](../connectors/README.md#source-selection).
 
@@ -66,20 +84,19 @@ For `OPTIONAL_SOURCES` and connector selection, see [Source selection](../connec
 
 A module UI entry is a `ModuleEntry` (`apps/web/src/lib/modules/types.ts`):
 
-| Field         | What it does                                                                 |
-| ------------- | ---------------------------------------------------------------------------- |
-| `id`          | A `ModuleId`. Pages point at it with `page.module`                           |
-| `order`       | Sidebar, home, and settings order (lower first)                              |
-| `label`       | The sidebar group heading, the module's breadcrumb, its home card            |
-| `description` | The line under the module's card on the home page                            |
-| `icon`        | The home card icon                                                           |
-| `basePath`    | The module's landing page (`/crm`). Breadcrumbs link to it                   |
-| `search`      | Optional. Scopes and a search function for the command palette               |
-| `settings`    | Optional group title and page paths derived from the JSON settings-file list |
+| Field         | What it does                                                      |
+| ------------- | ----------------------------------------------------------------- |
+| `id`          | A `ModuleId`. Pages point at it with `page.module`                |
+| `order`       | Sidebar, home, and settings order (lower first)                   |
+| `label`       | The sidebar group heading, the module's breadcrumb, its home card |
+| `description` | The line under the module's card on the home page                 |
+| `icon`        | The home card icon                                                |
+| `basePath`    | The module's landing page (`/crm`). Breadcrumbs link to it        |
+| `search`      | Optional. Scopes and a search function for the command palette    |
 
 `apps/web/src/lib/modules/index.ts` discovers default exports from `modules/*/module.ts` with an eager Vite glob, sorted by `order`. It exports `modules` and `moduleById`. Each UI entry adds its own key to `ModuleRegistry` through TypeScript declaration merging; `ModuleId` is `keyof ModuleRegistry`. Deleting the module folder removes both its runtime registration and its ID type. The CRM's UI entry is `modules/crm/module.ts`.
 
-The UI derives settings route paths from the JSON file list with `settingsPaths`; route `staticData.page` owns each title and icon. CRM owns only its PostgreSQL collections. Portal's optional feature owns its MySQL collections; Stripe's optional feature owns its Stripe collections.
+The settings sidebar lists each module's routes under `/settings/<id>/`, grouped under the module label; route `staticData.page` owns each title and icon. CRM owns only its PostgreSQL collections. Portal's optional feature owns its MySQL collections; Stripe's optional feature owns its Stripe collections.
 
 ## Routes
 
@@ -128,17 +145,11 @@ All user-facing text for a module lives in `modules/<id>/<id>.copy.ts` (`crmCopy
 To add UI from a connector without importing it into CRM:
 
 1. Create `connectors/<id>/frontend/crm/feature.tsx`, using Portal or Stripe as an example. Keep queries, copy, display helpers, and tests in that feature folder.
-2. Add a `frontend` entry to the connector's `connector.json`, using the contract below.
+2. Add `x-monoerp.contributes.crm` to the connector's `connector.json` with the feature's `collections`, and `requires` for other connectors it needs.
 3. Export the feature's contributions from `feature.tsx`. Import contribution types from the target module's `@/modules/<module>/slots` (`@/modules/crm/slots` for CRM), plus core helpers and generated SDK types. This is the only module import allowed from connector frontend code; other module internals stay private.
 4. Run `pnpm install`, configure the source with `pnpm setup:all`, regenerate the SDK with `pnpm generate`, and run `pnpm verify` plus browser tests.
 
-| Feature manifest field   | Contract                                                     |
-| ------------------------ | ------------------------------------------------------------ |
-| `module`, `path`         | Target module and `connectors/<id>/frontend/<module>` folder |
-| `slot`                   | `organization-panel` for the CRM feature entry               |
-| `requires`               | Other selected connectors needed by this feature             |
-| `order`                  | Display order                                                |
-| `collections`, `schemas` | Required API collections and write schemas                   |
+A feature is on when its module is installed and its connector and every connector in its `requires` are installed and selected. Otherwise it is off, and `pnpm app:doctor` says why. Features show in connector ID order.
 
 | Export from `feature.tsx` | Type / purpose                                                                                                                                     |
 | ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -149,24 +160,24 @@ To add UI from a connector without importing it into CRM:
 
 Build and test configs define `__MODULE_FEATURE_PATHS__`, a map of module IDs to selected connector paths. Each module reads only its own entry.
 
-CRM owns its contribution types and registry in `modules/crm/slots.ts`; `lib/modules/features.ts` selects the configured connector entries. Portal supplies all four contributions; Stripe supplies Billing as an organization panel and requires Portal. Remove Stripe before Portal while CRM is installed; removing Stripe hides Billing. CRM retains its stored Portal account link so restoring the connector can reconnect records. Follow the shared removal steps when retiring either source.
+CRM owns its contribution types and registry in `modules/crm/slots.ts`; `lib/modules/features.ts` selects the configured connector entries. Portal supplies all four contributions; Stripe supplies Billing as an organization panel and requires Portal. Removing Portal while Stripe is installed turns Billing off; removing Stripe hides Billing. CRM retains its stored Portal account link so restoring the connector can reconnect records. Follow the shared removal steps when retiring either source.
 
 ## How app:doctor works
 
-Setup-step requirements may name dependencies declared in `requiresWhenInstalled`, even after that optional connector is removed. Those steps are skipped when their dependencies are absent; undeclared requirement names still fail validation.
+`pnpm app:doctor` reads every part folder and prints what it found for each one, for example `portal (connector): compose, 1 schema file, 2 setup steps, migrate, provision, crm feature on`. A feature that cannot run says why: `crm feature off: needs portal`.
 
-`pnpm app:doctor` validates manifests, dependencies, referenced files, and exclusive ownership under `apps/web/src/routes`, `modules`, `connectors`, and `deploy`. In Git it checks tracked and untracked source files while respecting ignores; without Git it walks source trees and skips dependencies/build output. Owned dotfolders may be absent, but referenced manifests, entry files, schemas, and scripts must exist. Ownership cannot overlap or traverse symlinks. Removal validates paths and dependencies before deleting anything. Package edits accept `.yaml` and `.yml`, preserve JSON indentation and newline style, and refuse to overwrite a file changed during removal. The implementation is in `tools/manifest-schema.mjs` and `tools/app.mjs`.
+It fails when a convention is broken: a part folder without its manifest, a `$schema` that does not match the folder, a module without `module.ts`, a setup step without its script, a `contributes` entry without `frontend/<module>/feature.tsx` (or the reverse), an `extension/` folder without `extension.config.json`, a `requires` naming a part with no folder, circular `requires`, duplicate IDs, `alsoOwns` that are missing or overlap a part or each other, and `packageEntries` whose value differs from the file. Setup-step `requires` may name connectors a feature needs even after they are removed; other unknown names fail.
+
+Removal runs the same checks before deleting anything, then deletes the folder and `alsoOwns`, and removes `packageEntries`. Paths cannot traverse symlinks. Package edits accept `.yaml` and `.yml`, preserve JSON indentation and newline style, and refuse to overwrite a file changed during removal. The implementation is in `tools/manifest-schema.mjs`, `infra/manifests.mjs`, and `tools/app.mjs`.
 
 The import-boundary tests also reject imports between modules or from a module into connector code. Shared registries are the documented entry points. Feature-aware typecheck creates a temporary check config extending `apps/web/tsconfig.json`; lint and unit/browser tests exclude inactive features. Frontend discovery exposes only selected feature paths, never source credentials.
 
 ## Deploy targets
 
-`deploy/<id>/deploy.json` declares a hosting target with `format: urn:monospace:manifest:deploy:1`. A second target belongs in a sibling folder. The app works with none installed.
+`deploy/<id>/deploy.json` declares a hosting target. A second target belongs in a sibling folder. The app works with none installed.
 
-Targets use the shared ownership, dependency, and package-entry fields. Their files live together; files tools require elsewhere (such as workflows and package patches) are listed in `ownedPaths`. Remove a target with `pnpm app:remove <id>`, then run `pnpm install` and `pnpm verify`.
+Targets use the envelope only. Root files they need (a workflow, a package patch) are listed in `alsoOwns`, and root package or workspace entries in `packageEntries`. Remove a target with `pnpm app:remove <id>`, then run `pnpm install` and `pnpm verify`.
 
-A target may declare an `x-monoerp.lint` path exporting a Vite+ lint fragment. The reader exposes it as `lint` on the normalized manifest. Plugin names share one namespace across installed targets and core. `tools/lint.ts` combines installed targets' fragments with the core strict rules in `tools/oxlint`. Strict lint and `@oxlint/plugins` are always installed. Lint implementation code and connector extensions follow the base rules.
-
-Manifests have no `kind` field. Their filenames identify their type and `format` identifies type and version. Readers derive their internal type from `format` and validate it against the location.
+A target's `lint/config.ts` exports a Vite+ lint fragment. Plugin names share one namespace across installed targets and core. `tools/lint.ts` combines installed targets' fragments with the core strict rules in `tools/oxlint`. Strict lint and `@oxlint/plugins` are always installed. Lint implementation code and connector extensions follow the base rules.
 
 Schema files inherit their source from their owner: modules use `app.config.json`'s `appSource`, and connectors use their manifest's source API name. Optional relation targets without a `source` use the app database.

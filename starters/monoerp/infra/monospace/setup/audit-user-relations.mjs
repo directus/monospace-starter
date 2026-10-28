@@ -15,7 +15,7 @@ const currentUserOnCreateAndUpdate = {
   onUpdate: { kind: 'currentUser' },
 }
 
-const collections = Object.assign({}, ...modules.map((module) => module.auditTables))
+const collections = Object.assign({}, ...modules.map((module) => module.auditColumns))
 
 const fieldConfig = {
   owner_user_id: {

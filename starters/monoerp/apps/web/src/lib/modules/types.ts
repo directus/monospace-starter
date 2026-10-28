@@ -73,10 +73,6 @@ export type ModuleEntry = {
   icon: LucideIcon
   basePath: RoutePath
   search?: ModuleSearch
-  settings?: {
-    title: string
-    pages: string[]
-  }
 }
 
 export type RecordHistoryEntry = {

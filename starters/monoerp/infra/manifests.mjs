@@ -1,68 +1,158 @@
 import { existsSync, readdirSync, readFileSync } from 'node:fs'
 
-import { manifestSchema } from '../tools/manifest-schema.mjs'
+import { manifestSchemas, schemaUrl } from '../tools/manifest-schema.mjs'
 
 export const repository = new URL('../', import.meta.url)
 
-export function dependencies(manifest, installed) {
-  return [
-    ...manifest.requires,
-    ...Object.entries(manifest.requiresWhenInstalled ?? {}).flatMap(([id, required]) =>
-      installed.has(id) ? required : [],
-    ),
-  ]
-}
+export const partKinds = [
+  ['modules', 'module'],
+  ['connectors', 'connector'],
+  ['deploy', 'deploy'],
+]
 
-export function manifestPath(manifest) {
-  if (manifest.kind === 'starter') return 'starter.json'
-
-  return `${
-    {
-      module: 'modules',
-      connector: 'connectors',
-      deploy: 'deploy',
-    }[manifest.kind]
-  }/${manifest.id}/${manifest.kind}.json`
-}
-
-export function readManifests(root = repository) {
-  const paths = existsSync(new URL('starter.json', root)) ? ['starter.json'] : []
-
-  for (const [base, kind] of [
-    ['modules', 'module'],
-    ['connectors', 'connector'],
-    ['deploy', 'deploy'],
-  ]) {
+// Every folder under modules/, connectors/ and deploy/ is a part; its name is the id.
+export function partFolders(root = repository) {
+  return partKinds.flatMap(([base, kind]) => {
     const directory = new URL(`${base}/`, root)
 
-    if (!existsSync(directory)) continue
+    if (!existsSync(directory)) return []
 
-    for (const entry of readdirSync(directory, { withFileTypes: true }).sort((a, b) =>
-      a.name.localeCompare(b.name),
-    )) {
-      if (!entry.isDirectory()) continue
-      const path = `${base}/${entry.name}/${kind}.json`
-
-      if (existsSync(new URL(path, root))) paths.push(path)
-      else
-        console.warn(`${base}/${entry.name}: ignored, no ${kind}.json (remove the leftover folder)`)
-    }
-  }
-
-  return paths.map((path) => {
-    const manifest = manifestSchema.parse(JSON.parse(readFileSync(new URL(path, root), 'utf8')))
-
-    if (path !== manifestPath(manifest))
-      throw new Error(`${path}: format and id must match the manifest location`)
-
-    return manifest
+    return readdirSync(directory, { withFileTypes: true })
+      .filter((entry) => entry.isDirectory() || entry.isSymbolicLink())
+      .map((entry) => entry.name)
+      .sort((left, right) => left.localeCompare(right))
+      .map((id) => ({ kind, id, folder: `${base}/${id}`, file: `${base}/${id}/${kind}.json` }))
   })
 }
 
-export function requestedConnectors(modules, override) {
+function files(root, directory, pattern) {
+  const url = new URL(`${directory}/`, root)
+
+  if (!existsSync(url)) return []
+
+  return readdirSync(url)
+    .filter((name) => pattern.test(name))
+    .sort((left, right) => left.localeCompare(right))
+    .map((name) => `${directory}/${name}`)
+}
+
+function compose(root, folder) {
+  return {
+    compose: existsSync(new URL(`${folder}/compose.yml`, root))
+      ? `${folder}/compose.yml`
+      : undefined,
+    composeProfiles: Object.fromEntries(
+      files(root, folder, /^compose\.[a-z][a-z0-9-]*\.yml$/).map((path) => [
+        path.split('/').at(-1).split('.')[1],
+        path,
+      ]),
+    ),
+  }
+}
+
+// Everything findable on disk is derived here, so manifests only declare what cannot be found.
+function conventions(root, kind, folder, runtime) {
+  const exists = (path) => existsSync(new URL(`${folder}/${path}`, root))
+
+  if (kind === 'module') {
+    return {
+      app: folder,
+      infra: `${folder}/infra`,
+      setupDirectory: `${folder}/infra/monospace/setup`,
+      schemaFiles: files(root, `${folder}/infra/monospace/schema`, /\.json$/),
+      ...compose(root, folder),
+    }
+  }
+
+  if (kind === 'connector') {
+    const extension = `${folder}/extension/extension.config.json`
+
+    return {
+      setupDirectory: `${folder}/monospace/setup`,
+      schemaFiles: files(root, `${folder}/monospace/schema`, /\.json$/),
+      ...compose(root, folder),
+      extension: existsSync(new URL(extension, root))
+        ? {
+            directory: 'extension',
+            installed: JSON.parse(readFileSync(new URL(extension, root), 'utf8')).id.replaceAll(
+              '/',
+              '__',
+            ),
+          }
+        : undefined,
+      migrate: exists('emulator/migrate.sh') ? 'emulator/migrate.sh' : undefined,
+      provision: exists('emulator/provision.sh') ? 'emulator/provision.sh' : undefined,
+      frontend: Object.entries(runtime.contributes)
+        .sort(([left], [right]) => left.localeCompare(right))
+        .map(([module, feature]) => ({ module, path: `${folder}/frontend/${module}`, ...feature })),
+    }
+  }
+
+  if (kind === 'deploy')
+    return { lint: exists('lint/config.ts') ? `${folder}/lint/config.ts` : undefined }
+
+  return {}
+}
+
+export function readManifest(root, { kind, id, folder, file }) {
+  const document = JSON.parse(readFileSync(new URL(file, root), 'utf8'))
+
+  if (document.$schema !== schemaUrl(kind))
+    throw new Error(`${file}: $schema must be ${schemaUrl(kind)}`)
+
+  const result = manifestSchemas[kind].safeParse(document)
+
+  if (!result.success)
+    throw new Error(
+      `${file}: ${result.error.issues
+        .map((issue) => `${[...issue.path].join('.') || 'manifest'} ${issue.message}`)
+        .join('; ')}`,
+    )
+
+  const { $schema: _schema, 'x-monoerp': runtime = {}, ...envelope } = result.data
+
+  return {
+    requires: [],
+    alsoOwns: [],
+    packageEntries: [],
+    ...envelope,
+    ...runtime,
+    kind,
+    id,
+    folder,
+    file,
+    ownedPaths: kind === 'starter' ? [] : [folder, ...(envelope.alsoOwns ?? [])],
+    ...conventions(root, kind, folder, runtime),
+  }
+}
+
+export function readManifests(root = repository) {
+  const parts = partFolders(root).filter((part) => {
+    if (existsSync(new URL(part.file, root))) return true
+    console.warn(`${part.folder}: ignored, no ${part.kind}.json (remove the leftover folder)`)
+
+    return false
+  })
+
+  return [
+    ...(existsSync(new URL('starter.json', root))
+      ? [{ kind: 'starter', id: 'starter', folder: '', file: 'starter.json' }]
+      : []),
+    ...parts,
+  ].map((part) => readManifest(root, part))
+}
+
+// Installed connectors are selected unless OPTIONAL_SOURCES names a different list.
+export function requestedConnectors(manifests, override) {
   return new Set(
     override === undefined
-      ? modules.flatMap((module) => [...module.requires, ...module.optional])
+      ? manifests.flatMap((manifest) =>
+          manifest.kind === 'connector'
+            ? [manifest.id]
+            : manifest.kind === 'module'
+              ? manifest.requires
+              : [],
+        )
       : override
           .split(',')
           .map((name) => name.trim())
@@ -97,10 +187,7 @@ export function resolveSource(value, env = process.env) {
 }
 
 export function selectConnectors(manifests, override) {
-  const requested = requestedConnectors(
-    manifests.filter((manifest) => manifest.kind === 'module'),
-    override,
-  )
+  const requested = requestedConnectors(manifests, override)
 
   return manifests.filter((manifest) => manifest.kind === 'connector' && requested.has(manifest.id))
 }

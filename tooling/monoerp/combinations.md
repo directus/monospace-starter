@@ -1,6 +1,6 @@
 # Module and connector combinations
 
-`.github/workflows/monoerp-combinations.yml` runs on pull requests and pushes to `main` that change `starters/monoerp` or `tooling/monoerp`. It runs this folder's unit tests, then discovers combinations from the starter's installed JSON manifests: `everything`, each `<module>-only` with its required and installed optional connectors, and `<module>-without-<connector>` for each installed optional connector. The latter starts from that module-only selection. Required dependencies are kept transitively. The matrix covers:
+`.github/workflows/monoerp-combinations.yml` runs on pull requests and pushes to `main` that change `starters/monoerp` or `tooling/monoerp`. It runs this folder's unit tests, then discovers combinations from the starter's installed JSON manifests: `everything`, each `<module>-only` with its required connectors and the connectors that contribute a feature to it (`x-monoerp.contributes.<module>`), and `<module>-without-<connector>` for each of those optional connectors. The latter starts from that module-only selection. Required dependencies are kept transitively. The matrix covers:
 
 | Combination                           | Selection                                                      |
 | ------------------------------------- | -------------------------------------------------------------- |

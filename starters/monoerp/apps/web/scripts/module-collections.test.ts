@@ -21,34 +21,25 @@ function fixture() {
   return pathToFileURL(`${path}/`)
 }
 
-function addModule(root: URL, id: string, order: number, collections: string[], schemas: string[]) {
+function addModule(root: URL, id: string, collections: string[], writes: string[]) {
   const directory = new URL(`modules/${id}/`, root)
-  const app = `apps/web/src/modules/${id}`
   mkdirSync(directory, { recursive: true })
-  mkdirSync(new URL(`${app}/`, root), { recursive: true })
   writeFileSync(
     new URL('module.json', directory),
-    JSON.stringify(
-      manifestDocument({
-        kind: 'module',
-        id,
-        app,
-        order,
-        collections,
-        schemas,
-        requires: [],
-        optional: [],
-      }),
-    ),
+    JSON.stringify(manifestDocument({ kind: 'module', id, collections, writes })),
   )
 }
 
-function addConnector(root: URL, id: string) {
+function addConnector(
+  root: URL,
+  id: string,
+  contributes: Record<string, { requires?: string[]; collections: string[] }> = {},
+) {
   const directory = new URL(`connectors/${id}/`, root)
   mkdirSync(directory, { recursive: true })
   writeFileSync(
     new URL('connector.json', directory),
-    JSON.stringify(manifestDocument({ kind: 'connector', id })),
+    JSON.stringify(manifestDocument({ kind: 'connector', id, contributes })),
   )
 }
 
@@ -62,12 +53,12 @@ afterEach(() => {
 describe('module collection discovery', () => {
   it('drops a removed module and restores its collections when copied back', () => {
     const root = fixture()
-    addModule(root, 'inventory', 20, ['products', 'stockLevels'], ['products'])
-    addModule(root, 'sales', 10, ['organizations', 'billingCustomers'], ['organizations'])
+    addModule(root, 'inventory', ['products', 'stockLevels'], ['products'])
+    addModule(root, 'sales', ['organizations', 'billingCustomers'], ['organizations'])
 
     expect(readModuleCollections(root)).toEqual({
-      appCollections: ['organizations', 'billingCustomers', 'products', 'stockLevels'],
-      schemaCollections: ['organizations', 'products'],
+      appCollections: ['products', 'stockLevels', 'organizations', 'billingCustomers'],
+      schemaCollections: ['products', 'organizations'],
     })
 
     rmSync(new URL('modules/inventory/', root), { recursive: true })
@@ -76,7 +67,7 @@ describe('module collection discovery', () => {
       schemaCollections: ['organizations'],
     })
 
-    addModule(root, 'inventory', 20, ['products', 'stockLevels'], ['products'])
+    addModule(root, 'inventory', ['products', 'stockLevels'], ['products'])
     expect(readModuleCollections(root).appCollections).toContain('stockLevels')
 
     rmSync(new URL('modules/inventory/', root), { recursive: true })
@@ -86,35 +77,17 @@ describe('module collection discovery', () => {
 
   it('rejects a write schema whose collection is absent from the SDK', () => {
     const root = fixture()
-    addModule(root, 'sales', 10, ['organizations'], ['missing'])
-    expect(() => readModuleCollections(root)).toThrow('schemas missing from collections: missing')
+    addModule(root, 'sales', ['organizations'], ['missing'])
+    expect(() => readModuleCollections(root)).toThrow('writes missing from collections: missing')
   })
 
   it('adds only selected features for an installed module and its required sources', () => {
     const root = fixture()
-    addModule(root, 'crm', 10, ['organizations', 'accounts'], ['organizations'])
+    addModule(root, 'crm', ['organizations', 'accounts'], ['organizations'])
     addConnector(root, 'portal')
-    addConnector(root, 'stripe')
-    writeFileSync(
-      new URL('connectors/stripe/connector.json', root),
-      JSON.stringify(
-        manifestDocument({
-          kind: 'connector',
-          id: 'stripe',
-          frontend: [
-            {
-              module: 'crm',
-              slot: 'organization-panel',
-              path: 'connectors/stripe/frontend/crm',
-              requires: ['portal'],
-              order: 10,
-              collections: ['stripeCustomers', 'stripeCharges'],
-              schemas: [],
-            },
-          ],
-        }),
-      ),
-    )
+    addConnector(root, 'stripe', {
+      crm: { requires: ['portal'], collections: ['stripeCustomers', 'stripeCharges'] },
+    })
 
     const entry = new URL('connectors/stripe/frontend/crm/feature.tsx', root)
     mkdirSync(new URL('./', entry), { recursive: true })
@@ -134,14 +107,14 @@ describe('module collection discovery', () => {
 
     rmSync(new URL('modules/crm/', root), { recursive: true })
     expect(readModuleCollections(root, ['portal', 'stripe']).appCollections).toEqual([])
-    addModule(root, 'crm', 10, ['organizations', 'accounts'], ['organizations'])
+    addModule(root, 'crm', ['organizations', 'accounts'], ['organizations'])
 
     const active = readFrontendFeatures(root, ['portal', 'stripe']).active
     expect(
       readModuleFeaturePaths([
         ...active,
         ...active.map((feature) => ({ ...feature, module: 'inventory' })),
-        ...active.map((feature) => ({ ...feature, slot: 'another-slot' })),
+        ...active,
       ]),
     ).toEqual({
       crm: ['connectors/stripe/frontend/crm'],
@@ -163,30 +136,15 @@ describe('module collection discovery', () => {
 
 it('keeps an installed inventory-targeted feature out of the CRM organization slot', () => {
   const root = fixture()
-  addModule(root, 'crm', 10, ['organizations'], [])
-  addModule(root, 'inventory', 20, ['products'], [])
+  addModule(root, 'crm', ['organizations'], [])
+  addModule(root, 'inventory', ['products'], [])
 
   for (const [connector, module] of [
     ['stripe', 'crm'],
     ['demo', 'inventory'],
   ]) {
-    addConnector(root, connector)
+    addConnector(root, connector, { [module]: { collections: [`${connector}Records`] } })
     const path = `connectors/${connector}/frontend/${module}`
-
-    const feature = {
-      module,
-      slot: 'organization-panel',
-      path,
-      requires: [],
-      order: 10,
-      collections: [`${connector}Records`],
-      schemas: [],
-    }
-
-    writeFileSync(
-      new URL(`connectors/${connector}/connector.json`, root),
-      JSON.stringify(manifestDocument({ kind: 'connector', id: connector, frontend: [feature] })),
-    )
     mkdirSync(new URL(`${path}/`, root), { recursive: true })
     writeFileSync(new URL(`${path}/feature.tsx`, root), '')
   }
@@ -201,33 +159,18 @@ it('keeps an installed inventory-targeted feature out of the CRM organization sl
 
 it('drops Portal and conditional Stripe collections when Portal is removed', () => {
   const root = fixture()
-  addModule(root, 'crm', 10, ['organizations', 'contacts'], ['organizations'])
+  addModule(root, 'crm', ['organizations', 'contacts'], ['organizations'])
 
   for (const connector of ['portal', 'stripe']) {
-    addConnector(root, connector)
+    addConnector(root, connector, {
+      crm:
+        connector === 'stripe'
+          ? { requires: ['portal'], collections: ['stripeCustomers'] }
+          : { collections: ['accounts', 'users'] },
+    })
     const path = `connectors/${connector}/frontend/crm`
     mkdirSync(new URL(`${path}/`, root), { recursive: true })
     writeFileSync(new URL(`${path}/feature.tsx`, root), '')
-    writeFileSync(
-      new URL(`connectors/${connector}/connector.json`, root),
-      JSON.stringify(
-        manifestDocument({
-          kind: 'connector',
-          id: connector,
-          frontend: [
-            {
-              module: 'crm',
-              slot: 'organization-panel',
-              path,
-              requires: connector === 'stripe' ? ['portal'] : [],
-              order: 10,
-              collections: connector === 'portal' ? ['accounts', 'users'] : ['stripeCustomers'],
-              schemas: [],
-            },
-          ],
-        }),
-      ),
-    )
   }
 
   expect(readModuleCollections(root, ['portal', 'stripe']).appCollections).toEqual([
@@ -247,28 +190,8 @@ it('drops Portal and conditional Stripe collections when Portal is removed', () 
 
 it('keeps disabled connector discovery quiet', () => {
   const root = fixture()
-  addModule(root, 'crm', 10, ['organizations'], [])
-  addConnector(root, 'portal')
-  writeFileSync(
-    new URL('connectors/portal/connector.json', root),
-    JSON.stringify(
-      manifestDocument({
-        kind: 'connector',
-        id: 'portal',
-        frontend: [
-          {
-            module: 'crm',
-            slot: 'organization-panel',
-            path: 'connectors/portal/frontend/crm',
-            requires: [],
-            order: 10,
-            collections: ['accounts'],
-            schemas: [],
-          },
-        ],
-      }),
-    ),
-  )
+  addModule(root, 'crm', ['organizations'], [])
+  addConnector(root, 'portal', { crm: { collections: ['accounts'] } })
   vi.stubEnv('OPTIONAL_SOURCES', undefined)
   const log = vi.spyOn(console, 'log').mockImplementation(() => {})
   expect(readFrontendFeatures(root, []).active).toEqual([])

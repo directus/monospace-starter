@@ -1,22 +1,18 @@
 {
-  "format": "urn:monospace:manifest:deploy:1",
-  "id": "aws",
+  "$schema": "https://monospace.io/schemas/starter/v1/deploy.json",
   "label": "AWS deploy",
-  "description": "Optional deployment tools",
-  "ownedPaths": ["deploy/aws", ".github/workflows/deploy-aws.yml"],
+  "description": "Fargate, RDS and GitHub OIDC with Alchemy",
+  "alsoOwns": [".github/workflows/deploy-aws.yml"],
   "packageEntries": [
     {
-      "path": "package.json",
+      "file": "package.json",
       "section": "scripts",
-      "names": ["aws"]
+      "entries": { "aws": "vp run --filter @monoerp/aws" }
     },
     {
-      "path": "pnpm-workspace.yaml",
+      "file": "pnpm-workspace.yaml",
       "section": "patchedDependencies",
-      "names": ["alchemy@2.0.0-beta.79"]
+      "entries": { "alchemy@2.0.0-beta.79": "deploy/aws/patches/alchemy@2.0.0-beta.79.patch" }
     }
-  ],
-  "x-monoerp": {
-    "lint": "deploy/aws/lint/config.ts"
-  }
+  ]
 }

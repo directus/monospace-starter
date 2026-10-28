@@ -1,89 +1,32 @@
-// Fixture builders keep runtime settings readable while writing the public document format.
-export function manifestDocument(input) {
-  const defaults =
-    input.kind === 'module'
-      ? {
-          app: `apps/web/src/modules/${input.id}`,
-          infra: `infra/modules/${input.id}`,
-          settings: [],
-          order: 0,
-          collections: [],
-          schemas: [],
-          schemaFiles: [],
-          auditTables: {},
-          setup: { beforeSchema: [], afterSchema: [] },
-        }
-      : input.kind === 'connector'
-        ? {
-            source: {},
-            schemaFiles: [],
-            setup: { beforeSchema: [], afterSchema: [] },
-          }
-        : {}
+import { schemaUrl } from './manifest-schema.mjs'
 
-  const manifest = {
-    label: input.id,
-    description: 'Fixture',
-    ownedPaths: [
-      input.kind === 'starter'
-        ? 'starter.json'
-        : `${
-            {
-              module: 'modules',
-              connector: 'connectors',
-              deploy: 'deploy',
-            }[input.kind]
-          }/${input.id}`,
-    ],
-    requires: [],
-    optional: [],
-    ...defaults,
-    ...input,
+const envelopeFields = new Set(['label', 'description', 'requires', 'alsoOwns', 'packageEntries'])
+
+const bases = { module: 'modules', connector: 'connectors', deploy: 'deploy' }
+
+// Fixture builders take flat settings and write the public document format.
+export function manifestDocument({ kind, id, ...input }) {
+  const fields = { label: id, description: 'Fixture', ...input }
+
+  if (kind === 'starter')
+    return { $schema: schemaUrl(kind), nextSteps: { create: [], remove: [] }, ...fields }
+
+  const envelope = Object.fromEntries(
+    Object.entries(fields).filter(([key]) => envelopeFields.has(key)),
+  )
+
+  const runtime = {
+    ...(kind === 'module' ? { collections: [] } : kind === 'connector' ? { source: {} } : {}),
+    ...Object.fromEntries(Object.entries(fields).filter(([key]) => !envelopeFields.has(key))),
   }
 
-  const fields = new Set([
-    'kind',
-    'id',
-    'label',
-    'description',
-    'ownedPaths',
-    'requires',
-    'packageEntries',
-    'requiresWhenInstalled',
-  ])
+  const document = { $schema: schemaUrl(kind), ...envelope }
 
-  const envelope = Object.fromEntries(Object.entries(manifest).filter(([key]) => fields.has(key)))
-  const runtime = Object.fromEntries(Object.entries(manifest).filter(([key]) => !fields.has(key)))
-  const conditional = { ...manifest.requiresWhenInstalled }
-
-  if (runtime.frontend)
-    runtime.frontend = runtime.frontend.map(({ requires, ...feature }) => {
-      if (requires?.length) conditional[feature.module] = requires
-
-      return feature
-    })
-
-  const document = {
-    format: `urn:monospace:manifest:${manifest.kind}:1`,
-    ...envelope,
-    requiresWhenInstalled: conditional,
-    'x-monoerp': runtime,
-  }
-
-  delete document.kind
-
-  if (manifest.kind === 'deploy') delete runtime.optional
-
-  if (manifest.kind === 'starter') {
-    document.sourceRoots = [
-      'apps/web/src/routes',
-      'apps/web/src/modules',
-      'infra/modules',
-      'connectors',
-    ]
-    document.ignorePaths = []
-    document.nextSteps = { create: [], remove: [] }
-  }
+  if (kind !== 'deploy') document['x-monoerp'] = runtime
 
   return document
+}
+
+export function manifestPath({ kind, id }) {
+  return kind === 'starter' ? 'starter.json' : `${bases[kind]}/${id}/${kind}.json`
 }

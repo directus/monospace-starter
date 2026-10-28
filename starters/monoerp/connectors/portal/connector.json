@@ -1,65 +1,26 @@
 {
-  "format": "urn:monospace:manifest:connector:1",
-  "id": "portal",
+  "$schema": "https://monospace.io/schemas/starter/v1/connector.json",
   "label": "Portal",
   "description": "Example customer database (a MySQL demo you can remove)",
-  "ownedPaths": ["connectors/portal"],
-  "requires": [],
   "x-monoerp": {
-    "optional": [],
-    "compose": "connectors/portal/compose.yml",
-    "schemaFiles": ["connectors/portal/monospace/schema/portal.json"],
     "source": {
       "apiName": "Portal",
       "provider": "mysql",
-      "host": {
-        "env": "CUSTOMER_MYSQL_HOST",
-        "default": "customer-mysql"
-      },
-      "port": {
-        "env": "CUSTOMER_MYSQL_INTERNAL_PORT",
-        "default": 3306
-      },
+      "host": { "env": "CUSTOMER_MYSQL_HOST", "default": "customer-mysql" },
+      "port": { "env": "CUSTOMER_MYSQL_INTERNAL_PORT", "default": 3306 },
       "user": "monospace_reader",
-      "password": {
-        "env": "PORTAL_READER_PASSWORD",
-        "default": "monospace"
-      },
+      "password": { "env": "PORTAL_READER_PASSWORD", "default": "monospace" },
       "dbname": "customer_portal",
-      "ssl": {
-        "when": "DB_SSL_MODE",
-        "value": {
-          "mode": {
-            "env": "DB_SSL_MODE"
-          }
-        }
-      }
+      "ssl": { "when": "DB_SSL_MODE", "value": { "mode": { "env": "DB_SSL_MODE" } } }
     },
     "setup": {
       "beforeSchema": [
-        {
-          "title": "Portal relation names",
-          "script": "portal-source-relations.mjs"
-        },
-        {
-          "title": "CRM Portal relations",
-          "script": "portal-relations.mjs",
-          "requires": ["crm"]
-        }
-      ],
-      "afterSchema": []
+        { "title": "Portal relation names", "script": "portal-source-relations.mjs" },
+        { "title": "CRM Portal relations", "script": "portal-relations.mjs", "requires": ["crm"] }
+      ]
     },
-    "migrate": "emulator/migrate.sh",
-    "provision": "emulator/provision.sh",
-    "frontend": [
-      {
-        "module": "crm",
-        "order": 10,
-        "collections": ["accounts", "users", "plans", "subscriptions", "tickets", "events"],
-        "schemas": [],
-        "path": "connectors/portal/frontend/crm",
-        "slot": "organization-panel"
-      }
-    ]
+    "contributes": {
+      "crm": { "collections": ["accounts", "users", "plans", "subscriptions", "tickets", "events"] }
+    }
   }
 }

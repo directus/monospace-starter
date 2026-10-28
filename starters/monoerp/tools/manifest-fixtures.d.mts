@@ -1,6 +1,5 @@
 export function manifestDocument<T extends { readonly kind: string; readonly id: string }>(
   manifest: T,
-): {
-  readonly format: string
-  readonly id: T['id']
-}
+): { readonly $schema: string }
+
+export function manifestPath(manifest: { readonly kind: string; readonly id: string }): string

@@ -1,15 +1,8 @@
 {
-  "format": "urn:monospace:manifest:module:1",
-  "id": "crm",
+  "$schema": "https://monospace.io/schemas/starter/v1/module.json",
   "label": "CRM",
   "description": "Organizations, contacts, and deals.",
-  "ownedPaths": ["modules/crm"],
-  "requires": [],
   "x-monoerp": {
-    "app": "modules/crm",
-    "infra": "modules/crm/infra",
-    "settings": ["modules/crm/routes/settings/pipeline-stages.tsx"],
-    "order": 10,
     "collections": [
       "organizations",
       "contacts",
@@ -19,9 +12,8 @@
       "activities",
       "attachments"
     ],
-    "schemas": ["attachments", "affiliations", "contacts", "activities", "deals", "organizations"],
-    "optional": ["portal", "stripe"],
-    "auditTables": {
+    "writes": ["attachments", "affiliations", "contacts", "activities", "deals", "organizations"],
+    "auditColumns": {
       "organizations": ["owner_user_id", "created_by", "updated_by"],
       "contacts": ["owner_user_id", "created_by", "updated_by"],
       "affiliations": ["created_by", "updated_by"],
@@ -30,14 +22,7 @@
       "attachments": ["created_by"]
     },
     "setup": {
-      "beforeSchema": [],
-      "afterSchema": [
-        {
-          "title": "Activity owners",
-          "script": "backfill-owners.mjs"
-        }
-      ]
-    },
-    "schemaFiles": ["modules/crm/infra/monospace/schema/app.json"]
+      "afterSchema": [{ "title": "Activity owners", "script": "backfill-owners.mjs" }]
+    }
   }
 }

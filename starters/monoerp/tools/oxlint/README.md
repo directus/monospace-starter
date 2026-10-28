@@ -26,6 +26,6 @@ All of these are errors, so `pnpm check` fails on them. They come from `tools/ox
 - **`no-conditional-empty-object-spread`:** no `...(ok ? { a } : {})`. Build the object directly.
 - **`no-shape-in-symbol-names`:** don't name things `...Shape`. Name them for what they are.
 
-Installed deploy targets can add rules through their manifest’s `x-monoerp.lint` entry.
+Installed deploy targets can add rules with a `lint/config.ts` in their folder.
 
 The AST visitor files use the normal formatter and base lint rules plus spacing. App-specific data boundary rules are disabled there because visitors inspect parser unions directly.

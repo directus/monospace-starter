@@ -14,9 +14,8 @@ const selected = selectConnectors(manifests, process.env.OPTIONAL_SOURCES).map(
 const step = selectSetupStep(selector, manifests, selected)
 
 if (step) {
-  const directory = step.owner.kind === 'module' ? step.owner.infra : `connectors/${step.owner.id}`
   await runSetupStep(
     step.title,
-    () => import(new URL(`${directory}/monospace/setup/${step.script}`, repository)),
+    () => import(new URL(`${step.owner.setupDirectory}/${step.script}`, repository)),
   )
 } else console.log(`${selector}: skipped, owning module or connector is absent or disabled`)
