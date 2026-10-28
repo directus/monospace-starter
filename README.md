@@ -28,6 +28,7 @@ This repository holds the public resources for building with Monospace. It does 
 | [`docker-compose.yml`](docker-compose.yml) | Reference compose file for running Monospace locally |
 | [`starters/`](starters) | Templates, starters, and reference projects |
 | [`extensions/`](extensions) | Custom extensions, including data connectors |
+| [`tooling/`](tooling) | Maintainer tools for the starters. Not part of any starter |
 
 ### Related Repositories
 
@@ -79,7 +80,7 @@ See the [Quickstart guide](https://docs.monospace.io/en/getting-started/installa
 
 Starters are complete projects built on Monospace. Each one includes its data model and a working application, so you can run it locally and adapt it to your own data.
 
-The root [starter workflow](.github/workflows/starters.yml) installs and runs `pnpm verify` for each starter on pull requests and pushes to `main` that change starter files.
+The root [starter workflow](.github/workflows/starters.yml) installs and runs `pnpm verify` for each starter on pull requests and pushes to `main` that change starter files. Maintainer tools and notes for a starter live in `tooling/<starter>`, for example [`tooling/monoerp`](tooling/monoerp).
 
 | Starter | Contents |
 |---|---|

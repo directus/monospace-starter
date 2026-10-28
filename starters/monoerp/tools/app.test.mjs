@@ -435,9 +435,9 @@ it('preflights direct ownership removal before changing package entries', () => 
   symlinkSync(fileURLToPath(new URL('apps/web/src/modules/sales/', root)), new URL('linked', root))
 
   const owner = {
-    id: 'workshop',
-    label: 'Workshop',
-    description: 'Internal tooling',
+    id: 'extras',
+    label: 'Extras',
+    description: 'Extra files',
     ownedPaths: ['linked'],
     packageEntries: [{ path: 'package.json', section: 'scripts', names: ['internal'] }],
   }

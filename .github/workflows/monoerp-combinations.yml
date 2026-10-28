@@ -1,0 +1,56 @@
+name: monoERP combinations
+
+on:
+  push:
+    branches: [main]
+    paths: ['starters/monoerp/**', 'tooling/monoerp/**', '.github/workflows/monoerp-combinations.yml']
+  pull_request:
+    paths: ['starters/monoerp/**', 'tooling/monoerp/**', '.github/workflows/monoerp-combinations.yml']
+
+permissions:
+  contents: read
+
+jobs:
+  combinations:
+    runs-on: ubuntu-24.04-arm
+    outputs:
+      names: ${{ steps.list.outputs.names }}
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1 # v4
+        with:
+          package_json_file: starters/monoerp/package.json
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
+        with:
+          node-version-file: starters/monoerp/.node-version
+          cache: pnpm
+          cache-dependency-path: starters/monoerp/pnpm-lock.yaml
+      - run: pnpm -C starters/monoerp install --frozen-lockfile --ignore-scripts
+      - run: node --test 'tooling/monoerp/**/*.test.mjs'
+      - id: list
+        run: |
+          names=$(node tooling/monoerp/combo.mjs --list)
+          echo "names=$names" >> "$GITHUB_OUTPUT"
+
+  prove:
+    needs: combinations
+    runs-on: ubuntu-24.04-arm
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        combination: ${{ fromJSON(needs.combinations.outputs.names) }}
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1 # v4
+        with:
+          package_json_file: starters/monoerp/package.json
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
+        with:
+          node-version-file: starters/monoerp/.node-version
+          cache: pnpm
+          cache-dependency-path: starters/monoerp/pnpm-lock.yaml
+      - run: pnpm -C starters/monoerp install --frozen-lockfile
+      - run: node tooling/monoerp/combo.mjs "$COMBINATION"
+        env:
+          COMBINATION: ${{ matrix.combination }}
