@@ -1,38 +1,16 @@
 import { randomUUID } from 'node:crypto'
 
 import { modules } from './installed.mjs'
-import { appSource } from './lib.mjs'
-import { authenticate, canonicalJson, readCollections, request, workspace } from './lib.mjs'
+import { appSource, authenticate, migrate, readCollections } from './lib.mjs'
 
-const currentUserOnCreate = {
-  source: 'engineManaged',
-  onCreate: { kind: 'currentUser' },
-}
-
-const currentUserOnCreateAndUpdate = {
-  source: 'engineManaged',
-  onCreate: { kind: 'currentUser' },
-  onUpdate: { kind: 'currentUser' },
-}
-
+// Audit columns link to Monospace users; their engine-managed defaults come from each module's
+// schema file through apply-schema.mjs.
 const collections = Object.assign({}, ...modules.map((module) => module.auditColumns))
 
 const fieldConfig = {
-  owner_user_id: {
-    scalarApiName: 'ownerUserId',
-    relationApiName: 'owner',
-    defaultValue: null,
-  },
-  created_by: {
-    scalarApiName: 'createdById',
-    relationApiName: 'createdBy',
-    defaultValue: currentUserOnCreate,
-  },
-  updated_by: {
-    scalarApiName: 'updatedById',
-    relationApiName: 'updatedBy',
-    defaultValue: currentUserOnCreateAndUpdate,
-  },
+  owner_user_id: { scalarApiName: 'ownerUserId', relationApiName: 'owner' },
+  created_by: { scalarApiName: 'createdById', relationApiName: 'createdBy' },
+  updated_by: { scalarApiName: 'updatedById', relationApiName: 'updatedBy' },
 }
 
 function upperFirst(value) {
@@ -63,8 +41,6 @@ if (!usersId || usersId.type?.name !== 'uuid') {
 
 const renameOperations = []
 
-const updateOperations = []
-
 const relationOperations = []
 
 for (const [collectionDbName, fieldDbNames] of Object.entries(collections)) {
@@ -74,7 +50,6 @@ for (const [collectionDbName, fieldDbNames] of Object.entries(collections)) {
 
   const primitiveFields = collection.primitiveFields
   const relationFields = collection.relationFields
-  const fieldUpdates = []
 
   for (const fieldDbName of fieldDbNames) {
     const config = fieldConfig[fieldDbName]
@@ -100,24 +75,6 @@ for (const [collectionDbName, fieldDbNames] of Object.entries(collections)) {
       renameOperations.push({
         kind: 'renamePrimitiveField',
         data: { id: field.id, dbName: null, apiName: config.scalarApiName },
-      })
-    }
-
-    if (
-      config.defaultValue &&
-      !canonicalJson(field.defaultValue) === canonicalJson(config.defaultValue)
-    ) {
-      fieldUpdates.push({
-        kind: 'updatePrimitiveField',
-        data: {
-          id: field.id,
-          operations: [
-            {
-              kind: 'changeDefaultValue',
-              data: { defaultValue: config.defaultValue },
-            },
-          ],
-        },
       })
     }
 
@@ -180,26 +137,6 @@ for (const [collectionDbName, fieldDbNames] of Object.entries(collections)) {
       },
     })
   }
-
-  if (fieldUpdates.length > 0) {
-    updateOperations.push({
-      kind: 'updateCollection',
-      data: { id: collection.id, operations: fieldUpdates },
-    })
-  }
 }
 
-const operations = [...renameOperations, ...updateOperations, ...relationOperations]
-
-if (operations.length === 0) {
-  console.log('Monospace audit user relationships are already configured.')
-} else {
-  await request(`/${encodeURIComponent(workspace)}/schema/migrate`, {
-    method: 'POST',
-    body: JSON.stringify({ operations }),
-  })
-
-  console.log(
-    `Configured ${relationOperations.length} user relationships, ${renameOperations.length} API field names, and ${updateOperations.length} collections with current-user defaults.`,
-  )
-}
+await migrate([...renameOperations, ...relationOperations], 'Audit user relations')
