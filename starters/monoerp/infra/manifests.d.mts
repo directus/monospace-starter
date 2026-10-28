@@ -73,11 +73,15 @@ export type Manifest = StarterManifest | ModuleManifest | ConnectorManifest | De
 
 export const repository: URL
 
+export function dependencies(manifest: Manifest, installed: ReadonlySet<string>): string[]
 export function manifestPath(manifest: Manifest): string
 export function readManifests(root?: URL): Manifest[]
 export function requestedConnectors(modules: ModuleManifest[], override?: string): Set<string>
 export function selectConnectors(manifests: Manifest[], override?: string): ConnectorManifest[]
-export function resolveSource(value: SourceValue, env?: NodeJS.ProcessEnv): SourceValue
+export function resolveSource(
+  value: SourceValue,
+  env?: Record<string, string | undefined>,
+): SourceValue
 export function selectSetupStep(
   selector: string,
   manifests: Manifest[],

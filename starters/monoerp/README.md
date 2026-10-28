@@ -29,7 +29,7 @@
 Most business data doesn't live in one place. The sales team's records are in one database, and the product's customer data is in another, owned by another team. monoERP shows what building on top of that looks like, without copying data around.
 
 - **CRM module:** organizations, contacts, deals, and activity, stored in PostgreSQL.
-- **Portal (optional demo):** a demo of Monospace's MySQL connector, installed by default to show read-only joins across databases. Remove it with `pnpm app:remove portal`, then follow the [shared removal steps](connectors/README.md#remove-a-module-or-connector). CRM still works; Portal UI and the dependent Billing tab disappear. See [Portal setup](connectors/portal/README.md).
+- **Portal (optional demo):** a demo of Monospace's MySQL connector, installed by default to show read-only joins across databases. Remove Stripe first while CRM is installed, then run `pnpm app:remove portal`, then follow the [shared removal steps](connectors/README.md#remove-a-module-connector-or-deploy-target). CRM still works; Portal UI and the dependent Billing tab disappear. See [Portal setup](connectors/portal/README.md).
 - **Stripe (optional demo):** billing, read through a custom Monospace data connector (`connectors/stripe`). Locally it runs against a Stripe emulator, so no Stripe account is needed.
 - **Monospace** joins all three into one typed API with one set of permissions. An organization's page shows its CRM record next to its plan, seats, support tickets, and payments, and it doesn't feel like three systems.
 

@@ -145,7 +145,7 @@ export const manifestSchema = z
     z.strictObject({
       ...common,
       format: z.literal('urn:monospace:manifest:deploy:1'),
-      lint: path.optional(),
+      'x-monoerp': z.strictObject({ lint: path.optional() }).optional(),
     }),
     z.strictObject({
       ...common,

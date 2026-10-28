@@ -12,7 +12,7 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 
-import { afterEach, expect, it } from 'vitest'
+import { afterEach, expect, it, vi } from 'vitest'
 
 import { readManifests, resolveSource } from '../infra/manifests.mjs'
 import { checkApp, removeInstalled, removeOwned } from './app.mjs'
@@ -78,6 +78,8 @@ function fixture() {
 }
 
 afterEach(() => {
+  vi.restoreAllMocks()
+
   for (const directory of directories.splice(0)) rmSync(directory, { recursive: true, force: true })
 })
 
@@ -385,25 +387,28 @@ it('recognizes conditional setup dependencies after their optional connector is 
   expect(() => removeInstalled('billing', { root })).not.toThrow()
 })
 
-it('removes an owned YAML patch entry and preserves unrelated patches', () => {
-  const { root, manifest } = fixture()
-  write(
-    root,
-    'pnpm-workspace.yaml',
-    '# Keep this comment\npatchedDependencies:\n  alchemy: patches/alchemy.patch\n  cli: patches/cli.patch\n',
-  )
-  manifest.packageEntries = [
-    { path: 'pnpm-workspace.yaml', section: 'patchedDependencies', names: ['alchemy'] },
-  ]
-  save(root, 'modules/sales/module.json', manifest)
-  removeInstalled('sales', { root, dryRun: true })
-  expect(readFileSync(new URL('pnpm-workspace.yaml', root), 'utf8')).toContain('alchemy:')
-  removeInstalled('sales', { root })
-  const remaining = readFileSync(new URL('pnpm-workspace.yaml', root), 'utf8')
-  expect(remaining).not.toContain('alchemy:')
-  expect(remaining).toContain('cli: patches/cli.patch')
-  expect(remaining).toContain('# Keep this comment')
-})
+it.each(['yaml', 'yml'])(
+  'removes owned %s entries and preserves unrelated patches',
+  (extension) => {
+    const { root, manifest } = fixture()
+    write(
+      root,
+      `pnpm-workspace.${extension}`,
+      '# Keep this comment\npatchedDependencies:\n  alchemy: patches/alchemy.patch\n  cli: patches/cli.patch\n',
+    )
+    manifest.packageEntries = [
+      { path: `pnpm-workspace.${extension}`, section: 'patchedDependencies', names: ['alchemy'] },
+    ]
+    save(root, 'modules/sales/module.json', manifest)
+    removeInstalled('sales', { root, dryRun: true })
+    expect(readFileSync(new URL(`pnpm-workspace.${extension}`, root), 'utf8')).toContain('alchemy:')
+    removeInstalled('sales', { root })
+    const remaining = readFileSync(new URL(`pnpm-workspace.${extension}`, root), 'utf8')
+    expect(remaining).not.toContain('alchemy:')
+    expect(remaining).toContain('cli: patches/cli.patch')
+    expect(remaining).toContain('# Keep this comment')
+  },
+)
 
 it('derives types from format and rejects redundant kind or mismatched locations', () => {
   const { root } = fixture()
@@ -444,4 +449,88 @@ it('preflights direct ownership removal before changing package entries', () => 
   expect(JSON.parse(readFileSync(new URL('package.json', root), 'utf8')).scripts.internal).toBe(
     'keep',
   )
+})
+
+it('blocks active conditional dependencies but allows removing their trigger', () => {
+  const { root } = fixture()
+  save(root, 'connectors/portal/connector.json', { kind: 'connector', id: 'portal' })
+  save(root, 'connectors/billing/connector.json', {
+    kind: 'connector',
+    id: 'billing',
+    requiresWhenInstalled: { sales: ['portal'] },
+  })
+
+  for (const dryRun of [true, false]) {
+    expect(() => removeInstalled('portal', { root, dryRun })).toThrow(
+      'portal is required by billing',
+    )
+    expect(existsSync(new URL('connectors/portal/connector.json', root))).toBe(true)
+  }
+
+  removeInstalled('sales', { root })
+  removeInstalled('portal', { root })
+  expect(checkApp(root).map(({ id }) => id)).toEqual(['starter', 'billing'])
+})
+
+it.each([
+  { indent: '\t', newline: '\r\n', trailing: '\r\n' },
+  { indent: '    ', newline: '\n', trailing: '' },
+  { indent: undefined, newline: '\n', trailing: '\n' },
+  { indent: undefined, newline: '\n', trailing: '' },
+])(
+  'preserves JSON style with $indent indent and trailing $trailing',
+  ({ indent, newline, trailing }) => {
+    const { root, manifest } = fixture()
+
+    const value = {
+      scripts: { remove: 'gone', keep: 'kept' },
+      dependencies: { remove: '1', keep: '2' },
+    }
+
+    write(
+      root,
+      'package.json',
+      JSON.stringify(value, null, indent).replaceAll('\n', newline) + trailing,
+    )
+    manifest.packageEntries = [
+      { path: 'package.json', section: 'scripts', names: ['remove'] },
+      { path: 'package.json', section: 'dependencies', names: ['remove'] },
+    ]
+    save(root, 'modules/sales/module.json', manifest)
+    removeInstalled('sales', { root })
+    const expected = { scripts: { keep: 'kept' }, dependencies: { keep: '2' } }
+    expect(readFileSync(new URL('package.json', root), 'utf8')).toBe(
+      JSON.stringify(expected, null, indent).replaceAll('\n', newline) + trailing,
+    )
+  },
+)
+
+it('refuses to overwrite a package file changed after it was read', () => {
+  const { root, manifest } = fixture()
+  write(root, 'package.json', JSON.stringify({ scripts: { remove: 'gone', keep: 'kept' } }))
+  manifest.packageEntries = [{ path: 'package.json', section: 'scripts', names: ['remove'] }]
+  save(root, 'modules/sales/module.json', manifest)
+  const concurrent = JSON.stringify({ scripts: { remove: 'new value', keep: 'kept' } })
+  vi.spyOn(console, 'log').mockImplementation(() => write(root, 'package.json', concurrent))
+
+  expect(() => removeInstalled('sales', { root })).toThrow('package.json changed during removal')
+  expect(readFileSync(new URL('package.json', root), 'utf8')).toBe(concurrent)
+  expect(existsSync(new URL('modules/sales/module.json', root))).toBe(true)
+})
+
+it('reads deploy lint from x-monoerp and rejects the shared-envelope lint field', () => {
+  const { root } = fixture()
+  const path = new URL('deploy/example/deploy.json', root)
+  save(root, 'deploy/example/deploy.json', {
+    kind: 'deploy',
+    id: 'example',
+    lint: 'deploy/example/lint.mjs',
+  })
+  write(root, 'deploy/example/lint.mjs')
+  expect(checkApp(root).find(({ id }) => id === 'example').lint).toBe('deploy/example/lint.mjs')
+  const document = JSON.parse(readFileSync(path, 'utf8'))
+  expect(document['x-monoerp'].lint).toBe('deploy/example/lint.mjs')
+  expect(document).not.toHaveProperty('lint')
+  writeFileSync(path, JSON.stringify({ ...document, lint: 'deploy/example/lint.mjs' }))
+  expect(() => readManifests(root)).toThrow('Unrecognized key')
 })

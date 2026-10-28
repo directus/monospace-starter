@@ -174,7 +174,7 @@ Portal accounts link to Stripe customers by `stripe_customer_id`, so those IDs n
 
 ### Drop a source
 
-Preview with `pnpm app:remove portal --dry-run`, then remove Portal or Stripe with `pnpm app:remove portal` or `pnpm app:remove stripe`. Follow the [shared removal steps](../connectors/README.md#remove-a-module-connector-or-deploy-target) to retire an existing source and regenerate the app.
+Preview with `pnpm app:remove portal --dry-run`. With CRM and Stripe installed, Portal removal is refused; run `pnpm app:remove stripe` first, then `pnpm app:remove portal`. Follow the [shared removal steps](../connectors/README.md#remove-a-module-connector-or-deploy-target) to retire an existing source and regenerate the app.
 
 For connector selection and `OPTIONAL_SOURCES`, see [Source selection](../connectors/README.md#source-selection). After copying or deleting module or connector folders, run `pnpm install` before starting Compose.
 

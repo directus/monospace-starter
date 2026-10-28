@@ -20,5 +20,7 @@
       "names": ["alchemy@2.0.0-beta.79"]
     }
   ],
-  "lint": "deploy/aws/lint/config.ts"
+  "x-monoerp": {
+    "lint": "deploy/aws/lint/config.ts"
+  }
 }

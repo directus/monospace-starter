@@ -27,7 +27,7 @@ Preview with `pnpm app:remove crm --dry-run`, then run `pnpm app:remove crm` and
 
 ## Starter, module, connector, and deploy manifests
 
-Each file has a required `format` marker, such as `urn:monospace:manifest:module:1`. The shared envelope contains `id`, `label`, `description`, `ownedPaths`, `requires` and `packageEntries`. `requires` defaults to an empty list. Conditional requirements use `requiresWhenInstalled`, for example `{ "crm": ["portal"] }` on Stripe.
+Each file has a required `format` marker, such as `urn:monospace:manifest:module:1`. The shared envelope contains `id`, `label`, `description`, `ownedPaths`, `requires` and `packageEntries`. `requires` defaults to an empty list. Active conditional requirements also block removal. Conditional requirements use `requiresWhenInstalled`, for example `{ "crm": ["portal"] }` on Stripe.
 
 monoERP runtime settings live under `x-monoerp`: module app/infra paths, collections, setup, connector source settings and frontend features. Optional connector defaults are there too. Setup and app scripts validate these runtime settings alongside the shared envelope.
 
@@ -136,13 +136,13 @@ To add UI from a connector without importing it into CRM:
 
 Build and test configs define `__MODULE_FEATURE_PATHS__`, a map of module IDs to selected connector paths. Each module reads only its own entry.
 
-CRM owns its contribution types and registry in `modules/crm/slots.ts`; `modules/features.ts` selects the configured connector entries. Portal supplies all four contributions; Stripe supplies Billing as an organization panel and requires Portal. Removing Portal hides both features; removing Stripe hides Billing. CRM retains its stored Portal account link so restoring the connector can reconnect records. Follow the shared removal steps when retiring either source.
+CRM owns its contribution types and registry in `modules/crm/slots.ts`; `modules/features.ts` selects the configured connector entries. Portal supplies all four contributions; Stripe supplies Billing as an organization panel and requires Portal. Remove Stripe before Portal while CRM is installed; removing Stripe hides Billing. CRM retains its stored Portal account link so restoring the connector can reconnect records. Follow the shared removal steps when retiring either source.
 
 ## How app:doctor works
 
 Setup-step requirements may name dependencies declared in `requiresWhenInstalled`, even after that optional connector is removed. Those steps are skipped when their dependencies are absent; undeclared requirement names still fail validation.
 
-`pnpm app:doctor` validates manifests, dependencies, referenced files, and exclusive ownership under `apps/web/src/routes`, `apps/web/src/modules`, `infra/modules`, `connectors`, and `deploy`. In Git it checks tracked and untracked source files while respecting ignores; without Git it walks source trees and skips dependencies/build output. Owned dotfolders may be absent, but referenced manifests, entry files, schemas, and scripts must exist. Ownership cannot overlap or traverse symlinks. Removal validates paths and dependencies before deleting anything. The implementation is in `tools/manifest-schema.mjs` and `tools/app.mjs`.
+`pnpm app:doctor` validates manifests, dependencies, referenced files, and exclusive ownership under `apps/web/src/routes`, `apps/web/src/modules`, `infra/modules`, `connectors`, and `deploy`. In Git it checks tracked and untracked source files while respecting ignores; without Git it walks source trees and skips dependencies/build output. Owned dotfolders may be absent, but referenced manifests, entry files, schemas, and scripts must exist. Ownership cannot overlap or traverse symlinks. Removal validates paths and dependencies before deleting anything. Package edits accept `.yaml` and `.yml`, preserve JSON indentation and newline style, and refuse to overwrite a file changed during removal. The implementation is in `tools/manifest-schema.mjs` and `tools/app.mjs`.
 
 The import-boundary tests also reject imports between modules or from a module into connector code. Shared registries are the documented entry points. Feature-aware typecheck creates a temporary check config extending `apps/web/tsconfig.json`; lint and unit/browser tests exclude inactive features. Frontend discovery exposes only selected feature paths, never source credentials.
 
@@ -152,7 +152,7 @@ The import-boundary tests also reject imports between modules or from a module i
 
 Targets use the shared ownership, dependency, and package-entry fields. Their files live together; files tools require elsewhere (such as workflows and package patches) are listed in `ownedPaths`. Remove a target with `pnpm app:remove <id>`, then run `pnpm install` and `pnpm verify`.
 
-A target may declare a `lint` path exporting a Vite+ lint fragment. Plugin names share one namespace across installed targets and core. `tools/lint.ts` combines installed targets' fragments with the core strict rules in `tools/oxlint`. Strict lint and `@oxlint/plugins` are always installed. Lint implementation code and connector extensions follow the base rules.
+A target may declare an `x-monoerp.lint` path exporting a Vite+ lint fragment. The reader exposes it as `lint` on the normalized manifest. Plugin names share one namespace across installed targets and core. `tools/lint.ts` combines installed targets' fragments with the core strict rules in `tools/oxlint`. Strict lint and `@oxlint/plugins` are always installed. Lint implementation code and connector extensions follow the base rules.
 
 Manifests have no `kind` field. Their filenames identify their type and `format` identifies type and version. Readers derive their internal type from `format` and validate it against the location.
 

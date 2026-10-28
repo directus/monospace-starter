@@ -3,7 +3,7 @@ import { existsSync, lstatSync, readdirSync, readFileSync, rmSync, writeFileSync
 import { createRequire } from 'node:module'
 import { fileURLToPath } from 'node:url'
 
-import { manifestPath, readManifests, repository } from '../infra/manifests.mjs'
+import { dependencies, manifestPath, readManifests, repository } from '../infra/manifests.mjs'
 import { ownershipSchema } from './manifest-schema.mjs'
 
 function contains(parent, child) {
@@ -228,7 +228,14 @@ export function removeInstalled(id, { root = repository, dryRun = false } = {}) 
 
   if (manifest.kind === 'starter')
     throw new Error('Starter is always installed and cannot be removed')
-  const dependents = manifests.filter((candidate) => candidate.requires.includes(id))
+
+  const installed = new Set(
+    manifests.filter((candidate) => candidate.id !== id).map(({ id }) => id),
+  )
+
+  const dependents = manifests.filter(
+    (candidate) => candidate.id !== id && dependencies(candidate, installed).includes(id),
+  )
 
   if (dependents.length)
     throw new Error(
@@ -248,33 +255,52 @@ export function removeInstalled(id, { root = repository, dryRun = false } = {}) 
   return manifest.ownedPaths
 }
 
+function encodePackage(value, previous) {
+  const indent = /\n([\t ]+)"/.exec(previous)?.[1]
+  const newline = previous.includes('\r\n') ? '\r\n' : '\n'
+  const suffix = previous.endsWith('\n') ? newline : ''
+
+  return JSON.stringify(value, null, indent).replaceAll('\n', newline) + suffix
+}
+
 export function removeOwned(input, { root = repository, dryRun = false } = {}) {
   const manifest = ownershipSchema.parse(input)
 
   for (const path of manifest.ownedPaths) safePath(root, path)
 
+  const edits = new Map()
+
   for (const entry of manifest.packageEntries ?? []) {
     if (!safePath(root, entry.path))
       throw new Error(`${manifest.id}: missing package ${entry.path}`)
-  }
 
-  for (const entry of manifest.packageEntries ?? []) {
     const path = new URL(entry.path, root)
-    const yaml = entry.path.endsWith('.yaml')
-    const content = readFileSync(path, 'utf8')
+    const previous = edits.get(entry.path)?.previous ?? readFileSync(path, 'utf8')
+    const content = edits.get(entry.path)?.content ?? previous
+    const yaml = /\.ya?ml$/.test(entry.path)
     const document = yaml ? createRequire(import.meta.url)('yaml').parseDocument(content) : null
-    const manifest = document ? document.toJS() : JSON.parse(content)
+    const value = document ? document.toJS() : JSON.parse(content)
 
     for (const name of entry.names) {
       console.log(`${dryRun ? 'Would remove' : 'Removing'} ${entry.path} ${entry.section}.${name}`)
-      const section = manifest[entry.section]
+      const section = value[entry.section]
 
       if (document) document.deleteIn([entry.section, name])
       else if (section) delete section[name]
     }
 
-    if (!dryRun)
-      writeFileSync(path, document ? document.toString() : `${JSON.stringify(manifest, null, 2)}\n`)
+    edits.set(entry.path, {
+      previous,
+      content: document ? document.toString() : encodePackage(value, previous),
+    })
+  }
+
+  if (!dryRun) {
+    for (const [path, edit] of edits) {
+      if (readFileSync(new URL(path, root), 'utf8') !== edit.previous)
+        throw new Error(`${path} changed during removal; run the command again`)
+      writeFileSync(new URL(path, root), edit.content)
+    }
   }
 
   for (const path of manifest.ownedPaths) {

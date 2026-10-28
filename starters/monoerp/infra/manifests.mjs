@@ -4,6 +4,15 @@ import { manifestSchema } from '../tools/manifest-schema.mjs'
 
 export const repository = new URL('../', import.meta.url)
 
+export function dependencies(manifest, installed) {
+  return [
+    ...manifest.requires,
+    ...Object.entries(manifest.requiresWhenInstalled ?? {}).flatMap(([id, required]) =>
+      installed.has(id) ? required : [],
+    ),
+  ]
+}
+
 export function manifestPath(manifest) {
   if (manifest.kind === 'starter') return 'starter.json'
 

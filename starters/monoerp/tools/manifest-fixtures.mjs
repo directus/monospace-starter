@@ -49,12 +49,12 @@ export function manifestDocument(input) {
     'ownedPaths',
     'requires',
     'packageEntries',
-    'lint',
+    'requiresWhenInstalled',
   ])
 
   const envelope = Object.fromEntries(Object.entries(manifest).filter(([key]) => fields.has(key)))
   const runtime = Object.fromEntries(Object.entries(manifest).filter(([key]) => !fields.has(key)))
-  const conditional = {}
+  const conditional = { ...manifest.requiresWhenInstalled }
 
   if (runtime.frontend)
     runtime.frontend = runtime.frontend.map(({ requires, ...feature }) => {
@@ -72,7 +72,7 @@ export function manifestDocument(input) {
 
   delete document.kind
 
-  if (manifest.kind === 'deploy') delete document['x-monoerp']
+  if (manifest.kind === 'deploy') delete runtime.optional
 
   if (manifest.kind === 'starter') {
     document.sourceRoots = [
