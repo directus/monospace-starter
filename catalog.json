@@ -29,7 +29,7 @@
         {
           "id": "aws",
           "label": "AWS deploy",
-          "description": "Optional deployment tools"
+          "description": "Fargate, RDS and GitHub OIDC with Alchemy"
         }
       ]
     }
