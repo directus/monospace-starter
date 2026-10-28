@@ -28,6 +28,7 @@ This repository holds the public resources for building with Monospace. It does 
 | [`docker-compose.yml`](docker-compose.yml) | Reference compose file for running Monospace locally |
 | [`starters/`](starters) | Templates, starters, and reference projects |
 | [`extensions/`](extensions) | Custom extensions, including data connectors |
+| [`catalog.json`](catalog.json) | Generated list of starters and their modules, connectors, and deploy targets |
 | [`tooling/`](tooling) | Maintainer tools for the starters. Not part of any starter |
 
 ### Related Repositories
@@ -80,7 +81,7 @@ See the [Quickstart guide](https://docs.monospace.io/en/getting-started/installa
 
 Starters are complete projects built on Monospace. Each one includes its data model and a working application, so you can run it locally and adapt it to your own data.
 
-The root [starter workflow](.github/workflows/starters.yml) installs and runs `pnpm verify`, plus any `test:browser` scripts, for each starter on pull requests and pushes to `main` that change starter files. Maintainer tools and notes for a starter live in `tooling/<starter>`, for example [`tooling/monoerp`](tooling/monoerp).
+The root [starter workflow](.github/workflows/starters.yml) installs and runs `pnpm verify`, plus any `test:browser` scripts, for each starter listed in [`catalog.json`](catalog.json) on pull requests and pushes to `main` that change starter files. The workflow fails when the catalog is stale; after adding a starter or one of its parts, or changing a label or description, run `node tooling/catalog.mjs` and commit the result (see [`tooling/README.md`](tooling/README.md#catalog)). Maintainer tools and notes for a starter live in `tooling/<starter>`, for example [`tooling/monoerp`](tooling/monoerp).
 
 | Starter | Contents |
 |---|---|

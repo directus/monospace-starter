@@ -3,9 +3,9 @@ name: Check starters
 on:
   push:
     branches: [main]
-    paths: ['starters/**', '.github/workflows/starters.yml']
+    paths: ['starters/**', 'catalog.json', 'tooling/catalog*.mjs', '.github/workflows/starters.yml']
   pull_request:
-    paths: ['starters/**', '.github/workflows/starters.yml']
+    paths: ['starters/**', 'catalog.json', 'tooling/catalog*.mjs', '.github/workflows/starters.yml']
 
 permissions:
   contents: read
@@ -17,16 +17,10 @@ jobs:
       starters: ${{ steps.starters.outputs.names }}
     steps:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+      - run: node --test tooling/catalog.test.mjs
+      - run: node tooling/catalog.mjs --check
       - id: starters
-        run: |
-          node --input-type=module <<'NODE' >> "$GITHUB_OUTPUT"
-          import { readdirSync, existsSync } from 'node:fs';
-          const names = readdirSync('starters', { withFileTypes: true })
-            .filter(entry => entry.isDirectory() && existsSync(`starters/${entry.name}/package.json`))
-            .map(entry => entry.name)
-            .sort();
-          console.log(`names=${JSON.stringify(names)}`);
-          NODE
+        run: echo "names=$(node -p 'JSON.stringify(require("./catalog.json").starters.map((starter) => starter.id))')" >> "$GITHUB_OUTPUT"
 
   check:
     needs: discover
