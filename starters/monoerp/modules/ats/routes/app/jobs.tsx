@@ -160,7 +160,7 @@ const columns: Array<DataTableColumn<JobRow>> = [
     id: 'reqNumber',
     header: copy.columns.req,
     accessorFn: (row) => row.reqNumber ?? 0,
-    size: 110,
+    kind: 'number',
     cell: ({ row }) => (
       <span className="font-mono text-xs text-muted-foreground">
         {reqLabel(row.original.reqNumber)}
@@ -171,7 +171,7 @@ const columns: Array<DataTableColumn<JobRow>> = [
     id: 'title',
     header: copy.columns.title,
     accessorFn: (row) => row.title ?? '',
-    size: 280,
+    kind: 'primary',
     enableHiding: false,
     cell: ({ row }) => (
       <Link
@@ -187,14 +187,14 @@ const columns: Array<DataTableColumn<JobRow>> = [
     id: 'status',
     header: appCopy.common.status,
     accessorFn: (row) => row.status ?? '',
-    size: 120,
+    kind: 'badge',
     cell: ({ row }) => <JobStatusBadge status={row.original.status} />,
   },
   {
     id: 'active',
     header: copy.columns.active,
     enableSorting: false,
-    size: 90,
+    kind: 'number',
     meta: { headerClassName: 'justify-end', cellClassName: 'text-right tabular-nums' },
     cell: ({ row }) => <Count value={row.original.activeCount} />,
   },
@@ -202,7 +202,7 @@ const columns: Array<DataTableColumn<JobRow>> = [
     id: 'new',
     header: copy.columns.newThisWeek,
     enableSorting: false,
-    size: 100,
+    kind: 'number',
     meta: { headerClassName: 'justify-end', cellClassName: 'text-right tabular-nums' },
     cell: ({ row }) => <Count value={row.original.newCount} tone="new" />,
   },
@@ -210,7 +210,7 @@ const columns: Array<DataTableColumn<JobRow>> = [
     id: 'openings',
     header: copy.columns.openings,
     accessorFn: (row) => row.numberOfHires ?? 1,
-    size: 130,
+    kind: 'number',
     meta: { cellClassName: 'tabular-nums' },
     cell: ({ row }) => <Openings count={row.original.numberOfHires ?? 1} />,
   },
@@ -218,42 +218,42 @@ const columns: Array<DataTableColumn<JobRow>> = [
     id: 'urgency',
     header: copy.columns.urgency,
     accessorFn: (row) => row.urgency ?? '',
-    size: 110,
+    kind: 'badge',
     cell: ({ row }) => <UrgencyBadge urgency={row.original.urgency} />,
   },
   {
     id: 'department',
     header: copy.columns.department,
     enableSorting: false,
-    size: 140,
+    kind: 'text',
     cell: ({ row }) => row.original.departments?.name,
   },
   {
     id: 'level',
     header: copy.columns.level,
     enableSorting: false,
-    size: 90,
+    kind: 'text',
     cell: ({ row }) => row.original.job_levels?.name,
   },
   {
     id: 'hiringManager',
     header: copy.columns.hiringManager,
     enableSorting: false,
-    size: 180,
+    kind: 'person',
     cell: ({ row }) => <UserLabel user={row.original.hiringManagerUser} size="sm" />,
   },
   {
     id: 'recruiter',
     header: copy.columns.recruiter,
     enableSorting: false,
-    size: 180,
+    kind: 'person',
     cell: ({ row }) => <UserLabel user={row.original.recruiterUser} size="sm" />,
   },
   {
     id: 'locations',
     header: copy.columns.locations,
     enableSorting: false,
-    size: 200,
+    kind: 'text',
     cell: ({ row }) => (
       <span className="truncate text-muted-foreground">
         {splitLocations(row.original.locations).join(', ')}
@@ -264,7 +264,7 @@ const columns: Array<DataTableColumn<JobRow>> = [
     id: 'age',
     header: copy.columns.age,
     accessorFn: jobAge,
-    size: 90,
+    kind: 'number',
     meta: { headerClassName: 'justify-end', cellClassName: 'text-right text-muted-foreground' },
     cell: ({ row }) => (
       <Tooltip>

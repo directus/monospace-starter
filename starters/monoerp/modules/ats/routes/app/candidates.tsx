@@ -293,7 +293,7 @@ const columns: Array<DataTableColumn<CandidateRow>> = [
     id: 'name',
     header: copy.columns.name,
     accessorFn: (row) => candidateName(row),
-    size: 260,
+    kind: 'primary',
     enableHiding: false,
     cell: ({ row }) => <CandidateLabel candidate={row.original} secondary={row.original.email} />,
   },
@@ -301,35 +301,35 @@ const columns: Array<DataTableColumn<CandidateRow>> = [
     id: 'jobs',
     header: copy.columns.jobs,
     enableSorting: false,
-    size: 280,
+    kind: 'text',
     cell: ({ row }) => <JobsCell row={row.original} />,
   },
   {
     id: 'source',
     header: copy.columns.source,
     accessorFn: (row) => row.source ?? '',
-    size: 170,
+    kind: 'text',
     cell: ({ row }) => sourceLabel(row.original),
   },
   {
     id: 'location',
     header: copy.columns.location,
     accessorFn: (row) => locationLabel(row),
-    size: 170,
+    kind: 'text',
     cell: ({ row }) => locationLabel(row.original),
   },
   {
     id: 'tags',
     header: copy.columns.tags,
     enableSorting: false,
-    size: 220,
+    kind: 'text',
     cell: ({ row }) => <TagList tags={row.original.tags} max={2} className="flex-nowrap" />,
   },
   {
     id: 'pool',
     header: copy.columns.pool,
     enableSorting: false,
-    size: 120,
+    kind: 'badge',
     cell: ({ row }) =>
       row.original.inTalentPool ? (
         <Badge variant="secondary">
@@ -342,7 +342,7 @@ const columns: Array<DataTableColumn<CandidateRow>> = [
     id: 'lastActivity',
     header: copy.columns.lastActivity,
     accessorFn: (row) => lastActivity(row),
-    size: 140,
+    kind: 'date',
     cell: ({ row }) => (
       <RelativeTime value={lastActivity(row.original)} className="text-muted-foreground" />
     ),
@@ -351,14 +351,14 @@ const columns: Array<DataTableColumn<CandidateRow>> = [
     id: 'consent',
     header: copy.columns.consent,
     accessorFn: (row) => row.consentAt ?? '',
-    size: 160,
+    kind: 'badge',
     cell: ({ row }) => <ConsentStatus consentAt={row.original.consentAt} />,
   },
   {
     id: 'retainUntil',
     header: copy.columns.retainUntil,
     accessorFn: (row) => row.retainUntil ?? '',
-    size: 170,
+    kind: 'date',
     cell: ({ row }) =>
       isPastRetention(row.original.retainUntil) ? (
         <RetentionBadge retainUntil={row.original.retainUntil} />

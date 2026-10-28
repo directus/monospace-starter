@@ -117,7 +117,7 @@ const columns: Array<DataTableColumn<RoleRequestRow>> = [
     id: 'roleName',
     header: columnsCopy.role,
     accessorFn: (row) => row.roleName ?? '',
-    size: 260,
+    kind: 'primary',
     enableHiding: false,
     cell: ({ row }) => (
       <Link
@@ -133,21 +133,21 @@ const columns: Array<DataTableColumn<RoleRequestRow>> = [
     id: 'status',
     header: columnsCopy.status,
     accessorFn: (row) => row.status ?? '',
-    size: 180,
+    kind: 'badge',
     cell: ({ row }) => <RequestStatusBadge status={row.original.status} />,
   },
   {
     id: 'department',
     header: columnsCopy.department,
     enableSorting: false,
-    size: 160,
+    kind: 'text',
     cell: ({ row }) => row.original.departments?.name,
   },
   {
     id: 'level',
     header: columnsCopy.level,
     enableSorting: false,
-    size: 110,
+    kind: 'text',
     cell: ({ row }) => (
       <span className="text-muted-foreground">{row.original.job_levels?.name}</span>
     ),
@@ -156,7 +156,7 @@ const columns: Array<DataTableColumn<RoleRequestRow>> = [
     id: 'plan',
     header: columnsCopy.plan,
     enableSorting: false,
-    size: 130,
+    kind: 'badge',
     cell: ({ row }) =>
       row.original.workforcePlanRoleId ? (
         <Badge variant="outline">{copy.inPlan}</Badge>
@@ -168,21 +168,21 @@ const columns: Array<DataTableColumn<RoleRequestRow>> = [
     id: 'hiringManager',
     header: columnsCopy.hiringManager,
     enableSorting: false,
-    size: 190,
+    kind: 'person',
     cell: ({ row }) => <UserLabel user={row.original.hiringManagerUser} size="sm" />,
   },
   {
     id: 'requester',
     header: columnsCopy.requester,
     enableSorting: false,
-    size: 190,
+    kind: 'person',
     cell: ({ row }) => <UserLabel user={row.original.requesterUser} size="sm" />,
   },
   {
     id: 'numberOfHires',
     header: columnsCopy.hires,
     accessorFn: (row) => row.numberOfHires ?? 0,
-    size: 90,
+    kind: 'number',
     meta: { headerClassName: 'justify-end', cellClassName: 'text-right tabular-nums' },
     cell: ({ row }) => row.original.numberOfHires,
   },
@@ -190,14 +190,14 @@ const columns: Array<DataTableColumn<RoleRequestRow>> = [
     id: 'urgency',
     header: columnsCopy.urgency,
     accessorFn: (row) => row.urgency ?? '',
-    size: 120,
+    kind: 'badge',
     cell: ({ row }) => <UrgencyBadge urgency={row.original.urgency} />,
   },
   {
     id: 'job',
     header: columnsCopy.job,
     enableSorting: false,
-    size: 120,
+    kind: 'number',
     cell: ({ row }) => {
       const job = row.original.requisitions
 
@@ -216,7 +216,7 @@ const columns: Array<DataTableColumn<RoleRequestRow>> = [
     id: 'createdAt',
     header: columnsCopy.submitted,
     accessorFn: (row) => row.createdAt ?? '',
-    size: 130,
+    kind: 'date',
     meta: { headerClassName: 'justify-end', cellClassName: 'text-right text-muted-foreground' },
     cell: ({ row }) => formatDate(row.original.createdAt),
   },
