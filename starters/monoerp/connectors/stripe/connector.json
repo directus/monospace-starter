@@ -1,29 +1,14 @@
 {
-  "format": "urn:monospace:manifest:connector:1",
-  "id": "stripe",
+  "$schema": "https://monospace.io/schemas/starter/v1/connector.json",
   "label": "Stripe",
   "description": "Billing data from Stripe",
-  "ownedPaths": ["connectors/stripe"],
-  "requires": [],
-  "requiresWhenInstalled": {
-    "crm": ["portal"]
-  },
   "x-monoerp": {
-    "optional": [],
-    "compose": "connectors/stripe/compose.yml",
-    "schemaFiles": ["connectors/stripe/monospace/schema/stripe.json"],
     "source": {
       "apiName": "Stripe",
       "provider": "monoerp/stripe-data-connector",
       "config": {
-        "apiKey": {
-          "env": "STRIPE_API_KEY",
-          "default": "sk_test_monoerp"
-        },
-        "apiBase": {
-          "env": "STRIPE_API_BASE",
-          "default": "http://stripe:4010"
-        }
+        "apiKey": { "env": "STRIPE_API_KEY", "default": "sk_test_monoerp" },
+        "apiBase": { "env": "STRIPE_API_BASE", "default": "http://stripe:4010" }
       }
     },
     "setup": {
@@ -33,22 +18,10 @@
           "script": "portal-stripe-relation.mjs",
           "requires": ["portal"]
         }
-      ],
-      "afterSchema": []
+      ]
     },
-    "extension": {
-      "directory": "extension",
-      "installed": "monoerp__stripe"
-    },
-    "frontend": [
-      {
-        "module": "crm",
-        "order": 20,
-        "collections": ["stripeCustomers", "stripeCharges"],
-        "schemas": [],
-        "path": "connectors/stripe/frontend/crm",
-        "slot": "organization-panel"
-      }
-    ]
+    "contributes": {
+      "crm": { "requires": ["portal"], "collections": ["stripeCustomers", "stripeCharges"] }
+    }
   }
 }

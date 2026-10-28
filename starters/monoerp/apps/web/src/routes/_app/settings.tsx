@@ -3,7 +3,7 @@ import { Settings, UserRound } from 'lucide-react'
 import { Fragment } from 'react'
 
 import { modules } from '@/lib/modules'
-import { usePages } from '@/lib/modules/pages'
+import { isSettingsPage, usePages } from '@/lib/modules/pages'
 import { settingsCopy } from '@/settings/settings.copy'
 
 export const Route = createFileRoute('/_app/settings')({
@@ -35,37 +35,31 @@ function SettingsLayout() {
             <UserRound className="size-4 text-muted-foreground" />
             {settingsCopy.account.profileTitle}
           </Link>
-          {modules.map((module) =>
-            module.settings ? (
+          {modules.map((module) => {
+            const modulePages = pages.filter((page) => isSettingsPage(page.to, module.id))
+
+            return modulePages.length ? (
               <Fragment key={module.id}>
                 <p className="hidden px-2 pt-2 text-xs font-medium text-muted-foreground lg:block">
-                  {module.settings.title}
+                  {module.label}
                 </p>
-                {module.settings.pages.flatMap((to) => {
-                  const page = pages.find((page) => page.to === to)
-
-                  return page
-                    ? [
-                        <Link
-                          key={page.to}
-                          to={page.to}
-                          className="flex items-center gap-2 rounded-lg px-2 py-2 text-sm transition-colors hover:bg-muted max-lg:shrink-0 max-lg:px-3 max-lg:whitespace-nowrap"
-                          activeProps={{
-                            className: 'bg-muted font-medium',
-                            'aria-current': 'page',
-                          }}
-                        >
-                          {page.icon ? (
-                            <page.icon className="size-4 text-muted-foreground" />
-                          ) : null}
-                          {page.title}
-                        </Link>,
-                      ]
-                    : []
-                })}
+                {modulePages.map((page) => (
+                  <Link
+                    key={page.to}
+                    to={page.to}
+                    className="flex items-center gap-2 rounded-lg px-2 py-2 text-sm transition-colors hover:bg-muted max-lg:shrink-0 max-lg:px-3 max-lg:whitespace-nowrap"
+                    activeProps={{
+                      className: 'bg-muted font-medium',
+                      'aria-current': 'page',
+                    }}
+                  >
+                    {page.icon ? <page.icon className="size-4 text-muted-foreground" /> : null}
+                    {page.title}
+                  </Link>
+                ))}
               </Fragment>
-            ) : null,
-          )}
+            ) : null
+          })}
         </nav>
       </aside>
       <div className="min-w-0 flex-1">

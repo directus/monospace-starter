@@ -16,26 +16,28 @@ try {
   if (error?.code !== 'ENOENT') throw error
 }
 
-export const modules = readManifests().flatMap((manifest) =>
+const manifests = readManifests()
+
+export const modules = manifests.flatMap((manifest) =>
   manifest.kind === 'module'
     ? [{ ...manifest, directory: new URL(`${manifest.infra}/`, repository) }]
     : [],
 )
 
-const requested = requestedConnectors(modules, process.env.OPTIONAL_SOURCES)
+const requested = requestedConnectors(manifests, process.env.OPTIONAL_SOURCES)
 
-export const connectors = selectConnectors(readManifests(), process.env.OPTIONAL_SOURCES).map(
+export const connectors = selectConnectors(manifests, process.env.OPTIONAL_SOURCES).map(
   (connector) => ({
     ...connector,
     source: resolveSource(connector.source),
-    directory: new URL(`connectors/${connector.id}/`, repository),
+    directory: new URL(`${connector.folder}/`, repository),
   }),
 )
 
 export const unavailableConnectors = [
   ...new Set([
     ...requested,
-    ...modules.flatMap((module) => [...module.requires, ...module.optional]),
+    ...manifests.flatMap((manifest) => (manifest.kind === 'connector' ? [manifest.id] : [])),
   ]),
 ].filter((id) => !connectors.some((connector) => connector.id === id))
 

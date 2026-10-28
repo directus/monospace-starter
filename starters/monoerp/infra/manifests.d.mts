@@ -4,49 +4,53 @@ export interface SetupStep {
   requires?: string[]
 }
 
+export interface PackageEntry {
+  file: string
+  section: 'scripts' | 'dependencies' | 'devDependencies' | 'patchedDependencies'
+  entries: Record<string, string>
+}
+
 interface Envelope {
   id: string
   label: string
   description: string
-  ownedPaths: string[]
   requires: string[]
-  requiresWhenInstalled: Record<string, string[]>
-  packageEntries?: { path: string; section: string; names: string[] }[]
+  alsoOwns: string[]
+  packageEntries: PackageEntry[]
+  folder: string
+  file: string
+  ownedPaths: string[]
 }
 
-export interface Collections {
-  order: number
-  collections: string[]
-  schemas: string[]
-}
-
-export interface FrontendFeature extends Collections {
+export interface FrontendFeature {
   module: string
-  slot: string
   path: string
   requires: string[]
+  collections: string[]
 }
 
 interface Runtime {
-  optional: string[]
-  schemaFiles: string[]
   setup: { beforeSchema: SetupStep[]; afterSchema: SetupStep[] }
+  setupDirectory: string
+  schemaFiles: string[]
   compose?: string
-  composeProfiles?: Record<string, string>
+  composeProfiles: Record<string, string>
 }
 
-export interface ModuleManifest extends Envelope, Runtime, Collections {
+export interface ModuleManifest extends Envelope, Runtime {
   kind: 'module'
   app: string
   infra: string
-  settings: string[]
-  auditTables: Record<string, string[]>
+  collections: string[]
+  writes: string[]
+  auditColumns: Record<string, string[]>
   demoUserCredential?: string
 }
 
 export interface ConnectorManifest extends Envelope, Runtime {
   kind: 'connector'
   source: Record<string, SourceValue>
+  contributes: Record<string, { requires: string[]; collections: string[] }>
   frontend: FrontendFeature[]
   extension?: { directory: string; installed: string }
   migrate?: string
@@ -59,7 +63,6 @@ type NextStep = { script: string; when?: string } | { command: string[]; when?: 
 
 export interface StarterManifest extends Envelope {
   kind: 'starter'
-  sourceRoots: string[]
   ignorePaths: string[]
   nextSteps: { create: NextStep[]; remove: NextStep[] }
 }
@@ -71,12 +74,21 @@ export interface DeployManifest extends Envelope {
 
 export type Manifest = StarterManifest | ModuleManifest | ConnectorManifest | DeployManifest
 
+export type PartFolder = {
+  kind: 'module' | 'connector' | 'deploy'
+  id: string
+  folder: string
+  file: string
+}
+
 export const repository: URL
 
-export function dependencies(manifest: Manifest, installed: ReadonlySet<string>): string[]
-export function manifestPath(manifest: Manifest): string
+export const partKinds: [string, PartFolder['kind']][]
+
+export function partFolders(root?: URL): PartFolder[]
+export function readManifest(root: URL, part: PartFolder): Manifest
 export function readManifests(root?: URL): Manifest[]
-export function requestedConnectors(modules: ModuleManifest[], override?: string): Set<string>
+export function requestedConnectors(manifests: Manifest[], override?: string): Set<string>
 export function selectConnectors(manifests: Manifest[], override?: string): ConnectorManifest[]
 export function resolveSource(
   value: SourceValue,

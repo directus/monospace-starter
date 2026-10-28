@@ -1,9 +1,16 @@
 import { useRouter } from '@tanstack/react-router'
 import { useMemo } from 'react'
 
-import type { PageMeta, RoutePath } from '@/lib/modules/types'
+import type { ModuleId, PageMeta, RoutePath } from '@/lib/modules/types'
 
 type Page = PageMeta & { to: RoutePath }
+
+/** Module settings pages are mounted at /settings/<module id>/ by convention. */
+export function isSettingsPage(to: string, module: ModuleId) {
+  const [, section, owner] = to.split('/')
+
+  return section === 'settings' && owner === module
+}
 
 /** Every route that declares `staticData.page` and needs no params. */
 export function usePages() {

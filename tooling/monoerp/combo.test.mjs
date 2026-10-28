@@ -5,12 +5,12 @@ import { combinations, portNames } from './combo.mjs'
 
 function fixture() {
   return [
-    { kind: 'starter', id: 'starter', requires: [], optional: [] },
-    { kind: 'connector', id: 'billing', requires: [], optional: [] },
-    { kind: 'connector', id: 'portal', requires: [], optional: [] },
-    { kind: 'connector', id: 'checks', requires: [], optional: [] },
-    { kind: 'module', id: 'sales', requires: ['portal'], optional: ['billing'] },
-    { kind: 'module', id: 'hiring', requires: ['checks'], optional: [] },
+    { kind: 'starter', id: 'starter', requires: [] },
+    { kind: 'connector', id: 'billing', requires: [], contributes: { sales: {} } },
+    { kind: 'connector', id: 'portal', requires: [], contributes: {} },
+    { kind: 'connector', id: 'checks', requires: [], contributes: {} },
+    { kind: 'module', id: 'sales', requires: ['portal'] },
+    { kind: 'module', id: 'hiring', requires: ['checks'] },
   ]
 }
 
@@ -86,9 +86,11 @@ it('derives all-optional removal and keeps each source selection only once', () 
   const manifests = fixture()
   const module = manifests.find((manifest) => manifest.id === 'sales')
   module.id = 'crm'
-  manifests.find((manifest) => manifest.id === 'billing').id = 'stripe'
   module.requires = []
-  module.optional = ['portal', 'stripe']
+  manifests.find((manifest) => manifest.id === 'billing').id = 'stripe'
+
+  for (const id of ['portal', 'stripe'])
+    manifests.find((manifest) => manifest.id === id).contributes = { crm: {} }
   const combos = combinations(manifests)
   assert.deepEqual(combos.find((combo) => combo.name === 'crm-without-portal-stripe').remove, [
     'stripe',
@@ -129,17 +131,11 @@ it('includes deploy targets in everything and removes them for a bare starter', 
   assert.ok(combos.find(({ name }) => name === 'starter-only').remove.includes('aws'))
 })
 
-it('orders active conditional dependents before requirements during combination removal', () => {
+it('allows removing a connector that a contributed feature needs', () => {
   const manifests = fixture()
   manifests.find(({ id }) => id === 'sales').requires = []
-
-  const portal = manifests.splice(
-    manifests.findIndex(({ id }) => id === 'portal'),
-    1,
-  )[0]
-
-  manifests.unshift(portal)
-  manifests.find(({ id }) => id === 'billing').requiresWhenInstalled = { hiring: ['portal'] }
-  const selected = combinations(manifests).find(({ name }) => name === 'hiring-only')
-  assert.ok(selected.remove.indexOf('billing') < selected.remove.indexOf('portal'))
+  manifests.find(({ id }) => id === 'portal').contributes = { sales: {} }
+  manifests.find(({ id }) => id === 'billing').contributes = { sales: { requires: ['portal'] } }
+  const selected = combinations(manifests).find(({ name }) => name === 'sales-without-portal')
+  assert.deepEqual(selected.remove, ['portal', 'hiring', 'checks'])
 })

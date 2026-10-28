@@ -1,4 +1,4 @@
-import { execFileSync, spawn, spawnSync } from 'node:child_process'
+import { execFileSync, spawn } from 'node:child_process'
 import { once } from 'node:events'
 import {
   copyFileSync,
@@ -11,9 +11,9 @@ import {
 import { createServer } from 'node:net'
 import { tmpdir } from 'node:os'
 import { dirname, join } from 'node:path'
-import { fileURLToPath, pathToFileURL } from 'node:url'
+import { fileURLToPath } from 'node:url'
 
-import { dependencies, readManifests, repository } from '../../starters/monoerp/infra/manifests.mjs'
+import { readManifests, repository } from '../../starters/monoerp/infra/manifests.mjs'
 
 export function portNames(compose) {
   return [
@@ -21,6 +21,16 @@ export function portNames(compose) {
       [...compose.matchAll(/\$\{([A-Z][A-Z0-9_]*_PORT)(?=[:}])/g)].map((match) => match[1]),
     ),
   ]
+}
+
+// A module's optional connectors are the installed connectors that contribute a feature to it.
+function contributors(manifests, module) {
+  return manifests
+    .filter(
+      (manifest) => manifest.kind === 'connector' && Object.hasOwn(manifest.contributes ?? {}, module),
+    )
+    .map((manifest) => manifest.id)
+    .sort((left, right) => left.localeCompare(right))
 }
 
 export function combinations(manifests) {
@@ -46,7 +56,10 @@ export function combinations(manifests) {
       if (!manifest || omitted.includes(id) || kept.has(id)) return
       kept.add(id)
 
-      for (const dependency of [...manifest.requires, ...(manifest.optional ?? [])])
+      for (const dependency of [
+        ...manifest.requires,
+        ...(manifest.kind === 'module' ? contributors(manifests, id) : []),
+      ])
         keep(dependency)
     }
 
@@ -62,23 +75,14 @@ export function combinations(manifests) {
 
     const pending = manifests.filter((manifest) => !kept.has(manifest.id))
     const remove = []
-    const installed = new Set(manifests.map(({ id }) => id))
 
     while (pending.length) {
       const index = pending.findIndex(
-        (manifest) =>
-          !pending.some((other) =>
-            dependencies(
-              other,
-              new Set([...installed].filter((id) => id !== manifest.id)),
-            ).includes(manifest.id),
-          ),
+        (manifest) => !pending.some((other) => other.requires.includes(manifest.id)),
       )
 
       if (index < 0) throw new Error('Circular required dependencies')
-      const id = pending.splice(index, 1)[0].id
-      installed.delete(id)
-      remove.push(id)
+      remove.push(pending.splice(index, 1)[0].id)
     }
 
     return remove
@@ -89,7 +93,7 @@ export function combinations(manifests) {
 
   for (const module of manifests.filter((manifest) => manifest.kind === 'module')) {
     add(`${module.id}-only`, selection(module))
-    const optional = module.optional.filter((id) => byId.has(id))
+    const optional = contributors(manifests, module.id)
 
     for (const id of optional) add(`${module.id}-without-${id}`, selection(module, [id]))
 
@@ -272,36 +276,7 @@ async function runCombination(name, manifests) {
     run('pnpm', ['install', '--frozen-lockfile'])
     run('pnpm', ['app:doctor'])
 
-    for (const id of combo.remove) {
-      const current = readManifests(pathToFileURL(`${scratch}/`))
-
-      const installed = new Set(
-        current.filter((manifest) => manifest.id !== id).map(({ id }) => id),
-      )
-
-      const dependents = current.filter(
-        (manifest) => manifest.id !== id && dependencies(manifest, installed).includes(id),
-      )
-
-      if (dependents.length) {
-        // An omitted conditional requirement must be refused while its dependent stays installed.
-        const result = spawnSync(
-          'pnpm',
-          ['--config.verify-deps-before-run=false', 'app:remove', id],
-          {
-            cwd: scratch,
-            env,
-            encoding: 'utf8',
-          },
-        )
-
-        const expected = `${id} is required by ${dependents.map(({ id }) => id).join(', ')}`
-
-        if (result.status !== 1 || !result.stderr.includes(expected))
-          throw new Error(`Expected removal refusal: ${expected}; received ${result.stderr}`)
-        console.log(`Refused as required: ${expected}`)
-      } else run('pnpm', ['app:remove', id])
-    }
+    for (const id of combo.remove) run('pnpm', ['app:remove', id])
 
     run('pnpm', ['install', '--no-frozen-lockfile'])
     run('pnpm', ['app:doctor'])

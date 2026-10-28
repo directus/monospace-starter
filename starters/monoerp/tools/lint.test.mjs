@@ -18,15 +18,13 @@ function fixture() {
   const root = mkdtempSync(join(tmpdir(), 'monoerp-lint-'))
   roots.push(root)
   const directory = join(root, 'deploy', 'example')
-  mkdirSync(directory, { recursive: true })
+  mkdirSync(join(directory, 'lint'), { recursive: true })
   writeFileSync(
     join(directory, 'deploy.json'),
-    JSON.stringify(
-      manifestDocument({ kind: 'deploy', id: 'example', lint: 'deploy/example/lint.mjs' }),
-    ),
+    JSON.stringify(manifestDocument({ kind: 'deploy', id: 'example' })),
   )
   writeFileSync(
-    join(directory, 'lint.mjs'),
+    join(directory, 'lint', 'config.ts'),
     `export default { overrides: [{ files: ['deploy/example/**'], rules: { 'example/rule': 'error' } }] }`,
   )
 

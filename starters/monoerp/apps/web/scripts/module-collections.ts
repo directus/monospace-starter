@@ -2,7 +2,6 @@ import { existsSync } from 'node:fs'
 import { loadEnvFile } from 'node:process'
 
 import * as manifestReader from '../../../infra/manifests.mjs'
-import type { Collections } from '../../../infra/manifests.mjs'
 
 const repository = new URL('../../../', import.meta.url)
 
@@ -25,24 +24,18 @@ export function readFrontendFeatures(
   const manifests = manifestReader.readManifests(root)
 
   const installed = new Set(
-    manifests.flatMap((manifest) =>
-      manifest.kind === 'module' && existsSync(new URL(`${manifest.app}/`, root))
-        ? [manifest.id]
-        : [],
-    ),
+    manifests.flatMap((manifest) => (manifest.kind === 'module' ? [manifest.id] : [])),
   )
 
   const enabled = (id: string) =>
     selected.includes(id) &&
     manifests.some((manifest) => manifest.kind === 'connector' && manifest.id === id)
 
-  const features = manifests
-    .flatMap((manifest) =>
-      manifest.kind === 'connector'
-        ? (manifest.frontend ?? []).map((feature) => ({ ...feature, connector: manifest.id }))
-        : [],
-    )
-    .sort((left, right) => left.order - right.order)
+  const features = manifests.flatMap((manifest) =>
+    manifest.kind === 'connector'
+      ? manifest.frontend.map((feature) => ({ ...feature, connector: manifest.id }))
+      : [],
+  )
 
   const active = features.filter(
     (feature) =>
@@ -52,9 +45,6 @@ export function readFrontendFeatures(
   )
 
   for (const feature of active) {
-    if (feature.path !== `connectors/${feature.connector}/frontend/${feature.module}`)
-      throw new Error(`${feature.path}: feature path must match its connector and target module`)
-
     if (!existsSync(new URL(`${feature.path}/feature.tsx`, root)))
       throw new Error(`Selected frontend entry is missing: ${feature.path}/feature.tsx`)
   }
@@ -68,16 +58,15 @@ export function readModuleCollections(
   root = repository,
   selected = selectedConnectorIds(root, process.env.OPTIONAL_SOURCES),
 ) {
-  const configs: Collections[] = manifestReader
+  const modules = manifestReader
     .readManifests(root)
     .flatMap((manifest) => (manifest.kind === 'module' ? [manifest] : []))
 
-  configs.push(...readFrontendFeatures(root, selected).active)
-  configs.sort((left, right) => left.order - right.order)
+  const features = readFrontendFeatures(root, selected).active
 
   return {
-    appCollections: [...new Set(configs.flatMap((config) => config.collections))],
-    schemaCollections: [...new Set(configs.flatMap((config) => config.schemas))],
+    appCollections: [...new Set([...modules, ...features].flatMap((config) => config.collections))],
+    schemaCollections: [...new Set(modules.flatMap((module) => module.writes))],
   }
 }
 

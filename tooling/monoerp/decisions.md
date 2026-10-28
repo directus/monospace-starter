@@ -66,7 +66,7 @@ Paths are relative to `starters/monoerp`. How the modules and connectors fit is 
 
 ## Manifest types and core lint
 
-Manifest filenames identify their type; `format` identifies type and version. JSON documents have no redundant `kind`. Readers derive an internal discriminant from the validated format.
+A part's folder name is its ID and its parent folder (`modules/`, `connectors/`, `deploy/`) is its kind; `$schema` carries kind and contract version. Manifests declare only what cannot be found on disk (collections, source settings, setup order, feature requirements). Schema files, setup scripts, Compose files, extensions, connector features, and deploy lint are found by path; `pnpm app:doctor` lists what it found and fails on a broken convention.
 
 Strict lint is core, including `tools/oxlint` and `@oxlint/plugins`. It cannot be removed. Deploy targets live in sibling `deploy/<id>/` folders with `deploy.json`; AWS owns its workflow and Alchemy patch outside that folder too. Zero targets is valid. `infra/` remains the app's core setup.
 

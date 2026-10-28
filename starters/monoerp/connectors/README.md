@@ -5,8 +5,8 @@ A connector is a removable external source. Portal uses Monospace's built-in MyS
 ## Add a connector
 
 1. Copy `connectors/portal` for a database provider, or `connectors/stripe` for an API extension, to `connectors/<id>`. Keep only the demo services and frontend features you need.
-2. Edit `connector.json`: change the ID, owned paths, source configuration, schema files, source directives, and setup steps. Rename local services and host ports in `compose.yml`. For extensions, update the package name, extension ID, installed directory, and provider ID together.
-3. Add the connector ID to a module's envelope `requires` or `x-monoerp.optional`. Leave `OPTIONAL_SOURCES` unset to use that selection. Give real external databases a read-only login.
+2. Edit `connector.json`: label, description, source configuration, setup steps, and `contributes` for module features. The folder name is the ID. Rename local services and host ports in `compose.yml`. For extensions, update the package name, extension ID, and provider ID together.
+3. An installed connector is selected. Add its ID to a module's envelope `requires` only if the module cannot run without it. Give real external databases a read-only login.
 4. Run the commands below, then `pnpm verify` and browser tests for any frontend components. Setup builds selected extensions automatically.
 
 ```sh
@@ -23,28 +23,28 @@ Install and dev regenerate `compose.app.yml` automatically. If you edit module o
 ## Remove a module, connector, or deploy target
 
 1. Preview with `pnpm app:remove <id> --dry-run`. If the source is already connected, remove its cross-source relations and data source in Studio first. For Stripe, delete Portal's `stripeCustomer` relation before deleting the Stripe source.
-2. Run `pnpm app:remove <id>`. Required dependencies prevent removal. For modules and connectors, update `README.md`, `AGENTS.md`, and `docs/` to drop descriptions of the removed feature; shared prose is not rewritten automatically.
+2. Run `pnpm app:remove <id>`. Required dependencies prevent removal. Features of other connectors that need the removed one turn off, and the command says which. For modules and connectors, update `README.md`, `AGENTS.md`, and `docs/` to drop descriptions of the removed feature; shared prose is not rewritten automatically.
 3. For modules and connectors, run the same follow-up commands above. `--remove-orphans` retires the removed local service. Source-file removal does not erase existing Docker volumes or external data.
 
 For a deploy target, run `pnpm install`, `pnpm app:doctor`, and `pnpm verify` after removal.
 
-To restore a module, connector, or deploy target, copy its whole folder back, restore any declared package entries, and run those commands again. To keep code but disable a source, set `OPTIONAL_SOURCES` instead.
+To restore a module, connector, or deploy target, copy its whole folder and `alsoOwns` back, restore its `packageEntries` values, and run those commands again. To keep code but disable a source, set `OPTIONAL_SOURCES` instead.
 
 ## Connector contract
 
-| Path or manifest field                       | Purpose                                                                                                                                                                         |
-| -------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `connector.json`                             | ID, label, ownership, dependencies, source configuration                                                                                                                        |
-| `compose.yml` / `compose`, `composeProfiles` | Optional local services and overlays                                                                                                                                            |
-| `source`                                     | Provider and connection settings, resolved only by backend setup                                                                                                                |
-| `schemaFiles`                                | API names and Studio presentation settings in `monospace/schema/*.json`                                                                                                         |
-| `setup.beforeSchema`, `setup.afterSchema`    | Ordered steps relative to `monospace/setup/`; a step's `requires` selects dependencies. Scripts import the shared helpers from `infra/monospace/setup/lib.mjs` by relative path |
-| `extension.directory`, `extension.installed` | Extension package and generated install directory                                                                                                                               |
-| `migrate`, `provision`                       | Optional scripts relative to the connector folder; `provision` runs in the deployed setup task                                                                                  |
-| `frontend`                                   | Optional module features, collections, and connector dependencies; see [UI contract](../docs/modules.md#optional-connector-ui)                                                  |
-| `packageEntries`                             | Root package scripts or dependencies removed with this connector                                                                                                                |
+The manifest fields are in [docs/modules.md](../docs/modules.md#starter-module-connector-and-deploy-manifests). Everything else is found by path inside the connector folder:
 
-Other manifest paths are repository-relative. `pnpm build:extensions` writes selected builds to `infra/monospace/extensions/` and removes stale builds for absent or disabled connectors. Copy extension source, not that generated folder.
+| Path                                           | Purpose                                                                                                                     |
+| ---------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| `connector.json`                               | Label, description, dependencies, `x-monoerp.source`, `setup`, and `contributes`                                            |
+| `compose.yml`, `compose.<profile>.yml`         | Optional local services and overlays                                                                                        |
+| `monospace/schema/*.json`                      | API names and Studio presentation settings                                                                                  |
+| `monospace/setup/<script>`                     | Scripts named by `setup.beforeSchema` and `setup.afterSchema`; they import `infra/monospace/setup/lib.mjs` by relative path |
+| `extension/extension.config.json`              | Extension package; installed to `infra/monospace/extensions/<id with / as __>`                                              |
+| `emulator/migrate.sh`, `emulator/provision.sh` | Optional scripts; `provision` runs in the deployed setup task                                                               |
+| `frontend/<module>/feature.tsx`                | The feature declared in `contributes.<module>`; see [UI contract](../docs/modules.md#optional-connector-ui)                 |
+
+`pnpm build:extensions` writes selected builds to `infra/monospace/extensions/` and removes stale builds for absent or disabled connectors. Copy extension source, not that generated folder.
 
 | Source value                                             | Meaning                                                                                                   |
 | -------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
@@ -54,6 +54,6 @@ Other manifest paths are repository-relative. `pnpm build:extensions` writes sel
 
 ## Source selection
 
-Unset `OPTIONAL_SOURCES` selects installed modules' required and optional connector IDs. An explicit comma-separated list replaces that selection; empty selects none. Missing folders are always excluded. Compose follows installed folders, so disabling a source does not stop its local service. Removing a backend source in Studio and removing its code are separate actions.
+Unset `OPTIONAL_SOURCES` selects every installed connector. An explicit comma-separated list replaces that selection; empty selects none. Missing folders are always excluded. Compose follows installed folders, so disabling a source does not stop its local service. Removing a backend source in Studio and removing its code are separate actions.
 
 See [app:doctor](../docs/modules.md#how-appdoctor-works).
