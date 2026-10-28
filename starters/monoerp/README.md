@@ -21,17 +21,24 @@
 </p>
 
 <p align="center">
-  <img alt="An organization in monoERP: CRM details and contacts, with an activity history that mixes CRM calls and meetings with customer portal events from a separate database" src=".github/assets/organization.png" width="900">
+  <img alt="An organization in monoERP: CRM details and contacts, Portal and Billing tabs from other sources, and an activity history that mixes CRM meetings with customer portal events from a separate database" src=".github/assets/organization.png" width="900">
 </p>
 
-## What this is
+## What's inside
 
-Most business data doesn't live in one place. The sales team's records are in one database, and the product's customer data is in another, owned by another team. monoERP shows what building on top of that looks like, without copying data around.
+Most business data doesn't live in one place. The sales team's records are in one database, and the product's customer data is in another, owned by another team. monoERP shows what building on top of that looks like, without copying data around. An organization's page shows its CRM record next to its plan, seats, support tickets, and payments, and it doesn't feel like three systems.
 
-- **CRM module:** organizations, contacts, deals, and activity, stored in PostgreSQL.
-- **Portal (optional demo):** a demo of Monospace's MySQL connector, installed by default to show read-only joins across databases. Remove Stripe first while CRM is installed, then run `pnpm app:remove portal`, then follow the [shared removal steps](connectors/README.md#remove-a-module-connector-or-deploy-target). CRM still works; Portal UI and the dependent Billing tab disappear. See [Portal setup](connectors/portal/README.md).
-- **Stripe (optional demo):** billing, read through a custom Monospace data connector (`connectors/stripe`). Locally it runs against a Stripe emulator, so no Stripe account is needed.
-- **Monospace** joins all three into one typed API with one set of permissions. An organization's page shows its CRM record next to its plan, seats, support tickets, and payments, and it doesn't feel like three systems.
+| Part                        | Kind          | What it adds                                            |
+| --------------------------- | ------------- | ------------------------------------------------------- |
+| [CRM](modules/crm)          | Module        | Organizations, contacts, and deals.                     |
+| [Portal](connectors/portal) | Connector     | Example customer database (a MySQL demo you can remove) |
+| [Stripe](connectors/stripe) | Connector     | Billing data from Stripe                                |
+| [AWS deploy](deploy/aws)    | Deploy target | Fargate, RDS and GitHub OIDC with Alchemy               |
+
+- **CRM** stores organizations, contacts, deals, and activity in PostgreSQL.
+- **Portal** is a read-only MySQL demo, installed by default to show joins across databases. Remove it and CRM still works; the Portal tab and the Billing tab that depends on it disappear.
+- **Stripe** is billing, read through a custom Monospace data connector. Locally it runs against a Stripe emulator, so no Stripe account is needed.
+- **Monospace** joins all three into one typed API with one set of permissions.
 
 More modules can plug in next to the CRM. The app is TanStack Start, React, Tailwind, and shadcn/ui.
 
@@ -40,11 +47,24 @@ More modules can plug in next to the CRM. The app is TanStack Start, React, Tail
 
 ## Quickstart
 
-You need Node 24, pnpm, and Docker. Run `pnpm install` before Docker; it generates the Compose include file.
+You need Node 24, pnpm, and Docker.
+
+Once the Monospace CLI ships `create`, it asks which modules, connectors, and deploy target to keep, then prints the commands below:
+
+```bash
+npx @monospace/cli create my-erp
+```
+
+Until then, download the starter as it is:
 
 ```bash
 npx giget@latest gh:directus/monospace-starter/starters/monoerp monoerp
 cd monoerp
+```
+
+Then run it. `pnpm install` goes before Docker; it generates the Compose include file.
+
+```bash
 cp .env.example .env    # local defaults; change nothing to start
 pnpm install
 docker compose up -d --wait --wait-timeout 180 # Monospace, both databases, a local Stripe, RabbitMQ, Mailpit
@@ -92,6 +112,7 @@ This repo is set up for working with AI coding agents like Claude Code, Codex, a
 | `pnpm test`                                   | Unit tests                                                            |
 | `pnpm --filter @monoerp/web test:browser`     | Browser tests in Chromium, no server needed                           |
 | `pnpm format`                                 | Fix formatting                                                        |
+| `pnpm app:doctor`                             | List the installed parts and check their manifests                    |
 | `pnpm setup:all`                              | Configure the Monospace workspace. Safe to rerun after pulling        |
 | `pnpm build:extensions`                       | Rebuild selected connectors; Monospace picks them up on its own       |
 | `pnpm generate`                               | Rebuild the typed Monospace client after a schema change              |
@@ -99,26 +120,38 @@ This repo is set up for working with AI coding agents like Claude Code, Codex, a
 | `pnpm schema:export`                          | Save Studio changes (labels, field order, and so on) back to the repo |
 | `docker compose --profile full up -d --build` | Run the app in a container too, behind Caddy                          |
 
-## How it fits together
+## Project layout
+
+```text
+apps/web/         The TanStack Start app: shell, sign-in, shared components, generated client
+modules/crm/      The CRM: manifest, pages, reads, writes, SQL, demo data, setup
+connectors/       Portal (MySQL demo) and Stripe (extension, emulator, Billing UI)
+deploy/aws/       Optional AWS deploy
+infra/            Shared Monospace setup, PostgreSQL, Caddy, installed connector builds
+docs/             The guides
+starter.json      Shared ownership manifest and the commands the CLI prints
+```
 
 The browser only talks to the app's own address. The app's server proxies `/api/*` to Monospace, so the Monospace session cookie stays same-origin. Screens call Monospace straight from the browser with the generated SDK and TanStack Query. There's no app database and no API layer of our own.
 
-A module is one folder, `modules/<id>`: manifest, UI, routes, and infrastructure. See [the module layout](docs/modules.md#add-a-module).
-
-| Area           | Path                                                                | Purpose                                                               |
-| -------------- | ------------------------------------------------------------------- | --------------------------------------------------------------------- |
-| Core           | `starter.json`                                                      | Shared ownership manifest                                             |
-| Core           | `apps/web/src/shell`, `apps/web/src/lib`, `apps/web/src/components` | Shell, authentication, and shared UI                                  |
-| Core           | `infra/monospace`, `infra/postgres`                                 | Shared workspace setup and PostgreSQL service                         |
-| Deploy targets | `deploy/<id>/deploy.json`                                           | Optional hosting setup                                                |
-| Modules        | `modules/<id>`                                                      | One folder per module: manifest, UI entry, copy, reads, writes, tests |
-| Modules        | `modules/<id>/routes/{app,settings,public}`                         | Pages, mounted at `/<id>`, `/settings/<id>`, and the site root        |
-| Modules        | `modules/<id>/infra`                                                | SQL, demo data, schema settings, and setup                            |
-| Connectors     | `connectors/<id>`                                                   | Removable external sources and their local stand-ins                  |
-| Connectors     | `connectors/portal`                                                 | Read-only MySQL demo and Portal UI                                    |
-| Connectors     | `connectors/stripe`                                                 | Stripe API extension, local emulator, and Billing UI                  |
+A part is one folder: `modules/<id>`, `connectors/<id>`, or `deploy/<id>`, with its manifest inside (`module.json`, `connector.json`, `deploy.json`). A module's pages live in `modules/<id>/routes/{app,settings,public}`, mounted at `/<id>`, `/settings/<id>`, and the site root. See [the module layout](docs/modules.md#add-a-module).
 
 To change the CRM schema, add a migration in `modules/crm/infra/postgres/migrations`, make the same change in `modules/crm/infra/postgres/init/001_schema.sql`, then run `pnpm db:migrate`, `pnpm setup:introspect`, and `pnpm generate`. [`docs/data-model.md`](docs/data-model.md) has the details.
+
+## Removing parts
+
+Preview with `pnpm app:remove <id> --dry-run`, then run `pnpm app:remove <id>`. The ids are the folder names: `crm`, `portal`, `stripe`, `aws`. Removal deletes the part's folder and anything else its manifest owns, and refuses a part that another installed part requires.
+
+- Removing **Portal** keeps CRM working. Stripe's Billing tab needs Portal, so it turns off, and the command says so. Remove Stripe too if you don't want it.
+- Removing **Stripe** hides the Billing tab.
+- Removing **CRM** leaves the shell, sign-in, and settings; connectors stay installed until removed separately.
+- Removing **AWS** also drops its workflow, package script, and patch.
+
+After a module or connector removal, follow the [shared removal steps](connectors/README.md#remove-a-module-connector-or-deploy-target) to retire its source and regenerate the app. The guides in `docs/` describe the full selection; drop what no longer applies.
+
+## Deploy
+
+See [deployment](docs/deploy.md) for hosting requirements and the optional deploy targets.
 
 ## Docs
 
@@ -132,10 +165,6 @@ To change the CRM schema, add a migration in `modules/crm/infra/postgres/migrati
 | [`monospace.md`](docs/monospace.md)             | Setup scripts, connectors, the generated client, Monospace issues          |
 | [`testing.md`](docs/testing.md)                 | Tests, lint rules, CI                                                      |
 | [`deploy.md`](docs/deploy.md)                   | Hosting the app                                                            |
-
-## Deploy
-
-See [deployment](docs/deploy.md) for hosting requirements and the optional deploy targets.
 
 ## License
 
