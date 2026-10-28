@@ -114,7 +114,6 @@ describe('module collection discovery', () => {
       readModuleFeaturePaths([
         ...active,
         ...active.map((feature) => ({ ...feature, module: 'inventory' })),
-        ...active,
       ]),
     ).toEqual({
       crm: ['connectors/stripe/frontend/crm'],

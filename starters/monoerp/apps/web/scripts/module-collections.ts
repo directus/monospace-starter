@@ -11,37 +11,32 @@ try {
   if (!(error instanceof Error && 'code' in error && error.code === 'ENOENT')) throw error
 }
 
-function selectedConnectorIds(root: URL, override: string | undefined) {
-  return manifestReader
-    .selectConnectors(manifestReader.readManifests(root), override)
-    .map(({ id }) => id)
-}
-
-export function readFrontendFeatures(
-  root = repository,
-  selected = selectedConnectorIds(root, process.env.OPTIONAL_SOURCES),
-) {
+// Installed modules, plus connector features whose module and connectors are all present and
+// selected. `selected` defaults to OPTIONAL_SOURCES; tests pass it explicitly.
+function discover(root: URL, selected: readonly string[] | undefined) {
   const manifests = manifestReader.readManifests(root)
+  const modules = manifests.flatMap((manifest) => (manifest.kind === 'module' ? [manifest] : []))
 
-  const installed = new Set(
-    manifests.flatMap((manifest) => (manifest.kind === 'module' ? [manifest.id] : [])),
+  const connectors = manifests.flatMap((manifest) =>
+    manifest.kind === 'connector' ? [manifest] : [],
   )
 
-  const enabled = (id: string) =>
-    selected.includes(id) &&
-    manifests.some((manifest) => manifest.kind === 'connector' && manifest.id === id)
+  const enabled = new Set(
+    (
+      selected ??
+      manifestReader.selectConnectors(manifests, process.env.OPTIONAL_SOURCES).map(({ id }) => id)
+    ).filter((id) => connectors.some((connector) => connector.id === id)),
+  )
 
-  const features = manifests.flatMap((manifest) =>
-    manifest.kind === 'connector'
-      ? manifest.frontend.map((feature) => ({ ...feature, connector: manifest.id }))
-      : [],
+  const features = connectors.flatMap((connector) =>
+    connector.frontend.map((feature) => ({ ...feature, connector: connector.id })),
   )
 
   const active = features.filter(
     (feature) =>
-      installed.has(feature.module) &&
-      enabled(feature.connector) &&
-      feature.requires.every(enabled),
+      modules.some((module) => module.id === feature.module) &&
+      enabled.has(feature.connector) &&
+      feature.requires.every((id) => enabled.has(id)),
   )
 
   for (const feature of active) {
@@ -49,23 +44,20 @@ export function readFrontendFeatures(
       throw new Error(`Selected frontend entry is missing: ${feature.path}/feature.tsx`)
   }
 
-  const inactive = features.filter((feature) => !active.includes(feature))
+  return { modules, active, inactive: features.filter((feature) => !active.includes(feature)) }
+}
+
+export function readFrontendFeatures(root = repository, selected?: readonly string[]) {
+  const { active, inactive } = discover(root, selected)
 
   return { active, inactive }
 }
 
-export function readModuleCollections(
-  root = repository,
-  selected = selectedConnectorIds(root, process.env.OPTIONAL_SOURCES),
-) {
-  const modules = manifestReader
-    .readManifests(root)
-    .flatMap((manifest) => (manifest.kind === 'module' ? [manifest] : []))
-
-  const features = readFrontendFeatures(root, selected).active
+export function readModuleCollections(root = repository, selected?: readonly string[]) {
+  const { modules, active } = discover(root, selected)
 
   return {
-    appCollections: [...new Set([...modules, ...features].flatMap((config) => config.collections))],
+    appCollections: [...new Set([...modules, ...active].flatMap((config) => config.collections))],
     schemaCollections: [...new Set(modules.flatMap((module) => module.writes))],
   }
 }
@@ -77,11 +69,7 @@ export const frontendFeatures = readFrontendFeatures()
 export function readModuleFeaturePaths(features = frontendFeatures.active) {
   const paths: Record<string, string[]> = {}
 
-  for (const feature of features) {
-    const selected = (paths[feature.module] ??= [])
-
-    if (!selected.includes(feature.path)) selected.push(feature.path)
-  }
+  for (const feature of features) (paths[feature.module] ??= []).push(feature.path)
 
   return paths
 }
