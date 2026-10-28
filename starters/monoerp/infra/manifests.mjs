@@ -41,12 +41,6 @@ function compose(root, folder) {
     compose: existsSync(new URL(`${folder}/compose.yml`, root))
       ? `${folder}/compose.yml`
       : undefined,
-    composeProfiles: Object.fromEntries(
-      files(root, folder, /^compose\.[a-z][a-z0-9-]*\.yml$/).map((path) => [
-        path.split('/').at(-1).split('.')[1],
-        path,
-      ]),
-    ),
   }
 }
 

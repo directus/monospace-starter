@@ -15,7 +15,7 @@ afterEach(async () => {
   await Promise.all(directories.splice(0).map((directory) => rm(directory, { recursive: true })))
 })
 
-it('includes compose.yml and profile overlays by convention, dropping removed parts', async () => {
+it('includes every compose.yml by convention, dropping removed parts', async () => {
   const directory = await mkdtemp(join(tmpdir(), 'monoerp-manifests-'))
   directories.push(directory)
   const root = pathToFileURL(`${directory}/`)
@@ -28,18 +28,12 @@ it('includes compose.yml and profile overlays by convention, dropping removed pa
     await mkdir(folder, { recursive: true })
     await writeFile(new URL(`${kind}.json`, folder), JSON.stringify(manifestDocument({ kind, id })))
     await writeFile(new URL('compose.yml', folder), 'services: {}\n')
-    await writeFile(new URL('compose.bench.yml', folder), 'services: {}\n')
   }
 
   expect(await syncCompose(root)).toEqual([
     'modules/inventory/compose.yml',
     'connectors/stripe/compose.yml',
   ])
-  await syncCompose(root, 'bench')
-  expect(await readFile(new URL('compose.app.yml', root), 'utf8')).toContain(
-    'connectors/stripe/compose.bench.yml',
-  )
-
   await rm(new URL('connectors/stripe/', root), { recursive: true })
   expect(await syncCompose(root)).toEqual(['modules/inventory/compose.yml'])
   expect(await readFile(new URL('compose.app.yml', root), 'utf8')).not.toContain('stripe')

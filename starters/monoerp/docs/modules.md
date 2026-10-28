@@ -65,18 +65,18 @@ The CLI never reads `x-monoerp`; `tools/manifest-schema.mjs` validates it.
 
 Paths are relative to the part folder.
 
-| Part      | Path                                                     | Meaning                                                             |
-| --------- | -------------------------------------------------------- | ------------------------------------------------------------------- |
-| Module    | `module.ts`                                              | UI entry (required)                                                 |
-| Module    | `routes/<kind>/`                                         | `app` pages at `/<id>`, `settings` pages at `/settings/<id>`        |
-| Module    | `infra/postgres/{init,migrations}`                       | SQL and demo data                                                   |
-| Module    | `infra/monospace/schema/*.json`, `infra/monospace/setup` | Schema settings files and setup scripts                             |
-| Connector | `monospace/schema/*.json`, `monospace/setup`             | Schema settings files and setup scripts                             |
-| Connector | `extension/extension.config.json`                        | Extension; installed as its ID with `/` replaced by `__`            |
-| Connector | `emulator/migrate.sh`, `emulator/provision.sh`           | Local migrations; `provision` also runs in the deployed setup task  |
-| Connector | `frontend/<module>/feature.tsx`                          | The feature declared in `contributes.<module>`                      |
-| Any       | `compose.yml`, `compose.<profile>.yml`                   | Local services, and overlays used when `COMPOSE_APP_PROFILE` is set |
-| Deploy    | `lint/config.ts`                                         | Vite+ lint fragment                                                 |
+| Part      | Path                                                     | Meaning                                                            |
+| --------- | -------------------------------------------------------- | ------------------------------------------------------------------ |
+| Module    | `module.ts`                                              | UI entry (required)                                                |
+| Module    | `routes/<kind>/`                                         | `app` pages at `/<id>`, `settings` pages at `/settings/<id>`       |
+| Module    | `infra/postgres/{init,migrations}`                       | SQL and demo data                                                  |
+| Module    | `infra/monospace/schema/*.json`, `infra/monospace/setup` | Schema settings files and setup scripts                            |
+| Connector | `monospace/schema/*.json`, `monospace/setup`             | Schema settings files and setup scripts                            |
+| Connector | `extension/extension.config.json`                        | Extension; installed as its ID with `/` replaced by `__`           |
+| Connector | `emulator/migrate.sh`, `emulator/provision.sh`           | Local migrations; `provision` also runs in the deployed setup task |
+| Connector | `frontend/<module>/feature.tsx`                          | The feature declared in `contributes.<module>`                     |
+| Any       | `compose.yml`                                            | Local services                                                     |
+| Deploy    | `lint/config.ts`                                         | Vite+ lint fragment                                                |
 
 For `OPTIONAL_SOURCES` and connector selection, see [Source selection](../connectors/README.md#source-selection).
 

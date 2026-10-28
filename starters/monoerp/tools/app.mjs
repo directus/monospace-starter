@@ -66,10 +66,7 @@ function describe(root, manifest, ids) {
     details.push(routes.length ? `routes ${routes.join('+')}` : 'no routes')
   }
 
-  if (manifest.compose)
-    details.push(
-      `compose${Object.keys(manifest.composeProfiles).length ? ` (+${Object.keys(manifest.composeProfiles).join(', ')})` : ''}`,
-    )
+  if (manifest.compose) details.push('compose')
 
   if (manifest.extension) details.push(`extension ${manifest.extension.installed}`)
 

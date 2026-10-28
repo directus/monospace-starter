@@ -34,7 +34,6 @@ interface Runtime {
   setupDirectory: string
   schemaFiles: string[]
   compose?: string
-  composeProfiles: Record<string, string>
 }
 
 export interface ModuleManifest extends Envelope, Runtime {

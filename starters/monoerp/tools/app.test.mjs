@@ -107,7 +107,6 @@ it('lists what it discovered on disk for each part', () => {
 
   for (const path of [
     'compose.yml',
-    'compose.bench.yml',
     'emulator/migrate.sh',
     'emulator/provision.sh',
     'monospace/schema/billing.json',
@@ -119,11 +118,10 @@ it('lists what it discovered on disk for each part', () => {
   expect(checkApp(root).report).toEqual([
     'starter: owns every path outside the parts',
     'sales (module): routes app+settings, 1 schema file, 1 setup step',
-    'billing (connector): compose (+bench), extension acme__billing, 1 schema file, 0 setup steps, migrate, provision',
+    'billing (connector): compose, extension acme__billing, 1 schema file, 0 setup steps, migrate, provision',
   ])
   expect(readManifests(root).find(({ id }) => id === 'billing')).toMatchObject({
     compose: 'connectors/billing/compose.yml',
-    composeProfiles: { bench: 'connectors/billing/compose.bench.yml' },
     schemaFiles: ['connectors/billing/monospace/schema/billing.json'],
     migrate: 'emulator/migrate.sh',
     provision: 'emulator/provision.sh',

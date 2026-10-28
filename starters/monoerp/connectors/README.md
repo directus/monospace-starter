@@ -37,7 +37,7 @@ The manifest fields are in [docs/modules.md](../docs/modules.md#starter-module-c
 | Path                                           | Purpose                                                                                                                     |
 | ---------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
 | `connector.json`                               | Label, description, dependencies, `x-monoerp.source`, `setup`, and `contributes`                                            |
-| `compose.yml`, `compose.<profile>.yml`         | Optional local services and overlays                                                                                        |
+| `compose.yml`                                  | Optional local services                                                                                                     |
 | `monospace/schema/*.json`                      | API names and Studio presentation settings                                                                                  |
 | `monospace/setup/<script>`                     | Scripts named by `setup.beforeSchema` and `setup.afterSchema`; they import `infra/monospace/setup/lib.mjs` by relative path |
 | `extension/extension.config.json`              | Extension package; installed to `infra/monospace/extensions/<id with / as __>`                                              |
