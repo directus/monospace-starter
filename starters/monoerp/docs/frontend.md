@@ -78,6 +78,8 @@ The page is put together from shared components in `components/`:
 | `DisplayMenu`               | Sort and column visibility, with a reset                                                    |
 | `ListBulkActions`           | Bulk edit and delete for the selected rows                                                  |
 
+TanStack row and column builders keep their identity when layout state changes. The shared `BodyRow` and `HeaderCell` renderers opt out of React Compiler memoization so order, visibility, widths, and pin positions update immediately. Selection controls use `Subscribe` for their row-selection atom.
+
 `ListAddButton` keeps create actions consistent on desktop and phones. `ListBulkActions` accepts field permissions, plus `statusBulkField` and `ownerBulkField`.
 
 A list with a board view as well (`routes/_app/crm/deals.tsx`) switches on `search.display`.

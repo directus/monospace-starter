@@ -34,6 +34,9 @@ function HeaderCell<TData extends object>({
   header: Header<GridFeatures, TData, unknown>
   index: number
 }) {
+  // Column builders stay stable while their sizing and pinning state changes.
+  'use no memo'
+
   const { column } = header
   const pinned = column.getIsPinned()
 
@@ -110,6 +113,9 @@ function BodyRow<TData extends object>({
   row: Row<GridFeatures, TData>
   index: number
 }) {
+  // Row builders stay stable while column order, visibility, and sizing change.
+  'use no memo'
+
   const columns = row.getVisibleCells()
 
   const cells = [

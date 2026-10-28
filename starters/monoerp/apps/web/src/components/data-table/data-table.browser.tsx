@@ -3,7 +3,7 @@ import { cleanup, render } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { useState } from 'react'
 import { afterEach, expect, it } from 'vitest'
-import { page } from 'vitest/browser'
+import { page, userEvent as browserUserEvent } from 'vitest/browser'
 
 import { DataTable, useDataTable } from '@/components/data-table/data-table'
 import type { DataTableColumn } from '@/components/data-table/data-table'
@@ -166,3 +166,56 @@ it('fits sort labels on one line and aligns header dividers with resize handles'
     getComputedStyle(cell).borderBottomColor,
   )
 })
+
+for (const surface of ['header', 'display']) {
+  it(`reorders rendered headers and cells through ${surface} pointer drags`, async () => {
+    render(<ExampleTable />)
+    await expect.element(page.getByText('Record 1', { exact: true })).toBeVisible()
+
+    const firstRow = () => {
+      const row = document.querySelector('tbody tr[data-row-id="0"]')
+
+      if (!row) throw new Error('Missing first row')
+
+      return Array.from(row.querySelectorAll('td')).map((cell) => cell.textContent)
+    }
+
+    expect(firstRow()).toEqual(['', 'Record 1', 'record-1@example.com', 'Active', ''])
+
+    if (surface === 'display')
+      await page.getByRole('button', { name: 'Display', exact: true }).click()
+    const email = page.getByRole('button', { name: 'Drag to move email column' }).last()
+    const status = page.getByRole('button', { name: 'Drag to move status column' }).last()
+    await browserUserEvent.dragAndDrop(email, status)
+    await expect
+      .element(page.getByRole('status', { name: 'order' }))
+      .toHaveTextContent('select,name,status,email')
+    await expect.poll(firstRow).toEqual(['', 'Record 1', 'Active', 'record-1@example.com', ''])
+    await expect
+      .poll(() => Array.from(document.querySelectorAll('thead th')).map((cell) => cell.textContent))
+      .toEqual(['', 'Name', 'Status', 'Email', ''])
+    // A second drag must update existing rows again, without a reload.
+    await browserUserEvent.dragAndDrop(email, status)
+    await expect.poll(firstRow).toEqual(['', 'Record 1', 'record-1@example.com', 'Active', ''])
+
+    if (surface === 'header')
+      await page.getByRole('button', { name: 'Display', exact: true }).click()
+    await page.getByRole('checkbox', { name: 'Email', exact: true }).click()
+    await expect.poll(firstRow).toEqual(['', 'Record 1', 'Active', ''])
+    await expect.element(page.getByRole('columnheader', { name: /Email/ })).not.toBeInTheDocument()
+    await page.getByRole('checkbox', { name: 'Email', exact: true }).click()
+    await expect.poll(firstRow).toEqual(['', 'Record 1', 'record-1@example.com', 'Active', ''])
+    await userEvent.keyboard('{Escape}')
+    const handle = page.getByRole('separator', { name: 'Resize email column' })
+    await handle.click()
+    await userEvent.keyboard('{ArrowRight}')
+    const header = handle.element().closest('th')
+
+    if (!header) throw new Error('Missing email header')
+    await expect.poll(() => header.getBoundingClientRect().width).toBe(530)
+    const cell = document.querySelector('tbody tr[data-row-id="0"] td:nth-child(3)')
+
+    if (!cell) throw new Error('Missing email cell')
+    expect(cell.getBoundingClientRect().width).toBe(530)
+  })
+}

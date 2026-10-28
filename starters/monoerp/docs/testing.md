@@ -42,7 +42,7 @@ Name tests after the behavior (`it('offers an undo action that reopens the activ
 
 ## Browser tests
 
-Files ending in `.browser.tsx` run in a real Chromium through Vitest's Playwright provider (`apps/web/vitest.browser.config.ts`). Use them when jsdom isn't enough: layout, focus, drag and drop, drawers and popovers, CSS, anything a user clicks through. They need no server or database.
+Files ending in `.browser.tsx` run in a real Chromium through Vitest's Playwright provider (`apps/web/vitest.browser.config.ts`). Use them when jsdom isn't enough: layout, focus, drag and drop, drawers and popovers, CSS, anything a user clicks through. They use the same React Compiler setting as the app and need no server or database. Column-layout tests assert rendered body cells as well as headers and saved order, since stable TanStack row builders can hide state changes from the compiler.
 
 Install the browser once per machine:
 

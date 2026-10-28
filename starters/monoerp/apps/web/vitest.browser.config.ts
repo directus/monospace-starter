@@ -24,7 +24,7 @@ export default defineConfig({
       ...frontendFeatures.active.map((feature) => `../../${feature.path}/**/*.browser.tsx`),
     ],
   },
-  plugins: [react(), tailwindcss()],
+  plugins: [react({ compiler: true }), tailwindcss()],
   // Serves MSW's service worker (test/public/mockServiceWorker.js) to browser tests only.
   publicDir: 'test/public',
   test: {
