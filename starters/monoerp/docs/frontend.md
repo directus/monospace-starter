@@ -62,7 +62,7 @@ function OrganizationDetailPage() {
 
 Copy `modules/crm/routes/app/organizations.tsx`. A list page's route file defines everything specific to it:
 
-- **Columns:** a `DataTableColumn<Row>[]` array. Each column sets its header from copy, a size, and a `cell`. Right-aligned numbers use `meta.cellClassName`.
+- **Columns:** a `DataTableColumn<Row>[]` array. Each column sets its header from copy, a `kind` (`columnWidths` in `components/data-table/data-table.tsx` gives each kind its default and minimum width), and a `cell`. Right-aligned numbers use `meta.cellClassName`.
 - **Filters:** a `ListFilterField[]` array. Plain fields map straight to Monospace filters. `relationField` and `dateField` build the common kinds. A field on another record (here, the portal plan) sets `toClause` to write the nested filter. `filtersToClause` in `lib/filters.tsx` turns the filter state into a Monospace filter.
 - **Search params:** `validateSearch: listSearchSchema` (`lib/list-search.ts`) gives every list `q`, `sort`, `filters`, and `display`. All list state lives in the URL, so it survives reloads and can be shared. Filters are a flat AND list (`{ rules: [...] }`). Pass one `onSearchChange` callback that merges the patch into previous search. `useListSearch` owns q/sort/filter/display changes; it omits empty filter queries from the URL. Activity uses this URL helper with its own bucket queries.
 - **Paging:** `useListPage` (`hooks/use-list-page.ts`) shares the loader params with the query factory, flattens pages, clears selection when params change, and wires table sorting and paging. Pass `Route.useLoaderDeps()` so prefetching and rendering use identical params.

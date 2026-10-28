@@ -34,7 +34,12 @@ export function ColumnHeader<TData extends object>({
 
   if (!canSort && !canHide)
     return (
-      <span className="text-[0.8125rem] font-normal text-secondary-foreground/80">{title}</span>
+      <span
+        title={title}
+        className="truncate text-[0.8125rem] font-normal text-secondary-foreground/80"
+      >
+        {title}
+      </span>
     )
 
   return (
@@ -45,9 +50,10 @@ export function ColumnHeader<TData extends object>({
             variant="ghost"
             size="sm"
             aria-label={appCopy.table.menu(title)}
-            className="-ml-2 h-6 gap-1.5 rounded-md px-2 text-[0.8125rem] font-normal text-secondary-foreground/80 hover:bg-secondary [&_svg]:size-3.25 [&_svg]:opacity-60"
+            title={title}
+            className="-mx-2 h-6 max-w-[calc(100%+1rem)] min-w-0 shrink gap-1.5 rounded-md px-2 text-[0.8125rem] font-normal text-secondary-foreground/80 hover:bg-secondary [&_svg]:size-3.25 [&_svg]:opacity-60"
           >
-            {title}
+            <span className="truncate">{title}</span>
             {icon}
           </Button>
         }

@@ -19,9 +19,9 @@ const records: RecordRow[] = Array.from({ length: 120 }, (_, index) => ({
 }))
 
 const columns: DataTableColumn<RecordRow>[] = [
-  { id: 'name', header: 'Name', accessorKey: 'name', size: 320 },
-  { id: 'email', header: 'Email', accessorKey: 'email', size: 520 },
-  { id: 'status', header: 'Status', accessorKey: 'status', size: 500 },
+  { id: 'name', header: 'Name', kind: 'primary', accessorKey: 'name', size: 320 },
+  { id: 'email', header: 'Email', kind: 'email', accessorKey: 'email', size: 520 },
+  { id: 'status', header: 'Status', kind: 'badge', accessorKey: 'status', size: 500 },
 ]
 
 function ExampleTable() {
@@ -219,3 +219,77 @@ for (const surface of ['header', 'display']) {
     expect(cell.getBoundingClientRect().width).toBe(530)
   })
 }
+
+type DatedRow = { id: string; name: string; note: string; updatedAt: string }
+
+const datedColumns: DataTableColumn<DatedRow>[] = [
+  { id: 'name', header: 'Name', kind: 'primary', accessorKey: 'name' },
+  {
+    id: 'note',
+    header: 'A header label far longer than its column',
+    kind: 'text',
+    accessorKey: 'note',
+  },
+  {
+    id: 'updatedAt',
+    header: 'Last updated by anyone',
+    kind: 'date',
+    accessorKey: 'updatedAt',
+    meta: { headerClassName: 'justify-end', cellClassName: 'text-right' },
+  },
+]
+
+function DatedTable() {
+  const { table, onDragEnd } = useDataTable({
+    id: 'dated-table',
+    columns: datedColumns,
+    rows: [{ id: '1', name: 'Record 1', note: 'Note', updatedAt: 'Aug 20, 2026' }],
+    getRowId: (row) => row.id,
+    sort: null,
+    onSortChange: () => {},
+    selectable: true,
+  })
+
+  return (
+    <div className="flex h-[300px] w-[600px] flex-col">
+      <DataTable table={table} onDragEnd={onDragEnd} noun="Records" />
+    </div>
+  )
+}
+
+it('truncates header labels inside their column and fits a full date at the minimum width', async () => {
+  render(<DatedTable />)
+  await expect.element(page.getByText('Aug 20, 2026')).toBeVisible()
+  const resize = page.getByRole('separator', { name: 'Resize last updated by anyone column' })
+  await resize.click()
+
+  for (let step = 0; step < 10; step++) await userEvent.keyboard('{ArrowLeft}')
+  await expect.poll(() => resize.element().getAttribute('aria-valuenow')).toBe('140')
+
+  for (const header of document.querySelectorAll('thead th')) {
+    const label = header.querySelector('[title]')
+
+    if (!label) continue
+    const bounds = header.getBoundingClientRect()
+    const text = (label.querySelector('.truncate') ?? label).getBoundingClientRect()
+    expect(text.left).toBeGreaterThanOrEqual(bounds.left)
+    expect(text.right).toBeLessThanOrEqual(bounds.right)
+    expect(label.getAttribute('title')).toBe(label.textContent)
+  }
+
+  const long = page.getByText('A header label far longer than its column').element()
+  expect(long.scrollWidth).toBeGreaterThan(long.clientWidth)
+
+  const date = page.getByText('Aug 20, 2026').element()
+  expect(date.scrollWidth).toBeLessThanOrEqual(date.clientWidth)
+
+  const header = page
+    .getByRole('button', { name: 'Last updated by anyone column options' })
+    .element()
+
+  const cellEnd =
+    date.getBoundingClientRect().right - Number.parseFloat(getComputedStyle(date).paddingRight)
+
+  // Right-aligned headers end where their cells' text ends, less the header's 1px divider.
+  expect(cellEnd - (header.getBoundingClientRect().right - 8)).toBe(1)
+})

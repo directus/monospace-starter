@@ -56,7 +56,7 @@ export const organizationList: OrganizationListContribution = {
       before: 'updatedAt',
       id: 'plan',
       header: portalCopy.organizations.portal.plan,
-      size: 130,
+      kind: 'text',
       component: ({ organization, organizations }) => {
         const { account, unavailable } = useSummary(
           organization.portalAccountId,
@@ -76,7 +76,7 @@ export const organizationList: OrganizationListContribution = {
       before: 'updatedAt',
       id: 'seats',
       header: portalCopy.organizations.portal.seats,
-      size: 110,
+      kind: 'number',
       meta: { headerClassName: 'justify-end', cellClassName: 'text-right tabular-nums' },
       component: ({ organization, organizations }) => {
         const { account } = useSummary(
@@ -99,7 +99,7 @@ export const organizationList: OrganizationListContribution = {
       before: 'updatedAt',
       id: 'renewsAt',
       header: portalCopy.organizations.portal.renews,
-      size: 170,
+      kind: 'text',
       component: ({ organization, organizations }) => {
         const { account } = useSummary(
           organization.portalAccountId,
@@ -123,7 +123,7 @@ export const organizationList: OrganizationListContribution = {
       before: 'updatedAt',
       id: 'tickets',
       header: portalCopy.organizations.portal.openTickets,
-      size: 120,
+      kind: 'number',
       meta: { headerClassName: 'justify-end', cellClassName: 'text-right tabular-nums' },
       component: ({ organization, organizations }) => {
         const { account } = useSummary(

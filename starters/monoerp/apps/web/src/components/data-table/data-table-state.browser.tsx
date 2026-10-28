@@ -9,8 +9,8 @@ import type { DataTableColumn } from '@/components/data-table/data-table'
 import { appStorageKey } from '@/lib/storage'
 
 const columns: Array<DataTableColumn<{ name: string; email: string }>> = [
-  { id: 'name', header: 'Name', accessorKey: 'name' },
-  { id: 'email', header: 'Email', accessorKey: 'email' },
+  { id: 'name', header: 'Name', kind: 'primary', accessorKey: 'name' },
+  { id: 'email', header: 'Email', kind: 'email', accessorKey: 'email' },
 ]
 
 function PersistedTableState() {
