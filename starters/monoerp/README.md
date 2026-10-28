@@ -103,7 +103,7 @@ This repo is set up for working with AI coding agents like Claude Code, Codex, a
 
 The browser only talks to the app's own address. The app's server proxies `/api/*` to Monospace, so the Monospace session cookie stays same-origin. Screens call Monospace straight from the browser with the generated SDK and TanStack Query. There's no app database and no API layer of our own.
 
-A module is four folders, plus any settings routes: manifest, UI, infrastructure, and routes. See [the module layout](docs/modules.md#add-a-module).
+A module is one folder, `modules/<id>`: manifest, UI, routes, and infrastructure. See [the module layout](docs/modules.md#add-a-module).
 
 | Area           | Path                                                                | Purpose                                                               |
 | -------------- | ------------------------------------------------------------------- | --------------------------------------------------------------------- |

@@ -122,7 +122,7 @@ Use a fresh stack when changing infrastructure names; keep the old volumes as a 
 | Database/user `app`, service `app-postgres`     | [docker-compose.yml:28](../docker-compose.yml#L28), [sources.mjs:20](../infra/monospace/setup/sources.mjs#L20), deployment configuration         | No                                          |
 | Stripe provider `monoerp/stripe-data-connector` | [extension.config.json:11](../connectors/stripe/extension/extension.config.json#L11) and [connector.json](../connectors/stripe/connector.json)   | No                                          |
 | Extension `monoerp__stripe`                     | [connector.json](../connectors/stripe/connector.json) `extension.installed`                                                                      | No                                          |
-| Runtime key `x-monoerp`                         | All manifests, [manifest-schema.mjs](../tools/manifest-schema.mjs), [manifest-fixtures.mjs](../tools/manifest-fixtures.mjs)                      | Yes (update readers and manifests together) |
+| Runtime key `x-monoerp`                         | All manifests and [manifest-schema.mjs](../tools/manifest-schema.mjs)                                                                            | Yes (update readers and manifests together) |
 
 ### Add a field
 

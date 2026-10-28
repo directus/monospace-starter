@@ -70,7 +70,7 @@ Both scripts use `MONOSPACE_API_KEY` if it's set, and otherwise sign in with the
 
 ## Data connector extensions
 
-Monospace can read APIs as well as databases through data connector extensions: JavaScript bundles it runs in a sandbox. This repo has the Stripe extension package in `connectors/stripe/extension`, next to its emulator, schema settings, manifest, and compose file. Portal lives in `connectors/portal` and uses the built-in MySQL provider. Each module declares its connectors in `modules/<id>/module.json`.
+Monospace can read APIs as well as databases through data connector extensions: JavaScript bundles it runs in a sandbox. This repo has the Stripe extension package in `connectors/stripe/extension`, next to its emulator, schema settings, manifest, and compose file. Portal lives in `connectors/portal` and uses the built-in MySQL provider. A connector declares the module features it contributes in `connectors/<id>/connector.json`.
 
 - `pnpm build:extensions` also removes stale generated builds for absent or disabled connectors. This keeps a deleted folder from leaving a loaded extension behind.
 - Compose mounts `infra/monospace/extensions/` into Monospace, with automatic reloading on. `pnpm build:extensions` writes builds there, and Monospace loads them in a second or two, no restart. The exception is a change to the connector's declared capabilities (`engine.capabilities` in `extension.config.json`), which needs `docker compose restart monospace`.

@@ -45,7 +45,7 @@ Manifests declare only what cannot be found on disk. Two layers:
 | `alsoOwns`                       | Root files outside the folder that go with the part (a workflow, a patch); cannot overlap a part |
 | `packageEntries`                 | `{ file, section, entries }`: exact values in a root package or workspace file, removed with it  |
 
-`starter.json` has `$schema`, `label`, `description`, literal `ignorePaths`, and `nextSteps.create` / `nextSteps.remove`. Next steps name package scripts (`{ "script": "setup:all" }`) or explicit command arguments (`{ "command": ["cp", "-n", ".env.example", ".env"] }`). Steps with `"when": "choices-changed"` run only after modules or connectors are left out. These are printed instructions, not code that the CLI evaluates. Package scripts use the detected package manager.
+`starter.json` has `$schema`, `label`, `description`, `ignorePaths` (not copied when creating an app), and `nextSteps.create` / `nextSteps.remove`: the commands the CLI prints afterwards, as package scripts (`{ "script": "setup:all" }`) or argument lists (`{ "command": ["cp", "-n", ".env.example", ".env"] }`). `"when": "choices-changed"` marks steps needed only when parts were left out.
 
 ### `x-monoerp` runtime settings
 
@@ -65,20 +65,16 @@ The CLI never reads `x-monoerp`; `tools/manifest-schema.mjs` validates it.
 
 Paths are relative to the part folder.
 
-| Part      | Path                                                     | Meaning                                                            |
-| --------- | -------------------------------------------------------- | ------------------------------------------------------------------ |
-| Module    | `module.ts`                                              | UI entry (required)                                                |
-| Module    | `routes/<kind>/`                                         | `app` pages at `/<id>`, `settings` pages at `/settings/<id>`       |
-| Module    | `infra/postgres/{init,migrations}`                       | SQL and demo data                                                  |
-| Module    | `infra/monospace/schema/*.json`, `infra/monospace/setup` | Schema settings files and setup scripts                            |
-| Connector | `monospace/schema/*.json`, `monospace/setup`             | Schema settings files and setup scripts                            |
-| Connector | `extension/extension.config.json`                        | Extension; installed as its ID with `/` replaced by `__`           |
-| Connector | `emulator/migrate.sh`, `emulator/provision.sh`           | Local migrations; `provision` also runs in the deployed setup task |
-| Connector | `frontend/<module>/feature.tsx`                          | The feature declared in `contributes.<module>`                     |
-| Any       | `compose.yml`                                            | Local services                                                     |
-| Deploy    | `lint/config.ts`                                         | Vite+ lint fragment                                                |
+| Part   | Path                                                     | Meaning                                                      |
+| ------ | -------------------------------------------------------- | ------------------------------------------------------------ |
+| Module | `module.ts`                                              | UI entry (required)                                          |
+| Module | `routes/<kind>/`                                         | `app` pages at `/<id>`, `settings` pages at `/settings/<id>` |
+| Module | `infra/postgres/{init,migrations}`                       | SQL and demo data                                            |
+| Module | `infra/monospace/schema/*.json`, `infra/monospace/setup` | Schema settings files and setup scripts                      |
+| Any    | `compose.yml`                                            | Local services                                               |
+| Deploy | `lint/config.ts`                                         | Vite+ lint fragment                                          |
 
-For `OPTIONAL_SOURCES` and connector selection, see [Source selection](../connectors/README.md#source-selection).
+Connector paths are in the [connector contract](../connectors/README.md#connector-contract); `OPTIONAL_SOURCES` in [Source selection](../connectors/README.md#source-selection).
 
 ## The UI contract
 
@@ -164,11 +160,9 @@ CRM owns its contribution types and registry in `modules/crm/slots.ts`; `lib/mod
 
 ## How app:doctor works
 
-`pnpm app:doctor` reads every part folder and prints what it found for each one, for example `portal (connector): compose, 1 schema file, 2 setup steps, migrate, provision, crm feature on`. A feature that cannot run says why: `crm feature off: needs portal`.
+`pnpm app:doctor` reads every part folder and prints what it found for each one, for example `portal (connector): compose, 1 schema file, 2 setup steps, migrate, provision, crm feature on`. A feature that cannot run says why: `crm feature off: needs portal`. A broken convention (a folder without its manifest, a missing `module.ts` or setup script, a `contributes` entry without its `feature.tsx`, an unknown or circular `requires`, overlapping `alsoOwns`, a `packageEntries` value that differs from the file) fails with a message naming what to add or fix.
 
-It fails when a convention is broken: a part folder without its manifest, a `$schema` that does not match the folder, a module without `module.ts`, a setup step without its script, a `contributes` entry without `frontend/<module>/feature.tsx` (or the reverse), an `extension/` folder without `extension.config.json`, a `requires` naming a part with no folder, circular `requires`, duplicate IDs, `alsoOwns` that are missing or overlap a part or each other, and `packageEntries` whose value differs from the file. Setup-step `requires` may name connectors a feature needs even after they are removed; other unknown names fail.
-
-Removal runs the same checks before deleting anything, then deletes the folder and `alsoOwns`, and removes `packageEntries`. Paths cannot traverse symlinks. Package edits accept `.yaml` and `.yml`, preserve JSON indentation and newline style, and refuse to overwrite a file changed during removal. The implementation is in `tools/manifest-schema.mjs`, `infra/manifests.mjs`, and `tools/app.mjs`.
+`pnpm app:remove <id>` runs the same checks, then deletes the folder and `alsoOwns` and removes `packageEntries` from their JSON or YAML files, keeping their formatting and refusing a file that changed meanwhile. The implementation is `tools/manifest-schema.mjs`, `infra/manifests.mjs`, and `tools/app.mjs`.
 
 The import-boundary tests also reject imports between modules or from a module into connector code. Shared registries are the documented entry points. Feature-aware typecheck creates a temporary check config extending `apps/web/tsconfig.json`; lint and unit/browser tests exclude inactive features. Frontend discovery exposes only selected feature paths, never source credentials.
 

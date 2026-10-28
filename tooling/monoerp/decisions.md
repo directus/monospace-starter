@@ -62,7 +62,7 @@ Paths are relative to `starters/monoerp`. How the modules and connectors fit is 
 
 **Why:** copying or removing a module used to require reconciling separate app collections, infra exports, connector exports, and route lists in reports. `modules/<id>/module.json`, `connectors/<id>/connector.json`, and `starter.json` now describe ownership and setup in data that Node scripts and a future picker can read directly. `pnpm app:doctor` checks exclusive ownership; `pnpm app:remove` refuses required dependencies before deleting declared paths.
 
-**What stays in TypeScript:** React components, icons, copy, searches, and router-checked links. The module's `module.ts` is its UI entry, not a second provisioning manifest. Existing app/infra folders stay put. Compose discovery uses the dependency-free reader so the quickstart still works before installing packages.
+**What stays in TypeScript:** React components, icons, copy, searches, and router-checked links. The module's `module.ts` is its UI entry, not a second provisioning manifest. Compose discovery runs from `pnpm install` (the prepare script) and `pnpm dev`, so the stack always matches the installed parts.
 
 ## Manifest types and core lint
 

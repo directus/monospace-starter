@@ -60,4 +60,4 @@ The product is **monoERP** (`monoerp` in code). App ID, workspace, and app sourc
 
 Use the same entity names in SQL, API calls, query keys, and UI: organizations, contacts, affiliations, deals, and activities.
 
-To add a module, copy the four CRM folders, plus any settings routes; see `docs/modules.md`.
+To add a module, copy `modules/crm`; see `docs/modules.md`.
