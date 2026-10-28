@@ -64,7 +64,14 @@ function HeaderCell<TData extends object>({
         column.columnDef.meta?.headerClassName,
       )}
     >
-      <div className={cn('flex items-center', column.columnDef.meta?.headerClassName)}>
+      <div
+        className={cn(
+          'flex min-w-0 items-center',
+          // Room for the drag handle while it shows, so it doesn't touch the header button.
+          !pinned && 'group-hover:pl-2 has-focus-visible:pl-2',
+          column.columnDef.meta?.headerClassName,
+        )}
+      >
         {!pinned ? (
           <button
             ref={handleRef}

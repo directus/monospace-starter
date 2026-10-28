@@ -149,7 +149,7 @@ const columns: Array<DataTableColumn<DealRow>> = [
     id: 'title',
     header: crmCopy.deals.singular,
     accessorFn: (row) => row.title ?? '',
-    size: 300,
+    kind: 'primary',
     enableHiding: false,
     cell: ({ row }) =>
       row.original.id ? (
@@ -168,14 +168,14 @@ const columns: Array<DataTableColumn<DealRow>> = [
     id: 'organization',
     header: crmCopy.organizations.singular,
     enableSorting: false,
-    size: 220,
+    kind: 'person',
     cell: ({ row }) => <OrganizationLabel organization={row.original.organization} size="sm" />,
   },
   {
     id: 'contact',
     header: crmCopy.contacts.singular,
     enableSorting: false,
-    size: 200,
+    kind: 'person',
     cell: ({ row }) =>
       row.original.contact ? (
         <ContactLabel contact={row.original.contact} size="sm" secondary={null} />
@@ -185,7 +185,7 @@ const columns: Array<DataTableColumn<DealRow>> = [
     id: 'stage',
     header: crmCopy.deals.stage,
     enableSorting: false,
-    size: 160,
+    kind: 'badge',
     cell: ({ row }) => {
       const stage = row.original.stage
 
@@ -201,21 +201,21 @@ const columns: Array<DataTableColumn<DealRow>> = [
     id: 'status',
     header: appCopy.common.status,
     accessorFn: (row) => row.status ?? '',
-    size: 120,
+    kind: 'badge',
     cell: ({ row }) => <StatusBadge status={row.original.status ?? 'unknown'} />,
   },
   {
     id: 'owner',
     header: appCopy.common.owner,
     enableSorting: false,
-    size: 200,
+    kind: 'person',
     cell: ({ row }) => <UserLabel user={row.original.owner} size="sm" />,
   },
   {
     id: 'value',
     header: crmCopy.deals.value,
     accessorFn: (row) => row.valueAmount ?? '',
-    size: 140,
+    kind: 'money',
     meta: { headerClassName: 'justify-end', cellClassName: 'text-right font-medium tabular-nums' },
     cell: ({ row }) => formatMoney(row.original.valueAmount, row.original.currency ?? undefined),
   },
@@ -223,7 +223,7 @@ const columns: Array<DataTableColumn<DealRow>> = [
     id: 'closeDate',
     header: crmCopy.deals.expectedClose,
     accessorFn: (row) => row.expectedCloseDate ?? '',
-    size: 150,
+    kind: 'date',
     meta: { headerClassName: 'justify-end', cellClassName: 'text-right text-muted-foreground' },
     cell: ({ row }) => formatDate(row.original.expectedCloseDate),
   },

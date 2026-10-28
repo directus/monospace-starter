@@ -1,6 +1,7 @@
 import type { QueryClient } from '@tanstack/react-query'
 import type { ComponentType } from 'react'
 
+import type { ColumnKind } from '@/components/data-table/data-table'
 import type { organizationsUpdateOneInput } from '@/generated/monospace'
 import type { ListFilterField } from '@/lib/filters'
 import { selectFeatures } from '@/lib/modules/features'
@@ -35,7 +36,7 @@ export type OrganizationListContribution = {
     before: string
     id: string
     header: string
-    size: number
+    kind: ColumnKind
     meta?: { headerClassName: string; cellClassName: string }
     component: ComponentType<{
       organization: Organization

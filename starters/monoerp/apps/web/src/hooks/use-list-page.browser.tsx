@@ -20,7 +20,7 @@ const records: { id: Uuid; name: string }[] = [
   { id: uuidSchema.parse('00000000-0000-4000-8000-000000000002'), name: 'Bob' },
 ]
 
-const columns = [{ id: 'name', header: 'Name', accessorKey: 'name' }]
+const columns = [{ id: 'name', header: 'Name', kind: 'primary' as const, accessorKey: 'name' }]
 
 function ListExample() {
   const [search, setSearch] = useState<ListSearch>({ view: 'pool' })

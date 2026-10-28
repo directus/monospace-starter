@@ -31,11 +31,27 @@ import { cn } from '@/lib/utils'
 // next page as the end comes into view. On phones, pages that pass `mobileRow` get a plain stacked
 // list instead (same rows, sort, and paging; no selection or column controls).
 
+// Widths by what a column shows, so every list sizes the same content the same way. Minimums
+// keep the content readable in an end column, which has wider padding (a date fits 'Aug 20, 2026').
+export const columnWidths = {
+  primary: { size: 240, minSize: 200 },
+  person: { size: 200, minSize: 140 },
+  text: { size: 180, minSize: 100 },
+  email: { size: 240, minSize: 160 },
+  badge: { size: 140, minSize: 110 },
+  date: { size: 150, minSize: 140 },
+  money: { size: 140, minSize: 120 },
+  number: { size: 110, minSize: 96 },
+} satisfies Record<string, { size: number; minSize: number }>
+
+export type ColumnKind = keyof typeof columnWidths
+
 // Every column needs an explicit id: saved layouts and column order are keyed by it. The header
-// is plain text; the table adds the column header menu.
+// is plain text; the table adds the column header menu. `kind` sets the width.
 export type DataTableColumn<TData extends object> = ColumnDef<GridFeatures, TData> & {
   id: string
   header: string
+  kind: ColumnKind
 }
 
 type GridColumn<TData extends object> = ColumnDef<GridFeatures, TData>
@@ -103,7 +119,7 @@ function reconcileOrder(saved: ColumnOrderState, ids: Array<string>) {
 function withHeaders<TData extends object>(
   columns: Array<DataTableColumn<TData>>,
 ): Array<GridColumn<TData>> {
-  return columns.map((column) => {
+  return columns.map(({ kind, ...column }) => {
     const title = column.header
 
     const header: GridColumn<TData>['header'] = ({ column: instance }) => (
@@ -111,6 +127,7 @@ function withHeaders<TData extends object>(
     )
 
     return {
+      ...columnWidths[kind],
       ...column,
       meta: { headerTitle: title, ...column.meta },
       header,
@@ -176,7 +193,6 @@ export function useDataTable<TData extends object, TId extends string = string>(
     columns: decorated,
     data: rows,
     getRowId,
-    defaultColumn: { minSize: 80, size: 180 },
     columnResizeMode: 'onChange',
     manualSorting: true,
     enableRowSelection: selectable,
