@@ -14,34 +14,36 @@ afterEach(() => {
   for (const root of roots.splice(0)) rmSync(root, { recursive: true, force: true })
 })
 
-it.each(['none', 'deploy'])('loads the remaining lint when %s is absent', async (removed) => {
+function fixture() {
   const root = mkdtempSync(join(tmpdir(), 'monoerp-lint-'))
   roots.push(root)
+  const directory = join(root, 'deploy', 'example')
+  mkdirSync(directory, { recursive: true })
+  writeFileSync(
+    join(directory, 'deploy.json'),
+    JSON.stringify(
+      manifestDocument({ kind: 'deploy', id: 'example', lint: 'deploy/example/lint.mjs' }),
+    ),
+  )
+  writeFileSync(
+    join(directory, 'lint.mjs'),
+    `export default { overrides: [{ files: ['deploy/example/**'], rules: { 'example/rule': 'error' } }] }`,
+  )
 
-  for (const id of ['deploy']) {
-    const directory = join(root, 'deploy', id)
-    mkdirSync(directory, { recursive: true })
-    writeFileSync(
-      join(directory, 'deploy.json'),
-      JSON.stringify(
-        manifestDocument({
-          kind: 'deploy',
-          id,
-          lint: `deploy/${id}/lint.mjs`,
-        }),
-      ),
-    )
-    writeFileSync(
-      join(directory, 'lint.mjs'),
-      `export default { overrides: [{ files: ['deploy/example/**'], rules: { 'deploy/example': 'error' } }] }`,
-    )
-  }
+  return root
+}
 
-  if (removed !== 'none') rmSync(join(root, 'deploy', removed), { recursive: true })
-
+it('loads core strict lint and the installed target fragment', async () => {
+  const root = fixture()
   const lint = await loadLint(pathToFileURL(root + '/'))
   expect(lint.rules['strict/no-module-mocking']).toBe('error')
-  expect(lint.overrides.some((override) => override.rules['deploy/example'] === 'error')).toBe(
-    removed !== 'deploy',
-  )
+  expect(lint.overrides.some((override) => override.rules['example/rule'] === 'error')).toBe(true)
+})
+
+it('keeps core strict lint after removing the target', async () => {
+  const root = fixture()
+  rmSync(join(root, 'deploy', 'example'), { recursive: true })
+  const lint = await loadLint(pathToFileURL(root + '/'))
+  expect(lint.rules['strict/no-module-mocking']).toBe('error')
+  expect(lint.overrides.some((override) => override.rules['example/rule'] === 'error')).toBe(false)
 })

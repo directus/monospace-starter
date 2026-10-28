@@ -9,7 +9,7 @@ The optional Stripe extension exposes customers, products, prices, payment inten
 3. Run the [shared setup commands](../README.md#add-a-connector). Setup builds and installs the extension, creates its source, and joins Portal accounts to Stripe customers.
 4. Run `pnpm verify` and browser tests for any UI changes. To rebuild Stripe alone, run `pnpm --dir connectors/stripe/extension build` from the repo root.
 
-If the source already exists, remove Portal's `stripeCustomer` relation and the Stripe source in Studio before changing its connection settings and running setup again. To remove Stripe entirely, follow the [shared removal steps](../README.md#remove-a-module-or-connector).
+If the source already exists, remove Portal's `stripeCustomer` relation and the Stripe source in Studio before changing its connection settings and running setup again. To remove Stripe entirely, follow the [shared removal steps](../README.md#remove-a-module-connector-or-deploy-target).
 
 ## Stripe contract
 

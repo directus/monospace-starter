@@ -107,7 +107,7 @@ Staging sends every email (invites, password resets) to a Mailpit task, like `do
 
 ## Optional automation
 
-The included CI workflow runs checks and builds without AWS credentials. Deploy explicitly with `pnpm aws deploy --stage staging` or `--stage prod`. The AWS deploy target owns `.github/workflows/deploy.yml`. It skips deployment cleanly until `AWS_DEPLOY_ROLE_ARN` and `OIDC_SUBJECT` are configured. Configured deploys wait for the same commit’s successful `Check` run, then deploy main to staging or version tags to prod; verification runs once per push. The optional `pnpm aws github-oidc` helper creates the account identity provider; `GITHUB_OIDC_SUBJECT` enables a role with repo, environment, and ref-bound trust. See `github.ts` for its accepted subject format. The role has administrator access, so limit who can trigger it.
+The included CI workflow runs checks and builds without AWS credentials. Deploy explicitly with `pnpm aws deploy --stage staging` or `--stage prod`. The AWS deploy target owns `.github/workflows/deploy-aws.yml`. It skips deployment cleanly until `AWS_DEPLOY_ROLE_ARN` and `OIDC_SUBJECT` are configured. Configured deploys wait for the same commit’s successful `Check` run, then deploy main to staging or version tags to prod; verification runs once per push. The optional `pnpm aws github-oidc` helper creates the account identity provider; `GITHUB_OIDC_SUBJECT` enables a role with repo, environment, and ref-bound trust. See `github.ts` for its accepted subject format. The role has administrator access, so limit who can trigger it.
 
 One-time setup:
 
@@ -207,3 +207,7 @@ CloudFront-to-load-balancer traffic uses plain HTTP in this starter. Browser-to-
 The optional package is `@monoerp/aws`. `pnpm aws <command>` forwards to its scripts; run `pnpm --filter @monoerp/aws typecheck` to check it alone. Rename stack/resource IDs, database/final snapshot names, `monoerp.internal`, and the sender in this folder together. Review `pnpm aws plan` first, since identity changes may replace resources.
 
 A module may declare `x-monoerp.demoUserCredential` to name an environment variable used by deployed setup for demo users. Supply it separately from the admin credential.
+
+## Lint
+
+This target adds the Effect rules in [lint](lint) while installed. The plugin is named `strict-effect`; plugin names share one namespace with core and other targets.

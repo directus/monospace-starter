@@ -16,7 +16,6 @@ dist-ssr
 __unconfig*
 .mcp.json
 apps/web/monospace.openapi.json
-.alchemy
 .claude/settings.local.json
 # Connector builds from connectors/, installed by `pnpm build:extensions`
 infra/monospace/extensions/*

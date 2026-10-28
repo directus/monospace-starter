@@ -79,6 +79,15 @@ const common = {
     .optional(),
 }
 
+export const ownershipSchema = z.object(common)
+
+const kinds = {
+  'urn:monospace:manifest:starter:1': 'starter',
+  'urn:monospace:manifest:module:1': 'module',
+  'urn:monospace:manifest:connector:1': 'connector',
+  'urn:monospace:manifest:deploy:1': 'deploy',
+}
+
 const runtimeCommon = { optional: ids.default([]) }
 
 const when = z.literal('choices-changed').optional()
@@ -151,7 +160,7 @@ export const manifestSchema = z
   ])
   .transform((document) => {
     const { 'x-monoerp': runtime = {}, ...envelope } = document
-    const manifest = { ...envelope, ...runtime, kind: envelope.format.split(':')[3] }
+    const manifest = { ...envelope, ...runtime, kind: kinds[envelope.format] }
 
     if (manifest.kind === 'connector')
       manifest.frontend = (runtime.frontend ?? []).map((feature) => ({

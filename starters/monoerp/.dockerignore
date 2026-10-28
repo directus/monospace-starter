@@ -5,5 +5,5 @@
 **/node_modules
 *.log
 docs
-addons
+deploy
 .pnpm-store

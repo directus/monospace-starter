@@ -15,7 +15,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url'
 import { afterEach, expect, it } from 'vitest'
 
 import { readManifests, resolveSource } from '../infra/manifests.mjs'
-import { checkApp, removeInstalled } from './app.mjs'
+import { checkApp, removeInstalled, removeOwned } from './app.mjs'
 import { manifestDocument } from './manifest-fixtures.mjs'
 
 const directories = []
@@ -412,7 +412,7 @@ it('derives types from format and rejects redundant kind or mismatched locations
   expect(document).not.toHaveProperty('kind')
   expect(readManifests(root).find(({ id }) => id === 'sales').kind).toBe('module')
   writeFileSync(path, JSON.stringify({ ...document, kind: 'module' }))
-  expect(() => readManifests(root)).toThrow()
+  expect(() => readManifests(root)).toThrow('Unrecognized key')
   writeFileSync(
     path,
     JSON.stringify({
@@ -422,4 +422,26 @@ it('derives types from format and rejects redundant kind or mismatched locations
     }),
   )
   expect(() => readManifests(root)).toThrow('format and id must match')
+})
+
+it('preflights direct ownership removal before changing package entries', () => {
+  const { root } = fixture()
+  write(root, 'package.json', JSON.stringify({ scripts: { internal: 'keep' } }))
+  symlinkSync(fileURLToPath(new URL('apps/web/src/modules/sales/', root)), new URL('linked', root))
+
+  const owner = {
+    id: 'workshop',
+    label: 'Workshop',
+    description: 'Internal tooling',
+    ownedPaths: ['linked'],
+    packageEntries: [{ path: 'package.json', section: 'scripts', names: ['internal'] }],
+  }
+
+  expect(() => removeOwned(owner, { root })).toThrow('symlinks cannot be owned or traversed')
+  expect(() => removeOwned({ ...owner, ownedPaths: ['../escape'] }, { root })).toThrow(
+    'literal repository-relative path',
+  )
+  expect(JSON.parse(readFileSync(new URL('package.json', root), 'utf8')).scripts.internal).toBe(
+    'keep',
+  )
 })

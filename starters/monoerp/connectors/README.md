@@ -20,13 +20,15 @@ pnpm generate
 
 Install and dev regenerate `compose.app.yml` automatically. If you edit module or connector folders or Compose declarations without running those commands, run `pnpm compose:sync` before starting Docker. Included Compose paths resolve relative to their own file. Keep optional services out of core's `depends_on`.
 
-## Remove a module or connector
+## Remove a module, connector, or deploy target
 
 1. Preview with `pnpm app:remove <id> --dry-run`. If the source is already connected, remove its cross-source relations and data source in Studio first. For Stripe, delete Portal's `stripeCustomer` relation before deleting the Stripe source.
-2. Run `pnpm app:remove <id>`. Required dependencies prevent removal. Update `README.md`, `AGENTS.md`, and `docs/` to drop descriptions of the removed module or connector; shared prose is not rewritten automatically.
-3. Run the same follow-up commands above. `--remove-orphans` retires the removed local service. Source-file removal does not erase existing Docker volumes or external data.
+2. Run `pnpm app:remove <id>`. Required dependencies prevent removal. For modules and connectors, update `README.md`, `AGENTS.md`, and `docs/` to drop descriptions of the removed feature; shared prose is not rewritten automatically.
+3. For modules and connectors, run the same follow-up commands above. `--remove-orphans` retires the removed local service. Source-file removal does not erase existing Docker volumes or external data.
 
-To restore a module or connector, copy its whole folder back, restore any declared package entries, and run those commands again. To keep code but disable a source, set `OPTIONAL_SOURCES` instead.
+For a deploy target, run `pnpm install`, `pnpm app:doctor`, and `pnpm verify` after removal.
+
+To restore a module, connector, or deploy target, copy its whole folder back, restore any declared package entries, and run those commands again. To keep code but disable a source, set `OPTIONAL_SOURCES` instead.
 
 ## Connector contract
 

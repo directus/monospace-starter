@@ -4,6 +4,7 @@ import { createRequire } from 'node:module'
 import { fileURLToPath } from 'node:url'
 
 import { manifestPath, readManifests, repository } from '../infra/manifests.mjs'
+import { ownershipSchema } from './manifest-schema.mjs'
 
 function contains(parent, child) {
   return child === parent || child.startsWith(`${parent}/`)
@@ -234,6 +235,29 @@ export function removeInstalled(id, { root = repository, dryRun = false } = {}) 
       `${id} is required by ${dependents.map((candidate) => candidate.id).join(', ')}`,
     )
 
+  removeOwned(manifest, { root, dryRun })
+
+  const starter = manifests.find((manifest) => manifest.kind === 'starter')
+  console.log('For a connected source, remove its relations and source in Studio first.')
+  console.log('Update README.md, AGENTS.md, and docs/ for the removed feature.')
+  console.log('Next commands:')
+
+  for (const step of starter.nextSteps.remove)
+    console.log(`  ${step.script ? `pnpm ${step.script}` : step.command.join(' ')}`)
+
+  return manifest.ownedPaths
+}
+
+export function removeOwned(input, { root = repository, dryRun = false } = {}) {
+  const manifest = ownershipSchema.parse(input)
+
+  for (const path of manifest.ownedPaths) safePath(root, path)
+
+  for (const entry of manifest.packageEntries ?? []) {
+    if (!safePath(root, entry.path))
+      throw new Error(`${manifest.id}: missing package ${entry.path}`)
+  }
+
   for (const entry of manifest.packageEntries ?? []) {
     const path = new URL(entry.path, root)
     const yaml = entry.path.endsWith('.yaml')
@@ -259,14 +283,6 @@ export function removeInstalled(id, { root = repository, dryRun = false } = {}) 
 
     if (!dryRun) rmSync(new URL(path, root), { recursive: true })
   }
-
-  const starter = manifests.find((manifest) => manifest.kind === 'starter')
-  console.log('For a connected source, remove its relations and source in Studio first.')
-  console.log('Update README.md, AGENTS.md, and docs/ for the removed feature.')
-  console.log('Next commands:')
-
-  for (const step of starter.nextSteps.remove)
-    console.log(`  ${step.script ? `pnpm ${step.script}` : step.command.join(' ')}`)
 
   return manifest.ownedPaths
 }

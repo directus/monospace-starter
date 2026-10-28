@@ -26,6 +26,6 @@ All of these are errors, so `pnpm check` fails on them. They come from `tools/ox
 - **`no-conditional-empty-object-spread`:** no `...(ok ? { a } : {})`. Build the object directly.
 - **`no-shape-in-symbol-names`:** don't name things `...Shape`. Name them for what they are.
 
-[AWS deploy target](../../deploy/aws/README.md) also gets the Effect rules in [AWS lint](../../deploy/aws/lint).
+Installed deploy targets can add rules through their manifest’s `lint` entry.
 
 The AST visitor files use the normal formatter and base lint rules plus spacing. App-specific data boundary rules are disabled there because visitors inspect parser unions directly.

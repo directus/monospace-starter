@@ -8,7 +8,7 @@ import { readManifests } from '../infra/manifests.mjs'
 
 const root = fileURLToPath(new URL('../', import.meta.url))
 
-const toolPaths = readManifests().flatMap((manifest) => manifest.ownedPaths)
+const ownedRoots = readManifests().flatMap((manifest) => manifest.ownedPaths)
 
 const roots = [
   'apps',
@@ -17,8 +17,7 @@ const roots = [
   'modules',
   'tools',
   'docs',
-  'deploy',
-  ...toolPaths.map((path) => path.split('/')[0]),
+  ...ownedRoots.map((path) => path.split('/')[0]),
 ]
 
 function markdown(directory) {

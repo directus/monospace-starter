@@ -23,7 +23,7 @@ Use CRM as the working example for a new `inventory` module:
 
 ## Remove a module
 
-Preview with `pnpm app:remove crm --dry-run`, then run `pnpm app:remove crm` and the [shared removal steps](../connectors/README.md#remove-a-module-or-connector). Connectors remain installed until removed separately.
+Preview with `pnpm app:remove crm --dry-run`, then run `pnpm app:remove crm` and the [shared removal steps](../connectors/README.md#remove-a-module-connector-or-deploy-target). Connectors remain installed until removed separately.
 
 ## Starter, module, connector, and deploy manifests
 
@@ -33,7 +33,7 @@ monoERP runtime settings live under `x-monoerp`: module app/infra paths, collect
 
 `starter.json` also declares `sourceRoots`, literal `ignorePaths`, and `nextSteps.create` / `nextSteps.remove`. Next steps name package scripts (`{ "script": "setup:all" }`) or explicit command arguments (`{ "command": ["cp", "-n", ".env.example", ".env"] }`). Steps with `"when": "choices-changed"` run only after modules or connectors are left out. These are printed instructions, not code that the CLI evaluates. Package scripts use the detected package manager.
 
-The starter declares shared ownership in root `starter.json`. Each module uses `modules/<id>/module.json`; each connector uses `connectors/<id>/connector.json`. The starter owns the shared shell and services and cannot be removed.
+The starter declares shared ownership in root `starter.json`. Each module uses `modules/<id>/module.json`; each connector uses `connectors/<id>/connector.json`; each deploy target uses `deploy/<id>/deploy.json`. The starter owns the shared shell and services and cannot be removed.
 
 | Field                        | Contract                                                                              |
 | ---------------------------- | ------------------------------------------------------------------------------------- |
@@ -148,11 +148,11 @@ The import-boundary tests also reject imports between modules or from a module i
 
 ## Deploy targets
 
-`deploy/<id>/deploy.json` declares a hosting target with `format: urn:monospace:manifest:deploy:1`. AWS is the first target, in `deploy/aws/`. A second target belongs in a sibling folder. The app works with none installed.
+`deploy/<id>/deploy.json` declares a hosting target with `format: urn:monospace:manifest:deploy:1`. A second target belongs in a sibling folder. The app works with none installed.
 
-Targets use the shared ownership, dependency, and package-entry fields. Their files live together; files tools require elsewhere (the AWS workflow and Alchemy patch) are listed in `ownedPaths`. Remove AWS with `pnpm app:remove aws`, then run `pnpm install` and `pnpm verify`.
+Targets use the shared ownership, dependency, and package-entry fields. Their files live together; files tools require elsewhere (such as workflows and package patches) are listed in `ownedPaths`. Remove a target with `pnpm app:remove <id>`, then run `pnpm install` and `pnpm verify`.
 
-A target may declare a `lint` path exporting a Vite+ lint fragment. `tools/lint.ts` combines installed targets' fragments with the core strict rules in `tools/oxlint`. Strict lint and `@oxlint/plugins` are always installed. Lint implementation code and connector extensions follow the base rules.
+A target may declare a `lint` path exporting a Vite+ lint fragment. Plugin names share one namespace across installed targets and core. `tools/lint.ts` combines installed targets' fragments with the core strict rules in `tools/oxlint`. Strict lint and `@oxlint/plugins` are always installed. Lint implementation code and connector extensions follow the base rules.
 
 Manifests have no `kind` field. Their filenames identify their type and `format` identifies type and version. Readers derive their internal type from `format` and validate it against the location.
 

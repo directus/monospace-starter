@@ -11,7 +11,7 @@ Portal is the optional read-only MySQL demo. It adds account, plan, seat, ticket
 
 ## Remove Portal
 
-Preview with `pnpm app:remove portal --dry-run`, then follow the [shared removal steps](../README.md#remove-a-module-or-connector). CRM keeps working and retains its stored Portal account link. Stripe may stay installed, but its CRM Billing feature is inactive without Portal. Restore the whole folder and run shared setup to reconnect it.
+Preview with `pnpm app:remove portal --dry-run`, then follow the [shared removal steps](../README.md#remove-a-module-connector-or-deploy-target). CRM keeps working and retains its stored Portal account link. Stripe may stay installed, but its CRM Billing feature is inactive without Portal. Restore the whole folder and run shared setup to reconnect it.
 
 ## Portal contract
 

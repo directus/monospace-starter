@@ -20,7 +20,7 @@ import { requireReadableSpacingRule } from './rules/require-readable-spacing.ts'
 import { requireSafetyCommentForTypeAssertionRule } from './rules/require-safety-comment-for-type-assertion.ts'
 
 /** Generic Oxlint rules that reject low-evidence and low-signal implementation patterns. */
-const antiSlopPlugin = eslintCompatPlugin({
+const strictPlugin = eslintCompatPlugin({
   meta: { name: 'strict' },
   rules: {
     'no-array-filter-map': noArrayFilterMapRule,
@@ -44,4 +44,4 @@ const antiSlopPlugin = eslintCompatPlugin({
   },
 })
 
-export default antiSlopPlugin
+export default strictPlugin

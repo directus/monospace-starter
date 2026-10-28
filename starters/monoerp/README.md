@@ -110,7 +110,7 @@ A module is four folders, plus any settings routes: manifest, UI, infrastructure
 | Core           | `starter.json`                                                      | Shared ownership manifest                            |
 | Core           | `apps/web/src/shell`, `apps/web/src/lib`, `apps/web/src/components` | Shell, authentication, and shared UI                 |
 | Core           | `infra/monospace`, `infra/postgres`                                 | Shared workspace setup and PostgreSQL service        |
-| Deploy targets | `deploy/<id>/deploy.json`                                           | Optional hosting setup (AWS first)                   |
+| Deploy targets | `deploy/<id>/deploy.json`                                           | Optional hosting setup                               |
 | Modules        | `modules/<id>`                                                      | Module manifest                                      |
 | Modules        | `apps/web/src/modules/<id>`                                         | UI entry, copy, reads, and writes                    |
 | Modules        | `infra/modules/<id>`                                                | SQL, demo data, schema settings, and setup           |
