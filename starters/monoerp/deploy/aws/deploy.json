@@ -1,12 +1,10 @@
 {
-  "format": "urn:monospace:manifest:addon:1",
-  "kind": "addon",
+  "format": "urn:monospace:manifest:deploy:1",
   "id": "aws",
   "label": "AWS deploy",
   "description": "Optional deployment tools",
   "ownedPaths": [
-    "addons/aws",
-    "infra/aws",
+    "deploy/aws",
     ".github/workflows/deploy.yml",
     "patches/alchemy@2.0.0-beta.79.patch"
   ],
@@ -22,5 +20,5 @@
       "names": ["alchemy@2.0.0-beta.79"]
     }
   ],
-  "lint": "infra/aws/lint/config.ts"
+  "lint": "deploy/aws/lint/config.ts"
 }

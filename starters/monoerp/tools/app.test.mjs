@@ -14,7 +14,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url'
 
 import { afterEach, expect, it } from 'vitest'
 
-import { resolveSource } from '../infra/manifests.mjs'
+import { readManifests, resolveSource } from '../infra/manifests.mjs'
 import { checkApp, removeInstalled } from './app.mjs'
 import { manifestDocument } from './manifest-fixtures.mjs'
 
@@ -97,7 +97,9 @@ it('refuses removal of required modules and connectors, starter, and unknown ids
   manifest.requires = ['starter']
   save(root, 'modules/sales/module.json', manifest)
   expect(() => removeInstalled('starter', { root })).toThrow('Starter is always installed')
-  expect(() => removeInstalled('missing', { root })).toThrow('Unknown module, connector, or add-on')
+  expect(() => removeInstalled('missing', { root })).toThrow(
+    'Unknown module, connector, or deploy target',
+  )
 
   const dependency = {
     kind: 'connector',
@@ -334,19 +336,19 @@ it('rejects file URLs and case aliases for protected Git paths', () => {
   expect(existsSync(new URL('.git/config', root))).toBe(true)
 })
 
-it('discovers and removes add-ons through ownership and package entries', () => {
+it('discovers and removes deploy targets through ownership and package entries', () => {
   const { root } = fixture()
   write(root, 'package.json', JSON.stringify({ scripts: { deploy: 'example', keep: 'kept' } }))
-  save(root, 'addons/deployment/addon.json', {
-    kind: 'addon',
+  save(root, 'deploy/deployment/deploy.json', {
+    kind: 'deploy',
     id: 'deployment',
-    ownedPaths: ['addons/deployment', 'infra/deployment'],
+    ownedPaths: ['deploy/deployment'],
     packageEntries: [{ path: 'package.json', section: 'scripts', names: ['deploy'] }],
   })
-  write(root, 'infra/deployment/run.mjs')
+  write(root, 'deploy/deployment/runtime/run.mjs')
   expect(checkApp(root).map(({ id }) => id)).toContain('deployment')
   removeInstalled('deployment', { root })
-  expect(existsSync(new URL('infra/deployment', root))).toBe(false)
+  expect(existsSync(new URL('deploy/deployment/runtime', root))).toBe(false)
   expect(JSON.parse(readFileSync(new URL('package.json', root), 'utf8')).scripts).toEqual({
     keep: 'kept',
   })
@@ -401,4 +403,23 @@ it('removes an owned YAML patch entry and preserves unrelated patches', () => {
   expect(remaining).not.toContain('alchemy:')
   expect(remaining).toContain('cli: patches/cli.patch')
   expect(remaining).toContain('# Keep this comment')
+})
+
+it('derives types from format and rejects redundant kind or mismatched locations', () => {
+  const { root } = fixture()
+  const path = new URL('modules/sales/module.json', root)
+  const document = JSON.parse(readFileSync(path, 'utf8'))
+  expect(document).not.toHaveProperty('kind')
+  expect(readManifests(root).find(({ id }) => id === 'sales').kind).toBe('module')
+  writeFileSync(path, JSON.stringify({ ...document, kind: 'module' }))
+  expect(() => readManifests(root)).toThrow()
+  writeFileSync(
+    path,
+    JSON.stringify({
+      ...document,
+      format: 'urn:monospace:manifest:deploy:1',
+      'x-monoerp': undefined,
+    }),
+  )
+  expect(() => readManifests(root)).toThrow('format and id must match')
 })

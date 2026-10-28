@@ -66,7 +66,7 @@ function validateManifests(root = repository) {
     }
 
     const references = [
-      ...(manifest.kind === 'addon' && manifest.lint ? [manifest.lint] : []),
+      ...(manifest.kind === 'deploy' && manifest.lint ? [manifest.lint] : []),
       manifestPath(manifest),
     ]
 
@@ -165,7 +165,7 @@ const ownedTrees = [
   'apps/web/src/modules',
   'infra/modules',
   'connectors',
-  'addons',
+  'deploy',
 ]
 
 function sourceFiles(root) {
@@ -223,7 +223,7 @@ export function removeInstalled(id, { root = repository, dryRun = false } = {}) 
   const { manifests } = validateManifests(root)
   const manifest = manifests.find((candidate) => candidate.id === id)
 
-  if (!manifest) throw new Error(`Unknown module, connector, or add-on: ${id}`)
+  if (!manifest) throw new Error(`Unknown module, connector, or deploy target: ${id}`)
 
   if (manifest.kind === 'starter')
     throw new Error('Starter is always installed and cannot be removed')

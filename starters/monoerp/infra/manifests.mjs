@@ -7,7 +7,13 @@ export const repository = new URL('../', import.meta.url)
 export function manifestPath(manifest) {
   if (manifest.kind === 'starter') return 'starter.json'
 
-  return `${{ module: 'modules', connector: 'connectors', addon: 'addons' }[manifest.kind]}/${manifest.id}/${manifest.kind}.json`
+  return `${
+    {
+      module: 'modules',
+      connector: 'connectors',
+      deploy: 'deploy',
+    }[manifest.kind]
+  }/${manifest.id}/${manifest.kind}.json`
 }
 
 export function readManifests(root = repository) {
@@ -16,7 +22,7 @@ export function readManifests(root = repository) {
   for (const [base, kind] of [
     ['modules', 'module'],
     ['connectors', 'connector'],
-    ['addons', 'addon'],
+    ['deploy', 'deploy'],
   ]) {
     const directory = new URL(`${base}/`, root)
 
@@ -38,7 +44,7 @@ export function readManifests(root = repository) {
     const manifest = manifestSchema.parse(JSON.parse(readFileSync(new URL(path, root), 'utf8')))
 
     if (path !== manifestPath(manifest))
-      throw new Error(`${path}: kind and id must match the manifest location`)
+      throw new Error(`${path}: format and id must match the manifest location`)
 
     return manifest
   })

@@ -11,7 +11,7 @@ import { ports, servicePorts } from './network.ts'
 import { Credential, type Secrets } from './secrets.ts'
 import type { StageConfig } from './stages.ts'
 
-const manifestReader = await import(new URL('../manifests.mjs', import.meta.url).href)
+const manifestReader = await import(new URL('../../infra/manifests.mjs', import.meta.url).href)
 
 const compose = readFileSync(new URL('../../docker-compose.yml', import.meta.url), 'utf8')
 

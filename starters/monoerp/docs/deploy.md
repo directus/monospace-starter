@@ -15,4 +15,4 @@ Any host can run the same app and setup task used locally.
 
 The Compose `full` profile is a local example of the app, Monospace, and a Caddy reverse proxy running together.
 
-Optional: [AWS add-on](../infra/aws/README.md) deploys this stack to AWS (`pnpm aws deploy`); see [the AWS guide](../infra/aws/README.md) for its supported connectors and setup.
+Optional: [AWS deploy target](../deploy/aws/README.md) deploys this stack to AWS (`pnpm aws deploy`); see [the AWS guide](../deploy/aws/README.md) for its supported connectors and setup.

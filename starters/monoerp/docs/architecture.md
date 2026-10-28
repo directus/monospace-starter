@@ -94,7 +94,7 @@ Both are nitro routes rather than TanStack Start routes for that same image-requ
 
 - **Local:** `docker compose up -d` runs Monospace, both databases, the Stripe emulator, RabbitMQ, and Mailpit. `pnpm dev` runs the app on the host.
 - **Containers:** `docker compose --profile full up -d --build` adds the app (`apps/web/Dockerfile`) and Caddy.
-- **Other hosts:** see [deployment](deploy.md) for the required services and optional deployment add-on.
+- **Other hosts:** see [deployment](deploy.md) for the required services and optional deploy targets.
 
 ## Development constraints
 

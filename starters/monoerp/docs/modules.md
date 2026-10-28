@@ -25,9 +25,9 @@ Use CRM as the working example for a new `inventory` module:
 
 Preview with `pnpm app:remove crm --dry-run`, then run `pnpm app:remove crm` and the [shared removal steps](../connectors/README.md#remove-a-module-or-connector). Connectors remain installed until removed separately.
 
-## Starter, module, and connector manifests
+## Starter, module, connector, and deploy manifests
 
-Each file has a required `format` marker, such as `urn:monospace:manifest:module:1`. The shared envelope contains `kind`, `id`, `label`, `description`, `ownedPaths`, `requires` and `packageEntries`. `requires` defaults to an empty list. Conditional requirements use `requiresWhenInstalled`, for example `{ "crm": ["portal"] }` on Stripe.
+Each file has a required `format` marker, such as `urn:monospace:manifest:module:1`. The shared envelope contains `id`, `label`, `description`, `ownedPaths`, `requires` and `packageEntries`. `requires` defaults to an empty list. Conditional requirements use `requiresWhenInstalled`, for example `{ "crm": ["portal"] }` on Stripe.
 
 monoERP runtime settings live under `x-monoerp`: module app/infra paths, collections, setup, connector source settings and frontend features. Optional connector defaults are there too. Setup and app scripts validate these runtime settings alongside the shared envelope.
 
@@ -35,12 +35,12 @@ monoERP runtime settings live under `x-monoerp`: module app/infra paths, collect
 
 The starter declares shared ownership in root `starter.json`. Each module uses `modules/<id>/module.json`; each connector uses `connectors/<id>/connector.json`. The starter owns the shared shell and services and cannot be removed.
 
-| Field                                | Contract                                                                               |
-| ------------------------------------ | -------------------------------------------------------------------------------------- |
-| `kind`, `id`, `label`, `description` | Kind (`starter`, `module`, `connector`, or `addon`), stable ID, label, and description |
-| `ownedPaths`                         | Literal repository-relative paths; a folder owns its contents, including its manifest  |
-| `requires`                           | Required dependencies block removal                                                    |
-| `packageEntries`                     | JSON package or YAML workspace file, section, and entry names deleted with the owner   |
+| Field                        | Contract                                                                              |
+| ---------------------------- | ------------------------------------------------------------------------------------- |
+| `id`, `label`, `description` | Stable ID, label, and description                                                     |
+| `ownedPaths`                 | Literal repository-relative paths; a folder owns its contents, including its manifest |
+| `requires`                   | Required dependencies block removal                                                   |
+| `packageEntries`             | JSON package or YAML workspace file, section, and entry names deleted with the owner  |
 
 ### `x-monoerp` runtime settings
 
@@ -142,16 +142,18 @@ CRM owns its contribution types and registry in `modules/crm/slots.ts`; `modules
 
 Setup-step requirements may name dependencies declared in `requiresWhenInstalled`, even after that optional connector is removed. Those steps are skipped when their dependencies are absent; undeclared requirement names still fail validation.
 
-`pnpm app:doctor` validates manifests, dependencies, referenced files, and exclusive ownership under `apps/web/src/routes`, `apps/web/src/modules`, `infra/modules`, and `connectors`. In Git it checks tracked and untracked source files while respecting ignores; without Git it walks source trees and skips dependencies/build output. Owned dotfolders may be absent, but referenced manifests, entry files, schemas, and scripts must exist. Ownership cannot overlap or traverse symlinks. Removal validates paths and dependencies before deleting anything. The implementation is in `tools/manifest-schema.mjs` and `tools/app.mjs`.
+`pnpm app:doctor` validates manifests, dependencies, referenced files, and exclusive ownership under `apps/web/src/routes`, `apps/web/src/modules`, `infra/modules`, `connectors`, and `deploy`. In Git it checks tracked and untracked source files while respecting ignores; without Git it walks source trees and skips dependencies/build output. Owned dotfolders may be absent, but referenced manifests, entry files, schemas, and scripts must exist. Ownership cannot overlap or traverse symlinks. Removal validates paths and dependencies before deleting anything. The implementation is in `tools/manifest-schema.mjs` and `tools/app.mjs`.
 
 The import-boundary tests also reject imports between modules or from a module into connector code. Shared registries are the documented entry points. Feature-aware typecheck creates a temporary check config extending `apps/web/tsconfig.json`; lint and unit/browser tests exclude inactive features. Frontend discovery exposes only selected feature paths, never source credentials.
 
-## Add-ons
+## Deploy targets
 
-`addons/<id>/addon.json` declares optional tooling using `urn:monospace:manifest:addon:1` and `kind: addon`. Add-ons use the shared ownership, dependency, and package-entry fields without `x-monoerp`. Remove them with `pnpm app:remove <id>` and follow the [shared removal steps](../connectors/README.md#remove-a-module-or-connector).
+`deploy/<id>/deploy.json` declares a hosting target with `format: urn:monospace:manifest:deploy:1`. AWS is the first target, in `deploy/aws/`. A second target belongs in a sibling folder. The app works with none installed.
 
-The manifest's `ownedPaths` controls removal. Runtime `app`, `infra`, and `settings` identify the entry paths used by the bundler and setup; they can include settings routes outside the module folder. The doctor checks that those paths are owned.
+Targets use the shared ownership, dependency, and package-entry fields. Their files live together; files tools require elsewhere (the AWS workflow and Alchemy patch) are listed in `ownedPaths`. Remove AWS with `pnpm app:remove aws`, then run `pnpm install` and `pnpm verify`.
 
-Add-ons register optional lint fragments with a `lint` path in `addon.json`. Each fragment exports a default Vite+ lint config. `tools/lint-addons.ts` discovers installed add-ons and combines their fragments; the root config does not name individual add-ons. Lint implementation code and connector extensions follow the base rules.
+A target may declare a `lint` path exporting a Vite+ lint fragment. `tools/lint.ts` combines installed targets' fragments with the core strict rules in `tools/oxlint`. Strict lint and `@oxlint/plugins` are always installed. Lint implementation code and connector extensions follow the base rules.
+
+Manifests have no `kind` field. Their filenames identify their type and `format` identifies type and version. Readers derive their internal type from `format` and validate it against the location.
 
 Schema files inherit their source from their owner: modules use `app.config.json`'s `appSource`, and connectors use their manifest's source API name. Optional relation targets without a `source` use the app database.

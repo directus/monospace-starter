@@ -21,7 +21,7 @@ import { requireSafetyCommentForTypeAssertionRule } from './rules/require-safety
 
 /** Generic Oxlint rules that reject low-evidence and low-signal implementation patterns. */
 const antiSlopPlugin = eslintCompatPlugin({
-  meta: { name: 'anti-slop' },
+  meta: { name: 'strict' },
   rules: {
     'no-array-filter-map': noArrayFilterMapRule,
     'no-reduce-accumulator-copy': noReduceAccumulatorCopyRule,

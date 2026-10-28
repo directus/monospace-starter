@@ -1,6 +1,5 @@
 {
   "format": "urn:monospace:manifest:connector:1",
-  "kind": "connector",
   "id": "portal",
   "label": "Portal",
   "description": "Example customer database (a MySQL demo you can remove)",

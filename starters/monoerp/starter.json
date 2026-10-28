@@ -1,6 +1,5 @@
 {
   "format": "urn:monospace:manifest:starter:1",
-  "kind": "starter",
   "id": "starter",
   "label": "monoERP starter",
   "description": "Shared app shell, authentication, database, and setup",
@@ -76,8 +75,9 @@
     "vite.config.ts",
     "app.config.json",
     "tools/docs.test.mjs",
-    "tools/lint-addons.ts",
-    "tools/lint-addons.test.mjs"
+    "tools/lint.ts",
+    "tools/lint.test.mjs",
+    "tools/oxlint"
   ],
   "requires": [],
   "sourceRoots": [
@@ -85,7 +85,7 @@
     "apps/web/src/modules",
     "infra/modules",
     "connectors",
-    "addons"
+    "deploy"
   ],
   "ignorePaths": [
     "dist",

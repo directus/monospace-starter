@@ -8,9 +8,7 @@ import { readManifests } from '../infra/manifests.mjs'
 
 const root = fileURLToPath(new URL('../', import.meta.url))
 
-const toolPaths = readManifests().flatMap((manifest) =>
-  manifest.kind === 'addon' ? manifest.ownedPaths : [],
-)
+const toolPaths = readManifests().flatMap((manifest) => manifest.ownedPaths)
 
 const roots = [
   'apps',
@@ -19,7 +17,7 @@ const roots = [
   'modules',
   'tools',
   'docs',
-  'addons',
+  'deploy',
   ...toolPaths.map((path) => path.split('/')[0]),
 ]
 
@@ -65,7 +63,7 @@ it('keeps literal repository paths in documentation valid', () => {
 
       // A removable feature's guide may mention an optional sibling absent from this selection.
       const optional = path.match(
-        /^(?:apps\/web\/src\/|infra\/)?(modules|connectors|addons)\/([a-z][a-z0-9-]*)(?:\/|$)/,
+        /^(?:apps\/web\/src\/|infra\/)?(modules|connectors|deploy)\/([a-z][a-z0-9-]*)(?:\/|$)/,
       )
 
       if (optional && !existsSync(resolve(root, optional[1], optional[2]))) continue

@@ -78,7 +78,7 @@ This repo is set up for working with AI coding agents like Claude Code, Codex, a
 
 - **[`AGENTS.md`](AGENTS.md)** is a short map: how to get a working stack, the rules, and which doc in [`docs/`](docs) to read for the area you're changing. The docs describe how things actually work, with file paths to jump to.
 - **One command checks everything:** `pnpm verify`. An agent knows when it's done.
-- **Lint rules catch sloppy code:** with the optional strict lint add-on, casts without a reason, `unknown` types, and module mocks fail lint ([strict lint add-on](tools/oxlint/README.md)).
+- **Lint rules catch sloppy code:** casts without a reason, `unknown` types, and module mocks fail lint ([core strict lint](tools/oxlint/README.md)).
 - **Access rules live in one place.** Monospace decides permissions on every request, and the app's API client is generated from the schema, so there's no hand-written data layer for an agent to get wrong.
 
 ## Everyday commands
@@ -105,19 +105,19 @@ The browser only talks to the app's own address. The app's server proxies `/api/
 
 A module is four folders, plus any settings routes: manifest, UI, infrastructure, and routes. See [the module layout](docs/modules.md#add-a-module).
 
-| Area       | Path                                                                | Purpose                                              |
-| ---------- | ------------------------------------------------------------------- | ---------------------------------------------------- |
-| Core       | `starter.json`                                                      | Shared ownership manifest                            |
-| Core       | `apps/web/src/shell`, `apps/web/src/lib`, `apps/web/src/components` | Shell, authentication, and shared UI                 |
-| Core       | `infra/monospace`, `infra/postgres`                                 | Shared workspace setup and PostgreSQL service        |
-| Add-ons    | `addons/<id>/addon.json`                                            | Optional deployment and code checks                  |
-| Modules    | `modules/<id>`                                                      | Module manifest                                      |
-| Modules    | `apps/web/src/modules/<id>`                                         | UI entry, copy, reads, and writes                    |
-| Modules    | `infra/modules/<id>`                                                | SQL, demo data, schema settings, and setup           |
-| Modules    | `apps/web/src/routes/_app/<id>`                                     | Pages                                                |
-| Connectors | `connectors/<id>`                                                   | Removable external sources and their local stand-ins |
-| Connectors | `connectors/portal`                                                 | Read-only MySQL demo and Portal UI                   |
-| Connectors | `connectors/stripe`                                                 | Stripe API extension, local emulator, and Billing UI |
+| Area           | Path                                                                | Purpose                                              |
+| -------------- | ------------------------------------------------------------------- | ---------------------------------------------------- |
+| Core           | `starter.json`                                                      | Shared ownership manifest                            |
+| Core           | `apps/web/src/shell`, `apps/web/src/lib`, `apps/web/src/components` | Shell, authentication, and shared UI                 |
+| Core           | `infra/monospace`, `infra/postgres`                                 | Shared workspace setup and PostgreSQL service        |
+| Deploy targets | `deploy/<id>/deploy.json`                                           | Optional hosting setup (AWS first)                   |
+| Modules        | `modules/<id>`                                                      | Module manifest                                      |
+| Modules        | `apps/web/src/modules/<id>`                                         | UI entry, copy, reads, and writes                    |
+| Modules        | `infra/modules/<id>`                                                | SQL, demo data, schema settings, and setup           |
+| Modules        | `apps/web/src/routes/_app/<id>`                                     | Pages                                                |
+| Connectors     | `connectors/<id>`                                                   | Removable external sources and their local stand-ins |
+| Connectors     | `connectors/portal`                                                 | Read-only MySQL demo and Portal UI                   |
+| Connectors     | `connectors/stripe`                                                 | Stripe API extension, local emulator, and Billing UI |
 
 To change the CRM schema, add a migration in `infra/modules/crm/postgres/migrations`, make the same change in `infra/modules/crm/postgres/init/001_schema.sql`, then run `pnpm db:migrate`, `pnpm setup:introspect`, and `pnpm generate`. [`docs/data-model.md`](docs/data-model.md) has the details.
 
@@ -136,8 +136,8 @@ To change the CRM schema, add a migration in `infra/modules/crm/postgres/migrati
 
 ## Deploy
 
-See [deployment](docs/deploy.md) for hosting requirements and the optional deployment add-on.
+See [deployment](docs/deploy.md) for hosting requirements and the optional deploy targets.
 
 ## License
 
-MIT, see [`LICENSE`](LICENSE). Code copied from other projects keeps its own license next to it: the ReUI components (`apps/web/src/components/data-table` and `apps/web/src/components/filters`) and the lint rules in [strict lint rules](tools/oxlint/anti-slop), both MIT.
+MIT, see [`LICENSE`](LICENSE). Code copied from other projects keeps its own license next to it: the ReUI components (`apps/web/src/components/data-table` and `apps/web/src/components/filters`) and the lint rules in [strict lint rules](tools/oxlint/strict), both MIT.

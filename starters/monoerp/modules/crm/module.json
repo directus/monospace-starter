@@ -1,6 +1,5 @@
 {
   "format": "urn:monospace:manifest:module:1",
-  "kind": "module",
   "id": "crm",
   "label": "CRM",
   "description": "Organizations, contacts, and deals.",

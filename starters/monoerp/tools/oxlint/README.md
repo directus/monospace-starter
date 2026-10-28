@@ -1,10 +1,10 @@
-# Strict lint add-on
+# Core strict lint
 
-Derived from dmmulroy/anti-slop at c44ef22, MIT. These rules are maintained here. The spacing visitor derives from ESLint Stylistic at 435c3ea0fd26a5fef9042c4b36b6e165fbbf8d08 (MIT); its license remains in `anti-slop/vendor/eslint-stylistic/LICENSE`.
+Derived from dmmulroy/anti-slop at c44ef22, MIT. These rules are maintained here. The spacing visitor derives from ESLint Stylistic at 435c3ea0fd26a5fef9042c4b36b6e165fbbf8d08 (MIT); its license remains in `strict/vendor/eslint-stylistic/LICENSE`.
 
 ## Rules you'll hit
 
-All of these are errors, so `pnpm check` fails on them. They come from `tools/oxlint/anti-slop`.
+All of these are errors, so `pnpm check` fails on them. They come from `tools/oxlint/strict`.
 
 - **`require-safety-comment-for-type-assertion`:** every `as` cast (except `as const`) needs a `// SAFETY:` comment right above the cast or the statement holding it, saying why the cast is true. From `apps/web/src/modules/crm/components/activity-form.tsx`:
 
@@ -26,6 +26,6 @@ All of these are errors, so `pnpm check` fails on them. They come from `tools/ox
 - **`no-conditional-empty-object-spread`:** no `...(ok ? { a } : {})`. Build the object directly.
 - **`no-shape-in-symbol-names`:** don't name things `...Shape`. Name them for what they are.
 
-[AWS add-on](../../infra/aws/README.md) also gets the Effect rules in [AWS lint](../../infra/aws/lint).
+[AWS deploy target](../../deploy/aws/README.md) also gets the Effect rules in [AWS lint](../../deploy/aws/lint).
 
 The AST visitor files use the normal formatter and base lint rules plus spacing. App-specific data boundary rules are disabled there because visitors inspect parser unions directly.

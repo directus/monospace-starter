@@ -1,4 +1,4 @@
-# Owned by the AWS add-on. Configuring its role and OIDC subject opts into deployment.
+# Owned by the AWS deploy target. Configuring its role and OIDC subject opts into deployment.
 # Checks run once in check.yml; configured deploys wait for that commit's successful run.
 name: Deploy AWS
 

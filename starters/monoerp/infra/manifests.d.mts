@@ -64,12 +64,12 @@ export interface StarterManifest extends Envelope {
   nextSteps: { create: NextStep[]; remove: NextStep[] }
 }
 
-export interface AddonManifest extends Envelope {
-  kind: 'addon'
+export interface DeployManifest extends Envelope {
+  kind: 'deploy'
   lint?: string
 }
 
-export type Manifest = StarterManifest | ModuleManifest | ConnectorManifest | AddonManifest
+export type Manifest = StarterManifest | ModuleManifest | ConnectorManifest | DeployManifest
 
 export const repository: URL
 

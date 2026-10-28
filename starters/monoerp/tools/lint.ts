@@ -3,17 +3,21 @@ import { dirname } from 'node:path'
 import type { ViteUserConfig } from 'vite-plus'
 
 import { readManifests } from '../infra/manifests.mjs'
+import strictLint from './oxlint/lint.config'
 
 type LintFragment = NonNullable<ViteUserConfig['lint']>
 
-export async function loadAddonLint(root = new URL('../', import.meta.url)) {
+export async function loadLint(root = new URL('../', import.meta.url)) {
   const paths = readManifests(root).flatMap((manifest) =>
-    manifest.kind === 'addon' && manifest.lint ? [manifest.lint] : [],
+    manifest.kind === 'deploy' && manifest.lint ? [manifest.lint] : [],
   )
 
-  const fragments: LintFragment[] = await Promise.all(
-    paths.map(async (path) => (await import(new URL(path, root).href)).default),
-  )
+  const fragments: LintFragment[] = [
+    strictLint,
+    ...(await Promise.all(
+      paths.map(async (path) => (await import(new URL(path, root).href)).default),
+    )),
+  ]
 
   const rules: NonNullable<LintFragment['rules']> = Object.assign(
     {},
@@ -32,7 +36,11 @@ export async function loadAddonLint(root = new URL('../', import.meta.url)) {
       ...fragments.flatMap((fragment) => fragment.overrides ?? []),
       {
         // AST visitors and external connector code follow the base rules, not app conventions.
-        files: ['connectors/*/extension/src/**', ...paths.map((path) => `${dirname(path)}/**`)],
+        files: [
+          'connectors/*/extension/src/**',
+          'tools/oxlint/**',
+          ...paths.map((path) => `${dirname(path)}/**`),
+        ],
         rules: disabled,
       },
     ],

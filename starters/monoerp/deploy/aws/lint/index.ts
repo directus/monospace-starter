@@ -8,7 +8,7 @@ import { preferEffectMatchRule } from './rules/prefer-effect-match.ts'
 
 /** Opt-in Oxlint rules for Effect service and Layer architecture. */
 const antiSlopEffectPlugin = eslintCompatPlugin({
-  meta: { name: 'anti-slop-effect' },
+  meta: { name: 'strict-effect' },
   rules: {
     'no-manual-effect-error-tag': noManualEffectErrorTagRule,
     'no-manual-tag-comparison': noManualTagComparisonRule,

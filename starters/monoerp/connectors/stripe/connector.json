@@ -1,6 +1,5 @@
 {
   "format": "urn:monospace:manifest:connector:1",
-  "kind": "connector",
   "id": "stripe",
   "label": "Stripe",
   "description": "Billing data from Stripe",

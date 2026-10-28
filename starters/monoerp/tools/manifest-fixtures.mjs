@@ -27,7 +27,13 @@ export function manifestDocument(input) {
     ownedPaths: [
       input.kind === 'starter'
         ? 'starter.json'
-        : `${{ module: 'modules', connector: 'connectors', addon: 'addons' }[input.kind]}/${input.id}`,
+        : `${
+            {
+              module: 'modules',
+              connector: 'connectors',
+              deploy: 'deploy',
+            }[input.kind]
+          }/${input.id}`,
     ],
     requires: [],
     optional: [],
@@ -64,7 +70,9 @@ export function manifestDocument(input) {
     'x-monoerp': runtime,
   }
 
-  if (manifest.kind === 'addon') delete document['x-monoerp']
+  delete document.kind
+
+  if (manifest.kind === 'deploy') delete document['x-monoerp']
 
   if (manifest.kind === 'starter') {
     document.sourceRoots = [

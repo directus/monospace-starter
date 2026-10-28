@@ -123,10 +123,9 @@ const connectorRuntime = z.strictObject({
 })
 
 export const manifestSchema = z
-  .discriminatedUnion('kind', [
+  .discriminatedUnion('format', [
     z.strictObject({
       ...common,
-      kind: z.literal('starter'),
       id: z.literal('starter'),
       format: z.literal('urn:monospace:manifest:starter:1'),
       sourceRoots: z.array(path),
@@ -136,26 +135,23 @@ export const manifestSchema = z
     }),
     z.strictObject({
       ...common,
-      kind: z.literal('addon'),
+      format: z.literal('urn:monospace:manifest:deploy:1'),
       lint: path.optional(),
-      format: z.literal('urn:monospace:manifest:addon:1'),
     }),
     z.strictObject({
       ...common,
-      kind: z.literal('module'),
       format: z.literal('urn:monospace:manifest:module:1'),
       'x-monoerp': moduleRuntime,
     }),
     z.strictObject({
       ...common,
-      kind: z.literal('connector'),
       format: z.literal('urn:monospace:manifest:connector:1'),
       'x-monoerp': connectorRuntime,
     }),
   ])
   .transform((document) => {
     const { 'x-monoerp': runtime = {}, ...envelope } = document
-    const manifest = { ...envelope, ...runtime }
+    const manifest = { ...envelope, ...runtime, kind: envelope.format.split(':')[3] }
 
     if (manifest.kind === 'connector')
       manifest.frontend = (runtime.frontend ?? []).map((feature) => ({

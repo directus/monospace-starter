@@ -201,7 +201,7 @@ export const Operations = (
     yield* alarm(
       'PostgresCpu',
       'Postgres CPU is high',
-      'Postgres CPU over 80% for 10 minutes. If it persists, move to a larger instance class in infra/aws/stages.ts.',
+      'Postgres CPU over 80% for 10 minutes. If it persists, move to a larger instance class in deploy/aws/stages.ts.',
       {
         namespace: 'AWS/RDS',
         name: 'CPUUtilization',
@@ -218,7 +218,7 @@ export const Operations = (
       yield* alarm(
         'PostgresCredits',
         'Postgres is running out of CPU credits',
-        'The burstable instance has used its CPU credits and now bills extra for sustained load. Move to a larger or non-burstable class in infra/aws/stages.ts.',
+        'The burstable instance has used its CPU credits and now bills extra for sustained load. Move to a larger or non-burstable class in deploy/aws/stages.ts.',
         {
           namespace: 'AWS/RDS',
           name: 'CPUCreditBalance',
@@ -234,7 +234,7 @@ export const Operations = (
     yield* alarm(
       'PostgresStorage',
       'Postgres is running out of disk',
-      'Less than 10% of Postgres storage is free. Storage autoscaling may be at its cap; raise storageGb in infra/aws/stages.ts.',
+      'Less than 10% of Postgres storage is free. Storage autoscaling may be at its cap; raise storageGb in deploy/aws/stages.ts.',
       {
         namespace: 'AWS/RDS',
         name: 'FreeStorageSpace',
@@ -253,7 +253,7 @@ export const Operations = (
     yield* alarm(
       'ValkeyMemory',
       'The Valkey cache is nearly full',
-      'Valkey memory over 80%. It evicts old cache entries, so this is slowness, not an outage. Move to a larger node type in infra/aws/stages.ts.',
+      'Valkey memory over 80%. It evicts old cache entries, so this is slowness, not an outage. Move to a larger node type in deploy/aws/stages.ts.',
       {
         namespace: 'AWS/ElastiCache',
         name: 'DatabaseMemoryUsagePercentage',
