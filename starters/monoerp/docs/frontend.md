@@ -166,7 +166,7 @@ Put user-facing text in copy files, not in components. Shell and shared text is 
 
 ## Settings pages
 
-Module settings routes are `modules/<id>/routes/settings/<page>.tsx` (URL `/settings/<id>/<page>`), with module-specific components, copy, and tests in `modules/<id>/settings/` (`modules/crm/settings/pipeline-stages.tsx`). Shared settings, including the account page, stay in `routes/_app/settings.*.tsx` and `settings/`. The settings layout is in `routes/_app/settings.tsx`; its module groups and links come from each manifest's `settings` field. `/settings` opens the first module settings page, or the account profile if no module provides settings. Give each settings route `parent: '/settings'` and some `keywords` so the palette finds it.
+Module settings routes are `modules/<id>/routes/settings/<page>.tsx` (URL `/settings/<id>/<page>`), with module-specific components, copy, and tests in `modules/<id>/settings/` (`modules/crm/settings/pipeline-stages.tsx`). Shared settings, including the account page, stay in `routes/_app/settings.*.tsx` and `settings/`. The settings layout is in `routes/_app/settings.tsx`; it groups each module's routes under `/settings/<id>/` by module label. `/settings` opens the first module settings page, or the account profile if no module provides settings. Give each settings route `parent: '/settings'` and some `keywords` so the palette finds it.
 
 ## Phones
 
