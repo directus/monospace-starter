@@ -8,22 +8,11 @@ export const path = z
     (value) =>
       !value.startsWith('/') &&
       value.trim() === value &&
-      !value.includes(':') &&
+      !/[:%?#\\]/.test(value) &&
       !Array.from(value).some((character) => (character.codePointAt(0) ?? 0) < 32) &&
-      !value.includes('\\') &&
-      !value.includes('%') &&
-      !value.includes('?') &&
-      !value.includes('#') &&
       !value
         .split('/')
-        .some(
-          (part) =>
-            !part ||
-            part === '.' ||
-            part === '..' ||
-            part.toLowerCase() === '.git' ||
-            part.toLowerCase() === 'node_modules',
-        ),
+        .some((part) => ['', '.', '..', '.git', 'node_modules'].includes(part.toLowerCase())),
     'Use a literal repository-relative path without traversal, URL punctuation or protected folders',
   )
 
