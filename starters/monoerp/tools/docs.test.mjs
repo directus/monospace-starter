@@ -67,17 +67,6 @@ it('keeps literal repository paths in documentation valid', () => {
 
       if (optional && !existsSync(resolve(root, optional[1], optional[2]))) continue
 
-      const routeModule = path.match(
-        /^(?:apps\/web\/src\/)?routes\/_app\/(?:settings\.)?([a-z][a-z0-9-]*)(?:\/|_\.|\.|$)/,
-      )
-
-      if (
-        routeModule &&
-        !['settings', 'index'].includes(routeModule[1]) &&
-        !existsSync(resolve(root, 'modules', routeModule[1]))
-      )
-        continue
-
       if (!candidates.some((candidate) => existsSync(candidate)))
         missing.push(`${file.slice(root.length)}: ${path}`)
     }
