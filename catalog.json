@@ -1,0 +1,37 @@
+{
+  "$schema": "https://monospace.io/schemas/starter/v1/catalog.json",
+  "starters": [
+    {
+      "id": "monoerp",
+      "path": "starters/monoerp",
+      "label": "monoERP starter",
+      "description": "Shared app shell, authentication, database, and setup",
+      "modules": [
+        {
+          "id": "crm",
+          "label": "CRM",
+          "description": "Organizations, contacts, and deals."
+        }
+      ],
+      "connectors": [
+        {
+          "id": "portal",
+          "label": "Portal",
+          "description": "Example customer database (a MySQL demo you can remove)"
+        },
+        {
+          "id": "stripe",
+          "label": "Stripe",
+          "description": "Billing data from Stripe"
+        }
+      ],
+      "deploy": [
+        {
+          "id": "aws",
+          "label": "AWS deploy",
+          "description": "Optional deployment tools"
+        }
+      ]
+    }
+  ]
+}
