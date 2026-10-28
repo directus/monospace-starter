@@ -1,0 +1,18 @@
+{
+  "$schema": "./node_modules/@monospace/cli/schemas/extension.config.schema.json",
+  "entries": [
+    {
+      "description": "Read candidates, reports, invitations and packages from Checkr.",
+      "engine": {
+        "entrypoint": "./src/data-connectors/checkr/index.ts"
+      },
+      "id": "monoerp/checkr-data-connector",
+      "name": "Checkr",
+      "type": "dataConnector",
+      "version": "0.1.0"
+    }
+  ],
+  "id": "monoerp/checkr",
+  "name": "Checkr",
+  "version": "0.1.0"
+}

@@ -1,0 +1,237 @@
+{
+  "packages": [
+    {
+      "id": "pkg_tasker_standard",
+      "name": "Tasker Standard",
+      "slug": "tasker_standard",
+      "price": 2999,
+      "screenings": [
+        { "type": "ssn_trace", "subtype": null },
+        { "type": "national_criminal_search", "subtype": "standard" },
+        { "type": "county_criminal_search", "subtype": "current" },
+        { "type": "sex_offender_search", "subtype": null }
+      ],
+      "created_at": "2025-03-04T16:00:00Z"
+    },
+    {
+      "id": "pkg_driver_pro",
+      "name": "Driver Pro",
+      "slug": "driver_pro",
+      "price": 5499,
+      "screenings": [
+        { "type": "ssn_trace", "subtype": null },
+        { "type": "national_criminal_search", "subtype": "standard" },
+        { "type": "county_criminal_search", "subtype": "7years" },
+        { "type": "motor_vehicle_report", "subtype": null },
+        { "type": "employment_verification", "subtype": null }
+      ],
+      "created_at": "2025-03-04T16:05:00Z"
+    }
+  ],
+  "candidates": [
+    {
+      "id": "cand_camilatorres01",
+      "first_name": "Camila",
+      "last_name": "Torres",
+      "email": "camila.torres@example.org",
+      "phone": "+1 604 555 0142",
+      "zipcode": "98660",
+      "dob": "1991-04-12",
+      "custom_id": "ats-camila-torres",
+      "created_at": "2026-10-07T15:20:00Z",
+      "reports": [
+        {
+          "id": "rpt_camilatorres01",
+          "status": "pending",
+          "result": null,
+          "package": "tasker_standard",
+          "source": "invitation",
+          "created_at": "2026-10-09T18:02:00Z",
+          "estimated_completion_time": "2026-10-19T00:00:00Z"
+        }
+      ],
+      "invitations": [
+        {
+          "id": "inv_camilatorres01",
+          "status": "completed",
+          "package": "tasker_standard",
+          "report_id": "rpt_camilatorres01",
+          "created_at": "2026-10-07T15:21:00Z",
+          "expires_at": "2026-10-14T15:21:00Z",
+          "completed_at": "2026-10-09T18:01:00Z"
+        }
+      ]
+    },
+    {
+      "id": "cand_laurencole0001",
+      "first_name": "Lauren",
+      "last_name": "Cole",
+      "email": "lauren.cole@example.net",
+      "zipcode": "10011",
+      "custom_id": "ats-lauren-cole",
+      "created_at": "2026-10-13T14:00:00Z",
+      "reports": [],
+      "invitations": [
+        {
+          "id": "inv_laurencole0001",
+          "status": "pending",
+          "package": "driver_pro",
+          "created_at": "2026-10-13T14:01:00Z",
+          "expires_at": "2026-10-20T14:01:00Z"
+        }
+      ]
+    },
+    {
+      "id": "cand_patrickhughes1",
+      "first_name": "Patrick",
+      "last_name": "Hughes",
+      "email": "patrick.hughes@example.org",
+      "zipcode": "19103",
+      "custom_id": "ats-patrick-hughes",
+      "created_at": "2026-09-30T13:00:00Z",
+      "reports": [],
+      "invitations": [
+        {
+          "id": "inv_patrickhughes1",
+          "status": "expired",
+          "package": "tasker_standard",
+          "created_at": "2026-09-30T13:02:00Z",
+          "expires_at": "2026-10-07T13:02:00Z"
+        }
+      ]
+    },
+    {
+      "id": "cand_danielacosta01",
+      "first_name": "Daniela",
+      "last_name": "Costa",
+      "email": "daniela.costa@example.org",
+      "zipcode": "94107",
+      "dob": "1988-09-02",
+      "custom_id": "ats-daniela-costa",
+      "adjudication": null,
+      "created_at": "2026-10-01T10:00:00Z",
+      "reports": [
+        {
+          "id": "rpt_danielacosta01",
+          "status": "complete",
+          "result": "clear",
+          "assessment": "eligible",
+          "package": "tasker_standard",
+          "source": "invitation",
+          "turnaround_time": 259200,
+          "created_at": "2026-10-02T09:00:00Z",
+          "completed_at": "2026-10-05T09:00:00Z"
+        }
+      ],
+      "invitations": [
+        {
+          "id": "inv_danielacosta01",
+          "status": "completed",
+          "package": "tasker_standard",
+          "report_id": "rpt_danielacosta01",
+          "created_at": "2026-10-01T10:01:00Z",
+          "expires_at": "2026-10-08T10:01:00Z",
+          "completed_at": "2026-10-02T08:59:00Z"
+        }
+      ]
+    },
+    {
+      "id": "cand_clarahoffman1",
+      "first_name": "Clara",
+      "last_name": "Hoffmann",
+      "email": "clara.hoffmann@example.com",
+      "dob": "1990-01-23",
+      "custom_id": "ats-clara-hoffmann",
+      "adjudication": "engaged",
+      "created_at": "2026-09-24T09:30:00Z",
+      "reports": [
+        {
+          "id": "rpt_clarahoffman1",
+          "status": "complete",
+          "result": "consider",
+          "adjudication": "engaged",
+          "assessment": "review",
+          "package": "driver_pro",
+          "source": "invitation",
+          "turnaround_time": 432000,
+          "created_at": "2026-09-25T11:00:00Z",
+          "completed_at": "2026-09-30T11:00:00Z"
+        }
+      ],
+      "invitations": [
+        {
+          "id": "inv_clarahoffman1",
+          "status": "completed",
+          "package": "driver_pro",
+          "report_id": "rpt_clarahoffman1",
+          "created_at": "2026-09-24T09:31:00Z",
+          "expires_at": "2026-10-01T09:31:00Z",
+          "completed_at": "2026-09-25T10:59:00Z"
+        }
+      ]
+    },
+    {
+      "id": "cand_graceholloway",
+      "first_name": "Grace",
+      "last_name": "Holloway",
+      "email": "grace.holloway@example.net",
+      "zipcode": "10003",
+      "custom_id": "ats-grace-holloway",
+      "created_at": "2026-08-04T16:00:00Z",
+      "reports": [
+        {
+          "id": "rpt_graceholloway",
+          "status": "complete",
+          "result": "clear",
+          "assessment": "eligible",
+          "package": "tasker_standard",
+          "source": "invitation",
+          "turnaround_time": 172800,
+          "created_at": "2026-08-05T12:00:00Z",
+          "completed_at": "2026-08-07T12:00:00Z"
+        }
+      ],
+      "invitations": [
+        {
+          "id": "inv_graceholloway",
+          "status": "completed",
+          "package": "tasker_standard",
+          "report_id": "rpt_graceholloway",
+          "created_at": "2026-08-04T16:01:00Z",
+          "expires_at": "2026-08-11T16:01:00Z",
+          "completed_at": "2026-08-05T11:59:00Z"
+        }
+      ]
+    },
+    {
+      "id": "cand_elifyilmaz001",
+      "first_name": "Elif",
+      "last_name": "Yilmaz",
+      "email": "elif.yilmaz@example.com",
+      "custom_id": "ats-elif-yilmaz",
+      "created_at": "2026-09-02T08:00:00Z",
+      "reports": [
+        {
+          "id": "rpt_elifyilmaz001",
+          "status": "suspended",
+          "result": null,
+          "package": "driver_pro",
+          "source": "invitation",
+          "created_at": "2026-09-03T08:00:00Z",
+          "estimated_completion_time": "2026-09-12T00:00:00Z"
+        }
+      ],
+      "invitations": [
+        {
+          "id": "inv_elifyilmaz001",
+          "status": "completed",
+          "package": "driver_pro",
+          "report_id": "rpt_elifyilmaz001",
+          "created_at": "2026-09-02T08:01:00Z",
+          "expires_at": "2026-09-09T08:01:00Z",
+          "completed_at": "2026-09-03T07:59:00Z"
+        }
+      ]
+    }
+  ]
+}

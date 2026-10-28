@@ -1,0 +1,440 @@
+{
+  "collections": {
+    "applications": {
+      "meta": {
+        "displayName": "Applications",
+        "icon": "lucide:kanban",
+        "displayTemplate": "{candidates.first_name} {candidates.last_name} \u00b7 {requisitions.title}",
+        "isHidden": false
+      },
+      "fields": {
+        "created_by": {
+          "apiName": "createdById",
+          "defaultValue": {
+            "source": "engineManaged",
+            "onCreate": {
+              "kind": "currentUser"
+            }
+          },
+          "isHidden": true
+        },
+        "updated_by": {
+          "apiName": "updatedById",
+          "defaultValue": {
+            "source": "engineManaged",
+            "onCreate": {
+              "kind": "currentUser"
+            },
+            "onUpdate": {
+              "kind": "currentUser"
+            }
+          },
+          "isHidden": true
+        }
+      }
+    },
+    "approvals": {
+      "meta": {
+        "displayName": "Approvals",
+        "icon": "lucide:stamp",
+        "isHidden": false
+      },
+      "fields": {}
+    },
+    "audit_events": {
+      "meta": {
+        "displayName": "Audit log",
+        "icon": "lucide:shield-check",
+        "isHidden": false
+      },
+      "fields": {}
+    },
+    "candidate_files": {
+      "meta": {
+        "displayName": "Candidate files",
+        "icon": "lucide:paperclip",
+        "displayTemplate": "{file_name}",
+        "isHidden": false
+      },
+      "fields": {
+        "created_by": {
+          "apiName": "createdById",
+          "defaultValue": {
+            "source": "engineManaged",
+            "onCreate": {
+              "kind": "currentUser"
+            }
+          },
+          "isHidden": true
+        }
+      }
+    },
+    "candidate_messages": {
+      "meta": {
+        "displayName": "Candidate emails",
+        "icon": "lucide:mail",
+        "displayTemplate": "{subject}",
+        "isHidden": false
+      },
+      "fields": {
+        "created_by": {
+          "apiName": "createdById",
+          "defaultValue": {
+            "source": "engineManaged",
+            "onCreate": {
+              "kind": "currentUser"
+            }
+          },
+          "isHidden": true
+        }
+      }
+    },
+    "candidate_notes": {
+      "meta": {
+        "displayName": "Candidate notes",
+        "icon": "lucide:sticky-note",
+        "isHidden": false
+      },
+      "fields": {
+        "created_by": {
+          "apiName": "createdById",
+          "defaultValue": {
+            "source": "engineManaged",
+            "onCreate": {
+              "kind": "currentUser"
+            }
+          },
+          "isHidden": true
+        },
+        "updated_by": {
+          "apiName": "updatedById",
+          "defaultValue": {
+            "source": "engineManaged",
+            "onCreate": {
+              "kind": "currentUser"
+            },
+            "onUpdate": {
+              "kind": "currentUser"
+            }
+          },
+          "isHidden": true
+        }
+      }
+    },
+    "candidates": {
+      "meta": {
+        "displayName": "Candidates",
+        "icon": "lucide:user-round",
+        "displayTemplate": "{first_name} {last_name}",
+        "isHidden": false
+      },
+      "fields": {
+        "created_by": {
+          "apiName": "createdById",
+          "defaultValue": {
+            "source": "engineManaged",
+            "onCreate": {
+              "kind": "currentUser"
+            }
+          },
+          "isHidden": true
+        },
+        "updated_by": {
+          "apiName": "updatedById",
+          "defaultValue": {
+            "source": "engineManaged",
+            "onCreate": {
+              "kind": "currentUser"
+            },
+            "onUpdate": {
+              "kind": "currentUser"
+            }
+          },
+          "isHidden": true
+        }
+      }
+    },
+    "departments": {
+      "meta": {
+        "displayName": "Departments",
+        "icon": "lucide:building-2",
+        "displayTemplate": "{name}",
+        "isHidden": false
+      },
+      "fields": {}
+    },
+    "email_templates": {
+      "meta": {
+        "displayName": "Email templates",
+        "icon": "lucide:mail-plus",
+        "displayTemplate": "{name}",
+        "isHidden": false
+      },
+      "fields": {
+        "created_by": {
+          "apiName": "createdById",
+          "defaultValue": {
+            "source": "engineManaged",
+            "onCreate": {
+              "kind": "currentUser"
+            }
+          },
+          "isHidden": true
+        },
+        "updated_by": {
+          "apiName": "updatedById",
+          "defaultValue": {
+            "source": "engineManaged",
+            "onCreate": {
+              "kind": "currentUser"
+            },
+            "onUpdate": {
+              "kind": "currentUser"
+            }
+          },
+          "isHidden": true
+        }
+      }
+    },
+    "hiring_locations": {
+      "meta": {
+        "displayName": "Hiring locations",
+        "icon": "lucide:map-pin",
+        "displayTemplate": "{name}",
+        "isHidden": false
+      },
+      "fields": {}
+    },
+    "interview_participants": {
+      "meta": {
+        "displayName": "Interview participants",
+        "icon": "lucide:users",
+        "isHidden": false
+      },
+      "fields": {}
+    },
+    "interview_stages": {
+      "meta": {
+        "displayName": "Interview stages",
+        "icon": "lucide:list-ordered",
+        "displayTemplate": "{name}",
+        "isHidden": false
+      },
+      "fields": {}
+    },
+    "interviews": {
+      "meta": {
+        "displayName": "Interviews",
+        "icon": "lucide:calendar-clock",
+        "displayTemplate": "{title}",
+        "isHidden": false
+      },
+      "fields": {
+        "created_by": {
+          "apiName": "createdById",
+          "defaultValue": {
+            "source": "engineManaged",
+            "onCreate": {
+              "kind": "currentUser"
+            }
+          },
+          "isHidden": true
+        },
+        "updated_by": {
+          "apiName": "updatedById",
+          "defaultValue": {
+            "source": "engineManaged",
+            "onCreate": {
+              "kind": "currentUser"
+            },
+            "onUpdate": {
+              "kind": "currentUser"
+            }
+          },
+          "isHidden": true
+        }
+      }
+    },
+    "job_levels": {
+      "meta": {
+        "displayName": "Job levels",
+        "icon": "lucide:layers",
+        "displayTemplate": "{name}",
+        "isHidden": false
+      },
+      "fields": {}
+    },
+    "offers": {
+      "meta": {
+        "displayName": "Offers",
+        "icon": "lucide:handshake",
+        "isHidden": false
+      },
+      "fields": {
+        "created_by": {
+          "apiName": "createdById",
+          "defaultValue": {
+            "source": "engineManaged",
+            "onCreate": {
+              "kind": "currentUser"
+            }
+          },
+          "isHidden": true
+        },
+        "updated_by": {
+          "apiName": "updatedById",
+          "defaultValue": {
+            "source": "engineManaged",
+            "onCreate": {
+              "kind": "currentUser"
+            },
+            "onUpdate": {
+              "kind": "currentUser"
+            }
+          },
+          "isHidden": true
+        }
+      }
+    },
+    "public_applications": {
+      "meta": {
+        "displayName": "Careers applications",
+        "icon": "lucide:inbox",
+        "displayTemplate": "{first_name} {last_name}",
+        "isHidden": false
+      },
+      "fields": {}
+    },
+    "requisitions": {
+      "meta": {
+        "displayName": "Jobs",
+        "icon": "lucide:briefcase",
+        "displayTemplate": "{title}",
+        "isHidden": false
+      },
+      "fields": {
+        "created_by": {
+          "apiName": "createdById",
+          "defaultValue": {
+            "source": "engineManaged",
+            "onCreate": {
+              "kind": "currentUser"
+            }
+          },
+          "isHidden": true
+        },
+        "updated_by": {
+          "apiName": "updatedById",
+          "defaultValue": {
+            "source": "engineManaged",
+            "onCreate": {
+              "kind": "currentUser"
+            },
+            "onUpdate": {
+              "kind": "currentUser"
+            }
+          },
+          "isHidden": true
+        }
+      }
+    },
+    "role_requests": {
+      "meta": {
+        "displayName": "Role requests",
+        "icon": "lucide:file-plus",
+        "displayTemplate": "{role_name}",
+        "isHidden": false
+      },
+      "fields": {
+        "created_by": {
+          "apiName": "createdById",
+          "defaultValue": {
+            "source": "engineManaged",
+            "onCreate": {
+              "kind": "currentUser"
+            }
+          },
+          "isHidden": true
+        },
+        "updated_by": {
+          "apiName": "updatedById",
+          "defaultValue": {
+            "source": "engineManaged",
+            "onCreate": {
+              "kind": "currentUser"
+            },
+            "onUpdate": {
+              "kind": "currentUser"
+            }
+          },
+          "isHidden": true
+        }
+      }
+    },
+    "scorecards": {
+      "meta": {
+        "displayName": "Scorecards",
+        "icon": "lucide:clipboard-check",
+        "isHidden": false
+      },
+      "fields": {
+        "created_by": {
+          "apiName": "createdById",
+          "defaultValue": {
+            "source": "engineManaged",
+            "onCreate": {
+              "kind": "currentUser"
+            }
+          },
+          "isHidden": true
+        },
+        "updated_by": {
+          "apiName": "updatedById",
+          "defaultValue": {
+            "source": "engineManaged",
+            "onCreate": {
+              "kind": "currentUser"
+            },
+            "onUpdate": {
+              "kind": "currentUser"
+            }
+          },
+          "isHidden": true
+        }
+      }
+    },
+    "workforce_plan_roles": {
+      "meta": {
+        "displayName": "Workforce plan",
+        "icon": "lucide:calendar-range",
+        "displayTemplate": "{role_name}",
+        "isHidden": false
+      },
+      "fields": {
+        "created_by": {
+          "apiName": "createdById",
+          "defaultValue": {
+            "source": "engineManaged",
+            "onCreate": {
+              "kind": "currentUser"
+            }
+          },
+          "isHidden": true
+        },
+        "updated_by": {
+          "apiName": "updatedById",
+          "defaultValue": {
+            "source": "engineManaged",
+            "onCreate": {
+              "kind": "currentUser"
+            },
+            "onUpdate": {
+              "kind": "currentUser"
+            }
+          },
+          "isHidden": true
+        }
+      }
+    }
+  }
+}

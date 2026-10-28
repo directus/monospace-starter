@@ -1,0 +1,82 @@
+{
+  "$schema": "https://monospace.io/schemas/starter/v1/module.json",
+  "label": "ATS",
+  "description": "Jobs, candidates, interviews and offers",
+  "requires": ["checkr"],
+  "x-monoerp": {
+    "collections": [
+      "departments",
+      "jobLevels",
+      "hiringLocations",
+      "workforcePlanRoles",
+      "roleRequests",
+      "requisitions",
+      "interviewStages",
+      "candidates",
+      "applications",
+      "candidateNotes",
+      "candidateFiles",
+      "candidateMessages",
+      "interviews",
+      "interviewParticipants",
+      "scorecards",
+      "offers",
+      "approvals",
+      "emailTemplates",
+      "auditEvents",
+      "publicApplications",
+      "checkrCandidates",
+      "checkrReports",
+      "checkrInvitations",
+      "checkrPackages"
+    ],
+    "writes": [
+      "applications",
+      "approvals",
+      "candidateFiles",
+      "candidateMessages",
+      "candidateNotes",
+      "candidates",
+      "departments",
+      "emailTemplates",
+      "hiringLocations",
+      "interviewParticipants",
+      "interviewStages",
+      "interviews",
+      "jobLevels",
+      "offers",
+      "publicApplications",
+      "requisitions",
+      "roleRequests",
+      "scorecards",
+      "workforcePlanRoles"
+    ],
+    "auditColumns": {
+      "workforce_plan_roles": ["created_by", "updated_by"],
+      "role_requests": ["created_by", "updated_by"],
+      "requisitions": ["created_by", "updated_by"],
+      "candidates": ["created_by", "updated_by"],
+      "applications": ["created_by", "updated_by"],
+      "candidate_notes": ["created_by", "updated_by"],
+      "candidate_files": ["created_by"],
+      "candidate_messages": ["created_by"],
+      "interviews": ["created_by", "updated_by"],
+      "scorecards": ["created_by", "updated_by"],
+      "offers": ["created_by", "updated_by"],
+      "email_templates": ["created_by", "updated_by"]
+    },
+    "setup": {
+      "afterSchema": [
+        {
+          "title": "ATS demo people",
+          "script": "ats-people.mjs"
+        },
+        {
+          "title": "ATS public careers access",
+          "script": "ats-public.mjs"
+        }
+      ]
+    },
+    "demoUserCredential": "AtsDemoCredentials"
+  }
+}

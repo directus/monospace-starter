@@ -1,0 +1,19 @@
+{
+  "name": "@monoerp/checkr-connector",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "monospace extension build --install-to ../../../infra/monospace/extensions",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@monospace/extension-kit": "0.3.0"
+  },
+  "devDependencies": {
+    "@monospace/cli": "0.2.1",
+    "rolldown": "1.2.6",
+    "typescript": "6.0.3",
+    "vitest": "catalog:"
+  }
+}

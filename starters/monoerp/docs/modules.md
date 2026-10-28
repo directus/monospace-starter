@@ -57,7 +57,7 @@ The CLI never reads `x-monoerp`; `tools/manifest-schema.mjs` validates it.
 | `auditColumns`                            | SQL columns per table linked to Monospace users                                                          |
 | `setup.beforeSchema`, `setup.afterSchema` | Ordered steps; each has a title and a script file name in the part's `monospace/setup/` folder           |
 | Setup step `requires`                     | Skip unless each named module is installed or connector is selected                                      |
-| `demoUserCredential`                      | Module only: environment variable for deployed demo users                                                |
+| `demoUserCredential`                      | Module only: AWS secret name for the deployed demo users' shared password                                |
 | `source`                                  | Connector only: provider and connection settings                                                         |
 | `contributes.<module>`                    | Connector only: a feature for that module, with its `collections` and the other connectors it `requires` |
 

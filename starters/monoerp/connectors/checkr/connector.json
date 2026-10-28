@@ -1,0 +1,31 @@
+{
+  "$schema": "https://monospace.io/schemas/starter/v1/connector.json",
+  "label": "Checkr",
+  "description": "Background checks",
+  "x-monoerp": {
+    "source": {
+      "apiName": "Checkr",
+      "provider": "monoerp/checkr-data-connector",
+      "config": {
+        "when": "CHECKR_API_KEY",
+        "value": {
+          "apiKey": {
+            "env": "CHECKR_API_KEY"
+          },
+          "environment": {
+            "env": "CHECKR_ENVIRONMENT",
+            "default": "staging",
+            "emptyUsesDefault": true
+          }
+        },
+        "otherwise": {
+          "apiKey": "monoerp_local",
+          "apiBase": {
+            "env": "CHECKR_API_BASE",
+            "default": "http://checkr:4020"
+          }
+        }
+      }
+    }
+  }
+}

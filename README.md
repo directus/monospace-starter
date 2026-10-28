@@ -85,7 +85,7 @@ The root [starter workflow](.github/workflows/starters.yml) installs and runs `p
 
 | Starter | Contents |
 |---|---|
-| [`monoerp`](starters/monoerp) | A modular CRM app built with TanStack Start. Monospace joins PostgreSQL, an optional read-only MySQL demo, and Stripe through one API. Includes piece manifests, setup scripts, tests, and an AWS deploy |
+| [`monoerp`](starters/monoerp) | A modular CRM and ATS app built with TanStack Start. Monospace joins PostgreSQL, an optional read-only MySQL demo, and Stripe through one API. Includes piece manifests, setup scripts, tests, and an AWS deploy |
 
 Download one starter on its own, without the rest of this repository:
 

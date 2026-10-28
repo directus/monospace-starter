@@ -153,6 +153,20 @@ export type Int64FilterPrimitiveInput = {
 
 export type Int64Input = string | number;
 
+export type IntegerFilterNullablePrimitiveInput = {
+	_between?: readonly number[];
+	_eq?: number | null;
+	_gt?: number;
+	_gte?: number;
+	_in?: readonly (number | null)[];
+	_lt?: number;
+	_lte?: number;
+	_nbetween?: readonly number[];
+	_neq?: number | null;
+	_nin?: readonly (number | null)[];
+	_null?: boolean;
+}
+
 export type IntegerFilterPrimitiveInput = {
 	_between?: readonly number[];
 	_eq?: number;
@@ -2014,8 +2028,16 @@ export type MonospaceKeyStorageownerCreateRelatedWithoutTypeInput = {
 	affiliationsCreatedBy?: readonly MonospaceSystemUseraffiliationsCreatedByCreateRelatedInput[];
 	affiliationsUpdatedBy?: readonly MonospaceSystemUseraffiliationsUpdatedByCreateRelatedInput[];
 	appearance?: string | null;
+	applicationsCreatedBy?: readonly MonospaceSystemUserapplicationsCreatedByCreateRelatedInput[];
+	applicationsUpdatedBy?: readonly MonospaceSystemUserapplicationsUpdatedByCreateRelatedInput[];
 	attachmentsCreatedBy?: readonly MonospaceSystemUserattachmentsCreatedByCreateRelatedInput[];
 	avatarId?: Uuid | null;
+	candidateFilesCreatedBy?: readonly MonospaceSystemUsercandidateFilesCreatedByCreateRelatedInput[];
+	candidateMessagesCreatedBy?: readonly MonospaceSystemUsercandidateMessagesCreatedByCreateRelatedInput[];
+	candidateNotesCreatedBy?: readonly MonospaceSystemUsercandidateNotesCreatedByCreateRelatedInput[];
+	candidateNotesUpdatedBy?: readonly MonospaceSystemUsercandidateNotesUpdatedByCreateRelatedInput[];
+	candidatesCreatedBy?: readonly MonospaceSystemUsercandidatesCreatedByCreateRelatedInput[];
+	candidatesUpdatedBy?: readonly MonospaceSystemUsercandidatesUpdatedByCreateRelatedInput[];
 	contactsCreatedBy?: readonly MonospaceSystemUsercontactsCreatedByCreateRelatedInput[];
 	contactsOwner?: readonly MonospaceSystemUsercontactsOwnerCreateRelatedInput[];
 	contactsUpdatedBy?: readonly MonospaceSystemUsercontactsUpdatedByCreateRelatedInput[];
@@ -2023,16 +2045,30 @@ export type MonospaceKeyStorageownerCreateRelatedWithoutTypeInput = {
 	dealsOwner?: readonly MonospaceSystemUserdealsOwnerCreateRelatedInput[];
 	dealsUpdatedBy?: readonly MonospaceSystemUserdealsUpdatedByCreateRelatedInput[];
 	email?: string | null;
+	emailTemplatesCreatedBy?: readonly MonospaceSystemUseremailTemplatesCreatedByCreateRelatedInput[];
+	emailTemplatesUpdatedBy?: readonly MonospaceSystemUseremailTemplatesUpdatedByCreateRelatedInput[];
 	fullName?: string | null;
 	id: Uuid;
+	interviewsCreatedBy?: readonly MonospaceSystemUserinterviewsCreatedByCreateRelatedInput[];
+	interviewsUpdatedBy?: readonly MonospaceSystemUserinterviewsUpdatedByCreateRelatedInput[];
 	isService: boolean;
 	lastActivityAt?: string | null;
+	offersCreatedBy?: readonly MonospaceSystemUseroffersCreatedByCreateRelatedInput[];
+	offersUpdatedBy?: readonly MonospaceSystemUseroffersUpdatedByCreateRelatedInput[];
 	organizationsCreatedBy?: readonly MonospaceSystemUserorganizationsCreatedByCreateRelatedInput[];
 	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
 	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
+	requisitionsCreatedBy?: readonly MonospaceSystemUserrequisitionsCreatedByCreateRelatedInput[];
+	requisitionsUpdatedBy?: readonly MonospaceSystemUserrequisitionsUpdatedByCreateRelatedInput[];
+	roleRequestsCreatedBy?: readonly MonospaceSystemUserroleRequestsCreatedByCreateRelatedInput[];
+	roleRequestsUpdatedBy?: readonly MonospaceSystemUserroleRequestsUpdatedByCreateRelatedInput[];
 	roles?: readonly MonospaceSystemUserrolesCreateRelatedInput[];
+	scorecardsCreatedBy?: readonly MonospaceSystemUserscorecardsCreatedByCreateRelatedInput[];
+	scorecardsUpdatedBy?: readonly MonospaceSystemUserscorecardsUpdatedByCreateRelatedInput[];
 	serviceOwnerId?: Uuid | null;
 	status?: string;
+	workforcePlanRolesCreatedBy?: readonly MonospaceSystemUserworkforcePlanRolesCreatedByCreateRelatedInput[];
+	workforcePlanRolesUpdatedBy?: readonly MonospaceSystemUserworkforcePlanRolesUpdatedByCreateRelatedInput[];
 }
 
 export type MonospaceKeyStorageownerRelationFieldArguments = {
@@ -5333,8 +5369,16 @@ export type MonospaceSystemUserCollectionOutput = {
 	affiliationsCreatedBy?: { data: affiliationsCollectionOutput[] };
 	affiliationsUpdatedBy?: { data: affiliationsCollectionOutput[] };
 	appearance?: string | null;
+	applicationsCreatedBy?: { data: applicationsCollectionOutput[] };
+	applicationsUpdatedBy?: { data: applicationsCollectionOutput[] };
 	attachmentsCreatedBy?: { data: attachmentsCollectionOutput[] };
 	avatarId?: Uuid | null;
+	candidateFilesCreatedBy?: { data: candidateFilesCollectionOutput[] };
+	candidateMessagesCreatedBy?: { data: candidateMessagesCollectionOutput[] };
+	candidateNotesCreatedBy?: { data: candidateNotesCollectionOutput[] };
+	candidateNotesUpdatedBy?: { data: candidateNotesCollectionOutput[] };
+	candidatesCreatedBy?: { data: candidatesCollectionOutput[] };
+	candidatesUpdatedBy?: { data: candidatesCollectionOutput[] };
 	contactsCreatedBy?: { data: contactsCollectionOutput[] };
 	contactsOwner?: { data: contactsCollectionOutput[] };
 	contactsUpdatedBy?: { data: contactsCollectionOutput[] };
@@ -5342,17 +5386,31 @@ export type MonospaceSystemUserCollectionOutput = {
 	dealsOwner?: { data: dealsCollectionOutput[] };
 	dealsUpdatedBy?: { data: dealsCollectionOutput[] };
 	email?: string | null;
+	emailTemplatesCreatedBy?: { data: emailTemplatesCollectionOutput[] };
+	emailTemplatesUpdatedBy?: { data: emailTemplatesCollectionOutput[] };
 	fullName?: string | null;
 	id?: Uuid;
+	interviewsCreatedBy?: { data: interviewsCollectionOutput[] };
+	interviewsUpdatedBy?: { data: interviewsCollectionOutput[] };
 	isService?: boolean;
 	lastActivityAt?: string | null;
+	offersCreatedBy?: { data: offersCollectionOutput[] };
+	offersUpdatedBy?: { data: offersCollectionOutput[] };
 	organizationsCreatedBy?: { data: organizationsCollectionOutput[] };
 	organizationsOwner?: { data: organizationsCollectionOutput[] };
 	organizationsUpdatedBy?: { data: organizationsCollectionOutput[] };
+	requisitionsCreatedBy?: { data: requisitionsCollectionOutput[] };
+	requisitionsUpdatedBy?: { data: requisitionsCollectionOutput[] };
+	roleRequestsCreatedBy?: { data: roleRequestsCollectionOutput[] };
+	roleRequestsUpdatedBy?: { data: roleRequestsCollectionOutput[] };
 	roles?: { data: MonospaceUserRoleCollectionOutput[] };
+	scorecardsCreatedBy?: { data: scorecardsCollectionOutput[] };
+	scorecardsUpdatedBy?: { data: scorecardsCollectionOutput[] };
 	serviceOwnerId?: Uuid | null;
 	status?: string;
 	storageValues?: { data: MonospaceKeyStorageCollectionOutput[] };
+	workforcePlanRolesCreatedBy?: { data: workforcePlanRolesCollectionOutput[] };
+	workforcePlanRolesUpdatedBy?: { data: workforcePlanRolesCollectionOutput[] };
 }
 
 export type MonospaceSystemUserCollectionOutputFieldsInput = readonly ("appearance" | "avatarId" | "email" | "fullName" | "id" | "isService" | "lastActivityAt" | "serviceOwnerId" | "status" | "*" | `${string}:${"appearance" | "avatarId" | "email" | "fullName" | "id" | "isService" | "lastActivityAt" | "serviceOwnerId" | "status"}`)[];
@@ -5363,19 +5421,41 @@ export type MonospaceSystemUserCollectionOutputIncludeInput = {
 	"activitiesUpdatedBy"?: (MonospaceSystemUseractivitiesUpdatedByRelationFieldArguments & { "fields"?: activitiesCollectionOutputFieldsInput; "include"?: activitiesCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (MonospaceSystemUseractivitiesUpdatedByRelationFieldArguments & { "fields"?: activitiesCollectionOutputFieldsInput; "include"?: activitiesCollectionOutputIncludeInput })>]?: never };
 	"affiliationsCreatedBy"?: (MonospaceSystemUseraffiliationsCreatedByRelationFieldArguments & { "fields"?: affiliationsCollectionOutputFieldsInput; "include"?: affiliationsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (MonospaceSystemUseraffiliationsCreatedByRelationFieldArguments & { "fields"?: affiliationsCollectionOutputFieldsInput; "include"?: affiliationsCollectionOutputIncludeInput })>]?: never };
 	"affiliationsUpdatedBy"?: (MonospaceSystemUseraffiliationsUpdatedByRelationFieldArguments & { "fields"?: affiliationsCollectionOutputFieldsInput; "include"?: affiliationsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (MonospaceSystemUseraffiliationsUpdatedByRelationFieldArguments & { "fields"?: affiliationsCollectionOutputFieldsInput; "include"?: affiliationsCollectionOutputIncludeInput })>]?: never };
+	"applicationsCreatedBy"?: (MonospaceSystemUserapplicationsCreatedByRelationFieldArguments & { "fields"?: applicationsCollectionOutputFieldsInput; "include"?: applicationsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (MonospaceSystemUserapplicationsCreatedByRelationFieldArguments & { "fields"?: applicationsCollectionOutputFieldsInput; "include"?: applicationsCollectionOutputIncludeInput })>]?: never };
+	"applicationsUpdatedBy"?: (MonospaceSystemUserapplicationsUpdatedByRelationFieldArguments & { "fields"?: applicationsCollectionOutputFieldsInput; "include"?: applicationsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (MonospaceSystemUserapplicationsUpdatedByRelationFieldArguments & { "fields"?: applicationsCollectionOutputFieldsInput; "include"?: applicationsCollectionOutputIncludeInput })>]?: never };
 	"attachmentsCreatedBy"?: (MonospaceSystemUserattachmentsCreatedByRelationFieldArguments & { "fields"?: attachmentsCollectionOutputFieldsInput; "include"?: attachmentsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (MonospaceSystemUserattachmentsCreatedByRelationFieldArguments & { "fields"?: attachmentsCollectionOutputFieldsInput; "include"?: attachmentsCollectionOutputIncludeInput })>]?: never };
+	"candidateFilesCreatedBy"?: (MonospaceSystemUsercandidateFilesCreatedByRelationFieldArguments & { "fields"?: candidateFilesCollectionOutputFieldsInput; "include"?: candidateFilesCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (MonospaceSystemUsercandidateFilesCreatedByRelationFieldArguments & { "fields"?: candidateFilesCollectionOutputFieldsInput; "include"?: candidateFilesCollectionOutputIncludeInput })>]?: never };
+	"candidateMessagesCreatedBy"?: (MonospaceSystemUsercandidateMessagesCreatedByRelationFieldArguments & { "fields"?: candidateMessagesCollectionOutputFieldsInput; "include"?: candidateMessagesCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (MonospaceSystemUsercandidateMessagesCreatedByRelationFieldArguments & { "fields"?: candidateMessagesCollectionOutputFieldsInput; "include"?: candidateMessagesCollectionOutputIncludeInput })>]?: never };
+	"candidateNotesCreatedBy"?: (MonospaceSystemUsercandidateNotesCreatedByRelationFieldArguments & { "fields"?: candidateNotesCollectionOutputFieldsInput; "include"?: candidateNotesCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (MonospaceSystemUsercandidateNotesCreatedByRelationFieldArguments & { "fields"?: candidateNotesCollectionOutputFieldsInput; "include"?: candidateNotesCollectionOutputIncludeInput })>]?: never };
+	"candidateNotesUpdatedBy"?: (MonospaceSystemUsercandidateNotesUpdatedByRelationFieldArguments & { "fields"?: candidateNotesCollectionOutputFieldsInput; "include"?: candidateNotesCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (MonospaceSystemUsercandidateNotesUpdatedByRelationFieldArguments & { "fields"?: candidateNotesCollectionOutputFieldsInput; "include"?: candidateNotesCollectionOutputIncludeInput })>]?: never };
+	"candidatesCreatedBy"?: (MonospaceSystemUsercandidatesCreatedByRelationFieldArguments & { "fields"?: candidatesCollectionOutputFieldsInput; "include"?: candidatesCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (MonospaceSystemUsercandidatesCreatedByRelationFieldArguments & { "fields"?: candidatesCollectionOutputFieldsInput; "include"?: candidatesCollectionOutputIncludeInput })>]?: never };
+	"candidatesUpdatedBy"?: (MonospaceSystemUsercandidatesUpdatedByRelationFieldArguments & { "fields"?: candidatesCollectionOutputFieldsInput; "include"?: candidatesCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (MonospaceSystemUsercandidatesUpdatedByRelationFieldArguments & { "fields"?: candidatesCollectionOutputFieldsInput; "include"?: candidatesCollectionOutputIncludeInput })>]?: never };
 	"contactsCreatedBy"?: (MonospaceSystemUsercontactsCreatedByRelationFieldArguments & { "fields"?: contactsCollectionOutputFieldsInput; "include"?: contactsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (MonospaceSystemUsercontactsCreatedByRelationFieldArguments & { "fields"?: contactsCollectionOutputFieldsInput; "include"?: contactsCollectionOutputIncludeInput })>]?: never };
 	"contactsOwner"?: (MonospaceSystemUsercontactsOwnerRelationFieldArguments & { "fields"?: contactsCollectionOutputFieldsInput; "include"?: contactsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (MonospaceSystemUsercontactsOwnerRelationFieldArguments & { "fields"?: contactsCollectionOutputFieldsInput; "include"?: contactsCollectionOutputIncludeInput })>]?: never };
 	"contactsUpdatedBy"?: (MonospaceSystemUsercontactsUpdatedByRelationFieldArguments & { "fields"?: contactsCollectionOutputFieldsInput; "include"?: contactsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (MonospaceSystemUsercontactsUpdatedByRelationFieldArguments & { "fields"?: contactsCollectionOutputFieldsInput; "include"?: contactsCollectionOutputIncludeInput })>]?: never };
 	"dealsCreatedBy"?: (MonospaceSystemUserdealsCreatedByRelationFieldArguments & { "fields"?: dealsCollectionOutputFieldsInput; "include"?: dealsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (MonospaceSystemUserdealsCreatedByRelationFieldArguments & { "fields"?: dealsCollectionOutputFieldsInput; "include"?: dealsCollectionOutputIncludeInput })>]?: never };
 	"dealsOwner"?: (MonospaceSystemUserdealsOwnerRelationFieldArguments & { "fields"?: dealsCollectionOutputFieldsInput; "include"?: dealsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (MonospaceSystemUserdealsOwnerRelationFieldArguments & { "fields"?: dealsCollectionOutputFieldsInput; "include"?: dealsCollectionOutputIncludeInput })>]?: never };
 	"dealsUpdatedBy"?: (MonospaceSystemUserdealsUpdatedByRelationFieldArguments & { "fields"?: dealsCollectionOutputFieldsInput; "include"?: dealsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (MonospaceSystemUserdealsUpdatedByRelationFieldArguments & { "fields"?: dealsCollectionOutputFieldsInput; "include"?: dealsCollectionOutputIncludeInput })>]?: never };
+	"emailTemplatesCreatedBy"?: (MonospaceSystemUseremailTemplatesCreatedByRelationFieldArguments & { "fields"?: emailTemplatesCollectionOutputFieldsInput; "include"?: emailTemplatesCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (MonospaceSystemUseremailTemplatesCreatedByRelationFieldArguments & { "fields"?: emailTemplatesCollectionOutputFieldsInput; "include"?: emailTemplatesCollectionOutputIncludeInput })>]?: never };
+	"emailTemplatesUpdatedBy"?: (MonospaceSystemUseremailTemplatesUpdatedByRelationFieldArguments & { "fields"?: emailTemplatesCollectionOutputFieldsInput; "include"?: emailTemplatesCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (MonospaceSystemUseremailTemplatesUpdatedByRelationFieldArguments & { "fields"?: emailTemplatesCollectionOutputFieldsInput; "include"?: emailTemplatesCollectionOutputIncludeInput })>]?: never };
+	"interviewsCreatedBy"?: (MonospaceSystemUserinterviewsCreatedByRelationFieldArguments & { "fields"?: interviewsCollectionOutputFieldsInput; "include"?: interviewsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (MonospaceSystemUserinterviewsCreatedByRelationFieldArguments & { "fields"?: interviewsCollectionOutputFieldsInput; "include"?: interviewsCollectionOutputIncludeInput })>]?: never };
+	"interviewsUpdatedBy"?: (MonospaceSystemUserinterviewsUpdatedByRelationFieldArguments & { "fields"?: interviewsCollectionOutputFieldsInput; "include"?: interviewsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (MonospaceSystemUserinterviewsUpdatedByRelationFieldArguments & { "fields"?: interviewsCollectionOutputFieldsInput; "include"?: interviewsCollectionOutputIncludeInput })>]?: never };
+	"offersCreatedBy"?: (MonospaceSystemUseroffersCreatedByRelationFieldArguments & { "fields"?: offersCollectionOutputFieldsInput; "include"?: offersCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (MonospaceSystemUseroffersCreatedByRelationFieldArguments & { "fields"?: offersCollectionOutputFieldsInput; "include"?: offersCollectionOutputIncludeInput })>]?: never };
+	"offersUpdatedBy"?: (MonospaceSystemUseroffersUpdatedByRelationFieldArguments & { "fields"?: offersCollectionOutputFieldsInput; "include"?: offersCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (MonospaceSystemUseroffersUpdatedByRelationFieldArguments & { "fields"?: offersCollectionOutputFieldsInput; "include"?: offersCollectionOutputIncludeInput })>]?: never };
 	"organizationsCreatedBy"?: (MonospaceSystemUserorganizationsCreatedByRelationFieldArguments & { "fields"?: organizationsCollectionOutputFieldsInput; "include"?: organizationsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (MonospaceSystemUserorganizationsCreatedByRelationFieldArguments & { "fields"?: organizationsCollectionOutputFieldsInput; "include"?: organizationsCollectionOutputIncludeInput })>]?: never };
 	"organizationsOwner"?: (MonospaceSystemUserorganizationsOwnerRelationFieldArguments & { "fields"?: organizationsCollectionOutputFieldsInput; "include"?: organizationsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (MonospaceSystemUserorganizationsOwnerRelationFieldArguments & { "fields"?: organizationsCollectionOutputFieldsInput; "include"?: organizationsCollectionOutputIncludeInput })>]?: never };
 	"organizationsUpdatedBy"?: (MonospaceSystemUserorganizationsUpdatedByRelationFieldArguments & { "fields"?: organizationsCollectionOutputFieldsInput; "include"?: organizationsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (MonospaceSystemUserorganizationsUpdatedByRelationFieldArguments & { "fields"?: organizationsCollectionOutputFieldsInput; "include"?: organizationsCollectionOutputIncludeInput })>]?: never };
+	"requisitionsCreatedBy"?: (MonospaceSystemUserrequisitionsCreatedByRelationFieldArguments & { "fields"?: requisitionsCollectionOutputFieldsInput; "include"?: requisitionsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (MonospaceSystemUserrequisitionsCreatedByRelationFieldArguments & { "fields"?: requisitionsCollectionOutputFieldsInput; "include"?: requisitionsCollectionOutputIncludeInput })>]?: never };
+	"requisitionsUpdatedBy"?: (MonospaceSystemUserrequisitionsUpdatedByRelationFieldArguments & { "fields"?: requisitionsCollectionOutputFieldsInput; "include"?: requisitionsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (MonospaceSystemUserrequisitionsUpdatedByRelationFieldArguments & { "fields"?: requisitionsCollectionOutputFieldsInput; "include"?: requisitionsCollectionOutputIncludeInput })>]?: never };
+	"roleRequestsCreatedBy"?: (MonospaceSystemUserroleRequestsCreatedByRelationFieldArguments & { "fields"?: roleRequestsCollectionOutputFieldsInput; "include"?: roleRequestsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (MonospaceSystemUserroleRequestsCreatedByRelationFieldArguments & { "fields"?: roleRequestsCollectionOutputFieldsInput; "include"?: roleRequestsCollectionOutputIncludeInput })>]?: never };
+	"roleRequestsUpdatedBy"?: (MonospaceSystemUserroleRequestsUpdatedByRelationFieldArguments & { "fields"?: roleRequestsCollectionOutputFieldsInput; "include"?: roleRequestsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (MonospaceSystemUserroleRequestsUpdatedByRelationFieldArguments & { "fields"?: roleRequestsCollectionOutputFieldsInput; "include"?: roleRequestsCollectionOutputIncludeInput })>]?: never };
 	"roles"?: (MonospaceSystemUserrolesRelationFieldArguments & { "fields"?: MonospaceUserRoleCollectionOutputFieldsInput; "include"?: MonospaceUserRoleCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (MonospaceSystemUserrolesRelationFieldArguments & { "fields"?: MonospaceUserRoleCollectionOutputFieldsInput; "include"?: MonospaceUserRoleCollectionOutputIncludeInput })>]?: never };
+	"scorecardsCreatedBy"?: (MonospaceSystemUserscorecardsCreatedByRelationFieldArguments & { "fields"?: scorecardsCollectionOutputFieldsInput; "include"?: scorecardsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (MonospaceSystemUserscorecardsCreatedByRelationFieldArguments & { "fields"?: scorecardsCollectionOutputFieldsInput; "include"?: scorecardsCollectionOutputIncludeInput })>]?: never };
+	"scorecardsUpdatedBy"?: (MonospaceSystemUserscorecardsUpdatedByRelationFieldArguments & { "fields"?: scorecardsCollectionOutputFieldsInput; "include"?: scorecardsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (MonospaceSystemUserscorecardsUpdatedByRelationFieldArguments & { "fields"?: scorecardsCollectionOutputFieldsInput; "include"?: scorecardsCollectionOutputIncludeInput })>]?: never };
 	"storageValues"?: (MonospaceSystemUserstorageValuesRelationFieldArguments & { "fields"?: MonospaceKeyStorageCollectionOutputFieldsInput; "include"?: MonospaceKeyStorageCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (MonospaceSystemUserstorageValuesRelationFieldArguments & { "fields"?: MonospaceKeyStorageCollectionOutputFieldsInput; "include"?: MonospaceKeyStorageCollectionOutputIncludeInput })>]?: never };
-} & { [K in `${string}:${"activitiesCreatedBy"}`]?: MonospaceSystemUserCollectionOutputIncludeInput["activitiesCreatedBy"] } & { [K in `${string}:${"activitiesOwner"}`]?: MonospaceSystemUserCollectionOutputIncludeInput["activitiesOwner"] } & { [K in `${string}:${"activitiesUpdatedBy"}`]?: MonospaceSystemUserCollectionOutputIncludeInput["activitiesUpdatedBy"] } & { [K in `${string}:${"affiliationsCreatedBy"}`]?: MonospaceSystemUserCollectionOutputIncludeInput["affiliationsCreatedBy"] } & { [K in `${string}:${"affiliationsUpdatedBy"}`]?: MonospaceSystemUserCollectionOutputIncludeInput["affiliationsUpdatedBy"] } & { [K in `${string}:${"attachmentsCreatedBy"}`]?: MonospaceSystemUserCollectionOutputIncludeInput["attachmentsCreatedBy"] } & { [K in `${string}:${"contactsCreatedBy"}`]?: MonospaceSystemUserCollectionOutputIncludeInput["contactsCreatedBy"] } & { [K in `${string}:${"contactsOwner"}`]?: MonospaceSystemUserCollectionOutputIncludeInput["contactsOwner"] } & { [K in `${string}:${"contactsUpdatedBy"}`]?: MonospaceSystemUserCollectionOutputIncludeInput["contactsUpdatedBy"] } & { [K in `${string}:${"dealsCreatedBy"}`]?: MonospaceSystemUserCollectionOutputIncludeInput["dealsCreatedBy"] } & { [K in `${string}:${"dealsOwner"}`]?: MonospaceSystemUserCollectionOutputIncludeInput["dealsOwner"] } & { [K in `${string}:${"dealsUpdatedBy"}`]?: MonospaceSystemUserCollectionOutputIncludeInput["dealsUpdatedBy"] } & { [K in `${string}:${"organizationsCreatedBy"}`]?: MonospaceSystemUserCollectionOutputIncludeInput["organizationsCreatedBy"] } & { [K in `${string}:${"organizationsOwner"}`]?: MonospaceSystemUserCollectionOutputIncludeInput["organizationsOwner"] } & { [K in `${string}:${"organizationsUpdatedBy"}`]?: MonospaceSystemUserCollectionOutputIncludeInput["organizationsUpdatedBy"] } & { [K in `${string}:${"roles"}`]?: MonospaceSystemUserCollectionOutputIncludeInput["roles"] } & { [K in `${string}:${"storageValues"}`]?: MonospaceSystemUserCollectionOutputIncludeInput["storageValues"] };
+	"workforcePlanRolesCreatedBy"?: (MonospaceSystemUserworkforcePlanRolesCreatedByRelationFieldArguments & { "fields"?: workforcePlanRolesCollectionOutputFieldsInput; "include"?: workforcePlanRolesCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (MonospaceSystemUserworkforcePlanRolesCreatedByRelationFieldArguments & { "fields"?: workforcePlanRolesCollectionOutputFieldsInput; "include"?: workforcePlanRolesCollectionOutputIncludeInput })>]?: never };
+	"workforcePlanRolesUpdatedBy"?: (MonospaceSystemUserworkforcePlanRolesUpdatedByRelationFieldArguments & { "fields"?: workforcePlanRolesCollectionOutputFieldsInput; "include"?: workforcePlanRolesCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (MonospaceSystemUserworkforcePlanRolesUpdatedByRelationFieldArguments & { "fields"?: workforcePlanRolesCollectionOutputFieldsInput; "include"?: workforcePlanRolesCollectionOutputIncludeInput })>]?: never };
+} & { [K in `${string}:${"activitiesCreatedBy"}`]?: MonospaceSystemUserCollectionOutputIncludeInput["activitiesCreatedBy"] } & { [K in `${string}:${"activitiesOwner"}`]?: MonospaceSystemUserCollectionOutputIncludeInput["activitiesOwner"] } & { [K in `${string}:${"activitiesUpdatedBy"}`]?: MonospaceSystemUserCollectionOutputIncludeInput["activitiesUpdatedBy"] } & { [K in `${string}:${"affiliationsCreatedBy"}`]?: MonospaceSystemUserCollectionOutputIncludeInput["affiliationsCreatedBy"] } & { [K in `${string}:${"affiliationsUpdatedBy"}`]?: MonospaceSystemUserCollectionOutputIncludeInput["affiliationsUpdatedBy"] } & { [K in `${string}:${"applicationsCreatedBy"}`]?: MonospaceSystemUserCollectionOutputIncludeInput["applicationsCreatedBy"] } & { [K in `${string}:${"applicationsUpdatedBy"}`]?: MonospaceSystemUserCollectionOutputIncludeInput["applicationsUpdatedBy"] } & { [K in `${string}:${"attachmentsCreatedBy"}`]?: MonospaceSystemUserCollectionOutputIncludeInput["attachmentsCreatedBy"] } & { [K in `${string}:${"candidateFilesCreatedBy"}`]?: MonospaceSystemUserCollectionOutputIncludeInput["candidateFilesCreatedBy"] } & { [K in `${string}:${"candidateMessagesCreatedBy"}`]?: MonospaceSystemUserCollectionOutputIncludeInput["candidateMessagesCreatedBy"] } & { [K in `${string}:${"candidateNotesCreatedBy"}`]?: MonospaceSystemUserCollectionOutputIncludeInput["candidateNotesCreatedBy"] } & { [K in `${string}:${"candidateNotesUpdatedBy"}`]?: MonospaceSystemUserCollectionOutputIncludeInput["candidateNotesUpdatedBy"] } & { [K in `${string}:${"candidatesCreatedBy"}`]?: MonospaceSystemUserCollectionOutputIncludeInput["candidatesCreatedBy"] } & { [K in `${string}:${"candidatesUpdatedBy"}`]?: MonospaceSystemUserCollectionOutputIncludeInput["candidatesUpdatedBy"] } & { [K in `${string}:${"contactsCreatedBy"}`]?: MonospaceSystemUserCollectionOutputIncludeInput["contactsCreatedBy"] } & { [K in `${string}:${"contactsOwner"}`]?: MonospaceSystemUserCollectionOutputIncludeInput["contactsOwner"] } & { [K in `${string}:${"contactsUpdatedBy"}`]?: MonospaceSystemUserCollectionOutputIncludeInput["contactsUpdatedBy"] } & { [K in `${string}:${"dealsCreatedBy"}`]?: MonospaceSystemUserCollectionOutputIncludeInput["dealsCreatedBy"] } & { [K in `${string}:${"dealsOwner"}`]?: MonospaceSystemUserCollectionOutputIncludeInput["dealsOwner"] } & { [K in `${string}:${"dealsUpdatedBy"}`]?: MonospaceSystemUserCollectionOutputIncludeInput["dealsUpdatedBy"] } & { [K in `${string}:${"emailTemplatesCreatedBy"}`]?: MonospaceSystemUserCollectionOutputIncludeInput["emailTemplatesCreatedBy"] } & { [K in `${string}:${"emailTemplatesUpdatedBy"}`]?: MonospaceSystemUserCollectionOutputIncludeInput["emailTemplatesUpdatedBy"] } & { [K in `${string}:${"interviewsCreatedBy"}`]?: MonospaceSystemUserCollectionOutputIncludeInput["interviewsCreatedBy"] } & { [K in `${string}:${"interviewsUpdatedBy"}`]?: MonospaceSystemUserCollectionOutputIncludeInput["interviewsUpdatedBy"] } & { [K in `${string}:${"offersCreatedBy"}`]?: MonospaceSystemUserCollectionOutputIncludeInput["offersCreatedBy"] } & { [K in `${string}:${"offersUpdatedBy"}`]?: MonospaceSystemUserCollectionOutputIncludeInput["offersUpdatedBy"] } & { [K in `${string}:${"organizationsCreatedBy"}`]?: MonospaceSystemUserCollectionOutputIncludeInput["organizationsCreatedBy"] } & { [K in `${string}:${"organizationsOwner"}`]?: MonospaceSystemUserCollectionOutputIncludeInput["organizationsOwner"] } & { [K in `${string}:${"organizationsUpdatedBy"}`]?: MonospaceSystemUserCollectionOutputIncludeInput["organizationsUpdatedBy"] } & { [K in `${string}:${"requisitionsCreatedBy"}`]?: MonospaceSystemUserCollectionOutputIncludeInput["requisitionsCreatedBy"] } & { [K in `${string}:${"requisitionsUpdatedBy"}`]?: MonospaceSystemUserCollectionOutputIncludeInput["requisitionsUpdatedBy"] } & { [K in `${string}:${"roleRequestsCreatedBy"}`]?: MonospaceSystemUserCollectionOutputIncludeInput["roleRequestsCreatedBy"] } & { [K in `${string}:${"roleRequestsUpdatedBy"}`]?: MonospaceSystemUserCollectionOutputIncludeInput["roleRequestsUpdatedBy"] } & { [K in `${string}:${"roles"}`]?: MonospaceSystemUserCollectionOutputIncludeInput["roles"] } & { [K in `${string}:${"scorecardsCreatedBy"}`]?: MonospaceSystemUserCollectionOutputIncludeInput["scorecardsCreatedBy"] } & { [K in `${string}:${"scorecardsUpdatedBy"}`]?: MonospaceSystemUserCollectionOutputIncludeInput["scorecardsUpdatedBy"] } & { [K in `${string}:${"storageValues"}`]?: MonospaceSystemUserCollectionOutputIncludeInput["storageValues"] } & { [K in `${string}:${"workforcePlanRolesCreatedBy"}`]?: MonospaceSystemUserCollectionOutputIncludeInput["workforcePlanRolesCreatedBy"] } & { [K in `${string}:${"workforcePlanRolesUpdatedBy"}`]?: MonospaceSystemUserCollectionOutputIncludeInput["workforcePlanRolesUpdatedBy"] };
 
 export type MonospaceSystemUserCreateArguments = {
 	data: readonly MonospaceSystemUserCreateInput[];
@@ -5388,8 +5468,16 @@ export type MonospaceSystemUserCreateInput = {
 	affiliationsCreatedBy?: readonly MonospaceSystemUseraffiliationsCreatedByCreateRelatedInput[];
 	affiliationsUpdatedBy?: readonly MonospaceSystemUseraffiliationsUpdatedByCreateRelatedInput[];
 	appearance?: string | null;
+	applicationsCreatedBy?: readonly MonospaceSystemUserapplicationsCreatedByCreateRelatedInput[];
+	applicationsUpdatedBy?: readonly MonospaceSystemUserapplicationsUpdatedByCreateRelatedInput[];
 	attachmentsCreatedBy?: readonly MonospaceSystemUserattachmentsCreatedByCreateRelatedInput[];
 	avatarId?: Uuid | null;
+	candidateFilesCreatedBy?: readonly MonospaceSystemUsercandidateFilesCreatedByCreateRelatedInput[];
+	candidateMessagesCreatedBy?: readonly MonospaceSystemUsercandidateMessagesCreatedByCreateRelatedInput[];
+	candidateNotesCreatedBy?: readonly MonospaceSystemUsercandidateNotesCreatedByCreateRelatedInput[];
+	candidateNotesUpdatedBy?: readonly MonospaceSystemUsercandidateNotesUpdatedByCreateRelatedInput[];
+	candidatesCreatedBy?: readonly MonospaceSystemUsercandidatesCreatedByCreateRelatedInput[];
+	candidatesUpdatedBy?: readonly MonospaceSystemUsercandidatesUpdatedByCreateRelatedInput[];
 	contactsCreatedBy?: readonly MonospaceSystemUsercontactsCreatedByCreateRelatedInput[];
 	contactsOwner?: readonly MonospaceSystemUsercontactsOwnerCreateRelatedInput[];
 	contactsUpdatedBy?: readonly MonospaceSystemUsercontactsUpdatedByCreateRelatedInput[];
@@ -5397,17 +5485,31 @@ export type MonospaceSystemUserCreateInput = {
 	dealsOwner?: readonly MonospaceSystemUserdealsOwnerCreateRelatedInput[];
 	dealsUpdatedBy?: readonly MonospaceSystemUserdealsUpdatedByCreateRelatedInput[];
 	email?: string | null;
+	emailTemplatesCreatedBy?: readonly MonospaceSystemUseremailTemplatesCreatedByCreateRelatedInput[];
+	emailTemplatesUpdatedBy?: readonly MonospaceSystemUseremailTemplatesUpdatedByCreateRelatedInput[];
 	fullName?: string | null;
 	id: Uuid;
+	interviewsCreatedBy?: readonly MonospaceSystemUserinterviewsCreatedByCreateRelatedInput[];
+	interviewsUpdatedBy?: readonly MonospaceSystemUserinterviewsUpdatedByCreateRelatedInput[];
 	isService: boolean;
 	lastActivityAt?: string | null;
+	offersCreatedBy?: readonly MonospaceSystemUseroffersCreatedByCreateRelatedInput[];
+	offersUpdatedBy?: readonly MonospaceSystemUseroffersUpdatedByCreateRelatedInput[];
 	organizationsCreatedBy?: readonly MonospaceSystemUserorganizationsCreatedByCreateRelatedInput[];
 	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
 	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
+	requisitionsCreatedBy?: readonly MonospaceSystemUserrequisitionsCreatedByCreateRelatedInput[];
+	requisitionsUpdatedBy?: readonly MonospaceSystemUserrequisitionsUpdatedByCreateRelatedInput[];
+	roleRequestsCreatedBy?: readonly MonospaceSystemUserroleRequestsCreatedByCreateRelatedInput[];
+	roleRequestsUpdatedBy?: readonly MonospaceSystemUserroleRequestsUpdatedByCreateRelatedInput[];
 	roles?: readonly MonospaceSystemUserrolesCreateRelatedInput[];
+	scorecardsCreatedBy?: readonly MonospaceSystemUserscorecardsCreatedByCreateRelatedInput[];
+	scorecardsUpdatedBy?: readonly MonospaceSystemUserscorecardsUpdatedByCreateRelatedInput[];
 	serviceOwnerId?: Uuid | null;
 	status?: string;
 	storageValues?: readonly MonospaceSystemUserstorageValuesCreateRelatedInput[];
+	workforcePlanRolesCreatedBy?: readonly MonospaceSystemUserworkforcePlanRolesCreatedByCreateRelatedInput[];
+	workforcePlanRolesUpdatedBy?: readonly MonospaceSystemUserworkforcePlanRolesUpdatedByCreateRelatedInput[];
 }
 
 export type MonospaceSystemUserDeleteArguments = {
@@ -5431,8 +5533,16 @@ export type MonospaceSystemUserFilterInput = {
 	affiliationsCreatedBy?: affiliationsFilterQuantifierInput | affiliationsFilterInput;
 	affiliationsUpdatedBy?: affiliationsFilterQuantifierInput | affiliationsFilterInput;
 	appearance?: StringFilterNullablePrimitiveInput | string | null;
+	applicationsCreatedBy?: applicationsFilterQuantifierInput | applicationsFilterInput;
+	applicationsUpdatedBy?: applicationsFilterQuantifierInput | applicationsFilterInput;
 	attachmentsCreatedBy?: attachmentsFilterQuantifierInput | attachmentsFilterInput;
 	avatarId?: UuidFilterNullablePrimitiveInput | Uuid | null;
+	candidateFilesCreatedBy?: candidateFilesFilterQuantifierInput | candidateFilesFilterInput;
+	candidateMessagesCreatedBy?: candidateMessagesFilterQuantifierInput | candidateMessagesFilterInput;
+	candidateNotesCreatedBy?: candidateNotesFilterQuantifierInput | candidateNotesFilterInput;
+	candidateNotesUpdatedBy?: candidateNotesFilterQuantifierInput | candidateNotesFilterInput;
+	candidatesCreatedBy?: candidatesFilterQuantifierInput | candidatesFilterInput;
+	candidatesUpdatedBy?: candidatesFilterQuantifierInput | candidatesFilterInput;
 	contactsCreatedBy?: contactsFilterQuantifierInput | contactsFilterInput;
 	contactsOwner?: contactsFilterQuantifierInput | contactsFilterInput;
 	contactsUpdatedBy?: contactsFilterQuantifierInput | contactsFilterInput;
@@ -5440,17 +5550,31 @@ export type MonospaceSystemUserFilterInput = {
 	dealsOwner?: dealsFilterQuantifierInput | dealsFilterInput;
 	dealsUpdatedBy?: dealsFilterQuantifierInput | dealsFilterInput;
 	email?: StringFilterNullablePrimitiveInput | string | null;
+	emailTemplatesCreatedBy?: emailTemplatesFilterQuantifierInput | emailTemplatesFilterInput;
+	emailTemplatesUpdatedBy?: emailTemplatesFilterQuantifierInput | emailTemplatesFilterInput;
 	fullName?: StringFilterNullablePrimitiveInput | string | null;
 	id?: UuidFilterPrimitiveInput | Uuid;
+	interviewsCreatedBy?: interviewsFilterQuantifierInput | interviewsFilterInput;
+	interviewsUpdatedBy?: interviewsFilterQuantifierInput | interviewsFilterInput;
 	isService?: BooleanFilterPrimitiveInput | boolean;
 	lastActivityAt?: DateTimeFilterNullablePrimitiveInput | string | null;
+	offersCreatedBy?: offersFilterQuantifierInput | offersFilterInput;
+	offersUpdatedBy?: offersFilterQuantifierInput | offersFilterInput;
 	organizationsCreatedBy?: organizationsFilterQuantifierInput | organizationsFilterInput;
 	organizationsOwner?: organizationsFilterQuantifierInput | organizationsFilterInput;
 	organizationsUpdatedBy?: organizationsFilterQuantifierInput | organizationsFilterInput;
+	requisitionsCreatedBy?: requisitionsFilterQuantifierInput | requisitionsFilterInput;
+	requisitionsUpdatedBy?: requisitionsFilterQuantifierInput | requisitionsFilterInput;
+	roleRequestsCreatedBy?: roleRequestsFilterQuantifierInput | roleRequestsFilterInput;
+	roleRequestsUpdatedBy?: roleRequestsFilterQuantifierInput | roleRequestsFilterInput;
 	roles?: MonospaceUserRoleFilterQuantifierInput | MonospaceUserRoleFilterInput;
+	scorecardsCreatedBy?: scorecardsFilterQuantifierInput | scorecardsFilterInput;
+	scorecardsUpdatedBy?: scorecardsFilterQuantifierInput | scorecardsFilterInput;
 	serviceOwnerId?: UuidFilterNullablePrimitiveInput | Uuid | null;
 	status?: StringFilterPrimitiveInput | string;
 	storageValues?: MonospaceKeyStorageFilterQuantifierInput | MonospaceKeyStorageFilterInput;
+	workforcePlanRolesCreatedBy?: workforcePlanRolesFilterQuantifierInput | workforcePlanRolesFilterInput;
+	workforcePlanRolesUpdatedBy?: workforcePlanRolesFilterQuantifierInput | workforcePlanRolesFilterInput;
 }
 
 export type MonospaceSystemUserListArguments = {
@@ -5490,8 +5614,16 @@ export type MonospaceSystemUserUpdateDataInput = {
 	affiliationsCreatedBy?: readonly MonospaceSystemUseraffiliationsCreatedByUpdateManyRelatedOperationsInput[];
 	affiliationsUpdatedBy?: readonly MonospaceSystemUseraffiliationsUpdatedByUpdateManyRelatedOperationsInput[];
 	appearance?: string | null;
+	applicationsCreatedBy?: readonly MonospaceSystemUserapplicationsCreatedByUpdateManyRelatedOperationsInput[];
+	applicationsUpdatedBy?: readonly MonospaceSystemUserapplicationsUpdatedByUpdateManyRelatedOperationsInput[];
 	attachmentsCreatedBy?: readonly MonospaceSystemUserattachmentsCreatedByUpdateManyRelatedOperationsInput[];
 	avatarId?: Uuid | null;
+	candidateFilesCreatedBy?: readonly MonospaceSystemUsercandidateFilesCreatedByUpdateManyRelatedOperationsInput[];
+	candidateMessagesCreatedBy?: readonly MonospaceSystemUsercandidateMessagesCreatedByUpdateManyRelatedOperationsInput[];
+	candidateNotesCreatedBy?: readonly MonospaceSystemUsercandidateNotesCreatedByUpdateManyRelatedOperationsInput[];
+	candidateNotesUpdatedBy?: readonly MonospaceSystemUsercandidateNotesUpdatedByUpdateManyRelatedOperationsInput[];
+	candidatesCreatedBy?: readonly MonospaceSystemUsercandidatesCreatedByUpdateManyRelatedOperationsInput[];
+	candidatesUpdatedBy?: readonly MonospaceSystemUsercandidatesUpdatedByUpdateManyRelatedOperationsInput[];
 	contactsCreatedBy?: readonly MonospaceSystemUsercontactsCreatedByUpdateManyRelatedOperationsInput[];
 	contactsOwner?: readonly MonospaceSystemUsercontactsOwnerUpdateManyRelatedOperationsInput[];
 	contactsUpdatedBy?: readonly MonospaceSystemUsercontactsUpdatedByUpdateManyRelatedOperationsInput[];
@@ -5499,17 +5631,31 @@ export type MonospaceSystemUserUpdateDataInput = {
 	dealsOwner?: readonly MonospaceSystemUserdealsOwnerUpdateManyRelatedOperationsInput[];
 	dealsUpdatedBy?: readonly MonospaceSystemUserdealsUpdatedByUpdateManyRelatedOperationsInput[];
 	email?: string | null;
+	emailTemplatesCreatedBy?: readonly MonospaceSystemUseremailTemplatesCreatedByUpdateManyRelatedOperationsInput[];
+	emailTemplatesUpdatedBy?: readonly MonospaceSystemUseremailTemplatesUpdatedByUpdateManyRelatedOperationsInput[];
 	fullName?: string | null;
 	id?: Uuid;
+	interviewsCreatedBy?: readonly MonospaceSystemUserinterviewsCreatedByUpdateManyRelatedOperationsInput[];
+	interviewsUpdatedBy?: readonly MonospaceSystemUserinterviewsUpdatedByUpdateManyRelatedOperationsInput[];
 	isService?: boolean;
 	lastActivityAt?: string | null;
+	offersCreatedBy?: readonly MonospaceSystemUseroffersCreatedByUpdateManyRelatedOperationsInput[];
+	offersUpdatedBy?: readonly MonospaceSystemUseroffersUpdatedByUpdateManyRelatedOperationsInput[];
 	organizationsCreatedBy?: readonly MonospaceSystemUserorganizationsCreatedByUpdateManyRelatedOperationsInput[];
 	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerUpdateManyRelatedOperationsInput[];
 	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByUpdateManyRelatedOperationsInput[];
+	requisitionsCreatedBy?: readonly MonospaceSystemUserrequisitionsCreatedByUpdateManyRelatedOperationsInput[];
+	requisitionsUpdatedBy?: readonly MonospaceSystemUserrequisitionsUpdatedByUpdateManyRelatedOperationsInput[];
+	roleRequestsCreatedBy?: readonly MonospaceSystemUserroleRequestsCreatedByUpdateManyRelatedOperationsInput[];
+	roleRequestsUpdatedBy?: readonly MonospaceSystemUserroleRequestsUpdatedByUpdateManyRelatedOperationsInput[];
 	roles?: readonly MonospaceSystemUserrolesUpdateManyRelatedOperationsInput[];
+	scorecardsCreatedBy?: readonly MonospaceSystemUserscorecardsCreatedByUpdateManyRelatedOperationsInput[];
+	scorecardsUpdatedBy?: readonly MonospaceSystemUserscorecardsUpdatedByUpdateManyRelatedOperationsInput[];
 	serviceOwnerId?: Uuid | null;
 	status?: string;
 	storageValues?: readonly MonospaceSystemUserstorageValuesUpdateManyRelatedOperationsInput[];
+	workforcePlanRolesCreatedBy?: readonly MonospaceSystemUserworkforcePlanRolesCreatedByUpdateManyRelatedOperationsInput[];
+	workforcePlanRolesUpdatedBy?: readonly MonospaceSystemUserworkforcePlanRolesUpdatedByUpdateManyRelatedOperationsInput[];
 }
 
 export type MonospaceSystemUserUpdateInput = {
@@ -5771,6 +5917,106 @@ export type MonospaceSystemUseraffiliationsUpdatedByUpdateManyRelatedOperationsI
 	_update?: affiliationsUpdateInput;
 }
 
+export type MonospaceSystemUserapplicationsCreatedByConnectBackwardKeysInput = {
+	id?: Uuid;
+}
+
+export type MonospaceSystemUserapplicationsCreatedByConnectInput = {
+	keys: readonly MonospaceSystemUserapplicationsCreatedByConnectBackwardKeysInput[];
+}
+
+export type MonospaceSystemUserapplicationsCreatedByCreateArguments = {
+	data: readonly MonospaceSystemUserapplicationsCreatedByCreateRelatedWithoutTypeInput[];
+}
+
+export type MonospaceSystemUserapplicationsCreatedByCreateRelatedInput = {
+	_connect?: MonospaceSystemUserapplicationsCreatedByConnectInput;
+	_create?: MonospaceSystemUserapplicationsCreatedByCreateArguments;
+}
+
+export type MonospaceSystemUserapplicationsCreatedByCreateRelatedWithoutTypeInput = {
+	appliedAt?: string;
+	candidates: applicationscandidatesCreateRelatedInput;
+	createdAt?: string;
+	id?: Uuid;
+	interview_stages: applicationsinterview_stagesCreateRelatedInput;
+	interviews?: readonly applicationsinterviewsCreateRelatedInput[];
+	lastActivityAt?: string;
+	offers?: applicationsoffersCreateRelatedInput;
+	public_applications?: readonly applicationspublic_applicationsCreateRelatedInput[];
+	rejectionReason?: string | null;
+	requisitions: applicationsrequisitionsCreateRelatedInput;
+	stageEnteredAt?: string;
+	status?: string;
+	updatedAt?: string;
+	updatedBy?: applicationsupdatedByCreateRelatedInput;
+}
+
+export type MonospaceSystemUserapplicationsCreatedByRelationFieldArguments = {
+	filter?: applicationsFilterInput;
+	limit?: Int64Input;
+	offset?: UInt64Input;
+	sort?: readonly applicationsSortSpecifier[];
+}
+
+export type MonospaceSystemUserapplicationsCreatedByUpdateManyRelatedOperationsInput = {
+	_connect?: MonospaceSystemUserapplicationsCreatedByConnectInput;
+	_create?: MonospaceSystemUserapplicationsCreatedByCreateArguments;
+	_delete?: applicationsDeleteArguments;
+	_disconnect?: applicationsDisconnectManyInput;
+	_update?: applicationsUpdateInput;
+}
+
+export type MonospaceSystemUserapplicationsUpdatedByConnectBackwardKeysInput = {
+	id?: Uuid;
+}
+
+export type MonospaceSystemUserapplicationsUpdatedByConnectInput = {
+	keys: readonly MonospaceSystemUserapplicationsUpdatedByConnectBackwardKeysInput[];
+}
+
+export type MonospaceSystemUserapplicationsUpdatedByCreateArguments = {
+	data: readonly MonospaceSystemUserapplicationsUpdatedByCreateRelatedWithoutTypeInput[];
+}
+
+export type MonospaceSystemUserapplicationsUpdatedByCreateRelatedInput = {
+	_connect?: MonospaceSystemUserapplicationsUpdatedByConnectInput;
+	_create?: MonospaceSystemUserapplicationsUpdatedByCreateArguments;
+}
+
+export type MonospaceSystemUserapplicationsUpdatedByCreateRelatedWithoutTypeInput = {
+	appliedAt?: string;
+	candidates: applicationscandidatesCreateRelatedInput;
+	createdAt?: string;
+	createdBy?: applicationscreatedByCreateRelatedInput;
+	id?: Uuid;
+	interview_stages: applicationsinterview_stagesCreateRelatedInput;
+	interviews?: readonly applicationsinterviewsCreateRelatedInput[];
+	lastActivityAt?: string;
+	offers?: applicationsoffersCreateRelatedInput;
+	public_applications?: readonly applicationspublic_applicationsCreateRelatedInput[];
+	rejectionReason?: string | null;
+	requisitions: applicationsrequisitionsCreateRelatedInput;
+	stageEnteredAt?: string;
+	status?: string;
+	updatedAt?: string;
+}
+
+export type MonospaceSystemUserapplicationsUpdatedByRelationFieldArguments = {
+	filter?: applicationsFilterInput;
+	limit?: Int64Input;
+	offset?: UInt64Input;
+	sort?: readonly applicationsSortSpecifier[];
+}
+
+export type MonospaceSystemUserapplicationsUpdatedByUpdateManyRelatedOperationsInput = {
+	_connect?: MonospaceSystemUserapplicationsUpdatedByConnectInput;
+	_create?: MonospaceSystemUserapplicationsUpdatedByCreateArguments;
+	_delete?: applicationsDeleteArguments;
+	_disconnect?: applicationsDisconnectManyInput;
+	_update?: applicationsUpdateInput;
+}
+
 export type MonospaceSystemUserattachmentsCreatedByConnectBackwardKeysInput = {
 	assetId?: Uuid;
 	id?: Uuid;
@@ -5816,6 +6062,303 @@ export type MonospaceSystemUserattachmentsCreatedByUpdateManyRelatedOperationsIn
 	_delete?: attachmentsDeleteArguments;
 	_disconnect?: attachmentsDisconnectManyInput;
 	_update?: attachmentsUpdateInput;
+}
+
+export type MonospaceSystemUsercandidateFilesCreatedByConnectBackwardKeysInput = {
+	assetId?: Uuid;
+	id?: Uuid;
+}
+
+export type MonospaceSystemUsercandidateFilesCreatedByConnectInput = {
+	keys: readonly MonospaceSystemUsercandidateFilesCreatedByConnectBackwardKeysInput[];
+}
+
+export type MonospaceSystemUsercandidateFilesCreatedByCreateArguments = {
+	data: readonly MonospaceSystemUsercandidateFilesCreatedByCreateRelatedWithoutTypeInput[];
+}
+
+export type MonospaceSystemUsercandidateFilesCreatedByCreateRelatedInput = {
+	_connect?: MonospaceSystemUsercandidateFilesCreatedByConnectInput;
+	_create?: MonospaceSystemUsercandidateFilesCreatedByCreateArguments;
+}
+
+export type MonospaceSystemUsercandidateFilesCreatedByCreateRelatedWithoutTypeInput = {
+	assetId?: Uuid | null;
+	candidates: candidateFilescandidatesCreateRelatedInput;
+	contentType?: string | null;
+	createdAt?: string;
+	fileName: string;
+	id?: Uuid;
+	kind?: string;
+	url?: string | null;
+}
+
+export type MonospaceSystemUsercandidateFilesCreatedByRelationFieldArguments = {
+	filter?: candidateFilesFilterInput;
+	limit?: Int64Input;
+	offset?: UInt64Input;
+	sort?: readonly candidateFilesSortSpecifier[];
+}
+
+export type MonospaceSystemUsercandidateFilesCreatedByUpdateManyRelatedOperationsInput = {
+	_connect?: MonospaceSystemUsercandidateFilesCreatedByConnectInput;
+	_create?: MonospaceSystemUsercandidateFilesCreatedByCreateArguments;
+	_delete?: candidateFilesDeleteArguments;
+	_disconnect?: candidateFilesDisconnectManyInput;
+	_update?: candidateFilesUpdateInput;
+}
+
+export type MonospaceSystemUsercandidateMessagesCreatedByConnectBackwardKeysInput = {
+	id?: Uuid;
+}
+
+export type MonospaceSystemUsercandidateMessagesCreatedByConnectInput = {
+	keys: readonly MonospaceSystemUsercandidateMessagesCreatedByConnectBackwardKeysInput[];
+}
+
+export type MonospaceSystemUsercandidateMessagesCreatedByCreateArguments = {
+	data: readonly MonospaceSystemUsercandidateMessagesCreatedByCreateRelatedWithoutTypeInput[];
+}
+
+export type MonospaceSystemUsercandidateMessagesCreatedByCreateRelatedInput = {
+	_connect?: MonospaceSystemUsercandidateMessagesCreatedByConnectInput;
+	_create?: MonospaceSystemUsercandidateMessagesCreatedByCreateArguments;
+}
+
+export type MonospaceSystemUsercandidateMessagesCreatedByCreateRelatedWithoutTypeInput = {
+	body?: string | null;
+	candidates: candidateMessagescandidatesCreateRelatedInput;
+	createdAt?: string;
+	direction?: string;
+	id?: Uuid;
+	sendAt?: string;
+	status?: string;
+	subject: string;
+}
+
+export type MonospaceSystemUsercandidateMessagesCreatedByRelationFieldArguments = {
+	filter?: candidateMessagesFilterInput;
+	limit?: Int64Input;
+	offset?: UInt64Input;
+	sort?: readonly candidateMessagesSortSpecifier[];
+}
+
+export type MonospaceSystemUsercandidateMessagesCreatedByUpdateManyRelatedOperationsInput = {
+	_connect?: MonospaceSystemUsercandidateMessagesCreatedByConnectInput;
+	_create?: MonospaceSystemUsercandidateMessagesCreatedByCreateArguments;
+	_delete?: candidateMessagesDeleteArguments;
+	_disconnect?: candidateMessagesDisconnectManyInput;
+	_update?: candidateMessagesUpdateInput;
+}
+
+export type MonospaceSystemUsercandidateNotesCreatedByConnectBackwardKeysInput = {
+	id?: Uuid;
+}
+
+export type MonospaceSystemUsercandidateNotesCreatedByConnectInput = {
+	keys: readonly MonospaceSystemUsercandidateNotesCreatedByConnectBackwardKeysInput[];
+}
+
+export type MonospaceSystemUsercandidateNotesCreatedByCreateArguments = {
+	data: readonly MonospaceSystemUsercandidateNotesCreatedByCreateRelatedWithoutTypeInput[];
+}
+
+export type MonospaceSystemUsercandidateNotesCreatedByCreateRelatedInput = {
+	_connect?: MonospaceSystemUsercandidateNotesCreatedByConnectInput;
+	_create?: MonospaceSystemUsercandidateNotesCreatedByCreateArguments;
+}
+
+export type MonospaceSystemUsercandidateNotesCreatedByCreateRelatedWithoutTypeInput = {
+	body: string;
+	candidates: candidateNotescandidatesCreateRelatedInput;
+	createdAt?: string;
+	id?: Uuid;
+	updatedAt?: string;
+	updatedBy?: candidateNotesupdatedByCreateRelatedInput;
+	visibility?: string;
+}
+
+export type MonospaceSystemUsercandidateNotesCreatedByRelationFieldArguments = {
+	filter?: candidateNotesFilterInput;
+	limit?: Int64Input;
+	offset?: UInt64Input;
+	sort?: readonly candidateNotesSortSpecifier[];
+}
+
+export type MonospaceSystemUsercandidateNotesCreatedByUpdateManyRelatedOperationsInput = {
+	_connect?: MonospaceSystemUsercandidateNotesCreatedByConnectInput;
+	_create?: MonospaceSystemUsercandidateNotesCreatedByCreateArguments;
+	_delete?: candidateNotesDeleteArguments;
+	_disconnect?: candidateNotesDisconnectManyInput;
+	_update?: candidateNotesUpdateInput;
+}
+
+export type MonospaceSystemUsercandidateNotesUpdatedByConnectBackwardKeysInput = {
+	id?: Uuid;
+}
+
+export type MonospaceSystemUsercandidateNotesUpdatedByConnectInput = {
+	keys: readonly MonospaceSystemUsercandidateNotesUpdatedByConnectBackwardKeysInput[];
+}
+
+export type MonospaceSystemUsercandidateNotesUpdatedByCreateArguments = {
+	data: readonly MonospaceSystemUsercandidateNotesUpdatedByCreateRelatedWithoutTypeInput[];
+}
+
+export type MonospaceSystemUsercandidateNotesUpdatedByCreateRelatedInput = {
+	_connect?: MonospaceSystemUsercandidateNotesUpdatedByConnectInput;
+	_create?: MonospaceSystemUsercandidateNotesUpdatedByCreateArguments;
+}
+
+export type MonospaceSystemUsercandidateNotesUpdatedByCreateRelatedWithoutTypeInput = {
+	body: string;
+	candidates: candidateNotescandidatesCreateRelatedInput;
+	createdAt?: string;
+	createdBy?: candidateNotescreatedByCreateRelatedInput;
+	id?: Uuid;
+	updatedAt?: string;
+	visibility?: string;
+}
+
+export type MonospaceSystemUsercandidateNotesUpdatedByRelationFieldArguments = {
+	filter?: candidateNotesFilterInput;
+	limit?: Int64Input;
+	offset?: UInt64Input;
+	sort?: readonly candidateNotesSortSpecifier[];
+}
+
+export type MonospaceSystemUsercandidateNotesUpdatedByUpdateManyRelatedOperationsInput = {
+	_connect?: MonospaceSystemUsercandidateNotesUpdatedByConnectInput;
+	_create?: MonospaceSystemUsercandidateNotesUpdatedByCreateArguments;
+	_delete?: candidateNotesDeleteArguments;
+	_disconnect?: candidateNotesDisconnectManyInput;
+	_update?: candidateNotesUpdateInput;
+}
+
+export type MonospaceSystemUsercandidatesCreatedByConnectBackwardKeysInput = {
+	id?: Uuid;
+}
+
+export type MonospaceSystemUsercandidatesCreatedByConnectInput = {
+	keys: readonly MonospaceSystemUsercandidatesCreatedByConnectBackwardKeysInput[];
+}
+
+export type MonospaceSystemUsercandidatesCreatedByCreateArguments = {
+	data: readonly MonospaceSystemUsercandidatesCreatedByCreateRelatedWithoutTypeInput[];
+}
+
+export type MonospaceSystemUsercandidatesCreatedByCreateRelatedInput = {
+	_connect?: MonospaceSystemUsercandidatesCreatedByConnectInput;
+	_create?: MonospaceSystemUsercandidatesCreatedByCreateArguments;
+}
+
+export type MonospaceSystemUsercandidatesCreatedByCreateRelatedWithoutTypeInput = {
+	applications?: readonly candidatesapplicationsCreateRelatedInput[];
+	candidate_files?: readonly candidatescandidate_filesCreateRelatedInput[];
+	candidate_messages?: readonly candidatescandidate_messagesCreateRelatedInput[];
+	candidate_notes?: readonly candidatescandidate_notesCreateRelatedInput[];
+	city?: string | null;
+	consentAt?: string | null;
+	country?: string | null;
+	createdAt?: string;
+	email: string;
+	firstName: string;
+	githubUrl?: string | null;
+	id?: Uuid;
+	inTalentPool?: boolean;
+	lastName: string;
+	linkedinUrl?: string | null;
+	needsSponsorship?: boolean | null;
+	phone?: string | null;
+	portfolioUrl?: string | null;
+	privacyNoticeSentAt?: string | null;
+	public_applications?: readonly candidatespublic_applicationsCreateRelatedInput[];
+	referrerUserId?: Uuid | null;
+	retainUntil?: string | null;
+	source?: string;
+	sourceDetail?: string | null;
+	tags?: string | null;
+	updatedAt?: string;
+	updatedBy?: candidatesupdatedByCreateRelatedInput;
+	workAuthorized?: boolean | null;
+}
+
+export type MonospaceSystemUsercandidatesCreatedByRelationFieldArguments = {
+	filter?: candidatesFilterInput;
+	limit?: Int64Input;
+	offset?: UInt64Input;
+	sort?: readonly candidatesSortSpecifier[];
+}
+
+export type MonospaceSystemUsercandidatesCreatedByUpdateManyRelatedOperationsInput = {
+	_connect?: MonospaceSystemUsercandidatesCreatedByConnectInput;
+	_create?: MonospaceSystemUsercandidatesCreatedByCreateArguments;
+	_delete?: candidatesDeleteArguments;
+	_disconnect?: candidatesDisconnectManyInput;
+	_update?: candidatesUpdateInput;
+}
+
+export type MonospaceSystemUsercandidatesUpdatedByConnectBackwardKeysInput = {
+	id?: Uuid;
+}
+
+export type MonospaceSystemUsercandidatesUpdatedByConnectInput = {
+	keys: readonly MonospaceSystemUsercandidatesUpdatedByConnectBackwardKeysInput[];
+}
+
+export type MonospaceSystemUsercandidatesUpdatedByCreateArguments = {
+	data: readonly MonospaceSystemUsercandidatesUpdatedByCreateRelatedWithoutTypeInput[];
+}
+
+export type MonospaceSystemUsercandidatesUpdatedByCreateRelatedInput = {
+	_connect?: MonospaceSystemUsercandidatesUpdatedByConnectInput;
+	_create?: MonospaceSystemUsercandidatesUpdatedByCreateArguments;
+}
+
+export type MonospaceSystemUsercandidatesUpdatedByCreateRelatedWithoutTypeInput = {
+	applications?: readonly candidatesapplicationsCreateRelatedInput[];
+	candidate_files?: readonly candidatescandidate_filesCreateRelatedInput[];
+	candidate_messages?: readonly candidatescandidate_messagesCreateRelatedInput[];
+	candidate_notes?: readonly candidatescandidate_notesCreateRelatedInput[];
+	city?: string | null;
+	consentAt?: string | null;
+	country?: string | null;
+	createdAt?: string;
+	createdBy?: candidatescreatedByCreateRelatedInput;
+	email: string;
+	firstName: string;
+	githubUrl?: string | null;
+	id?: Uuid;
+	inTalentPool?: boolean;
+	lastName: string;
+	linkedinUrl?: string | null;
+	needsSponsorship?: boolean | null;
+	phone?: string | null;
+	portfolioUrl?: string | null;
+	privacyNoticeSentAt?: string | null;
+	public_applications?: readonly candidatespublic_applicationsCreateRelatedInput[];
+	referrerUserId?: Uuid | null;
+	retainUntil?: string | null;
+	source?: string;
+	sourceDetail?: string | null;
+	tags?: string | null;
+	updatedAt?: string;
+	workAuthorized?: boolean | null;
+}
+
+export type MonospaceSystemUsercandidatesUpdatedByRelationFieldArguments = {
+	filter?: candidatesFilterInput;
+	limit?: Int64Input;
+	offset?: UInt64Input;
+	sort?: readonly candidatesSortSpecifier[];
+}
+
+export type MonospaceSystemUsercandidatesUpdatedByUpdateManyRelatedOperationsInput = {
+	_connect?: MonospaceSystemUsercandidatesUpdatedByConnectInput;
+	_create?: MonospaceSystemUsercandidatesUpdatedByCreateArguments;
+	_delete?: candidatesDeleteArguments;
+	_disconnect?: candidatesDisconnectManyInput;
+	_update?: candidatesUpdateInput;
 }
 
 export type MonospaceSystemUsercontactsCreatedByConnectBackwardKeysInput = {
@@ -6124,6 +6667,286 @@ export type MonospaceSystemUserdealsUpdatedByUpdateManyRelatedOperationsInput = 
 	_update?: dealsUpdateInput;
 }
 
+export type MonospaceSystemUseremailTemplatesCreatedByConnectBackwardKeysInput = {
+	id?: Uuid;
+	name?: string;
+}
+
+export type MonospaceSystemUseremailTemplatesCreatedByConnectInput = {
+	keys: readonly MonospaceSystemUseremailTemplatesCreatedByConnectBackwardKeysInput[];
+}
+
+export type MonospaceSystemUseremailTemplatesCreatedByCreateArguments = {
+	data: readonly MonospaceSystemUseremailTemplatesCreatedByCreateRelatedWithoutTypeInput[];
+}
+
+export type MonospaceSystemUseremailTemplatesCreatedByCreateRelatedInput = {
+	_connect?: MonospaceSystemUseremailTemplatesCreatedByConnectInput;
+	_create?: MonospaceSystemUseremailTemplatesCreatedByCreateArguments;
+}
+
+export type MonospaceSystemUseremailTemplatesCreatedByCreateRelatedWithoutTypeInput = {
+	body: string;
+	createdAt?: string;
+	id?: Uuid;
+	name: string;
+	subject: string;
+	updatedAt?: string;
+	updatedBy?: emailTemplatesupdatedByCreateRelatedInput;
+}
+
+export type MonospaceSystemUseremailTemplatesCreatedByRelationFieldArguments = {
+	filter?: emailTemplatesFilterInput;
+	limit?: Int64Input;
+	offset?: UInt64Input;
+	sort?: readonly emailTemplatesSortSpecifier[];
+}
+
+export type MonospaceSystemUseremailTemplatesCreatedByUpdateManyRelatedOperationsInput = {
+	_connect?: MonospaceSystemUseremailTemplatesCreatedByConnectInput;
+	_create?: MonospaceSystemUseremailTemplatesCreatedByCreateArguments;
+	_delete?: emailTemplatesDeleteArguments;
+	_disconnect?: emailTemplatesDisconnectManyInput;
+	_update?: emailTemplatesUpdateInput;
+}
+
+export type MonospaceSystemUseremailTemplatesUpdatedByConnectBackwardKeysInput = {
+	id?: Uuid;
+	name?: string;
+}
+
+export type MonospaceSystemUseremailTemplatesUpdatedByConnectInput = {
+	keys: readonly MonospaceSystemUseremailTemplatesUpdatedByConnectBackwardKeysInput[];
+}
+
+export type MonospaceSystemUseremailTemplatesUpdatedByCreateArguments = {
+	data: readonly MonospaceSystemUseremailTemplatesUpdatedByCreateRelatedWithoutTypeInput[];
+}
+
+export type MonospaceSystemUseremailTemplatesUpdatedByCreateRelatedInput = {
+	_connect?: MonospaceSystemUseremailTemplatesUpdatedByConnectInput;
+	_create?: MonospaceSystemUseremailTemplatesUpdatedByCreateArguments;
+}
+
+export type MonospaceSystemUseremailTemplatesUpdatedByCreateRelatedWithoutTypeInput = {
+	body: string;
+	createdAt?: string;
+	createdBy?: emailTemplatescreatedByCreateRelatedInput;
+	id?: Uuid;
+	name: string;
+	subject: string;
+	updatedAt?: string;
+}
+
+export type MonospaceSystemUseremailTemplatesUpdatedByRelationFieldArguments = {
+	filter?: emailTemplatesFilterInput;
+	limit?: Int64Input;
+	offset?: UInt64Input;
+	sort?: readonly emailTemplatesSortSpecifier[];
+}
+
+export type MonospaceSystemUseremailTemplatesUpdatedByUpdateManyRelatedOperationsInput = {
+	_connect?: MonospaceSystemUseremailTemplatesUpdatedByConnectInput;
+	_create?: MonospaceSystemUseremailTemplatesUpdatedByCreateArguments;
+	_delete?: emailTemplatesDeleteArguments;
+	_disconnect?: emailTemplatesDisconnectManyInput;
+	_update?: emailTemplatesUpdateInput;
+}
+
+export type MonospaceSystemUserinterviewsCreatedByConnectBackwardKeysInput = {
+	id?: Uuid;
+}
+
+export type MonospaceSystemUserinterviewsCreatedByConnectInput = {
+	keys: readonly MonospaceSystemUserinterviewsCreatedByConnectBackwardKeysInput[];
+}
+
+export type MonospaceSystemUserinterviewsCreatedByCreateArguments = {
+	data: readonly MonospaceSystemUserinterviewsCreatedByCreateRelatedWithoutTypeInput[];
+}
+
+export type MonospaceSystemUserinterviewsCreatedByCreateRelatedInput = {
+	_connect?: MonospaceSystemUserinterviewsCreatedByConnectInput;
+	_create?: MonospaceSystemUserinterviewsCreatedByCreateArguments;
+}
+
+export type MonospaceSystemUserinterviewsCreatedByCreateRelatedWithoutTypeInput = {
+	applications: interviewsapplicationsCreateRelatedInput;
+	createdAt?: string;
+	endsAt: string;
+	id?: Uuid;
+	interview_participants?: readonly interviewsinterview_participantsCreateRelatedInput[];
+	interview_stages?: interviewsinterview_stagesCreateRelatedInput;
+	meetingUrl?: string | null;
+	scorecards?: readonly interviewsscorecardsCreateRelatedInput[];
+	startsAt: string;
+	status?: string;
+	title: string;
+	updatedAt?: string;
+	updatedBy?: interviewsupdatedByCreateRelatedInput;
+}
+
+export type MonospaceSystemUserinterviewsCreatedByRelationFieldArguments = {
+	filter?: interviewsFilterInput;
+	limit?: Int64Input;
+	offset?: UInt64Input;
+	sort?: readonly interviewsSortSpecifier[];
+}
+
+export type MonospaceSystemUserinterviewsCreatedByUpdateManyRelatedOperationsInput = {
+	_connect?: MonospaceSystemUserinterviewsCreatedByConnectInput;
+	_create?: MonospaceSystemUserinterviewsCreatedByCreateArguments;
+	_delete?: interviewsDeleteArguments;
+	_disconnect?: interviewsDisconnectManyInput;
+	_update?: interviewsUpdateInput;
+}
+
+export type MonospaceSystemUserinterviewsUpdatedByConnectBackwardKeysInput = {
+	id?: Uuid;
+}
+
+export type MonospaceSystemUserinterviewsUpdatedByConnectInput = {
+	keys: readonly MonospaceSystemUserinterviewsUpdatedByConnectBackwardKeysInput[];
+}
+
+export type MonospaceSystemUserinterviewsUpdatedByCreateArguments = {
+	data: readonly MonospaceSystemUserinterviewsUpdatedByCreateRelatedWithoutTypeInput[];
+}
+
+export type MonospaceSystemUserinterviewsUpdatedByCreateRelatedInput = {
+	_connect?: MonospaceSystemUserinterviewsUpdatedByConnectInput;
+	_create?: MonospaceSystemUserinterviewsUpdatedByCreateArguments;
+}
+
+export type MonospaceSystemUserinterviewsUpdatedByCreateRelatedWithoutTypeInput = {
+	applications: interviewsapplicationsCreateRelatedInput;
+	createdAt?: string;
+	createdBy?: interviewscreatedByCreateRelatedInput;
+	endsAt: string;
+	id?: Uuid;
+	interview_participants?: readonly interviewsinterview_participantsCreateRelatedInput[];
+	interview_stages?: interviewsinterview_stagesCreateRelatedInput;
+	meetingUrl?: string | null;
+	scorecards?: readonly interviewsscorecardsCreateRelatedInput[];
+	startsAt: string;
+	status?: string;
+	title: string;
+	updatedAt?: string;
+}
+
+export type MonospaceSystemUserinterviewsUpdatedByRelationFieldArguments = {
+	filter?: interviewsFilterInput;
+	limit?: Int64Input;
+	offset?: UInt64Input;
+	sort?: readonly interviewsSortSpecifier[];
+}
+
+export type MonospaceSystemUserinterviewsUpdatedByUpdateManyRelatedOperationsInput = {
+	_connect?: MonospaceSystemUserinterviewsUpdatedByConnectInput;
+	_create?: MonospaceSystemUserinterviewsUpdatedByCreateArguments;
+	_delete?: interviewsDeleteArguments;
+	_disconnect?: interviewsDisconnectManyInput;
+	_update?: interviewsUpdateInput;
+}
+
+export type MonospaceSystemUseroffersCreatedByConnectBackwardKeysInput = {
+	applicationId?: Uuid;
+	id?: Uuid;
+}
+
+export type MonospaceSystemUseroffersCreatedByConnectInput = {
+	keys: readonly MonospaceSystemUseroffersCreatedByConnectBackwardKeysInput[];
+}
+
+export type MonospaceSystemUseroffersCreatedByCreateArguments = {
+	data: readonly MonospaceSystemUseroffersCreatedByCreateRelatedWithoutTypeInput[];
+}
+
+export type MonospaceSystemUseroffersCreatedByCreateRelatedInput = {
+	_connect?: MonospaceSystemUseroffersCreatedByConnectInput;
+	_create?: MonospaceSystemUseroffersCreatedByCreateArguments;
+}
+
+export type MonospaceSystemUseroffersCreatedByCreateRelatedWithoutTypeInput = {
+	applications: offersapplicationsCreateRelatedInput;
+	approvals?: readonly offersapprovalsCreateRelatedInput[];
+	baseSalary?: string | null;
+	candidateIntro?: string | null;
+	createdAt?: string;
+	currency?: string;
+	equityUnits?: number | null;
+	id?: Uuid;
+	proposedStartDate?: string | null;
+	searchOverview?: string | null;
+	status?: string;
+	updatedAt?: string;
+	updatedBy?: offersupdatedByCreateRelatedInput;
+}
+
+export type MonospaceSystemUseroffersCreatedByRelationFieldArguments = {
+	filter?: offersFilterInput;
+	limit?: Int64Input;
+	offset?: UInt64Input;
+	sort?: readonly offersSortSpecifier[];
+}
+
+export type MonospaceSystemUseroffersCreatedByUpdateManyRelatedOperationsInput = {
+	_connect?: MonospaceSystemUseroffersCreatedByConnectInput;
+	_create?: MonospaceSystemUseroffersCreatedByCreateArguments;
+	_delete?: offersDeleteArguments;
+	_disconnect?: offersDisconnectManyInput;
+	_update?: offersUpdateInput;
+}
+
+export type MonospaceSystemUseroffersUpdatedByConnectBackwardKeysInput = {
+	applicationId?: Uuid;
+	id?: Uuid;
+}
+
+export type MonospaceSystemUseroffersUpdatedByConnectInput = {
+	keys: readonly MonospaceSystemUseroffersUpdatedByConnectBackwardKeysInput[];
+}
+
+export type MonospaceSystemUseroffersUpdatedByCreateArguments = {
+	data: readonly MonospaceSystemUseroffersUpdatedByCreateRelatedWithoutTypeInput[];
+}
+
+export type MonospaceSystemUseroffersUpdatedByCreateRelatedInput = {
+	_connect?: MonospaceSystemUseroffersUpdatedByConnectInput;
+	_create?: MonospaceSystemUseroffersUpdatedByCreateArguments;
+}
+
+export type MonospaceSystemUseroffersUpdatedByCreateRelatedWithoutTypeInput = {
+	applications: offersapplicationsCreateRelatedInput;
+	approvals?: readonly offersapprovalsCreateRelatedInput[];
+	baseSalary?: string | null;
+	candidateIntro?: string | null;
+	createdAt?: string;
+	createdBy?: offerscreatedByCreateRelatedInput;
+	currency?: string;
+	equityUnits?: number | null;
+	id?: Uuid;
+	proposedStartDate?: string | null;
+	searchOverview?: string | null;
+	status?: string;
+	updatedAt?: string;
+}
+
+export type MonospaceSystemUseroffersUpdatedByRelationFieldArguments = {
+	filter?: offersFilterInput;
+	limit?: Int64Input;
+	offset?: UInt64Input;
+	sort?: readonly offersSortSpecifier[];
+}
+
+export type MonospaceSystemUseroffersUpdatedByUpdateManyRelatedOperationsInput = {
+	_connect?: MonospaceSystemUseroffersUpdatedByConnectInput;
+	_create?: MonospaceSystemUseroffersUpdatedByCreateArguments;
+	_delete?: offersDeleteArguments;
+	_disconnect?: offersDisconnectManyInput;
+	_update?: offersUpdateInput;
+}
+
 export type MonospaceSystemUserorganizationsCreatedByConnectBackwardKeysInput = {
 	id?: Uuid;
 	portalAccountId?: string;
@@ -6280,6 +7103,284 @@ export type MonospaceSystemUserorganizationsUpdatedByUpdateManyRelatedOperations
 	_update?: organizationsUpdateInput;
 }
 
+export type MonospaceSystemUserrequisitionsCreatedByConnectBackwardKeysInput = {
+	id?: Uuid;
+	reqNumber?: number;
+	roleRequestId?: Uuid;
+}
+
+export type MonospaceSystemUserrequisitionsCreatedByConnectInput = {
+	keys: readonly MonospaceSystemUserrequisitionsCreatedByConnectBackwardKeysInput[];
+}
+
+export type MonospaceSystemUserrequisitionsCreatedByCreateArguments = {
+	data: readonly MonospaceSystemUserrequisitionsCreatedByCreateRelatedWithoutTypeInput[];
+}
+
+export type MonospaceSystemUserrequisitionsCreatedByCreateRelatedInput = {
+	_connect?: MonospaceSystemUserrequisitionsCreatedByConnectInput;
+	_create?: MonospaceSystemUserrequisitionsCreatedByCreateArguments;
+}
+
+export type MonospaceSystemUserrequisitionsCreatedByCreateRelatedWithoutTypeInput = {
+	applications?: readonly requisitionsapplicationsCreateRelatedInput[];
+	closedAt?: string | null;
+	compMax?: string | null;
+	compMin?: string | null;
+	createdAt?: string;
+	currency?: string;
+	departments: requisitionsdepartmentsCreateRelatedInput;
+	description?: string | null;
+	employmentType?: string;
+	hiringManagerUserId?: Uuid | null;
+	hiringReason?: string | null;
+	id?: Uuid;
+	interview_stages?: readonly requisitionsinterview_stagesCreateRelatedInput[];
+	isConfidential?: boolean;
+	isLeadership?: boolean;
+	job_levels?: requisitionsjob_levelsCreateRelatedInput;
+	kickoffAt?: string | null;
+	kickoffNotes?: string | null;
+	locations?: string | null;
+	mustHaveSkills?: string | null;
+	niceToHaveSkills?: string | null;
+	numberOfHires?: number;
+	openedAt?: string | null;
+	postExternally?: boolean;
+	public_applications?: readonly requisitionspublic_applicationsCreateRelatedInput[];
+	recruiterUserId?: Uuid | null;
+	reqNumber?: number;
+	role_requests?: requisitionsrole_requestsCreateRelatedInput;
+	status?: string;
+	teamSize?: number | null;
+	title: string;
+	updatedAt?: string;
+	updatedBy?: requisitionsupdatedByCreateRelatedInput;
+	urgency?: string;
+}
+
+export type MonospaceSystemUserrequisitionsCreatedByRelationFieldArguments = {
+	filter?: requisitionsFilterInput;
+	limit?: Int64Input;
+	offset?: UInt64Input;
+	sort?: readonly requisitionsSortSpecifier[];
+}
+
+export type MonospaceSystemUserrequisitionsCreatedByUpdateManyRelatedOperationsInput = {
+	_connect?: MonospaceSystemUserrequisitionsCreatedByConnectInput;
+	_create?: MonospaceSystemUserrequisitionsCreatedByCreateArguments;
+	_delete?: requisitionsDeleteArguments;
+	_disconnect?: requisitionsDisconnectManyInput;
+	_update?: requisitionsUpdateInput;
+}
+
+export type MonospaceSystemUserrequisitionsUpdatedByConnectBackwardKeysInput = {
+	id?: Uuid;
+	reqNumber?: number;
+	roleRequestId?: Uuid;
+}
+
+export type MonospaceSystemUserrequisitionsUpdatedByConnectInput = {
+	keys: readonly MonospaceSystemUserrequisitionsUpdatedByConnectBackwardKeysInput[];
+}
+
+export type MonospaceSystemUserrequisitionsUpdatedByCreateArguments = {
+	data: readonly MonospaceSystemUserrequisitionsUpdatedByCreateRelatedWithoutTypeInput[];
+}
+
+export type MonospaceSystemUserrequisitionsUpdatedByCreateRelatedInput = {
+	_connect?: MonospaceSystemUserrequisitionsUpdatedByConnectInput;
+	_create?: MonospaceSystemUserrequisitionsUpdatedByCreateArguments;
+}
+
+export type MonospaceSystemUserrequisitionsUpdatedByCreateRelatedWithoutTypeInput = {
+	applications?: readonly requisitionsapplicationsCreateRelatedInput[];
+	closedAt?: string | null;
+	compMax?: string | null;
+	compMin?: string | null;
+	createdAt?: string;
+	createdBy?: requisitionscreatedByCreateRelatedInput;
+	currency?: string;
+	departments: requisitionsdepartmentsCreateRelatedInput;
+	description?: string | null;
+	employmentType?: string;
+	hiringManagerUserId?: Uuid | null;
+	hiringReason?: string | null;
+	id?: Uuid;
+	interview_stages?: readonly requisitionsinterview_stagesCreateRelatedInput[];
+	isConfidential?: boolean;
+	isLeadership?: boolean;
+	job_levels?: requisitionsjob_levelsCreateRelatedInput;
+	kickoffAt?: string | null;
+	kickoffNotes?: string | null;
+	locations?: string | null;
+	mustHaveSkills?: string | null;
+	niceToHaveSkills?: string | null;
+	numberOfHires?: number;
+	openedAt?: string | null;
+	postExternally?: boolean;
+	public_applications?: readonly requisitionspublic_applicationsCreateRelatedInput[];
+	recruiterUserId?: Uuid | null;
+	reqNumber?: number;
+	role_requests?: requisitionsrole_requestsCreateRelatedInput;
+	status?: string;
+	teamSize?: number | null;
+	title: string;
+	updatedAt?: string;
+	urgency?: string;
+}
+
+export type MonospaceSystemUserrequisitionsUpdatedByRelationFieldArguments = {
+	filter?: requisitionsFilterInput;
+	limit?: Int64Input;
+	offset?: UInt64Input;
+	sort?: readonly requisitionsSortSpecifier[];
+}
+
+export type MonospaceSystemUserrequisitionsUpdatedByUpdateManyRelatedOperationsInput = {
+	_connect?: MonospaceSystemUserrequisitionsUpdatedByConnectInput;
+	_create?: MonospaceSystemUserrequisitionsUpdatedByCreateArguments;
+	_delete?: requisitionsDeleteArguments;
+	_disconnect?: requisitionsDisconnectManyInput;
+	_update?: requisitionsUpdateInput;
+}
+
+export type MonospaceSystemUserroleRequestsCreatedByConnectBackwardKeysInput = {
+	id?: Uuid;
+}
+
+export type MonospaceSystemUserroleRequestsCreatedByConnectInput = {
+	keys: readonly MonospaceSystemUserroleRequestsCreatedByConnectBackwardKeysInput[];
+}
+
+export type MonospaceSystemUserroleRequestsCreatedByCreateArguments = {
+	data: readonly MonospaceSystemUserroleRequestsCreatedByCreateRelatedWithoutTypeInput[];
+}
+
+export type MonospaceSystemUserroleRequestsCreatedByCreateRelatedInput = {
+	_connect?: MonospaceSystemUserroleRequestsCreatedByConnectInput;
+	_create?: MonospaceSystemUserroleRequestsCreatedByCreateArguments;
+}
+
+export type MonospaceSystemUserroleRequestsCreatedByCreateRelatedWithoutTypeInput = {
+	approvals?: readonly roleRequestsapprovalsCreateRelatedInput[];
+	approvedBaseMax?: string | null;
+	approvedBaseMin?: string | null;
+	approvedCurrency?: string | null;
+	approvedEquityUnits?: number | null;
+	approvedVariableMax?: string | null;
+	approvedVariableMin?: string | null;
+	businessJustification?: string | null;
+	compMax?: string | null;
+	compMin?: string | null;
+	createdAt?: string;
+	currency?: string;
+	decidedAt?: string | null;
+	decidedByUserId?: Uuid | null;
+	decisionNote?: string | null;
+	departments: roleRequestsdepartmentsCreateRelatedInput;
+	employmentType?: string;
+	hiringManagerUserId?: Uuid | null;
+	hiringReason?: string;
+	hiringReasonDetail?: string | null;
+	id?: Uuid;
+	job_levels?: roleRequestsjob_levelsCreateRelatedInput;
+	locations?: string | null;
+	numberOfHires?: number;
+	requesterUserId?: Uuid | null;
+	requisitions?: roleRequestsrequisitionsCreateRelatedInput;
+	roleName: string;
+	status?: string;
+	updatedAt?: string;
+	updatedBy?: roleRequestsupdatedByCreateRelatedInput;
+	urgency?: string;
+	urgencyImpact?: string | null;
+	workforce_plan_roles?: roleRequestsworkforce_plan_rolesCreateRelatedInput;
+}
+
+export type MonospaceSystemUserroleRequestsCreatedByRelationFieldArguments = {
+	filter?: roleRequestsFilterInput;
+	limit?: Int64Input;
+	offset?: UInt64Input;
+	sort?: readonly roleRequestsSortSpecifier[];
+}
+
+export type MonospaceSystemUserroleRequestsCreatedByUpdateManyRelatedOperationsInput = {
+	_connect?: MonospaceSystemUserroleRequestsCreatedByConnectInput;
+	_create?: MonospaceSystemUserroleRequestsCreatedByCreateArguments;
+	_delete?: roleRequestsDeleteArguments;
+	_disconnect?: roleRequestsDisconnectManyInput;
+	_update?: roleRequestsUpdateInput;
+}
+
+export type MonospaceSystemUserroleRequestsUpdatedByConnectBackwardKeysInput = {
+	id?: Uuid;
+}
+
+export type MonospaceSystemUserroleRequestsUpdatedByConnectInput = {
+	keys: readonly MonospaceSystemUserroleRequestsUpdatedByConnectBackwardKeysInput[];
+}
+
+export type MonospaceSystemUserroleRequestsUpdatedByCreateArguments = {
+	data: readonly MonospaceSystemUserroleRequestsUpdatedByCreateRelatedWithoutTypeInput[];
+}
+
+export type MonospaceSystemUserroleRequestsUpdatedByCreateRelatedInput = {
+	_connect?: MonospaceSystemUserroleRequestsUpdatedByConnectInput;
+	_create?: MonospaceSystemUserroleRequestsUpdatedByCreateArguments;
+}
+
+export type MonospaceSystemUserroleRequestsUpdatedByCreateRelatedWithoutTypeInput = {
+	approvals?: readonly roleRequestsapprovalsCreateRelatedInput[];
+	approvedBaseMax?: string | null;
+	approvedBaseMin?: string | null;
+	approvedCurrency?: string | null;
+	approvedEquityUnits?: number | null;
+	approvedVariableMax?: string | null;
+	approvedVariableMin?: string | null;
+	businessJustification?: string | null;
+	compMax?: string | null;
+	compMin?: string | null;
+	createdAt?: string;
+	createdBy?: roleRequestscreatedByCreateRelatedInput;
+	currency?: string;
+	decidedAt?: string | null;
+	decidedByUserId?: Uuid | null;
+	decisionNote?: string | null;
+	departments: roleRequestsdepartmentsCreateRelatedInput;
+	employmentType?: string;
+	hiringManagerUserId?: Uuid | null;
+	hiringReason?: string;
+	hiringReasonDetail?: string | null;
+	id?: Uuid;
+	job_levels?: roleRequestsjob_levelsCreateRelatedInput;
+	locations?: string | null;
+	numberOfHires?: number;
+	requesterUserId?: Uuid | null;
+	requisitions?: roleRequestsrequisitionsCreateRelatedInput;
+	roleName: string;
+	status?: string;
+	updatedAt?: string;
+	urgency?: string;
+	urgencyImpact?: string | null;
+	workforce_plan_roles?: roleRequestsworkforce_plan_rolesCreateRelatedInput;
+}
+
+export type MonospaceSystemUserroleRequestsUpdatedByRelationFieldArguments = {
+	filter?: roleRequestsFilterInput;
+	limit?: Int64Input;
+	offset?: UInt64Input;
+	sort?: readonly roleRequestsSortSpecifier[];
+}
+
+export type MonospaceSystemUserroleRequestsUpdatedByUpdateManyRelatedOperationsInput = {
+	_connect?: MonospaceSystemUserroleRequestsUpdatedByConnectInput;
+	_create?: MonospaceSystemUserroleRequestsUpdatedByCreateArguments;
+	_delete?: roleRequestsDeleteArguments;
+	_disconnect?: roleRequestsDisconnectManyInput;
+	_update?: roleRequestsUpdateInput;
+}
+
 export type MonospaceSystemUserrolesCreateArguments = {
 	data: readonly MonospaceSystemUserrolesCreateRelatedWithoutTypeInput[];
 }
@@ -6303,6 +7404,96 @@ export type MonospaceSystemUserrolesUpdateManyRelatedOperationsInput = {
 	_create?: MonospaceSystemUserrolesCreateArguments;
 	_delete?: MonospaceUserRoleDeleteArguments;
 	_update?: MonospaceUserRoleUpdateInput;
+}
+
+export type MonospaceSystemUserscorecardsCreatedByConnectBackwardKeysInput = {
+	id?: Uuid;
+}
+
+export type MonospaceSystemUserscorecardsCreatedByConnectInput = {
+	keys: readonly MonospaceSystemUserscorecardsCreatedByConnectBackwardKeysInput[];
+}
+
+export type MonospaceSystemUserscorecardsCreatedByCreateArguments = {
+	data: readonly MonospaceSystemUserscorecardsCreatedByCreateRelatedWithoutTypeInput[];
+}
+
+export type MonospaceSystemUserscorecardsCreatedByCreateRelatedInput = {
+	_connect?: MonospaceSystemUserscorecardsCreatedByConnectInput;
+	_create?: MonospaceSystemUserscorecardsCreatedByCreateArguments;
+}
+
+export type MonospaceSystemUserscorecardsCreatedByCreateRelatedWithoutTypeInput = {
+	flags?: string | null;
+	id?: Uuid;
+	interviewerUserId: Uuid;
+	interviews: scorecardsinterviewsCreateRelatedInput;
+	positives?: string | null;
+	recommendation: string;
+	submittedAt?: string;
+	summary?: string | null;
+	updatedAt?: string;
+	updatedBy?: scorecardsupdatedByCreateRelatedInput;
+}
+
+export type MonospaceSystemUserscorecardsCreatedByRelationFieldArguments = {
+	filter?: scorecardsFilterInput;
+	limit?: Int64Input;
+	offset?: UInt64Input;
+	sort?: readonly scorecardsSortSpecifier[];
+}
+
+export type MonospaceSystemUserscorecardsCreatedByUpdateManyRelatedOperationsInput = {
+	_connect?: MonospaceSystemUserscorecardsCreatedByConnectInput;
+	_create?: MonospaceSystemUserscorecardsCreatedByCreateArguments;
+	_delete?: scorecardsDeleteArguments;
+	_disconnect?: scorecardsDisconnectManyInput;
+	_update?: scorecardsUpdateInput;
+}
+
+export type MonospaceSystemUserscorecardsUpdatedByConnectBackwardKeysInput = {
+	id?: Uuid;
+}
+
+export type MonospaceSystemUserscorecardsUpdatedByConnectInput = {
+	keys: readonly MonospaceSystemUserscorecardsUpdatedByConnectBackwardKeysInput[];
+}
+
+export type MonospaceSystemUserscorecardsUpdatedByCreateArguments = {
+	data: readonly MonospaceSystemUserscorecardsUpdatedByCreateRelatedWithoutTypeInput[];
+}
+
+export type MonospaceSystemUserscorecardsUpdatedByCreateRelatedInput = {
+	_connect?: MonospaceSystemUserscorecardsUpdatedByConnectInput;
+	_create?: MonospaceSystemUserscorecardsUpdatedByCreateArguments;
+}
+
+export type MonospaceSystemUserscorecardsUpdatedByCreateRelatedWithoutTypeInput = {
+	createdBy?: scorecardscreatedByCreateRelatedInput;
+	flags?: string | null;
+	id?: Uuid;
+	interviewerUserId: Uuid;
+	interviews: scorecardsinterviewsCreateRelatedInput;
+	positives?: string | null;
+	recommendation: string;
+	submittedAt?: string;
+	summary?: string | null;
+	updatedAt?: string;
+}
+
+export type MonospaceSystemUserscorecardsUpdatedByRelationFieldArguments = {
+	filter?: scorecardsFilterInput;
+	limit?: Int64Input;
+	offset?: UInt64Input;
+	sort?: readonly scorecardsSortSpecifier[];
+}
+
+export type MonospaceSystemUserscorecardsUpdatedByUpdateManyRelatedOperationsInput = {
+	_connect?: MonospaceSystemUserscorecardsUpdatedByConnectInput;
+	_create?: MonospaceSystemUserscorecardsUpdatedByCreateArguments;
+	_delete?: scorecardsDeleteArguments;
+	_disconnect?: scorecardsDisconnectManyInput;
+	_update?: scorecardsUpdateInput;
 }
 
 export type MonospaceSystemUserstorageValuesConnectBackwardKeysInput = {
@@ -6342,6 +7533,116 @@ export type MonospaceSystemUserstorageValuesUpdateManyRelatedOperationsInput = {
 	_delete?: MonospaceKeyStorageDeleteArguments;
 	_disconnect?: MonospaceKeyStorageDisconnectManyInput;
 	_update?: MonospaceKeyStorageUpdateInput;
+}
+
+export type MonospaceSystemUserworkforcePlanRolesCreatedByConnectBackwardKeysInput = {
+	id?: Uuid;
+}
+
+export type MonospaceSystemUserworkforcePlanRolesCreatedByConnectInput = {
+	keys: readonly MonospaceSystemUserworkforcePlanRolesCreatedByConnectBackwardKeysInput[];
+}
+
+export type MonospaceSystemUserworkforcePlanRolesCreatedByCreateArguments = {
+	data: readonly MonospaceSystemUserworkforcePlanRolesCreatedByCreateRelatedWithoutTypeInput[];
+}
+
+export type MonospaceSystemUserworkforcePlanRolesCreatedByCreateRelatedInput = {
+	_connect?: MonospaceSystemUserworkforcePlanRolesCreatedByConnectInput;
+	_create?: MonospaceSystemUserworkforcePlanRolesCreatedByCreateArguments;
+}
+
+export type MonospaceSystemUserworkforcePlanRolesCreatedByCreateRelatedWithoutTypeInput = {
+	approvals?: readonly workforcePlanRolesapprovalsCreateRelatedInput[];
+	approvedHeadcount?: number | null;
+	budgetAmount?: string | null;
+	createdAt?: string;
+	currency?: string;
+	currentHeadcount?: number;
+	departments: workforcePlanRolesdepartmentsCreateRelatedInput;
+	employmentType?: string;
+	hireType?: string;
+	id?: Uuid;
+	job_levels?: workforcePlanRolesjob_levelsCreateRelatedInput;
+	locations?: string | null;
+	planYear: number;
+	plannedHeadcount?: number;
+	roleName: string;
+	role_requests?: readonly workforcePlanRolesrole_requestsCreateRelatedInput[];
+	status?: string;
+	team?: string | null;
+	updatedAt?: string;
+	updatedBy?: workforcePlanRolesupdatedByCreateRelatedInput;
+}
+
+export type MonospaceSystemUserworkforcePlanRolesCreatedByRelationFieldArguments = {
+	filter?: workforcePlanRolesFilterInput;
+	limit?: Int64Input;
+	offset?: UInt64Input;
+	sort?: readonly workforcePlanRolesSortSpecifier[];
+}
+
+export type MonospaceSystemUserworkforcePlanRolesCreatedByUpdateManyRelatedOperationsInput = {
+	_connect?: MonospaceSystemUserworkforcePlanRolesCreatedByConnectInput;
+	_create?: MonospaceSystemUserworkforcePlanRolesCreatedByCreateArguments;
+	_delete?: workforcePlanRolesDeleteArguments;
+	_disconnect?: workforcePlanRolesDisconnectManyInput;
+	_update?: workforcePlanRolesUpdateInput;
+}
+
+export type MonospaceSystemUserworkforcePlanRolesUpdatedByConnectBackwardKeysInput = {
+	id?: Uuid;
+}
+
+export type MonospaceSystemUserworkforcePlanRolesUpdatedByConnectInput = {
+	keys: readonly MonospaceSystemUserworkforcePlanRolesUpdatedByConnectBackwardKeysInput[];
+}
+
+export type MonospaceSystemUserworkforcePlanRolesUpdatedByCreateArguments = {
+	data: readonly MonospaceSystemUserworkforcePlanRolesUpdatedByCreateRelatedWithoutTypeInput[];
+}
+
+export type MonospaceSystemUserworkforcePlanRolesUpdatedByCreateRelatedInput = {
+	_connect?: MonospaceSystemUserworkforcePlanRolesUpdatedByConnectInput;
+	_create?: MonospaceSystemUserworkforcePlanRolesUpdatedByCreateArguments;
+}
+
+export type MonospaceSystemUserworkforcePlanRolesUpdatedByCreateRelatedWithoutTypeInput = {
+	approvals?: readonly workforcePlanRolesapprovalsCreateRelatedInput[];
+	approvedHeadcount?: number | null;
+	budgetAmount?: string | null;
+	createdAt?: string;
+	createdBy?: workforcePlanRolescreatedByCreateRelatedInput;
+	currency?: string;
+	currentHeadcount?: number;
+	departments: workforcePlanRolesdepartmentsCreateRelatedInput;
+	employmentType?: string;
+	hireType?: string;
+	id?: Uuid;
+	job_levels?: workforcePlanRolesjob_levelsCreateRelatedInput;
+	locations?: string | null;
+	planYear: number;
+	plannedHeadcount?: number;
+	roleName: string;
+	role_requests?: readonly workforcePlanRolesrole_requestsCreateRelatedInput[];
+	status?: string;
+	team?: string | null;
+	updatedAt?: string;
+}
+
+export type MonospaceSystemUserworkforcePlanRolesUpdatedByRelationFieldArguments = {
+	filter?: workforcePlanRolesFilterInput;
+	limit?: Int64Input;
+	offset?: UInt64Input;
+	sort?: readonly workforcePlanRolesSortSpecifier[];
+}
+
+export type MonospaceSystemUserworkforcePlanRolesUpdatedByUpdateManyRelatedOperationsInput = {
+	_connect?: MonospaceSystemUserworkforcePlanRolesUpdatedByConnectInput;
+	_create?: MonospaceSystemUserworkforcePlanRolesUpdatedByCreateArguments;
+	_delete?: workforcePlanRolesDeleteArguments;
+	_disconnect?: workforcePlanRolesDisconnectManyInput;
+	_update?: workforcePlanRolesUpdateInput;
 }
 
 export type MonospaceUserRoleCollectionOutput = {
@@ -6470,8 +7771,16 @@ export type MonospaceUserRoleuserCreateRelatedWithoutTypeInput = {
 	affiliationsCreatedBy?: readonly MonospaceSystemUseraffiliationsCreatedByCreateRelatedInput[];
 	affiliationsUpdatedBy?: readonly MonospaceSystemUseraffiliationsUpdatedByCreateRelatedInput[];
 	appearance?: string | null;
+	applicationsCreatedBy?: readonly MonospaceSystemUserapplicationsCreatedByCreateRelatedInput[];
+	applicationsUpdatedBy?: readonly MonospaceSystemUserapplicationsUpdatedByCreateRelatedInput[];
 	attachmentsCreatedBy?: readonly MonospaceSystemUserattachmentsCreatedByCreateRelatedInput[];
 	avatarId?: Uuid | null;
+	candidateFilesCreatedBy?: readonly MonospaceSystemUsercandidateFilesCreatedByCreateRelatedInput[];
+	candidateMessagesCreatedBy?: readonly MonospaceSystemUsercandidateMessagesCreatedByCreateRelatedInput[];
+	candidateNotesCreatedBy?: readonly MonospaceSystemUsercandidateNotesCreatedByCreateRelatedInput[];
+	candidateNotesUpdatedBy?: readonly MonospaceSystemUsercandidateNotesUpdatedByCreateRelatedInput[];
+	candidatesCreatedBy?: readonly MonospaceSystemUsercandidatesCreatedByCreateRelatedInput[];
+	candidatesUpdatedBy?: readonly MonospaceSystemUsercandidatesUpdatedByCreateRelatedInput[];
 	contactsCreatedBy?: readonly MonospaceSystemUsercontactsCreatedByCreateRelatedInput[];
 	contactsOwner?: readonly MonospaceSystemUsercontactsOwnerCreateRelatedInput[];
 	contactsUpdatedBy?: readonly MonospaceSystemUsercontactsUpdatedByCreateRelatedInput[];
@@ -6479,16 +7788,30 @@ export type MonospaceUserRoleuserCreateRelatedWithoutTypeInput = {
 	dealsOwner?: readonly MonospaceSystemUserdealsOwnerCreateRelatedInput[];
 	dealsUpdatedBy?: readonly MonospaceSystemUserdealsUpdatedByCreateRelatedInput[];
 	email?: string | null;
+	emailTemplatesCreatedBy?: readonly MonospaceSystemUseremailTemplatesCreatedByCreateRelatedInput[];
+	emailTemplatesUpdatedBy?: readonly MonospaceSystemUseremailTemplatesUpdatedByCreateRelatedInput[];
 	fullName?: string | null;
 	id: Uuid;
+	interviewsCreatedBy?: readonly MonospaceSystemUserinterviewsCreatedByCreateRelatedInput[];
+	interviewsUpdatedBy?: readonly MonospaceSystemUserinterviewsUpdatedByCreateRelatedInput[];
 	isService: boolean;
 	lastActivityAt?: string | null;
+	offersCreatedBy?: readonly MonospaceSystemUseroffersCreatedByCreateRelatedInput[];
+	offersUpdatedBy?: readonly MonospaceSystemUseroffersUpdatedByCreateRelatedInput[];
 	organizationsCreatedBy?: readonly MonospaceSystemUserorganizationsCreatedByCreateRelatedInput[];
 	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
 	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
+	requisitionsCreatedBy?: readonly MonospaceSystemUserrequisitionsCreatedByCreateRelatedInput[];
+	requisitionsUpdatedBy?: readonly MonospaceSystemUserrequisitionsUpdatedByCreateRelatedInput[];
+	roleRequestsCreatedBy?: readonly MonospaceSystemUserroleRequestsCreatedByCreateRelatedInput[];
+	roleRequestsUpdatedBy?: readonly MonospaceSystemUserroleRequestsUpdatedByCreateRelatedInput[];
+	scorecardsCreatedBy?: readonly MonospaceSystemUserscorecardsCreatedByCreateRelatedInput[];
+	scorecardsUpdatedBy?: readonly MonospaceSystemUserscorecardsUpdatedByCreateRelatedInput[];
 	serviceOwnerId?: Uuid | null;
 	status?: string;
 	storageValues?: readonly MonospaceSystemUserstorageValuesCreateRelatedInput[];
+	workforcePlanRolesCreatedBy?: readonly MonospaceSystemUserworkforcePlanRolesCreatedByCreateRelatedInput[];
+	workforcePlanRolesUpdatedBy?: readonly MonospaceSystemUserworkforcePlanRolesUpdatedByCreateRelatedInput[];
 }
 
 export type MonospaceUserRoleuserUpdateOneRelatedOperationsInput = {
@@ -7247,8 +8570,16 @@ export type activitiescreatedByCreateRelatedWithoutTypeInput = {
 	affiliationsCreatedBy?: readonly MonospaceSystemUseraffiliationsCreatedByCreateRelatedInput[];
 	affiliationsUpdatedBy?: readonly MonospaceSystemUseraffiliationsUpdatedByCreateRelatedInput[];
 	appearance?: string | null;
+	applicationsCreatedBy?: readonly MonospaceSystemUserapplicationsCreatedByCreateRelatedInput[];
+	applicationsUpdatedBy?: readonly MonospaceSystemUserapplicationsUpdatedByCreateRelatedInput[];
 	attachmentsCreatedBy?: readonly MonospaceSystemUserattachmentsCreatedByCreateRelatedInput[];
 	avatarId?: Uuid | null;
+	candidateFilesCreatedBy?: readonly MonospaceSystemUsercandidateFilesCreatedByCreateRelatedInput[];
+	candidateMessagesCreatedBy?: readonly MonospaceSystemUsercandidateMessagesCreatedByCreateRelatedInput[];
+	candidateNotesCreatedBy?: readonly MonospaceSystemUsercandidateNotesCreatedByCreateRelatedInput[];
+	candidateNotesUpdatedBy?: readonly MonospaceSystemUsercandidateNotesUpdatedByCreateRelatedInput[];
+	candidatesCreatedBy?: readonly MonospaceSystemUsercandidatesCreatedByCreateRelatedInput[];
+	candidatesUpdatedBy?: readonly MonospaceSystemUsercandidatesUpdatedByCreateRelatedInput[];
 	contactsCreatedBy?: readonly MonospaceSystemUsercontactsCreatedByCreateRelatedInput[];
 	contactsOwner?: readonly MonospaceSystemUsercontactsOwnerCreateRelatedInput[];
 	contactsUpdatedBy?: readonly MonospaceSystemUsercontactsUpdatedByCreateRelatedInput[];
@@ -7256,17 +8587,31 @@ export type activitiescreatedByCreateRelatedWithoutTypeInput = {
 	dealsOwner?: readonly MonospaceSystemUserdealsOwnerCreateRelatedInput[];
 	dealsUpdatedBy?: readonly MonospaceSystemUserdealsUpdatedByCreateRelatedInput[];
 	email?: string | null;
+	emailTemplatesCreatedBy?: readonly MonospaceSystemUseremailTemplatesCreatedByCreateRelatedInput[];
+	emailTemplatesUpdatedBy?: readonly MonospaceSystemUseremailTemplatesUpdatedByCreateRelatedInput[];
 	fullName?: string | null;
 	id: Uuid;
+	interviewsCreatedBy?: readonly MonospaceSystemUserinterviewsCreatedByCreateRelatedInput[];
+	interviewsUpdatedBy?: readonly MonospaceSystemUserinterviewsUpdatedByCreateRelatedInput[];
 	isService: boolean;
 	lastActivityAt?: string | null;
+	offersCreatedBy?: readonly MonospaceSystemUseroffersCreatedByCreateRelatedInput[];
+	offersUpdatedBy?: readonly MonospaceSystemUseroffersUpdatedByCreateRelatedInput[];
 	organizationsCreatedBy?: readonly MonospaceSystemUserorganizationsCreatedByCreateRelatedInput[];
 	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
 	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
+	requisitionsCreatedBy?: readonly MonospaceSystemUserrequisitionsCreatedByCreateRelatedInput[];
+	requisitionsUpdatedBy?: readonly MonospaceSystemUserrequisitionsUpdatedByCreateRelatedInput[];
+	roleRequestsCreatedBy?: readonly MonospaceSystemUserroleRequestsCreatedByCreateRelatedInput[];
+	roleRequestsUpdatedBy?: readonly MonospaceSystemUserroleRequestsUpdatedByCreateRelatedInput[];
 	roles?: readonly MonospaceSystemUserrolesCreateRelatedInput[];
+	scorecardsCreatedBy?: readonly MonospaceSystemUserscorecardsCreatedByCreateRelatedInput[];
+	scorecardsUpdatedBy?: readonly MonospaceSystemUserscorecardsUpdatedByCreateRelatedInput[];
 	serviceOwnerId?: Uuid | null;
 	status?: string;
 	storageValues?: readonly MonospaceSystemUserstorageValuesCreateRelatedInput[];
+	workforcePlanRolesCreatedBy?: readonly MonospaceSystemUserworkforcePlanRolesCreatedByCreateRelatedInput[];
+	workforcePlanRolesUpdatedBy?: readonly MonospaceSystemUserworkforcePlanRolesUpdatedByCreateRelatedInput[];
 }
 
 export type activitiescreatedByRelationFieldArguments = {
@@ -7394,8 +8739,16 @@ export type activitiesownerCreateRelatedWithoutTypeInput = {
 	affiliationsCreatedBy?: readonly MonospaceSystemUseraffiliationsCreatedByCreateRelatedInput[];
 	affiliationsUpdatedBy?: readonly MonospaceSystemUseraffiliationsUpdatedByCreateRelatedInput[];
 	appearance?: string | null;
+	applicationsCreatedBy?: readonly MonospaceSystemUserapplicationsCreatedByCreateRelatedInput[];
+	applicationsUpdatedBy?: readonly MonospaceSystemUserapplicationsUpdatedByCreateRelatedInput[];
 	attachmentsCreatedBy?: readonly MonospaceSystemUserattachmentsCreatedByCreateRelatedInput[];
 	avatarId?: Uuid | null;
+	candidateFilesCreatedBy?: readonly MonospaceSystemUsercandidateFilesCreatedByCreateRelatedInput[];
+	candidateMessagesCreatedBy?: readonly MonospaceSystemUsercandidateMessagesCreatedByCreateRelatedInput[];
+	candidateNotesCreatedBy?: readonly MonospaceSystemUsercandidateNotesCreatedByCreateRelatedInput[];
+	candidateNotesUpdatedBy?: readonly MonospaceSystemUsercandidateNotesUpdatedByCreateRelatedInput[];
+	candidatesCreatedBy?: readonly MonospaceSystemUsercandidatesCreatedByCreateRelatedInput[];
+	candidatesUpdatedBy?: readonly MonospaceSystemUsercandidatesUpdatedByCreateRelatedInput[];
 	contactsCreatedBy?: readonly MonospaceSystemUsercontactsCreatedByCreateRelatedInput[];
 	contactsOwner?: readonly MonospaceSystemUsercontactsOwnerCreateRelatedInput[];
 	contactsUpdatedBy?: readonly MonospaceSystemUsercontactsUpdatedByCreateRelatedInput[];
@@ -7403,17 +8756,31 @@ export type activitiesownerCreateRelatedWithoutTypeInput = {
 	dealsOwner?: readonly MonospaceSystemUserdealsOwnerCreateRelatedInput[];
 	dealsUpdatedBy?: readonly MonospaceSystemUserdealsUpdatedByCreateRelatedInput[];
 	email?: string | null;
+	emailTemplatesCreatedBy?: readonly MonospaceSystemUseremailTemplatesCreatedByCreateRelatedInput[];
+	emailTemplatesUpdatedBy?: readonly MonospaceSystemUseremailTemplatesUpdatedByCreateRelatedInput[];
 	fullName?: string | null;
 	id: Uuid;
+	interviewsCreatedBy?: readonly MonospaceSystemUserinterviewsCreatedByCreateRelatedInput[];
+	interviewsUpdatedBy?: readonly MonospaceSystemUserinterviewsUpdatedByCreateRelatedInput[];
 	isService: boolean;
 	lastActivityAt?: string | null;
+	offersCreatedBy?: readonly MonospaceSystemUseroffersCreatedByCreateRelatedInput[];
+	offersUpdatedBy?: readonly MonospaceSystemUseroffersUpdatedByCreateRelatedInput[];
 	organizationsCreatedBy?: readonly MonospaceSystemUserorganizationsCreatedByCreateRelatedInput[];
 	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
 	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
+	requisitionsCreatedBy?: readonly MonospaceSystemUserrequisitionsCreatedByCreateRelatedInput[];
+	requisitionsUpdatedBy?: readonly MonospaceSystemUserrequisitionsUpdatedByCreateRelatedInput[];
+	roleRequestsCreatedBy?: readonly MonospaceSystemUserroleRequestsCreatedByCreateRelatedInput[];
+	roleRequestsUpdatedBy?: readonly MonospaceSystemUserroleRequestsUpdatedByCreateRelatedInput[];
 	roles?: readonly MonospaceSystemUserrolesCreateRelatedInput[];
+	scorecardsCreatedBy?: readonly MonospaceSystemUserscorecardsCreatedByCreateRelatedInput[];
+	scorecardsUpdatedBy?: readonly MonospaceSystemUserscorecardsUpdatedByCreateRelatedInput[];
 	serviceOwnerId?: Uuid | null;
 	status?: string;
 	storageValues?: readonly MonospaceSystemUserstorageValuesCreateRelatedInput[];
+	workforcePlanRolesCreatedBy?: readonly MonospaceSystemUserworkforcePlanRolesCreatedByCreateRelatedInput[];
+	workforcePlanRolesUpdatedBy?: readonly MonospaceSystemUserworkforcePlanRolesUpdatedByCreateRelatedInput[];
 }
 
 export type activitiesownerRelationFieldArguments = {
@@ -7451,8 +8818,16 @@ export type activitiesupdatedByCreateRelatedWithoutTypeInput = {
 	affiliationsCreatedBy?: readonly MonospaceSystemUseraffiliationsCreatedByCreateRelatedInput[];
 	affiliationsUpdatedBy?: readonly MonospaceSystemUseraffiliationsUpdatedByCreateRelatedInput[];
 	appearance?: string | null;
+	applicationsCreatedBy?: readonly MonospaceSystemUserapplicationsCreatedByCreateRelatedInput[];
+	applicationsUpdatedBy?: readonly MonospaceSystemUserapplicationsUpdatedByCreateRelatedInput[];
 	attachmentsCreatedBy?: readonly MonospaceSystemUserattachmentsCreatedByCreateRelatedInput[];
 	avatarId?: Uuid | null;
+	candidateFilesCreatedBy?: readonly MonospaceSystemUsercandidateFilesCreatedByCreateRelatedInput[];
+	candidateMessagesCreatedBy?: readonly MonospaceSystemUsercandidateMessagesCreatedByCreateRelatedInput[];
+	candidateNotesCreatedBy?: readonly MonospaceSystemUsercandidateNotesCreatedByCreateRelatedInput[];
+	candidateNotesUpdatedBy?: readonly MonospaceSystemUsercandidateNotesUpdatedByCreateRelatedInput[];
+	candidatesCreatedBy?: readonly MonospaceSystemUsercandidatesCreatedByCreateRelatedInput[];
+	candidatesUpdatedBy?: readonly MonospaceSystemUsercandidatesUpdatedByCreateRelatedInput[];
 	contactsCreatedBy?: readonly MonospaceSystemUsercontactsCreatedByCreateRelatedInput[];
 	contactsOwner?: readonly MonospaceSystemUsercontactsOwnerCreateRelatedInput[];
 	contactsUpdatedBy?: readonly MonospaceSystemUsercontactsUpdatedByCreateRelatedInput[];
@@ -7460,17 +8835,31 @@ export type activitiesupdatedByCreateRelatedWithoutTypeInput = {
 	dealsOwner?: readonly MonospaceSystemUserdealsOwnerCreateRelatedInput[];
 	dealsUpdatedBy?: readonly MonospaceSystemUserdealsUpdatedByCreateRelatedInput[];
 	email?: string | null;
+	emailTemplatesCreatedBy?: readonly MonospaceSystemUseremailTemplatesCreatedByCreateRelatedInput[];
+	emailTemplatesUpdatedBy?: readonly MonospaceSystemUseremailTemplatesUpdatedByCreateRelatedInput[];
 	fullName?: string | null;
 	id: Uuid;
+	interviewsCreatedBy?: readonly MonospaceSystemUserinterviewsCreatedByCreateRelatedInput[];
+	interviewsUpdatedBy?: readonly MonospaceSystemUserinterviewsUpdatedByCreateRelatedInput[];
 	isService: boolean;
 	lastActivityAt?: string | null;
+	offersCreatedBy?: readonly MonospaceSystemUseroffersCreatedByCreateRelatedInput[];
+	offersUpdatedBy?: readonly MonospaceSystemUseroffersUpdatedByCreateRelatedInput[];
 	organizationsCreatedBy?: readonly MonospaceSystemUserorganizationsCreatedByCreateRelatedInput[];
 	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
 	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
+	requisitionsCreatedBy?: readonly MonospaceSystemUserrequisitionsCreatedByCreateRelatedInput[];
+	requisitionsUpdatedBy?: readonly MonospaceSystemUserrequisitionsUpdatedByCreateRelatedInput[];
+	roleRequestsCreatedBy?: readonly MonospaceSystemUserroleRequestsCreatedByCreateRelatedInput[];
+	roleRequestsUpdatedBy?: readonly MonospaceSystemUserroleRequestsUpdatedByCreateRelatedInput[];
 	roles?: readonly MonospaceSystemUserrolesCreateRelatedInput[];
+	scorecardsCreatedBy?: readonly MonospaceSystemUserscorecardsCreatedByCreateRelatedInput[];
+	scorecardsUpdatedBy?: readonly MonospaceSystemUserscorecardsUpdatedByCreateRelatedInput[];
 	serviceOwnerId?: Uuid | null;
 	status?: string;
 	storageValues?: readonly MonospaceSystemUserstorageValuesCreateRelatedInput[];
+	workforcePlanRolesCreatedBy?: readonly MonospaceSystemUserworkforcePlanRolesCreatedByCreateRelatedInput[];
+	workforcePlanRolesUpdatedBy?: readonly MonospaceSystemUserworkforcePlanRolesUpdatedByCreateRelatedInput[];
 }
 
 export type activitiesupdatedByRelationFieldArguments = {
@@ -7701,8 +9090,16 @@ export type affiliationscreatedByCreateRelatedWithoutTypeInput = {
 	activitiesUpdatedBy?: readonly MonospaceSystemUseractivitiesUpdatedByCreateRelatedInput[];
 	affiliationsUpdatedBy?: readonly MonospaceSystemUseraffiliationsUpdatedByCreateRelatedInput[];
 	appearance?: string | null;
+	applicationsCreatedBy?: readonly MonospaceSystemUserapplicationsCreatedByCreateRelatedInput[];
+	applicationsUpdatedBy?: readonly MonospaceSystemUserapplicationsUpdatedByCreateRelatedInput[];
 	attachmentsCreatedBy?: readonly MonospaceSystemUserattachmentsCreatedByCreateRelatedInput[];
 	avatarId?: Uuid | null;
+	candidateFilesCreatedBy?: readonly MonospaceSystemUsercandidateFilesCreatedByCreateRelatedInput[];
+	candidateMessagesCreatedBy?: readonly MonospaceSystemUsercandidateMessagesCreatedByCreateRelatedInput[];
+	candidateNotesCreatedBy?: readonly MonospaceSystemUsercandidateNotesCreatedByCreateRelatedInput[];
+	candidateNotesUpdatedBy?: readonly MonospaceSystemUsercandidateNotesUpdatedByCreateRelatedInput[];
+	candidatesCreatedBy?: readonly MonospaceSystemUsercandidatesCreatedByCreateRelatedInput[];
+	candidatesUpdatedBy?: readonly MonospaceSystemUsercandidatesUpdatedByCreateRelatedInput[];
 	contactsCreatedBy?: readonly MonospaceSystemUsercontactsCreatedByCreateRelatedInput[];
 	contactsOwner?: readonly MonospaceSystemUsercontactsOwnerCreateRelatedInput[];
 	contactsUpdatedBy?: readonly MonospaceSystemUsercontactsUpdatedByCreateRelatedInput[];
@@ -7710,17 +9107,31 @@ export type affiliationscreatedByCreateRelatedWithoutTypeInput = {
 	dealsOwner?: readonly MonospaceSystemUserdealsOwnerCreateRelatedInput[];
 	dealsUpdatedBy?: readonly MonospaceSystemUserdealsUpdatedByCreateRelatedInput[];
 	email?: string | null;
+	emailTemplatesCreatedBy?: readonly MonospaceSystemUseremailTemplatesCreatedByCreateRelatedInput[];
+	emailTemplatesUpdatedBy?: readonly MonospaceSystemUseremailTemplatesUpdatedByCreateRelatedInput[];
 	fullName?: string | null;
 	id: Uuid;
+	interviewsCreatedBy?: readonly MonospaceSystemUserinterviewsCreatedByCreateRelatedInput[];
+	interviewsUpdatedBy?: readonly MonospaceSystemUserinterviewsUpdatedByCreateRelatedInput[];
 	isService: boolean;
 	lastActivityAt?: string | null;
+	offersCreatedBy?: readonly MonospaceSystemUseroffersCreatedByCreateRelatedInput[];
+	offersUpdatedBy?: readonly MonospaceSystemUseroffersUpdatedByCreateRelatedInput[];
 	organizationsCreatedBy?: readonly MonospaceSystemUserorganizationsCreatedByCreateRelatedInput[];
 	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
 	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
+	requisitionsCreatedBy?: readonly MonospaceSystemUserrequisitionsCreatedByCreateRelatedInput[];
+	requisitionsUpdatedBy?: readonly MonospaceSystemUserrequisitionsUpdatedByCreateRelatedInput[];
+	roleRequestsCreatedBy?: readonly MonospaceSystemUserroleRequestsCreatedByCreateRelatedInput[];
+	roleRequestsUpdatedBy?: readonly MonospaceSystemUserroleRequestsUpdatedByCreateRelatedInput[];
 	roles?: readonly MonospaceSystemUserrolesCreateRelatedInput[];
+	scorecardsCreatedBy?: readonly MonospaceSystemUserscorecardsCreatedByCreateRelatedInput[];
+	scorecardsUpdatedBy?: readonly MonospaceSystemUserscorecardsUpdatedByCreateRelatedInput[];
 	serviceOwnerId?: Uuid | null;
 	status?: string;
 	storageValues?: readonly MonospaceSystemUserstorageValuesCreateRelatedInput[];
+	workforcePlanRolesCreatedBy?: readonly MonospaceSystemUserworkforcePlanRolesCreatedByCreateRelatedInput[];
+	workforcePlanRolesUpdatedBy?: readonly MonospaceSystemUserworkforcePlanRolesUpdatedByCreateRelatedInput[];
 }
 
 export type affiliationscreatedByRelationFieldArguments = {
@@ -7800,8 +9211,16 @@ export type affiliationsupdatedByCreateRelatedWithoutTypeInput = {
 	activitiesUpdatedBy?: readonly MonospaceSystemUseractivitiesUpdatedByCreateRelatedInput[];
 	affiliationsCreatedBy?: readonly MonospaceSystemUseraffiliationsCreatedByCreateRelatedInput[];
 	appearance?: string | null;
+	applicationsCreatedBy?: readonly MonospaceSystemUserapplicationsCreatedByCreateRelatedInput[];
+	applicationsUpdatedBy?: readonly MonospaceSystemUserapplicationsUpdatedByCreateRelatedInput[];
 	attachmentsCreatedBy?: readonly MonospaceSystemUserattachmentsCreatedByCreateRelatedInput[];
 	avatarId?: Uuid | null;
+	candidateFilesCreatedBy?: readonly MonospaceSystemUsercandidateFilesCreatedByCreateRelatedInput[];
+	candidateMessagesCreatedBy?: readonly MonospaceSystemUsercandidateMessagesCreatedByCreateRelatedInput[];
+	candidateNotesCreatedBy?: readonly MonospaceSystemUsercandidateNotesCreatedByCreateRelatedInput[];
+	candidateNotesUpdatedBy?: readonly MonospaceSystemUsercandidateNotesUpdatedByCreateRelatedInput[];
+	candidatesCreatedBy?: readonly MonospaceSystemUsercandidatesCreatedByCreateRelatedInput[];
+	candidatesUpdatedBy?: readonly MonospaceSystemUsercandidatesUpdatedByCreateRelatedInput[];
 	contactsCreatedBy?: readonly MonospaceSystemUsercontactsCreatedByCreateRelatedInput[];
 	contactsOwner?: readonly MonospaceSystemUsercontactsOwnerCreateRelatedInput[];
 	contactsUpdatedBy?: readonly MonospaceSystemUsercontactsUpdatedByCreateRelatedInput[];
@@ -7809,17 +9228,31 @@ export type affiliationsupdatedByCreateRelatedWithoutTypeInput = {
 	dealsOwner?: readonly MonospaceSystemUserdealsOwnerCreateRelatedInput[];
 	dealsUpdatedBy?: readonly MonospaceSystemUserdealsUpdatedByCreateRelatedInput[];
 	email?: string | null;
+	emailTemplatesCreatedBy?: readonly MonospaceSystemUseremailTemplatesCreatedByCreateRelatedInput[];
+	emailTemplatesUpdatedBy?: readonly MonospaceSystemUseremailTemplatesUpdatedByCreateRelatedInput[];
 	fullName?: string | null;
 	id: Uuid;
+	interviewsCreatedBy?: readonly MonospaceSystemUserinterviewsCreatedByCreateRelatedInput[];
+	interviewsUpdatedBy?: readonly MonospaceSystemUserinterviewsUpdatedByCreateRelatedInput[];
 	isService: boolean;
 	lastActivityAt?: string | null;
+	offersCreatedBy?: readonly MonospaceSystemUseroffersCreatedByCreateRelatedInput[];
+	offersUpdatedBy?: readonly MonospaceSystemUseroffersUpdatedByCreateRelatedInput[];
 	organizationsCreatedBy?: readonly MonospaceSystemUserorganizationsCreatedByCreateRelatedInput[];
 	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
 	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
+	requisitionsCreatedBy?: readonly MonospaceSystemUserrequisitionsCreatedByCreateRelatedInput[];
+	requisitionsUpdatedBy?: readonly MonospaceSystemUserrequisitionsUpdatedByCreateRelatedInput[];
+	roleRequestsCreatedBy?: readonly MonospaceSystemUserroleRequestsCreatedByCreateRelatedInput[];
+	roleRequestsUpdatedBy?: readonly MonospaceSystemUserroleRequestsUpdatedByCreateRelatedInput[];
 	roles?: readonly MonospaceSystemUserrolesCreateRelatedInput[];
+	scorecardsCreatedBy?: readonly MonospaceSystemUserscorecardsCreatedByCreateRelatedInput[];
+	scorecardsUpdatedBy?: readonly MonospaceSystemUserscorecardsUpdatedByCreateRelatedInput[];
 	serviceOwnerId?: Uuid | null;
 	status?: string;
 	storageValues?: readonly MonospaceSystemUserstorageValuesCreateRelatedInput[];
+	workforcePlanRolesCreatedBy?: readonly MonospaceSystemUserworkforcePlanRolesCreatedByCreateRelatedInput[];
+	workforcePlanRolesUpdatedBy?: readonly MonospaceSystemUserworkforcePlanRolesUpdatedByCreateRelatedInput[];
 }
 
 export type affiliationsupdatedByRelationFieldArguments = {
@@ -7832,6 +9265,936 @@ export type affiliationsupdatedByUpdateOneRelatedOperationsInput = {
 	_delete?: MonospaceSystemUserDeleteArguments;
 	_disconnect?: MonospaceSystemUserDisconnectOneInput;
 	_update?: MonospaceSystemUserUpdateInput;
+}
+
+export type applicationsCollectionOutput = {
+	appliedAt?: string;
+	candidateId?: Uuid;
+	candidates?: candidatesCollectionOutput;
+	createdAt?: string;
+	createdBy?: MonospaceSystemUserCollectionOutput | null;
+	createdById?: Uuid | null;
+	id?: Uuid;
+	interviewStageId?: Uuid;
+	interview_stages?: interviewStagesCollectionOutput;
+	interviews?: { data: interviewsCollectionOutput[] };
+	lastActivityAt?: string;
+	offers?: offersCollectionOutput | null;
+	public_applications?: { data: publicApplicationsCollectionOutput[] };
+	rejectionReason?: string | null;
+	requisitionId?: Uuid;
+	requisitions?: requisitionsCollectionOutput;
+	stageEnteredAt?: string;
+	status?: string;
+	updatedAt?: string;
+	updatedBy?: MonospaceSystemUserCollectionOutput | null;
+	updatedById?: Uuid | null;
+}
+
+export type applicationsCollectionOutputFieldsInput = readonly ("appliedAt" | "candidateId" | "createdAt" | "createdById" | "id" | "interviewStageId" | "lastActivityAt" | "rejectionReason" | "requisitionId" | "stageEnteredAt" | "status" | "updatedAt" | "updatedById" | "*" | `${string}:${"appliedAt" | "candidateId" | "createdAt" | "createdById" | "id" | "interviewStageId" | "lastActivityAt" | "rejectionReason" | "requisitionId" | "stageEnteredAt" | "status" | "updatedAt" | "updatedById"}`)[];
+
+export type applicationsCollectionOutputIncludeInput = {
+	"candidates"?: ({ "fields"?: candidatesCollectionOutputFieldsInput; "include"?: candidatesCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof ({ "fields"?: candidatesCollectionOutputFieldsInput; "include"?: candidatesCollectionOutputIncludeInput })>]?: never };
+	"createdBy"?: (applicationscreatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (applicationscreatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput })>]?: never };
+	"interview_stages"?: ({ "fields"?: interviewStagesCollectionOutputFieldsInput; "include"?: interviewStagesCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof ({ "fields"?: interviewStagesCollectionOutputFieldsInput; "include"?: interviewStagesCollectionOutputIncludeInput })>]?: never };
+	"interviews"?: (applicationsinterviewsRelationFieldArguments & { "fields"?: interviewsCollectionOutputFieldsInput; "include"?: interviewsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (applicationsinterviewsRelationFieldArguments & { "fields"?: interviewsCollectionOutputFieldsInput; "include"?: interviewsCollectionOutputIncludeInput })>]?: never };
+	"offers"?: (applicationsoffersRelationFieldArguments & { "fields"?: offersCollectionOutputFieldsInput; "include"?: offersCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (applicationsoffersRelationFieldArguments & { "fields"?: offersCollectionOutputFieldsInput; "include"?: offersCollectionOutputIncludeInput })>]?: never };
+	"public_applications"?: (applicationspublic_applicationsRelationFieldArguments & { "fields"?: publicApplicationsCollectionOutputFieldsInput; "include"?: publicApplicationsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (applicationspublic_applicationsRelationFieldArguments & { "fields"?: publicApplicationsCollectionOutputFieldsInput; "include"?: publicApplicationsCollectionOutputIncludeInput })>]?: never };
+	"requisitions"?: ({ "fields"?: requisitionsCollectionOutputFieldsInput; "include"?: requisitionsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof ({ "fields"?: requisitionsCollectionOutputFieldsInput; "include"?: requisitionsCollectionOutputIncludeInput })>]?: never };
+	"updatedBy"?: (applicationsupdatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (applicationsupdatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput })>]?: never };
+} & { [K in `${string}:${"candidates"}`]?: applicationsCollectionOutputIncludeInput["candidates"] } & { [K in `${string}:${"createdBy"}`]?: applicationsCollectionOutputIncludeInput["createdBy"] } & { [K in `${string}:${"interview_stages"}`]?: applicationsCollectionOutputIncludeInput["interview_stages"] } & { [K in `${string}:${"interviews"}`]?: applicationsCollectionOutputIncludeInput["interviews"] } & { [K in `${string}:${"offers"}`]?: applicationsCollectionOutputIncludeInput["offers"] } & { [K in `${string}:${"public_applications"}`]?: applicationsCollectionOutputIncludeInput["public_applications"] } & { [K in `${string}:${"requisitions"}`]?: applicationsCollectionOutputIncludeInput["requisitions"] } & { [K in `${string}:${"updatedBy"}`]?: applicationsCollectionOutputIncludeInput["updatedBy"] };
+
+export type applicationsCreateArguments = {
+	data: readonly applicationsCreateInput[];
+}
+
+export type applicationsCreateInput = {
+	appliedAt?: string;
+	candidates: applicationscandidatesCreateRelatedInput;
+	createdAt?: string;
+	createdBy?: applicationscreatedByCreateRelatedInput;
+	id?: Uuid;
+	interview_stages: applicationsinterview_stagesCreateRelatedInput;
+	interviews?: readonly applicationsinterviewsCreateRelatedInput[];
+	lastActivityAt?: string;
+	offers?: applicationsoffersCreateRelatedInput;
+	public_applications?: readonly applicationspublic_applicationsCreateRelatedInput[];
+	rejectionReason?: string | null;
+	requisitions: applicationsrequisitionsCreateRelatedInput;
+	stageEnteredAt?: string;
+	status?: string;
+	updatedAt?: string;
+	updatedBy?: applicationsupdatedByCreateRelatedInput;
+}
+
+export type applicationsDeleteArguments = {
+	filter?: applicationsFilterInput;
+}
+
+export type applicationsDeleteOneArguments = {
+	filter?: applicationsFilterInput;
+	key: Uuid;
+}
+
+export type applicationsDisconnectManyInput = {
+	filter?: applicationsFilterInput;
+}
+
+export type applicationsDisconnectOneInput = {}
+
+export type applicationsFilterInput = {
+	_and?: readonly applicationsFilterInput[];
+	_not?: applicationsFilterInput;
+	_or?: readonly applicationsFilterInput[];
+	appliedAt?: DateTimeFilterPrimitiveInput | string;
+	candidateId?: UuidFilterPrimitiveInput | Uuid;
+	candidates?: candidatesFilterInput;
+	createdAt?: DateTimeFilterPrimitiveInput | string;
+	createdBy?: MonospaceSystemUserFilterInput;
+	createdById?: UuidFilterNullablePrimitiveInput | Uuid | null;
+	id?: UuidFilterPrimitiveInput | Uuid;
+	interviewStageId?: UuidFilterPrimitiveInput | Uuid;
+	interview_stages?: interviewStagesFilterInput;
+	interviews?: interviewsFilterQuantifierInput | interviewsFilterInput;
+	lastActivityAt?: DateTimeFilterPrimitiveInput | string;
+	offers?: offersFilterInput;
+	public_applications?: publicApplicationsFilterQuantifierInput | publicApplicationsFilterInput;
+	rejectionReason?: StringFilterNullablePrimitiveInput | string | null;
+	requisitionId?: UuidFilterPrimitiveInput | Uuid;
+	requisitions?: requisitionsFilterInput;
+	stageEnteredAt?: DateTimeFilterPrimitiveInput | string;
+	status?: StringFilterPrimitiveInput | string;
+	updatedAt?: DateTimeFilterPrimitiveInput | string;
+	updatedBy?: MonospaceSystemUserFilterInput;
+	updatedById?: UuidFilterNullablePrimitiveInput | Uuid | null;
+}
+
+export type applicationsFilterQuantifierInput = {
+	_every?: applicationsFilterInput;
+	_none?: applicationsFilterInput;
+	_some?: applicationsFilterInput;
+}
+
+export type applicationsListArguments = {
+	filter?: applicationsFilterInput;
+	limit?: Int64Input;
+	meta?: MetaArguments;
+	offset?: UInt64Input;
+	sort?: readonly applicationsSortSpecifier[];
+}
+
+export type applicationsReadArguments = {
+	filter?: applicationsFilterInput;
+	key: Uuid;
+}
+
+export type applicationsSortSpecifier = {
+	appliedAt?: SortFieldOptions;
+	candidateId?: SortFieldOptions;
+	createdAt?: SortFieldOptions;
+	createdById?: SortFieldOptions;
+	id?: SortFieldOptions;
+	interviewStageId?: SortFieldOptions;
+	lastActivityAt?: SortFieldOptions;
+	rejectionReason?: SortFieldOptions;
+	requisitionId?: SortFieldOptions;
+	stageEnteredAt?: SortFieldOptions;
+	status?: SortFieldOptions;
+	updatedAt?: SortFieldOptions;
+	updatedById?: SortFieldOptions;
+}
+
+export type applicationsUpdateArguments = {
+	data: applicationsUpdateDataInput;
+	filter?: applicationsFilterInput;
+}
+
+export type applicationsUpdateDataInput = {
+	appliedAt?: string;
+	candidateId?: Uuid;
+	candidates?: readonly applicationscandidatesUpdateOneRelatedOperationsInput[];
+	createdAt?: string;
+	createdBy?: readonly applicationscreatedByUpdateOneRelatedOperationsInput[];
+	createdById?: Uuid | null;
+	id?: Uuid;
+	interviewStageId?: Uuid;
+	interview_stages?: readonly applicationsinterview_stagesUpdateOneRelatedOperationsInput[];
+	interviews?: readonly applicationsinterviewsUpdateManyRelatedOperationsInput[];
+	lastActivityAt?: string;
+	offers?: readonly applicationsoffersUpdateOneRelatedOperationsInput[];
+	public_applications?: readonly applicationspublic_applicationsUpdateManyRelatedOperationsInput[];
+	rejectionReason?: string | null;
+	requisitionId?: Uuid;
+	requisitions?: readonly applicationsrequisitionsUpdateOneRelatedOperationsInput[];
+	stageEnteredAt?: string;
+	status?: string;
+	updatedAt?: string;
+	updatedBy?: readonly applicationsupdatedByUpdateOneRelatedOperationsInput[];
+	updatedById?: Uuid | null;
+}
+
+export type applicationsUpdateInput = {
+	data: applicationsUpdateDataInput;
+	filter?: applicationsFilterInput;
+}
+
+export type applicationsUpdateOneArguments = {
+	data: applicationsUpdateDataInput;
+	filter?: applicationsFilterInput;
+	key: Uuid;
+}
+
+export type applicationscandidatesConnectForwardKeyInput = {
+	id: Uuid;
+}
+
+export type applicationscandidatesConnectInput = {
+	key: applicationscandidatesConnectForwardKeyInput;
+}
+
+export type applicationscandidatesCreateArguments = {
+	data: applicationscandidatesCreateRelatedWithoutTypeInput;
+}
+
+export type applicationscandidatesCreateRelatedInput = {
+	_connect?: applicationscandidatesConnectInput;
+	_create?: applicationscandidatesCreateArguments;
+}
+
+export type applicationscandidatesCreateRelatedWithoutTypeInput = {
+	candidate_files?: readonly candidatescandidate_filesCreateRelatedInput[];
+	candidate_messages?: readonly candidatescandidate_messagesCreateRelatedInput[];
+	candidate_notes?: readonly candidatescandidate_notesCreateRelatedInput[];
+	city?: string | null;
+	consentAt?: string | null;
+	country?: string | null;
+	createdAt?: string;
+	createdBy?: candidatescreatedByCreateRelatedInput;
+	email: string;
+	firstName: string;
+	githubUrl?: string | null;
+	id?: Uuid;
+	inTalentPool?: boolean;
+	lastName: string;
+	linkedinUrl?: string | null;
+	needsSponsorship?: boolean | null;
+	phone?: string | null;
+	portfolioUrl?: string | null;
+	privacyNoticeSentAt?: string | null;
+	public_applications?: readonly candidatespublic_applicationsCreateRelatedInput[];
+	referrerUserId?: Uuid | null;
+	retainUntil?: string | null;
+	source?: string;
+	sourceDetail?: string | null;
+	tags?: string | null;
+	updatedAt?: string;
+	updatedBy?: candidatesupdatedByCreateRelatedInput;
+	workAuthorized?: boolean | null;
+}
+
+export type applicationscandidatesUpdateOneRelatedOperationsInput = {
+	_connect?: applicationscandidatesConnectInput;
+	_create?: applicationscandidatesCreateArguments;
+	_update?: candidatesUpdateInput;
+}
+
+export type applicationscreatedByConnectForwardKeyInput = {
+	id: Uuid | null;
+}
+
+export type applicationscreatedByConnectInput = {
+	key: applicationscreatedByConnectForwardKeyInput;
+}
+
+export type applicationscreatedByCreateArguments = {
+	data: applicationscreatedByCreateRelatedWithoutTypeInput;
+}
+
+export type applicationscreatedByCreateRelatedInput = {
+	_connect?: applicationscreatedByConnectInput;
+	_create?: applicationscreatedByCreateArguments;
+}
+
+export type applicationscreatedByCreateRelatedWithoutTypeInput = {
+	activitiesCreatedBy?: readonly MonospaceSystemUseractivitiesCreatedByCreateRelatedInput[];
+	activitiesOwner?: readonly MonospaceSystemUseractivitiesOwnerCreateRelatedInput[];
+	activitiesUpdatedBy?: readonly MonospaceSystemUseractivitiesUpdatedByCreateRelatedInput[];
+	affiliationsCreatedBy?: readonly MonospaceSystemUseraffiliationsCreatedByCreateRelatedInput[];
+	affiliationsUpdatedBy?: readonly MonospaceSystemUseraffiliationsUpdatedByCreateRelatedInput[];
+	appearance?: string | null;
+	applicationsUpdatedBy?: readonly MonospaceSystemUserapplicationsUpdatedByCreateRelatedInput[];
+	attachmentsCreatedBy?: readonly MonospaceSystemUserattachmentsCreatedByCreateRelatedInput[];
+	avatarId?: Uuid | null;
+	candidateFilesCreatedBy?: readonly MonospaceSystemUsercandidateFilesCreatedByCreateRelatedInput[];
+	candidateMessagesCreatedBy?: readonly MonospaceSystemUsercandidateMessagesCreatedByCreateRelatedInput[];
+	candidateNotesCreatedBy?: readonly MonospaceSystemUsercandidateNotesCreatedByCreateRelatedInput[];
+	candidateNotesUpdatedBy?: readonly MonospaceSystemUsercandidateNotesUpdatedByCreateRelatedInput[];
+	candidatesCreatedBy?: readonly MonospaceSystemUsercandidatesCreatedByCreateRelatedInput[];
+	candidatesUpdatedBy?: readonly MonospaceSystemUsercandidatesUpdatedByCreateRelatedInput[];
+	contactsCreatedBy?: readonly MonospaceSystemUsercontactsCreatedByCreateRelatedInput[];
+	contactsOwner?: readonly MonospaceSystemUsercontactsOwnerCreateRelatedInput[];
+	contactsUpdatedBy?: readonly MonospaceSystemUsercontactsUpdatedByCreateRelatedInput[];
+	dealsCreatedBy?: readonly MonospaceSystemUserdealsCreatedByCreateRelatedInput[];
+	dealsOwner?: readonly MonospaceSystemUserdealsOwnerCreateRelatedInput[];
+	dealsUpdatedBy?: readonly MonospaceSystemUserdealsUpdatedByCreateRelatedInput[];
+	email?: string | null;
+	emailTemplatesCreatedBy?: readonly MonospaceSystemUseremailTemplatesCreatedByCreateRelatedInput[];
+	emailTemplatesUpdatedBy?: readonly MonospaceSystemUseremailTemplatesUpdatedByCreateRelatedInput[];
+	fullName?: string | null;
+	id: Uuid;
+	interviewsCreatedBy?: readonly MonospaceSystemUserinterviewsCreatedByCreateRelatedInput[];
+	interviewsUpdatedBy?: readonly MonospaceSystemUserinterviewsUpdatedByCreateRelatedInput[];
+	isService: boolean;
+	lastActivityAt?: string | null;
+	offersCreatedBy?: readonly MonospaceSystemUseroffersCreatedByCreateRelatedInput[];
+	offersUpdatedBy?: readonly MonospaceSystemUseroffersUpdatedByCreateRelatedInput[];
+	organizationsCreatedBy?: readonly MonospaceSystemUserorganizationsCreatedByCreateRelatedInput[];
+	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
+	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
+	requisitionsCreatedBy?: readonly MonospaceSystemUserrequisitionsCreatedByCreateRelatedInput[];
+	requisitionsUpdatedBy?: readonly MonospaceSystemUserrequisitionsUpdatedByCreateRelatedInput[];
+	roleRequestsCreatedBy?: readonly MonospaceSystemUserroleRequestsCreatedByCreateRelatedInput[];
+	roleRequestsUpdatedBy?: readonly MonospaceSystemUserroleRequestsUpdatedByCreateRelatedInput[];
+	roles?: readonly MonospaceSystemUserrolesCreateRelatedInput[];
+	scorecardsCreatedBy?: readonly MonospaceSystemUserscorecardsCreatedByCreateRelatedInput[];
+	scorecardsUpdatedBy?: readonly MonospaceSystemUserscorecardsUpdatedByCreateRelatedInput[];
+	serviceOwnerId?: Uuid | null;
+	status?: string;
+	storageValues?: readonly MonospaceSystemUserstorageValuesCreateRelatedInput[];
+	workforcePlanRolesCreatedBy?: readonly MonospaceSystemUserworkforcePlanRolesCreatedByCreateRelatedInput[];
+	workforcePlanRolesUpdatedBy?: readonly MonospaceSystemUserworkforcePlanRolesUpdatedByCreateRelatedInput[];
+}
+
+export type applicationscreatedByRelationFieldArguments = {
+	filter?: MonospaceSystemUserFilterInput;
+}
+
+export type applicationscreatedByUpdateOneRelatedOperationsInput = {
+	_connect?: applicationscreatedByConnectInput;
+	_create?: applicationscreatedByCreateArguments;
+	_delete?: MonospaceSystemUserDeleteArguments;
+	_disconnect?: MonospaceSystemUserDisconnectOneInput;
+	_update?: MonospaceSystemUserUpdateInput;
+}
+
+export type applicationsinterview_stagesConnectForwardKeyInput = {
+	id: Uuid;
+}
+
+export type applicationsinterview_stagesConnectInput = {
+	key: applicationsinterview_stagesConnectForwardKeyInput;
+}
+
+export type applicationsinterview_stagesCreateArguments = {
+	data: applicationsinterview_stagesCreateRelatedWithoutTypeInput;
+}
+
+export type applicationsinterview_stagesCreateRelatedInput = {
+	_connect?: applicationsinterview_stagesConnectInput;
+	_create?: applicationsinterview_stagesCreateArguments;
+}
+
+export type applicationsinterview_stagesCreateRelatedWithoutTypeInput = {
+	id?: Uuid;
+	interviews?: readonly interviewStagesinterviewsCreateRelatedInput[];
+	kind?: string;
+	name: string;
+	position: number;
+	requisitions: interviewStagesrequisitionsCreateRelatedInput;
+	slaDays?: number | null;
+}
+
+export type applicationsinterview_stagesUpdateOneRelatedOperationsInput = {
+	_connect?: applicationsinterview_stagesConnectInput;
+	_create?: applicationsinterview_stagesCreateArguments;
+	_update?: interviewStagesUpdateInput;
+}
+
+export type applicationsinterviewsConnectBackwardKeysInput = {
+	id?: Uuid;
+}
+
+export type applicationsinterviewsConnectInput = {
+	keys: readonly applicationsinterviewsConnectBackwardKeysInput[];
+}
+
+export type applicationsinterviewsCreateArguments = {
+	data: readonly applicationsinterviewsCreateRelatedWithoutTypeInput[];
+}
+
+export type applicationsinterviewsCreateRelatedInput = {
+	_connect?: applicationsinterviewsConnectInput;
+	_create?: applicationsinterviewsCreateArguments;
+}
+
+export type applicationsinterviewsCreateRelatedWithoutTypeInput = {
+	createdAt?: string;
+	createdBy?: interviewscreatedByCreateRelatedInput;
+	endsAt: string;
+	id?: Uuid;
+	interview_participants?: readonly interviewsinterview_participantsCreateRelatedInput[];
+	interview_stages?: interviewsinterview_stagesCreateRelatedInput;
+	meetingUrl?: string | null;
+	scorecards?: readonly interviewsscorecardsCreateRelatedInput[];
+	startsAt: string;
+	status?: string;
+	title: string;
+	updatedAt?: string;
+	updatedBy?: interviewsupdatedByCreateRelatedInput;
+}
+
+export type applicationsinterviewsRelationFieldArguments = {
+	filter?: interviewsFilterInput;
+	limit?: Int64Input;
+	offset?: UInt64Input;
+	sort?: readonly interviewsSortSpecifier[];
+}
+
+export type applicationsinterviewsUpdateManyRelatedOperationsInput = {
+	_connect?: applicationsinterviewsConnectInput;
+	_create?: applicationsinterviewsCreateArguments;
+	_delete?: interviewsDeleteArguments;
+	_update?: interviewsUpdateInput;
+}
+
+export type applicationsoffersConnectBackwardKeysInput = {
+	applicationId?: Uuid;
+	id?: Uuid;
+}
+
+export type applicationsoffersConnectInput = {
+	key: applicationsoffersConnectBackwardKeysInput;
+}
+
+export type applicationsoffersCreateArguments = {
+	data: applicationsoffersCreateRelatedWithoutTypeInput;
+}
+
+export type applicationsoffersCreateRelatedInput = {
+	_connect?: applicationsoffersConnectInput;
+	_create?: applicationsoffersCreateArguments;
+}
+
+export type applicationsoffersCreateRelatedWithoutTypeInput = {
+	approvals?: readonly offersapprovalsCreateRelatedInput[];
+	baseSalary?: string | null;
+	candidateIntro?: string | null;
+	createdAt?: string;
+	createdBy?: offerscreatedByCreateRelatedInput;
+	currency?: string;
+	equityUnits?: number | null;
+	id?: Uuid;
+	proposedStartDate?: string | null;
+	searchOverview?: string | null;
+	status?: string;
+	updatedAt?: string;
+	updatedBy?: offersupdatedByCreateRelatedInput;
+}
+
+export type applicationsoffersRelationFieldArguments = {
+	filter?: offersFilterInput;
+}
+
+export type applicationsoffersUpdateOneRelatedOperationsInput = {
+	_delete?: offersDeleteArguments;
+	_update?: offersUpdateInput;
+}
+
+export type applicationspublic_applicationsConnectBackwardKeysInput = {
+	id?: Uuid;
+}
+
+export type applicationspublic_applicationsConnectInput = {
+	keys: readonly applicationspublic_applicationsConnectBackwardKeysInput[];
+}
+
+export type applicationspublic_applicationsCreateArguments = {
+	data: readonly applicationspublic_applicationsCreateRelatedWithoutTypeInput[];
+}
+
+export type applicationspublic_applicationsCreateRelatedInput = {
+	_connect?: applicationspublic_applicationsConnectInput;
+	_create?: applicationspublic_applicationsCreateArguments;
+}
+
+export type applicationspublic_applicationsCreateRelatedWithoutTypeInput = {
+	candidates?: publicApplicationscandidatesCreateRelatedInput;
+	city?: string | null;
+	consent: boolean;
+	country?: string | null;
+	createdAt?: string;
+	email: string;
+	firstName: string;
+	githubUrl?: string | null;
+	id?: Uuid;
+	lastName: string;
+	linkedinUrl?: string | null;
+	needsSponsorship?: boolean | null;
+	phone?: string | null;
+	portfolioUrl?: string | null;
+	requisitions: publicApplicationsrequisitionsCreateRelatedInput;
+	resumeAssetId?: Uuid | null;
+	resumeFileName?: string | null;
+	resumeUrl?: string | null;
+	workAuthorized?: boolean | null;
+}
+
+export type applicationspublic_applicationsRelationFieldArguments = {
+	filter?: publicApplicationsFilterInput;
+	limit?: Int64Input;
+	offset?: UInt64Input;
+	sort?: readonly publicApplicationsSortSpecifier[];
+}
+
+export type applicationspublic_applicationsUpdateManyRelatedOperationsInput = {
+	_connect?: applicationspublic_applicationsConnectInput;
+	_create?: applicationspublic_applicationsCreateArguments;
+	_delete?: publicApplicationsDeleteArguments;
+	_disconnect?: publicApplicationsDisconnectManyInput;
+	_update?: publicApplicationsUpdateInput;
+}
+
+export type applicationsrequisitionsConnectForwardKeyInput = {
+	id: Uuid;
+}
+
+export type applicationsrequisitionsConnectInput = {
+	key: applicationsrequisitionsConnectForwardKeyInput;
+}
+
+export type applicationsrequisitionsCreateArguments = {
+	data: applicationsrequisitionsCreateRelatedWithoutTypeInput;
+}
+
+export type applicationsrequisitionsCreateRelatedInput = {
+	_connect?: applicationsrequisitionsConnectInput;
+	_create?: applicationsrequisitionsCreateArguments;
+}
+
+export type applicationsrequisitionsCreateRelatedWithoutTypeInput = {
+	closedAt?: string | null;
+	compMax?: string | null;
+	compMin?: string | null;
+	createdAt?: string;
+	createdBy?: requisitionscreatedByCreateRelatedInput;
+	currency?: string;
+	departments: requisitionsdepartmentsCreateRelatedInput;
+	description?: string | null;
+	employmentType?: string;
+	hiringManagerUserId?: Uuid | null;
+	hiringReason?: string | null;
+	id?: Uuid;
+	interview_stages?: readonly requisitionsinterview_stagesCreateRelatedInput[];
+	isConfidential?: boolean;
+	isLeadership?: boolean;
+	job_levels?: requisitionsjob_levelsCreateRelatedInput;
+	kickoffAt?: string | null;
+	kickoffNotes?: string | null;
+	locations?: string | null;
+	mustHaveSkills?: string | null;
+	niceToHaveSkills?: string | null;
+	numberOfHires?: number;
+	openedAt?: string | null;
+	postExternally?: boolean;
+	public_applications?: readonly requisitionspublic_applicationsCreateRelatedInput[];
+	recruiterUserId?: Uuid | null;
+	reqNumber?: number;
+	role_requests?: requisitionsrole_requestsCreateRelatedInput;
+	status?: string;
+	teamSize?: number | null;
+	title: string;
+	updatedAt?: string;
+	updatedBy?: requisitionsupdatedByCreateRelatedInput;
+	urgency?: string;
+}
+
+export type applicationsrequisitionsUpdateOneRelatedOperationsInput = {
+	_connect?: applicationsrequisitionsConnectInput;
+	_create?: applicationsrequisitionsCreateArguments;
+	_update?: requisitionsUpdateInput;
+}
+
+export type applicationsupdatedByConnectForwardKeyInput = {
+	id: Uuid | null;
+}
+
+export type applicationsupdatedByConnectInput = {
+	key: applicationsupdatedByConnectForwardKeyInput;
+}
+
+export type applicationsupdatedByCreateArguments = {
+	data: applicationsupdatedByCreateRelatedWithoutTypeInput;
+}
+
+export type applicationsupdatedByCreateRelatedInput = {
+	_connect?: applicationsupdatedByConnectInput;
+	_create?: applicationsupdatedByCreateArguments;
+}
+
+export type applicationsupdatedByCreateRelatedWithoutTypeInput = {
+	activitiesCreatedBy?: readonly MonospaceSystemUseractivitiesCreatedByCreateRelatedInput[];
+	activitiesOwner?: readonly MonospaceSystemUseractivitiesOwnerCreateRelatedInput[];
+	activitiesUpdatedBy?: readonly MonospaceSystemUseractivitiesUpdatedByCreateRelatedInput[];
+	affiliationsCreatedBy?: readonly MonospaceSystemUseraffiliationsCreatedByCreateRelatedInput[];
+	affiliationsUpdatedBy?: readonly MonospaceSystemUseraffiliationsUpdatedByCreateRelatedInput[];
+	appearance?: string | null;
+	applicationsCreatedBy?: readonly MonospaceSystemUserapplicationsCreatedByCreateRelatedInput[];
+	attachmentsCreatedBy?: readonly MonospaceSystemUserattachmentsCreatedByCreateRelatedInput[];
+	avatarId?: Uuid | null;
+	candidateFilesCreatedBy?: readonly MonospaceSystemUsercandidateFilesCreatedByCreateRelatedInput[];
+	candidateMessagesCreatedBy?: readonly MonospaceSystemUsercandidateMessagesCreatedByCreateRelatedInput[];
+	candidateNotesCreatedBy?: readonly MonospaceSystemUsercandidateNotesCreatedByCreateRelatedInput[];
+	candidateNotesUpdatedBy?: readonly MonospaceSystemUsercandidateNotesUpdatedByCreateRelatedInput[];
+	candidatesCreatedBy?: readonly MonospaceSystemUsercandidatesCreatedByCreateRelatedInput[];
+	candidatesUpdatedBy?: readonly MonospaceSystemUsercandidatesUpdatedByCreateRelatedInput[];
+	contactsCreatedBy?: readonly MonospaceSystemUsercontactsCreatedByCreateRelatedInput[];
+	contactsOwner?: readonly MonospaceSystemUsercontactsOwnerCreateRelatedInput[];
+	contactsUpdatedBy?: readonly MonospaceSystemUsercontactsUpdatedByCreateRelatedInput[];
+	dealsCreatedBy?: readonly MonospaceSystemUserdealsCreatedByCreateRelatedInput[];
+	dealsOwner?: readonly MonospaceSystemUserdealsOwnerCreateRelatedInput[];
+	dealsUpdatedBy?: readonly MonospaceSystemUserdealsUpdatedByCreateRelatedInput[];
+	email?: string | null;
+	emailTemplatesCreatedBy?: readonly MonospaceSystemUseremailTemplatesCreatedByCreateRelatedInput[];
+	emailTemplatesUpdatedBy?: readonly MonospaceSystemUseremailTemplatesUpdatedByCreateRelatedInput[];
+	fullName?: string | null;
+	id: Uuid;
+	interviewsCreatedBy?: readonly MonospaceSystemUserinterviewsCreatedByCreateRelatedInput[];
+	interviewsUpdatedBy?: readonly MonospaceSystemUserinterviewsUpdatedByCreateRelatedInput[];
+	isService: boolean;
+	lastActivityAt?: string | null;
+	offersCreatedBy?: readonly MonospaceSystemUseroffersCreatedByCreateRelatedInput[];
+	offersUpdatedBy?: readonly MonospaceSystemUseroffersUpdatedByCreateRelatedInput[];
+	organizationsCreatedBy?: readonly MonospaceSystemUserorganizationsCreatedByCreateRelatedInput[];
+	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
+	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
+	requisitionsCreatedBy?: readonly MonospaceSystemUserrequisitionsCreatedByCreateRelatedInput[];
+	requisitionsUpdatedBy?: readonly MonospaceSystemUserrequisitionsUpdatedByCreateRelatedInput[];
+	roleRequestsCreatedBy?: readonly MonospaceSystemUserroleRequestsCreatedByCreateRelatedInput[];
+	roleRequestsUpdatedBy?: readonly MonospaceSystemUserroleRequestsUpdatedByCreateRelatedInput[];
+	roles?: readonly MonospaceSystemUserrolesCreateRelatedInput[];
+	scorecardsCreatedBy?: readonly MonospaceSystemUserscorecardsCreatedByCreateRelatedInput[];
+	scorecardsUpdatedBy?: readonly MonospaceSystemUserscorecardsUpdatedByCreateRelatedInput[];
+	serviceOwnerId?: Uuid | null;
+	status?: string;
+	storageValues?: readonly MonospaceSystemUserstorageValuesCreateRelatedInput[];
+	workforcePlanRolesCreatedBy?: readonly MonospaceSystemUserworkforcePlanRolesCreatedByCreateRelatedInput[];
+	workforcePlanRolesUpdatedBy?: readonly MonospaceSystemUserworkforcePlanRolesUpdatedByCreateRelatedInput[];
+}
+
+export type applicationsupdatedByRelationFieldArguments = {
+	filter?: MonospaceSystemUserFilterInput;
+}
+
+export type applicationsupdatedByUpdateOneRelatedOperationsInput = {
+	_connect?: applicationsupdatedByConnectInput;
+	_create?: applicationsupdatedByCreateArguments;
+	_delete?: MonospaceSystemUserDeleteArguments;
+	_disconnect?: MonospaceSystemUserDisconnectOneInput;
+	_update?: MonospaceSystemUserUpdateInput;
+}
+
+export type approvalsCollectionOutput = {
+	approverRole?: string;
+	approverUserId?: Uuid | null;
+	createdAt?: string;
+	decidedAt?: string | null;
+	decision?: string;
+	id?: Uuid;
+	note?: string | null;
+	offerId?: Uuid | null;
+	offers?: offersCollectionOutput | null;
+	roleRequestId?: Uuid | null;
+	role_requests?: roleRequestsCollectionOutput | null;
+	step?: number;
+	workforcePlanRoleId?: Uuid | null;
+	workforce_plan_roles?: workforcePlanRolesCollectionOutput | null;
+}
+
+export type approvalsCollectionOutputFieldsInput = readonly ("approverRole" | "approverUserId" | "createdAt" | "decidedAt" | "decision" | "id" | "note" | "offerId" | "roleRequestId" | "step" | "workforcePlanRoleId" | "*" | `${string}:${"approverRole" | "approverUserId" | "createdAt" | "decidedAt" | "decision" | "id" | "note" | "offerId" | "roleRequestId" | "step" | "workforcePlanRoleId"}`)[];
+
+export type approvalsCollectionOutputIncludeInput = {
+	"offers"?: (approvalsoffersRelationFieldArguments & { "fields"?: offersCollectionOutputFieldsInput; "include"?: offersCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (approvalsoffersRelationFieldArguments & { "fields"?: offersCollectionOutputFieldsInput; "include"?: offersCollectionOutputIncludeInput })>]?: never };
+	"role_requests"?: (approvalsrole_requestsRelationFieldArguments & { "fields"?: roleRequestsCollectionOutputFieldsInput; "include"?: roleRequestsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (approvalsrole_requestsRelationFieldArguments & { "fields"?: roleRequestsCollectionOutputFieldsInput; "include"?: roleRequestsCollectionOutputIncludeInput })>]?: never };
+	"workforce_plan_roles"?: (approvalsworkforce_plan_rolesRelationFieldArguments & { "fields"?: workforcePlanRolesCollectionOutputFieldsInput; "include"?: workforcePlanRolesCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (approvalsworkforce_plan_rolesRelationFieldArguments & { "fields"?: workforcePlanRolesCollectionOutputFieldsInput; "include"?: workforcePlanRolesCollectionOutputIncludeInput })>]?: never };
+} & { [K in `${string}:${"offers"}`]?: approvalsCollectionOutputIncludeInput["offers"] } & { [K in `${string}:${"role_requests"}`]?: approvalsCollectionOutputIncludeInput["role_requests"] } & { [K in `${string}:${"workforce_plan_roles"}`]?: approvalsCollectionOutputIncludeInput["workforce_plan_roles"] };
+
+export type approvalsCreateArguments = {
+	data: readonly approvalsCreateInput[];
+}
+
+export type approvalsCreateInput = {
+	approverRole: string;
+	approverUserId?: Uuid | null;
+	createdAt?: string;
+	decidedAt?: string | null;
+	decision?: string;
+	id?: Uuid;
+	note?: string | null;
+	offers?: approvalsoffersCreateRelatedInput;
+	role_requests?: approvalsrole_requestsCreateRelatedInput;
+	step: number;
+	workforce_plan_roles?: approvalsworkforce_plan_rolesCreateRelatedInput;
+}
+
+export type approvalsDeleteArguments = {
+	filter?: approvalsFilterInput;
+}
+
+export type approvalsDeleteOneArguments = {
+	filter?: approvalsFilterInput;
+	key: Uuid;
+}
+
+export type approvalsDisconnectManyInput = {
+	filter?: approvalsFilterInput;
+}
+
+export type approvalsFilterInput = {
+	_and?: readonly approvalsFilterInput[];
+	_not?: approvalsFilterInput;
+	_or?: readonly approvalsFilterInput[];
+	approverRole?: StringFilterPrimitiveInput | string;
+	approverUserId?: UuidFilterNullablePrimitiveInput | Uuid | null;
+	createdAt?: DateTimeFilterPrimitiveInput | string;
+	decidedAt?: DateTimeFilterNullablePrimitiveInput | string | null;
+	decision?: StringFilterPrimitiveInput | string;
+	id?: UuidFilterPrimitiveInput | Uuid;
+	note?: StringFilterNullablePrimitiveInput | string | null;
+	offerId?: UuidFilterNullablePrimitiveInput | Uuid | null;
+	offers?: offersFilterInput;
+	roleRequestId?: UuidFilterNullablePrimitiveInput | Uuid | null;
+	role_requests?: roleRequestsFilterInput;
+	step?: IntegerFilterPrimitiveInput | number;
+	workforcePlanRoleId?: UuidFilterNullablePrimitiveInput | Uuid | null;
+	workforce_plan_roles?: workforcePlanRolesFilterInput;
+}
+
+export type approvalsFilterQuantifierInput = {
+	_every?: approvalsFilterInput;
+	_none?: approvalsFilterInput;
+	_some?: approvalsFilterInput;
+}
+
+export type approvalsListArguments = {
+	filter?: approvalsFilterInput;
+	limit?: Int64Input;
+	meta?: MetaArguments;
+	offset?: UInt64Input;
+	sort?: readonly approvalsSortSpecifier[];
+}
+
+export type approvalsReadArguments = {
+	filter?: approvalsFilterInput;
+	key: Uuid;
+}
+
+export type approvalsSortSpecifier = {
+	approverRole?: SortFieldOptions;
+	approverUserId?: SortFieldOptions;
+	createdAt?: SortFieldOptions;
+	decidedAt?: SortFieldOptions;
+	decision?: SortFieldOptions;
+	id?: SortFieldOptions;
+	note?: SortFieldOptions;
+	offerId?: SortFieldOptions;
+	roleRequestId?: SortFieldOptions;
+	step?: SortFieldOptions;
+	workforcePlanRoleId?: SortFieldOptions;
+}
+
+export type approvalsUpdateArguments = {
+	data: approvalsUpdateDataInput;
+	filter?: approvalsFilterInput;
+}
+
+export type approvalsUpdateDataInput = {
+	approverRole?: string;
+	approverUserId?: Uuid | null;
+	createdAt?: string;
+	decidedAt?: string | null;
+	decision?: string;
+	id?: Uuid;
+	note?: string | null;
+	offerId?: Uuid | null;
+	offers?: readonly approvalsoffersUpdateOneRelatedOperationsInput[];
+	roleRequestId?: Uuid | null;
+	role_requests?: readonly approvalsrole_requestsUpdateOneRelatedOperationsInput[];
+	step?: number;
+	workforcePlanRoleId?: Uuid | null;
+	workforce_plan_roles?: readonly approvalsworkforce_plan_rolesUpdateOneRelatedOperationsInput[];
+}
+
+export type approvalsUpdateInput = {
+	data: approvalsUpdateDataInput;
+	filter?: approvalsFilterInput;
+}
+
+export type approvalsUpdateOneArguments = {
+	data: approvalsUpdateDataInput;
+	filter?: approvalsFilterInput;
+	key: Uuid;
+}
+
+export type approvalsoffersConnectForwardKeyInput = {
+	id: Uuid | null;
+}
+
+export type approvalsoffersConnectInput = {
+	key: approvalsoffersConnectForwardKeyInput;
+}
+
+export type approvalsoffersCreateArguments = {
+	data: approvalsoffersCreateRelatedWithoutTypeInput;
+}
+
+export type approvalsoffersCreateRelatedInput = {
+	_connect?: approvalsoffersConnectInput;
+	_create?: approvalsoffersCreateArguments;
+}
+
+export type approvalsoffersCreateRelatedWithoutTypeInput = {
+	applications: offersapplicationsCreateRelatedInput;
+	baseSalary?: string | null;
+	candidateIntro?: string | null;
+	createdAt?: string;
+	createdBy?: offerscreatedByCreateRelatedInput;
+	currency?: string;
+	equityUnits?: number | null;
+	id?: Uuid;
+	proposedStartDate?: string | null;
+	searchOverview?: string | null;
+	status?: string;
+	updatedAt?: string;
+	updatedBy?: offersupdatedByCreateRelatedInput;
+}
+
+export type approvalsoffersRelationFieldArguments = {
+	filter?: offersFilterInput;
+}
+
+export type approvalsoffersUpdateOneRelatedOperationsInput = {
+	_connect?: approvalsoffersConnectInput;
+	_create?: approvalsoffersCreateArguments;
+	_delete?: offersDeleteArguments;
+	_disconnect?: offersDisconnectOneInput;
+	_update?: offersUpdateInput;
+}
+
+export type approvalsrole_requestsConnectForwardKeyInput = {
+	id: Uuid | null;
+}
+
+export type approvalsrole_requestsConnectInput = {
+	key: approvalsrole_requestsConnectForwardKeyInput;
+}
+
+export type approvalsrole_requestsCreateArguments = {
+	data: approvalsrole_requestsCreateRelatedWithoutTypeInput;
+}
+
+export type approvalsrole_requestsCreateRelatedInput = {
+	_connect?: approvalsrole_requestsConnectInput;
+	_create?: approvalsrole_requestsCreateArguments;
+}
+
+export type approvalsrole_requestsCreateRelatedWithoutTypeInput = {
+	approvedBaseMax?: string | null;
+	approvedBaseMin?: string | null;
+	approvedCurrency?: string | null;
+	approvedEquityUnits?: number | null;
+	approvedVariableMax?: string | null;
+	approvedVariableMin?: string | null;
+	businessJustification?: string | null;
+	compMax?: string | null;
+	compMin?: string | null;
+	createdAt?: string;
+	createdBy?: roleRequestscreatedByCreateRelatedInput;
+	currency?: string;
+	decidedAt?: string | null;
+	decidedByUserId?: Uuid | null;
+	decisionNote?: string | null;
+	departments: roleRequestsdepartmentsCreateRelatedInput;
+	employmentType?: string;
+	hiringManagerUserId?: Uuid | null;
+	hiringReason?: string;
+	hiringReasonDetail?: string | null;
+	id?: Uuid;
+	job_levels?: roleRequestsjob_levelsCreateRelatedInput;
+	locations?: string | null;
+	numberOfHires?: number;
+	requesterUserId?: Uuid | null;
+	requisitions?: roleRequestsrequisitionsCreateRelatedInput;
+	roleName: string;
+	status?: string;
+	updatedAt?: string;
+	updatedBy?: roleRequestsupdatedByCreateRelatedInput;
+	urgency?: string;
+	urgencyImpact?: string | null;
+	workforce_plan_roles?: roleRequestsworkforce_plan_rolesCreateRelatedInput;
+}
+
+export type approvalsrole_requestsRelationFieldArguments = {
+	filter?: roleRequestsFilterInput;
+}
+
+export type approvalsrole_requestsUpdateOneRelatedOperationsInput = {
+	_connect?: approvalsrole_requestsConnectInput;
+	_create?: approvalsrole_requestsCreateArguments;
+	_delete?: roleRequestsDeleteArguments;
+	_disconnect?: roleRequestsDisconnectOneInput;
+	_update?: roleRequestsUpdateInput;
+}
+
+export type approvalsworkforce_plan_rolesConnectForwardKeyInput = {
+	id: Uuid | null;
+}
+
+export type approvalsworkforce_plan_rolesConnectInput = {
+	key: approvalsworkforce_plan_rolesConnectForwardKeyInput;
+}
+
+export type approvalsworkforce_plan_rolesCreateArguments = {
+	data: approvalsworkforce_plan_rolesCreateRelatedWithoutTypeInput;
+}
+
+export type approvalsworkforce_plan_rolesCreateRelatedInput = {
+	_connect?: approvalsworkforce_plan_rolesConnectInput;
+	_create?: approvalsworkforce_plan_rolesCreateArguments;
+}
+
+export type approvalsworkforce_plan_rolesCreateRelatedWithoutTypeInput = {
+	approvedHeadcount?: number | null;
+	budgetAmount?: string | null;
+	createdAt?: string;
+	createdBy?: workforcePlanRolescreatedByCreateRelatedInput;
+	currency?: string;
+	currentHeadcount?: number;
+	departments: workforcePlanRolesdepartmentsCreateRelatedInput;
+	employmentType?: string;
+	hireType?: string;
+	id?: Uuid;
+	job_levels?: workforcePlanRolesjob_levelsCreateRelatedInput;
+	locations?: string | null;
+	planYear: number;
+	plannedHeadcount?: number;
+	roleName: string;
+	role_requests?: readonly workforcePlanRolesrole_requestsCreateRelatedInput[];
+	status?: string;
+	team?: string | null;
+	updatedAt?: string;
+	updatedBy?: workforcePlanRolesupdatedByCreateRelatedInput;
+}
+
+export type approvalsworkforce_plan_rolesRelationFieldArguments = {
+	filter?: workforcePlanRolesFilterInput;
+}
+
+export type approvalsworkforce_plan_rolesUpdateOneRelatedOperationsInput = {
+	_connect?: approvalsworkforce_plan_rolesConnectInput;
+	_create?: approvalsworkforce_plan_rolesCreateArguments;
+	_delete?: workforcePlanRolesDeleteArguments;
+	_disconnect?: workforcePlanRolesDisconnectOneInput;
+	_update?: workforcePlanRolesUpdateInput;
 }
 
 export type attachmentsCollectionOutput = {
@@ -8110,7 +10473,15 @@ export type attachmentscreatedByCreateRelatedWithoutTypeInput = {
 	affiliationsCreatedBy?: readonly MonospaceSystemUseraffiliationsCreatedByCreateRelatedInput[];
 	affiliationsUpdatedBy?: readonly MonospaceSystemUseraffiliationsUpdatedByCreateRelatedInput[];
 	appearance?: string | null;
+	applicationsCreatedBy?: readonly MonospaceSystemUserapplicationsCreatedByCreateRelatedInput[];
+	applicationsUpdatedBy?: readonly MonospaceSystemUserapplicationsUpdatedByCreateRelatedInput[];
 	avatarId?: Uuid | null;
+	candidateFilesCreatedBy?: readonly MonospaceSystemUsercandidateFilesCreatedByCreateRelatedInput[];
+	candidateMessagesCreatedBy?: readonly MonospaceSystemUsercandidateMessagesCreatedByCreateRelatedInput[];
+	candidateNotesCreatedBy?: readonly MonospaceSystemUsercandidateNotesCreatedByCreateRelatedInput[];
+	candidateNotesUpdatedBy?: readonly MonospaceSystemUsercandidateNotesUpdatedByCreateRelatedInput[];
+	candidatesCreatedBy?: readonly MonospaceSystemUsercandidatesCreatedByCreateRelatedInput[];
+	candidatesUpdatedBy?: readonly MonospaceSystemUsercandidatesUpdatedByCreateRelatedInput[];
 	contactsCreatedBy?: readonly MonospaceSystemUsercontactsCreatedByCreateRelatedInput[];
 	contactsOwner?: readonly MonospaceSystemUsercontactsOwnerCreateRelatedInput[];
 	contactsUpdatedBy?: readonly MonospaceSystemUsercontactsUpdatedByCreateRelatedInput[];
@@ -8118,17 +10489,31 @@ export type attachmentscreatedByCreateRelatedWithoutTypeInput = {
 	dealsOwner?: readonly MonospaceSystemUserdealsOwnerCreateRelatedInput[];
 	dealsUpdatedBy?: readonly MonospaceSystemUserdealsUpdatedByCreateRelatedInput[];
 	email?: string | null;
+	emailTemplatesCreatedBy?: readonly MonospaceSystemUseremailTemplatesCreatedByCreateRelatedInput[];
+	emailTemplatesUpdatedBy?: readonly MonospaceSystemUseremailTemplatesUpdatedByCreateRelatedInput[];
 	fullName?: string | null;
 	id: Uuid;
+	interviewsCreatedBy?: readonly MonospaceSystemUserinterviewsCreatedByCreateRelatedInput[];
+	interviewsUpdatedBy?: readonly MonospaceSystemUserinterviewsUpdatedByCreateRelatedInput[];
 	isService: boolean;
 	lastActivityAt?: string | null;
+	offersCreatedBy?: readonly MonospaceSystemUseroffersCreatedByCreateRelatedInput[];
+	offersUpdatedBy?: readonly MonospaceSystemUseroffersUpdatedByCreateRelatedInput[];
 	organizationsCreatedBy?: readonly MonospaceSystemUserorganizationsCreatedByCreateRelatedInput[];
 	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
 	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
+	requisitionsCreatedBy?: readonly MonospaceSystemUserrequisitionsCreatedByCreateRelatedInput[];
+	requisitionsUpdatedBy?: readonly MonospaceSystemUserrequisitionsUpdatedByCreateRelatedInput[];
+	roleRequestsCreatedBy?: readonly MonospaceSystemUserroleRequestsCreatedByCreateRelatedInput[];
+	roleRequestsUpdatedBy?: readonly MonospaceSystemUserroleRequestsUpdatedByCreateRelatedInput[];
 	roles?: readonly MonospaceSystemUserrolesCreateRelatedInput[];
+	scorecardsCreatedBy?: readonly MonospaceSystemUserscorecardsCreatedByCreateRelatedInput[];
+	scorecardsUpdatedBy?: readonly MonospaceSystemUserscorecardsUpdatedByCreateRelatedInput[];
 	serviceOwnerId?: Uuid | null;
 	status?: string;
 	storageValues?: readonly MonospaceSystemUserstorageValuesCreateRelatedInput[];
+	workforcePlanRolesCreatedBy?: readonly MonospaceSystemUserworkforcePlanRolesCreatedByCreateRelatedInput[];
+	workforcePlanRolesUpdatedBy?: readonly MonospaceSystemUserworkforcePlanRolesUpdatedByCreateRelatedInput[];
 }
 
 export type attachmentscreatedByRelationFieldArguments = {
@@ -8231,6 +10616,2143 @@ export type attachmentsorganizationUpdateOneRelatedOperationsInput = {
 	_connect?: attachmentsorganizationConnectInput;
 	_create?: attachmentsorganizationCreateArguments;
 	_update?: organizationsUpdateInput;
+}
+
+export type auditEventsCollectionOutput = {
+	action?: string;
+	actorUserId?: Uuid | null;
+	candidateId?: Uuid | null;
+	changes?: JsonValue;
+	id?: Uuid;
+	occurredAt?: string;
+	recordId?: Uuid;
+	tableName?: string;
+}
+
+export type auditEventsCollectionOutputFieldsInput = readonly ("action" | "actorUserId" | "candidateId" | "changes" | "id" | "occurredAt" | "recordId" | "tableName" | "*" | `${string}:${"action" | "actorUserId" | "candidateId" | "changes" | "id" | "occurredAt" | "recordId" | "tableName"}`)[];
+
+export type auditEventsCollectionOutputIncludeInput = Record<string, never>;
+
+export type auditEventsCreateArguments = {
+	data: readonly auditEventsCreateInput[];
+}
+
+export type auditEventsCreateInput = {
+	action: string;
+	actorUserId?: Uuid | null;
+	candidateId?: Uuid | null;
+	changes?: ReadonlyJsonValue;
+	id?: Uuid;
+	occurredAt?: string;
+	recordId: Uuid;
+	tableName: string;
+}
+
+export type auditEventsDeleteArguments = {
+	filter?: auditEventsFilterInput;
+}
+
+export type auditEventsDeleteOneArguments = {
+	filter?: auditEventsFilterInput;
+	key: Uuid;
+}
+
+export type auditEventsFilterInput = {
+	_and?: readonly auditEventsFilterInput[];
+	_not?: auditEventsFilterInput;
+	_or?: readonly auditEventsFilterInput[];
+	action?: StringFilterPrimitiveInput | string;
+	actorUserId?: UuidFilterNullablePrimitiveInput | Uuid | null;
+	candidateId?: UuidFilterNullablePrimitiveInput | Uuid | null;
+	changes?: JsonFilterPrimitiveInput;
+	id?: UuidFilterPrimitiveInput | Uuid;
+	occurredAt?: DateTimeFilterPrimitiveInput | string;
+	recordId?: UuidFilterPrimitiveInput | Uuid;
+	tableName?: StringFilterPrimitiveInput | string;
+}
+
+export type auditEventsListArguments = {
+	filter?: auditEventsFilterInput;
+	limit?: Int64Input;
+	meta?: MetaArguments;
+	offset?: UInt64Input;
+	sort?: readonly auditEventsSortSpecifier[];
+}
+
+export type auditEventsReadArguments = {
+	filter?: auditEventsFilterInput;
+	key: Uuid;
+}
+
+export type auditEventsSortSpecifier = {
+	action?: SortFieldOptions;
+	actorUserId?: SortFieldOptions;
+	candidateId?: SortFieldOptions;
+	changes?: SortFieldOptions;
+	id?: SortFieldOptions;
+	occurredAt?: SortFieldOptions;
+	recordId?: SortFieldOptions;
+	tableName?: SortFieldOptions;
+}
+
+export type auditEventsUpdateArguments = {
+	data: auditEventsUpdateDataInput;
+	filter?: auditEventsFilterInput;
+}
+
+export type auditEventsUpdateDataInput = {
+	action?: string;
+	actorUserId?: Uuid | null;
+	candidateId?: Uuid | null;
+	changes?: ReadonlyJsonValue;
+	id?: Uuid;
+	occurredAt?: string;
+	recordId?: Uuid;
+	tableName?: string;
+}
+
+export type auditEventsUpdateOneArguments = {
+	data: auditEventsUpdateDataInput;
+	filter?: auditEventsFilterInput;
+	key: Uuid;
+}
+
+export type candidateFilesCollectionOutput = {
+	assetId?: Uuid | null;
+	candidateId?: Uuid;
+	candidates?: candidatesCollectionOutput;
+	contentType?: string | null;
+	createdAt?: string;
+	createdBy?: MonospaceSystemUserCollectionOutput | null;
+	createdById?: Uuid | null;
+	fileName?: string;
+	id?: Uuid;
+	kind?: string;
+	url?: string | null;
+}
+
+export type candidateFilesCollectionOutputFieldsInput = readonly ("assetId" | "candidateId" | "contentType" | "createdAt" | "createdById" | "fileName" | "id" | "kind" | "url" | "*" | `${string}:${"assetId" | "candidateId" | "contentType" | "createdAt" | "createdById" | "fileName" | "id" | "kind" | "url"}`)[];
+
+export type candidateFilesCollectionOutputIncludeInput = {
+	"candidates"?: ({ "fields"?: candidatesCollectionOutputFieldsInput; "include"?: candidatesCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof ({ "fields"?: candidatesCollectionOutputFieldsInput; "include"?: candidatesCollectionOutputIncludeInput })>]?: never };
+	"createdBy"?: (candidateFilescreatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (candidateFilescreatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput })>]?: never };
+} & { [K in `${string}:${"candidates"}`]?: candidateFilesCollectionOutputIncludeInput["candidates"] } & { [K in `${string}:${"createdBy"}`]?: candidateFilesCollectionOutputIncludeInput["createdBy"] };
+
+export type candidateFilesCreateArguments = {
+	data: readonly candidateFilesCreateInput[];
+}
+
+export type candidateFilesCreateInput = {
+	assetId?: Uuid | null;
+	candidates: candidateFilescandidatesCreateRelatedInput;
+	contentType?: string | null;
+	createdAt?: string;
+	createdBy?: candidateFilescreatedByCreateRelatedInput;
+	fileName: string;
+	id?: Uuid;
+	kind?: string;
+	url?: string | null;
+}
+
+export type candidateFilesDeleteArguments = {
+	filter?: candidateFilesFilterInput;
+}
+
+export type candidateFilesDeleteOneArguments = {
+	filter?: candidateFilesFilterInput;
+	key: Uuid;
+}
+
+export type candidateFilesDisconnectManyInput = {
+	filter?: candidateFilesFilterInput;
+}
+
+export type candidateFilesFilterInput = {
+	_and?: readonly candidateFilesFilterInput[];
+	_not?: candidateFilesFilterInput;
+	_or?: readonly candidateFilesFilterInput[];
+	assetId?: UuidFilterNullablePrimitiveInput | Uuid | null;
+	candidateId?: UuidFilterPrimitiveInput | Uuid;
+	candidates?: candidatesFilterInput;
+	contentType?: StringFilterNullablePrimitiveInput | string | null;
+	createdAt?: DateTimeFilterPrimitiveInput | string;
+	createdBy?: MonospaceSystemUserFilterInput;
+	createdById?: UuidFilterNullablePrimitiveInput | Uuid | null;
+	fileName?: StringFilterPrimitiveInput | string;
+	id?: UuidFilterPrimitiveInput | Uuid;
+	kind?: StringFilterPrimitiveInput | string;
+	url?: StringFilterNullablePrimitiveInput | string | null;
+}
+
+export type candidateFilesFilterQuantifierInput = {
+	_every?: candidateFilesFilterInput;
+	_none?: candidateFilesFilterInput;
+	_some?: candidateFilesFilterInput;
+}
+
+export type candidateFilesListArguments = {
+	filter?: candidateFilesFilterInput;
+	limit?: Int64Input;
+	meta?: MetaArguments;
+	offset?: UInt64Input;
+	sort?: readonly candidateFilesSortSpecifier[];
+}
+
+export type candidateFilesReadArguments = {
+	filter?: candidateFilesFilterInput;
+	key: Uuid;
+}
+
+export type candidateFilesSortSpecifier = {
+	assetId?: SortFieldOptions;
+	candidateId?: SortFieldOptions;
+	contentType?: SortFieldOptions;
+	createdAt?: SortFieldOptions;
+	createdById?: SortFieldOptions;
+	fileName?: SortFieldOptions;
+	id?: SortFieldOptions;
+	kind?: SortFieldOptions;
+	url?: SortFieldOptions;
+}
+
+export type candidateFilesUpdateArguments = {
+	data: candidateFilesUpdateDataInput;
+	filter?: candidateFilesFilterInput;
+}
+
+export type candidateFilesUpdateDataInput = {
+	assetId?: Uuid | null;
+	candidateId?: Uuid;
+	candidates?: readonly candidateFilescandidatesUpdateOneRelatedOperationsInput[];
+	contentType?: string | null;
+	createdAt?: string;
+	createdBy?: readonly candidateFilescreatedByUpdateOneRelatedOperationsInput[];
+	createdById?: Uuid | null;
+	fileName?: string;
+	id?: Uuid;
+	kind?: string;
+	url?: string | null;
+}
+
+export type candidateFilesUpdateInput = {
+	data: candidateFilesUpdateDataInput;
+	filter?: candidateFilesFilterInput;
+}
+
+export type candidateFilesUpdateOneArguments = {
+	data: candidateFilesUpdateDataInput;
+	filter?: candidateFilesFilterInput;
+	key: Uuid;
+}
+
+export type candidateFilescandidatesConnectForwardKeyInput = {
+	id: Uuid;
+}
+
+export type candidateFilescandidatesConnectInput = {
+	key: candidateFilescandidatesConnectForwardKeyInput;
+}
+
+export type candidateFilescandidatesCreateArguments = {
+	data: candidateFilescandidatesCreateRelatedWithoutTypeInput;
+}
+
+export type candidateFilescandidatesCreateRelatedInput = {
+	_connect?: candidateFilescandidatesConnectInput;
+	_create?: candidateFilescandidatesCreateArguments;
+}
+
+export type candidateFilescandidatesCreateRelatedWithoutTypeInput = {
+	applications?: readonly candidatesapplicationsCreateRelatedInput[];
+	candidate_messages?: readonly candidatescandidate_messagesCreateRelatedInput[];
+	candidate_notes?: readonly candidatescandidate_notesCreateRelatedInput[];
+	city?: string | null;
+	consentAt?: string | null;
+	country?: string | null;
+	createdAt?: string;
+	createdBy?: candidatescreatedByCreateRelatedInput;
+	email: string;
+	firstName: string;
+	githubUrl?: string | null;
+	id?: Uuid;
+	inTalentPool?: boolean;
+	lastName: string;
+	linkedinUrl?: string | null;
+	needsSponsorship?: boolean | null;
+	phone?: string | null;
+	portfolioUrl?: string | null;
+	privacyNoticeSentAt?: string | null;
+	public_applications?: readonly candidatespublic_applicationsCreateRelatedInput[];
+	referrerUserId?: Uuid | null;
+	retainUntil?: string | null;
+	source?: string;
+	sourceDetail?: string | null;
+	tags?: string | null;
+	updatedAt?: string;
+	updatedBy?: candidatesupdatedByCreateRelatedInput;
+	workAuthorized?: boolean | null;
+}
+
+export type candidateFilescandidatesUpdateOneRelatedOperationsInput = {
+	_connect?: candidateFilescandidatesConnectInput;
+	_create?: candidateFilescandidatesCreateArguments;
+	_update?: candidatesUpdateInput;
+}
+
+export type candidateFilescreatedByConnectForwardKeyInput = {
+	id: Uuid | null;
+}
+
+export type candidateFilescreatedByConnectInput = {
+	key: candidateFilescreatedByConnectForwardKeyInput;
+}
+
+export type candidateFilescreatedByCreateArguments = {
+	data: candidateFilescreatedByCreateRelatedWithoutTypeInput;
+}
+
+export type candidateFilescreatedByCreateRelatedInput = {
+	_connect?: candidateFilescreatedByConnectInput;
+	_create?: candidateFilescreatedByCreateArguments;
+}
+
+export type candidateFilescreatedByCreateRelatedWithoutTypeInput = {
+	activitiesCreatedBy?: readonly MonospaceSystemUseractivitiesCreatedByCreateRelatedInput[];
+	activitiesOwner?: readonly MonospaceSystemUseractivitiesOwnerCreateRelatedInput[];
+	activitiesUpdatedBy?: readonly MonospaceSystemUseractivitiesUpdatedByCreateRelatedInput[];
+	affiliationsCreatedBy?: readonly MonospaceSystemUseraffiliationsCreatedByCreateRelatedInput[];
+	affiliationsUpdatedBy?: readonly MonospaceSystemUseraffiliationsUpdatedByCreateRelatedInput[];
+	appearance?: string | null;
+	applicationsCreatedBy?: readonly MonospaceSystemUserapplicationsCreatedByCreateRelatedInput[];
+	applicationsUpdatedBy?: readonly MonospaceSystemUserapplicationsUpdatedByCreateRelatedInput[];
+	attachmentsCreatedBy?: readonly MonospaceSystemUserattachmentsCreatedByCreateRelatedInput[];
+	avatarId?: Uuid | null;
+	candidateMessagesCreatedBy?: readonly MonospaceSystemUsercandidateMessagesCreatedByCreateRelatedInput[];
+	candidateNotesCreatedBy?: readonly MonospaceSystemUsercandidateNotesCreatedByCreateRelatedInput[];
+	candidateNotesUpdatedBy?: readonly MonospaceSystemUsercandidateNotesUpdatedByCreateRelatedInput[];
+	candidatesCreatedBy?: readonly MonospaceSystemUsercandidatesCreatedByCreateRelatedInput[];
+	candidatesUpdatedBy?: readonly MonospaceSystemUsercandidatesUpdatedByCreateRelatedInput[];
+	contactsCreatedBy?: readonly MonospaceSystemUsercontactsCreatedByCreateRelatedInput[];
+	contactsOwner?: readonly MonospaceSystemUsercontactsOwnerCreateRelatedInput[];
+	contactsUpdatedBy?: readonly MonospaceSystemUsercontactsUpdatedByCreateRelatedInput[];
+	dealsCreatedBy?: readonly MonospaceSystemUserdealsCreatedByCreateRelatedInput[];
+	dealsOwner?: readonly MonospaceSystemUserdealsOwnerCreateRelatedInput[];
+	dealsUpdatedBy?: readonly MonospaceSystemUserdealsUpdatedByCreateRelatedInput[];
+	email?: string | null;
+	emailTemplatesCreatedBy?: readonly MonospaceSystemUseremailTemplatesCreatedByCreateRelatedInput[];
+	emailTemplatesUpdatedBy?: readonly MonospaceSystemUseremailTemplatesUpdatedByCreateRelatedInput[];
+	fullName?: string | null;
+	id: Uuid;
+	interviewsCreatedBy?: readonly MonospaceSystemUserinterviewsCreatedByCreateRelatedInput[];
+	interviewsUpdatedBy?: readonly MonospaceSystemUserinterviewsUpdatedByCreateRelatedInput[];
+	isService: boolean;
+	lastActivityAt?: string | null;
+	offersCreatedBy?: readonly MonospaceSystemUseroffersCreatedByCreateRelatedInput[];
+	offersUpdatedBy?: readonly MonospaceSystemUseroffersUpdatedByCreateRelatedInput[];
+	organizationsCreatedBy?: readonly MonospaceSystemUserorganizationsCreatedByCreateRelatedInput[];
+	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
+	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
+	requisitionsCreatedBy?: readonly MonospaceSystemUserrequisitionsCreatedByCreateRelatedInput[];
+	requisitionsUpdatedBy?: readonly MonospaceSystemUserrequisitionsUpdatedByCreateRelatedInput[];
+	roleRequestsCreatedBy?: readonly MonospaceSystemUserroleRequestsCreatedByCreateRelatedInput[];
+	roleRequestsUpdatedBy?: readonly MonospaceSystemUserroleRequestsUpdatedByCreateRelatedInput[];
+	roles?: readonly MonospaceSystemUserrolesCreateRelatedInput[];
+	scorecardsCreatedBy?: readonly MonospaceSystemUserscorecardsCreatedByCreateRelatedInput[];
+	scorecardsUpdatedBy?: readonly MonospaceSystemUserscorecardsUpdatedByCreateRelatedInput[];
+	serviceOwnerId?: Uuid | null;
+	status?: string;
+	storageValues?: readonly MonospaceSystemUserstorageValuesCreateRelatedInput[];
+	workforcePlanRolesCreatedBy?: readonly MonospaceSystemUserworkforcePlanRolesCreatedByCreateRelatedInput[];
+	workforcePlanRolesUpdatedBy?: readonly MonospaceSystemUserworkforcePlanRolesUpdatedByCreateRelatedInput[];
+}
+
+export type candidateFilescreatedByRelationFieldArguments = {
+	filter?: MonospaceSystemUserFilterInput;
+}
+
+export type candidateFilescreatedByUpdateOneRelatedOperationsInput = {
+	_connect?: candidateFilescreatedByConnectInput;
+	_create?: candidateFilescreatedByCreateArguments;
+	_delete?: MonospaceSystemUserDeleteArguments;
+	_disconnect?: MonospaceSystemUserDisconnectOneInput;
+	_update?: MonospaceSystemUserUpdateInput;
+}
+
+export type candidateMessagesCollectionOutput = {
+	body?: string | null;
+	candidateId?: Uuid;
+	candidates?: candidatesCollectionOutput;
+	createdAt?: string;
+	createdBy?: MonospaceSystemUserCollectionOutput | null;
+	createdById?: Uuid | null;
+	direction?: string;
+	id?: Uuid;
+	sendAt?: string;
+	status?: string;
+	subject?: string;
+}
+
+export type candidateMessagesCollectionOutputFieldsInput = readonly ("body" | "candidateId" | "createdAt" | "createdById" | "direction" | "id" | "sendAt" | "status" | "subject" | "*" | `${string}:${"body" | "candidateId" | "createdAt" | "createdById" | "direction" | "id" | "sendAt" | "status" | "subject"}`)[];
+
+export type candidateMessagesCollectionOutputIncludeInput = {
+	"candidates"?: ({ "fields"?: candidatesCollectionOutputFieldsInput; "include"?: candidatesCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof ({ "fields"?: candidatesCollectionOutputFieldsInput; "include"?: candidatesCollectionOutputIncludeInput })>]?: never };
+	"createdBy"?: (candidateMessagescreatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (candidateMessagescreatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput })>]?: never };
+} & { [K in `${string}:${"candidates"}`]?: candidateMessagesCollectionOutputIncludeInput["candidates"] } & { [K in `${string}:${"createdBy"}`]?: candidateMessagesCollectionOutputIncludeInput["createdBy"] };
+
+export type candidateMessagesCreateArguments = {
+	data: readonly candidateMessagesCreateInput[];
+}
+
+export type candidateMessagesCreateInput = {
+	body?: string | null;
+	candidates: candidateMessagescandidatesCreateRelatedInput;
+	createdAt?: string;
+	createdBy?: candidateMessagescreatedByCreateRelatedInput;
+	direction?: string;
+	id?: Uuid;
+	sendAt?: string;
+	status?: string;
+	subject: string;
+}
+
+export type candidateMessagesDeleteArguments = {
+	filter?: candidateMessagesFilterInput;
+}
+
+export type candidateMessagesDeleteOneArguments = {
+	filter?: candidateMessagesFilterInput;
+	key: Uuid;
+}
+
+export type candidateMessagesDisconnectManyInput = {
+	filter?: candidateMessagesFilterInput;
+}
+
+export type candidateMessagesFilterInput = {
+	_and?: readonly candidateMessagesFilterInput[];
+	_not?: candidateMessagesFilterInput;
+	_or?: readonly candidateMessagesFilterInput[];
+	body?: StringFilterNullablePrimitiveInput | string | null;
+	candidateId?: UuidFilterPrimitiveInput | Uuid;
+	candidates?: candidatesFilterInput;
+	createdAt?: DateTimeFilterPrimitiveInput | string;
+	createdBy?: MonospaceSystemUserFilterInput;
+	createdById?: UuidFilterNullablePrimitiveInput | Uuid | null;
+	direction?: StringFilterPrimitiveInput | string;
+	id?: UuidFilterPrimitiveInput | Uuid;
+	sendAt?: DateTimeFilterPrimitiveInput | string;
+	status?: StringFilterPrimitiveInput | string;
+	subject?: StringFilterPrimitiveInput | string;
+}
+
+export type candidateMessagesFilterQuantifierInput = {
+	_every?: candidateMessagesFilterInput;
+	_none?: candidateMessagesFilterInput;
+	_some?: candidateMessagesFilterInput;
+}
+
+export type candidateMessagesListArguments = {
+	filter?: candidateMessagesFilterInput;
+	limit?: Int64Input;
+	meta?: MetaArguments;
+	offset?: UInt64Input;
+	sort?: readonly candidateMessagesSortSpecifier[];
+}
+
+export type candidateMessagesReadArguments = {
+	filter?: candidateMessagesFilterInput;
+	key: Uuid;
+}
+
+export type candidateMessagesSortSpecifier = {
+	body?: SortFieldOptions;
+	candidateId?: SortFieldOptions;
+	createdAt?: SortFieldOptions;
+	createdById?: SortFieldOptions;
+	direction?: SortFieldOptions;
+	id?: SortFieldOptions;
+	sendAt?: SortFieldOptions;
+	status?: SortFieldOptions;
+	subject?: SortFieldOptions;
+}
+
+export type candidateMessagesUpdateArguments = {
+	data: candidateMessagesUpdateDataInput;
+	filter?: candidateMessagesFilterInput;
+}
+
+export type candidateMessagesUpdateDataInput = {
+	body?: string | null;
+	candidateId?: Uuid;
+	candidates?: readonly candidateMessagescandidatesUpdateOneRelatedOperationsInput[];
+	createdAt?: string;
+	createdBy?: readonly candidateMessagescreatedByUpdateOneRelatedOperationsInput[];
+	createdById?: Uuid | null;
+	direction?: string;
+	id?: Uuid;
+	sendAt?: string;
+	status?: string;
+	subject?: string;
+}
+
+export type candidateMessagesUpdateInput = {
+	data: candidateMessagesUpdateDataInput;
+	filter?: candidateMessagesFilterInput;
+}
+
+export type candidateMessagesUpdateOneArguments = {
+	data: candidateMessagesUpdateDataInput;
+	filter?: candidateMessagesFilterInput;
+	key: Uuid;
+}
+
+export type candidateMessagescandidatesConnectForwardKeyInput = {
+	id: Uuid;
+}
+
+export type candidateMessagescandidatesConnectInput = {
+	key: candidateMessagescandidatesConnectForwardKeyInput;
+}
+
+export type candidateMessagescandidatesCreateArguments = {
+	data: candidateMessagescandidatesCreateRelatedWithoutTypeInput;
+}
+
+export type candidateMessagescandidatesCreateRelatedInput = {
+	_connect?: candidateMessagescandidatesConnectInput;
+	_create?: candidateMessagescandidatesCreateArguments;
+}
+
+export type candidateMessagescandidatesCreateRelatedWithoutTypeInput = {
+	applications?: readonly candidatesapplicationsCreateRelatedInput[];
+	candidate_files?: readonly candidatescandidate_filesCreateRelatedInput[];
+	candidate_notes?: readonly candidatescandidate_notesCreateRelatedInput[];
+	city?: string | null;
+	consentAt?: string | null;
+	country?: string | null;
+	createdAt?: string;
+	createdBy?: candidatescreatedByCreateRelatedInput;
+	email: string;
+	firstName: string;
+	githubUrl?: string | null;
+	id?: Uuid;
+	inTalentPool?: boolean;
+	lastName: string;
+	linkedinUrl?: string | null;
+	needsSponsorship?: boolean | null;
+	phone?: string | null;
+	portfolioUrl?: string | null;
+	privacyNoticeSentAt?: string | null;
+	public_applications?: readonly candidatespublic_applicationsCreateRelatedInput[];
+	referrerUserId?: Uuid | null;
+	retainUntil?: string | null;
+	source?: string;
+	sourceDetail?: string | null;
+	tags?: string | null;
+	updatedAt?: string;
+	updatedBy?: candidatesupdatedByCreateRelatedInput;
+	workAuthorized?: boolean | null;
+}
+
+export type candidateMessagescandidatesUpdateOneRelatedOperationsInput = {
+	_connect?: candidateMessagescandidatesConnectInput;
+	_create?: candidateMessagescandidatesCreateArguments;
+	_update?: candidatesUpdateInput;
+}
+
+export type candidateMessagescreatedByConnectForwardKeyInput = {
+	id: Uuid | null;
+}
+
+export type candidateMessagescreatedByConnectInput = {
+	key: candidateMessagescreatedByConnectForwardKeyInput;
+}
+
+export type candidateMessagescreatedByCreateArguments = {
+	data: candidateMessagescreatedByCreateRelatedWithoutTypeInput;
+}
+
+export type candidateMessagescreatedByCreateRelatedInput = {
+	_connect?: candidateMessagescreatedByConnectInput;
+	_create?: candidateMessagescreatedByCreateArguments;
+}
+
+export type candidateMessagescreatedByCreateRelatedWithoutTypeInput = {
+	activitiesCreatedBy?: readonly MonospaceSystemUseractivitiesCreatedByCreateRelatedInput[];
+	activitiesOwner?: readonly MonospaceSystemUseractivitiesOwnerCreateRelatedInput[];
+	activitiesUpdatedBy?: readonly MonospaceSystemUseractivitiesUpdatedByCreateRelatedInput[];
+	affiliationsCreatedBy?: readonly MonospaceSystemUseraffiliationsCreatedByCreateRelatedInput[];
+	affiliationsUpdatedBy?: readonly MonospaceSystemUseraffiliationsUpdatedByCreateRelatedInput[];
+	appearance?: string | null;
+	applicationsCreatedBy?: readonly MonospaceSystemUserapplicationsCreatedByCreateRelatedInput[];
+	applicationsUpdatedBy?: readonly MonospaceSystemUserapplicationsUpdatedByCreateRelatedInput[];
+	attachmentsCreatedBy?: readonly MonospaceSystemUserattachmentsCreatedByCreateRelatedInput[];
+	avatarId?: Uuid | null;
+	candidateFilesCreatedBy?: readonly MonospaceSystemUsercandidateFilesCreatedByCreateRelatedInput[];
+	candidateNotesCreatedBy?: readonly MonospaceSystemUsercandidateNotesCreatedByCreateRelatedInput[];
+	candidateNotesUpdatedBy?: readonly MonospaceSystemUsercandidateNotesUpdatedByCreateRelatedInput[];
+	candidatesCreatedBy?: readonly MonospaceSystemUsercandidatesCreatedByCreateRelatedInput[];
+	candidatesUpdatedBy?: readonly MonospaceSystemUsercandidatesUpdatedByCreateRelatedInput[];
+	contactsCreatedBy?: readonly MonospaceSystemUsercontactsCreatedByCreateRelatedInput[];
+	contactsOwner?: readonly MonospaceSystemUsercontactsOwnerCreateRelatedInput[];
+	contactsUpdatedBy?: readonly MonospaceSystemUsercontactsUpdatedByCreateRelatedInput[];
+	dealsCreatedBy?: readonly MonospaceSystemUserdealsCreatedByCreateRelatedInput[];
+	dealsOwner?: readonly MonospaceSystemUserdealsOwnerCreateRelatedInput[];
+	dealsUpdatedBy?: readonly MonospaceSystemUserdealsUpdatedByCreateRelatedInput[];
+	email?: string | null;
+	emailTemplatesCreatedBy?: readonly MonospaceSystemUseremailTemplatesCreatedByCreateRelatedInput[];
+	emailTemplatesUpdatedBy?: readonly MonospaceSystemUseremailTemplatesUpdatedByCreateRelatedInput[];
+	fullName?: string | null;
+	id: Uuid;
+	interviewsCreatedBy?: readonly MonospaceSystemUserinterviewsCreatedByCreateRelatedInput[];
+	interviewsUpdatedBy?: readonly MonospaceSystemUserinterviewsUpdatedByCreateRelatedInput[];
+	isService: boolean;
+	lastActivityAt?: string | null;
+	offersCreatedBy?: readonly MonospaceSystemUseroffersCreatedByCreateRelatedInput[];
+	offersUpdatedBy?: readonly MonospaceSystemUseroffersUpdatedByCreateRelatedInput[];
+	organizationsCreatedBy?: readonly MonospaceSystemUserorganizationsCreatedByCreateRelatedInput[];
+	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
+	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
+	requisitionsCreatedBy?: readonly MonospaceSystemUserrequisitionsCreatedByCreateRelatedInput[];
+	requisitionsUpdatedBy?: readonly MonospaceSystemUserrequisitionsUpdatedByCreateRelatedInput[];
+	roleRequestsCreatedBy?: readonly MonospaceSystemUserroleRequestsCreatedByCreateRelatedInput[];
+	roleRequestsUpdatedBy?: readonly MonospaceSystemUserroleRequestsUpdatedByCreateRelatedInput[];
+	roles?: readonly MonospaceSystemUserrolesCreateRelatedInput[];
+	scorecardsCreatedBy?: readonly MonospaceSystemUserscorecardsCreatedByCreateRelatedInput[];
+	scorecardsUpdatedBy?: readonly MonospaceSystemUserscorecardsUpdatedByCreateRelatedInput[];
+	serviceOwnerId?: Uuid | null;
+	status?: string;
+	storageValues?: readonly MonospaceSystemUserstorageValuesCreateRelatedInput[];
+	workforcePlanRolesCreatedBy?: readonly MonospaceSystemUserworkforcePlanRolesCreatedByCreateRelatedInput[];
+	workforcePlanRolesUpdatedBy?: readonly MonospaceSystemUserworkforcePlanRolesUpdatedByCreateRelatedInput[];
+}
+
+export type candidateMessagescreatedByRelationFieldArguments = {
+	filter?: MonospaceSystemUserFilterInput;
+}
+
+export type candidateMessagescreatedByUpdateOneRelatedOperationsInput = {
+	_connect?: candidateMessagescreatedByConnectInput;
+	_create?: candidateMessagescreatedByCreateArguments;
+	_delete?: MonospaceSystemUserDeleteArguments;
+	_disconnect?: MonospaceSystemUserDisconnectOneInput;
+	_update?: MonospaceSystemUserUpdateInput;
+}
+
+export type candidateNotesCollectionOutput = {
+	body?: string;
+	candidateId?: Uuid;
+	candidates?: candidatesCollectionOutput;
+	createdAt?: string;
+	createdBy?: MonospaceSystemUserCollectionOutput | null;
+	createdById?: Uuid | null;
+	id?: Uuid;
+	updatedAt?: string;
+	updatedBy?: MonospaceSystemUserCollectionOutput | null;
+	updatedById?: Uuid | null;
+	visibility?: string;
+}
+
+export type candidateNotesCollectionOutputFieldsInput = readonly ("body" | "candidateId" | "createdAt" | "createdById" | "id" | "updatedAt" | "updatedById" | "visibility" | "*" | `${string}:${"body" | "candidateId" | "createdAt" | "createdById" | "id" | "updatedAt" | "updatedById" | "visibility"}`)[];
+
+export type candidateNotesCollectionOutputIncludeInput = {
+	"candidates"?: ({ "fields"?: candidatesCollectionOutputFieldsInput; "include"?: candidatesCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof ({ "fields"?: candidatesCollectionOutputFieldsInput; "include"?: candidatesCollectionOutputIncludeInput })>]?: never };
+	"createdBy"?: (candidateNotescreatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (candidateNotescreatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput })>]?: never };
+	"updatedBy"?: (candidateNotesupdatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (candidateNotesupdatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput })>]?: never };
+} & { [K in `${string}:${"candidates"}`]?: candidateNotesCollectionOutputIncludeInput["candidates"] } & { [K in `${string}:${"createdBy"}`]?: candidateNotesCollectionOutputIncludeInput["createdBy"] } & { [K in `${string}:${"updatedBy"}`]?: candidateNotesCollectionOutputIncludeInput["updatedBy"] };
+
+export type candidateNotesCreateArguments = {
+	data: readonly candidateNotesCreateInput[];
+}
+
+export type candidateNotesCreateInput = {
+	body: string;
+	candidates: candidateNotescandidatesCreateRelatedInput;
+	createdAt?: string;
+	createdBy?: candidateNotescreatedByCreateRelatedInput;
+	id?: Uuid;
+	updatedAt?: string;
+	updatedBy?: candidateNotesupdatedByCreateRelatedInput;
+	visibility?: string;
+}
+
+export type candidateNotesDeleteArguments = {
+	filter?: candidateNotesFilterInput;
+}
+
+export type candidateNotesDeleteOneArguments = {
+	filter?: candidateNotesFilterInput;
+	key: Uuid;
+}
+
+export type candidateNotesDisconnectManyInput = {
+	filter?: candidateNotesFilterInput;
+}
+
+export type candidateNotesFilterInput = {
+	_and?: readonly candidateNotesFilterInput[];
+	_not?: candidateNotesFilterInput;
+	_or?: readonly candidateNotesFilterInput[];
+	body?: StringFilterPrimitiveInput | string;
+	candidateId?: UuidFilterPrimitiveInput | Uuid;
+	candidates?: candidatesFilterInput;
+	createdAt?: DateTimeFilterPrimitiveInput | string;
+	createdBy?: MonospaceSystemUserFilterInput;
+	createdById?: UuidFilterNullablePrimitiveInput | Uuid | null;
+	id?: UuidFilterPrimitiveInput | Uuid;
+	updatedAt?: DateTimeFilterPrimitiveInput | string;
+	updatedBy?: MonospaceSystemUserFilterInput;
+	updatedById?: UuidFilterNullablePrimitiveInput | Uuid | null;
+	visibility?: StringFilterPrimitiveInput | string;
+}
+
+export type candidateNotesFilterQuantifierInput = {
+	_every?: candidateNotesFilterInput;
+	_none?: candidateNotesFilterInput;
+	_some?: candidateNotesFilterInput;
+}
+
+export type candidateNotesListArguments = {
+	filter?: candidateNotesFilterInput;
+	limit?: Int64Input;
+	meta?: MetaArguments;
+	offset?: UInt64Input;
+	sort?: readonly candidateNotesSortSpecifier[];
+}
+
+export type candidateNotesReadArguments = {
+	filter?: candidateNotesFilterInput;
+	key: Uuid;
+}
+
+export type candidateNotesSortSpecifier = {
+	body?: SortFieldOptions;
+	candidateId?: SortFieldOptions;
+	createdAt?: SortFieldOptions;
+	createdById?: SortFieldOptions;
+	id?: SortFieldOptions;
+	updatedAt?: SortFieldOptions;
+	updatedById?: SortFieldOptions;
+	visibility?: SortFieldOptions;
+}
+
+export type candidateNotesUpdateArguments = {
+	data: candidateNotesUpdateDataInput;
+	filter?: candidateNotesFilterInput;
+}
+
+export type candidateNotesUpdateDataInput = {
+	body?: string;
+	candidateId?: Uuid;
+	candidates?: readonly candidateNotescandidatesUpdateOneRelatedOperationsInput[];
+	createdAt?: string;
+	createdBy?: readonly candidateNotescreatedByUpdateOneRelatedOperationsInput[];
+	createdById?: Uuid | null;
+	id?: Uuid;
+	updatedAt?: string;
+	updatedBy?: readonly candidateNotesupdatedByUpdateOneRelatedOperationsInput[];
+	updatedById?: Uuid | null;
+	visibility?: string;
+}
+
+export type candidateNotesUpdateInput = {
+	data: candidateNotesUpdateDataInput;
+	filter?: candidateNotesFilterInput;
+}
+
+export type candidateNotesUpdateOneArguments = {
+	data: candidateNotesUpdateDataInput;
+	filter?: candidateNotesFilterInput;
+	key: Uuid;
+}
+
+export type candidateNotescandidatesConnectForwardKeyInput = {
+	id: Uuid;
+}
+
+export type candidateNotescandidatesConnectInput = {
+	key: candidateNotescandidatesConnectForwardKeyInput;
+}
+
+export type candidateNotescandidatesCreateArguments = {
+	data: candidateNotescandidatesCreateRelatedWithoutTypeInput;
+}
+
+export type candidateNotescandidatesCreateRelatedInput = {
+	_connect?: candidateNotescandidatesConnectInput;
+	_create?: candidateNotescandidatesCreateArguments;
+}
+
+export type candidateNotescandidatesCreateRelatedWithoutTypeInput = {
+	applications?: readonly candidatesapplicationsCreateRelatedInput[];
+	candidate_files?: readonly candidatescandidate_filesCreateRelatedInput[];
+	candidate_messages?: readonly candidatescandidate_messagesCreateRelatedInput[];
+	city?: string | null;
+	consentAt?: string | null;
+	country?: string | null;
+	createdAt?: string;
+	createdBy?: candidatescreatedByCreateRelatedInput;
+	email: string;
+	firstName: string;
+	githubUrl?: string | null;
+	id?: Uuid;
+	inTalentPool?: boolean;
+	lastName: string;
+	linkedinUrl?: string | null;
+	needsSponsorship?: boolean | null;
+	phone?: string | null;
+	portfolioUrl?: string | null;
+	privacyNoticeSentAt?: string | null;
+	public_applications?: readonly candidatespublic_applicationsCreateRelatedInput[];
+	referrerUserId?: Uuid | null;
+	retainUntil?: string | null;
+	source?: string;
+	sourceDetail?: string | null;
+	tags?: string | null;
+	updatedAt?: string;
+	updatedBy?: candidatesupdatedByCreateRelatedInput;
+	workAuthorized?: boolean | null;
+}
+
+export type candidateNotescandidatesUpdateOneRelatedOperationsInput = {
+	_connect?: candidateNotescandidatesConnectInput;
+	_create?: candidateNotescandidatesCreateArguments;
+	_update?: candidatesUpdateInput;
+}
+
+export type candidateNotescreatedByConnectForwardKeyInput = {
+	id: Uuid | null;
+}
+
+export type candidateNotescreatedByConnectInput = {
+	key: candidateNotescreatedByConnectForwardKeyInput;
+}
+
+export type candidateNotescreatedByCreateArguments = {
+	data: candidateNotescreatedByCreateRelatedWithoutTypeInput;
+}
+
+export type candidateNotescreatedByCreateRelatedInput = {
+	_connect?: candidateNotescreatedByConnectInput;
+	_create?: candidateNotescreatedByCreateArguments;
+}
+
+export type candidateNotescreatedByCreateRelatedWithoutTypeInput = {
+	activitiesCreatedBy?: readonly MonospaceSystemUseractivitiesCreatedByCreateRelatedInput[];
+	activitiesOwner?: readonly MonospaceSystemUseractivitiesOwnerCreateRelatedInput[];
+	activitiesUpdatedBy?: readonly MonospaceSystemUseractivitiesUpdatedByCreateRelatedInput[];
+	affiliationsCreatedBy?: readonly MonospaceSystemUseraffiliationsCreatedByCreateRelatedInput[];
+	affiliationsUpdatedBy?: readonly MonospaceSystemUseraffiliationsUpdatedByCreateRelatedInput[];
+	appearance?: string | null;
+	applicationsCreatedBy?: readonly MonospaceSystemUserapplicationsCreatedByCreateRelatedInput[];
+	applicationsUpdatedBy?: readonly MonospaceSystemUserapplicationsUpdatedByCreateRelatedInput[];
+	attachmentsCreatedBy?: readonly MonospaceSystemUserattachmentsCreatedByCreateRelatedInput[];
+	avatarId?: Uuid | null;
+	candidateFilesCreatedBy?: readonly MonospaceSystemUsercandidateFilesCreatedByCreateRelatedInput[];
+	candidateMessagesCreatedBy?: readonly MonospaceSystemUsercandidateMessagesCreatedByCreateRelatedInput[];
+	candidateNotesUpdatedBy?: readonly MonospaceSystemUsercandidateNotesUpdatedByCreateRelatedInput[];
+	candidatesCreatedBy?: readonly MonospaceSystemUsercandidatesCreatedByCreateRelatedInput[];
+	candidatesUpdatedBy?: readonly MonospaceSystemUsercandidatesUpdatedByCreateRelatedInput[];
+	contactsCreatedBy?: readonly MonospaceSystemUsercontactsCreatedByCreateRelatedInput[];
+	contactsOwner?: readonly MonospaceSystemUsercontactsOwnerCreateRelatedInput[];
+	contactsUpdatedBy?: readonly MonospaceSystemUsercontactsUpdatedByCreateRelatedInput[];
+	dealsCreatedBy?: readonly MonospaceSystemUserdealsCreatedByCreateRelatedInput[];
+	dealsOwner?: readonly MonospaceSystemUserdealsOwnerCreateRelatedInput[];
+	dealsUpdatedBy?: readonly MonospaceSystemUserdealsUpdatedByCreateRelatedInput[];
+	email?: string | null;
+	emailTemplatesCreatedBy?: readonly MonospaceSystemUseremailTemplatesCreatedByCreateRelatedInput[];
+	emailTemplatesUpdatedBy?: readonly MonospaceSystemUseremailTemplatesUpdatedByCreateRelatedInput[];
+	fullName?: string | null;
+	id: Uuid;
+	interviewsCreatedBy?: readonly MonospaceSystemUserinterviewsCreatedByCreateRelatedInput[];
+	interviewsUpdatedBy?: readonly MonospaceSystemUserinterviewsUpdatedByCreateRelatedInput[];
+	isService: boolean;
+	lastActivityAt?: string | null;
+	offersCreatedBy?: readonly MonospaceSystemUseroffersCreatedByCreateRelatedInput[];
+	offersUpdatedBy?: readonly MonospaceSystemUseroffersUpdatedByCreateRelatedInput[];
+	organizationsCreatedBy?: readonly MonospaceSystemUserorganizationsCreatedByCreateRelatedInput[];
+	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
+	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
+	requisitionsCreatedBy?: readonly MonospaceSystemUserrequisitionsCreatedByCreateRelatedInput[];
+	requisitionsUpdatedBy?: readonly MonospaceSystemUserrequisitionsUpdatedByCreateRelatedInput[];
+	roleRequestsCreatedBy?: readonly MonospaceSystemUserroleRequestsCreatedByCreateRelatedInput[];
+	roleRequestsUpdatedBy?: readonly MonospaceSystemUserroleRequestsUpdatedByCreateRelatedInput[];
+	roles?: readonly MonospaceSystemUserrolesCreateRelatedInput[];
+	scorecardsCreatedBy?: readonly MonospaceSystemUserscorecardsCreatedByCreateRelatedInput[];
+	scorecardsUpdatedBy?: readonly MonospaceSystemUserscorecardsUpdatedByCreateRelatedInput[];
+	serviceOwnerId?: Uuid | null;
+	status?: string;
+	storageValues?: readonly MonospaceSystemUserstorageValuesCreateRelatedInput[];
+	workforcePlanRolesCreatedBy?: readonly MonospaceSystemUserworkforcePlanRolesCreatedByCreateRelatedInput[];
+	workforcePlanRolesUpdatedBy?: readonly MonospaceSystemUserworkforcePlanRolesUpdatedByCreateRelatedInput[];
+}
+
+export type candidateNotescreatedByRelationFieldArguments = {
+	filter?: MonospaceSystemUserFilterInput;
+}
+
+export type candidateNotescreatedByUpdateOneRelatedOperationsInput = {
+	_connect?: candidateNotescreatedByConnectInput;
+	_create?: candidateNotescreatedByCreateArguments;
+	_delete?: MonospaceSystemUserDeleteArguments;
+	_disconnect?: MonospaceSystemUserDisconnectOneInput;
+	_update?: MonospaceSystemUserUpdateInput;
+}
+
+export type candidateNotesupdatedByConnectForwardKeyInput = {
+	id: Uuid | null;
+}
+
+export type candidateNotesupdatedByConnectInput = {
+	key: candidateNotesupdatedByConnectForwardKeyInput;
+}
+
+export type candidateNotesupdatedByCreateArguments = {
+	data: candidateNotesupdatedByCreateRelatedWithoutTypeInput;
+}
+
+export type candidateNotesupdatedByCreateRelatedInput = {
+	_connect?: candidateNotesupdatedByConnectInput;
+	_create?: candidateNotesupdatedByCreateArguments;
+}
+
+export type candidateNotesupdatedByCreateRelatedWithoutTypeInput = {
+	activitiesCreatedBy?: readonly MonospaceSystemUseractivitiesCreatedByCreateRelatedInput[];
+	activitiesOwner?: readonly MonospaceSystemUseractivitiesOwnerCreateRelatedInput[];
+	activitiesUpdatedBy?: readonly MonospaceSystemUseractivitiesUpdatedByCreateRelatedInput[];
+	affiliationsCreatedBy?: readonly MonospaceSystemUseraffiliationsCreatedByCreateRelatedInput[];
+	affiliationsUpdatedBy?: readonly MonospaceSystemUseraffiliationsUpdatedByCreateRelatedInput[];
+	appearance?: string | null;
+	applicationsCreatedBy?: readonly MonospaceSystemUserapplicationsCreatedByCreateRelatedInput[];
+	applicationsUpdatedBy?: readonly MonospaceSystemUserapplicationsUpdatedByCreateRelatedInput[];
+	attachmentsCreatedBy?: readonly MonospaceSystemUserattachmentsCreatedByCreateRelatedInput[];
+	avatarId?: Uuid | null;
+	candidateFilesCreatedBy?: readonly MonospaceSystemUsercandidateFilesCreatedByCreateRelatedInput[];
+	candidateMessagesCreatedBy?: readonly MonospaceSystemUsercandidateMessagesCreatedByCreateRelatedInput[];
+	candidateNotesCreatedBy?: readonly MonospaceSystemUsercandidateNotesCreatedByCreateRelatedInput[];
+	candidatesCreatedBy?: readonly MonospaceSystemUsercandidatesCreatedByCreateRelatedInput[];
+	candidatesUpdatedBy?: readonly MonospaceSystemUsercandidatesUpdatedByCreateRelatedInput[];
+	contactsCreatedBy?: readonly MonospaceSystemUsercontactsCreatedByCreateRelatedInput[];
+	contactsOwner?: readonly MonospaceSystemUsercontactsOwnerCreateRelatedInput[];
+	contactsUpdatedBy?: readonly MonospaceSystemUsercontactsUpdatedByCreateRelatedInput[];
+	dealsCreatedBy?: readonly MonospaceSystemUserdealsCreatedByCreateRelatedInput[];
+	dealsOwner?: readonly MonospaceSystemUserdealsOwnerCreateRelatedInput[];
+	dealsUpdatedBy?: readonly MonospaceSystemUserdealsUpdatedByCreateRelatedInput[];
+	email?: string | null;
+	emailTemplatesCreatedBy?: readonly MonospaceSystemUseremailTemplatesCreatedByCreateRelatedInput[];
+	emailTemplatesUpdatedBy?: readonly MonospaceSystemUseremailTemplatesUpdatedByCreateRelatedInput[];
+	fullName?: string | null;
+	id: Uuid;
+	interviewsCreatedBy?: readonly MonospaceSystemUserinterviewsCreatedByCreateRelatedInput[];
+	interviewsUpdatedBy?: readonly MonospaceSystemUserinterviewsUpdatedByCreateRelatedInput[];
+	isService: boolean;
+	lastActivityAt?: string | null;
+	offersCreatedBy?: readonly MonospaceSystemUseroffersCreatedByCreateRelatedInput[];
+	offersUpdatedBy?: readonly MonospaceSystemUseroffersUpdatedByCreateRelatedInput[];
+	organizationsCreatedBy?: readonly MonospaceSystemUserorganizationsCreatedByCreateRelatedInput[];
+	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
+	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
+	requisitionsCreatedBy?: readonly MonospaceSystemUserrequisitionsCreatedByCreateRelatedInput[];
+	requisitionsUpdatedBy?: readonly MonospaceSystemUserrequisitionsUpdatedByCreateRelatedInput[];
+	roleRequestsCreatedBy?: readonly MonospaceSystemUserroleRequestsCreatedByCreateRelatedInput[];
+	roleRequestsUpdatedBy?: readonly MonospaceSystemUserroleRequestsUpdatedByCreateRelatedInput[];
+	roles?: readonly MonospaceSystemUserrolesCreateRelatedInput[];
+	scorecardsCreatedBy?: readonly MonospaceSystemUserscorecardsCreatedByCreateRelatedInput[];
+	scorecardsUpdatedBy?: readonly MonospaceSystemUserscorecardsUpdatedByCreateRelatedInput[];
+	serviceOwnerId?: Uuid | null;
+	status?: string;
+	storageValues?: readonly MonospaceSystemUserstorageValuesCreateRelatedInput[];
+	workforcePlanRolesCreatedBy?: readonly MonospaceSystemUserworkforcePlanRolesCreatedByCreateRelatedInput[];
+	workforcePlanRolesUpdatedBy?: readonly MonospaceSystemUserworkforcePlanRolesUpdatedByCreateRelatedInput[];
+}
+
+export type candidateNotesupdatedByRelationFieldArguments = {
+	filter?: MonospaceSystemUserFilterInput;
+}
+
+export type candidateNotesupdatedByUpdateOneRelatedOperationsInput = {
+	_connect?: candidateNotesupdatedByConnectInput;
+	_create?: candidateNotesupdatedByCreateArguments;
+	_delete?: MonospaceSystemUserDeleteArguments;
+	_disconnect?: MonospaceSystemUserDisconnectOneInput;
+	_update?: MonospaceSystemUserUpdateInput;
+}
+
+export type candidatesCollectionOutput = {
+	applications?: { data: applicationsCollectionOutput[] };
+	candidate_files?: { data: candidateFilesCollectionOutput[] };
+	candidate_messages?: { data: candidateMessagesCollectionOutput[] };
+	candidate_notes?: { data: candidateNotesCollectionOutput[] };
+	city?: string | null;
+	consentAt?: string | null;
+	country?: string | null;
+	createdAt?: string;
+	createdBy?: MonospaceSystemUserCollectionOutput | null;
+	createdById?: Uuid | null;
+	email?: string;
+	firstName?: string;
+	githubUrl?: string | null;
+	id?: Uuid;
+	inTalentPool?: boolean;
+	lastName?: string;
+	linkedinUrl?: string | null;
+	needsSponsorship?: boolean | null;
+	phone?: string | null;
+	portfolioUrl?: string | null;
+	privacyNoticeSentAt?: string | null;
+	public_applications?: { data: publicApplicationsCollectionOutput[] };
+	referrerUserId?: Uuid | null;
+	retainUntil?: string | null;
+	source?: string;
+	sourceDetail?: string | null;
+	tags?: string | null;
+	updatedAt?: string;
+	updatedBy?: MonospaceSystemUserCollectionOutput | null;
+	updatedById?: Uuid | null;
+	workAuthorized?: boolean | null;
+}
+
+export type candidatesCollectionOutputFieldsInput = readonly ("city" | "consentAt" | "country" | "createdAt" | "createdById" | "email" | "firstName" | "githubUrl" | "id" | "inTalentPool" | "lastName" | "linkedinUrl" | "needsSponsorship" | "phone" | "portfolioUrl" | "privacyNoticeSentAt" | "referrerUserId" | "retainUntil" | "source" | "sourceDetail" | "tags" | "updatedAt" | "updatedById" | "workAuthorized" | "*" | `${string}:${"city" | "consentAt" | "country" | "createdAt" | "createdById" | "email" | "firstName" | "githubUrl" | "id" | "inTalentPool" | "lastName" | "linkedinUrl" | "needsSponsorship" | "phone" | "portfolioUrl" | "privacyNoticeSentAt" | "referrerUserId" | "retainUntil" | "source" | "sourceDetail" | "tags" | "updatedAt" | "updatedById" | "workAuthorized"}`)[];
+
+export type candidatesCollectionOutputIncludeInput = {
+	"applications"?: (candidatesapplicationsRelationFieldArguments & { "fields"?: applicationsCollectionOutputFieldsInput; "include"?: applicationsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (candidatesapplicationsRelationFieldArguments & { "fields"?: applicationsCollectionOutputFieldsInput; "include"?: applicationsCollectionOutputIncludeInput })>]?: never };
+	"candidate_files"?: (candidatescandidate_filesRelationFieldArguments & { "fields"?: candidateFilesCollectionOutputFieldsInput; "include"?: candidateFilesCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (candidatescandidate_filesRelationFieldArguments & { "fields"?: candidateFilesCollectionOutputFieldsInput; "include"?: candidateFilesCollectionOutputIncludeInput })>]?: never };
+	"candidate_messages"?: (candidatescandidate_messagesRelationFieldArguments & { "fields"?: candidateMessagesCollectionOutputFieldsInput; "include"?: candidateMessagesCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (candidatescandidate_messagesRelationFieldArguments & { "fields"?: candidateMessagesCollectionOutputFieldsInput; "include"?: candidateMessagesCollectionOutputIncludeInput })>]?: never };
+	"candidate_notes"?: (candidatescandidate_notesRelationFieldArguments & { "fields"?: candidateNotesCollectionOutputFieldsInput; "include"?: candidateNotesCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (candidatescandidate_notesRelationFieldArguments & { "fields"?: candidateNotesCollectionOutputFieldsInput; "include"?: candidateNotesCollectionOutputIncludeInput })>]?: never };
+	"createdBy"?: (candidatescreatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (candidatescreatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput })>]?: never };
+	"public_applications"?: (candidatespublic_applicationsRelationFieldArguments & { "fields"?: publicApplicationsCollectionOutputFieldsInput; "include"?: publicApplicationsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (candidatespublic_applicationsRelationFieldArguments & { "fields"?: publicApplicationsCollectionOutputFieldsInput; "include"?: publicApplicationsCollectionOutputIncludeInput })>]?: never };
+	"updatedBy"?: (candidatesupdatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (candidatesupdatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput })>]?: never };
+} & { [K in `${string}:${"applications"}`]?: candidatesCollectionOutputIncludeInput["applications"] } & { [K in `${string}:${"candidate_files"}`]?: candidatesCollectionOutputIncludeInput["candidate_files"] } & { [K in `${string}:${"candidate_messages"}`]?: candidatesCollectionOutputIncludeInput["candidate_messages"] } & { [K in `${string}:${"candidate_notes"}`]?: candidatesCollectionOutputIncludeInput["candidate_notes"] } & { [K in `${string}:${"createdBy"}`]?: candidatesCollectionOutputIncludeInput["createdBy"] } & { [K in `${string}:${"public_applications"}`]?: candidatesCollectionOutputIncludeInput["public_applications"] } & { [K in `${string}:${"updatedBy"}`]?: candidatesCollectionOutputIncludeInput["updatedBy"] };
+
+export type candidatesCreateArguments = {
+	data: readonly candidatesCreateInput[];
+}
+
+export type candidatesCreateInput = {
+	applications?: readonly candidatesapplicationsCreateRelatedInput[];
+	candidate_files?: readonly candidatescandidate_filesCreateRelatedInput[];
+	candidate_messages?: readonly candidatescandidate_messagesCreateRelatedInput[];
+	candidate_notes?: readonly candidatescandidate_notesCreateRelatedInput[];
+	city?: string | null;
+	consentAt?: string | null;
+	country?: string | null;
+	createdAt?: string;
+	createdBy?: candidatescreatedByCreateRelatedInput;
+	email: string;
+	firstName: string;
+	githubUrl?: string | null;
+	id?: Uuid;
+	inTalentPool?: boolean;
+	lastName: string;
+	linkedinUrl?: string | null;
+	needsSponsorship?: boolean | null;
+	phone?: string | null;
+	portfolioUrl?: string | null;
+	privacyNoticeSentAt?: string | null;
+	public_applications?: readonly candidatespublic_applicationsCreateRelatedInput[];
+	referrerUserId?: Uuid | null;
+	retainUntil?: string | null;
+	source?: string;
+	sourceDetail?: string | null;
+	tags?: string | null;
+	updatedAt?: string;
+	updatedBy?: candidatesupdatedByCreateRelatedInput;
+	workAuthorized?: boolean | null;
+}
+
+export type candidatesDeleteArguments = {
+	filter?: candidatesFilterInput;
+}
+
+export type candidatesDeleteOneArguments = {
+	filter?: candidatesFilterInput;
+	key: Uuid;
+}
+
+export type candidatesDisconnectManyInput = {
+	filter?: candidatesFilterInput;
+}
+
+export type candidatesDisconnectOneInput = {}
+
+export type candidatesFilterInput = {
+	_and?: readonly candidatesFilterInput[];
+	_not?: candidatesFilterInput;
+	_or?: readonly candidatesFilterInput[];
+	applications?: applicationsFilterQuantifierInput | applicationsFilterInput;
+	candidate_files?: candidateFilesFilterQuantifierInput | candidateFilesFilterInput;
+	candidate_messages?: candidateMessagesFilterQuantifierInput | candidateMessagesFilterInput;
+	candidate_notes?: candidateNotesFilterQuantifierInput | candidateNotesFilterInput;
+	city?: StringFilterNullablePrimitiveInput | string | null;
+	consentAt?: DateTimeFilterNullablePrimitiveInput | string | null;
+	country?: StringFilterNullablePrimitiveInput | string | null;
+	createdAt?: DateTimeFilterPrimitiveInput | string;
+	createdBy?: MonospaceSystemUserFilterInput;
+	createdById?: UuidFilterNullablePrimitiveInput | Uuid | null;
+	email?: StringFilterPrimitiveInput | string;
+	firstName?: StringFilterPrimitiveInput | string;
+	githubUrl?: StringFilterNullablePrimitiveInput | string | null;
+	id?: UuidFilterPrimitiveInput | Uuid;
+	inTalentPool?: BooleanFilterPrimitiveInput | boolean;
+	lastName?: StringFilterPrimitiveInput | string;
+	linkedinUrl?: StringFilterNullablePrimitiveInput | string | null;
+	needsSponsorship?: BooleanFilterNullablePrimitiveInput | boolean | null;
+	phone?: StringFilterNullablePrimitiveInput | string | null;
+	portfolioUrl?: StringFilterNullablePrimitiveInput | string | null;
+	privacyNoticeSentAt?: DateTimeFilterNullablePrimitiveInput | string | null;
+	public_applications?: publicApplicationsFilterQuantifierInput | publicApplicationsFilterInput;
+	referrerUserId?: UuidFilterNullablePrimitiveInput | Uuid | null;
+	retainUntil?: DateFilterNullablePrimitiveInput | string | null;
+	source?: StringFilterPrimitiveInput | string;
+	sourceDetail?: StringFilterNullablePrimitiveInput | string | null;
+	tags?: StringFilterNullablePrimitiveInput | string | null;
+	updatedAt?: DateTimeFilterPrimitiveInput | string;
+	updatedBy?: MonospaceSystemUserFilterInput;
+	updatedById?: UuidFilterNullablePrimitiveInput | Uuid | null;
+	workAuthorized?: BooleanFilterNullablePrimitiveInput | boolean | null;
+}
+
+export type candidatesFilterQuantifierInput = {
+	_every?: candidatesFilterInput;
+	_none?: candidatesFilterInput;
+	_some?: candidatesFilterInput;
+}
+
+export type candidatesListArguments = {
+	filter?: candidatesFilterInput;
+	limit?: Int64Input;
+	meta?: MetaArguments;
+	offset?: UInt64Input;
+	sort?: readonly candidatesSortSpecifier[];
+}
+
+export type candidatesReadArguments = {
+	filter?: candidatesFilterInput;
+	key: Uuid;
+}
+
+export type candidatesSortSpecifier = {
+	city?: SortFieldOptions;
+	consentAt?: SortFieldOptions;
+	country?: SortFieldOptions;
+	createdAt?: SortFieldOptions;
+	createdById?: SortFieldOptions;
+	email?: SortFieldOptions;
+	firstName?: SortFieldOptions;
+	githubUrl?: SortFieldOptions;
+	id?: SortFieldOptions;
+	inTalentPool?: SortFieldOptions;
+	lastName?: SortFieldOptions;
+	linkedinUrl?: SortFieldOptions;
+	needsSponsorship?: SortFieldOptions;
+	phone?: SortFieldOptions;
+	portfolioUrl?: SortFieldOptions;
+	privacyNoticeSentAt?: SortFieldOptions;
+	referrerUserId?: SortFieldOptions;
+	retainUntil?: SortFieldOptions;
+	source?: SortFieldOptions;
+	sourceDetail?: SortFieldOptions;
+	tags?: SortFieldOptions;
+	updatedAt?: SortFieldOptions;
+	updatedById?: SortFieldOptions;
+	workAuthorized?: SortFieldOptions;
+}
+
+export type candidatesUpdateArguments = {
+	data: candidatesUpdateDataInput;
+	filter?: candidatesFilterInput;
+}
+
+export type candidatesUpdateDataInput = {
+	applications?: readonly candidatesapplicationsUpdateManyRelatedOperationsInput[];
+	candidate_files?: readonly candidatescandidate_filesUpdateManyRelatedOperationsInput[];
+	candidate_messages?: readonly candidatescandidate_messagesUpdateManyRelatedOperationsInput[];
+	candidate_notes?: readonly candidatescandidate_notesUpdateManyRelatedOperationsInput[];
+	city?: string | null;
+	consentAt?: string | null;
+	country?: string | null;
+	createdAt?: string;
+	createdBy?: readonly candidatescreatedByUpdateOneRelatedOperationsInput[];
+	createdById?: Uuid | null;
+	email?: string;
+	firstName?: string;
+	githubUrl?: string | null;
+	id?: Uuid;
+	inTalentPool?: boolean;
+	lastName?: string;
+	linkedinUrl?: string | null;
+	needsSponsorship?: boolean | null;
+	phone?: string | null;
+	portfolioUrl?: string | null;
+	privacyNoticeSentAt?: string | null;
+	public_applications?: readonly candidatespublic_applicationsUpdateManyRelatedOperationsInput[];
+	referrerUserId?: Uuid | null;
+	retainUntil?: string | null;
+	source?: string;
+	sourceDetail?: string | null;
+	tags?: string | null;
+	updatedAt?: string;
+	updatedBy?: readonly candidatesupdatedByUpdateOneRelatedOperationsInput[];
+	updatedById?: Uuid | null;
+	workAuthorized?: boolean | null;
+}
+
+export type candidatesUpdateInput = {
+	data: candidatesUpdateDataInput;
+	filter?: candidatesFilterInput;
+}
+
+export type candidatesUpdateOneArguments = {
+	data: candidatesUpdateDataInput;
+	filter?: candidatesFilterInput;
+	key: Uuid;
+}
+
+export type candidatesapplicationsConnectBackwardKeysInput = {
+	id?: Uuid;
+}
+
+export type candidatesapplicationsConnectInput = {
+	keys: readonly candidatesapplicationsConnectBackwardKeysInput[];
+}
+
+export type candidatesapplicationsCreateArguments = {
+	data: readonly candidatesapplicationsCreateRelatedWithoutTypeInput[];
+}
+
+export type candidatesapplicationsCreateRelatedInput = {
+	_connect?: candidatesapplicationsConnectInput;
+	_create?: candidatesapplicationsCreateArguments;
+}
+
+export type candidatesapplicationsCreateRelatedWithoutTypeInput = {
+	appliedAt?: string;
+	createdAt?: string;
+	createdBy?: applicationscreatedByCreateRelatedInput;
+	id?: Uuid;
+	interview_stages: applicationsinterview_stagesCreateRelatedInput;
+	interviews?: readonly applicationsinterviewsCreateRelatedInput[];
+	lastActivityAt?: string;
+	offers?: applicationsoffersCreateRelatedInput;
+	public_applications?: readonly applicationspublic_applicationsCreateRelatedInput[];
+	rejectionReason?: string | null;
+	requisitions: applicationsrequisitionsCreateRelatedInput;
+	stageEnteredAt?: string;
+	status?: string;
+	updatedAt?: string;
+	updatedBy?: applicationsupdatedByCreateRelatedInput;
+}
+
+export type candidatesapplicationsRelationFieldArguments = {
+	filter?: applicationsFilterInput;
+	limit?: Int64Input;
+	offset?: UInt64Input;
+	sort?: readonly applicationsSortSpecifier[];
+}
+
+export type candidatesapplicationsUpdateManyRelatedOperationsInput = {
+	_connect?: candidatesapplicationsConnectInput;
+	_create?: candidatesapplicationsCreateArguments;
+	_delete?: applicationsDeleteArguments;
+	_update?: applicationsUpdateInput;
+}
+
+export type candidatescandidate_filesConnectBackwardKeysInput = {
+	assetId?: Uuid;
+	id?: Uuid;
+}
+
+export type candidatescandidate_filesConnectInput = {
+	keys: readonly candidatescandidate_filesConnectBackwardKeysInput[];
+}
+
+export type candidatescandidate_filesCreateArguments = {
+	data: readonly candidatescandidate_filesCreateRelatedWithoutTypeInput[];
+}
+
+export type candidatescandidate_filesCreateRelatedInput = {
+	_connect?: candidatescandidate_filesConnectInput;
+	_create?: candidatescandidate_filesCreateArguments;
+}
+
+export type candidatescandidate_filesCreateRelatedWithoutTypeInput = {
+	assetId?: Uuid | null;
+	contentType?: string | null;
+	createdAt?: string;
+	createdBy?: candidateFilescreatedByCreateRelatedInput;
+	fileName: string;
+	id?: Uuid;
+	kind?: string;
+	url?: string | null;
+}
+
+export type candidatescandidate_filesRelationFieldArguments = {
+	filter?: candidateFilesFilterInput;
+	limit?: Int64Input;
+	offset?: UInt64Input;
+	sort?: readonly candidateFilesSortSpecifier[];
+}
+
+export type candidatescandidate_filesUpdateManyRelatedOperationsInput = {
+	_connect?: candidatescandidate_filesConnectInput;
+	_create?: candidatescandidate_filesCreateArguments;
+	_delete?: candidateFilesDeleteArguments;
+	_update?: candidateFilesUpdateInput;
+}
+
+export type candidatescandidate_messagesConnectBackwardKeysInput = {
+	id?: Uuid;
+}
+
+export type candidatescandidate_messagesConnectInput = {
+	keys: readonly candidatescandidate_messagesConnectBackwardKeysInput[];
+}
+
+export type candidatescandidate_messagesCreateArguments = {
+	data: readonly candidatescandidate_messagesCreateRelatedWithoutTypeInput[];
+}
+
+export type candidatescandidate_messagesCreateRelatedInput = {
+	_connect?: candidatescandidate_messagesConnectInput;
+	_create?: candidatescandidate_messagesCreateArguments;
+}
+
+export type candidatescandidate_messagesCreateRelatedWithoutTypeInput = {
+	body?: string | null;
+	createdAt?: string;
+	createdBy?: candidateMessagescreatedByCreateRelatedInput;
+	direction?: string;
+	id?: Uuid;
+	sendAt?: string;
+	status?: string;
+	subject: string;
+}
+
+export type candidatescandidate_messagesRelationFieldArguments = {
+	filter?: candidateMessagesFilterInput;
+	limit?: Int64Input;
+	offset?: UInt64Input;
+	sort?: readonly candidateMessagesSortSpecifier[];
+}
+
+export type candidatescandidate_messagesUpdateManyRelatedOperationsInput = {
+	_connect?: candidatescandidate_messagesConnectInput;
+	_create?: candidatescandidate_messagesCreateArguments;
+	_delete?: candidateMessagesDeleteArguments;
+	_update?: candidateMessagesUpdateInput;
+}
+
+export type candidatescandidate_notesConnectBackwardKeysInput = {
+	id?: Uuid;
+}
+
+export type candidatescandidate_notesConnectInput = {
+	keys: readonly candidatescandidate_notesConnectBackwardKeysInput[];
+}
+
+export type candidatescandidate_notesCreateArguments = {
+	data: readonly candidatescandidate_notesCreateRelatedWithoutTypeInput[];
+}
+
+export type candidatescandidate_notesCreateRelatedInput = {
+	_connect?: candidatescandidate_notesConnectInput;
+	_create?: candidatescandidate_notesCreateArguments;
+}
+
+export type candidatescandidate_notesCreateRelatedWithoutTypeInput = {
+	body: string;
+	createdAt?: string;
+	createdBy?: candidateNotescreatedByCreateRelatedInput;
+	id?: Uuid;
+	updatedAt?: string;
+	updatedBy?: candidateNotesupdatedByCreateRelatedInput;
+	visibility?: string;
+}
+
+export type candidatescandidate_notesRelationFieldArguments = {
+	filter?: candidateNotesFilterInput;
+	limit?: Int64Input;
+	offset?: UInt64Input;
+	sort?: readonly candidateNotesSortSpecifier[];
+}
+
+export type candidatescandidate_notesUpdateManyRelatedOperationsInput = {
+	_connect?: candidatescandidate_notesConnectInput;
+	_create?: candidatescandidate_notesCreateArguments;
+	_delete?: candidateNotesDeleteArguments;
+	_update?: candidateNotesUpdateInput;
+}
+
+export type candidatescreatedByConnectForwardKeyInput = {
+	id: Uuid | null;
+}
+
+export type candidatescreatedByConnectInput = {
+	key: candidatescreatedByConnectForwardKeyInput;
+}
+
+export type candidatescreatedByCreateArguments = {
+	data: candidatescreatedByCreateRelatedWithoutTypeInput;
+}
+
+export type candidatescreatedByCreateRelatedInput = {
+	_connect?: candidatescreatedByConnectInput;
+	_create?: candidatescreatedByCreateArguments;
+}
+
+export type candidatescreatedByCreateRelatedWithoutTypeInput = {
+	activitiesCreatedBy?: readonly MonospaceSystemUseractivitiesCreatedByCreateRelatedInput[];
+	activitiesOwner?: readonly MonospaceSystemUseractivitiesOwnerCreateRelatedInput[];
+	activitiesUpdatedBy?: readonly MonospaceSystemUseractivitiesUpdatedByCreateRelatedInput[];
+	affiliationsCreatedBy?: readonly MonospaceSystemUseraffiliationsCreatedByCreateRelatedInput[];
+	affiliationsUpdatedBy?: readonly MonospaceSystemUseraffiliationsUpdatedByCreateRelatedInput[];
+	appearance?: string | null;
+	applicationsCreatedBy?: readonly MonospaceSystemUserapplicationsCreatedByCreateRelatedInput[];
+	applicationsUpdatedBy?: readonly MonospaceSystemUserapplicationsUpdatedByCreateRelatedInput[];
+	attachmentsCreatedBy?: readonly MonospaceSystemUserattachmentsCreatedByCreateRelatedInput[];
+	avatarId?: Uuid | null;
+	candidateFilesCreatedBy?: readonly MonospaceSystemUsercandidateFilesCreatedByCreateRelatedInput[];
+	candidateMessagesCreatedBy?: readonly MonospaceSystemUsercandidateMessagesCreatedByCreateRelatedInput[];
+	candidateNotesCreatedBy?: readonly MonospaceSystemUsercandidateNotesCreatedByCreateRelatedInput[];
+	candidateNotesUpdatedBy?: readonly MonospaceSystemUsercandidateNotesUpdatedByCreateRelatedInput[];
+	candidatesUpdatedBy?: readonly MonospaceSystemUsercandidatesUpdatedByCreateRelatedInput[];
+	contactsCreatedBy?: readonly MonospaceSystemUsercontactsCreatedByCreateRelatedInput[];
+	contactsOwner?: readonly MonospaceSystemUsercontactsOwnerCreateRelatedInput[];
+	contactsUpdatedBy?: readonly MonospaceSystemUsercontactsUpdatedByCreateRelatedInput[];
+	dealsCreatedBy?: readonly MonospaceSystemUserdealsCreatedByCreateRelatedInput[];
+	dealsOwner?: readonly MonospaceSystemUserdealsOwnerCreateRelatedInput[];
+	dealsUpdatedBy?: readonly MonospaceSystemUserdealsUpdatedByCreateRelatedInput[];
+	email?: string | null;
+	emailTemplatesCreatedBy?: readonly MonospaceSystemUseremailTemplatesCreatedByCreateRelatedInput[];
+	emailTemplatesUpdatedBy?: readonly MonospaceSystemUseremailTemplatesUpdatedByCreateRelatedInput[];
+	fullName?: string | null;
+	id: Uuid;
+	interviewsCreatedBy?: readonly MonospaceSystemUserinterviewsCreatedByCreateRelatedInput[];
+	interviewsUpdatedBy?: readonly MonospaceSystemUserinterviewsUpdatedByCreateRelatedInput[];
+	isService: boolean;
+	lastActivityAt?: string | null;
+	offersCreatedBy?: readonly MonospaceSystemUseroffersCreatedByCreateRelatedInput[];
+	offersUpdatedBy?: readonly MonospaceSystemUseroffersUpdatedByCreateRelatedInput[];
+	organizationsCreatedBy?: readonly MonospaceSystemUserorganizationsCreatedByCreateRelatedInput[];
+	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
+	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
+	requisitionsCreatedBy?: readonly MonospaceSystemUserrequisitionsCreatedByCreateRelatedInput[];
+	requisitionsUpdatedBy?: readonly MonospaceSystemUserrequisitionsUpdatedByCreateRelatedInput[];
+	roleRequestsCreatedBy?: readonly MonospaceSystemUserroleRequestsCreatedByCreateRelatedInput[];
+	roleRequestsUpdatedBy?: readonly MonospaceSystemUserroleRequestsUpdatedByCreateRelatedInput[];
+	roles?: readonly MonospaceSystemUserrolesCreateRelatedInput[];
+	scorecardsCreatedBy?: readonly MonospaceSystemUserscorecardsCreatedByCreateRelatedInput[];
+	scorecardsUpdatedBy?: readonly MonospaceSystemUserscorecardsUpdatedByCreateRelatedInput[];
+	serviceOwnerId?: Uuid | null;
+	status?: string;
+	storageValues?: readonly MonospaceSystemUserstorageValuesCreateRelatedInput[];
+	workforcePlanRolesCreatedBy?: readonly MonospaceSystemUserworkforcePlanRolesCreatedByCreateRelatedInput[];
+	workforcePlanRolesUpdatedBy?: readonly MonospaceSystemUserworkforcePlanRolesUpdatedByCreateRelatedInput[];
+}
+
+export type candidatescreatedByRelationFieldArguments = {
+	filter?: MonospaceSystemUserFilterInput;
+}
+
+export type candidatescreatedByUpdateOneRelatedOperationsInput = {
+	_connect?: candidatescreatedByConnectInput;
+	_create?: candidatescreatedByCreateArguments;
+	_delete?: MonospaceSystemUserDeleteArguments;
+	_disconnect?: MonospaceSystemUserDisconnectOneInput;
+	_update?: MonospaceSystemUserUpdateInput;
+}
+
+export type candidatespublic_applicationsConnectBackwardKeysInput = {
+	id?: Uuid;
+}
+
+export type candidatespublic_applicationsConnectInput = {
+	keys: readonly candidatespublic_applicationsConnectBackwardKeysInput[];
+}
+
+export type candidatespublic_applicationsCreateArguments = {
+	data: readonly candidatespublic_applicationsCreateRelatedWithoutTypeInput[];
+}
+
+export type candidatespublic_applicationsCreateRelatedInput = {
+	_connect?: candidatespublic_applicationsConnectInput;
+	_create?: candidatespublic_applicationsCreateArguments;
+}
+
+export type candidatespublic_applicationsCreateRelatedWithoutTypeInput = {
+	applications?: publicApplicationsapplicationsCreateRelatedInput;
+	city?: string | null;
+	consent: boolean;
+	country?: string | null;
+	createdAt?: string;
+	email: string;
+	firstName: string;
+	githubUrl?: string | null;
+	id?: Uuid;
+	lastName: string;
+	linkedinUrl?: string | null;
+	needsSponsorship?: boolean | null;
+	phone?: string | null;
+	portfolioUrl?: string | null;
+	requisitions: publicApplicationsrequisitionsCreateRelatedInput;
+	resumeAssetId?: Uuid | null;
+	resumeFileName?: string | null;
+	resumeUrl?: string | null;
+	workAuthorized?: boolean | null;
+}
+
+export type candidatespublic_applicationsRelationFieldArguments = {
+	filter?: publicApplicationsFilterInput;
+	limit?: Int64Input;
+	offset?: UInt64Input;
+	sort?: readonly publicApplicationsSortSpecifier[];
+}
+
+export type candidatespublic_applicationsUpdateManyRelatedOperationsInput = {
+	_connect?: candidatespublic_applicationsConnectInput;
+	_create?: candidatespublic_applicationsCreateArguments;
+	_delete?: publicApplicationsDeleteArguments;
+	_disconnect?: publicApplicationsDisconnectManyInput;
+	_update?: publicApplicationsUpdateInput;
+}
+
+export type candidatesupdatedByConnectForwardKeyInput = {
+	id: Uuid | null;
+}
+
+export type candidatesupdatedByConnectInput = {
+	key: candidatesupdatedByConnectForwardKeyInput;
+}
+
+export type candidatesupdatedByCreateArguments = {
+	data: candidatesupdatedByCreateRelatedWithoutTypeInput;
+}
+
+export type candidatesupdatedByCreateRelatedInput = {
+	_connect?: candidatesupdatedByConnectInput;
+	_create?: candidatesupdatedByCreateArguments;
+}
+
+export type candidatesupdatedByCreateRelatedWithoutTypeInput = {
+	activitiesCreatedBy?: readonly MonospaceSystemUseractivitiesCreatedByCreateRelatedInput[];
+	activitiesOwner?: readonly MonospaceSystemUseractivitiesOwnerCreateRelatedInput[];
+	activitiesUpdatedBy?: readonly MonospaceSystemUseractivitiesUpdatedByCreateRelatedInput[];
+	affiliationsCreatedBy?: readonly MonospaceSystemUseraffiliationsCreatedByCreateRelatedInput[];
+	affiliationsUpdatedBy?: readonly MonospaceSystemUseraffiliationsUpdatedByCreateRelatedInput[];
+	appearance?: string | null;
+	applicationsCreatedBy?: readonly MonospaceSystemUserapplicationsCreatedByCreateRelatedInput[];
+	applicationsUpdatedBy?: readonly MonospaceSystemUserapplicationsUpdatedByCreateRelatedInput[];
+	attachmentsCreatedBy?: readonly MonospaceSystemUserattachmentsCreatedByCreateRelatedInput[];
+	avatarId?: Uuid | null;
+	candidateFilesCreatedBy?: readonly MonospaceSystemUsercandidateFilesCreatedByCreateRelatedInput[];
+	candidateMessagesCreatedBy?: readonly MonospaceSystemUsercandidateMessagesCreatedByCreateRelatedInput[];
+	candidateNotesCreatedBy?: readonly MonospaceSystemUsercandidateNotesCreatedByCreateRelatedInput[];
+	candidateNotesUpdatedBy?: readonly MonospaceSystemUsercandidateNotesUpdatedByCreateRelatedInput[];
+	candidatesCreatedBy?: readonly MonospaceSystemUsercandidatesCreatedByCreateRelatedInput[];
+	contactsCreatedBy?: readonly MonospaceSystemUsercontactsCreatedByCreateRelatedInput[];
+	contactsOwner?: readonly MonospaceSystemUsercontactsOwnerCreateRelatedInput[];
+	contactsUpdatedBy?: readonly MonospaceSystemUsercontactsUpdatedByCreateRelatedInput[];
+	dealsCreatedBy?: readonly MonospaceSystemUserdealsCreatedByCreateRelatedInput[];
+	dealsOwner?: readonly MonospaceSystemUserdealsOwnerCreateRelatedInput[];
+	dealsUpdatedBy?: readonly MonospaceSystemUserdealsUpdatedByCreateRelatedInput[];
+	email?: string | null;
+	emailTemplatesCreatedBy?: readonly MonospaceSystemUseremailTemplatesCreatedByCreateRelatedInput[];
+	emailTemplatesUpdatedBy?: readonly MonospaceSystemUseremailTemplatesUpdatedByCreateRelatedInput[];
+	fullName?: string | null;
+	id: Uuid;
+	interviewsCreatedBy?: readonly MonospaceSystemUserinterviewsCreatedByCreateRelatedInput[];
+	interviewsUpdatedBy?: readonly MonospaceSystemUserinterviewsUpdatedByCreateRelatedInput[];
+	isService: boolean;
+	lastActivityAt?: string | null;
+	offersCreatedBy?: readonly MonospaceSystemUseroffersCreatedByCreateRelatedInput[];
+	offersUpdatedBy?: readonly MonospaceSystemUseroffersUpdatedByCreateRelatedInput[];
+	organizationsCreatedBy?: readonly MonospaceSystemUserorganizationsCreatedByCreateRelatedInput[];
+	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
+	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
+	requisitionsCreatedBy?: readonly MonospaceSystemUserrequisitionsCreatedByCreateRelatedInput[];
+	requisitionsUpdatedBy?: readonly MonospaceSystemUserrequisitionsUpdatedByCreateRelatedInput[];
+	roleRequestsCreatedBy?: readonly MonospaceSystemUserroleRequestsCreatedByCreateRelatedInput[];
+	roleRequestsUpdatedBy?: readonly MonospaceSystemUserroleRequestsUpdatedByCreateRelatedInput[];
+	roles?: readonly MonospaceSystemUserrolesCreateRelatedInput[];
+	scorecardsCreatedBy?: readonly MonospaceSystemUserscorecardsCreatedByCreateRelatedInput[];
+	scorecardsUpdatedBy?: readonly MonospaceSystemUserscorecardsUpdatedByCreateRelatedInput[];
+	serviceOwnerId?: Uuid | null;
+	status?: string;
+	storageValues?: readonly MonospaceSystemUserstorageValuesCreateRelatedInput[];
+	workforcePlanRolesCreatedBy?: readonly MonospaceSystemUserworkforcePlanRolesCreatedByCreateRelatedInput[];
+	workforcePlanRolesUpdatedBy?: readonly MonospaceSystemUserworkforcePlanRolesUpdatedByCreateRelatedInput[];
+}
+
+export type candidatesupdatedByRelationFieldArguments = {
+	filter?: MonospaceSystemUserFilterInput;
+}
+
+export type candidatesupdatedByUpdateOneRelatedOperationsInput = {
+	_connect?: candidatesupdatedByConnectInput;
+	_create?: candidatesupdatedByCreateArguments;
+	_delete?: MonospaceSystemUserDeleteArguments;
+	_disconnect?: MonospaceSystemUserDisconnectOneInput;
+	_update?: MonospaceSystemUserUpdateInput;
+}
+
+export type checkrCandidatesCollectionOutput = {
+	adjudication?: string | null;
+	createdAt?: string | null;
+	customId?: string | null;
+	dob?: string | null;
+	email?: string | null;
+	firstName?: string | null;
+	geoIds?: { "data": string[]; "meta"?: ResponseMeta };
+	id?: string;
+	invitations?: { data: checkrInvitationsCollectionOutput[] };
+	lastName?: string | null;
+	metadata?: JsonValue | null;
+	middleName?: string | null;
+	phone?: string | null;
+	reportIds?: { "data": string[]; "meta"?: ResponseMeta };
+	reports?: { data: checkrReportsCollectionOutput[] };
+	zipcode?: string | null;
+}
+
+export type checkrCandidatesCollectionOutputFieldsInput = readonly ("adjudication" | "createdAt" | "customId" | "dob" | "email" | "firstName" | "geoIds" | "id" | "lastName" | "metadata" | "middleName" | "phone" | "reportIds" | "zipcode" | "*" | `${string}:${"adjudication" | "createdAt" | "customId" | "dob" | "email" | "firstName" | "geoIds" | "id" | "lastName" | "metadata" | "middleName" | "phone" | "reportIds" | "zipcode"}`)[];
+
+export type checkrCandidatesCollectionOutputIncludeInput = {
+	"invitations"?: (checkrCandidatesinvitationsRelationFieldArguments & { "fields"?: checkrInvitationsCollectionOutputFieldsInput; "include"?: checkrInvitationsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (checkrCandidatesinvitationsRelationFieldArguments & { "fields"?: checkrInvitationsCollectionOutputFieldsInput; "include"?: checkrInvitationsCollectionOutputIncludeInput })>]?: never };
+	"reports"?: (checkrCandidatesreportsRelationFieldArguments & { "fields"?: checkrReportsCollectionOutputFieldsInput; "include"?: checkrReportsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (checkrCandidatesreportsRelationFieldArguments & { "fields"?: checkrReportsCollectionOutputFieldsInput; "include"?: checkrReportsCollectionOutputIncludeInput })>]?: never };
+} & { [K in `${string}:${"invitations"}`]?: checkrCandidatesCollectionOutputIncludeInput["invitations"] } & { [K in `${string}:${"reports"}`]?: checkrCandidatesCollectionOutputIncludeInput["reports"] };
+
+export type checkrCandidatesFilterInput = {
+	_and?: readonly checkrCandidatesFilterInput[];
+	_not?: checkrCandidatesFilterInput;
+	_or?: readonly checkrCandidatesFilterInput[];
+	adjudication?: checkrCandidatesadjudicationFilterNullablePrimitiveInput | string | null;
+	createdAt?: checkrCandidatescreatedAtFilterNullablePrimitiveInput | string | null;
+	customId?: checkrCandidatescustomIdFilterNullablePrimitiveInput | string | null;
+	dob?: checkrCandidatesdobFilterNullablePrimitiveInput | string | null;
+	email?: checkrCandidatesemailFilterNullablePrimitiveInput | string | null;
+	firstName?: checkrCandidatesfirstNameFilterNullablePrimitiveInput | string | null;
+	id?: checkrCandidatesidFilterPrimitiveInput | string;
+	lastName?: checkrCandidateslastNameFilterNullablePrimitiveInput | string | null;
+	zipcode?: checkrCandidateszipcodeFilterNullablePrimitiveInput | string | null;
+}
+
+export type checkrCandidatesListArguments = {
+	filter?: checkrCandidatesFilterInput;
+	limit?: Int64Input;
+	meta?: MetaArguments;
+	offset?: UInt64Input;
+}
+
+export type checkrCandidatesReadArguments = {
+	key: string;
+}
+
+export type checkrCandidatesadjudicationFilterNullablePrimitiveInput = {
+	_eq?: string | null;
+	_in?: readonly (string | null)[];
+	_neq?: string | null;
+	_nin?: readonly (string | null)[];
+	_null?: boolean;
+}
+
+export type checkrCandidatescreatedAtFilterNullablePrimitiveInput = {
+	_between?: readonly string[];
+	_eq?: string | null;
+	_gt?: string;
+	_gte?: string;
+	_lt?: string;
+	_lte?: string;
+	_nbetween?: readonly string[];
+	_neq?: string | null;
+	_null?: boolean;
+}
+
+export type checkrCandidatescustomIdFilterNullablePrimitiveInput = {
+	_contains?: string;
+	_ends_with?: string;
+	_eq?: string | null;
+	_icontains?: string;
+	_in?: readonly (string | null)[];
+	_ncontains?: string;
+	_nends_with?: string;
+	_neq?: string | null;
+	_nicontains?: string;
+	_nin?: readonly (string | null)[];
+	_nstarts_with?: string;
+	_null?: boolean;
+	_starts_with?: string;
+}
+
+export type checkrCandidatesdobFilterNullablePrimitiveInput = {
+	_between?: readonly string[];
+	_eq?: string | null;
+	_gt?: string;
+	_gte?: string;
+	_lt?: string;
+	_lte?: string;
+	_nbetween?: readonly string[];
+	_neq?: string | null;
+	_null?: boolean;
+}
+
+export type checkrCandidatesemailFilterNullablePrimitiveInput = {
+	_contains?: string;
+	_ends_with?: string;
+	_eq?: string | null;
+	_icontains?: string;
+	_in?: readonly (string | null)[];
+	_ncontains?: string;
+	_nends_with?: string;
+	_neq?: string | null;
+	_nicontains?: string;
+	_nin?: readonly (string | null)[];
+	_nstarts_with?: string;
+	_null?: boolean;
+	_starts_with?: string;
+}
+
+export type checkrCandidatesfirstNameFilterNullablePrimitiveInput = {
+	_contains?: string;
+	_ends_with?: string;
+	_eq?: string | null;
+	_icontains?: string;
+	_in?: readonly (string | null)[];
+	_ncontains?: string;
+	_nends_with?: string;
+	_neq?: string | null;
+	_nicontains?: string;
+	_nin?: readonly (string | null)[];
+	_nstarts_with?: string;
+	_null?: boolean;
+	_starts_with?: string;
+}
+
+export type checkrCandidatesidFilterPrimitiveInput = {
+	_eq?: string;
+	_in?: readonly string[];
+	_neq?: string;
+	_nin?: readonly string[];
+}
+
+export type checkrCandidatesinvitationsRelationFieldArguments = {
+	filter?: checkrInvitationsFilterInput;
+	limit?: Int64Input;
+	offset?: UInt64Input;
+}
+
+export type checkrCandidateslastNameFilterNullablePrimitiveInput = {
+	_contains?: string;
+	_ends_with?: string;
+	_eq?: string | null;
+	_icontains?: string;
+	_in?: readonly (string | null)[];
+	_ncontains?: string;
+	_nends_with?: string;
+	_neq?: string | null;
+	_nicontains?: string;
+	_nin?: readonly (string | null)[];
+	_nstarts_with?: string;
+	_null?: boolean;
+	_starts_with?: string;
+}
+
+export type checkrCandidatesreportsRelationFieldArguments = {
+	filter?: checkrReportsFilterInput;
+	limit?: Int64Input;
+	offset?: UInt64Input;
+}
+
+export type checkrCandidateszipcodeFilterNullablePrimitiveInput = {
+	_contains?: string;
+	_ends_with?: string;
+	_eq?: string | null;
+	_icontains?: string;
+	_in?: readonly (string | null)[];
+	_ncontains?: string;
+	_nends_with?: string;
+	_neq?: string | null;
+	_nicontains?: string;
+	_nin?: readonly (string | null)[];
+	_nstarts_with?: string;
+	_null?: boolean;
+	_starts_with?: string;
+}
+
+export type checkrInvitationsCollectionOutput = {
+	archived?: boolean;
+	candidate?: checkrCandidatesCollectionOutput;
+	candidateId?: string;
+	completedAt?: string | null;
+	createdAt?: string | null;
+	deletedAt?: string | null;
+	expiresAt?: string | null;
+	id?: string;
+	invitationUrl?: string | null;
+	package?: string | null;
+	report?: checkrReportsCollectionOutput | null;
+	reportId?: string | null;
+	status?: string;
+}
+
+export type checkrInvitationsCollectionOutputFieldsInput = readonly ("archived" | "candidateId" | "completedAt" | "createdAt" | "deletedAt" | "expiresAt" | "id" | "invitationUrl" | "package" | "reportId" | "status" | "*" | `${string}:${"archived" | "candidateId" | "completedAt" | "createdAt" | "deletedAt" | "expiresAt" | "id" | "invitationUrl" | "package" | "reportId" | "status"}`)[];
+
+export type checkrInvitationsCollectionOutputIncludeInput = {
+	"candidate"?: ({ "fields"?: checkrCandidatesCollectionOutputFieldsInput; "include"?: checkrCandidatesCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof ({ "fields"?: checkrCandidatesCollectionOutputFieldsInput; "include"?: checkrCandidatesCollectionOutputIncludeInput })>]?: never };
+	"report"?: (checkrInvitationsreportRelationFieldArguments & { "fields"?: checkrReportsCollectionOutputFieldsInput; "include"?: checkrReportsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (checkrInvitationsreportRelationFieldArguments & { "fields"?: checkrReportsCollectionOutputFieldsInput; "include"?: checkrReportsCollectionOutputIncludeInput })>]?: never };
+} & { [K in `${string}:${"candidate"}`]?: checkrInvitationsCollectionOutputIncludeInput["candidate"] } & { [K in `${string}:${"report"}`]?: checkrInvitationsCollectionOutputIncludeInput["report"] };
+
+export type checkrInvitationsFilterInput = {
+	_and?: readonly checkrInvitationsFilterInput[];
+	_not?: checkrInvitationsFilterInput;
+	_or?: readonly checkrInvitationsFilterInput[];
+	archived?: BooleanFilterPrimitiveInput | boolean;
+	candidateId?: checkrInvitationscandidateIdFilterPrimitiveInput | string;
+	completedAt?: checkrInvitationscompletedAtFilterNullablePrimitiveInput | string | null;
+	createdAt?: checkrInvitationscreatedAtFilterNullablePrimitiveInput | string | null;
+	expiresAt?: checkrInvitationsexpiresAtFilterNullablePrimitiveInput | string | null;
+	id?: checkrInvitationsidFilterPrimitiveInput | string;
+	package?: checkrInvitationspackageFilterNullablePrimitiveInput | string | null;
+	reportId?: checkrInvitationsreportIdFilterNullablePrimitiveInput | string | null;
+	status?: checkrInvitationsstatusFilterPrimitiveInput | string;
+}
+
+export type checkrInvitationsListArguments = {
+	filter?: checkrInvitationsFilterInput;
+	limit?: Int64Input;
+	meta?: MetaArguments;
+	offset?: UInt64Input;
+}
+
+export type checkrInvitationsReadArguments = {
+	key: string;
+}
+
+export type checkrInvitationscandidateIdFilterPrimitiveInput = {
+	_eq?: string;
+	_in?: readonly string[];
+	_neq?: string;
+	_nin?: readonly string[];
+}
+
+export type checkrInvitationscompletedAtFilterNullablePrimitiveInput = {
+	_between?: readonly string[];
+	_eq?: string | null;
+	_gt?: string;
+	_gte?: string;
+	_lt?: string;
+	_lte?: string;
+	_nbetween?: readonly string[];
+	_neq?: string | null;
+	_null?: boolean;
+}
+
+export type checkrInvitationscreatedAtFilterNullablePrimitiveInput = {
+	_between?: readonly string[];
+	_eq?: string | null;
+	_gt?: string;
+	_gte?: string;
+	_lt?: string;
+	_lte?: string;
+	_nbetween?: readonly string[];
+	_neq?: string | null;
+	_null?: boolean;
+}
+
+export type checkrInvitationsexpiresAtFilterNullablePrimitiveInput = {
+	_between?: readonly string[];
+	_eq?: string | null;
+	_gt?: string;
+	_gte?: string;
+	_lt?: string;
+	_lte?: string;
+	_nbetween?: readonly string[];
+	_neq?: string | null;
+	_null?: boolean;
+}
+
+export type checkrInvitationsidFilterPrimitiveInput = {
+	_eq?: string;
+	_in?: readonly string[];
+	_neq?: string;
+	_nin?: readonly string[];
+}
+
+export type checkrInvitationspackageFilterNullablePrimitiveInput = {
+	_contains?: string;
+	_ends_with?: string;
+	_eq?: string | null;
+	_icontains?: string;
+	_in?: readonly (string | null)[];
+	_ncontains?: string;
+	_nends_with?: string;
+	_neq?: string | null;
+	_nicontains?: string;
+	_nin?: readonly (string | null)[];
+	_nstarts_with?: string;
+	_null?: boolean;
+	_starts_with?: string;
+}
+
+export type checkrInvitationsreportIdFilterNullablePrimitiveInput = {
+	_eq?: string | null;
+	_in?: readonly (string | null)[];
+	_neq?: string | null;
+	_nin?: readonly (string | null)[];
+	_null?: boolean;
+}
+
+export type checkrInvitationsreportRelationFieldArguments = {
+	filter?: checkrReportsFilterInput;
+}
+
+export type checkrInvitationsstatusFilterPrimitiveInput = {
+	_eq?: string;
+	_in?: readonly string[];
+	_neq?: string;
+	_nin?: readonly string[];
+}
+
+export type checkrPackagesCollectionOutput = {
+	applyUrl?: string | null;
+	createdAt?: string | null;
+	deletedAt?: string | null;
+	id?: string;
+	name?: string;
+	price?: number | null;
+	screenings?: JsonValue | null;
+	slug?: string;
+}
+
+export type checkrPackagesCollectionOutputFieldsInput = readonly ("applyUrl" | "createdAt" | "deletedAt" | "id" | "name" | "price" | "screenings" | "slug" | "*" | `${string}:${"applyUrl" | "createdAt" | "deletedAt" | "id" | "name" | "price" | "screenings" | "slug"}`)[];
+
+export type checkrPackagesCollectionOutputIncludeInput = Record<string, never>;
+
+export type checkrPackagesFilterInput = {
+	_and?: readonly checkrPackagesFilterInput[];
+	_not?: checkrPackagesFilterInput;
+	_or?: readonly checkrPackagesFilterInput[];
+	createdAt?: checkrPackagescreatedAtFilterNullablePrimitiveInput | string | null;
+	deletedAt?: checkrPackagesdeletedAtFilterNullablePrimitiveInput | string | null;
+	id?: checkrPackagesidFilterPrimitiveInput | string;
+	name?: checkrPackagesnameFilterPrimitiveInput | string;
+	slug?: checkrPackagesslugFilterPrimitiveInput | string;
+}
+
+export type checkrPackagesListArguments = {
+	filter?: checkrPackagesFilterInput;
+	limit?: Int64Input;
+	meta?: MetaArguments;
+	offset?: UInt64Input;
+}
+
+export type checkrPackagesReadArguments = {
+	key: string;
+}
+
+export type checkrPackagescreatedAtFilterNullablePrimitiveInput = {
+	_between?: readonly string[];
+	_eq?: string | null;
+	_gt?: string;
+	_gte?: string;
+	_lt?: string;
+	_lte?: string;
+	_nbetween?: readonly string[];
+	_neq?: string | null;
+	_null?: boolean;
+}
+
+export type checkrPackagesdeletedAtFilterNullablePrimitiveInput = {
+	_between?: readonly string[];
+	_eq?: string | null;
+	_gt?: string;
+	_gte?: string;
+	_lt?: string;
+	_lte?: string;
+	_nbetween?: readonly string[];
+	_neq?: string | null;
+	_null?: boolean;
+}
+
+export type checkrPackagesidFilterPrimitiveInput = {
+	_eq?: string;
+	_in?: readonly string[];
+	_neq?: string;
+	_nin?: readonly string[];
+}
+
+export type checkrPackagesnameFilterPrimitiveInput = {
+	_contains?: string;
+	_ends_with?: string;
+	_eq?: string;
+	_icontains?: string;
+	_in?: readonly string[];
+	_ncontains?: string;
+	_nends_with?: string;
+	_neq?: string;
+	_nicontains?: string;
+	_nin?: readonly string[];
+	_nstarts_with?: string;
+	_starts_with?: string;
+}
+
+export type checkrPackagesslugFilterPrimitiveInput = {
+	_contains?: string;
+	_ends_with?: string;
+	_eq?: string;
+	_icontains?: string;
+	_in?: readonly string[];
+	_ncontains?: string;
+	_nends_with?: string;
+	_neq?: string;
+	_nicontains?: string;
+	_nin?: readonly string[];
+	_nstarts_with?: string;
+	_starts_with?: string;
+}
+
+export type checkrReportsCollectionOutput = {
+	adjudication?: string | null;
+	archived?: boolean;
+	assessment?: string | null;
+	candidate?: checkrCandidatesCollectionOutput;
+	candidateId?: string;
+	completedAt?: string | null;
+	createdAt?: string | null;
+	estimatedCompletionTime?: string | null;
+	id?: string;
+	includesCanceled?: boolean;
+	invitations?: { data: checkrInvitationsCollectionOutput[] };
+	package?: string | null;
+	result?: string | null;
+	revisedAt?: string | null;
+	source?: string | null;
+	status?: string;
+	turnaroundTime?: number | null;
+	upgradedAt?: string | null;
+}
+
+export type checkrReportsCollectionOutputFieldsInput = readonly ("adjudication" | "archived" | "assessment" | "candidateId" | "completedAt" | "createdAt" | "estimatedCompletionTime" | "id" | "includesCanceled" | "package" | "result" | "revisedAt" | "source" | "status" | "turnaroundTime" | "upgradedAt" | "*" | `${string}:${"adjudication" | "archived" | "assessment" | "candidateId" | "completedAt" | "createdAt" | "estimatedCompletionTime" | "id" | "includesCanceled" | "package" | "result" | "revisedAt" | "source" | "status" | "turnaroundTime" | "upgradedAt"}`)[];
+
+export type checkrReportsCollectionOutputIncludeInput = {
+	"candidate"?: ({ "fields"?: checkrCandidatesCollectionOutputFieldsInput; "include"?: checkrCandidatesCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof ({ "fields"?: checkrCandidatesCollectionOutputFieldsInput; "include"?: checkrCandidatesCollectionOutputIncludeInput })>]?: never };
+	"invitations"?: (checkrReportsinvitationsRelationFieldArguments & { "fields"?: checkrInvitationsCollectionOutputFieldsInput; "include"?: checkrInvitationsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (checkrReportsinvitationsRelationFieldArguments & { "fields"?: checkrInvitationsCollectionOutputFieldsInput; "include"?: checkrInvitationsCollectionOutputIncludeInput })>]?: never };
+} & { [K in `${string}:${"candidate"}`]?: checkrReportsCollectionOutputIncludeInput["candidate"] } & { [K in `${string}:${"invitations"}`]?: checkrReportsCollectionOutputIncludeInput["invitations"] };
+
+export type checkrReportsFilterInput = {
+	_and?: readonly checkrReportsFilterInput[];
+	_not?: checkrReportsFilterInput;
+	_or?: readonly checkrReportsFilterInput[];
+	adjudication?: checkrReportsadjudicationFilterNullablePrimitiveInput | string | null;
+	archived?: BooleanFilterPrimitiveInput | boolean;
+	assessment?: checkrReportsassessmentFilterNullablePrimitiveInput | string | null;
+	candidateId?: checkrReportscandidateIdFilterPrimitiveInput | string;
+	completedAt?: checkrReportscompletedAtFilterNullablePrimitiveInput | string | null;
+	createdAt?: checkrReportscreatedAtFilterNullablePrimitiveInput | string | null;
+	id?: checkrReportsidFilterPrimitiveInput | string;
+	package?: checkrReportspackageFilterNullablePrimitiveInput | string | null;
+	result?: checkrReportsresultFilterNullablePrimitiveInput | string | null;
+	status?: checkrReportsstatusFilterPrimitiveInput | string;
+}
+
+export type checkrReportsListArguments = {
+	filter?: checkrReportsFilterInput;
+	limit?: Int64Input;
+	offset?: UInt64Input;
+}
+
+export type checkrReportsReadArguments = {
+	key: string;
+}
+
+export type checkrReportsadjudicationFilterNullablePrimitiveInput = {
+	_eq?: string | null;
+	_in?: readonly (string | null)[];
+	_neq?: string | null;
+	_nin?: readonly (string | null)[];
+	_null?: boolean;
+}
+
+export type checkrReportsassessmentFilterNullablePrimitiveInput = {
+	_eq?: string | null;
+	_in?: readonly (string | null)[];
+	_neq?: string | null;
+	_nin?: readonly (string | null)[];
+	_null?: boolean;
+}
+
+export type checkrReportscandidateIdFilterPrimitiveInput = {
+	_eq?: string;
+	_in?: readonly string[];
+	_neq?: string;
+	_nin?: readonly string[];
+}
+
+export type checkrReportscompletedAtFilterNullablePrimitiveInput = {
+	_between?: readonly string[];
+	_eq?: string | null;
+	_gt?: string;
+	_gte?: string;
+	_lt?: string;
+	_lte?: string;
+	_nbetween?: readonly string[];
+	_neq?: string | null;
+	_null?: boolean;
+}
+
+export type checkrReportscreatedAtFilterNullablePrimitiveInput = {
+	_between?: readonly string[];
+	_eq?: string | null;
+	_gt?: string;
+	_gte?: string;
+	_lt?: string;
+	_lte?: string;
+	_nbetween?: readonly string[];
+	_neq?: string | null;
+	_null?: boolean;
+}
+
+export type checkrReportsidFilterPrimitiveInput = {
+	_eq?: string;
+	_in?: readonly string[];
+	_neq?: string;
+	_nin?: readonly string[];
+}
+
+export type checkrReportsinvitationsRelationFieldArguments = {
+	filter?: checkrInvitationsFilterInput;
+	limit?: Int64Input;
+	offset?: UInt64Input;
+}
+
+export type checkrReportspackageFilterNullablePrimitiveInput = {
+	_contains?: string;
+	_ends_with?: string;
+	_eq?: string | null;
+	_icontains?: string;
+	_in?: readonly (string | null)[];
+	_ncontains?: string;
+	_nends_with?: string;
+	_neq?: string | null;
+	_nicontains?: string;
+	_nin?: readonly (string | null)[];
+	_nstarts_with?: string;
+	_null?: boolean;
+	_starts_with?: string;
+}
+
+export type checkrReportsresultFilterNullablePrimitiveInput = {
+	_eq?: string | null;
+	_in?: readonly (string | null)[];
+	_neq?: string | null;
+	_nin?: readonly (string | null)[];
+	_null?: boolean;
+}
+
+export type checkrReportsstatusFilterPrimitiveInput = {
+	_eq?: string;
+	_in?: readonly string[];
+	_neq?: string;
+	_nin?: readonly string[];
 }
 
 export type contactsCollectionOutput = {
@@ -8575,25 +13097,47 @@ export type contactscreatedByCreateRelatedWithoutTypeInput = {
 	affiliationsCreatedBy?: readonly MonospaceSystemUseraffiliationsCreatedByCreateRelatedInput[];
 	affiliationsUpdatedBy?: readonly MonospaceSystemUseraffiliationsUpdatedByCreateRelatedInput[];
 	appearance?: string | null;
+	applicationsCreatedBy?: readonly MonospaceSystemUserapplicationsCreatedByCreateRelatedInput[];
+	applicationsUpdatedBy?: readonly MonospaceSystemUserapplicationsUpdatedByCreateRelatedInput[];
 	attachmentsCreatedBy?: readonly MonospaceSystemUserattachmentsCreatedByCreateRelatedInput[];
 	avatarId?: Uuid | null;
+	candidateFilesCreatedBy?: readonly MonospaceSystemUsercandidateFilesCreatedByCreateRelatedInput[];
+	candidateMessagesCreatedBy?: readonly MonospaceSystemUsercandidateMessagesCreatedByCreateRelatedInput[];
+	candidateNotesCreatedBy?: readonly MonospaceSystemUsercandidateNotesCreatedByCreateRelatedInput[];
+	candidateNotesUpdatedBy?: readonly MonospaceSystemUsercandidateNotesUpdatedByCreateRelatedInput[];
+	candidatesCreatedBy?: readonly MonospaceSystemUsercandidatesCreatedByCreateRelatedInput[];
+	candidatesUpdatedBy?: readonly MonospaceSystemUsercandidatesUpdatedByCreateRelatedInput[];
 	contactsOwner?: readonly MonospaceSystemUsercontactsOwnerCreateRelatedInput[];
 	contactsUpdatedBy?: readonly MonospaceSystemUsercontactsUpdatedByCreateRelatedInput[];
 	dealsCreatedBy?: readonly MonospaceSystemUserdealsCreatedByCreateRelatedInput[];
 	dealsOwner?: readonly MonospaceSystemUserdealsOwnerCreateRelatedInput[];
 	dealsUpdatedBy?: readonly MonospaceSystemUserdealsUpdatedByCreateRelatedInput[];
 	email?: string | null;
+	emailTemplatesCreatedBy?: readonly MonospaceSystemUseremailTemplatesCreatedByCreateRelatedInput[];
+	emailTemplatesUpdatedBy?: readonly MonospaceSystemUseremailTemplatesUpdatedByCreateRelatedInput[];
 	fullName?: string | null;
 	id: Uuid;
+	interviewsCreatedBy?: readonly MonospaceSystemUserinterviewsCreatedByCreateRelatedInput[];
+	interviewsUpdatedBy?: readonly MonospaceSystemUserinterviewsUpdatedByCreateRelatedInput[];
 	isService: boolean;
 	lastActivityAt?: string | null;
+	offersCreatedBy?: readonly MonospaceSystemUseroffersCreatedByCreateRelatedInput[];
+	offersUpdatedBy?: readonly MonospaceSystemUseroffersUpdatedByCreateRelatedInput[];
 	organizationsCreatedBy?: readonly MonospaceSystemUserorganizationsCreatedByCreateRelatedInput[];
 	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
 	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
+	requisitionsCreatedBy?: readonly MonospaceSystemUserrequisitionsCreatedByCreateRelatedInput[];
+	requisitionsUpdatedBy?: readonly MonospaceSystemUserrequisitionsUpdatedByCreateRelatedInput[];
+	roleRequestsCreatedBy?: readonly MonospaceSystemUserroleRequestsCreatedByCreateRelatedInput[];
+	roleRequestsUpdatedBy?: readonly MonospaceSystemUserroleRequestsUpdatedByCreateRelatedInput[];
 	roles?: readonly MonospaceSystemUserrolesCreateRelatedInput[];
+	scorecardsCreatedBy?: readonly MonospaceSystemUserscorecardsCreatedByCreateRelatedInput[];
+	scorecardsUpdatedBy?: readonly MonospaceSystemUserscorecardsUpdatedByCreateRelatedInput[];
 	serviceOwnerId?: Uuid | null;
 	status?: string;
 	storageValues?: readonly MonospaceSystemUserstorageValuesCreateRelatedInput[];
+	workforcePlanRolesCreatedBy?: readonly MonospaceSystemUserworkforcePlanRolesCreatedByCreateRelatedInput[];
+	workforcePlanRolesUpdatedBy?: readonly MonospaceSystemUserworkforcePlanRolesUpdatedByCreateRelatedInput[];
 }
 
 export type contactscreatedByRelationFieldArguments = {
@@ -8683,25 +13227,47 @@ export type contactsownerCreateRelatedWithoutTypeInput = {
 	affiliationsCreatedBy?: readonly MonospaceSystemUseraffiliationsCreatedByCreateRelatedInput[];
 	affiliationsUpdatedBy?: readonly MonospaceSystemUseraffiliationsUpdatedByCreateRelatedInput[];
 	appearance?: string | null;
+	applicationsCreatedBy?: readonly MonospaceSystemUserapplicationsCreatedByCreateRelatedInput[];
+	applicationsUpdatedBy?: readonly MonospaceSystemUserapplicationsUpdatedByCreateRelatedInput[];
 	attachmentsCreatedBy?: readonly MonospaceSystemUserattachmentsCreatedByCreateRelatedInput[];
 	avatarId?: Uuid | null;
+	candidateFilesCreatedBy?: readonly MonospaceSystemUsercandidateFilesCreatedByCreateRelatedInput[];
+	candidateMessagesCreatedBy?: readonly MonospaceSystemUsercandidateMessagesCreatedByCreateRelatedInput[];
+	candidateNotesCreatedBy?: readonly MonospaceSystemUsercandidateNotesCreatedByCreateRelatedInput[];
+	candidateNotesUpdatedBy?: readonly MonospaceSystemUsercandidateNotesUpdatedByCreateRelatedInput[];
+	candidatesCreatedBy?: readonly MonospaceSystemUsercandidatesCreatedByCreateRelatedInput[];
+	candidatesUpdatedBy?: readonly MonospaceSystemUsercandidatesUpdatedByCreateRelatedInput[];
 	contactsCreatedBy?: readonly MonospaceSystemUsercontactsCreatedByCreateRelatedInput[];
 	contactsUpdatedBy?: readonly MonospaceSystemUsercontactsUpdatedByCreateRelatedInput[];
 	dealsCreatedBy?: readonly MonospaceSystemUserdealsCreatedByCreateRelatedInput[];
 	dealsOwner?: readonly MonospaceSystemUserdealsOwnerCreateRelatedInput[];
 	dealsUpdatedBy?: readonly MonospaceSystemUserdealsUpdatedByCreateRelatedInput[];
 	email?: string | null;
+	emailTemplatesCreatedBy?: readonly MonospaceSystemUseremailTemplatesCreatedByCreateRelatedInput[];
+	emailTemplatesUpdatedBy?: readonly MonospaceSystemUseremailTemplatesUpdatedByCreateRelatedInput[];
 	fullName?: string | null;
 	id: Uuid;
+	interviewsCreatedBy?: readonly MonospaceSystemUserinterviewsCreatedByCreateRelatedInput[];
+	interviewsUpdatedBy?: readonly MonospaceSystemUserinterviewsUpdatedByCreateRelatedInput[];
 	isService: boolean;
 	lastActivityAt?: string | null;
+	offersCreatedBy?: readonly MonospaceSystemUseroffersCreatedByCreateRelatedInput[];
+	offersUpdatedBy?: readonly MonospaceSystemUseroffersUpdatedByCreateRelatedInput[];
 	organizationsCreatedBy?: readonly MonospaceSystemUserorganizationsCreatedByCreateRelatedInput[];
 	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
 	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
+	requisitionsCreatedBy?: readonly MonospaceSystemUserrequisitionsCreatedByCreateRelatedInput[];
+	requisitionsUpdatedBy?: readonly MonospaceSystemUserrequisitionsUpdatedByCreateRelatedInput[];
+	roleRequestsCreatedBy?: readonly MonospaceSystemUserroleRequestsCreatedByCreateRelatedInput[];
+	roleRequestsUpdatedBy?: readonly MonospaceSystemUserroleRequestsUpdatedByCreateRelatedInput[];
 	roles?: readonly MonospaceSystemUserrolesCreateRelatedInput[];
+	scorecardsCreatedBy?: readonly MonospaceSystemUserscorecardsCreatedByCreateRelatedInput[];
+	scorecardsUpdatedBy?: readonly MonospaceSystemUserscorecardsUpdatedByCreateRelatedInput[];
 	serviceOwnerId?: Uuid | null;
 	status?: string;
 	storageValues?: readonly MonospaceSystemUserstorageValuesCreateRelatedInput[];
+	workforcePlanRolesCreatedBy?: readonly MonospaceSystemUserworkforcePlanRolesCreatedByCreateRelatedInput[];
+	workforcePlanRolesUpdatedBy?: readonly MonospaceSystemUserworkforcePlanRolesUpdatedByCreateRelatedInput[];
 }
 
 export type contactsownerRelationFieldArguments = {
@@ -8780,25 +13346,47 @@ export type contactsupdatedByCreateRelatedWithoutTypeInput = {
 	affiliationsCreatedBy?: readonly MonospaceSystemUseraffiliationsCreatedByCreateRelatedInput[];
 	affiliationsUpdatedBy?: readonly MonospaceSystemUseraffiliationsUpdatedByCreateRelatedInput[];
 	appearance?: string | null;
+	applicationsCreatedBy?: readonly MonospaceSystemUserapplicationsCreatedByCreateRelatedInput[];
+	applicationsUpdatedBy?: readonly MonospaceSystemUserapplicationsUpdatedByCreateRelatedInput[];
 	attachmentsCreatedBy?: readonly MonospaceSystemUserattachmentsCreatedByCreateRelatedInput[];
 	avatarId?: Uuid | null;
+	candidateFilesCreatedBy?: readonly MonospaceSystemUsercandidateFilesCreatedByCreateRelatedInput[];
+	candidateMessagesCreatedBy?: readonly MonospaceSystemUsercandidateMessagesCreatedByCreateRelatedInput[];
+	candidateNotesCreatedBy?: readonly MonospaceSystemUsercandidateNotesCreatedByCreateRelatedInput[];
+	candidateNotesUpdatedBy?: readonly MonospaceSystemUsercandidateNotesUpdatedByCreateRelatedInput[];
+	candidatesCreatedBy?: readonly MonospaceSystemUsercandidatesCreatedByCreateRelatedInput[];
+	candidatesUpdatedBy?: readonly MonospaceSystemUsercandidatesUpdatedByCreateRelatedInput[];
 	contactsCreatedBy?: readonly MonospaceSystemUsercontactsCreatedByCreateRelatedInput[];
 	contactsOwner?: readonly MonospaceSystemUsercontactsOwnerCreateRelatedInput[];
 	dealsCreatedBy?: readonly MonospaceSystemUserdealsCreatedByCreateRelatedInput[];
 	dealsOwner?: readonly MonospaceSystemUserdealsOwnerCreateRelatedInput[];
 	dealsUpdatedBy?: readonly MonospaceSystemUserdealsUpdatedByCreateRelatedInput[];
 	email?: string | null;
+	emailTemplatesCreatedBy?: readonly MonospaceSystemUseremailTemplatesCreatedByCreateRelatedInput[];
+	emailTemplatesUpdatedBy?: readonly MonospaceSystemUseremailTemplatesUpdatedByCreateRelatedInput[];
 	fullName?: string | null;
 	id: Uuid;
+	interviewsCreatedBy?: readonly MonospaceSystemUserinterviewsCreatedByCreateRelatedInput[];
+	interviewsUpdatedBy?: readonly MonospaceSystemUserinterviewsUpdatedByCreateRelatedInput[];
 	isService: boolean;
 	lastActivityAt?: string | null;
+	offersCreatedBy?: readonly MonospaceSystemUseroffersCreatedByCreateRelatedInput[];
+	offersUpdatedBy?: readonly MonospaceSystemUseroffersUpdatedByCreateRelatedInput[];
 	organizationsCreatedBy?: readonly MonospaceSystemUserorganizationsCreatedByCreateRelatedInput[];
 	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
 	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
+	requisitionsCreatedBy?: readonly MonospaceSystemUserrequisitionsCreatedByCreateRelatedInput[];
+	requisitionsUpdatedBy?: readonly MonospaceSystemUserrequisitionsUpdatedByCreateRelatedInput[];
+	roleRequestsCreatedBy?: readonly MonospaceSystemUserroleRequestsCreatedByCreateRelatedInput[];
+	roleRequestsUpdatedBy?: readonly MonospaceSystemUserroleRequestsUpdatedByCreateRelatedInput[];
 	roles?: readonly MonospaceSystemUserrolesCreateRelatedInput[];
+	scorecardsCreatedBy?: readonly MonospaceSystemUserscorecardsCreatedByCreateRelatedInput[];
+	scorecardsUpdatedBy?: readonly MonospaceSystemUserscorecardsUpdatedByCreateRelatedInput[];
 	serviceOwnerId?: Uuid | null;
 	status?: string;
 	storageValues?: readonly MonospaceSystemUserstorageValuesCreateRelatedInput[];
+	workforcePlanRolesCreatedBy?: readonly MonospaceSystemUserworkforcePlanRolesCreatedByCreateRelatedInput[];
+	workforcePlanRolesUpdatedBy?: readonly MonospaceSystemUserworkforcePlanRolesUpdatedByCreateRelatedInput[];
 }
 
 export type contactsupdatedByRelationFieldArguments = {
@@ -9170,25 +13758,47 @@ export type dealscreatedByCreateRelatedWithoutTypeInput = {
 	affiliationsCreatedBy?: readonly MonospaceSystemUseraffiliationsCreatedByCreateRelatedInput[];
 	affiliationsUpdatedBy?: readonly MonospaceSystemUseraffiliationsUpdatedByCreateRelatedInput[];
 	appearance?: string | null;
+	applicationsCreatedBy?: readonly MonospaceSystemUserapplicationsCreatedByCreateRelatedInput[];
+	applicationsUpdatedBy?: readonly MonospaceSystemUserapplicationsUpdatedByCreateRelatedInput[];
 	attachmentsCreatedBy?: readonly MonospaceSystemUserattachmentsCreatedByCreateRelatedInput[];
 	avatarId?: Uuid | null;
+	candidateFilesCreatedBy?: readonly MonospaceSystemUsercandidateFilesCreatedByCreateRelatedInput[];
+	candidateMessagesCreatedBy?: readonly MonospaceSystemUsercandidateMessagesCreatedByCreateRelatedInput[];
+	candidateNotesCreatedBy?: readonly MonospaceSystemUsercandidateNotesCreatedByCreateRelatedInput[];
+	candidateNotesUpdatedBy?: readonly MonospaceSystemUsercandidateNotesUpdatedByCreateRelatedInput[];
+	candidatesCreatedBy?: readonly MonospaceSystemUsercandidatesCreatedByCreateRelatedInput[];
+	candidatesUpdatedBy?: readonly MonospaceSystemUsercandidatesUpdatedByCreateRelatedInput[];
 	contactsCreatedBy?: readonly MonospaceSystemUsercontactsCreatedByCreateRelatedInput[];
 	contactsOwner?: readonly MonospaceSystemUsercontactsOwnerCreateRelatedInput[];
 	contactsUpdatedBy?: readonly MonospaceSystemUsercontactsUpdatedByCreateRelatedInput[];
 	dealsOwner?: readonly MonospaceSystemUserdealsOwnerCreateRelatedInput[];
 	dealsUpdatedBy?: readonly MonospaceSystemUserdealsUpdatedByCreateRelatedInput[];
 	email?: string | null;
+	emailTemplatesCreatedBy?: readonly MonospaceSystemUseremailTemplatesCreatedByCreateRelatedInput[];
+	emailTemplatesUpdatedBy?: readonly MonospaceSystemUseremailTemplatesUpdatedByCreateRelatedInput[];
 	fullName?: string | null;
 	id: Uuid;
+	interviewsCreatedBy?: readonly MonospaceSystemUserinterviewsCreatedByCreateRelatedInput[];
+	interviewsUpdatedBy?: readonly MonospaceSystemUserinterviewsUpdatedByCreateRelatedInput[];
 	isService: boolean;
 	lastActivityAt?: string | null;
+	offersCreatedBy?: readonly MonospaceSystemUseroffersCreatedByCreateRelatedInput[];
+	offersUpdatedBy?: readonly MonospaceSystemUseroffersUpdatedByCreateRelatedInput[];
 	organizationsCreatedBy?: readonly MonospaceSystemUserorganizationsCreatedByCreateRelatedInput[];
 	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
 	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
+	requisitionsCreatedBy?: readonly MonospaceSystemUserrequisitionsCreatedByCreateRelatedInput[];
+	requisitionsUpdatedBy?: readonly MonospaceSystemUserrequisitionsUpdatedByCreateRelatedInput[];
+	roleRequestsCreatedBy?: readonly MonospaceSystemUserroleRequestsCreatedByCreateRelatedInput[];
+	roleRequestsUpdatedBy?: readonly MonospaceSystemUserroleRequestsUpdatedByCreateRelatedInput[];
 	roles?: readonly MonospaceSystemUserrolesCreateRelatedInput[];
+	scorecardsCreatedBy?: readonly MonospaceSystemUserscorecardsCreatedByCreateRelatedInput[];
+	scorecardsUpdatedBy?: readonly MonospaceSystemUserscorecardsUpdatedByCreateRelatedInput[];
 	serviceOwnerId?: Uuid | null;
 	status?: string;
 	storageValues?: readonly MonospaceSystemUserstorageValuesCreateRelatedInput[];
+	workforcePlanRolesCreatedBy?: readonly MonospaceSystemUserworkforcePlanRolesCreatedByCreateRelatedInput[];
+	workforcePlanRolesUpdatedBy?: readonly MonospaceSystemUserworkforcePlanRolesUpdatedByCreateRelatedInput[];
 }
 
 export type dealscreatedByRelationFieldArguments = {
@@ -9269,25 +13879,47 @@ export type dealsownerCreateRelatedWithoutTypeInput = {
 	affiliationsCreatedBy?: readonly MonospaceSystemUseraffiliationsCreatedByCreateRelatedInput[];
 	affiliationsUpdatedBy?: readonly MonospaceSystemUseraffiliationsUpdatedByCreateRelatedInput[];
 	appearance?: string | null;
+	applicationsCreatedBy?: readonly MonospaceSystemUserapplicationsCreatedByCreateRelatedInput[];
+	applicationsUpdatedBy?: readonly MonospaceSystemUserapplicationsUpdatedByCreateRelatedInput[];
 	attachmentsCreatedBy?: readonly MonospaceSystemUserattachmentsCreatedByCreateRelatedInput[];
 	avatarId?: Uuid | null;
+	candidateFilesCreatedBy?: readonly MonospaceSystemUsercandidateFilesCreatedByCreateRelatedInput[];
+	candidateMessagesCreatedBy?: readonly MonospaceSystemUsercandidateMessagesCreatedByCreateRelatedInput[];
+	candidateNotesCreatedBy?: readonly MonospaceSystemUsercandidateNotesCreatedByCreateRelatedInput[];
+	candidateNotesUpdatedBy?: readonly MonospaceSystemUsercandidateNotesUpdatedByCreateRelatedInput[];
+	candidatesCreatedBy?: readonly MonospaceSystemUsercandidatesCreatedByCreateRelatedInput[];
+	candidatesUpdatedBy?: readonly MonospaceSystemUsercandidatesUpdatedByCreateRelatedInput[];
 	contactsCreatedBy?: readonly MonospaceSystemUsercontactsCreatedByCreateRelatedInput[];
 	contactsOwner?: readonly MonospaceSystemUsercontactsOwnerCreateRelatedInput[];
 	contactsUpdatedBy?: readonly MonospaceSystemUsercontactsUpdatedByCreateRelatedInput[];
 	dealsCreatedBy?: readonly MonospaceSystemUserdealsCreatedByCreateRelatedInput[];
 	dealsUpdatedBy?: readonly MonospaceSystemUserdealsUpdatedByCreateRelatedInput[];
 	email?: string | null;
+	emailTemplatesCreatedBy?: readonly MonospaceSystemUseremailTemplatesCreatedByCreateRelatedInput[];
+	emailTemplatesUpdatedBy?: readonly MonospaceSystemUseremailTemplatesUpdatedByCreateRelatedInput[];
 	fullName?: string | null;
 	id: Uuid;
+	interviewsCreatedBy?: readonly MonospaceSystemUserinterviewsCreatedByCreateRelatedInput[];
+	interviewsUpdatedBy?: readonly MonospaceSystemUserinterviewsUpdatedByCreateRelatedInput[];
 	isService: boolean;
 	lastActivityAt?: string | null;
+	offersCreatedBy?: readonly MonospaceSystemUseroffersCreatedByCreateRelatedInput[];
+	offersUpdatedBy?: readonly MonospaceSystemUseroffersUpdatedByCreateRelatedInput[];
 	organizationsCreatedBy?: readonly MonospaceSystemUserorganizationsCreatedByCreateRelatedInput[];
 	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
 	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
+	requisitionsCreatedBy?: readonly MonospaceSystemUserrequisitionsCreatedByCreateRelatedInput[];
+	requisitionsUpdatedBy?: readonly MonospaceSystemUserrequisitionsUpdatedByCreateRelatedInput[];
+	roleRequestsCreatedBy?: readonly MonospaceSystemUserroleRequestsCreatedByCreateRelatedInput[];
+	roleRequestsUpdatedBy?: readonly MonospaceSystemUserroleRequestsUpdatedByCreateRelatedInput[];
 	roles?: readonly MonospaceSystemUserrolesCreateRelatedInput[];
+	scorecardsCreatedBy?: readonly MonospaceSystemUserscorecardsCreatedByCreateRelatedInput[];
+	scorecardsUpdatedBy?: readonly MonospaceSystemUserscorecardsUpdatedByCreateRelatedInput[];
 	serviceOwnerId?: Uuid | null;
 	status?: string;
 	storageValues?: readonly MonospaceSystemUserstorageValuesCreateRelatedInput[];
+	workforcePlanRolesCreatedBy?: readonly MonospaceSystemUserworkforcePlanRolesCreatedByCreateRelatedInput[];
+	workforcePlanRolesUpdatedBy?: readonly MonospaceSystemUserworkforcePlanRolesUpdatedByCreateRelatedInput[];
 }
 
 export type dealsownerRelationFieldArguments = {
@@ -9358,25 +13990,47 @@ export type dealsupdatedByCreateRelatedWithoutTypeInput = {
 	affiliationsCreatedBy?: readonly MonospaceSystemUseraffiliationsCreatedByCreateRelatedInput[];
 	affiliationsUpdatedBy?: readonly MonospaceSystemUseraffiliationsUpdatedByCreateRelatedInput[];
 	appearance?: string | null;
+	applicationsCreatedBy?: readonly MonospaceSystemUserapplicationsCreatedByCreateRelatedInput[];
+	applicationsUpdatedBy?: readonly MonospaceSystemUserapplicationsUpdatedByCreateRelatedInput[];
 	attachmentsCreatedBy?: readonly MonospaceSystemUserattachmentsCreatedByCreateRelatedInput[];
 	avatarId?: Uuid | null;
+	candidateFilesCreatedBy?: readonly MonospaceSystemUsercandidateFilesCreatedByCreateRelatedInput[];
+	candidateMessagesCreatedBy?: readonly MonospaceSystemUsercandidateMessagesCreatedByCreateRelatedInput[];
+	candidateNotesCreatedBy?: readonly MonospaceSystemUsercandidateNotesCreatedByCreateRelatedInput[];
+	candidateNotesUpdatedBy?: readonly MonospaceSystemUsercandidateNotesUpdatedByCreateRelatedInput[];
+	candidatesCreatedBy?: readonly MonospaceSystemUsercandidatesCreatedByCreateRelatedInput[];
+	candidatesUpdatedBy?: readonly MonospaceSystemUsercandidatesUpdatedByCreateRelatedInput[];
 	contactsCreatedBy?: readonly MonospaceSystemUsercontactsCreatedByCreateRelatedInput[];
 	contactsOwner?: readonly MonospaceSystemUsercontactsOwnerCreateRelatedInput[];
 	contactsUpdatedBy?: readonly MonospaceSystemUsercontactsUpdatedByCreateRelatedInput[];
 	dealsCreatedBy?: readonly MonospaceSystemUserdealsCreatedByCreateRelatedInput[];
 	dealsOwner?: readonly MonospaceSystemUserdealsOwnerCreateRelatedInput[];
 	email?: string | null;
+	emailTemplatesCreatedBy?: readonly MonospaceSystemUseremailTemplatesCreatedByCreateRelatedInput[];
+	emailTemplatesUpdatedBy?: readonly MonospaceSystemUseremailTemplatesUpdatedByCreateRelatedInput[];
 	fullName?: string | null;
 	id: Uuid;
+	interviewsCreatedBy?: readonly MonospaceSystemUserinterviewsCreatedByCreateRelatedInput[];
+	interviewsUpdatedBy?: readonly MonospaceSystemUserinterviewsUpdatedByCreateRelatedInput[];
 	isService: boolean;
 	lastActivityAt?: string | null;
+	offersCreatedBy?: readonly MonospaceSystemUseroffersCreatedByCreateRelatedInput[];
+	offersUpdatedBy?: readonly MonospaceSystemUseroffersUpdatedByCreateRelatedInput[];
 	organizationsCreatedBy?: readonly MonospaceSystemUserorganizationsCreatedByCreateRelatedInput[];
 	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
 	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
+	requisitionsCreatedBy?: readonly MonospaceSystemUserrequisitionsCreatedByCreateRelatedInput[];
+	requisitionsUpdatedBy?: readonly MonospaceSystemUserrequisitionsUpdatedByCreateRelatedInput[];
+	roleRequestsCreatedBy?: readonly MonospaceSystemUserroleRequestsCreatedByCreateRelatedInput[];
+	roleRequestsUpdatedBy?: readonly MonospaceSystemUserroleRequestsUpdatedByCreateRelatedInput[];
 	roles?: readonly MonospaceSystemUserrolesCreateRelatedInput[];
+	scorecardsCreatedBy?: readonly MonospaceSystemUserscorecardsCreatedByCreateRelatedInput[];
+	scorecardsUpdatedBy?: readonly MonospaceSystemUserscorecardsUpdatedByCreateRelatedInput[];
 	serviceOwnerId?: Uuid | null;
 	status?: string;
 	storageValues?: readonly MonospaceSystemUserstorageValuesCreateRelatedInput[];
+	workforcePlanRolesCreatedBy?: readonly MonospaceSystemUserworkforcePlanRolesCreatedByCreateRelatedInput[];
+	workforcePlanRolesUpdatedBy?: readonly MonospaceSystemUserworkforcePlanRolesUpdatedByCreateRelatedInput[];
 }
 
 export type dealsupdatedByRelationFieldArguments = {
@@ -9386,6 +14040,583 @@ export type dealsupdatedByRelationFieldArguments = {
 export type dealsupdatedByUpdateOneRelatedOperationsInput = {
 	_connect?: dealsupdatedByConnectInput;
 	_create?: dealsupdatedByCreateArguments;
+	_delete?: MonospaceSystemUserDeleteArguments;
+	_disconnect?: MonospaceSystemUserDisconnectOneInput;
+	_update?: MonospaceSystemUserUpdateInput;
+}
+
+export type departmentsCollectionOutput = {
+	createdAt?: string;
+	hasVariableComp?: boolean;
+	headUserId?: Uuid | null;
+	id?: Uuid;
+	name?: string;
+	requisitions?: { data: requisitionsCollectionOutput[] };
+	role_requests?: { data: roleRequestsCollectionOutput[] };
+	workforce_plan_roles?: { data: workforcePlanRolesCollectionOutput[] };
+}
+
+export type departmentsCollectionOutputFieldsInput = readonly ("createdAt" | "hasVariableComp" | "headUserId" | "id" | "name" | "*" | `${string}:${"createdAt" | "hasVariableComp" | "headUserId" | "id" | "name"}`)[];
+
+export type departmentsCollectionOutputIncludeInput = {
+	"requisitions"?: (departmentsrequisitionsRelationFieldArguments & { "fields"?: requisitionsCollectionOutputFieldsInput; "include"?: requisitionsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (departmentsrequisitionsRelationFieldArguments & { "fields"?: requisitionsCollectionOutputFieldsInput; "include"?: requisitionsCollectionOutputIncludeInput })>]?: never };
+	"role_requests"?: (departmentsrole_requestsRelationFieldArguments & { "fields"?: roleRequestsCollectionOutputFieldsInput; "include"?: roleRequestsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (departmentsrole_requestsRelationFieldArguments & { "fields"?: roleRequestsCollectionOutputFieldsInput; "include"?: roleRequestsCollectionOutputIncludeInput })>]?: never };
+	"workforce_plan_roles"?: (departmentsworkforce_plan_rolesRelationFieldArguments & { "fields"?: workforcePlanRolesCollectionOutputFieldsInput; "include"?: workforcePlanRolesCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (departmentsworkforce_plan_rolesRelationFieldArguments & { "fields"?: workforcePlanRolesCollectionOutputFieldsInput; "include"?: workforcePlanRolesCollectionOutputIncludeInput })>]?: never };
+} & { [K in `${string}:${"requisitions"}`]?: departmentsCollectionOutputIncludeInput["requisitions"] } & { [K in `${string}:${"role_requests"}`]?: departmentsCollectionOutputIncludeInput["role_requests"] } & { [K in `${string}:${"workforce_plan_roles"}`]?: departmentsCollectionOutputIncludeInput["workforce_plan_roles"] };
+
+export type departmentsCreateArguments = {
+	data: readonly departmentsCreateInput[];
+}
+
+export type departmentsCreateInput = {
+	createdAt?: string;
+	hasVariableComp?: boolean;
+	headUserId?: Uuid | null;
+	id?: Uuid;
+	name: string;
+	requisitions?: readonly departmentsrequisitionsCreateRelatedInput[];
+	role_requests?: readonly departmentsrole_requestsCreateRelatedInput[];
+	workforce_plan_roles?: readonly departmentsworkforce_plan_rolesCreateRelatedInput[];
+}
+
+export type departmentsDeleteArguments = {
+	filter?: departmentsFilterInput;
+}
+
+export type departmentsDeleteOneArguments = {
+	filter?: departmentsFilterInput;
+	key: Uuid;
+}
+
+export type departmentsFilterInput = {
+	_and?: readonly departmentsFilterInput[];
+	_not?: departmentsFilterInput;
+	_or?: readonly departmentsFilterInput[];
+	createdAt?: DateTimeFilterPrimitiveInput | string;
+	hasVariableComp?: BooleanFilterPrimitiveInput | boolean;
+	headUserId?: UuidFilterNullablePrimitiveInput | Uuid | null;
+	id?: UuidFilterPrimitiveInput | Uuid;
+	name?: StringFilterPrimitiveInput | string;
+	requisitions?: requisitionsFilterQuantifierInput | requisitionsFilterInput;
+	role_requests?: roleRequestsFilterQuantifierInput | roleRequestsFilterInput;
+	workforce_plan_roles?: workforcePlanRolesFilterQuantifierInput | workforcePlanRolesFilterInput;
+}
+
+export type departmentsListArguments = {
+	filter?: departmentsFilterInput;
+	limit?: Int64Input;
+	meta?: MetaArguments;
+	offset?: UInt64Input;
+	sort?: readonly departmentsSortSpecifier[];
+}
+
+export type departmentsReadArguments = {
+	filter?: departmentsFilterInput;
+	key: Uuid;
+}
+
+export type departmentsSortSpecifier = {
+	createdAt?: SortFieldOptions;
+	hasVariableComp?: SortFieldOptions;
+	headUserId?: SortFieldOptions;
+	id?: SortFieldOptions;
+	name?: SortFieldOptions;
+}
+
+export type departmentsUpdateArguments = {
+	data: departmentsUpdateDataInput;
+	filter?: departmentsFilterInput;
+}
+
+export type departmentsUpdateDataInput = {
+	createdAt?: string;
+	hasVariableComp?: boolean;
+	headUserId?: Uuid | null;
+	id?: Uuid;
+	name?: string;
+	requisitions?: readonly departmentsrequisitionsUpdateManyRelatedOperationsInput[];
+	role_requests?: readonly departmentsrole_requestsUpdateManyRelatedOperationsInput[];
+	workforce_plan_roles?: readonly departmentsworkforce_plan_rolesUpdateManyRelatedOperationsInput[];
+}
+
+export type departmentsUpdateInput = {
+	data: departmentsUpdateDataInput;
+	filter?: departmentsFilterInput;
+}
+
+export type departmentsUpdateOneArguments = {
+	data: departmentsUpdateDataInput;
+	filter?: departmentsFilterInput;
+	key: Uuid;
+}
+
+export type departmentsrequisitionsConnectBackwardKeysInput = {
+	id?: Uuid;
+	reqNumber?: number;
+	roleRequestId?: Uuid;
+}
+
+export type departmentsrequisitionsConnectInput = {
+	keys: readonly departmentsrequisitionsConnectBackwardKeysInput[];
+}
+
+export type departmentsrequisitionsCreateArguments = {
+	data: readonly departmentsrequisitionsCreateRelatedWithoutTypeInput[];
+}
+
+export type departmentsrequisitionsCreateRelatedInput = {
+	_connect?: departmentsrequisitionsConnectInput;
+	_create?: departmentsrequisitionsCreateArguments;
+}
+
+export type departmentsrequisitionsCreateRelatedWithoutTypeInput = {
+	applications?: readonly requisitionsapplicationsCreateRelatedInput[];
+	closedAt?: string | null;
+	compMax?: string | null;
+	compMin?: string | null;
+	createdAt?: string;
+	createdBy?: requisitionscreatedByCreateRelatedInput;
+	currency?: string;
+	description?: string | null;
+	employmentType?: string;
+	hiringManagerUserId?: Uuid | null;
+	hiringReason?: string | null;
+	id?: Uuid;
+	interview_stages?: readonly requisitionsinterview_stagesCreateRelatedInput[];
+	isConfidential?: boolean;
+	isLeadership?: boolean;
+	job_levels?: requisitionsjob_levelsCreateRelatedInput;
+	kickoffAt?: string | null;
+	kickoffNotes?: string | null;
+	locations?: string | null;
+	mustHaveSkills?: string | null;
+	niceToHaveSkills?: string | null;
+	numberOfHires?: number;
+	openedAt?: string | null;
+	postExternally?: boolean;
+	public_applications?: readonly requisitionspublic_applicationsCreateRelatedInput[];
+	recruiterUserId?: Uuid | null;
+	reqNumber?: number;
+	role_requests?: requisitionsrole_requestsCreateRelatedInput;
+	status?: string;
+	teamSize?: number | null;
+	title: string;
+	updatedAt?: string;
+	updatedBy?: requisitionsupdatedByCreateRelatedInput;
+	urgency?: string;
+}
+
+export type departmentsrequisitionsRelationFieldArguments = {
+	filter?: requisitionsFilterInput;
+	limit?: Int64Input;
+	offset?: UInt64Input;
+	sort?: readonly requisitionsSortSpecifier[];
+}
+
+export type departmentsrequisitionsUpdateManyRelatedOperationsInput = {
+	_connect?: departmentsrequisitionsConnectInput;
+	_create?: departmentsrequisitionsCreateArguments;
+	_delete?: requisitionsDeleteArguments;
+	_update?: requisitionsUpdateInput;
+}
+
+export type departmentsrole_requestsConnectBackwardKeysInput = {
+	id?: Uuid;
+}
+
+export type departmentsrole_requestsConnectInput = {
+	keys: readonly departmentsrole_requestsConnectBackwardKeysInput[];
+}
+
+export type departmentsrole_requestsCreateArguments = {
+	data: readonly departmentsrole_requestsCreateRelatedWithoutTypeInput[];
+}
+
+export type departmentsrole_requestsCreateRelatedInput = {
+	_connect?: departmentsrole_requestsConnectInput;
+	_create?: departmentsrole_requestsCreateArguments;
+}
+
+export type departmentsrole_requestsCreateRelatedWithoutTypeInput = {
+	approvals?: readonly roleRequestsapprovalsCreateRelatedInput[];
+	approvedBaseMax?: string | null;
+	approvedBaseMin?: string | null;
+	approvedCurrency?: string | null;
+	approvedEquityUnits?: number | null;
+	approvedVariableMax?: string | null;
+	approvedVariableMin?: string | null;
+	businessJustification?: string | null;
+	compMax?: string | null;
+	compMin?: string | null;
+	createdAt?: string;
+	createdBy?: roleRequestscreatedByCreateRelatedInput;
+	currency?: string;
+	decidedAt?: string | null;
+	decidedByUserId?: Uuid | null;
+	decisionNote?: string | null;
+	employmentType?: string;
+	hiringManagerUserId?: Uuid | null;
+	hiringReason?: string;
+	hiringReasonDetail?: string | null;
+	id?: Uuid;
+	job_levels?: roleRequestsjob_levelsCreateRelatedInput;
+	locations?: string | null;
+	numberOfHires?: number;
+	requesterUserId?: Uuid | null;
+	requisitions?: roleRequestsrequisitionsCreateRelatedInput;
+	roleName: string;
+	status?: string;
+	updatedAt?: string;
+	updatedBy?: roleRequestsupdatedByCreateRelatedInput;
+	urgency?: string;
+	urgencyImpact?: string | null;
+	workforce_plan_roles?: roleRequestsworkforce_plan_rolesCreateRelatedInput;
+}
+
+export type departmentsrole_requestsRelationFieldArguments = {
+	filter?: roleRequestsFilterInput;
+	limit?: Int64Input;
+	offset?: UInt64Input;
+	sort?: readonly roleRequestsSortSpecifier[];
+}
+
+export type departmentsrole_requestsUpdateManyRelatedOperationsInput = {
+	_connect?: departmentsrole_requestsConnectInput;
+	_create?: departmentsrole_requestsCreateArguments;
+	_delete?: roleRequestsDeleteArguments;
+	_update?: roleRequestsUpdateInput;
+}
+
+export type departmentsworkforce_plan_rolesConnectBackwardKeysInput = {
+	id?: Uuid;
+}
+
+export type departmentsworkforce_plan_rolesConnectInput = {
+	keys: readonly departmentsworkforce_plan_rolesConnectBackwardKeysInput[];
+}
+
+export type departmentsworkforce_plan_rolesCreateArguments = {
+	data: readonly departmentsworkforce_plan_rolesCreateRelatedWithoutTypeInput[];
+}
+
+export type departmentsworkforce_plan_rolesCreateRelatedInput = {
+	_connect?: departmentsworkforce_plan_rolesConnectInput;
+	_create?: departmentsworkforce_plan_rolesCreateArguments;
+}
+
+export type departmentsworkforce_plan_rolesCreateRelatedWithoutTypeInput = {
+	approvals?: readonly workforcePlanRolesapprovalsCreateRelatedInput[];
+	approvedHeadcount?: number | null;
+	budgetAmount?: string | null;
+	createdAt?: string;
+	createdBy?: workforcePlanRolescreatedByCreateRelatedInput;
+	currency?: string;
+	currentHeadcount?: number;
+	employmentType?: string;
+	hireType?: string;
+	id?: Uuid;
+	job_levels?: workforcePlanRolesjob_levelsCreateRelatedInput;
+	locations?: string | null;
+	planYear: number;
+	plannedHeadcount?: number;
+	roleName: string;
+	role_requests?: readonly workforcePlanRolesrole_requestsCreateRelatedInput[];
+	status?: string;
+	team?: string | null;
+	updatedAt?: string;
+	updatedBy?: workforcePlanRolesupdatedByCreateRelatedInput;
+}
+
+export type departmentsworkforce_plan_rolesRelationFieldArguments = {
+	filter?: workforcePlanRolesFilterInput;
+	limit?: Int64Input;
+	offset?: UInt64Input;
+	sort?: readonly workforcePlanRolesSortSpecifier[];
+}
+
+export type departmentsworkforce_plan_rolesUpdateManyRelatedOperationsInput = {
+	_connect?: departmentsworkforce_plan_rolesConnectInput;
+	_create?: departmentsworkforce_plan_rolesCreateArguments;
+	_delete?: workforcePlanRolesDeleteArguments;
+	_update?: workforcePlanRolesUpdateInput;
+}
+
+export type emailTemplatesCollectionOutput = {
+	body?: string;
+	createdAt?: string;
+	createdBy?: MonospaceSystemUserCollectionOutput | null;
+	createdById?: Uuid | null;
+	id?: Uuid;
+	name?: string;
+	subject?: string;
+	updatedAt?: string;
+	updatedBy?: MonospaceSystemUserCollectionOutput | null;
+	updatedById?: Uuid | null;
+}
+
+export type emailTemplatesCollectionOutputFieldsInput = readonly ("body" | "createdAt" | "createdById" | "id" | "name" | "subject" | "updatedAt" | "updatedById" | "*" | `${string}:${"body" | "createdAt" | "createdById" | "id" | "name" | "subject" | "updatedAt" | "updatedById"}`)[];
+
+export type emailTemplatesCollectionOutputIncludeInput = {
+	"createdBy"?: (emailTemplatescreatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (emailTemplatescreatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput })>]?: never };
+	"updatedBy"?: (emailTemplatesupdatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (emailTemplatesupdatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput })>]?: never };
+} & { [K in `${string}:${"createdBy"}`]?: emailTemplatesCollectionOutputIncludeInput["createdBy"] } & { [K in `${string}:${"updatedBy"}`]?: emailTemplatesCollectionOutputIncludeInput["updatedBy"] };
+
+export type emailTemplatesCreateArguments = {
+	data: readonly emailTemplatesCreateInput[];
+}
+
+export type emailTemplatesCreateInput = {
+	body: string;
+	createdAt?: string;
+	createdBy?: emailTemplatescreatedByCreateRelatedInput;
+	id?: Uuid;
+	name: string;
+	subject: string;
+	updatedAt?: string;
+	updatedBy?: emailTemplatesupdatedByCreateRelatedInput;
+}
+
+export type emailTemplatesDeleteArguments = {
+	filter?: emailTemplatesFilterInput;
+}
+
+export type emailTemplatesDeleteOneArguments = {
+	filter?: emailTemplatesFilterInput;
+	key: Uuid;
+}
+
+export type emailTemplatesDisconnectManyInput = {
+	filter?: emailTemplatesFilterInput;
+}
+
+export type emailTemplatesFilterInput = {
+	_and?: readonly emailTemplatesFilterInput[];
+	_not?: emailTemplatesFilterInput;
+	_or?: readonly emailTemplatesFilterInput[];
+	body?: StringFilterPrimitiveInput | string;
+	createdAt?: DateTimeFilterPrimitiveInput | string;
+	createdBy?: MonospaceSystemUserFilterInput;
+	createdById?: UuidFilterNullablePrimitiveInput | Uuid | null;
+	id?: UuidFilterPrimitiveInput | Uuid;
+	name?: StringFilterPrimitiveInput | string;
+	subject?: StringFilterPrimitiveInput | string;
+	updatedAt?: DateTimeFilterPrimitiveInput | string;
+	updatedBy?: MonospaceSystemUserFilterInput;
+	updatedById?: UuidFilterNullablePrimitiveInput | Uuid | null;
+}
+
+export type emailTemplatesFilterQuantifierInput = {
+	_every?: emailTemplatesFilterInput;
+	_none?: emailTemplatesFilterInput;
+	_some?: emailTemplatesFilterInput;
+}
+
+export type emailTemplatesListArguments = {
+	filter?: emailTemplatesFilterInput;
+	limit?: Int64Input;
+	meta?: MetaArguments;
+	offset?: UInt64Input;
+	sort?: readonly emailTemplatesSortSpecifier[];
+}
+
+export type emailTemplatesReadArguments = {
+	filter?: emailTemplatesFilterInput;
+	key: Uuid;
+}
+
+export type emailTemplatesSortSpecifier = {
+	body?: SortFieldOptions;
+	createdAt?: SortFieldOptions;
+	createdById?: SortFieldOptions;
+	id?: SortFieldOptions;
+	name?: SortFieldOptions;
+	subject?: SortFieldOptions;
+	updatedAt?: SortFieldOptions;
+	updatedById?: SortFieldOptions;
+}
+
+export type emailTemplatesUpdateArguments = {
+	data: emailTemplatesUpdateDataInput;
+	filter?: emailTemplatesFilterInput;
+}
+
+export type emailTemplatesUpdateDataInput = {
+	body?: string;
+	createdAt?: string;
+	createdBy?: readonly emailTemplatescreatedByUpdateOneRelatedOperationsInput[];
+	createdById?: Uuid | null;
+	id?: Uuid;
+	name?: string;
+	subject?: string;
+	updatedAt?: string;
+	updatedBy?: readonly emailTemplatesupdatedByUpdateOneRelatedOperationsInput[];
+	updatedById?: Uuid | null;
+}
+
+export type emailTemplatesUpdateInput = {
+	data: emailTemplatesUpdateDataInput;
+	filter?: emailTemplatesFilterInput;
+}
+
+export type emailTemplatesUpdateOneArguments = {
+	data: emailTemplatesUpdateDataInput;
+	filter?: emailTemplatesFilterInput;
+	key: Uuid;
+}
+
+export type emailTemplatescreatedByConnectForwardKeyInput = {
+	id: Uuid | null;
+}
+
+export type emailTemplatescreatedByConnectInput = {
+	key: emailTemplatescreatedByConnectForwardKeyInput;
+}
+
+export type emailTemplatescreatedByCreateArguments = {
+	data: emailTemplatescreatedByCreateRelatedWithoutTypeInput;
+}
+
+export type emailTemplatescreatedByCreateRelatedInput = {
+	_connect?: emailTemplatescreatedByConnectInput;
+	_create?: emailTemplatescreatedByCreateArguments;
+}
+
+export type emailTemplatescreatedByCreateRelatedWithoutTypeInput = {
+	activitiesCreatedBy?: readonly MonospaceSystemUseractivitiesCreatedByCreateRelatedInput[];
+	activitiesOwner?: readonly MonospaceSystemUseractivitiesOwnerCreateRelatedInput[];
+	activitiesUpdatedBy?: readonly MonospaceSystemUseractivitiesUpdatedByCreateRelatedInput[];
+	affiliationsCreatedBy?: readonly MonospaceSystemUseraffiliationsCreatedByCreateRelatedInput[];
+	affiliationsUpdatedBy?: readonly MonospaceSystemUseraffiliationsUpdatedByCreateRelatedInput[];
+	appearance?: string | null;
+	applicationsCreatedBy?: readonly MonospaceSystemUserapplicationsCreatedByCreateRelatedInput[];
+	applicationsUpdatedBy?: readonly MonospaceSystemUserapplicationsUpdatedByCreateRelatedInput[];
+	attachmentsCreatedBy?: readonly MonospaceSystemUserattachmentsCreatedByCreateRelatedInput[];
+	avatarId?: Uuid | null;
+	candidateFilesCreatedBy?: readonly MonospaceSystemUsercandidateFilesCreatedByCreateRelatedInput[];
+	candidateMessagesCreatedBy?: readonly MonospaceSystemUsercandidateMessagesCreatedByCreateRelatedInput[];
+	candidateNotesCreatedBy?: readonly MonospaceSystemUsercandidateNotesCreatedByCreateRelatedInput[];
+	candidateNotesUpdatedBy?: readonly MonospaceSystemUsercandidateNotesUpdatedByCreateRelatedInput[];
+	candidatesCreatedBy?: readonly MonospaceSystemUsercandidatesCreatedByCreateRelatedInput[];
+	candidatesUpdatedBy?: readonly MonospaceSystemUsercandidatesUpdatedByCreateRelatedInput[];
+	contactsCreatedBy?: readonly MonospaceSystemUsercontactsCreatedByCreateRelatedInput[];
+	contactsOwner?: readonly MonospaceSystemUsercontactsOwnerCreateRelatedInput[];
+	contactsUpdatedBy?: readonly MonospaceSystemUsercontactsUpdatedByCreateRelatedInput[];
+	dealsCreatedBy?: readonly MonospaceSystemUserdealsCreatedByCreateRelatedInput[];
+	dealsOwner?: readonly MonospaceSystemUserdealsOwnerCreateRelatedInput[];
+	dealsUpdatedBy?: readonly MonospaceSystemUserdealsUpdatedByCreateRelatedInput[];
+	email?: string | null;
+	emailTemplatesUpdatedBy?: readonly MonospaceSystemUseremailTemplatesUpdatedByCreateRelatedInput[];
+	fullName?: string | null;
+	id: Uuid;
+	interviewsCreatedBy?: readonly MonospaceSystemUserinterviewsCreatedByCreateRelatedInput[];
+	interviewsUpdatedBy?: readonly MonospaceSystemUserinterviewsUpdatedByCreateRelatedInput[];
+	isService: boolean;
+	lastActivityAt?: string | null;
+	offersCreatedBy?: readonly MonospaceSystemUseroffersCreatedByCreateRelatedInput[];
+	offersUpdatedBy?: readonly MonospaceSystemUseroffersUpdatedByCreateRelatedInput[];
+	organizationsCreatedBy?: readonly MonospaceSystemUserorganizationsCreatedByCreateRelatedInput[];
+	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
+	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
+	requisitionsCreatedBy?: readonly MonospaceSystemUserrequisitionsCreatedByCreateRelatedInput[];
+	requisitionsUpdatedBy?: readonly MonospaceSystemUserrequisitionsUpdatedByCreateRelatedInput[];
+	roleRequestsCreatedBy?: readonly MonospaceSystemUserroleRequestsCreatedByCreateRelatedInput[];
+	roleRequestsUpdatedBy?: readonly MonospaceSystemUserroleRequestsUpdatedByCreateRelatedInput[];
+	roles?: readonly MonospaceSystemUserrolesCreateRelatedInput[];
+	scorecardsCreatedBy?: readonly MonospaceSystemUserscorecardsCreatedByCreateRelatedInput[];
+	scorecardsUpdatedBy?: readonly MonospaceSystemUserscorecardsUpdatedByCreateRelatedInput[];
+	serviceOwnerId?: Uuid | null;
+	status?: string;
+	storageValues?: readonly MonospaceSystemUserstorageValuesCreateRelatedInput[];
+	workforcePlanRolesCreatedBy?: readonly MonospaceSystemUserworkforcePlanRolesCreatedByCreateRelatedInput[];
+	workforcePlanRolesUpdatedBy?: readonly MonospaceSystemUserworkforcePlanRolesUpdatedByCreateRelatedInput[];
+}
+
+export type emailTemplatescreatedByRelationFieldArguments = {
+	filter?: MonospaceSystemUserFilterInput;
+}
+
+export type emailTemplatescreatedByUpdateOneRelatedOperationsInput = {
+	_connect?: emailTemplatescreatedByConnectInput;
+	_create?: emailTemplatescreatedByCreateArguments;
+	_delete?: MonospaceSystemUserDeleteArguments;
+	_disconnect?: MonospaceSystemUserDisconnectOneInput;
+	_update?: MonospaceSystemUserUpdateInput;
+}
+
+export type emailTemplatesupdatedByConnectForwardKeyInput = {
+	id: Uuid | null;
+}
+
+export type emailTemplatesupdatedByConnectInput = {
+	key: emailTemplatesupdatedByConnectForwardKeyInput;
+}
+
+export type emailTemplatesupdatedByCreateArguments = {
+	data: emailTemplatesupdatedByCreateRelatedWithoutTypeInput;
+}
+
+export type emailTemplatesupdatedByCreateRelatedInput = {
+	_connect?: emailTemplatesupdatedByConnectInput;
+	_create?: emailTemplatesupdatedByCreateArguments;
+}
+
+export type emailTemplatesupdatedByCreateRelatedWithoutTypeInput = {
+	activitiesCreatedBy?: readonly MonospaceSystemUseractivitiesCreatedByCreateRelatedInput[];
+	activitiesOwner?: readonly MonospaceSystemUseractivitiesOwnerCreateRelatedInput[];
+	activitiesUpdatedBy?: readonly MonospaceSystemUseractivitiesUpdatedByCreateRelatedInput[];
+	affiliationsCreatedBy?: readonly MonospaceSystemUseraffiliationsCreatedByCreateRelatedInput[];
+	affiliationsUpdatedBy?: readonly MonospaceSystemUseraffiliationsUpdatedByCreateRelatedInput[];
+	appearance?: string | null;
+	applicationsCreatedBy?: readonly MonospaceSystemUserapplicationsCreatedByCreateRelatedInput[];
+	applicationsUpdatedBy?: readonly MonospaceSystemUserapplicationsUpdatedByCreateRelatedInput[];
+	attachmentsCreatedBy?: readonly MonospaceSystemUserattachmentsCreatedByCreateRelatedInput[];
+	avatarId?: Uuid | null;
+	candidateFilesCreatedBy?: readonly MonospaceSystemUsercandidateFilesCreatedByCreateRelatedInput[];
+	candidateMessagesCreatedBy?: readonly MonospaceSystemUsercandidateMessagesCreatedByCreateRelatedInput[];
+	candidateNotesCreatedBy?: readonly MonospaceSystemUsercandidateNotesCreatedByCreateRelatedInput[];
+	candidateNotesUpdatedBy?: readonly MonospaceSystemUsercandidateNotesUpdatedByCreateRelatedInput[];
+	candidatesCreatedBy?: readonly MonospaceSystemUsercandidatesCreatedByCreateRelatedInput[];
+	candidatesUpdatedBy?: readonly MonospaceSystemUsercandidatesUpdatedByCreateRelatedInput[];
+	contactsCreatedBy?: readonly MonospaceSystemUsercontactsCreatedByCreateRelatedInput[];
+	contactsOwner?: readonly MonospaceSystemUsercontactsOwnerCreateRelatedInput[];
+	contactsUpdatedBy?: readonly MonospaceSystemUsercontactsUpdatedByCreateRelatedInput[];
+	dealsCreatedBy?: readonly MonospaceSystemUserdealsCreatedByCreateRelatedInput[];
+	dealsOwner?: readonly MonospaceSystemUserdealsOwnerCreateRelatedInput[];
+	dealsUpdatedBy?: readonly MonospaceSystemUserdealsUpdatedByCreateRelatedInput[];
+	email?: string | null;
+	emailTemplatesCreatedBy?: readonly MonospaceSystemUseremailTemplatesCreatedByCreateRelatedInput[];
+	fullName?: string | null;
+	id: Uuid;
+	interviewsCreatedBy?: readonly MonospaceSystemUserinterviewsCreatedByCreateRelatedInput[];
+	interviewsUpdatedBy?: readonly MonospaceSystemUserinterviewsUpdatedByCreateRelatedInput[];
+	isService: boolean;
+	lastActivityAt?: string | null;
+	offersCreatedBy?: readonly MonospaceSystemUseroffersCreatedByCreateRelatedInput[];
+	offersUpdatedBy?: readonly MonospaceSystemUseroffersUpdatedByCreateRelatedInput[];
+	organizationsCreatedBy?: readonly MonospaceSystemUserorganizationsCreatedByCreateRelatedInput[];
+	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
+	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
+	requisitionsCreatedBy?: readonly MonospaceSystemUserrequisitionsCreatedByCreateRelatedInput[];
+	requisitionsUpdatedBy?: readonly MonospaceSystemUserrequisitionsUpdatedByCreateRelatedInput[];
+	roleRequestsCreatedBy?: readonly MonospaceSystemUserroleRequestsCreatedByCreateRelatedInput[];
+	roleRequestsUpdatedBy?: readonly MonospaceSystemUserroleRequestsUpdatedByCreateRelatedInput[];
+	roles?: readonly MonospaceSystemUserrolesCreateRelatedInput[];
+	scorecardsCreatedBy?: readonly MonospaceSystemUserscorecardsCreatedByCreateRelatedInput[];
+	scorecardsUpdatedBy?: readonly MonospaceSystemUserscorecardsUpdatedByCreateRelatedInput[];
+	serviceOwnerId?: Uuid | null;
+	status?: string;
+	storageValues?: readonly MonospaceSystemUserstorageValuesCreateRelatedInput[];
+	workforcePlanRolesCreatedBy?: readonly MonospaceSystemUserworkforcePlanRolesCreatedByCreateRelatedInput[];
+	workforcePlanRolesUpdatedBy?: readonly MonospaceSystemUserworkforcePlanRolesUpdatedByCreateRelatedInput[];
+}
+
+export type emailTemplatesupdatedByRelationFieldArguments = {
+	filter?: MonospaceSystemUserFilterInput;
+}
+
+export type emailTemplatesupdatedByUpdateOneRelatedOperationsInput = {
+	_connect?: emailTemplatesupdatedByConnectInput;
+	_create?: emailTemplatesupdatedByCreateArguments;
 	_delete?: MonospaceSystemUserDeleteArguments;
 	_disconnect?: MonospaceSystemUserDisconnectOneInput;
 	_update?: MonospaceSystemUserUpdateInput;
@@ -9579,6 +14810,1659 @@ export type eventsuserUpdateOneRelatedOperationsInput = {
 	_delete?: usersDeleteArguments;
 	_disconnect?: usersDisconnectOneInput;
 	_update?: usersUpdateInput;
+}
+
+export type hiringLocationsCollectionOutput = {
+	id?: Uuid;
+	name?: string;
+	position?: number;
+}
+
+export type hiringLocationsCollectionOutputFieldsInput = readonly ("id" | "name" | "position" | "*" | `${string}:${"id" | "name" | "position"}`)[];
+
+export type hiringLocationsCollectionOutputIncludeInput = Record<string, never>;
+
+export type hiringLocationsCreateArguments = {
+	data: readonly hiringLocationsCreateInput[];
+}
+
+export type hiringLocationsCreateInput = {
+	id?: Uuid;
+	name: string;
+	position: number;
+}
+
+export type hiringLocationsDeleteArguments = {
+	filter?: hiringLocationsFilterInput;
+}
+
+export type hiringLocationsDeleteOneArguments = {
+	filter?: hiringLocationsFilterInput;
+	key: Uuid;
+}
+
+export type hiringLocationsFilterInput = {
+	_and?: readonly hiringLocationsFilterInput[];
+	_not?: hiringLocationsFilterInput;
+	_or?: readonly hiringLocationsFilterInput[];
+	id?: UuidFilterPrimitiveInput | Uuid;
+	name?: StringFilterPrimitiveInput | string;
+	position?: FloatFilterPrimitiveInput | number;
+}
+
+export type hiringLocationsListArguments = {
+	filter?: hiringLocationsFilterInput;
+	limit?: Int64Input;
+	meta?: MetaArguments;
+	offset?: UInt64Input;
+	sort?: readonly hiringLocationsSortSpecifier[];
+}
+
+export type hiringLocationsReadArguments = {
+	filter?: hiringLocationsFilterInput;
+	key: Uuid;
+}
+
+export type hiringLocationsSortSpecifier = {
+	id?: SortFieldOptions;
+	name?: SortFieldOptions;
+	position?: SortFieldOptions;
+}
+
+export type hiringLocationsUpdateArguments = {
+	data: hiringLocationsUpdateDataInput;
+	filter?: hiringLocationsFilterInput;
+}
+
+export type hiringLocationsUpdateDataInput = {
+	id?: Uuid;
+	name?: string;
+	position?: number;
+}
+
+export type hiringLocationsUpdateOneArguments = {
+	data: hiringLocationsUpdateDataInput;
+	filter?: hiringLocationsFilterInput;
+	key: Uuid;
+}
+
+export type interviewParticipantsCollectionOutput = {
+	id?: Uuid;
+	interviewId?: Uuid;
+	interviews?: interviewsCollectionOutput;
+	userId?: Uuid;
+}
+
+export type interviewParticipantsCollectionOutputFieldsInput = readonly ("id" | "interviewId" | "userId" | "*" | `${string}:${"id" | "interviewId" | "userId"}`)[];
+
+export type interviewParticipantsCollectionOutputIncludeInput = {
+	"interviews"?: ({ "fields"?: interviewsCollectionOutputFieldsInput; "include"?: interviewsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof ({ "fields"?: interviewsCollectionOutputFieldsInput; "include"?: interviewsCollectionOutputIncludeInput })>]?: never };
+} & { [K in `${string}:${"interviews"}`]?: interviewParticipantsCollectionOutputIncludeInput["interviews"] };
+
+export type interviewParticipantsCreateArguments = {
+	data: readonly interviewParticipantsCreateInput[];
+}
+
+export type interviewParticipantsCreateInput = {
+	id?: Uuid;
+	interviews: interviewParticipantsinterviewsCreateRelatedInput;
+	userId: Uuid;
+}
+
+export type interviewParticipantsDeleteArguments = {
+	filter?: interviewParticipantsFilterInput;
+}
+
+export type interviewParticipantsDeleteOneArguments = {
+	filter?: interviewParticipantsFilterInput;
+	key: Uuid;
+}
+
+export type interviewParticipantsFilterInput = {
+	_and?: readonly interviewParticipantsFilterInput[];
+	_not?: interviewParticipantsFilterInput;
+	_or?: readonly interviewParticipantsFilterInput[];
+	id?: UuidFilterPrimitiveInput | Uuid;
+	interviewId?: UuidFilterPrimitiveInput | Uuid;
+	interviews?: interviewsFilterInput;
+	userId?: UuidFilterPrimitiveInput | Uuid;
+}
+
+export type interviewParticipantsFilterQuantifierInput = {
+	_every?: interviewParticipantsFilterInput;
+	_none?: interviewParticipantsFilterInput;
+	_some?: interviewParticipantsFilterInput;
+}
+
+export type interviewParticipantsListArguments = {
+	filter?: interviewParticipantsFilterInput;
+	limit?: Int64Input;
+	meta?: MetaArguments;
+	offset?: UInt64Input;
+	sort?: readonly interviewParticipantsSortSpecifier[];
+}
+
+export type interviewParticipantsReadArguments = {
+	filter?: interviewParticipantsFilterInput;
+	key: Uuid;
+}
+
+export type interviewParticipantsSortSpecifier = {
+	id?: SortFieldOptions;
+	interviewId?: SortFieldOptions;
+	userId?: SortFieldOptions;
+}
+
+export type interviewParticipantsUpdateArguments = {
+	data: interviewParticipantsUpdateDataInput;
+	filter?: interviewParticipantsFilterInput;
+}
+
+export type interviewParticipantsUpdateDataInput = {
+	id?: Uuid;
+	interviewId?: Uuid;
+	interviews?: readonly interviewParticipantsinterviewsUpdateOneRelatedOperationsInput[];
+	userId?: Uuid;
+}
+
+export type interviewParticipantsUpdateInput = {
+	data: interviewParticipantsUpdateDataInput;
+	filter?: interviewParticipantsFilterInput;
+}
+
+export type interviewParticipantsUpdateOneArguments = {
+	data: interviewParticipantsUpdateDataInput;
+	filter?: interviewParticipantsFilterInput;
+	key: Uuid;
+}
+
+export type interviewParticipantsinterviewsConnectForwardKeyInput = {
+	id: Uuid;
+}
+
+export type interviewParticipantsinterviewsConnectInput = {
+	key: interviewParticipantsinterviewsConnectForwardKeyInput;
+}
+
+export type interviewParticipantsinterviewsCreateArguments = {
+	data: interviewParticipantsinterviewsCreateRelatedWithoutTypeInput;
+}
+
+export type interviewParticipantsinterviewsCreateRelatedInput = {
+	_connect?: interviewParticipantsinterviewsConnectInput;
+	_create?: interviewParticipantsinterviewsCreateArguments;
+}
+
+export type interviewParticipantsinterviewsCreateRelatedWithoutTypeInput = {
+	applications: interviewsapplicationsCreateRelatedInput;
+	createdAt?: string;
+	createdBy?: interviewscreatedByCreateRelatedInput;
+	endsAt: string;
+	id?: Uuid;
+	interview_stages?: interviewsinterview_stagesCreateRelatedInput;
+	meetingUrl?: string | null;
+	scorecards?: readonly interviewsscorecardsCreateRelatedInput[];
+	startsAt: string;
+	status?: string;
+	title: string;
+	updatedAt?: string;
+	updatedBy?: interviewsupdatedByCreateRelatedInput;
+}
+
+export type interviewParticipantsinterviewsUpdateOneRelatedOperationsInput = {
+	_connect?: interviewParticipantsinterviewsConnectInput;
+	_create?: interviewParticipantsinterviewsCreateArguments;
+	_update?: interviewsUpdateInput;
+}
+
+export type interviewStagesCollectionOutput = {
+	applications?: { data: applicationsCollectionOutput[] };
+	id?: Uuid;
+	interviews?: { data: interviewsCollectionOutput[] };
+	kind?: string;
+	name?: string;
+	position?: number;
+	requisitionId?: Uuid;
+	requisitions?: requisitionsCollectionOutput;
+	slaDays?: number | null;
+}
+
+export type interviewStagesCollectionOutputFieldsInput = readonly ("id" | "kind" | "name" | "position" | "requisitionId" | "slaDays" | "*" | `${string}:${"id" | "kind" | "name" | "position" | "requisitionId" | "slaDays"}`)[];
+
+export type interviewStagesCollectionOutputIncludeInput = {
+	"applications"?: (interviewStagesapplicationsRelationFieldArguments & { "fields"?: applicationsCollectionOutputFieldsInput; "include"?: applicationsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (interviewStagesapplicationsRelationFieldArguments & { "fields"?: applicationsCollectionOutputFieldsInput; "include"?: applicationsCollectionOutputIncludeInput })>]?: never };
+	"interviews"?: (interviewStagesinterviewsRelationFieldArguments & { "fields"?: interviewsCollectionOutputFieldsInput; "include"?: interviewsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (interviewStagesinterviewsRelationFieldArguments & { "fields"?: interviewsCollectionOutputFieldsInput; "include"?: interviewsCollectionOutputIncludeInput })>]?: never };
+	"requisitions"?: ({ "fields"?: requisitionsCollectionOutputFieldsInput; "include"?: requisitionsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof ({ "fields"?: requisitionsCollectionOutputFieldsInput; "include"?: requisitionsCollectionOutputIncludeInput })>]?: never };
+} & { [K in `${string}:${"applications"}`]?: interviewStagesCollectionOutputIncludeInput["applications"] } & { [K in `${string}:${"interviews"}`]?: interviewStagesCollectionOutputIncludeInput["interviews"] } & { [K in `${string}:${"requisitions"}`]?: interviewStagesCollectionOutputIncludeInput["requisitions"] };
+
+export type interviewStagesCreateArguments = {
+	data: readonly interviewStagesCreateInput[];
+}
+
+export type interviewStagesCreateInput = {
+	applications?: readonly interviewStagesapplicationsCreateRelatedInput[];
+	id?: Uuid;
+	interviews?: readonly interviewStagesinterviewsCreateRelatedInput[];
+	kind?: string;
+	name: string;
+	position: number;
+	requisitions: interviewStagesrequisitionsCreateRelatedInput;
+	slaDays?: number | null;
+}
+
+export type interviewStagesDeleteArguments = {
+	filter?: interviewStagesFilterInput;
+}
+
+export type interviewStagesDeleteOneArguments = {
+	filter?: interviewStagesFilterInput;
+	key: Uuid;
+}
+
+export type interviewStagesDisconnectOneInput = {}
+
+export type interviewStagesFilterInput = {
+	_and?: readonly interviewStagesFilterInput[];
+	_not?: interviewStagesFilterInput;
+	_or?: readonly interviewStagesFilterInput[];
+	applications?: applicationsFilterQuantifierInput | applicationsFilterInput;
+	id?: UuidFilterPrimitiveInput | Uuid;
+	interviews?: interviewsFilterQuantifierInput | interviewsFilterInput;
+	kind?: StringFilterPrimitiveInput | string;
+	name?: StringFilterPrimitiveInput | string;
+	position?: FloatFilterPrimitiveInput | number;
+	requisitionId?: UuidFilterPrimitiveInput | Uuid;
+	requisitions?: requisitionsFilterInput;
+	slaDays?: IntegerFilterNullablePrimitiveInput | number | null;
+}
+
+export type interviewStagesFilterQuantifierInput = {
+	_every?: interviewStagesFilterInput;
+	_none?: interviewStagesFilterInput;
+	_some?: interviewStagesFilterInput;
+}
+
+export type interviewStagesListArguments = {
+	filter?: interviewStagesFilterInput;
+	limit?: Int64Input;
+	meta?: MetaArguments;
+	offset?: UInt64Input;
+	sort?: readonly interviewStagesSortSpecifier[];
+}
+
+export type interviewStagesReadArguments = {
+	filter?: interviewStagesFilterInput;
+	key: Uuid;
+}
+
+export type interviewStagesSortSpecifier = {
+	id?: SortFieldOptions;
+	kind?: SortFieldOptions;
+	name?: SortFieldOptions;
+	position?: SortFieldOptions;
+	requisitionId?: SortFieldOptions;
+	slaDays?: SortFieldOptions;
+}
+
+export type interviewStagesUpdateArguments = {
+	data: interviewStagesUpdateDataInput;
+	filter?: interviewStagesFilterInput;
+}
+
+export type interviewStagesUpdateDataInput = {
+	applications?: readonly interviewStagesapplicationsUpdateManyRelatedOperationsInput[];
+	id?: Uuid;
+	interviews?: readonly interviewStagesinterviewsUpdateManyRelatedOperationsInput[];
+	kind?: string;
+	name?: string;
+	position?: number;
+	requisitionId?: Uuid;
+	requisitions?: readonly interviewStagesrequisitionsUpdateOneRelatedOperationsInput[];
+	slaDays?: number | null;
+}
+
+export type interviewStagesUpdateInput = {
+	data: interviewStagesUpdateDataInput;
+	filter?: interviewStagesFilterInput;
+}
+
+export type interviewStagesUpdateOneArguments = {
+	data: interviewStagesUpdateDataInput;
+	filter?: interviewStagesFilterInput;
+	key: Uuid;
+}
+
+export type interviewStagesapplicationsConnectBackwardKeysInput = {
+	id?: Uuid;
+}
+
+export type interviewStagesapplicationsConnectInput = {
+	keys: readonly interviewStagesapplicationsConnectBackwardKeysInput[];
+}
+
+export type interviewStagesapplicationsCreateArguments = {
+	data: readonly interviewStagesapplicationsCreateRelatedWithoutTypeInput[];
+}
+
+export type interviewStagesapplicationsCreateRelatedInput = {
+	_connect?: interviewStagesapplicationsConnectInput;
+	_create?: interviewStagesapplicationsCreateArguments;
+}
+
+export type interviewStagesapplicationsCreateRelatedWithoutTypeInput = {
+	appliedAt?: string;
+	candidates: applicationscandidatesCreateRelatedInput;
+	createdAt?: string;
+	createdBy?: applicationscreatedByCreateRelatedInput;
+	id?: Uuid;
+	interviews?: readonly applicationsinterviewsCreateRelatedInput[];
+	lastActivityAt?: string;
+	offers?: applicationsoffersCreateRelatedInput;
+	public_applications?: readonly applicationspublic_applicationsCreateRelatedInput[];
+	rejectionReason?: string | null;
+	requisitions: applicationsrequisitionsCreateRelatedInput;
+	stageEnteredAt?: string;
+	status?: string;
+	updatedAt?: string;
+	updatedBy?: applicationsupdatedByCreateRelatedInput;
+}
+
+export type interviewStagesapplicationsRelationFieldArguments = {
+	filter?: applicationsFilterInput;
+	limit?: Int64Input;
+	offset?: UInt64Input;
+	sort?: readonly applicationsSortSpecifier[];
+}
+
+export type interviewStagesapplicationsUpdateManyRelatedOperationsInput = {
+	_connect?: interviewStagesapplicationsConnectInput;
+	_create?: interviewStagesapplicationsCreateArguments;
+	_delete?: applicationsDeleteArguments;
+	_update?: applicationsUpdateInput;
+}
+
+export type interviewStagesinterviewsConnectBackwardKeysInput = {
+	id?: Uuid;
+}
+
+export type interviewStagesinterviewsConnectInput = {
+	keys: readonly interviewStagesinterviewsConnectBackwardKeysInput[];
+}
+
+export type interviewStagesinterviewsCreateArguments = {
+	data: readonly interviewStagesinterviewsCreateRelatedWithoutTypeInput[];
+}
+
+export type interviewStagesinterviewsCreateRelatedInput = {
+	_connect?: interviewStagesinterviewsConnectInput;
+	_create?: interviewStagesinterviewsCreateArguments;
+}
+
+export type interviewStagesinterviewsCreateRelatedWithoutTypeInput = {
+	applications: interviewsapplicationsCreateRelatedInput;
+	createdAt?: string;
+	createdBy?: interviewscreatedByCreateRelatedInput;
+	endsAt: string;
+	id?: Uuid;
+	interview_participants?: readonly interviewsinterview_participantsCreateRelatedInput[];
+	meetingUrl?: string | null;
+	scorecards?: readonly interviewsscorecardsCreateRelatedInput[];
+	startsAt: string;
+	status?: string;
+	title: string;
+	updatedAt?: string;
+	updatedBy?: interviewsupdatedByCreateRelatedInput;
+}
+
+export type interviewStagesinterviewsRelationFieldArguments = {
+	filter?: interviewsFilterInput;
+	limit?: Int64Input;
+	offset?: UInt64Input;
+	sort?: readonly interviewsSortSpecifier[];
+}
+
+export type interviewStagesinterviewsUpdateManyRelatedOperationsInput = {
+	_connect?: interviewStagesinterviewsConnectInput;
+	_create?: interviewStagesinterviewsCreateArguments;
+	_delete?: interviewsDeleteArguments;
+	_disconnect?: interviewsDisconnectManyInput;
+	_update?: interviewsUpdateInput;
+}
+
+export type interviewStagesrequisitionsConnectForwardKeyInput = {
+	id: Uuid;
+}
+
+export type interviewStagesrequisitionsConnectInput = {
+	key: interviewStagesrequisitionsConnectForwardKeyInput;
+}
+
+export type interviewStagesrequisitionsCreateArguments = {
+	data: interviewStagesrequisitionsCreateRelatedWithoutTypeInput;
+}
+
+export type interviewStagesrequisitionsCreateRelatedInput = {
+	_connect?: interviewStagesrequisitionsConnectInput;
+	_create?: interviewStagesrequisitionsCreateArguments;
+}
+
+export type interviewStagesrequisitionsCreateRelatedWithoutTypeInput = {
+	applications?: readonly requisitionsapplicationsCreateRelatedInput[];
+	closedAt?: string | null;
+	compMax?: string | null;
+	compMin?: string | null;
+	createdAt?: string;
+	createdBy?: requisitionscreatedByCreateRelatedInput;
+	currency?: string;
+	departments: requisitionsdepartmentsCreateRelatedInput;
+	description?: string | null;
+	employmentType?: string;
+	hiringManagerUserId?: Uuid | null;
+	hiringReason?: string | null;
+	id?: Uuid;
+	isConfidential?: boolean;
+	isLeadership?: boolean;
+	job_levels?: requisitionsjob_levelsCreateRelatedInput;
+	kickoffAt?: string | null;
+	kickoffNotes?: string | null;
+	locations?: string | null;
+	mustHaveSkills?: string | null;
+	niceToHaveSkills?: string | null;
+	numberOfHires?: number;
+	openedAt?: string | null;
+	postExternally?: boolean;
+	public_applications?: readonly requisitionspublic_applicationsCreateRelatedInput[];
+	recruiterUserId?: Uuid | null;
+	reqNumber?: number;
+	role_requests?: requisitionsrole_requestsCreateRelatedInput;
+	status?: string;
+	teamSize?: number | null;
+	title: string;
+	updatedAt?: string;
+	updatedBy?: requisitionsupdatedByCreateRelatedInput;
+	urgency?: string;
+}
+
+export type interviewStagesrequisitionsUpdateOneRelatedOperationsInput = {
+	_connect?: interviewStagesrequisitionsConnectInput;
+	_create?: interviewStagesrequisitionsCreateArguments;
+	_update?: requisitionsUpdateInput;
+}
+
+export type interviewsCollectionOutput = {
+	applicationId?: Uuid;
+	applications?: applicationsCollectionOutput;
+	createdAt?: string;
+	createdBy?: MonospaceSystemUserCollectionOutput | null;
+	createdById?: Uuid | null;
+	endsAt?: string;
+	id?: Uuid;
+	interviewStageId?: Uuid | null;
+	interview_participants?: { data: interviewParticipantsCollectionOutput[] };
+	interview_stages?: interviewStagesCollectionOutput | null;
+	meetingUrl?: string | null;
+	scorecards?: { data: scorecardsCollectionOutput[] };
+	startsAt?: string;
+	status?: string;
+	title?: string;
+	updatedAt?: string;
+	updatedBy?: MonospaceSystemUserCollectionOutput | null;
+	updatedById?: Uuid | null;
+}
+
+export type interviewsCollectionOutputFieldsInput = readonly ("applicationId" | "createdAt" | "createdById" | "endsAt" | "id" | "interviewStageId" | "meetingUrl" | "startsAt" | "status" | "title" | "updatedAt" | "updatedById" | "*" | `${string}:${"applicationId" | "createdAt" | "createdById" | "endsAt" | "id" | "interviewStageId" | "meetingUrl" | "startsAt" | "status" | "title" | "updatedAt" | "updatedById"}`)[];
+
+export type interviewsCollectionOutputIncludeInput = {
+	"applications"?: ({ "fields"?: applicationsCollectionOutputFieldsInput; "include"?: applicationsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof ({ "fields"?: applicationsCollectionOutputFieldsInput; "include"?: applicationsCollectionOutputIncludeInput })>]?: never };
+	"createdBy"?: (interviewscreatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (interviewscreatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput })>]?: never };
+	"interview_participants"?: (interviewsinterview_participantsRelationFieldArguments & { "fields"?: interviewParticipantsCollectionOutputFieldsInput; "include"?: interviewParticipantsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (interviewsinterview_participantsRelationFieldArguments & { "fields"?: interviewParticipantsCollectionOutputFieldsInput; "include"?: interviewParticipantsCollectionOutputIncludeInput })>]?: never };
+	"interview_stages"?: (interviewsinterview_stagesRelationFieldArguments & { "fields"?: interviewStagesCollectionOutputFieldsInput; "include"?: interviewStagesCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (interviewsinterview_stagesRelationFieldArguments & { "fields"?: interviewStagesCollectionOutputFieldsInput; "include"?: interviewStagesCollectionOutputIncludeInput })>]?: never };
+	"scorecards"?: (interviewsscorecardsRelationFieldArguments & { "fields"?: scorecardsCollectionOutputFieldsInput; "include"?: scorecardsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (interviewsscorecardsRelationFieldArguments & { "fields"?: scorecardsCollectionOutputFieldsInput; "include"?: scorecardsCollectionOutputIncludeInput })>]?: never };
+	"updatedBy"?: (interviewsupdatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (interviewsupdatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput })>]?: never };
+} & { [K in `${string}:${"applications"}`]?: interviewsCollectionOutputIncludeInput["applications"] } & { [K in `${string}:${"createdBy"}`]?: interviewsCollectionOutputIncludeInput["createdBy"] } & { [K in `${string}:${"interview_participants"}`]?: interviewsCollectionOutputIncludeInput["interview_participants"] } & { [K in `${string}:${"interview_stages"}`]?: interviewsCollectionOutputIncludeInput["interview_stages"] } & { [K in `${string}:${"scorecards"}`]?: interviewsCollectionOutputIncludeInput["scorecards"] } & { [K in `${string}:${"updatedBy"}`]?: interviewsCollectionOutputIncludeInput["updatedBy"] };
+
+export type interviewsCreateArguments = {
+	data: readonly interviewsCreateInput[];
+}
+
+export type interviewsCreateInput = {
+	applications: interviewsapplicationsCreateRelatedInput;
+	createdAt?: string;
+	createdBy?: interviewscreatedByCreateRelatedInput;
+	endsAt: string;
+	id?: Uuid;
+	interview_participants?: readonly interviewsinterview_participantsCreateRelatedInput[];
+	interview_stages?: interviewsinterview_stagesCreateRelatedInput;
+	meetingUrl?: string | null;
+	scorecards?: readonly interviewsscorecardsCreateRelatedInput[];
+	startsAt: string;
+	status?: string;
+	title: string;
+	updatedAt?: string;
+	updatedBy?: interviewsupdatedByCreateRelatedInput;
+}
+
+export type interviewsDeleteArguments = {
+	filter?: interviewsFilterInput;
+}
+
+export type interviewsDeleteOneArguments = {
+	filter?: interviewsFilterInput;
+	key: Uuid;
+}
+
+export type interviewsDisconnectManyInput = {
+	filter?: interviewsFilterInput;
+}
+
+export type interviewsFilterInput = {
+	_and?: readonly interviewsFilterInput[];
+	_not?: interviewsFilterInput;
+	_or?: readonly interviewsFilterInput[];
+	applicationId?: UuidFilterPrimitiveInput | Uuid;
+	applications?: applicationsFilterInput;
+	createdAt?: DateTimeFilterPrimitiveInput | string;
+	createdBy?: MonospaceSystemUserFilterInput;
+	createdById?: UuidFilterNullablePrimitiveInput | Uuid | null;
+	endsAt?: DateTimeFilterPrimitiveInput | string;
+	id?: UuidFilterPrimitiveInput | Uuid;
+	interviewStageId?: UuidFilterNullablePrimitiveInput | Uuid | null;
+	interview_participants?: interviewParticipantsFilterQuantifierInput | interviewParticipantsFilterInput;
+	interview_stages?: interviewStagesFilterInput;
+	meetingUrl?: StringFilterNullablePrimitiveInput | string | null;
+	scorecards?: scorecardsFilterQuantifierInput | scorecardsFilterInput;
+	startsAt?: DateTimeFilterPrimitiveInput | string;
+	status?: StringFilterPrimitiveInput | string;
+	title?: StringFilterPrimitiveInput | string;
+	updatedAt?: DateTimeFilterPrimitiveInput | string;
+	updatedBy?: MonospaceSystemUserFilterInput;
+	updatedById?: UuidFilterNullablePrimitiveInput | Uuid | null;
+}
+
+export type interviewsFilterQuantifierInput = {
+	_every?: interviewsFilterInput;
+	_none?: interviewsFilterInput;
+	_some?: interviewsFilterInput;
+}
+
+export type interviewsListArguments = {
+	filter?: interviewsFilterInput;
+	limit?: Int64Input;
+	meta?: MetaArguments;
+	offset?: UInt64Input;
+	sort?: readonly interviewsSortSpecifier[];
+}
+
+export type interviewsReadArguments = {
+	filter?: interviewsFilterInput;
+	key: Uuid;
+}
+
+export type interviewsSortSpecifier = {
+	applicationId?: SortFieldOptions;
+	createdAt?: SortFieldOptions;
+	createdById?: SortFieldOptions;
+	endsAt?: SortFieldOptions;
+	id?: SortFieldOptions;
+	interviewStageId?: SortFieldOptions;
+	meetingUrl?: SortFieldOptions;
+	startsAt?: SortFieldOptions;
+	status?: SortFieldOptions;
+	title?: SortFieldOptions;
+	updatedAt?: SortFieldOptions;
+	updatedById?: SortFieldOptions;
+}
+
+export type interviewsUpdateArguments = {
+	data: interviewsUpdateDataInput;
+	filter?: interviewsFilterInput;
+}
+
+export type interviewsUpdateDataInput = {
+	applicationId?: Uuid;
+	applications?: readonly interviewsapplicationsUpdateOneRelatedOperationsInput[];
+	createdAt?: string;
+	createdBy?: readonly interviewscreatedByUpdateOneRelatedOperationsInput[];
+	createdById?: Uuid | null;
+	endsAt?: string;
+	id?: Uuid;
+	interviewStageId?: Uuid | null;
+	interview_participants?: readonly interviewsinterview_participantsUpdateManyRelatedOperationsInput[];
+	interview_stages?: readonly interviewsinterview_stagesUpdateOneRelatedOperationsInput[];
+	meetingUrl?: string | null;
+	scorecards?: readonly interviewsscorecardsUpdateManyRelatedOperationsInput[];
+	startsAt?: string;
+	status?: string;
+	title?: string;
+	updatedAt?: string;
+	updatedBy?: readonly interviewsupdatedByUpdateOneRelatedOperationsInput[];
+	updatedById?: Uuid | null;
+}
+
+export type interviewsUpdateInput = {
+	data: interviewsUpdateDataInput;
+	filter?: interviewsFilterInput;
+}
+
+export type interviewsUpdateOneArguments = {
+	data: interviewsUpdateDataInput;
+	filter?: interviewsFilterInput;
+	key: Uuid;
+}
+
+export type interviewsapplicationsConnectForwardKeyInput = {
+	id: Uuid;
+}
+
+export type interviewsapplicationsConnectInput = {
+	key: interviewsapplicationsConnectForwardKeyInput;
+}
+
+export type interviewsapplicationsCreateArguments = {
+	data: interviewsapplicationsCreateRelatedWithoutTypeInput;
+}
+
+export type interviewsapplicationsCreateRelatedInput = {
+	_connect?: interviewsapplicationsConnectInput;
+	_create?: interviewsapplicationsCreateArguments;
+}
+
+export type interviewsapplicationsCreateRelatedWithoutTypeInput = {
+	appliedAt?: string;
+	candidates: applicationscandidatesCreateRelatedInput;
+	createdAt?: string;
+	createdBy?: applicationscreatedByCreateRelatedInput;
+	id?: Uuid;
+	interview_stages: applicationsinterview_stagesCreateRelatedInput;
+	lastActivityAt?: string;
+	offers?: applicationsoffersCreateRelatedInput;
+	public_applications?: readonly applicationspublic_applicationsCreateRelatedInput[];
+	rejectionReason?: string | null;
+	requisitions: applicationsrequisitionsCreateRelatedInput;
+	stageEnteredAt?: string;
+	status?: string;
+	updatedAt?: string;
+	updatedBy?: applicationsupdatedByCreateRelatedInput;
+}
+
+export type interviewsapplicationsUpdateOneRelatedOperationsInput = {
+	_connect?: interviewsapplicationsConnectInput;
+	_create?: interviewsapplicationsCreateArguments;
+	_update?: applicationsUpdateInput;
+}
+
+export type interviewscreatedByConnectForwardKeyInput = {
+	id: Uuid | null;
+}
+
+export type interviewscreatedByConnectInput = {
+	key: interviewscreatedByConnectForwardKeyInput;
+}
+
+export type interviewscreatedByCreateArguments = {
+	data: interviewscreatedByCreateRelatedWithoutTypeInput;
+}
+
+export type interviewscreatedByCreateRelatedInput = {
+	_connect?: interviewscreatedByConnectInput;
+	_create?: interviewscreatedByCreateArguments;
+}
+
+export type interviewscreatedByCreateRelatedWithoutTypeInput = {
+	activitiesCreatedBy?: readonly MonospaceSystemUseractivitiesCreatedByCreateRelatedInput[];
+	activitiesOwner?: readonly MonospaceSystemUseractivitiesOwnerCreateRelatedInput[];
+	activitiesUpdatedBy?: readonly MonospaceSystemUseractivitiesUpdatedByCreateRelatedInput[];
+	affiliationsCreatedBy?: readonly MonospaceSystemUseraffiliationsCreatedByCreateRelatedInput[];
+	affiliationsUpdatedBy?: readonly MonospaceSystemUseraffiliationsUpdatedByCreateRelatedInput[];
+	appearance?: string | null;
+	applicationsCreatedBy?: readonly MonospaceSystemUserapplicationsCreatedByCreateRelatedInput[];
+	applicationsUpdatedBy?: readonly MonospaceSystemUserapplicationsUpdatedByCreateRelatedInput[];
+	attachmentsCreatedBy?: readonly MonospaceSystemUserattachmentsCreatedByCreateRelatedInput[];
+	avatarId?: Uuid | null;
+	candidateFilesCreatedBy?: readonly MonospaceSystemUsercandidateFilesCreatedByCreateRelatedInput[];
+	candidateMessagesCreatedBy?: readonly MonospaceSystemUsercandidateMessagesCreatedByCreateRelatedInput[];
+	candidateNotesCreatedBy?: readonly MonospaceSystemUsercandidateNotesCreatedByCreateRelatedInput[];
+	candidateNotesUpdatedBy?: readonly MonospaceSystemUsercandidateNotesUpdatedByCreateRelatedInput[];
+	candidatesCreatedBy?: readonly MonospaceSystemUsercandidatesCreatedByCreateRelatedInput[];
+	candidatesUpdatedBy?: readonly MonospaceSystemUsercandidatesUpdatedByCreateRelatedInput[];
+	contactsCreatedBy?: readonly MonospaceSystemUsercontactsCreatedByCreateRelatedInput[];
+	contactsOwner?: readonly MonospaceSystemUsercontactsOwnerCreateRelatedInput[];
+	contactsUpdatedBy?: readonly MonospaceSystemUsercontactsUpdatedByCreateRelatedInput[];
+	dealsCreatedBy?: readonly MonospaceSystemUserdealsCreatedByCreateRelatedInput[];
+	dealsOwner?: readonly MonospaceSystemUserdealsOwnerCreateRelatedInput[];
+	dealsUpdatedBy?: readonly MonospaceSystemUserdealsUpdatedByCreateRelatedInput[];
+	email?: string | null;
+	emailTemplatesCreatedBy?: readonly MonospaceSystemUseremailTemplatesCreatedByCreateRelatedInput[];
+	emailTemplatesUpdatedBy?: readonly MonospaceSystemUseremailTemplatesUpdatedByCreateRelatedInput[];
+	fullName?: string | null;
+	id: Uuid;
+	interviewsUpdatedBy?: readonly MonospaceSystemUserinterviewsUpdatedByCreateRelatedInput[];
+	isService: boolean;
+	lastActivityAt?: string | null;
+	offersCreatedBy?: readonly MonospaceSystemUseroffersCreatedByCreateRelatedInput[];
+	offersUpdatedBy?: readonly MonospaceSystemUseroffersUpdatedByCreateRelatedInput[];
+	organizationsCreatedBy?: readonly MonospaceSystemUserorganizationsCreatedByCreateRelatedInput[];
+	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
+	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
+	requisitionsCreatedBy?: readonly MonospaceSystemUserrequisitionsCreatedByCreateRelatedInput[];
+	requisitionsUpdatedBy?: readonly MonospaceSystemUserrequisitionsUpdatedByCreateRelatedInput[];
+	roleRequestsCreatedBy?: readonly MonospaceSystemUserroleRequestsCreatedByCreateRelatedInput[];
+	roleRequestsUpdatedBy?: readonly MonospaceSystemUserroleRequestsUpdatedByCreateRelatedInput[];
+	roles?: readonly MonospaceSystemUserrolesCreateRelatedInput[];
+	scorecardsCreatedBy?: readonly MonospaceSystemUserscorecardsCreatedByCreateRelatedInput[];
+	scorecardsUpdatedBy?: readonly MonospaceSystemUserscorecardsUpdatedByCreateRelatedInput[];
+	serviceOwnerId?: Uuid | null;
+	status?: string;
+	storageValues?: readonly MonospaceSystemUserstorageValuesCreateRelatedInput[];
+	workforcePlanRolesCreatedBy?: readonly MonospaceSystemUserworkforcePlanRolesCreatedByCreateRelatedInput[];
+	workforcePlanRolesUpdatedBy?: readonly MonospaceSystemUserworkforcePlanRolesUpdatedByCreateRelatedInput[];
+}
+
+export type interviewscreatedByRelationFieldArguments = {
+	filter?: MonospaceSystemUserFilterInput;
+}
+
+export type interviewscreatedByUpdateOneRelatedOperationsInput = {
+	_connect?: interviewscreatedByConnectInput;
+	_create?: interviewscreatedByCreateArguments;
+	_delete?: MonospaceSystemUserDeleteArguments;
+	_disconnect?: MonospaceSystemUserDisconnectOneInput;
+	_update?: MonospaceSystemUserUpdateInput;
+}
+
+export type interviewsinterview_participantsConnectBackwardKeysInput = {
+	id?: Uuid;
+}
+
+export type interviewsinterview_participantsConnectInput = {
+	keys: readonly interviewsinterview_participantsConnectBackwardKeysInput[];
+}
+
+export type interviewsinterview_participantsCreateArguments = {
+	data: readonly interviewsinterview_participantsCreateRelatedWithoutTypeInput[];
+}
+
+export type interviewsinterview_participantsCreateRelatedInput = {
+	_connect?: interviewsinterview_participantsConnectInput;
+	_create?: interviewsinterview_participantsCreateArguments;
+}
+
+export type interviewsinterview_participantsCreateRelatedWithoutTypeInput = {
+	id?: Uuid;
+	userId: Uuid;
+}
+
+export type interviewsinterview_participantsRelationFieldArguments = {
+	filter?: interviewParticipantsFilterInput;
+	limit?: Int64Input;
+	offset?: UInt64Input;
+	sort?: readonly interviewParticipantsSortSpecifier[];
+}
+
+export type interviewsinterview_participantsUpdateManyRelatedOperationsInput = {
+	_connect?: interviewsinterview_participantsConnectInput;
+	_create?: interviewsinterview_participantsCreateArguments;
+	_delete?: interviewParticipantsDeleteArguments;
+	_update?: interviewParticipantsUpdateInput;
+}
+
+export type interviewsinterview_stagesConnectForwardKeyInput = {
+	id: Uuid | null;
+}
+
+export type interviewsinterview_stagesConnectInput = {
+	key: interviewsinterview_stagesConnectForwardKeyInput;
+}
+
+export type interviewsinterview_stagesCreateArguments = {
+	data: interviewsinterview_stagesCreateRelatedWithoutTypeInput;
+}
+
+export type interviewsinterview_stagesCreateRelatedInput = {
+	_connect?: interviewsinterview_stagesConnectInput;
+	_create?: interviewsinterview_stagesCreateArguments;
+}
+
+export type interviewsinterview_stagesCreateRelatedWithoutTypeInput = {
+	applications?: readonly interviewStagesapplicationsCreateRelatedInput[];
+	id?: Uuid;
+	kind?: string;
+	name: string;
+	position: number;
+	requisitions: interviewStagesrequisitionsCreateRelatedInput;
+	slaDays?: number | null;
+}
+
+export type interviewsinterview_stagesRelationFieldArguments = {
+	filter?: interviewStagesFilterInput;
+}
+
+export type interviewsinterview_stagesUpdateOneRelatedOperationsInput = {
+	_connect?: interviewsinterview_stagesConnectInput;
+	_create?: interviewsinterview_stagesCreateArguments;
+	_delete?: interviewStagesDeleteArguments;
+	_disconnect?: interviewStagesDisconnectOneInput;
+	_update?: interviewStagesUpdateInput;
+}
+
+export type interviewsscorecardsConnectBackwardKeysInput = {
+	id?: Uuid;
+}
+
+export type interviewsscorecardsConnectInput = {
+	keys: readonly interviewsscorecardsConnectBackwardKeysInput[];
+}
+
+export type interviewsscorecardsCreateArguments = {
+	data: readonly interviewsscorecardsCreateRelatedWithoutTypeInput[];
+}
+
+export type interviewsscorecardsCreateRelatedInput = {
+	_connect?: interviewsscorecardsConnectInput;
+	_create?: interviewsscorecardsCreateArguments;
+}
+
+export type interviewsscorecardsCreateRelatedWithoutTypeInput = {
+	createdBy?: scorecardscreatedByCreateRelatedInput;
+	flags?: string | null;
+	id?: Uuid;
+	interviewerUserId: Uuid;
+	positives?: string | null;
+	recommendation: string;
+	submittedAt?: string;
+	summary?: string | null;
+	updatedAt?: string;
+	updatedBy?: scorecardsupdatedByCreateRelatedInput;
+}
+
+export type interviewsscorecardsRelationFieldArguments = {
+	filter?: scorecardsFilterInput;
+	limit?: Int64Input;
+	offset?: UInt64Input;
+	sort?: readonly scorecardsSortSpecifier[];
+}
+
+export type interviewsscorecardsUpdateManyRelatedOperationsInput = {
+	_connect?: interviewsscorecardsConnectInput;
+	_create?: interviewsscorecardsCreateArguments;
+	_delete?: scorecardsDeleteArguments;
+	_update?: scorecardsUpdateInput;
+}
+
+export type interviewsupdatedByConnectForwardKeyInput = {
+	id: Uuid | null;
+}
+
+export type interviewsupdatedByConnectInput = {
+	key: interviewsupdatedByConnectForwardKeyInput;
+}
+
+export type interviewsupdatedByCreateArguments = {
+	data: interviewsupdatedByCreateRelatedWithoutTypeInput;
+}
+
+export type interviewsupdatedByCreateRelatedInput = {
+	_connect?: interviewsupdatedByConnectInput;
+	_create?: interviewsupdatedByCreateArguments;
+}
+
+export type interviewsupdatedByCreateRelatedWithoutTypeInput = {
+	activitiesCreatedBy?: readonly MonospaceSystemUseractivitiesCreatedByCreateRelatedInput[];
+	activitiesOwner?: readonly MonospaceSystemUseractivitiesOwnerCreateRelatedInput[];
+	activitiesUpdatedBy?: readonly MonospaceSystemUseractivitiesUpdatedByCreateRelatedInput[];
+	affiliationsCreatedBy?: readonly MonospaceSystemUseraffiliationsCreatedByCreateRelatedInput[];
+	affiliationsUpdatedBy?: readonly MonospaceSystemUseraffiliationsUpdatedByCreateRelatedInput[];
+	appearance?: string | null;
+	applicationsCreatedBy?: readonly MonospaceSystemUserapplicationsCreatedByCreateRelatedInput[];
+	applicationsUpdatedBy?: readonly MonospaceSystemUserapplicationsUpdatedByCreateRelatedInput[];
+	attachmentsCreatedBy?: readonly MonospaceSystemUserattachmentsCreatedByCreateRelatedInput[];
+	avatarId?: Uuid | null;
+	candidateFilesCreatedBy?: readonly MonospaceSystemUsercandidateFilesCreatedByCreateRelatedInput[];
+	candidateMessagesCreatedBy?: readonly MonospaceSystemUsercandidateMessagesCreatedByCreateRelatedInput[];
+	candidateNotesCreatedBy?: readonly MonospaceSystemUsercandidateNotesCreatedByCreateRelatedInput[];
+	candidateNotesUpdatedBy?: readonly MonospaceSystemUsercandidateNotesUpdatedByCreateRelatedInput[];
+	candidatesCreatedBy?: readonly MonospaceSystemUsercandidatesCreatedByCreateRelatedInput[];
+	candidatesUpdatedBy?: readonly MonospaceSystemUsercandidatesUpdatedByCreateRelatedInput[];
+	contactsCreatedBy?: readonly MonospaceSystemUsercontactsCreatedByCreateRelatedInput[];
+	contactsOwner?: readonly MonospaceSystemUsercontactsOwnerCreateRelatedInput[];
+	contactsUpdatedBy?: readonly MonospaceSystemUsercontactsUpdatedByCreateRelatedInput[];
+	dealsCreatedBy?: readonly MonospaceSystemUserdealsCreatedByCreateRelatedInput[];
+	dealsOwner?: readonly MonospaceSystemUserdealsOwnerCreateRelatedInput[];
+	dealsUpdatedBy?: readonly MonospaceSystemUserdealsUpdatedByCreateRelatedInput[];
+	email?: string | null;
+	emailTemplatesCreatedBy?: readonly MonospaceSystemUseremailTemplatesCreatedByCreateRelatedInput[];
+	emailTemplatesUpdatedBy?: readonly MonospaceSystemUseremailTemplatesUpdatedByCreateRelatedInput[];
+	fullName?: string | null;
+	id: Uuid;
+	interviewsCreatedBy?: readonly MonospaceSystemUserinterviewsCreatedByCreateRelatedInput[];
+	isService: boolean;
+	lastActivityAt?: string | null;
+	offersCreatedBy?: readonly MonospaceSystemUseroffersCreatedByCreateRelatedInput[];
+	offersUpdatedBy?: readonly MonospaceSystemUseroffersUpdatedByCreateRelatedInput[];
+	organizationsCreatedBy?: readonly MonospaceSystemUserorganizationsCreatedByCreateRelatedInput[];
+	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
+	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
+	requisitionsCreatedBy?: readonly MonospaceSystemUserrequisitionsCreatedByCreateRelatedInput[];
+	requisitionsUpdatedBy?: readonly MonospaceSystemUserrequisitionsUpdatedByCreateRelatedInput[];
+	roleRequestsCreatedBy?: readonly MonospaceSystemUserroleRequestsCreatedByCreateRelatedInput[];
+	roleRequestsUpdatedBy?: readonly MonospaceSystemUserroleRequestsUpdatedByCreateRelatedInput[];
+	roles?: readonly MonospaceSystemUserrolesCreateRelatedInput[];
+	scorecardsCreatedBy?: readonly MonospaceSystemUserscorecardsCreatedByCreateRelatedInput[];
+	scorecardsUpdatedBy?: readonly MonospaceSystemUserscorecardsUpdatedByCreateRelatedInput[];
+	serviceOwnerId?: Uuid | null;
+	status?: string;
+	storageValues?: readonly MonospaceSystemUserstorageValuesCreateRelatedInput[];
+	workforcePlanRolesCreatedBy?: readonly MonospaceSystemUserworkforcePlanRolesCreatedByCreateRelatedInput[];
+	workforcePlanRolesUpdatedBy?: readonly MonospaceSystemUserworkforcePlanRolesUpdatedByCreateRelatedInput[];
+}
+
+export type interviewsupdatedByRelationFieldArguments = {
+	filter?: MonospaceSystemUserFilterInput;
+}
+
+export type interviewsupdatedByUpdateOneRelatedOperationsInput = {
+	_connect?: interviewsupdatedByConnectInput;
+	_create?: interviewsupdatedByCreateArguments;
+	_delete?: MonospaceSystemUserDeleteArguments;
+	_disconnect?: MonospaceSystemUserDisconnectOneInput;
+	_update?: MonospaceSystemUserUpdateInput;
+}
+
+export type jobLevelsCollectionOutput = {
+	id?: Uuid;
+	name?: string;
+	position?: number;
+	requisitions?: { data: requisitionsCollectionOutput[] };
+	role_requests?: { data: roleRequestsCollectionOutput[] };
+	track?: string;
+	workforce_plan_roles?: { data: workforcePlanRolesCollectionOutput[] };
+}
+
+export type jobLevelsCollectionOutputFieldsInput = readonly ("id" | "name" | "position" | "track" | "*" | `${string}:${"id" | "name" | "position" | "track"}`)[];
+
+export type jobLevelsCollectionOutputIncludeInput = {
+	"requisitions"?: (jobLevelsrequisitionsRelationFieldArguments & { "fields"?: requisitionsCollectionOutputFieldsInput; "include"?: requisitionsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (jobLevelsrequisitionsRelationFieldArguments & { "fields"?: requisitionsCollectionOutputFieldsInput; "include"?: requisitionsCollectionOutputIncludeInput })>]?: never };
+	"role_requests"?: (jobLevelsrole_requestsRelationFieldArguments & { "fields"?: roleRequestsCollectionOutputFieldsInput; "include"?: roleRequestsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (jobLevelsrole_requestsRelationFieldArguments & { "fields"?: roleRequestsCollectionOutputFieldsInput; "include"?: roleRequestsCollectionOutputIncludeInput })>]?: never };
+	"workforce_plan_roles"?: (jobLevelsworkforce_plan_rolesRelationFieldArguments & { "fields"?: workforcePlanRolesCollectionOutputFieldsInput; "include"?: workforcePlanRolesCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (jobLevelsworkforce_plan_rolesRelationFieldArguments & { "fields"?: workforcePlanRolesCollectionOutputFieldsInput; "include"?: workforcePlanRolesCollectionOutputIncludeInput })>]?: never };
+} & { [K in `${string}:${"requisitions"}`]?: jobLevelsCollectionOutputIncludeInput["requisitions"] } & { [K in `${string}:${"role_requests"}`]?: jobLevelsCollectionOutputIncludeInput["role_requests"] } & { [K in `${string}:${"workforce_plan_roles"}`]?: jobLevelsCollectionOutputIncludeInput["workforce_plan_roles"] };
+
+export type jobLevelsCreateArguments = {
+	data: readonly jobLevelsCreateInput[];
+}
+
+export type jobLevelsCreateInput = {
+	id?: Uuid;
+	name: string;
+	position: number;
+	requisitions?: readonly jobLevelsrequisitionsCreateRelatedInput[];
+	role_requests?: readonly jobLevelsrole_requestsCreateRelatedInput[];
+	track?: string;
+	workforce_plan_roles?: readonly jobLevelsworkforce_plan_rolesCreateRelatedInput[];
+}
+
+export type jobLevelsDeleteArguments = {
+	filter?: jobLevelsFilterInput;
+}
+
+export type jobLevelsDeleteOneArguments = {
+	filter?: jobLevelsFilterInput;
+	key: Uuid;
+}
+
+export type jobLevelsDisconnectOneInput = {}
+
+export type jobLevelsFilterInput = {
+	_and?: readonly jobLevelsFilterInput[];
+	_not?: jobLevelsFilterInput;
+	_or?: readonly jobLevelsFilterInput[];
+	id?: UuidFilterPrimitiveInput | Uuid;
+	name?: StringFilterPrimitiveInput | string;
+	position?: FloatFilterPrimitiveInput | number;
+	requisitions?: requisitionsFilterQuantifierInput | requisitionsFilterInput;
+	role_requests?: roleRequestsFilterQuantifierInput | roleRequestsFilterInput;
+	track?: StringFilterPrimitiveInput | string;
+	workforce_plan_roles?: workforcePlanRolesFilterQuantifierInput | workforcePlanRolesFilterInput;
+}
+
+export type jobLevelsListArguments = {
+	filter?: jobLevelsFilterInput;
+	limit?: Int64Input;
+	meta?: MetaArguments;
+	offset?: UInt64Input;
+	sort?: readonly jobLevelsSortSpecifier[];
+}
+
+export type jobLevelsReadArguments = {
+	filter?: jobLevelsFilterInput;
+	key: Uuid;
+}
+
+export type jobLevelsSortSpecifier = {
+	id?: SortFieldOptions;
+	name?: SortFieldOptions;
+	position?: SortFieldOptions;
+	track?: SortFieldOptions;
+}
+
+export type jobLevelsUpdateArguments = {
+	data: jobLevelsUpdateDataInput;
+	filter?: jobLevelsFilterInput;
+}
+
+export type jobLevelsUpdateDataInput = {
+	id?: Uuid;
+	name?: string;
+	position?: number;
+	requisitions?: readonly jobLevelsrequisitionsUpdateManyRelatedOperationsInput[];
+	role_requests?: readonly jobLevelsrole_requestsUpdateManyRelatedOperationsInput[];
+	track?: string;
+	workforce_plan_roles?: readonly jobLevelsworkforce_plan_rolesUpdateManyRelatedOperationsInput[];
+}
+
+export type jobLevelsUpdateInput = {
+	data: jobLevelsUpdateDataInput;
+	filter?: jobLevelsFilterInput;
+}
+
+export type jobLevelsUpdateOneArguments = {
+	data: jobLevelsUpdateDataInput;
+	filter?: jobLevelsFilterInput;
+	key: Uuid;
+}
+
+export type jobLevelsrequisitionsConnectBackwardKeysInput = {
+	id?: Uuid;
+	reqNumber?: number;
+	roleRequestId?: Uuid;
+}
+
+export type jobLevelsrequisitionsConnectInput = {
+	keys: readonly jobLevelsrequisitionsConnectBackwardKeysInput[];
+}
+
+export type jobLevelsrequisitionsCreateArguments = {
+	data: readonly jobLevelsrequisitionsCreateRelatedWithoutTypeInput[];
+}
+
+export type jobLevelsrequisitionsCreateRelatedInput = {
+	_connect?: jobLevelsrequisitionsConnectInput;
+	_create?: jobLevelsrequisitionsCreateArguments;
+}
+
+export type jobLevelsrequisitionsCreateRelatedWithoutTypeInput = {
+	applications?: readonly requisitionsapplicationsCreateRelatedInput[];
+	closedAt?: string | null;
+	compMax?: string | null;
+	compMin?: string | null;
+	createdAt?: string;
+	createdBy?: requisitionscreatedByCreateRelatedInput;
+	currency?: string;
+	departments: requisitionsdepartmentsCreateRelatedInput;
+	description?: string | null;
+	employmentType?: string;
+	hiringManagerUserId?: Uuid | null;
+	hiringReason?: string | null;
+	id?: Uuid;
+	interview_stages?: readonly requisitionsinterview_stagesCreateRelatedInput[];
+	isConfidential?: boolean;
+	isLeadership?: boolean;
+	kickoffAt?: string | null;
+	kickoffNotes?: string | null;
+	locations?: string | null;
+	mustHaveSkills?: string | null;
+	niceToHaveSkills?: string | null;
+	numberOfHires?: number;
+	openedAt?: string | null;
+	postExternally?: boolean;
+	public_applications?: readonly requisitionspublic_applicationsCreateRelatedInput[];
+	recruiterUserId?: Uuid | null;
+	reqNumber?: number;
+	role_requests?: requisitionsrole_requestsCreateRelatedInput;
+	status?: string;
+	teamSize?: number | null;
+	title: string;
+	updatedAt?: string;
+	updatedBy?: requisitionsupdatedByCreateRelatedInput;
+	urgency?: string;
+}
+
+export type jobLevelsrequisitionsRelationFieldArguments = {
+	filter?: requisitionsFilterInput;
+	limit?: Int64Input;
+	offset?: UInt64Input;
+	sort?: readonly requisitionsSortSpecifier[];
+}
+
+export type jobLevelsrequisitionsUpdateManyRelatedOperationsInput = {
+	_connect?: jobLevelsrequisitionsConnectInput;
+	_create?: jobLevelsrequisitionsCreateArguments;
+	_delete?: requisitionsDeleteArguments;
+	_disconnect?: requisitionsDisconnectManyInput;
+	_update?: requisitionsUpdateInput;
+}
+
+export type jobLevelsrole_requestsConnectBackwardKeysInput = {
+	id?: Uuid;
+}
+
+export type jobLevelsrole_requestsConnectInput = {
+	keys: readonly jobLevelsrole_requestsConnectBackwardKeysInput[];
+}
+
+export type jobLevelsrole_requestsCreateArguments = {
+	data: readonly jobLevelsrole_requestsCreateRelatedWithoutTypeInput[];
+}
+
+export type jobLevelsrole_requestsCreateRelatedInput = {
+	_connect?: jobLevelsrole_requestsConnectInput;
+	_create?: jobLevelsrole_requestsCreateArguments;
+}
+
+export type jobLevelsrole_requestsCreateRelatedWithoutTypeInput = {
+	approvals?: readonly roleRequestsapprovalsCreateRelatedInput[];
+	approvedBaseMax?: string | null;
+	approvedBaseMin?: string | null;
+	approvedCurrency?: string | null;
+	approvedEquityUnits?: number | null;
+	approvedVariableMax?: string | null;
+	approvedVariableMin?: string | null;
+	businessJustification?: string | null;
+	compMax?: string | null;
+	compMin?: string | null;
+	createdAt?: string;
+	createdBy?: roleRequestscreatedByCreateRelatedInput;
+	currency?: string;
+	decidedAt?: string | null;
+	decidedByUserId?: Uuid | null;
+	decisionNote?: string | null;
+	departments: roleRequestsdepartmentsCreateRelatedInput;
+	employmentType?: string;
+	hiringManagerUserId?: Uuid | null;
+	hiringReason?: string;
+	hiringReasonDetail?: string | null;
+	id?: Uuid;
+	locations?: string | null;
+	numberOfHires?: number;
+	requesterUserId?: Uuid | null;
+	requisitions?: roleRequestsrequisitionsCreateRelatedInput;
+	roleName: string;
+	status?: string;
+	updatedAt?: string;
+	updatedBy?: roleRequestsupdatedByCreateRelatedInput;
+	urgency?: string;
+	urgencyImpact?: string | null;
+	workforce_plan_roles?: roleRequestsworkforce_plan_rolesCreateRelatedInput;
+}
+
+export type jobLevelsrole_requestsRelationFieldArguments = {
+	filter?: roleRequestsFilterInput;
+	limit?: Int64Input;
+	offset?: UInt64Input;
+	sort?: readonly roleRequestsSortSpecifier[];
+}
+
+export type jobLevelsrole_requestsUpdateManyRelatedOperationsInput = {
+	_connect?: jobLevelsrole_requestsConnectInput;
+	_create?: jobLevelsrole_requestsCreateArguments;
+	_delete?: roleRequestsDeleteArguments;
+	_disconnect?: roleRequestsDisconnectManyInput;
+	_update?: roleRequestsUpdateInput;
+}
+
+export type jobLevelsworkforce_plan_rolesConnectBackwardKeysInput = {
+	id?: Uuid;
+}
+
+export type jobLevelsworkforce_plan_rolesConnectInput = {
+	keys: readonly jobLevelsworkforce_plan_rolesConnectBackwardKeysInput[];
+}
+
+export type jobLevelsworkforce_plan_rolesCreateArguments = {
+	data: readonly jobLevelsworkforce_plan_rolesCreateRelatedWithoutTypeInput[];
+}
+
+export type jobLevelsworkforce_plan_rolesCreateRelatedInput = {
+	_connect?: jobLevelsworkforce_plan_rolesConnectInput;
+	_create?: jobLevelsworkforce_plan_rolesCreateArguments;
+}
+
+export type jobLevelsworkforce_plan_rolesCreateRelatedWithoutTypeInput = {
+	approvals?: readonly workforcePlanRolesapprovalsCreateRelatedInput[];
+	approvedHeadcount?: number | null;
+	budgetAmount?: string | null;
+	createdAt?: string;
+	createdBy?: workforcePlanRolescreatedByCreateRelatedInput;
+	currency?: string;
+	currentHeadcount?: number;
+	departments: workforcePlanRolesdepartmentsCreateRelatedInput;
+	employmentType?: string;
+	hireType?: string;
+	id?: Uuid;
+	locations?: string | null;
+	planYear: number;
+	plannedHeadcount?: number;
+	roleName: string;
+	role_requests?: readonly workforcePlanRolesrole_requestsCreateRelatedInput[];
+	status?: string;
+	team?: string | null;
+	updatedAt?: string;
+	updatedBy?: workforcePlanRolesupdatedByCreateRelatedInput;
+}
+
+export type jobLevelsworkforce_plan_rolesRelationFieldArguments = {
+	filter?: workforcePlanRolesFilterInput;
+	limit?: Int64Input;
+	offset?: UInt64Input;
+	sort?: readonly workforcePlanRolesSortSpecifier[];
+}
+
+export type jobLevelsworkforce_plan_rolesUpdateManyRelatedOperationsInput = {
+	_connect?: jobLevelsworkforce_plan_rolesConnectInput;
+	_create?: jobLevelsworkforce_plan_rolesCreateArguments;
+	_delete?: workforcePlanRolesDeleteArguments;
+	_disconnect?: workforcePlanRolesDisconnectManyInput;
+	_update?: workforcePlanRolesUpdateInput;
+}
+
+export type offersCollectionOutput = {
+	applicationId?: Uuid;
+	applications?: applicationsCollectionOutput;
+	approvals?: { data: approvalsCollectionOutput[] };
+	baseSalary?: string | null;
+	candidateIntro?: string | null;
+	createdAt?: string;
+	createdBy?: MonospaceSystemUserCollectionOutput | null;
+	createdById?: Uuid | null;
+	currency?: string;
+	equityUnits?: number | null;
+	id?: Uuid;
+	proposedStartDate?: string | null;
+	searchOverview?: string | null;
+	status?: string;
+	updatedAt?: string;
+	updatedBy?: MonospaceSystemUserCollectionOutput | null;
+	updatedById?: Uuid | null;
+}
+
+export type offersCollectionOutputFieldsInput = readonly ("applicationId" | "baseSalary" | "candidateIntro" | "createdAt" | "createdById" | "currency" | "equityUnits" | "id" | "proposedStartDate" | "searchOverview" | "status" | "updatedAt" | "updatedById" | "*" | `${string}:${"applicationId" | "baseSalary" | "candidateIntro" | "createdAt" | "createdById" | "currency" | "equityUnits" | "id" | "proposedStartDate" | "searchOverview" | "status" | "updatedAt" | "updatedById"}`)[];
+
+export type offersCollectionOutputIncludeInput = {
+	"applications"?: ({ "fields"?: applicationsCollectionOutputFieldsInput; "include"?: applicationsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof ({ "fields"?: applicationsCollectionOutputFieldsInput; "include"?: applicationsCollectionOutputIncludeInput })>]?: never };
+	"approvals"?: (offersapprovalsRelationFieldArguments & { "fields"?: approvalsCollectionOutputFieldsInput; "include"?: approvalsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (offersapprovalsRelationFieldArguments & { "fields"?: approvalsCollectionOutputFieldsInput; "include"?: approvalsCollectionOutputIncludeInput })>]?: never };
+	"createdBy"?: (offerscreatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (offerscreatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput })>]?: never };
+	"updatedBy"?: (offersupdatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (offersupdatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput })>]?: never };
+} & { [K in `${string}:${"applications"}`]?: offersCollectionOutputIncludeInput["applications"] } & { [K in `${string}:${"approvals"}`]?: offersCollectionOutputIncludeInput["approvals"] } & { [K in `${string}:${"createdBy"}`]?: offersCollectionOutputIncludeInput["createdBy"] } & { [K in `${string}:${"updatedBy"}`]?: offersCollectionOutputIncludeInput["updatedBy"] };
+
+export type offersCreateArguments = {
+	data: readonly offersCreateInput[];
+}
+
+export type offersCreateInput = {
+	applications: offersapplicationsCreateRelatedInput;
+	approvals?: readonly offersapprovalsCreateRelatedInput[];
+	baseSalary?: string | null;
+	candidateIntro?: string | null;
+	createdAt?: string;
+	createdBy?: offerscreatedByCreateRelatedInput;
+	currency?: string;
+	equityUnits?: number | null;
+	id?: Uuid;
+	proposedStartDate?: string | null;
+	searchOverview?: string | null;
+	status?: string;
+	updatedAt?: string;
+	updatedBy?: offersupdatedByCreateRelatedInput;
+}
+
+export type offersDeleteArguments = {
+	filter?: offersFilterInput;
+}
+
+export type offersDeleteOneArguments = {
+	filter?: offersFilterInput;
+	key: Uuid;
+}
+
+export type offersDisconnectManyInput = {
+	filter?: offersFilterInput;
+}
+
+export type offersDisconnectOneInput = {}
+
+export type offersFilterInput = {
+	_and?: readonly offersFilterInput[];
+	_not?: offersFilterInput;
+	_or?: readonly offersFilterInput[];
+	applicationId?: UuidFilterPrimitiveInput | Uuid;
+	applications?: applicationsFilterInput;
+	approvals?: approvalsFilterQuantifierInput | approvalsFilterInput;
+	baseSalary?: DecimalFilterNullablePrimitiveInput | string | null;
+	candidateIntro?: StringFilterNullablePrimitiveInput | string | null;
+	createdAt?: DateTimeFilterPrimitiveInput | string;
+	createdBy?: MonospaceSystemUserFilterInput;
+	createdById?: UuidFilterNullablePrimitiveInput | Uuid | null;
+	currency?: StringFilterPrimitiveInput | string;
+	equityUnits?: IntegerFilterNullablePrimitiveInput | number | null;
+	id?: UuidFilterPrimitiveInput | Uuid;
+	proposedStartDate?: DateFilterNullablePrimitiveInput | string | null;
+	searchOverview?: StringFilterNullablePrimitiveInput | string | null;
+	status?: StringFilterPrimitiveInput | string;
+	updatedAt?: DateTimeFilterPrimitiveInput | string;
+	updatedBy?: MonospaceSystemUserFilterInput;
+	updatedById?: UuidFilterNullablePrimitiveInput | Uuid | null;
+}
+
+export type offersFilterQuantifierInput = {
+	_every?: offersFilterInput;
+	_none?: offersFilterInput;
+	_some?: offersFilterInput;
+}
+
+export type offersListArguments = {
+	filter?: offersFilterInput;
+	limit?: Int64Input;
+	meta?: MetaArguments;
+	offset?: UInt64Input;
+	sort?: readonly offersSortSpecifier[];
+}
+
+export type offersReadArguments = {
+	filter?: offersFilterInput;
+	key: Uuid;
+}
+
+export type offersSortSpecifier = {
+	applicationId?: SortFieldOptions;
+	baseSalary?: SortFieldOptions;
+	candidateIntro?: SortFieldOptions;
+	createdAt?: SortFieldOptions;
+	createdById?: SortFieldOptions;
+	currency?: SortFieldOptions;
+	equityUnits?: SortFieldOptions;
+	id?: SortFieldOptions;
+	proposedStartDate?: SortFieldOptions;
+	searchOverview?: SortFieldOptions;
+	status?: SortFieldOptions;
+	updatedAt?: SortFieldOptions;
+	updatedById?: SortFieldOptions;
+}
+
+export type offersUpdateArguments = {
+	data: offersUpdateDataInput;
+	filter?: offersFilterInput;
+}
+
+export type offersUpdateDataInput = {
+	applicationId?: Uuid;
+	applications?: readonly offersapplicationsUpdateOneRelatedOperationsInput[];
+	approvals?: readonly offersapprovalsUpdateManyRelatedOperationsInput[];
+	baseSalary?: string | null;
+	candidateIntro?: string | null;
+	createdAt?: string;
+	createdBy?: readonly offerscreatedByUpdateOneRelatedOperationsInput[];
+	createdById?: Uuid | null;
+	currency?: string;
+	equityUnits?: number | null;
+	id?: Uuid;
+	proposedStartDate?: string | null;
+	searchOverview?: string | null;
+	status?: string;
+	updatedAt?: string;
+	updatedBy?: readonly offersupdatedByUpdateOneRelatedOperationsInput[];
+	updatedById?: Uuid | null;
+}
+
+export type offersUpdateInput = {
+	data: offersUpdateDataInput;
+	filter?: offersFilterInput;
+}
+
+export type offersUpdateOneArguments = {
+	data: offersUpdateDataInput;
+	filter?: offersFilterInput;
+	key: Uuid;
+}
+
+export type offersapplicationsConnectForwardKeyInput = {
+	id: Uuid;
+}
+
+export type offersapplicationsConnectInput = {
+	key: offersapplicationsConnectForwardKeyInput;
+}
+
+export type offersapplicationsCreateArguments = {
+	data: offersapplicationsCreateRelatedWithoutTypeInput;
+}
+
+export type offersapplicationsCreateRelatedInput = {
+	_connect?: offersapplicationsConnectInput;
+	_create?: offersapplicationsCreateArguments;
+}
+
+export type offersapplicationsCreateRelatedWithoutTypeInput = {
+	appliedAt?: string;
+	candidates: applicationscandidatesCreateRelatedInput;
+	createdAt?: string;
+	createdBy?: applicationscreatedByCreateRelatedInput;
+	id?: Uuid;
+	interview_stages: applicationsinterview_stagesCreateRelatedInput;
+	interviews?: readonly applicationsinterviewsCreateRelatedInput[];
+	lastActivityAt?: string;
+	public_applications?: readonly applicationspublic_applicationsCreateRelatedInput[];
+	rejectionReason?: string | null;
+	requisitions: applicationsrequisitionsCreateRelatedInput;
+	stageEnteredAt?: string;
+	status?: string;
+	updatedAt?: string;
+	updatedBy?: applicationsupdatedByCreateRelatedInput;
+}
+
+export type offersapplicationsUpdateOneRelatedOperationsInput = {
+	_update?: applicationsUpdateInput;
+}
+
+export type offersapprovalsConnectBackwardKeysInput = {
+	id?: Uuid;
+}
+
+export type offersapprovalsConnectInput = {
+	keys: readonly offersapprovalsConnectBackwardKeysInput[];
+}
+
+export type offersapprovalsCreateArguments = {
+	data: readonly offersapprovalsCreateRelatedWithoutTypeInput[];
+}
+
+export type offersapprovalsCreateRelatedInput = {
+	_connect?: offersapprovalsConnectInput;
+	_create?: offersapprovalsCreateArguments;
+}
+
+export type offersapprovalsCreateRelatedWithoutTypeInput = {
+	approverRole: string;
+	approverUserId?: Uuid | null;
+	createdAt?: string;
+	decidedAt?: string | null;
+	decision?: string;
+	id?: Uuid;
+	note?: string | null;
+	role_requests?: approvalsrole_requestsCreateRelatedInput;
+	step: number;
+	workforce_plan_roles?: approvalsworkforce_plan_rolesCreateRelatedInput;
+}
+
+export type offersapprovalsRelationFieldArguments = {
+	filter?: approvalsFilterInput;
+	limit?: Int64Input;
+	offset?: UInt64Input;
+	sort?: readonly approvalsSortSpecifier[];
+}
+
+export type offersapprovalsUpdateManyRelatedOperationsInput = {
+	_connect?: offersapprovalsConnectInput;
+	_create?: offersapprovalsCreateArguments;
+	_delete?: approvalsDeleteArguments;
+	_disconnect?: approvalsDisconnectManyInput;
+	_update?: approvalsUpdateInput;
+}
+
+export type offerscreatedByConnectForwardKeyInput = {
+	id: Uuid | null;
+}
+
+export type offerscreatedByConnectInput = {
+	key: offerscreatedByConnectForwardKeyInput;
+}
+
+export type offerscreatedByCreateArguments = {
+	data: offerscreatedByCreateRelatedWithoutTypeInput;
+}
+
+export type offerscreatedByCreateRelatedInput = {
+	_connect?: offerscreatedByConnectInput;
+	_create?: offerscreatedByCreateArguments;
+}
+
+export type offerscreatedByCreateRelatedWithoutTypeInput = {
+	activitiesCreatedBy?: readonly MonospaceSystemUseractivitiesCreatedByCreateRelatedInput[];
+	activitiesOwner?: readonly MonospaceSystemUseractivitiesOwnerCreateRelatedInput[];
+	activitiesUpdatedBy?: readonly MonospaceSystemUseractivitiesUpdatedByCreateRelatedInput[];
+	affiliationsCreatedBy?: readonly MonospaceSystemUseraffiliationsCreatedByCreateRelatedInput[];
+	affiliationsUpdatedBy?: readonly MonospaceSystemUseraffiliationsUpdatedByCreateRelatedInput[];
+	appearance?: string | null;
+	applicationsCreatedBy?: readonly MonospaceSystemUserapplicationsCreatedByCreateRelatedInput[];
+	applicationsUpdatedBy?: readonly MonospaceSystemUserapplicationsUpdatedByCreateRelatedInput[];
+	attachmentsCreatedBy?: readonly MonospaceSystemUserattachmentsCreatedByCreateRelatedInput[];
+	avatarId?: Uuid | null;
+	candidateFilesCreatedBy?: readonly MonospaceSystemUsercandidateFilesCreatedByCreateRelatedInput[];
+	candidateMessagesCreatedBy?: readonly MonospaceSystemUsercandidateMessagesCreatedByCreateRelatedInput[];
+	candidateNotesCreatedBy?: readonly MonospaceSystemUsercandidateNotesCreatedByCreateRelatedInput[];
+	candidateNotesUpdatedBy?: readonly MonospaceSystemUsercandidateNotesUpdatedByCreateRelatedInput[];
+	candidatesCreatedBy?: readonly MonospaceSystemUsercandidatesCreatedByCreateRelatedInput[];
+	candidatesUpdatedBy?: readonly MonospaceSystemUsercandidatesUpdatedByCreateRelatedInput[];
+	contactsCreatedBy?: readonly MonospaceSystemUsercontactsCreatedByCreateRelatedInput[];
+	contactsOwner?: readonly MonospaceSystemUsercontactsOwnerCreateRelatedInput[];
+	contactsUpdatedBy?: readonly MonospaceSystemUsercontactsUpdatedByCreateRelatedInput[];
+	dealsCreatedBy?: readonly MonospaceSystemUserdealsCreatedByCreateRelatedInput[];
+	dealsOwner?: readonly MonospaceSystemUserdealsOwnerCreateRelatedInput[];
+	dealsUpdatedBy?: readonly MonospaceSystemUserdealsUpdatedByCreateRelatedInput[];
+	email?: string | null;
+	emailTemplatesCreatedBy?: readonly MonospaceSystemUseremailTemplatesCreatedByCreateRelatedInput[];
+	emailTemplatesUpdatedBy?: readonly MonospaceSystemUseremailTemplatesUpdatedByCreateRelatedInput[];
+	fullName?: string | null;
+	id: Uuid;
+	interviewsCreatedBy?: readonly MonospaceSystemUserinterviewsCreatedByCreateRelatedInput[];
+	interviewsUpdatedBy?: readonly MonospaceSystemUserinterviewsUpdatedByCreateRelatedInput[];
+	isService: boolean;
+	lastActivityAt?: string | null;
+	offersUpdatedBy?: readonly MonospaceSystemUseroffersUpdatedByCreateRelatedInput[];
+	organizationsCreatedBy?: readonly MonospaceSystemUserorganizationsCreatedByCreateRelatedInput[];
+	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
+	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
+	requisitionsCreatedBy?: readonly MonospaceSystemUserrequisitionsCreatedByCreateRelatedInput[];
+	requisitionsUpdatedBy?: readonly MonospaceSystemUserrequisitionsUpdatedByCreateRelatedInput[];
+	roleRequestsCreatedBy?: readonly MonospaceSystemUserroleRequestsCreatedByCreateRelatedInput[];
+	roleRequestsUpdatedBy?: readonly MonospaceSystemUserroleRequestsUpdatedByCreateRelatedInput[];
+	roles?: readonly MonospaceSystemUserrolesCreateRelatedInput[];
+	scorecardsCreatedBy?: readonly MonospaceSystemUserscorecardsCreatedByCreateRelatedInput[];
+	scorecardsUpdatedBy?: readonly MonospaceSystemUserscorecardsUpdatedByCreateRelatedInput[];
+	serviceOwnerId?: Uuid | null;
+	status?: string;
+	storageValues?: readonly MonospaceSystemUserstorageValuesCreateRelatedInput[];
+	workforcePlanRolesCreatedBy?: readonly MonospaceSystemUserworkforcePlanRolesCreatedByCreateRelatedInput[];
+	workforcePlanRolesUpdatedBy?: readonly MonospaceSystemUserworkforcePlanRolesUpdatedByCreateRelatedInput[];
+}
+
+export type offerscreatedByRelationFieldArguments = {
+	filter?: MonospaceSystemUserFilterInput;
+}
+
+export type offerscreatedByUpdateOneRelatedOperationsInput = {
+	_connect?: offerscreatedByConnectInput;
+	_create?: offerscreatedByCreateArguments;
+	_delete?: MonospaceSystemUserDeleteArguments;
+	_disconnect?: MonospaceSystemUserDisconnectOneInput;
+	_update?: MonospaceSystemUserUpdateInput;
+}
+
+export type offersupdatedByConnectForwardKeyInput = {
+	id: Uuid | null;
+}
+
+export type offersupdatedByConnectInput = {
+	key: offersupdatedByConnectForwardKeyInput;
+}
+
+export type offersupdatedByCreateArguments = {
+	data: offersupdatedByCreateRelatedWithoutTypeInput;
+}
+
+export type offersupdatedByCreateRelatedInput = {
+	_connect?: offersupdatedByConnectInput;
+	_create?: offersupdatedByCreateArguments;
+}
+
+export type offersupdatedByCreateRelatedWithoutTypeInput = {
+	activitiesCreatedBy?: readonly MonospaceSystemUseractivitiesCreatedByCreateRelatedInput[];
+	activitiesOwner?: readonly MonospaceSystemUseractivitiesOwnerCreateRelatedInput[];
+	activitiesUpdatedBy?: readonly MonospaceSystemUseractivitiesUpdatedByCreateRelatedInput[];
+	affiliationsCreatedBy?: readonly MonospaceSystemUseraffiliationsCreatedByCreateRelatedInput[];
+	affiliationsUpdatedBy?: readonly MonospaceSystemUseraffiliationsUpdatedByCreateRelatedInput[];
+	appearance?: string | null;
+	applicationsCreatedBy?: readonly MonospaceSystemUserapplicationsCreatedByCreateRelatedInput[];
+	applicationsUpdatedBy?: readonly MonospaceSystemUserapplicationsUpdatedByCreateRelatedInput[];
+	attachmentsCreatedBy?: readonly MonospaceSystemUserattachmentsCreatedByCreateRelatedInput[];
+	avatarId?: Uuid | null;
+	candidateFilesCreatedBy?: readonly MonospaceSystemUsercandidateFilesCreatedByCreateRelatedInput[];
+	candidateMessagesCreatedBy?: readonly MonospaceSystemUsercandidateMessagesCreatedByCreateRelatedInput[];
+	candidateNotesCreatedBy?: readonly MonospaceSystemUsercandidateNotesCreatedByCreateRelatedInput[];
+	candidateNotesUpdatedBy?: readonly MonospaceSystemUsercandidateNotesUpdatedByCreateRelatedInput[];
+	candidatesCreatedBy?: readonly MonospaceSystemUsercandidatesCreatedByCreateRelatedInput[];
+	candidatesUpdatedBy?: readonly MonospaceSystemUsercandidatesUpdatedByCreateRelatedInput[];
+	contactsCreatedBy?: readonly MonospaceSystemUsercontactsCreatedByCreateRelatedInput[];
+	contactsOwner?: readonly MonospaceSystemUsercontactsOwnerCreateRelatedInput[];
+	contactsUpdatedBy?: readonly MonospaceSystemUsercontactsUpdatedByCreateRelatedInput[];
+	dealsCreatedBy?: readonly MonospaceSystemUserdealsCreatedByCreateRelatedInput[];
+	dealsOwner?: readonly MonospaceSystemUserdealsOwnerCreateRelatedInput[];
+	dealsUpdatedBy?: readonly MonospaceSystemUserdealsUpdatedByCreateRelatedInput[];
+	email?: string | null;
+	emailTemplatesCreatedBy?: readonly MonospaceSystemUseremailTemplatesCreatedByCreateRelatedInput[];
+	emailTemplatesUpdatedBy?: readonly MonospaceSystemUseremailTemplatesUpdatedByCreateRelatedInput[];
+	fullName?: string | null;
+	id: Uuid;
+	interviewsCreatedBy?: readonly MonospaceSystemUserinterviewsCreatedByCreateRelatedInput[];
+	interviewsUpdatedBy?: readonly MonospaceSystemUserinterviewsUpdatedByCreateRelatedInput[];
+	isService: boolean;
+	lastActivityAt?: string | null;
+	offersCreatedBy?: readonly MonospaceSystemUseroffersCreatedByCreateRelatedInput[];
+	organizationsCreatedBy?: readonly MonospaceSystemUserorganizationsCreatedByCreateRelatedInput[];
+	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
+	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
+	requisitionsCreatedBy?: readonly MonospaceSystemUserrequisitionsCreatedByCreateRelatedInput[];
+	requisitionsUpdatedBy?: readonly MonospaceSystemUserrequisitionsUpdatedByCreateRelatedInput[];
+	roleRequestsCreatedBy?: readonly MonospaceSystemUserroleRequestsCreatedByCreateRelatedInput[];
+	roleRequestsUpdatedBy?: readonly MonospaceSystemUserroleRequestsUpdatedByCreateRelatedInput[];
+	roles?: readonly MonospaceSystemUserrolesCreateRelatedInput[];
+	scorecardsCreatedBy?: readonly MonospaceSystemUserscorecardsCreatedByCreateRelatedInput[];
+	scorecardsUpdatedBy?: readonly MonospaceSystemUserscorecardsUpdatedByCreateRelatedInput[];
+	serviceOwnerId?: Uuid | null;
+	status?: string;
+	storageValues?: readonly MonospaceSystemUserstorageValuesCreateRelatedInput[];
+	workforcePlanRolesCreatedBy?: readonly MonospaceSystemUserworkforcePlanRolesCreatedByCreateRelatedInput[];
+	workforcePlanRolesUpdatedBy?: readonly MonospaceSystemUserworkforcePlanRolesUpdatedByCreateRelatedInput[];
+}
+
+export type offersupdatedByRelationFieldArguments = {
+	filter?: MonospaceSystemUserFilterInput;
+}
+
+export type offersupdatedByUpdateOneRelatedOperationsInput = {
+	_connect?: offersupdatedByConnectInput;
+	_create?: offersupdatedByCreateArguments;
+	_delete?: MonospaceSystemUserDeleteArguments;
+	_disconnect?: MonospaceSystemUserDisconnectOneInput;
+	_update?: MonospaceSystemUserUpdateInput;
 }
 
 export type organizationsCollectionOutput = {
@@ -9919,8 +16803,16 @@ export type organizationscreatedByCreateRelatedWithoutTypeInput = {
 	affiliationsCreatedBy?: readonly MonospaceSystemUseraffiliationsCreatedByCreateRelatedInput[];
 	affiliationsUpdatedBy?: readonly MonospaceSystemUseraffiliationsUpdatedByCreateRelatedInput[];
 	appearance?: string | null;
+	applicationsCreatedBy?: readonly MonospaceSystemUserapplicationsCreatedByCreateRelatedInput[];
+	applicationsUpdatedBy?: readonly MonospaceSystemUserapplicationsUpdatedByCreateRelatedInput[];
 	attachmentsCreatedBy?: readonly MonospaceSystemUserattachmentsCreatedByCreateRelatedInput[];
 	avatarId?: Uuid | null;
+	candidateFilesCreatedBy?: readonly MonospaceSystemUsercandidateFilesCreatedByCreateRelatedInput[];
+	candidateMessagesCreatedBy?: readonly MonospaceSystemUsercandidateMessagesCreatedByCreateRelatedInput[];
+	candidateNotesCreatedBy?: readonly MonospaceSystemUsercandidateNotesCreatedByCreateRelatedInput[];
+	candidateNotesUpdatedBy?: readonly MonospaceSystemUsercandidateNotesUpdatedByCreateRelatedInput[];
+	candidatesCreatedBy?: readonly MonospaceSystemUsercandidatesCreatedByCreateRelatedInput[];
+	candidatesUpdatedBy?: readonly MonospaceSystemUsercandidatesUpdatedByCreateRelatedInput[];
 	contactsCreatedBy?: readonly MonospaceSystemUsercontactsCreatedByCreateRelatedInput[];
 	contactsOwner?: readonly MonospaceSystemUsercontactsOwnerCreateRelatedInput[];
 	contactsUpdatedBy?: readonly MonospaceSystemUsercontactsUpdatedByCreateRelatedInput[];
@@ -9928,16 +16820,30 @@ export type organizationscreatedByCreateRelatedWithoutTypeInput = {
 	dealsOwner?: readonly MonospaceSystemUserdealsOwnerCreateRelatedInput[];
 	dealsUpdatedBy?: readonly MonospaceSystemUserdealsUpdatedByCreateRelatedInput[];
 	email?: string | null;
+	emailTemplatesCreatedBy?: readonly MonospaceSystemUseremailTemplatesCreatedByCreateRelatedInput[];
+	emailTemplatesUpdatedBy?: readonly MonospaceSystemUseremailTemplatesUpdatedByCreateRelatedInput[];
 	fullName?: string | null;
 	id: Uuid;
+	interviewsCreatedBy?: readonly MonospaceSystemUserinterviewsCreatedByCreateRelatedInput[];
+	interviewsUpdatedBy?: readonly MonospaceSystemUserinterviewsUpdatedByCreateRelatedInput[];
 	isService: boolean;
 	lastActivityAt?: string | null;
+	offersCreatedBy?: readonly MonospaceSystemUseroffersCreatedByCreateRelatedInput[];
+	offersUpdatedBy?: readonly MonospaceSystemUseroffersUpdatedByCreateRelatedInput[];
 	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
 	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
+	requisitionsCreatedBy?: readonly MonospaceSystemUserrequisitionsCreatedByCreateRelatedInput[];
+	requisitionsUpdatedBy?: readonly MonospaceSystemUserrequisitionsUpdatedByCreateRelatedInput[];
+	roleRequestsCreatedBy?: readonly MonospaceSystemUserroleRequestsCreatedByCreateRelatedInput[];
+	roleRequestsUpdatedBy?: readonly MonospaceSystemUserroleRequestsUpdatedByCreateRelatedInput[];
 	roles?: readonly MonospaceSystemUserrolesCreateRelatedInput[];
+	scorecardsCreatedBy?: readonly MonospaceSystemUserscorecardsCreatedByCreateRelatedInput[];
+	scorecardsUpdatedBy?: readonly MonospaceSystemUserscorecardsUpdatedByCreateRelatedInput[];
 	serviceOwnerId?: Uuid | null;
 	status?: string;
 	storageValues?: readonly MonospaceSystemUserstorageValuesCreateRelatedInput[];
+	workforcePlanRolesCreatedBy?: readonly MonospaceSystemUserworkforcePlanRolesCreatedByCreateRelatedInput[];
+	workforcePlanRolesUpdatedBy?: readonly MonospaceSystemUserworkforcePlanRolesUpdatedByCreateRelatedInput[];
 }
 
 export type organizationscreatedByRelationFieldArguments = {
@@ -10026,8 +16932,16 @@ export type organizationsownerCreateRelatedWithoutTypeInput = {
 	affiliationsCreatedBy?: readonly MonospaceSystemUseraffiliationsCreatedByCreateRelatedInput[];
 	affiliationsUpdatedBy?: readonly MonospaceSystemUseraffiliationsUpdatedByCreateRelatedInput[];
 	appearance?: string | null;
+	applicationsCreatedBy?: readonly MonospaceSystemUserapplicationsCreatedByCreateRelatedInput[];
+	applicationsUpdatedBy?: readonly MonospaceSystemUserapplicationsUpdatedByCreateRelatedInput[];
 	attachmentsCreatedBy?: readonly MonospaceSystemUserattachmentsCreatedByCreateRelatedInput[];
 	avatarId?: Uuid | null;
+	candidateFilesCreatedBy?: readonly MonospaceSystemUsercandidateFilesCreatedByCreateRelatedInput[];
+	candidateMessagesCreatedBy?: readonly MonospaceSystemUsercandidateMessagesCreatedByCreateRelatedInput[];
+	candidateNotesCreatedBy?: readonly MonospaceSystemUsercandidateNotesCreatedByCreateRelatedInput[];
+	candidateNotesUpdatedBy?: readonly MonospaceSystemUsercandidateNotesUpdatedByCreateRelatedInput[];
+	candidatesCreatedBy?: readonly MonospaceSystemUsercandidatesCreatedByCreateRelatedInput[];
+	candidatesUpdatedBy?: readonly MonospaceSystemUsercandidatesUpdatedByCreateRelatedInput[];
 	contactsCreatedBy?: readonly MonospaceSystemUsercontactsCreatedByCreateRelatedInput[];
 	contactsOwner?: readonly MonospaceSystemUsercontactsOwnerCreateRelatedInput[];
 	contactsUpdatedBy?: readonly MonospaceSystemUsercontactsUpdatedByCreateRelatedInput[];
@@ -10035,16 +16949,30 @@ export type organizationsownerCreateRelatedWithoutTypeInput = {
 	dealsOwner?: readonly MonospaceSystemUserdealsOwnerCreateRelatedInput[];
 	dealsUpdatedBy?: readonly MonospaceSystemUserdealsUpdatedByCreateRelatedInput[];
 	email?: string | null;
+	emailTemplatesCreatedBy?: readonly MonospaceSystemUseremailTemplatesCreatedByCreateRelatedInput[];
+	emailTemplatesUpdatedBy?: readonly MonospaceSystemUseremailTemplatesUpdatedByCreateRelatedInput[];
 	fullName?: string | null;
 	id: Uuid;
+	interviewsCreatedBy?: readonly MonospaceSystemUserinterviewsCreatedByCreateRelatedInput[];
+	interviewsUpdatedBy?: readonly MonospaceSystemUserinterviewsUpdatedByCreateRelatedInput[];
 	isService: boolean;
 	lastActivityAt?: string | null;
+	offersCreatedBy?: readonly MonospaceSystemUseroffersCreatedByCreateRelatedInput[];
+	offersUpdatedBy?: readonly MonospaceSystemUseroffersUpdatedByCreateRelatedInput[];
 	organizationsCreatedBy?: readonly MonospaceSystemUserorganizationsCreatedByCreateRelatedInput[];
 	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
+	requisitionsCreatedBy?: readonly MonospaceSystemUserrequisitionsCreatedByCreateRelatedInput[];
+	requisitionsUpdatedBy?: readonly MonospaceSystemUserrequisitionsUpdatedByCreateRelatedInput[];
+	roleRequestsCreatedBy?: readonly MonospaceSystemUserroleRequestsCreatedByCreateRelatedInput[];
+	roleRequestsUpdatedBy?: readonly MonospaceSystemUserroleRequestsUpdatedByCreateRelatedInput[];
 	roles?: readonly MonospaceSystemUserrolesCreateRelatedInput[];
+	scorecardsCreatedBy?: readonly MonospaceSystemUserscorecardsCreatedByCreateRelatedInput[];
+	scorecardsUpdatedBy?: readonly MonospaceSystemUserscorecardsUpdatedByCreateRelatedInput[];
 	serviceOwnerId?: Uuid | null;
 	status?: string;
 	storageValues?: readonly MonospaceSystemUserstorageValuesCreateRelatedInput[];
+	workforcePlanRolesCreatedBy?: readonly MonospaceSystemUserworkforcePlanRolesCreatedByCreateRelatedInput[];
+	workforcePlanRolesUpdatedBy?: readonly MonospaceSystemUserworkforcePlanRolesUpdatedByCreateRelatedInput[];
 }
 
 export type organizationsownerRelationFieldArguments = {
@@ -10113,8 +17041,16 @@ export type organizationsupdatedByCreateRelatedWithoutTypeInput = {
 	affiliationsCreatedBy?: readonly MonospaceSystemUseraffiliationsCreatedByCreateRelatedInput[];
 	affiliationsUpdatedBy?: readonly MonospaceSystemUseraffiliationsUpdatedByCreateRelatedInput[];
 	appearance?: string | null;
+	applicationsCreatedBy?: readonly MonospaceSystemUserapplicationsCreatedByCreateRelatedInput[];
+	applicationsUpdatedBy?: readonly MonospaceSystemUserapplicationsUpdatedByCreateRelatedInput[];
 	attachmentsCreatedBy?: readonly MonospaceSystemUserattachmentsCreatedByCreateRelatedInput[];
 	avatarId?: Uuid | null;
+	candidateFilesCreatedBy?: readonly MonospaceSystemUsercandidateFilesCreatedByCreateRelatedInput[];
+	candidateMessagesCreatedBy?: readonly MonospaceSystemUsercandidateMessagesCreatedByCreateRelatedInput[];
+	candidateNotesCreatedBy?: readonly MonospaceSystemUsercandidateNotesCreatedByCreateRelatedInput[];
+	candidateNotesUpdatedBy?: readonly MonospaceSystemUsercandidateNotesUpdatedByCreateRelatedInput[];
+	candidatesCreatedBy?: readonly MonospaceSystemUsercandidatesCreatedByCreateRelatedInput[];
+	candidatesUpdatedBy?: readonly MonospaceSystemUsercandidatesUpdatedByCreateRelatedInput[];
 	contactsCreatedBy?: readonly MonospaceSystemUsercontactsCreatedByCreateRelatedInput[];
 	contactsOwner?: readonly MonospaceSystemUsercontactsOwnerCreateRelatedInput[];
 	contactsUpdatedBy?: readonly MonospaceSystemUsercontactsUpdatedByCreateRelatedInput[];
@@ -10122,16 +17058,30 @@ export type organizationsupdatedByCreateRelatedWithoutTypeInput = {
 	dealsOwner?: readonly MonospaceSystemUserdealsOwnerCreateRelatedInput[];
 	dealsUpdatedBy?: readonly MonospaceSystemUserdealsUpdatedByCreateRelatedInput[];
 	email?: string | null;
+	emailTemplatesCreatedBy?: readonly MonospaceSystemUseremailTemplatesCreatedByCreateRelatedInput[];
+	emailTemplatesUpdatedBy?: readonly MonospaceSystemUseremailTemplatesUpdatedByCreateRelatedInput[];
 	fullName?: string | null;
 	id: Uuid;
+	interviewsCreatedBy?: readonly MonospaceSystemUserinterviewsCreatedByCreateRelatedInput[];
+	interviewsUpdatedBy?: readonly MonospaceSystemUserinterviewsUpdatedByCreateRelatedInput[];
 	isService: boolean;
 	lastActivityAt?: string | null;
+	offersCreatedBy?: readonly MonospaceSystemUseroffersCreatedByCreateRelatedInput[];
+	offersUpdatedBy?: readonly MonospaceSystemUseroffersUpdatedByCreateRelatedInput[];
 	organizationsCreatedBy?: readonly MonospaceSystemUserorganizationsCreatedByCreateRelatedInput[];
 	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
+	requisitionsCreatedBy?: readonly MonospaceSystemUserrequisitionsCreatedByCreateRelatedInput[];
+	requisitionsUpdatedBy?: readonly MonospaceSystemUserrequisitionsUpdatedByCreateRelatedInput[];
+	roleRequestsCreatedBy?: readonly MonospaceSystemUserroleRequestsCreatedByCreateRelatedInput[];
+	roleRequestsUpdatedBy?: readonly MonospaceSystemUserroleRequestsUpdatedByCreateRelatedInput[];
 	roles?: readonly MonospaceSystemUserrolesCreateRelatedInput[];
+	scorecardsCreatedBy?: readonly MonospaceSystemUserscorecardsCreatedByCreateRelatedInput[];
+	scorecardsUpdatedBy?: readonly MonospaceSystemUserscorecardsUpdatedByCreateRelatedInput[];
 	serviceOwnerId?: Uuid | null;
 	status?: string;
 	storageValues?: readonly MonospaceSystemUserstorageValuesCreateRelatedInput[];
+	workforcePlanRolesCreatedBy?: readonly MonospaceSystemUserworkforcePlanRolesCreatedByCreateRelatedInput[];
+	workforcePlanRolesUpdatedBy?: readonly MonospaceSystemUserworkforcePlanRolesUpdatedByCreateRelatedInput[];
 }
 
 export type organizationsupdatedByRelationFieldArguments = {
@@ -10444,6 +17394,2069 @@ export type planssubscriptionsUpdateManyRelatedOperationsInput = {
 	_create?: planssubscriptionsCreateArguments;
 	_delete?: subscriptionsDeleteArguments;
 	_update?: subscriptionsUpdateInput;
+}
+
+export type publicApplicationsCollectionOutput = {
+	applicationId?: Uuid | null;
+	applications?: applicationsCollectionOutput | null;
+	candidateId?: Uuid | null;
+	candidates?: candidatesCollectionOutput | null;
+	city?: string | null;
+	consent?: boolean;
+	country?: string | null;
+	createdAt?: string;
+	email?: string;
+	firstName?: string;
+	githubUrl?: string | null;
+	id?: Uuid;
+	lastName?: string;
+	linkedinUrl?: string | null;
+	needsSponsorship?: boolean | null;
+	phone?: string | null;
+	portfolioUrl?: string | null;
+	requisitionId?: Uuid;
+	requisitions?: requisitionsCollectionOutput;
+	resumeAssetId?: Uuid | null;
+	resumeFileName?: string | null;
+	resumeUrl?: string | null;
+	workAuthorized?: boolean | null;
+}
+
+export type publicApplicationsCollectionOutputFieldsInput = readonly ("applicationId" | "candidateId" | "city" | "consent" | "country" | "createdAt" | "email" | "firstName" | "githubUrl" | "id" | "lastName" | "linkedinUrl" | "needsSponsorship" | "phone" | "portfolioUrl" | "requisitionId" | "resumeAssetId" | "resumeFileName" | "resumeUrl" | "workAuthorized" | "*" | `${string}:${"applicationId" | "candidateId" | "city" | "consent" | "country" | "createdAt" | "email" | "firstName" | "githubUrl" | "id" | "lastName" | "linkedinUrl" | "needsSponsorship" | "phone" | "portfolioUrl" | "requisitionId" | "resumeAssetId" | "resumeFileName" | "resumeUrl" | "workAuthorized"}`)[];
+
+export type publicApplicationsCollectionOutputIncludeInput = {
+	"applications"?: (publicApplicationsapplicationsRelationFieldArguments & { "fields"?: applicationsCollectionOutputFieldsInput; "include"?: applicationsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (publicApplicationsapplicationsRelationFieldArguments & { "fields"?: applicationsCollectionOutputFieldsInput; "include"?: applicationsCollectionOutputIncludeInput })>]?: never };
+	"candidates"?: (publicApplicationscandidatesRelationFieldArguments & { "fields"?: candidatesCollectionOutputFieldsInput; "include"?: candidatesCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (publicApplicationscandidatesRelationFieldArguments & { "fields"?: candidatesCollectionOutputFieldsInput; "include"?: candidatesCollectionOutputIncludeInput })>]?: never };
+	"requisitions"?: ({ "fields"?: requisitionsCollectionOutputFieldsInput; "include"?: requisitionsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof ({ "fields"?: requisitionsCollectionOutputFieldsInput; "include"?: requisitionsCollectionOutputIncludeInput })>]?: never };
+} & { [K in `${string}:${"applications"}`]?: publicApplicationsCollectionOutputIncludeInput["applications"] } & { [K in `${string}:${"candidates"}`]?: publicApplicationsCollectionOutputIncludeInput["candidates"] } & { [K in `${string}:${"requisitions"}`]?: publicApplicationsCollectionOutputIncludeInput["requisitions"] };
+
+export type publicApplicationsCreateArguments = {
+	data: readonly publicApplicationsCreateInput[];
+}
+
+export type publicApplicationsCreateInput = {
+	applications?: publicApplicationsapplicationsCreateRelatedInput;
+	candidates?: publicApplicationscandidatesCreateRelatedInput;
+	city?: string | null;
+	consent: boolean;
+	country?: string | null;
+	createdAt?: string;
+	email: string;
+	firstName: string;
+	githubUrl?: string | null;
+	id?: Uuid;
+	lastName: string;
+	linkedinUrl?: string | null;
+	needsSponsorship?: boolean | null;
+	phone?: string | null;
+	portfolioUrl?: string | null;
+	requisitions: publicApplicationsrequisitionsCreateRelatedInput;
+	resumeAssetId?: Uuid | null;
+	resumeFileName?: string | null;
+	resumeUrl?: string | null;
+	workAuthorized?: boolean | null;
+}
+
+export type publicApplicationsDeleteArguments = {
+	filter?: publicApplicationsFilterInput;
+}
+
+export type publicApplicationsDeleteOneArguments = {
+	filter?: publicApplicationsFilterInput;
+	key: Uuid;
+}
+
+export type publicApplicationsDisconnectManyInput = {
+	filter?: publicApplicationsFilterInput;
+}
+
+export type publicApplicationsFilterInput = {
+	_and?: readonly publicApplicationsFilterInput[];
+	_not?: publicApplicationsFilterInput;
+	_or?: readonly publicApplicationsFilterInput[];
+	applicationId?: UuidFilterNullablePrimitiveInput | Uuid | null;
+	applications?: applicationsFilterInput;
+	candidateId?: UuidFilterNullablePrimitiveInput | Uuid | null;
+	candidates?: candidatesFilterInput;
+	city?: StringFilterNullablePrimitiveInput | string | null;
+	consent?: BooleanFilterPrimitiveInput | boolean;
+	country?: StringFilterNullablePrimitiveInput | string | null;
+	createdAt?: DateTimeFilterPrimitiveInput | string;
+	email?: StringFilterPrimitiveInput | string;
+	firstName?: StringFilterPrimitiveInput | string;
+	githubUrl?: StringFilterNullablePrimitiveInput | string | null;
+	id?: UuidFilterPrimitiveInput | Uuid;
+	lastName?: StringFilterPrimitiveInput | string;
+	linkedinUrl?: StringFilterNullablePrimitiveInput | string | null;
+	needsSponsorship?: BooleanFilterNullablePrimitiveInput | boolean | null;
+	phone?: StringFilterNullablePrimitiveInput | string | null;
+	portfolioUrl?: StringFilterNullablePrimitiveInput | string | null;
+	requisitionId?: UuidFilterPrimitiveInput | Uuid;
+	requisitions?: requisitionsFilterInput;
+	resumeAssetId?: UuidFilterNullablePrimitiveInput | Uuid | null;
+	resumeFileName?: StringFilterNullablePrimitiveInput | string | null;
+	resumeUrl?: StringFilterNullablePrimitiveInput | string | null;
+	workAuthorized?: BooleanFilterNullablePrimitiveInput | boolean | null;
+}
+
+export type publicApplicationsFilterQuantifierInput = {
+	_every?: publicApplicationsFilterInput;
+	_none?: publicApplicationsFilterInput;
+	_some?: publicApplicationsFilterInput;
+}
+
+export type publicApplicationsListArguments = {
+	filter?: publicApplicationsFilterInput;
+	limit?: Int64Input;
+	meta?: MetaArguments;
+	offset?: UInt64Input;
+	sort?: readonly publicApplicationsSortSpecifier[];
+}
+
+export type publicApplicationsReadArguments = {
+	filter?: publicApplicationsFilterInput;
+	key: Uuid;
+}
+
+export type publicApplicationsSortSpecifier = {
+	applicationId?: SortFieldOptions;
+	candidateId?: SortFieldOptions;
+	city?: SortFieldOptions;
+	consent?: SortFieldOptions;
+	country?: SortFieldOptions;
+	createdAt?: SortFieldOptions;
+	email?: SortFieldOptions;
+	firstName?: SortFieldOptions;
+	githubUrl?: SortFieldOptions;
+	id?: SortFieldOptions;
+	lastName?: SortFieldOptions;
+	linkedinUrl?: SortFieldOptions;
+	needsSponsorship?: SortFieldOptions;
+	phone?: SortFieldOptions;
+	portfolioUrl?: SortFieldOptions;
+	requisitionId?: SortFieldOptions;
+	resumeAssetId?: SortFieldOptions;
+	resumeFileName?: SortFieldOptions;
+	resumeUrl?: SortFieldOptions;
+	workAuthorized?: SortFieldOptions;
+}
+
+export type publicApplicationsUpdateArguments = {
+	data: publicApplicationsUpdateDataInput;
+	filter?: publicApplicationsFilterInput;
+}
+
+export type publicApplicationsUpdateDataInput = {
+	applicationId?: Uuid | null;
+	applications?: readonly publicApplicationsapplicationsUpdateOneRelatedOperationsInput[];
+	candidateId?: Uuid | null;
+	candidates?: readonly publicApplicationscandidatesUpdateOneRelatedOperationsInput[];
+	city?: string | null;
+	consent?: boolean;
+	country?: string | null;
+	createdAt?: string;
+	email?: string;
+	firstName?: string;
+	githubUrl?: string | null;
+	id?: Uuid;
+	lastName?: string;
+	linkedinUrl?: string | null;
+	needsSponsorship?: boolean | null;
+	phone?: string | null;
+	portfolioUrl?: string | null;
+	requisitionId?: Uuid;
+	requisitions?: readonly publicApplicationsrequisitionsUpdateOneRelatedOperationsInput[];
+	resumeAssetId?: Uuid | null;
+	resumeFileName?: string | null;
+	resumeUrl?: string | null;
+	workAuthorized?: boolean | null;
+}
+
+export type publicApplicationsUpdateInput = {
+	data: publicApplicationsUpdateDataInput;
+	filter?: publicApplicationsFilterInput;
+}
+
+export type publicApplicationsUpdateOneArguments = {
+	data: publicApplicationsUpdateDataInput;
+	filter?: publicApplicationsFilterInput;
+	key: Uuid;
+}
+
+export type publicApplicationsapplicationsConnectForwardKeyInput = {
+	id: Uuid | null;
+}
+
+export type publicApplicationsapplicationsConnectInput = {
+	key: publicApplicationsapplicationsConnectForwardKeyInput;
+}
+
+export type publicApplicationsapplicationsCreateArguments = {
+	data: publicApplicationsapplicationsCreateRelatedWithoutTypeInput;
+}
+
+export type publicApplicationsapplicationsCreateRelatedInput = {
+	_connect?: publicApplicationsapplicationsConnectInput;
+	_create?: publicApplicationsapplicationsCreateArguments;
+}
+
+export type publicApplicationsapplicationsCreateRelatedWithoutTypeInput = {
+	appliedAt?: string;
+	candidates: applicationscandidatesCreateRelatedInput;
+	createdAt?: string;
+	createdBy?: applicationscreatedByCreateRelatedInput;
+	id?: Uuid;
+	interview_stages: applicationsinterview_stagesCreateRelatedInput;
+	interviews?: readonly applicationsinterviewsCreateRelatedInput[];
+	lastActivityAt?: string;
+	offers?: applicationsoffersCreateRelatedInput;
+	rejectionReason?: string | null;
+	requisitions: applicationsrequisitionsCreateRelatedInput;
+	stageEnteredAt?: string;
+	status?: string;
+	updatedAt?: string;
+	updatedBy?: applicationsupdatedByCreateRelatedInput;
+}
+
+export type publicApplicationsapplicationsRelationFieldArguments = {
+	filter?: applicationsFilterInput;
+}
+
+export type publicApplicationsapplicationsUpdateOneRelatedOperationsInput = {
+	_connect?: publicApplicationsapplicationsConnectInput;
+	_create?: publicApplicationsapplicationsCreateArguments;
+	_delete?: applicationsDeleteArguments;
+	_disconnect?: applicationsDisconnectOneInput;
+	_update?: applicationsUpdateInput;
+}
+
+export type publicApplicationscandidatesConnectForwardKeyInput = {
+	id: Uuid | null;
+}
+
+export type publicApplicationscandidatesConnectInput = {
+	key: publicApplicationscandidatesConnectForwardKeyInput;
+}
+
+export type publicApplicationscandidatesCreateArguments = {
+	data: publicApplicationscandidatesCreateRelatedWithoutTypeInput;
+}
+
+export type publicApplicationscandidatesCreateRelatedInput = {
+	_connect?: publicApplicationscandidatesConnectInput;
+	_create?: publicApplicationscandidatesCreateArguments;
+}
+
+export type publicApplicationscandidatesCreateRelatedWithoutTypeInput = {
+	applications?: readonly candidatesapplicationsCreateRelatedInput[];
+	candidate_files?: readonly candidatescandidate_filesCreateRelatedInput[];
+	candidate_messages?: readonly candidatescandidate_messagesCreateRelatedInput[];
+	candidate_notes?: readonly candidatescandidate_notesCreateRelatedInput[];
+	city?: string | null;
+	consentAt?: string | null;
+	country?: string | null;
+	createdAt?: string;
+	createdBy?: candidatescreatedByCreateRelatedInput;
+	email: string;
+	firstName: string;
+	githubUrl?: string | null;
+	id?: Uuid;
+	inTalentPool?: boolean;
+	lastName: string;
+	linkedinUrl?: string | null;
+	needsSponsorship?: boolean | null;
+	phone?: string | null;
+	portfolioUrl?: string | null;
+	privacyNoticeSentAt?: string | null;
+	referrerUserId?: Uuid | null;
+	retainUntil?: string | null;
+	source?: string;
+	sourceDetail?: string | null;
+	tags?: string | null;
+	updatedAt?: string;
+	updatedBy?: candidatesupdatedByCreateRelatedInput;
+	workAuthorized?: boolean | null;
+}
+
+export type publicApplicationscandidatesRelationFieldArguments = {
+	filter?: candidatesFilterInput;
+}
+
+export type publicApplicationscandidatesUpdateOneRelatedOperationsInput = {
+	_connect?: publicApplicationscandidatesConnectInput;
+	_create?: publicApplicationscandidatesCreateArguments;
+	_delete?: candidatesDeleteArguments;
+	_disconnect?: candidatesDisconnectOneInput;
+	_update?: candidatesUpdateInput;
+}
+
+export type publicApplicationsrequisitionsConnectForwardKeyInput = {
+	id: Uuid;
+}
+
+export type publicApplicationsrequisitionsConnectInput = {
+	key: publicApplicationsrequisitionsConnectForwardKeyInput;
+}
+
+export type publicApplicationsrequisitionsCreateArguments = {
+	data: publicApplicationsrequisitionsCreateRelatedWithoutTypeInput;
+}
+
+export type publicApplicationsrequisitionsCreateRelatedInput = {
+	_connect?: publicApplicationsrequisitionsConnectInput;
+	_create?: publicApplicationsrequisitionsCreateArguments;
+}
+
+export type publicApplicationsrequisitionsCreateRelatedWithoutTypeInput = {
+	applications?: readonly requisitionsapplicationsCreateRelatedInput[];
+	closedAt?: string | null;
+	compMax?: string | null;
+	compMin?: string | null;
+	createdAt?: string;
+	createdBy?: requisitionscreatedByCreateRelatedInput;
+	currency?: string;
+	departments: requisitionsdepartmentsCreateRelatedInput;
+	description?: string | null;
+	employmentType?: string;
+	hiringManagerUserId?: Uuid | null;
+	hiringReason?: string | null;
+	id?: Uuid;
+	interview_stages?: readonly requisitionsinterview_stagesCreateRelatedInput[];
+	isConfidential?: boolean;
+	isLeadership?: boolean;
+	job_levels?: requisitionsjob_levelsCreateRelatedInput;
+	kickoffAt?: string | null;
+	kickoffNotes?: string | null;
+	locations?: string | null;
+	mustHaveSkills?: string | null;
+	niceToHaveSkills?: string | null;
+	numberOfHires?: number;
+	openedAt?: string | null;
+	postExternally?: boolean;
+	recruiterUserId?: Uuid | null;
+	reqNumber?: number;
+	role_requests?: requisitionsrole_requestsCreateRelatedInput;
+	status?: string;
+	teamSize?: number | null;
+	title: string;
+	updatedAt?: string;
+	updatedBy?: requisitionsupdatedByCreateRelatedInput;
+	urgency?: string;
+}
+
+export type publicApplicationsrequisitionsUpdateOneRelatedOperationsInput = {
+	_connect?: publicApplicationsrequisitionsConnectInput;
+	_create?: publicApplicationsrequisitionsCreateArguments;
+	_update?: requisitionsUpdateInput;
+}
+
+export type requisitionsCollectionOutput = {
+	applications?: { data: applicationsCollectionOutput[] };
+	closedAt?: string | null;
+	compMax?: string | null;
+	compMin?: string | null;
+	createdAt?: string;
+	createdBy?: MonospaceSystemUserCollectionOutput | null;
+	createdById?: Uuid | null;
+	currency?: string;
+	departmentId?: Uuid;
+	departments?: departmentsCollectionOutput;
+	description?: string | null;
+	employmentType?: string;
+	hiringManagerUserId?: Uuid | null;
+	hiringReason?: string | null;
+	id?: Uuid;
+	interview_stages?: { data: interviewStagesCollectionOutput[] };
+	isConfidential?: boolean;
+	isLeadership?: boolean;
+	jobLevelId?: Uuid | null;
+	job_levels?: jobLevelsCollectionOutput | null;
+	kickoffAt?: string | null;
+	kickoffNotes?: string | null;
+	locations?: string | null;
+	mustHaveSkills?: string | null;
+	niceToHaveSkills?: string | null;
+	numberOfHires?: number;
+	openedAt?: string | null;
+	postExternally?: boolean;
+	public_applications?: { data: publicApplicationsCollectionOutput[] };
+	recruiterUserId?: Uuid | null;
+	reqNumber?: number;
+	roleRequestId?: Uuid | null;
+	role_requests?: roleRequestsCollectionOutput | null;
+	status?: string;
+	teamSize?: number | null;
+	title?: string;
+	updatedAt?: string;
+	updatedBy?: MonospaceSystemUserCollectionOutput | null;
+	updatedById?: Uuid | null;
+	urgency?: string;
+}
+
+export type requisitionsCollectionOutputFieldsInput = readonly ("closedAt" | "compMax" | "compMin" | "createdAt" | "createdById" | "currency" | "departmentId" | "description" | "employmentType" | "hiringManagerUserId" | "hiringReason" | "id" | "isConfidential" | "isLeadership" | "jobLevelId" | "kickoffAt" | "kickoffNotes" | "locations" | "mustHaveSkills" | "niceToHaveSkills" | "numberOfHires" | "openedAt" | "postExternally" | "recruiterUserId" | "reqNumber" | "roleRequestId" | "status" | "teamSize" | "title" | "updatedAt" | "updatedById" | "urgency" | "*" | `${string}:${"closedAt" | "compMax" | "compMin" | "createdAt" | "createdById" | "currency" | "departmentId" | "description" | "employmentType" | "hiringManagerUserId" | "hiringReason" | "id" | "isConfidential" | "isLeadership" | "jobLevelId" | "kickoffAt" | "kickoffNotes" | "locations" | "mustHaveSkills" | "niceToHaveSkills" | "numberOfHires" | "openedAt" | "postExternally" | "recruiterUserId" | "reqNumber" | "roleRequestId" | "status" | "teamSize" | "title" | "updatedAt" | "updatedById" | "urgency"}`)[];
+
+export type requisitionsCollectionOutputIncludeInput = {
+	"applications"?: (requisitionsapplicationsRelationFieldArguments & { "fields"?: applicationsCollectionOutputFieldsInput; "include"?: applicationsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (requisitionsapplicationsRelationFieldArguments & { "fields"?: applicationsCollectionOutputFieldsInput; "include"?: applicationsCollectionOutputIncludeInput })>]?: never };
+	"createdBy"?: (requisitionscreatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (requisitionscreatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput })>]?: never };
+	"departments"?: ({ "fields"?: departmentsCollectionOutputFieldsInput; "include"?: departmentsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof ({ "fields"?: departmentsCollectionOutputFieldsInput; "include"?: departmentsCollectionOutputIncludeInput })>]?: never };
+	"interview_stages"?: (requisitionsinterview_stagesRelationFieldArguments & { "fields"?: interviewStagesCollectionOutputFieldsInput; "include"?: interviewStagesCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (requisitionsinterview_stagesRelationFieldArguments & { "fields"?: interviewStagesCollectionOutputFieldsInput; "include"?: interviewStagesCollectionOutputIncludeInput })>]?: never };
+	"job_levels"?: (requisitionsjob_levelsRelationFieldArguments & { "fields"?: jobLevelsCollectionOutputFieldsInput; "include"?: jobLevelsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (requisitionsjob_levelsRelationFieldArguments & { "fields"?: jobLevelsCollectionOutputFieldsInput; "include"?: jobLevelsCollectionOutputIncludeInput })>]?: never };
+	"public_applications"?: (requisitionspublic_applicationsRelationFieldArguments & { "fields"?: publicApplicationsCollectionOutputFieldsInput; "include"?: publicApplicationsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (requisitionspublic_applicationsRelationFieldArguments & { "fields"?: publicApplicationsCollectionOutputFieldsInput; "include"?: publicApplicationsCollectionOutputIncludeInput })>]?: never };
+	"role_requests"?: (requisitionsrole_requestsRelationFieldArguments & { "fields"?: roleRequestsCollectionOutputFieldsInput; "include"?: roleRequestsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (requisitionsrole_requestsRelationFieldArguments & { "fields"?: roleRequestsCollectionOutputFieldsInput; "include"?: roleRequestsCollectionOutputIncludeInput })>]?: never };
+	"updatedBy"?: (requisitionsupdatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (requisitionsupdatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput })>]?: never };
+} & { [K in `${string}:${"applications"}`]?: requisitionsCollectionOutputIncludeInput["applications"] } & { [K in `${string}:${"createdBy"}`]?: requisitionsCollectionOutputIncludeInput["createdBy"] } & { [K in `${string}:${"departments"}`]?: requisitionsCollectionOutputIncludeInput["departments"] } & { [K in `${string}:${"interview_stages"}`]?: requisitionsCollectionOutputIncludeInput["interview_stages"] } & { [K in `${string}:${"job_levels"}`]?: requisitionsCollectionOutputIncludeInput["job_levels"] } & { [K in `${string}:${"public_applications"}`]?: requisitionsCollectionOutputIncludeInput["public_applications"] } & { [K in `${string}:${"role_requests"}`]?: requisitionsCollectionOutputIncludeInput["role_requests"] } & { [K in `${string}:${"updatedBy"}`]?: requisitionsCollectionOutputIncludeInput["updatedBy"] };
+
+export type requisitionsCreateArguments = {
+	data: readonly requisitionsCreateInput[];
+}
+
+export type requisitionsCreateInput = {
+	applications?: readonly requisitionsapplicationsCreateRelatedInput[];
+	closedAt?: string | null;
+	compMax?: string | null;
+	compMin?: string | null;
+	createdAt?: string;
+	createdBy?: requisitionscreatedByCreateRelatedInput;
+	currency?: string;
+	departments: requisitionsdepartmentsCreateRelatedInput;
+	description?: string | null;
+	employmentType?: string;
+	hiringManagerUserId?: Uuid | null;
+	hiringReason?: string | null;
+	id?: Uuid;
+	interview_stages?: readonly requisitionsinterview_stagesCreateRelatedInput[];
+	isConfidential?: boolean;
+	isLeadership?: boolean;
+	job_levels?: requisitionsjob_levelsCreateRelatedInput;
+	kickoffAt?: string | null;
+	kickoffNotes?: string | null;
+	locations?: string | null;
+	mustHaveSkills?: string | null;
+	niceToHaveSkills?: string | null;
+	numberOfHires?: number;
+	openedAt?: string | null;
+	postExternally?: boolean;
+	public_applications?: readonly requisitionspublic_applicationsCreateRelatedInput[];
+	recruiterUserId?: Uuid | null;
+	reqNumber?: number;
+	role_requests?: requisitionsrole_requestsCreateRelatedInput;
+	status?: string;
+	teamSize?: number | null;
+	title: string;
+	updatedAt?: string;
+	updatedBy?: requisitionsupdatedByCreateRelatedInput;
+	urgency?: string;
+}
+
+export type requisitionsDeleteArguments = {
+	filter?: requisitionsFilterInput;
+}
+
+export type requisitionsDeleteOneArguments = {
+	filter?: requisitionsFilterInput;
+	key: Uuid;
+}
+
+export type requisitionsDisconnectManyInput = {
+	filter?: requisitionsFilterInput;
+}
+
+export type requisitionsDisconnectOneInput = {}
+
+export type requisitionsFilterInput = {
+	_and?: readonly requisitionsFilterInput[];
+	_not?: requisitionsFilterInput;
+	_or?: readonly requisitionsFilterInput[];
+	applications?: applicationsFilterQuantifierInput | applicationsFilterInput;
+	closedAt?: DateTimeFilterNullablePrimitiveInput | string | null;
+	compMax?: DecimalFilterNullablePrimitiveInput | string | null;
+	compMin?: DecimalFilterNullablePrimitiveInput | string | null;
+	createdAt?: DateTimeFilterPrimitiveInput | string;
+	createdBy?: MonospaceSystemUserFilterInput;
+	createdById?: UuidFilterNullablePrimitiveInput | Uuid | null;
+	currency?: StringFilterPrimitiveInput | string;
+	departmentId?: UuidFilterPrimitiveInput | Uuid;
+	departments?: departmentsFilterInput;
+	description?: StringFilterNullablePrimitiveInput | string | null;
+	employmentType?: StringFilterPrimitiveInput | string;
+	hiringManagerUserId?: UuidFilterNullablePrimitiveInput | Uuid | null;
+	hiringReason?: StringFilterNullablePrimitiveInput | string | null;
+	id?: UuidFilterPrimitiveInput | Uuid;
+	interview_stages?: interviewStagesFilterQuantifierInput | interviewStagesFilterInput;
+	isConfidential?: BooleanFilterPrimitiveInput | boolean;
+	isLeadership?: BooleanFilterPrimitiveInput | boolean;
+	jobLevelId?: UuidFilterNullablePrimitiveInput | Uuid | null;
+	job_levels?: jobLevelsFilterInput;
+	kickoffAt?: DateTimeFilterNullablePrimitiveInput | string | null;
+	kickoffNotes?: StringFilterNullablePrimitiveInput | string | null;
+	locations?: StringFilterNullablePrimitiveInput | string | null;
+	mustHaveSkills?: StringFilterNullablePrimitiveInput | string | null;
+	niceToHaveSkills?: StringFilterNullablePrimitiveInput | string | null;
+	numberOfHires?: IntegerFilterPrimitiveInput | number;
+	openedAt?: DateTimeFilterNullablePrimitiveInput | string | null;
+	postExternally?: BooleanFilterPrimitiveInput | boolean;
+	public_applications?: publicApplicationsFilterQuantifierInput | publicApplicationsFilterInput;
+	recruiterUserId?: UuidFilterNullablePrimitiveInput | Uuid | null;
+	reqNumber?: IntegerFilterPrimitiveInput | number;
+	roleRequestId?: UuidFilterNullablePrimitiveInput | Uuid | null;
+	role_requests?: roleRequestsFilterInput;
+	status?: StringFilterPrimitiveInput | string;
+	teamSize?: IntegerFilterNullablePrimitiveInput | number | null;
+	title?: StringFilterPrimitiveInput | string;
+	updatedAt?: DateTimeFilterPrimitiveInput | string;
+	updatedBy?: MonospaceSystemUserFilterInput;
+	updatedById?: UuidFilterNullablePrimitiveInput | Uuid | null;
+	urgency?: StringFilterPrimitiveInput | string;
+}
+
+export type requisitionsFilterQuantifierInput = {
+	_every?: requisitionsFilterInput;
+	_none?: requisitionsFilterInput;
+	_some?: requisitionsFilterInput;
+}
+
+export type requisitionsListArguments = {
+	filter?: requisitionsFilterInput;
+	limit?: Int64Input;
+	meta?: MetaArguments;
+	offset?: UInt64Input;
+	sort?: readonly requisitionsSortSpecifier[];
+}
+
+export type requisitionsReadArguments = {
+	filter?: requisitionsFilterInput;
+	key: Uuid;
+}
+
+export type requisitionsSortSpecifier = {
+	closedAt?: SortFieldOptions;
+	compMax?: SortFieldOptions;
+	compMin?: SortFieldOptions;
+	createdAt?: SortFieldOptions;
+	createdById?: SortFieldOptions;
+	currency?: SortFieldOptions;
+	departmentId?: SortFieldOptions;
+	description?: SortFieldOptions;
+	employmentType?: SortFieldOptions;
+	hiringManagerUserId?: SortFieldOptions;
+	hiringReason?: SortFieldOptions;
+	id?: SortFieldOptions;
+	isConfidential?: SortFieldOptions;
+	isLeadership?: SortFieldOptions;
+	jobLevelId?: SortFieldOptions;
+	kickoffAt?: SortFieldOptions;
+	kickoffNotes?: SortFieldOptions;
+	locations?: SortFieldOptions;
+	mustHaveSkills?: SortFieldOptions;
+	niceToHaveSkills?: SortFieldOptions;
+	numberOfHires?: SortFieldOptions;
+	openedAt?: SortFieldOptions;
+	postExternally?: SortFieldOptions;
+	recruiterUserId?: SortFieldOptions;
+	reqNumber?: SortFieldOptions;
+	roleRequestId?: SortFieldOptions;
+	status?: SortFieldOptions;
+	teamSize?: SortFieldOptions;
+	title?: SortFieldOptions;
+	updatedAt?: SortFieldOptions;
+	updatedById?: SortFieldOptions;
+	urgency?: SortFieldOptions;
+}
+
+export type requisitionsUpdateArguments = {
+	data: requisitionsUpdateDataInput;
+	filter?: requisitionsFilterInput;
+}
+
+export type requisitionsUpdateDataInput = {
+	applications?: readonly requisitionsapplicationsUpdateManyRelatedOperationsInput[];
+	closedAt?: string | null;
+	compMax?: string | null;
+	compMin?: string | null;
+	createdAt?: string;
+	createdBy?: readonly requisitionscreatedByUpdateOneRelatedOperationsInput[];
+	createdById?: Uuid | null;
+	currency?: string;
+	departmentId?: Uuid;
+	departments?: readonly requisitionsdepartmentsUpdateOneRelatedOperationsInput[];
+	description?: string | null;
+	employmentType?: string;
+	hiringManagerUserId?: Uuid | null;
+	hiringReason?: string | null;
+	id?: Uuid;
+	interview_stages?: readonly requisitionsinterview_stagesUpdateManyRelatedOperationsInput[];
+	isConfidential?: boolean;
+	isLeadership?: boolean;
+	jobLevelId?: Uuid | null;
+	job_levels?: readonly requisitionsjob_levelsUpdateOneRelatedOperationsInput[];
+	kickoffAt?: string | null;
+	kickoffNotes?: string | null;
+	locations?: string | null;
+	mustHaveSkills?: string | null;
+	niceToHaveSkills?: string | null;
+	numberOfHires?: number;
+	openedAt?: string | null;
+	postExternally?: boolean;
+	public_applications?: readonly requisitionspublic_applicationsUpdateManyRelatedOperationsInput[];
+	recruiterUserId?: Uuid | null;
+	reqNumber?: number;
+	roleRequestId?: Uuid | null;
+	role_requests?: readonly requisitionsrole_requestsUpdateOneRelatedOperationsInput[];
+	status?: string;
+	teamSize?: number | null;
+	title?: string;
+	updatedAt?: string;
+	updatedBy?: readonly requisitionsupdatedByUpdateOneRelatedOperationsInput[];
+	updatedById?: Uuid | null;
+	urgency?: string;
+}
+
+export type requisitionsUpdateInput = {
+	data: requisitionsUpdateDataInput;
+	filter?: requisitionsFilterInput;
+}
+
+export type requisitionsUpdateOneArguments = {
+	data: requisitionsUpdateDataInput;
+	filter?: requisitionsFilterInput;
+	key: Uuid;
+}
+
+export type requisitionsapplicationsConnectBackwardKeysInput = {
+	id?: Uuid;
+}
+
+export type requisitionsapplicationsConnectInput = {
+	keys: readonly requisitionsapplicationsConnectBackwardKeysInput[];
+}
+
+export type requisitionsapplicationsCreateArguments = {
+	data: readonly requisitionsapplicationsCreateRelatedWithoutTypeInput[];
+}
+
+export type requisitionsapplicationsCreateRelatedInput = {
+	_connect?: requisitionsapplicationsConnectInput;
+	_create?: requisitionsapplicationsCreateArguments;
+}
+
+export type requisitionsapplicationsCreateRelatedWithoutTypeInput = {
+	appliedAt?: string;
+	candidates: applicationscandidatesCreateRelatedInput;
+	createdAt?: string;
+	createdBy?: applicationscreatedByCreateRelatedInput;
+	id?: Uuid;
+	interview_stages: applicationsinterview_stagesCreateRelatedInput;
+	interviews?: readonly applicationsinterviewsCreateRelatedInput[];
+	lastActivityAt?: string;
+	offers?: applicationsoffersCreateRelatedInput;
+	public_applications?: readonly applicationspublic_applicationsCreateRelatedInput[];
+	rejectionReason?: string | null;
+	stageEnteredAt?: string;
+	status?: string;
+	updatedAt?: string;
+	updatedBy?: applicationsupdatedByCreateRelatedInput;
+}
+
+export type requisitionsapplicationsRelationFieldArguments = {
+	filter?: applicationsFilterInput;
+	limit?: Int64Input;
+	offset?: UInt64Input;
+	sort?: readonly applicationsSortSpecifier[];
+}
+
+export type requisitionsapplicationsUpdateManyRelatedOperationsInput = {
+	_connect?: requisitionsapplicationsConnectInput;
+	_create?: requisitionsapplicationsCreateArguments;
+	_delete?: applicationsDeleteArguments;
+	_update?: applicationsUpdateInput;
+}
+
+export type requisitionscreatedByConnectForwardKeyInput = {
+	id: Uuid | null;
+}
+
+export type requisitionscreatedByConnectInput = {
+	key: requisitionscreatedByConnectForwardKeyInput;
+}
+
+export type requisitionscreatedByCreateArguments = {
+	data: requisitionscreatedByCreateRelatedWithoutTypeInput;
+}
+
+export type requisitionscreatedByCreateRelatedInput = {
+	_connect?: requisitionscreatedByConnectInput;
+	_create?: requisitionscreatedByCreateArguments;
+}
+
+export type requisitionscreatedByCreateRelatedWithoutTypeInput = {
+	activitiesCreatedBy?: readonly MonospaceSystemUseractivitiesCreatedByCreateRelatedInput[];
+	activitiesOwner?: readonly MonospaceSystemUseractivitiesOwnerCreateRelatedInput[];
+	activitiesUpdatedBy?: readonly MonospaceSystemUseractivitiesUpdatedByCreateRelatedInput[];
+	affiliationsCreatedBy?: readonly MonospaceSystemUseraffiliationsCreatedByCreateRelatedInput[];
+	affiliationsUpdatedBy?: readonly MonospaceSystemUseraffiliationsUpdatedByCreateRelatedInput[];
+	appearance?: string | null;
+	applicationsCreatedBy?: readonly MonospaceSystemUserapplicationsCreatedByCreateRelatedInput[];
+	applicationsUpdatedBy?: readonly MonospaceSystemUserapplicationsUpdatedByCreateRelatedInput[];
+	attachmentsCreatedBy?: readonly MonospaceSystemUserattachmentsCreatedByCreateRelatedInput[];
+	avatarId?: Uuid | null;
+	candidateFilesCreatedBy?: readonly MonospaceSystemUsercandidateFilesCreatedByCreateRelatedInput[];
+	candidateMessagesCreatedBy?: readonly MonospaceSystemUsercandidateMessagesCreatedByCreateRelatedInput[];
+	candidateNotesCreatedBy?: readonly MonospaceSystemUsercandidateNotesCreatedByCreateRelatedInput[];
+	candidateNotesUpdatedBy?: readonly MonospaceSystemUsercandidateNotesUpdatedByCreateRelatedInput[];
+	candidatesCreatedBy?: readonly MonospaceSystemUsercandidatesCreatedByCreateRelatedInput[];
+	candidatesUpdatedBy?: readonly MonospaceSystemUsercandidatesUpdatedByCreateRelatedInput[];
+	contactsCreatedBy?: readonly MonospaceSystemUsercontactsCreatedByCreateRelatedInput[];
+	contactsOwner?: readonly MonospaceSystemUsercontactsOwnerCreateRelatedInput[];
+	contactsUpdatedBy?: readonly MonospaceSystemUsercontactsUpdatedByCreateRelatedInput[];
+	dealsCreatedBy?: readonly MonospaceSystemUserdealsCreatedByCreateRelatedInput[];
+	dealsOwner?: readonly MonospaceSystemUserdealsOwnerCreateRelatedInput[];
+	dealsUpdatedBy?: readonly MonospaceSystemUserdealsUpdatedByCreateRelatedInput[];
+	email?: string | null;
+	emailTemplatesCreatedBy?: readonly MonospaceSystemUseremailTemplatesCreatedByCreateRelatedInput[];
+	emailTemplatesUpdatedBy?: readonly MonospaceSystemUseremailTemplatesUpdatedByCreateRelatedInput[];
+	fullName?: string | null;
+	id: Uuid;
+	interviewsCreatedBy?: readonly MonospaceSystemUserinterviewsCreatedByCreateRelatedInput[];
+	interviewsUpdatedBy?: readonly MonospaceSystemUserinterviewsUpdatedByCreateRelatedInput[];
+	isService: boolean;
+	lastActivityAt?: string | null;
+	offersCreatedBy?: readonly MonospaceSystemUseroffersCreatedByCreateRelatedInput[];
+	offersUpdatedBy?: readonly MonospaceSystemUseroffersUpdatedByCreateRelatedInput[];
+	organizationsCreatedBy?: readonly MonospaceSystemUserorganizationsCreatedByCreateRelatedInput[];
+	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
+	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
+	requisitionsUpdatedBy?: readonly MonospaceSystemUserrequisitionsUpdatedByCreateRelatedInput[];
+	roleRequestsCreatedBy?: readonly MonospaceSystemUserroleRequestsCreatedByCreateRelatedInput[];
+	roleRequestsUpdatedBy?: readonly MonospaceSystemUserroleRequestsUpdatedByCreateRelatedInput[];
+	roles?: readonly MonospaceSystemUserrolesCreateRelatedInput[];
+	scorecardsCreatedBy?: readonly MonospaceSystemUserscorecardsCreatedByCreateRelatedInput[];
+	scorecardsUpdatedBy?: readonly MonospaceSystemUserscorecardsUpdatedByCreateRelatedInput[];
+	serviceOwnerId?: Uuid | null;
+	status?: string;
+	storageValues?: readonly MonospaceSystemUserstorageValuesCreateRelatedInput[];
+	workforcePlanRolesCreatedBy?: readonly MonospaceSystemUserworkforcePlanRolesCreatedByCreateRelatedInput[];
+	workforcePlanRolesUpdatedBy?: readonly MonospaceSystemUserworkforcePlanRolesUpdatedByCreateRelatedInput[];
+}
+
+export type requisitionscreatedByRelationFieldArguments = {
+	filter?: MonospaceSystemUserFilterInput;
+}
+
+export type requisitionscreatedByUpdateOneRelatedOperationsInput = {
+	_connect?: requisitionscreatedByConnectInput;
+	_create?: requisitionscreatedByCreateArguments;
+	_delete?: MonospaceSystemUserDeleteArguments;
+	_disconnect?: MonospaceSystemUserDisconnectOneInput;
+	_update?: MonospaceSystemUserUpdateInput;
+}
+
+export type requisitionsdepartmentsConnectForwardKeyInput = {
+	id: Uuid;
+}
+
+export type requisitionsdepartmentsConnectInput = {
+	key: requisitionsdepartmentsConnectForwardKeyInput;
+}
+
+export type requisitionsdepartmentsCreateArguments = {
+	data: requisitionsdepartmentsCreateRelatedWithoutTypeInput;
+}
+
+export type requisitionsdepartmentsCreateRelatedInput = {
+	_connect?: requisitionsdepartmentsConnectInput;
+	_create?: requisitionsdepartmentsCreateArguments;
+}
+
+export type requisitionsdepartmentsCreateRelatedWithoutTypeInput = {
+	createdAt?: string;
+	hasVariableComp?: boolean;
+	headUserId?: Uuid | null;
+	id?: Uuid;
+	name: string;
+	role_requests?: readonly departmentsrole_requestsCreateRelatedInput[];
+	workforce_plan_roles?: readonly departmentsworkforce_plan_rolesCreateRelatedInput[];
+}
+
+export type requisitionsdepartmentsUpdateOneRelatedOperationsInput = {
+	_connect?: requisitionsdepartmentsConnectInput;
+	_create?: requisitionsdepartmentsCreateArguments;
+	_update?: departmentsUpdateInput;
+}
+
+export type requisitionsinterview_stagesConnectBackwardKeysInput = {
+	id?: Uuid;
+}
+
+export type requisitionsinterview_stagesConnectInput = {
+	keys: readonly requisitionsinterview_stagesConnectBackwardKeysInput[];
+}
+
+export type requisitionsinterview_stagesCreateArguments = {
+	data: readonly requisitionsinterview_stagesCreateRelatedWithoutTypeInput[];
+}
+
+export type requisitionsinterview_stagesCreateRelatedInput = {
+	_connect?: requisitionsinterview_stagesConnectInput;
+	_create?: requisitionsinterview_stagesCreateArguments;
+}
+
+export type requisitionsinterview_stagesCreateRelatedWithoutTypeInput = {
+	applications?: readonly interviewStagesapplicationsCreateRelatedInput[];
+	id?: Uuid;
+	interviews?: readonly interviewStagesinterviewsCreateRelatedInput[];
+	kind?: string;
+	name: string;
+	position: number;
+	slaDays?: number | null;
+}
+
+export type requisitionsinterview_stagesRelationFieldArguments = {
+	filter?: interviewStagesFilterInput;
+	limit?: Int64Input;
+	offset?: UInt64Input;
+	sort?: readonly interviewStagesSortSpecifier[];
+}
+
+export type requisitionsinterview_stagesUpdateManyRelatedOperationsInput = {
+	_connect?: requisitionsinterview_stagesConnectInput;
+	_create?: requisitionsinterview_stagesCreateArguments;
+	_delete?: interviewStagesDeleteArguments;
+	_update?: interviewStagesUpdateInput;
+}
+
+export type requisitionsjob_levelsConnectForwardKeyInput = {
+	id: Uuid | null;
+}
+
+export type requisitionsjob_levelsConnectInput = {
+	key: requisitionsjob_levelsConnectForwardKeyInput;
+}
+
+export type requisitionsjob_levelsCreateArguments = {
+	data: requisitionsjob_levelsCreateRelatedWithoutTypeInput;
+}
+
+export type requisitionsjob_levelsCreateRelatedInput = {
+	_connect?: requisitionsjob_levelsConnectInput;
+	_create?: requisitionsjob_levelsCreateArguments;
+}
+
+export type requisitionsjob_levelsCreateRelatedWithoutTypeInput = {
+	id?: Uuid;
+	name: string;
+	position: number;
+	role_requests?: readonly jobLevelsrole_requestsCreateRelatedInput[];
+	track?: string;
+	workforce_plan_roles?: readonly jobLevelsworkforce_plan_rolesCreateRelatedInput[];
+}
+
+export type requisitionsjob_levelsRelationFieldArguments = {
+	filter?: jobLevelsFilterInput;
+}
+
+export type requisitionsjob_levelsUpdateOneRelatedOperationsInput = {
+	_connect?: requisitionsjob_levelsConnectInput;
+	_create?: requisitionsjob_levelsCreateArguments;
+	_delete?: jobLevelsDeleteArguments;
+	_disconnect?: jobLevelsDisconnectOneInput;
+	_update?: jobLevelsUpdateInput;
+}
+
+export type requisitionspublic_applicationsConnectBackwardKeysInput = {
+	id?: Uuid;
+}
+
+export type requisitionspublic_applicationsConnectInput = {
+	keys: readonly requisitionspublic_applicationsConnectBackwardKeysInput[];
+}
+
+export type requisitionspublic_applicationsCreateArguments = {
+	data: readonly requisitionspublic_applicationsCreateRelatedWithoutTypeInput[];
+}
+
+export type requisitionspublic_applicationsCreateRelatedInput = {
+	_connect?: requisitionspublic_applicationsConnectInput;
+	_create?: requisitionspublic_applicationsCreateArguments;
+}
+
+export type requisitionspublic_applicationsCreateRelatedWithoutTypeInput = {
+	applications?: publicApplicationsapplicationsCreateRelatedInput;
+	candidates?: publicApplicationscandidatesCreateRelatedInput;
+	city?: string | null;
+	consent: boolean;
+	country?: string | null;
+	createdAt?: string;
+	email: string;
+	firstName: string;
+	githubUrl?: string | null;
+	id?: Uuid;
+	lastName: string;
+	linkedinUrl?: string | null;
+	needsSponsorship?: boolean | null;
+	phone?: string | null;
+	portfolioUrl?: string | null;
+	resumeAssetId?: Uuid | null;
+	resumeFileName?: string | null;
+	resumeUrl?: string | null;
+	workAuthorized?: boolean | null;
+}
+
+export type requisitionspublic_applicationsRelationFieldArguments = {
+	filter?: publicApplicationsFilterInput;
+	limit?: Int64Input;
+	offset?: UInt64Input;
+	sort?: readonly publicApplicationsSortSpecifier[];
+}
+
+export type requisitionspublic_applicationsUpdateManyRelatedOperationsInput = {
+	_connect?: requisitionspublic_applicationsConnectInput;
+	_create?: requisitionspublic_applicationsCreateArguments;
+	_delete?: publicApplicationsDeleteArguments;
+	_update?: publicApplicationsUpdateInput;
+}
+
+export type requisitionsrole_requestsConnectForwardKeyInput = {
+	id: Uuid | null;
+}
+
+export type requisitionsrole_requestsConnectInput = {
+	key: requisitionsrole_requestsConnectForwardKeyInput;
+}
+
+export type requisitionsrole_requestsCreateArguments = {
+	data: requisitionsrole_requestsCreateRelatedWithoutTypeInput;
+}
+
+export type requisitionsrole_requestsCreateRelatedInput = {
+	_connect?: requisitionsrole_requestsConnectInput;
+	_create?: requisitionsrole_requestsCreateArguments;
+}
+
+export type requisitionsrole_requestsCreateRelatedWithoutTypeInput = {
+	approvals?: readonly roleRequestsapprovalsCreateRelatedInput[];
+	approvedBaseMax?: string | null;
+	approvedBaseMin?: string | null;
+	approvedCurrency?: string | null;
+	approvedEquityUnits?: number | null;
+	approvedVariableMax?: string | null;
+	approvedVariableMin?: string | null;
+	businessJustification?: string | null;
+	compMax?: string | null;
+	compMin?: string | null;
+	createdAt?: string;
+	createdBy?: roleRequestscreatedByCreateRelatedInput;
+	currency?: string;
+	decidedAt?: string | null;
+	decidedByUserId?: Uuid | null;
+	decisionNote?: string | null;
+	departments: roleRequestsdepartmentsCreateRelatedInput;
+	employmentType?: string;
+	hiringManagerUserId?: Uuid | null;
+	hiringReason?: string;
+	hiringReasonDetail?: string | null;
+	id?: Uuid;
+	job_levels?: roleRequestsjob_levelsCreateRelatedInput;
+	locations?: string | null;
+	numberOfHires?: number;
+	requesterUserId?: Uuid | null;
+	roleName: string;
+	status?: string;
+	updatedAt?: string;
+	updatedBy?: roleRequestsupdatedByCreateRelatedInput;
+	urgency?: string;
+	urgencyImpact?: string | null;
+	workforce_plan_roles?: roleRequestsworkforce_plan_rolesCreateRelatedInput;
+}
+
+export type requisitionsrole_requestsRelationFieldArguments = {
+	filter?: roleRequestsFilterInput;
+}
+
+export type requisitionsrole_requestsUpdateOneRelatedOperationsInput = {
+	_connect?: requisitionsrole_requestsConnectInput;
+	_create?: requisitionsrole_requestsCreateArguments;
+	_delete?: roleRequestsDeleteArguments;
+	_disconnect?: roleRequestsDisconnectOneInput;
+	_update?: roleRequestsUpdateInput;
+}
+
+export type requisitionsupdatedByConnectForwardKeyInput = {
+	id: Uuid | null;
+}
+
+export type requisitionsupdatedByConnectInput = {
+	key: requisitionsupdatedByConnectForwardKeyInput;
+}
+
+export type requisitionsupdatedByCreateArguments = {
+	data: requisitionsupdatedByCreateRelatedWithoutTypeInput;
+}
+
+export type requisitionsupdatedByCreateRelatedInput = {
+	_connect?: requisitionsupdatedByConnectInput;
+	_create?: requisitionsupdatedByCreateArguments;
+}
+
+export type requisitionsupdatedByCreateRelatedWithoutTypeInput = {
+	activitiesCreatedBy?: readonly MonospaceSystemUseractivitiesCreatedByCreateRelatedInput[];
+	activitiesOwner?: readonly MonospaceSystemUseractivitiesOwnerCreateRelatedInput[];
+	activitiesUpdatedBy?: readonly MonospaceSystemUseractivitiesUpdatedByCreateRelatedInput[];
+	affiliationsCreatedBy?: readonly MonospaceSystemUseraffiliationsCreatedByCreateRelatedInput[];
+	affiliationsUpdatedBy?: readonly MonospaceSystemUseraffiliationsUpdatedByCreateRelatedInput[];
+	appearance?: string | null;
+	applicationsCreatedBy?: readonly MonospaceSystemUserapplicationsCreatedByCreateRelatedInput[];
+	applicationsUpdatedBy?: readonly MonospaceSystemUserapplicationsUpdatedByCreateRelatedInput[];
+	attachmentsCreatedBy?: readonly MonospaceSystemUserattachmentsCreatedByCreateRelatedInput[];
+	avatarId?: Uuid | null;
+	candidateFilesCreatedBy?: readonly MonospaceSystemUsercandidateFilesCreatedByCreateRelatedInput[];
+	candidateMessagesCreatedBy?: readonly MonospaceSystemUsercandidateMessagesCreatedByCreateRelatedInput[];
+	candidateNotesCreatedBy?: readonly MonospaceSystemUsercandidateNotesCreatedByCreateRelatedInput[];
+	candidateNotesUpdatedBy?: readonly MonospaceSystemUsercandidateNotesUpdatedByCreateRelatedInput[];
+	candidatesCreatedBy?: readonly MonospaceSystemUsercandidatesCreatedByCreateRelatedInput[];
+	candidatesUpdatedBy?: readonly MonospaceSystemUsercandidatesUpdatedByCreateRelatedInput[];
+	contactsCreatedBy?: readonly MonospaceSystemUsercontactsCreatedByCreateRelatedInput[];
+	contactsOwner?: readonly MonospaceSystemUsercontactsOwnerCreateRelatedInput[];
+	contactsUpdatedBy?: readonly MonospaceSystemUsercontactsUpdatedByCreateRelatedInput[];
+	dealsCreatedBy?: readonly MonospaceSystemUserdealsCreatedByCreateRelatedInput[];
+	dealsOwner?: readonly MonospaceSystemUserdealsOwnerCreateRelatedInput[];
+	dealsUpdatedBy?: readonly MonospaceSystemUserdealsUpdatedByCreateRelatedInput[];
+	email?: string | null;
+	emailTemplatesCreatedBy?: readonly MonospaceSystemUseremailTemplatesCreatedByCreateRelatedInput[];
+	emailTemplatesUpdatedBy?: readonly MonospaceSystemUseremailTemplatesUpdatedByCreateRelatedInput[];
+	fullName?: string | null;
+	id: Uuid;
+	interviewsCreatedBy?: readonly MonospaceSystemUserinterviewsCreatedByCreateRelatedInput[];
+	interviewsUpdatedBy?: readonly MonospaceSystemUserinterviewsUpdatedByCreateRelatedInput[];
+	isService: boolean;
+	lastActivityAt?: string | null;
+	offersCreatedBy?: readonly MonospaceSystemUseroffersCreatedByCreateRelatedInput[];
+	offersUpdatedBy?: readonly MonospaceSystemUseroffersUpdatedByCreateRelatedInput[];
+	organizationsCreatedBy?: readonly MonospaceSystemUserorganizationsCreatedByCreateRelatedInput[];
+	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
+	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
+	requisitionsCreatedBy?: readonly MonospaceSystemUserrequisitionsCreatedByCreateRelatedInput[];
+	roleRequestsCreatedBy?: readonly MonospaceSystemUserroleRequestsCreatedByCreateRelatedInput[];
+	roleRequestsUpdatedBy?: readonly MonospaceSystemUserroleRequestsUpdatedByCreateRelatedInput[];
+	roles?: readonly MonospaceSystemUserrolesCreateRelatedInput[];
+	scorecardsCreatedBy?: readonly MonospaceSystemUserscorecardsCreatedByCreateRelatedInput[];
+	scorecardsUpdatedBy?: readonly MonospaceSystemUserscorecardsUpdatedByCreateRelatedInput[];
+	serviceOwnerId?: Uuid | null;
+	status?: string;
+	storageValues?: readonly MonospaceSystemUserstorageValuesCreateRelatedInput[];
+	workforcePlanRolesCreatedBy?: readonly MonospaceSystemUserworkforcePlanRolesCreatedByCreateRelatedInput[];
+	workforcePlanRolesUpdatedBy?: readonly MonospaceSystemUserworkforcePlanRolesUpdatedByCreateRelatedInput[];
+}
+
+export type requisitionsupdatedByRelationFieldArguments = {
+	filter?: MonospaceSystemUserFilterInput;
+}
+
+export type requisitionsupdatedByUpdateOneRelatedOperationsInput = {
+	_connect?: requisitionsupdatedByConnectInput;
+	_create?: requisitionsupdatedByCreateArguments;
+	_delete?: MonospaceSystemUserDeleteArguments;
+	_disconnect?: MonospaceSystemUserDisconnectOneInput;
+	_update?: MonospaceSystemUserUpdateInput;
+}
+
+export type roleRequestsCollectionOutput = {
+	approvals?: { data: approvalsCollectionOutput[] };
+	approvedBaseMax?: string | null;
+	approvedBaseMin?: string | null;
+	approvedCurrency?: string | null;
+	approvedEquityUnits?: number | null;
+	approvedVariableMax?: string | null;
+	approvedVariableMin?: string | null;
+	businessJustification?: string | null;
+	compMax?: string | null;
+	compMin?: string | null;
+	createdAt?: string;
+	createdBy?: MonospaceSystemUserCollectionOutput | null;
+	createdById?: Uuid | null;
+	currency?: string;
+	decidedAt?: string | null;
+	decidedByUserId?: Uuid | null;
+	decisionNote?: string | null;
+	departmentId?: Uuid;
+	departments?: departmentsCollectionOutput;
+	employmentType?: string;
+	hiringManagerUserId?: Uuid | null;
+	hiringReason?: string;
+	hiringReasonDetail?: string | null;
+	id?: Uuid;
+	jobLevelId?: Uuid | null;
+	job_levels?: jobLevelsCollectionOutput | null;
+	locations?: string | null;
+	numberOfHires?: number;
+	requesterUserId?: Uuid | null;
+	requisitions?: requisitionsCollectionOutput | null;
+	roleName?: string;
+	status?: string;
+	updatedAt?: string;
+	updatedBy?: MonospaceSystemUserCollectionOutput | null;
+	updatedById?: Uuid | null;
+	urgency?: string;
+	urgencyImpact?: string | null;
+	workforcePlanRoleId?: Uuid | null;
+	workforce_plan_roles?: workforcePlanRolesCollectionOutput | null;
+}
+
+export type roleRequestsCollectionOutputFieldsInput = readonly ("approvedBaseMax" | "approvedBaseMin" | "approvedCurrency" | "approvedEquityUnits" | "approvedVariableMax" | "approvedVariableMin" | "businessJustification" | "compMax" | "compMin" | "createdAt" | "createdById" | "currency" | "decidedAt" | "decidedByUserId" | "decisionNote" | "departmentId" | "employmentType" | "hiringManagerUserId" | "hiringReason" | "hiringReasonDetail" | "id" | "jobLevelId" | "locations" | "numberOfHires" | "requesterUserId" | "roleName" | "status" | "updatedAt" | "updatedById" | "urgency" | "urgencyImpact" | "workforcePlanRoleId" | "*" | `${string}:${"approvedBaseMax" | "approvedBaseMin" | "approvedCurrency" | "approvedEquityUnits" | "approvedVariableMax" | "approvedVariableMin" | "businessJustification" | "compMax" | "compMin" | "createdAt" | "createdById" | "currency" | "decidedAt" | "decidedByUserId" | "decisionNote" | "departmentId" | "employmentType" | "hiringManagerUserId" | "hiringReason" | "hiringReasonDetail" | "id" | "jobLevelId" | "locations" | "numberOfHires" | "requesterUserId" | "roleName" | "status" | "updatedAt" | "updatedById" | "urgency" | "urgencyImpact" | "workforcePlanRoleId"}`)[];
+
+export type roleRequestsCollectionOutputIncludeInput = {
+	"approvals"?: (roleRequestsapprovalsRelationFieldArguments & { "fields"?: approvalsCollectionOutputFieldsInput; "include"?: approvalsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (roleRequestsapprovalsRelationFieldArguments & { "fields"?: approvalsCollectionOutputFieldsInput; "include"?: approvalsCollectionOutputIncludeInput })>]?: never };
+	"createdBy"?: (roleRequestscreatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (roleRequestscreatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput })>]?: never };
+	"departments"?: ({ "fields"?: departmentsCollectionOutputFieldsInput; "include"?: departmentsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof ({ "fields"?: departmentsCollectionOutputFieldsInput; "include"?: departmentsCollectionOutputIncludeInput })>]?: never };
+	"job_levels"?: (roleRequestsjob_levelsRelationFieldArguments & { "fields"?: jobLevelsCollectionOutputFieldsInput; "include"?: jobLevelsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (roleRequestsjob_levelsRelationFieldArguments & { "fields"?: jobLevelsCollectionOutputFieldsInput; "include"?: jobLevelsCollectionOutputIncludeInput })>]?: never };
+	"requisitions"?: (roleRequestsrequisitionsRelationFieldArguments & { "fields"?: requisitionsCollectionOutputFieldsInput; "include"?: requisitionsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (roleRequestsrequisitionsRelationFieldArguments & { "fields"?: requisitionsCollectionOutputFieldsInput; "include"?: requisitionsCollectionOutputIncludeInput })>]?: never };
+	"updatedBy"?: (roleRequestsupdatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (roleRequestsupdatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput })>]?: never };
+	"workforce_plan_roles"?: (roleRequestsworkforce_plan_rolesRelationFieldArguments & { "fields"?: workforcePlanRolesCollectionOutputFieldsInput; "include"?: workforcePlanRolesCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (roleRequestsworkforce_plan_rolesRelationFieldArguments & { "fields"?: workforcePlanRolesCollectionOutputFieldsInput; "include"?: workforcePlanRolesCollectionOutputIncludeInput })>]?: never };
+} & { [K in `${string}:${"approvals"}`]?: roleRequestsCollectionOutputIncludeInput["approvals"] } & { [K in `${string}:${"createdBy"}`]?: roleRequestsCollectionOutputIncludeInput["createdBy"] } & { [K in `${string}:${"departments"}`]?: roleRequestsCollectionOutputIncludeInput["departments"] } & { [K in `${string}:${"job_levels"}`]?: roleRequestsCollectionOutputIncludeInput["job_levels"] } & { [K in `${string}:${"requisitions"}`]?: roleRequestsCollectionOutputIncludeInput["requisitions"] } & { [K in `${string}:${"updatedBy"}`]?: roleRequestsCollectionOutputIncludeInput["updatedBy"] } & { [K in `${string}:${"workforce_plan_roles"}`]?: roleRequestsCollectionOutputIncludeInput["workforce_plan_roles"] };
+
+export type roleRequestsCreateArguments = {
+	data: readonly roleRequestsCreateInput[];
+}
+
+export type roleRequestsCreateInput = {
+	approvals?: readonly roleRequestsapprovalsCreateRelatedInput[];
+	approvedBaseMax?: string | null;
+	approvedBaseMin?: string | null;
+	approvedCurrency?: string | null;
+	approvedEquityUnits?: number | null;
+	approvedVariableMax?: string | null;
+	approvedVariableMin?: string | null;
+	businessJustification?: string | null;
+	compMax?: string | null;
+	compMin?: string | null;
+	createdAt?: string;
+	createdBy?: roleRequestscreatedByCreateRelatedInput;
+	currency?: string;
+	decidedAt?: string | null;
+	decidedByUserId?: Uuid | null;
+	decisionNote?: string | null;
+	departments: roleRequestsdepartmentsCreateRelatedInput;
+	employmentType?: string;
+	hiringManagerUserId?: Uuid | null;
+	hiringReason?: string;
+	hiringReasonDetail?: string | null;
+	id?: Uuid;
+	job_levels?: roleRequestsjob_levelsCreateRelatedInput;
+	locations?: string | null;
+	numberOfHires?: number;
+	requesterUserId?: Uuid | null;
+	requisitions?: roleRequestsrequisitionsCreateRelatedInput;
+	roleName: string;
+	status?: string;
+	updatedAt?: string;
+	updatedBy?: roleRequestsupdatedByCreateRelatedInput;
+	urgency?: string;
+	urgencyImpact?: string | null;
+	workforce_plan_roles?: roleRequestsworkforce_plan_rolesCreateRelatedInput;
+}
+
+export type roleRequestsDeleteArguments = {
+	filter?: roleRequestsFilterInput;
+}
+
+export type roleRequestsDeleteOneArguments = {
+	filter?: roleRequestsFilterInput;
+	key: Uuid;
+}
+
+export type roleRequestsDisconnectManyInput = {
+	filter?: roleRequestsFilterInput;
+}
+
+export type roleRequestsDisconnectOneInput = {}
+
+export type roleRequestsFilterInput = {
+	_and?: readonly roleRequestsFilterInput[];
+	_not?: roleRequestsFilterInput;
+	_or?: readonly roleRequestsFilterInput[];
+	approvals?: approvalsFilterQuantifierInput | approvalsFilterInput;
+	approvedBaseMax?: DecimalFilterNullablePrimitiveInput | string | null;
+	approvedBaseMin?: DecimalFilterNullablePrimitiveInput | string | null;
+	approvedCurrency?: StringFilterNullablePrimitiveInput | string | null;
+	approvedEquityUnits?: IntegerFilterNullablePrimitiveInput | number | null;
+	approvedVariableMax?: DecimalFilterNullablePrimitiveInput | string | null;
+	approvedVariableMin?: DecimalFilterNullablePrimitiveInput | string | null;
+	businessJustification?: StringFilterNullablePrimitiveInput | string | null;
+	compMax?: DecimalFilterNullablePrimitiveInput | string | null;
+	compMin?: DecimalFilterNullablePrimitiveInput | string | null;
+	createdAt?: DateTimeFilterPrimitiveInput | string;
+	createdBy?: MonospaceSystemUserFilterInput;
+	createdById?: UuidFilterNullablePrimitiveInput | Uuid | null;
+	currency?: StringFilterPrimitiveInput | string;
+	decidedAt?: DateTimeFilterNullablePrimitiveInput | string | null;
+	decidedByUserId?: UuidFilterNullablePrimitiveInput | Uuid | null;
+	decisionNote?: StringFilterNullablePrimitiveInput | string | null;
+	departmentId?: UuidFilterPrimitiveInput | Uuid;
+	departments?: departmentsFilterInput;
+	employmentType?: StringFilterPrimitiveInput | string;
+	hiringManagerUserId?: UuidFilterNullablePrimitiveInput | Uuid | null;
+	hiringReason?: StringFilterPrimitiveInput | string;
+	hiringReasonDetail?: StringFilterNullablePrimitiveInput | string | null;
+	id?: UuidFilterPrimitiveInput | Uuid;
+	jobLevelId?: UuidFilterNullablePrimitiveInput | Uuid | null;
+	job_levels?: jobLevelsFilterInput;
+	locations?: StringFilterNullablePrimitiveInput | string | null;
+	numberOfHires?: IntegerFilterPrimitiveInput | number;
+	requesterUserId?: UuidFilterNullablePrimitiveInput | Uuid | null;
+	requisitions?: requisitionsFilterInput;
+	roleName?: StringFilterPrimitiveInput | string;
+	status?: StringFilterPrimitiveInput | string;
+	updatedAt?: DateTimeFilterPrimitiveInput | string;
+	updatedBy?: MonospaceSystemUserFilterInput;
+	updatedById?: UuidFilterNullablePrimitiveInput | Uuid | null;
+	urgency?: StringFilterPrimitiveInput | string;
+	urgencyImpact?: StringFilterNullablePrimitiveInput | string | null;
+	workforcePlanRoleId?: UuidFilterNullablePrimitiveInput | Uuid | null;
+	workforce_plan_roles?: workforcePlanRolesFilterInput;
+}
+
+export type roleRequestsFilterQuantifierInput = {
+	_every?: roleRequestsFilterInput;
+	_none?: roleRequestsFilterInput;
+	_some?: roleRequestsFilterInput;
+}
+
+export type roleRequestsListArguments = {
+	filter?: roleRequestsFilterInput;
+	limit?: Int64Input;
+	meta?: MetaArguments;
+	offset?: UInt64Input;
+	sort?: readonly roleRequestsSortSpecifier[];
+}
+
+export type roleRequestsReadArguments = {
+	filter?: roleRequestsFilterInput;
+	key: Uuid;
+}
+
+export type roleRequestsSortSpecifier = {
+	approvedBaseMax?: SortFieldOptions;
+	approvedBaseMin?: SortFieldOptions;
+	approvedCurrency?: SortFieldOptions;
+	approvedEquityUnits?: SortFieldOptions;
+	approvedVariableMax?: SortFieldOptions;
+	approvedVariableMin?: SortFieldOptions;
+	businessJustification?: SortFieldOptions;
+	compMax?: SortFieldOptions;
+	compMin?: SortFieldOptions;
+	createdAt?: SortFieldOptions;
+	createdById?: SortFieldOptions;
+	currency?: SortFieldOptions;
+	decidedAt?: SortFieldOptions;
+	decidedByUserId?: SortFieldOptions;
+	decisionNote?: SortFieldOptions;
+	departmentId?: SortFieldOptions;
+	employmentType?: SortFieldOptions;
+	hiringManagerUserId?: SortFieldOptions;
+	hiringReason?: SortFieldOptions;
+	hiringReasonDetail?: SortFieldOptions;
+	id?: SortFieldOptions;
+	jobLevelId?: SortFieldOptions;
+	locations?: SortFieldOptions;
+	numberOfHires?: SortFieldOptions;
+	requesterUserId?: SortFieldOptions;
+	roleName?: SortFieldOptions;
+	status?: SortFieldOptions;
+	updatedAt?: SortFieldOptions;
+	updatedById?: SortFieldOptions;
+	urgency?: SortFieldOptions;
+	urgencyImpact?: SortFieldOptions;
+	workforcePlanRoleId?: SortFieldOptions;
+}
+
+export type roleRequestsUpdateArguments = {
+	data: roleRequestsUpdateDataInput;
+	filter?: roleRequestsFilterInput;
+}
+
+export type roleRequestsUpdateDataInput = {
+	approvals?: readonly roleRequestsapprovalsUpdateManyRelatedOperationsInput[];
+	approvedBaseMax?: string | null;
+	approvedBaseMin?: string | null;
+	approvedCurrency?: string | null;
+	approvedEquityUnits?: number | null;
+	approvedVariableMax?: string | null;
+	approvedVariableMin?: string | null;
+	businessJustification?: string | null;
+	compMax?: string | null;
+	compMin?: string | null;
+	createdAt?: string;
+	createdBy?: readonly roleRequestscreatedByUpdateOneRelatedOperationsInput[];
+	createdById?: Uuid | null;
+	currency?: string;
+	decidedAt?: string | null;
+	decidedByUserId?: Uuid | null;
+	decisionNote?: string | null;
+	departmentId?: Uuid;
+	departments?: readonly roleRequestsdepartmentsUpdateOneRelatedOperationsInput[];
+	employmentType?: string;
+	hiringManagerUserId?: Uuid | null;
+	hiringReason?: string;
+	hiringReasonDetail?: string | null;
+	id?: Uuid;
+	jobLevelId?: Uuid | null;
+	job_levels?: readonly roleRequestsjob_levelsUpdateOneRelatedOperationsInput[];
+	locations?: string | null;
+	numberOfHires?: number;
+	requesterUserId?: Uuid | null;
+	requisitions?: readonly roleRequestsrequisitionsUpdateOneRelatedOperationsInput[];
+	roleName?: string;
+	status?: string;
+	updatedAt?: string;
+	updatedBy?: readonly roleRequestsupdatedByUpdateOneRelatedOperationsInput[];
+	updatedById?: Uuid | null;
+	urgency?: string;
+	urgencyImpact?: string | null;
+	workforcePlanRoleId?: Uuid | null;
+	workforce_plan_roles?: readonly roleRequestsworkforce_plan_rolesUpdateOneRelatedOperationsInput[];
+}
+
+export type roleRequestsUpdateInput = {
+	data: roleRequestsUpdateDataInput;
+	filter?: roleRequestsFilterInput;
+}
+
+export type roleRequestsUpdateOneArguments = {
+	data: roleRequestsUpdateDataInput;
+	filter?: roleRequestsFilterInput;
+	key: Uuid;
+}
+
+export type roleRequestsapprovalsConnectBackwardKeysInput = {
+	id?: Uuid;
+}
+
+export type roleRequestsapprovalsConnectInput = {
+	keys: readonly roleRequestsapprovalsConnectBackwardKeysInput[];
+}
+
+export type roleRequestsapprovalsCreateArguments = {
+	data: readonly roleRequestsapprovalsCreateRelatedWithoutTypeInput[];
+}
+
+export type roleRequestsapprovalsCreateRelatedInput = {
+	_connect?: roleRequestsapprovalsConnectInput;
+	_create?: roleRequestsapprovalsCreateArguments;
+}
+
+export type roleRequestsapprovalsCreateRelatedWithoutTypeInput = {
+	approverRole: string;
+	approverUserId?: Uuid | null;
+	createdAt?: string;
+	decidedAt?: string | null;
+	decision?: string;
+	id?: Uuid;
+	note?: string | null;
+	offers?: approvalsoffersCreateRelatedInput;
+	step: number;
+	workforce_plan_roles?: approvalsworkforce_plan_rolesCreateRelatedInput;
+}
+
+export type roleRequestsapprovalsRelationFieldArguments = {
+	filter?: approvalsFilterInput;
+	limit?: Int64Input;
+	offset?: UInt64Input;
+	sort?: readonly approvalsSortSpecifier[];
+}
+
+export type roleRequestsapprovalsUpdateManyRelatedOperationsInput = {
+	_connect?: roleRequestsapprovalsConnectInput;
+	_create?: roleRequestsapprovalsCreateArguments;
+	_delete?: approvalsDeleteArguments;
+	_disconnect?: approvalsDisconnectManyInput;
+	_update?: approvalsUpdateInput;
+}
+
+export type roleRequestscreatedByConnectForwardKeyInput = {
+	id: Uuid | null;
+}
+
+export type roleRequestscreatedByConnectInput = {
+	key: roleRequestscreatedByConnectForwardKeyInput;
+}
+
+export type roleRequestscreatedByCreateArguments = {
+	data: roleRequestscreatedByCreateRelatedWithoutTypeInput;
+}
+
+export type roleRequestscreatedByCreateRelatedInput = {
+	_connect?: roleRequestscreatedByConnectInput;
+	_create?: roleRequestscreatedByCreateArguments;
+}
+
+export type roleRequestscreatedByCreateRelatedWithoutTypeInput = {
+	activitiesCreatedBy?: readonly MonospaceSystemUseractivitiesCreatedByCreateRelatedInput[];
+	activitiesOwner?: readonly MonospaceSystemUseractivitiesOwnerCreateRelatedInput[];
+	activitiesUpdatedBy?: readonly MonospaceSystemUseractivitiesUpdatedByCreateRelatedInput[];
+	affiliationsCreatedBy?: readonly MonospaceSystemUseraffiliationsCreatedByCreateRelatedInput[];
+	affiliationsUpdatedBy?: readonly MonospaceSystemUseraffiliationsUpdatedByCreateRelatedInput[];
+	appearance?: string | null;
+	applicationsCreatedBy?: readonly MonospaceSystemUserapplicationsCreatedByCreateRelatedInput[];
+	applicationsUpdatedBy?: readonly MonospaceSystemUserapplicationsUpdatedByCreateRelatedInput[];
+	attachmentsCreatedBy?: readonly MonospaceSystemUserattachmentsCreatedByCreateRelatedInput[];
+	avatarId?: Uuid | null;
+	candidateFilesCreatedBy?: readonly MonospaceSystemUsercandidateFilesCreatedByCreateRelatedInput[];
+	candidateMessagesCreatedBy?: readonly MonospaceSystemUsercandidateMessagesCreatedByCreateRelatedInput[];
+	candidateNotesCreatedBy?: readonly MonospaceSystemUsercandidateNotesCreatedByCreateRelatedInput[];
+	candidateNotesUpdatedBy?: readonly MonospaceSystemUsercandidateNotesUpdatedByCreateRelatedInput[];
+	candidatesCreatedBy?: readonly MonospaceSystemUsercandidatesCreatedByCreateRelatedInput[];
+	candidatesUpdatedBy?: readonly MonospaceSystemUsercandidatesUpdatedByCreateRelatedInput[];
+	contactsCreatedBy?: readonly MonospaceSystemUsercontactsCreatedByCreateRelatedInput[];
+	contactsOwner?: readonly MonospaceSystemUsercontactsOwnerCreateRelatedInput[];
+	contactsUpdatedBy?: readonly MonospaceSystemUsercontactsUpdatedByCreateRelatedInput[];
+	dealsCreatedBy?: readonly MonospaceSystemUserdealsCreatedByCreateRelatedInput[];
+	dealsOwner?: readonly MonospaceSystemUserdealsOwnerCreateRelatedInput[];
+	dealsUpdatedBy?: readonly MonospaceSystemUserdealsUpdatedByCreateRelatedInput[];
+	email?: string | null;
+	emailTemplatesCreatedBy?: readonly MonospaceSystemUseremailTemplatesCreatedByCreateRelatedInput[];
+	emailTemplatesUpdatedBy?: readonly MonospaceSystemUseremailTemplatesUpdatedByCreateRelatedInput[];
+	fullName?: string | null;
+	id: Uuid;
+	interviewsCreatedBy?: readonly MonospaceSystemUserinterviewsCreatedByCreateRelatedInput[];
+	interviewsUpdatedBy?: readonly MonospaceSystemUserinterviewsUpdatedByCreateRelatedInput[];
+	isService: boolean;
+	lastActivityAt?: string | null;
+	offersCreatedBy?: readonly MonospaceSystemUseroffersCreatedByCreateRelatedInput[];
+	offersUpdatedBy?: readonly MonospaceSystemUseroffersUpdatedByCreateRelatedInput[];
+	organizationsCreatedBy?: readonly MonospaceSystemUserorganizationsCreatedByCreateRelatedInput[];
+	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
+	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
+	requisitionsCreatedBy?: readonly MonospaceSystemUserrequisitionsCreatedByCreateRelatedInput[];
+	requisitionsUpdatedBy?: readonly MonospaceSystemUserrequisitionsUpdatedByCreateRelatedInput[];
+	roleRequestsUpdatedBy?: readonly MonospaceSystemUserroleRequestsUpdatedByCreateRelatedInput[];
+	roles?: readonly MonospaceSystemUserrolesCreateRelatedInput[];
+	scorecardsCreatedBy?: readonly MonospaceSystemUserscorecardsCreatedByCreateRelatedInput[];
+	scorecardsUpdatedBy?: readonly MonospaceSystemUserscorecardsUpdatedByCreateRelatedInput[];
+	serviceOwnerId?: Uuid | null;
+	status?: string;
+	storageValues?: readonly MonospaceSystemUserstorageValuesCreateRelatedInput[];
+	workforcePlanRolesCreatedBy?: readonly MonospaceSystemUserworkforcePlanRolesCreatedByCreateRelatedInput[];
+	workforcePlanRolesUpdatedBy?: readonly MonospaceSystemUserworkforcePlanRolesUpdatedByCreateRelatedInput[];
+}
+
+export type roleRequestscreatedByRelationFieldArguments = {
+	filter?: MonospaceSystemUserFilterInput;
+}
+
+export type roleRequestscreatedByUpdateOneRelatedOperationsInput = {
+	_connect?: roleRequestscreatedByConnectInput;
+	_create?: roleRequestscreatedByCreateArguments;
+	_delete?: MonospaceSystemUserDeleteArguments;
+	_disconnect?: MonospaceSystemUserDisconnectOneInput;
+	_update?: MonospaceSystemUserUpdateInput;
+}
+
+export type roleRequestsdepartmentsConnectForwardKeyInput = {
+	id: Uuid;
+}
+
+export type roleRequestsdepartmentsConnectInput = {
+	key: roleRequestsdepartmentsConnectForwardKeyInput;
+}
+
+export type roleRequestsdepartmentsCreateArguments = {
+	data: roleRequestsdepartmentsCreateRelatedWithoutTypeInput;
+}
+
+export type roleRequestsdepartmentsCreateRelatedInput = {
+	_connect?: roleRequestsdepartmentsConnectInput;
+	_create?: roleRequestsdepartmentsCreateArguments;
+}
+
+export type roleRequestsdepartmentsCreateRelatedWithoutTypeInput = {
+	createdAt?: string;
+	hasVariableComp?: boolean;
+	headUserId?: Uuid | null;
+	id?: Uuid;
+	name: string;
+	requisitions?: readonly departmentsrequisitionsCreateRelatedInput[];
+	workforce_plan_roles?: readonly departmentsworkforce_plan_rolesCreateRelatedInput[];
+}
+
+export type roleRequestsdepartmentsUpdateOneRelatedOperationsInput = {
+	_connect?: roleRequestsdepartmentsConnectInput;
+	_create?: roleRequestsdepartmentsCreateArguments;
+	_update?: departmentsUpdateInput;
+}
+
+export type roleRequestsjob_levelsConnectForwardKeyInput = {
+	id: Uuid | null;
+}
+
+export type roleRequestsjob_levelsConnectInput = {
+	key: roleRequestsjob_levelsConnectForwardKeyInput;
+}
+
+export type roleRequestsjob_levelsCreateArguments = {
+	data: roleRequestsjob_levelsCreateRelatedWithoutTypeInput;
+}
+
+export type roleRequestsjob_levelsCreateRelatedInput = {
+	_connect?: roleRequestsjob_levelsConnectInput;
+	_create?: roleRequestsjob_levelsCreateArguments;
+}
+
+export type roleRequestsjob_levelsCreateRelatedWithoutTypeInput = {
+	id?: Uuid;
+	name: string;
+	position: number;
+	requisitions?: readonly jobLevelsrequisitionsCreateRelatedInput[];
+	track?: string;
+	workforce_plan_roles?: readonly jobLevelsworkforce_plan_rolesCreateRelatedInput[];
+}
+
+export type roleRequestsjob_levelsRelationFieldArguments = {
+	filter?: jobLevelsFilterInput;
+}
+
+export type roleRequestsjob_levelsUpdateOneRelatedOperationsInput = {
+	_connect?: roleRequestsjob_levelsConnectInput;
+	_create?: roleRequestsjob_levelsCreateArguments;
+	_delete?: jobLevelsDeleteArguments;
+	_disconnect?: jobLevelsDisconnectOneInput;
+	_update?: jobLevelsUpdateInput;
+}
+
+export type roleRequestsrequisitionsConnectBackwardKeysInput = {
+	id?: Uuid;
+	reqNumber?: number;
+	roleRequestId?: Uuid;
+}
+
+export type roleRequestsrequisitionsConnectInput = {
+	key: roleRequestsrequisitionsConnectBackwardKeysInput;
+}
+
+export type roleRequestsrequisitionsCreateArguments = {
+	data: roleRequestsrequisitionsCreateRelatedWithoutTypeInput;
+}
+
+export type roleRequestsrequisitionsCreateRelatedInput = {
+	_connect?: roleRequestsrequisitionsConnectInput;
+	_create?: roleRequestsrequisitionsCreateArguments;
+}
+
+export type roleRequestsrequisitionsCreateRelatedWithoutTypeInput = {
+	applications?: readonly requisitionsapplicationsCreateRelatedInput[];
+	closedAt?: string | null;
+	compMax?: string | null;
+	compMin?: string | null;
+	createdAt?: string;
+	createdBy?: requisitionscreatedByCreateRelatedInput;
+	currency?: string;
+	departments: requisitionsdepartmentsCreateRelatedInput;
+	description?: string | null;
+	employmentType?: string;
+	hiringManagerUserId?: Uuid | null;
+	hiringReason?: string | null;
+	id?: Uuid;
+	interview_stages?: readonly requisitionsinterview_stagesCreateRelatedInput[];
+	isConfidential?: boolean;
+	isLeadership?: boolean;
+	job_levels?: requisitionsjob_levelsCreateRelatedInput;
+	kickoffAt?: string | null;
+	kickoffNotes?: string | null;
+	locations?: string | null;
+	mustHaveSkills?: string | null;
+	niceToHaveSkills?: string | null;
+	numberOfHires?: number;
+	openedAt?: string | null;
+	postExternally?: boolean;
+	public_applications?: readonly requisitionspublic_applicationsCreateRelatedInput[];
+	recruiterUserId?: Uuid | null;
+	reqNumber?: number;
+	status?: string;
+	teamSize?: number | null;
+	title: string;
+	updatedAt?: string;
+	updatedBy?: requisitionsupdatedByCreateRelatedInput;
+	urgency?: string;
+}
+
+export type roleRequestsrequisitionsRelationFieldArguments = {
+	filter?: requisitionsFilterInput;
+}
+
+export type roleRequestsrequisitionsUpdateOneRelatedOperationsInput = {
+	_connect?: roleRequestsrequisitionsConnectInput;
+	_create?: roleRequestsrequisitionsCreateArguments;
+	_delete?: requisitionsDeleteArguments;
+	_disconnect?: requisitionsDisconnectOneInput;
+	_update?: requisitionsUpdateInput;
+}
+
+export type roleRequestsupdatedByConnectForwardKeyInput = {
+	id: Uuid | null;
+}
+
+export type roleRequestsupdatedByConnectInput = {
+	key: roleRequestsupdatedByConnectForwardKeyInput;
+}
+
+export type roleRequestsupdatedByCreateArguments = {
+	data: roleRequestsupdatedByCreateRelatedWithoutTypeInput;
+}
+
+export type roleRequestsupdatedByCreateRelatedInput = {
+	_connect?: roleRequestsupdatedByConnectInput;
+	_create?: roleRequestsupdatedByCreateArguments;
+}
+
+export type roleRequestsupdatedByCreateRelatedWithoutTypeInput = {
+	activitiesCreatedBy?: readonly MonospaceSystemUseractivitiesCreatedByCreateRelatedInput[];
+	activitiesOwner?: readonly MonospaceSystemUseractivitiesOwnerCreateRelatedInput[];
+	activitiesUpdatedBy?: readonly MonospaceSystemUseractivitiesUpdatedByCreateRelatedInput[];
+	affiliationsCreatedBy?: readonly MonospaceSystemUseraffiliationsCreatedByCreateRelatedInput[];
+	affiliationsUpdatedBy?: readonly MonospaceSystemUseraffiliationsUpdatedByCreateRelatedInput[];
+	appearance?: string | null;
+	applicationsCreatedBy?: readonly MonospaceSystemUserapplicationsCreatedByCreateRelatedInput[];
+	applicationsUpdatedBy?: readonly MonospaceSystemUserapplicationsUpdatedByCreateRelatedInput[];
+	attachmentsCreatedBy?: readonly MonospaceSystemUserattachmentsCreatedByCreateRelatedInput[];
+	avatarId?: Uuid | null;
+	candidateFilesCreatedBy?: readonly MonospaceSystemUsercandidateFilesCreatedByCreateRelatedInput[];
+	candidateMessagesCreatedBy?: readonly MonospaceSystemUsercandidateMessagesCreatedByCreateRelatedInput[];
+	candidateNotesCreatedBy?: readonly MonospaceSystemUsercandidateNotesCreatedByCreateRelatedInput[];
+	candidateNotesUpdatedBy?: readonly MonospaceSystemUsercandidateNotesUpdatedByCreateRelatedInput[];
+	candidatesCreatedBy?: readonly MonospaceSystemUsercandidatesCreatedByCreateRelatedInput[];
+	candidatesUpdatedBy?: readonly MonospaceSystemUsercandidatesUpdatedByCreateRelatedInput[];
+	contactsCreatedBy?: readonly MonospaceSystemUsercontactsCreatedByCreateRelatedInput[];
+	contactsOwner?: readonly MonospaceSystemUsercontactsOwnerCreateRelatedInput[];
+	contactsUpdatedBy?: readonly MonospaceSystemUsercontactsUpdatedByCreateRelatedInput[];
+	dealsCreatedBy?: readonly MonospaceSystemUserdealsCreatedByCreateRelatedInput[];
+	dealsOwner?: readonly MonospaceSystemUserdealsOwnerCreateRelatedInput[];
+	dealsUpdatedBy?: readonly MonospaceSystemUserdealsUpdatedByCreateRelatedInput[];
+	email?: string | null;
+	emailTemplatesCreatedBy?: readonly MonospaceSystemUseremailTemplatesCreatedByCreateRelatedInput[];
+	emailTemplatesUpdatedBy?: readonly MonospaceSystemUseremailTemplatesUpdatedByCreateRelatedInput[];
+	fullName?: string | null;
+	id: Uuid;
+	interviewsCreatedBy?: readonly MonospaceSystemUserinterviewsCreatedByCreateRelatedInput[];
+	interviewsUpdatedBy?: readonly MonospaceSystemUserinterviewsUpdatedByCreateRelatedInput[];
+	isService: boolean;
+	lastActivityAt?: string | null;
+	offersCreatedBy?: readonly MonospaceSystemUseroffersCreatedByCreateRelatedInput[];
+	offersUpdatedBy?: readonly MonospaceSystemUseroffersUpdatedByCreateRelatedInput[];
+	organizationsCreatedBy?: readonly MonospaceSystemUserorganizationsCreatedByCreateRelatedInput[];
+	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
+	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
+	requisitionsCreatedBy?: readonly MonospaceSystemUserrequisitionsCreatedByCreateRelatedInput[];
+	requisitionsUpdatedBy?: readonly MonospaceSystemUserrequisitionsUpdatedByCreateRelatedInput[];
+	roleRequestsCreatedBy?: readonly MonospaceSystemUserroleRequestsCreatedByCreateRelatedInput[];
+	roles?: readonly MonospaceSystemUserrolesCreateRelatedInput[];
+	scorecardsCreatedBy?: readonly MonospaceSystemUserscorecardsCreatedByCreateRelatedInput[];
+	scorecardsUpdatedBy?: readonly MonospaceSystemUserscorecardsUpdatedByCreateRelatedInput[];
+	serviceOwnerId?: Uuid | null;
+	status?: string;
+	storageValues?: readonly MonospaceSystemUserstorageValuesCreateRelatedInput[];
+	workforcePlanRolesCreatedBy?: readonly MonospaceSystemUserworkforcePlanRolesCreatedByCreateRelatedInput[];
+	workforcePlanRolesUpdatedBy?: readonly MonospaceSystemUserworkforcePlanRolesUpdatedByCreateRelatedInput[];
+}
+
+export type roleRequestsupdatedByRelationFieldArguments = {
+	filter?: MonospaceSystemUserFilterInput;
+}
+
+export type roleRequestsupdatedByUpdateOneRelatedOperationsInput = {
+	_connect?: roleRequestsupdatedByConnectInput;
+	_create?: roleRequestsupdatedByCreateArguments;
+	_delete?: MonospaceSystemUserDeleteArguments;
+	_disconnect?: MonospaceSystemUserDisconnectOneInput;
+	_update?: MonospaceSystemUserUpdateInput;
+}
+
+export type roleRequestsworkforce_plan_rolesConnectForwardKeyInput = {
+	id: Uuid | null;
+}
+
+export type roleRequestsworkforce_plan_rolesConnectInput = {
+	key: roleRequestsworkforce_plan_rolesConnectForwardKeyInput;
+}
+
+export type roleRequestsworkforce_plan_rolesCreateArguments = {
+	data: roleRequestsworkforce_plan_rolesCreateRelatedWithoutTypeInput;
+}
+
+export type roleRequestsworkforce_plan_rolesCreateRelatedInput = {
+	_connect?: roleRequestsworkforce_plan_rolesConnectInput;
+	_create?: roleRequestsworkforce_plan_rolesCreateArguments;
+}
+
+export type roleRequestsworkforce_plan_rolesCreateRelatedWithoutTypeInput = {
+	approvals?: readonly workforcePlanRolesapprovalsCreateRelatedInput[];
+	approvedHeadcount?: number | null;
+	budgetAmount?: string | null;
+	createdAt?: string;
+	createdBy?: workforcePlanRolescreatedByCreateRelatedInput;
+	currency?: string;
+	currentHeadcount?: number;
+	departments: workforcePlanRolesdepartmentsCreateRelatedInput;
+	employmentType?: string;
+	hireType?: string;
+	id?: Uuid;
+	job_levels?: workforcePlanRolesjob_levelsCreateRelatedInput;
+	locations?: string | null;
+	planYear: number;
+	plannedHeadcount?: number;
+	roleName: string;
+	status?: string;
+	team?: string | null;
+	updatedAt?: string;
+	updatedBy?: workforcePlanRolesupdatedByCreateRelatedInput;
+}
+
+export type roleRequestsworkforce_plan_rolesRelationFieldArguments = {
+	filter?: workforcePlanRolesFilterInput;
+}
+
+export type roleRequestsworkforce_plan_rolesUpdateOneRelatedOperationsInput = {
+	_connect?: roleRequestsworkforce_plan_rolesConnectInput;
+	_create?: roleRequestsworkforce_plan_rolesCreateArguments;
+	_delete?: workforcePlanRolesDeleteArguments;
+	_disconnect?: workforcePlanRolesDisconnectOneInput;
+	_update?: workforcePlanRolesUpdateInput;
+}
+
+export type scorecardsCollectionOutput = {
+	createdBy?: MonospaceSystemUserCollectionOutput | null;
+	createdById?: Uuid | null;
+	flags?: string | null;
+	id?: Uuid;
+	interviewId?: Uuid;
+	interviewerUserId?: Uuid;
+	interviews?: interviewsCollectionOutput;
+	positives?: string | null;
+	recommendation?: string;
+	submittedAt?: string;
+	summary?: string | null;
+	updatedAt?: string;
+	updatedBy?: MonospaceSystemUserCollectionOutput | null;
+	updatedById?: Uuid | null;
+}
+
+export type scorecardsCollectionOutputFieldsInput = readonly ("createdById" | "flags" | "id" | "interviewId" | "interviewerUserId" | "positives" | "recommendation" | "submittedAt" | "summary" | "updatedAt" | "updatedById" | "*" | `${string}:${"createdById" | "flags" | "id" | "interviewId" | "interviewerUserId" | "positives" | "recommendation" | "submittedAt" | "summary" | "updatedAt" | "updatedById"}`)[];
+
+export type scorecardsCollectionOutputIncludeInput = {
+	"createdBy"?: (scorecardscreatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (scorecardscreatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput })>]?: never };
+	"interviews"?: ({ "fields"?: interviewsCollectionOutputFieldsInput; "include"?: interviewsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof ({ "fields"?: interviewsCollectionOutputFieldsInput; "include"?: interviewsCollectionOutputIncludeInput })>]?: never };
+	"updatedBy"?: (scorecardsupdatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (scorecardsupdatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput })>]?: never };
+} & { [K in `${string}:${"createdBy"}`]?: scorecardsCollectionOutputIncludeInput["createdBy"] } & { [K in `${string}:${"interviews"}`]?: scorecardsCollectionOutputIncludeInput["interviews"] } & { [K in `${string}:${"updatedBy"}`]?: scorecardsCollectionOutputIncludeInput["updatedBy"] };
+
+export type scorecardsCreateArguments = {
+	data: readonly scorecardsCreateInput[];
+}
+
+export type scorecardsCreateInput = {
+	createdBy?: scorecardscreatedByCreateRelatedInput;
+	flags?: string | null;
+	id?: Uuid;
+	interviewerUserId: Uuid;
+	interviews: scorecardsinterviewsCreateRelatedInput;
+	positives?: string | null;
+	recommendation: string;
+	submittedAt?: string;
+	summary?: string | null;
+	updatedAt?: string;
+	updatedBy?: scorecardsupdatedByCreateRelatedInput;
+}
+
+export type scorecardsDeleteArguments = {
+	filter?: scorecardsFilterInput;
+}
+
+export type scorecardsDeleteOneArguments = {
+	filter?: scorecardsFilterInput;
+	key: Uuid;
+}
+
+export type scorecardsDisconnectManyInput = {
+	filter?: scorecardsFilterInput;
+}
+
+export type scorecardsFilterInput = {
+	_and?: readonly scorecardsFilterInput[];
+	_not?: scorecardsFilterInput;
+	_or?: readonly scorecardsFilterInput[];
+	createdBy?: MonospaceSystemUserFilterInput;
+	createdById?: UuidFilterNullablePrimitiveInput | Uuid | null;
+	flags?: StringFilterNullablePrimitiveInput | string | null;
+	id?: UuidFilterPrimitiveInput | Uuid;
+	interviewId?: UuidFilterPrimitiveInput | Uuid;
+	interviewerUserId?: UuidFilterPrimitiveInput | Uuid;
+	interviews?: interviewsFilterInput;
+	positives?: StringFilterNullablePrimitiveInput | string | null;
+	recommendation?: StringFilterPrimitiveInput | string;
+	submittedAt?: DateTimeFilterPrimitiveInput | string;
+	summary?: StringFilterNullablePrimitiveInput | string | null;
+	updatedAt?: DateTimeFilterPrimitiveInput | string;
+	updatedBy?: MonospaceSystemUserFilterInput;
+	updatedById?: UuidFilterNullablePrimitiveInput | Uuid | null;
+}
+
+export type scorecardsFilterQuantifierInput = {
+	_every?: scorecardsFilterInput;
+	_none?: scorecardsFilterInput;
+	_some?: scorecardsFilterInput;
+}
+
+export type scorecardsListArguments = {
+	filter?: scorecardsFilterInput;
+	limit?: Int64Input;
+	meta?: MetaArguments;
+	offset?: UInt64Input;
+	sort?: readonly scorecardsSortSpecifier[];
+}
+
+export type scorecardsReadArguments = {
+	filter?: scorecardsFilterInput;
+	key: Uuid;
+}
+
+export type scorecardsSortSpecifier = {
+	createdById?: SortFieldOptions;
+	flags?: SortFieldOptions;
+	id?: SortFieldOptions;
+	interviewId?: SortFieldOptions;
+	interviewerUserId?: SortFieldOptions;
+	positives?: SortFieldOptions;
+	recommendation?: SortFieldOptions;
+	submittedAt?: SortFieldOptions;
+	summary?: SortFieldOptions;
+	updatedAt?: SortFieldOptions;
+	updatedById?: SortFieldOptions;
+}
+
+export type scorecardsUpdateArguments = {
+	data: scorecardsUpdateDataInput;
+	filter?: scorecardsFilterInput;
+}
+
+export type scorecardsUpdateDataInput = {
+	createdBy?: readonly scorecardscreatedByUpdateOneRelatedOperationsInput[];
+	createdById?: Uuid | null;
+	flags?: string | null;
+	id?: Uuid;
+	interviewId?: Uuid;
+	interviewerUserId?: Uuid;
+	interviews?: readonly scorecardsinterviewsUpdateOneRelatedOperationsInput[];
+	positives?: string | null;
+	recommendation?: string;
+	submittedAt?: string;
+	summary?: string | null;
+	updatedAt?: string;
+	updatedBy?: readonly scorecardsupdatedByUpdateOneRelatedOperationsInput[];
+	updatedById?: Uuid | null;
+}
+
+export type scorecardsUpdateInput = {
+	data: scorecardsUpdateDataInput;
+	filter?: scorecardsFilterInput;
+}
+
+export type scorecardsUpdateOneArguments = {
+	data: scorecardsUpdateDataInput;
+	filter?: scorecardsFilterInput;
+	key: Uuid;
+}
+
+export type scorecardscreatedByConnectForwardKeyInput = {
+	id: Uuid | null;
+}
+
+export type scorecardscreatedByConnectInput = {
+	key: scorecardscreatedByConnectForwardKeyInput;
+}
+
+export type scorecardscreatedByCreateArguments = {
+	data: scorecardscreatedByCreateRelatedWithoutTypeInput;
+}
+
+export type scorecardscreatedByCreateRelatedInput = {
+	_connect?: scorecardscreatedByConnectInput;
+	_create?: scorecardscreatedByCreateArguments;
+}
+
+export type scorecardscreatedByCreateRelatedWithoutTypeInput = {
+	activitiesCreatedBy?: readonly MonospaceSystemUseractivitiesCreatedByCreateRelatedInput[];
+	activitiesOwner?: readonly MonospaceSystemUseractivitiesOwnerCreateRelatedInput[];
+	activitiesUpdatedBy?: readonly MonospaceSystemUseractivitiesUpdatedByCreateRelatedInput[];
+	affiliationsCreatedBy?: readonly MonospaceSystemUseraffiliationsCreatedByCreateRelatedInput[];
+	affiliationsUpdatedBy?: readonly MonospaceSystemUseraffiliationsUpdatedByCreateRelatedInput[];
+	appearance?: string | null;
+	applicationsCreatedBy?: readonly MonospaceSystemUserapplicationsCreatedByCreateRelatedInput[];
+	applicationsUpdatedBy?: readonly MonospaceSystemUserapplicationsUpdatedByCreateRelatedInput[];
+	attachmentsCreatedBy?: readonly MonospaceSystemUserattachmentsCreatedByCreateRelatedInput[];
+	avatarId?: Uuid | null;
+	candidateFilesCreatedBy?: readonly MonospaceSystemUsercandidateFilesCreatedByCreateRelatedInput[];
+	candidateMessagesCreatedBy?: readonly MonospaceSystemUsercandidateMessagesCreatedByCreateRelatedInput[];
+	candidateNotesCreatedBy?: readonly MonospaceSystemUsercandidateNotesCreatedByCreateRelatedInput[];
+	candidateNotesUpdatedBy?: readonly MonospaceSystemUsercandidateNotesUpdatedByCreateRelatedInput[];
+	candidatesCreatedBy?: readonly MonospaceSystemUsercandidatesCreatedByCreateRelatedInput[];
+	candidatesUpdatedBy?: readonly MonospaceSystemUsercandidatesUpdatedByCreateRelatedInput[];
+	contactsCreatedBy?: readonly MonospaceSystemUsercontactsCreatedByCreateRelatedInput[];
+	contactsOwner?: readonly MonospaceSystemUsercontactsOwnerCreateRelatedInput[];
+	contactsUpdatedBy?: readonly MonospaceSystemUsercontactsUpdatedByCreateRelatedInput[];
+	dealsCreatedBy?: readonly MonospaceSystemUserdealsCreatedByCreateRelatedInput[];
+	dealsOwner?: readonly MonospaceSystemUserdealsOwnerCreateRelatedInput[];
+	dealsUpdatedBy?: readonly MonospaceSystemUserdealsUpdatedByCreateRelatedInput[];
+	email?: string | null;
+	emailTemplatesCreatedBy?: readonly MonospaceSystemUseremailTemplatesCreatedByCreateRelatedInput[];
+	emailTemplatesUpdatedBy?: readonly MonospaceSystemUseremailTemplatesUpdatedByCreateRelatedInput[];
+	fullName?: string | null;
+	id: Uuid;
+	interviewsCreatedBy?: readonly MonospaceSystemUserinterviewsCreatedByCreateRelatedInput[];
+	interviewsUpdatedBy?: readonly MonospaceSystemUserinterviewsUpdatedByCreateRelatedInput[];
+	isService: boolean;
+	lastActivityAt?: string | null;
+	offersCreatedBy?: readonly MonospaceSystemUseroffersCreatedByCreateRelatedInput[];
+	offersUpdatedBy?: readonly MonospaceSystemUseroffersUpdatedByCreateRelatedInput[];
+	organizationsCreatedBy?: readonly MonospaceSystemUserorganizationsCreatedByCreateRelatedInput[];
+	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
+	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
+	requisitionsCreatedBy?: readonly MonospaceSystemUserrequisitionsCreatedByCreateRelatedInput[];
+	requisitionsUpdatedBy?: readonly MonospaceSystemUserrequisitionsUpdatedByCreateRelatedInput[];
+	roleRequestsCreatedBy?: readonly MonospaceSystemUserroleRequestsCreatedByCreateRelatedInput[];
+	roleRequestsUpdatedBy?: readonly MonospaceSystemUserroleRequestsUpdatedByCreateRelatedInput[];
+	roles?: readonly MonospaceSystemUserrolesCreateRelatedInput[];
+	scorecardsUpdatedBy?: readonly MonospaceSystemUserscorecardsUpdatedByCreateRelatedInput[];
+	serviceOwnerId?: Uuid | null;
+	status?: string;
+	storageValues?: readonly MonospaceSystemUserstorageValuesCreateRelatedInput[];
+	workforcePlanRolesCreatedBy?: readonly MonospaceSystemUserworkforcePlanRolesCreatedByCreateRelatedInput[];
+	workforcePlanRolesUpdatedBy?: readonly MonospaceSystemUserworkforcePlanRolesUpdatedByCreateRelatedInput[];
+}
+
+export type scorecardscreatedByRelationFieldArguments = {
+	filter?: MonospaceSystemUserFilterInput;
+}
+
+export type scorecardscreatedByUpdateOneRelatedOperationsInput = {
+	_connect?: scorecardscreatedByConnectInput;
+	_create?: scorecardscreatedByCreateArguments;
+	_delete?: MonospaceSystemUserDeleteArguments;
+	_disconnect?: MonospaceSystemUserDisconnectOneInput;
+	_update?: MonospaceSystemUserUpdateInput;
+}
+
+export type scorecardsinterviewsConnectForwardKeyInput = {
+	id: Uuid;
+}
+
+export type scorecardsinterviewsConnectInput = {
+	key: scorecardsinterviewsConnectForwardKeyInput;
+}
+
+export type scorecardsinterviewsCreateArguments = {
+	data: scorecardsinterviewsCreateRelatedWithoutTypeInput;
+}
+
+export type scorecardsinterviewsCreateRelatedInput = {
+	_connect?: scorecardsinterviewsConnectInput;
+	_create?: scorecardsinterviewsCreateArguments;
+}
+
+export type scorecardsinterviewsCreateRelatedWithoutTypeInput = {
+	applications: interviewsapplicationsCreateRelatedInput;
+	createdAt?: string;
+	createdBy?: interviewscreatedByCreateRelatedInput;
+	endsAt: string;
+	id?: Uuid;
+	interview_participants?: readonly interviewsinterview_participantsCreateRelatedInput[];
+	interview_stages?: interviewsinterview_stagesCreateRelatedInput;
+	meetingUrl?: string | null;
+	startsAt: string;
+	status?: string;
+	title: string;
+	updatedAt?: string;
+	updatedBy?: interviewsupdatedByCreateRelatedInput;
+}
+
+export type scorecardsinterviewsUpdateOneRelatedOperationsInput = {
+	_connect?: scorecardsinterviewsConnectInput;
+	_create?: scorecardsinterviewsCreateArguments;
+	_update?: interviewsUpdateInput;
+}
+
+export type scorecardsupdatedByConnectForwardKeyInput = {
+	id: Uuid | null;
+}
+
+export type scorecardsupdatedByConnectInput = {
+	key: scorecardsupdatedByConnectForwardKeyInput;
+}
+
+export type scorecardsupdatedByCreateArguments = {
+	data: scorecardsupdatedByCreateRelatedWithoutTypeInput;
+}
+
+export type scorecardsupdatedByCreateRelatedInput = {
+	_connect?: scorecardsupdatedByConnectInput;
+	_create?: scorecardsupdatedByCreateArguments;
+}
+
+export type scorecardsupdatedByCreateRelatedWithoutTypeInput = {
+	activitiesCreatedBy?: readonly MonospaceSystemUseractivitiesCreatedByCreateRelatedInput[];
+	activitiesOwner?: readonly MonospaceSystemUseractivitiesOwnerCreateRelatedInput[];
+	activitiesUpdatedBy?: readonly MonospaceSystemUseractivitiesUpdatedByCreateRelatedInput[];
+	affiliationsCreatedBy?: readonly MonospaceSystemUseraffiliationsCreatedByCreateRelatedInput[];
+	affiliationsUpdatedBy?: readonly MonospaceSystemUseraffiliationsUpdatedByCreateRelatedInput[];
+	appearance?: string | null;
+	applicationsCreatedBy?: readonly MonospaceSystemUserapplicationsCreatedByCreateRelatedInput[];
+	applicationsUpdatedBy?: readonly MonospaceSystemUserapplicationsUpdatedByCreateRelatedInput[];
+	attachmentsCreatedBy?: readonly MonospaceSystemUserattachmentsCreatedByCreateRelatedInput[];
+	avatarId?: Uuid | null;
+	candidateFilesCreatedBy?: readonly MonospaceSystemUsercandidateFilesCreatedByCreateRelatedInput[];
+	candidateMessagesCreatedBy?: readonly MonospaceSystemUsercandidateMessagesCreatedByCreateRelatedInput[];
+	candidateNotesCreatedBy?: readonly MonospaceSystemUsercandidateNotesCreatedByCreateRelatedInput[];
+	candidateNotesUpdatedBy?: readonly MonospaceSystemUsercandidateNotesUpdatedByCreateRelatedInput[];
+	candidatesCreatedBy?: readonly MonospaceSystemUsercandidatesCreatedByCreateRelatedInput[];
+	candidatesUpdatedBy?: readonly MonospaceSystemUsercandidatesUpdatedByCreateRelatedInput[];
+	contactsCreatedBy?: readonly MonospaceSystemUsercontactsCreatedByCreateRelatedInput[];
+	contactsOwner?: readonly MonospaceSystemUsercontactsOwnerCreateRelatedInput[];
+	contactsUpdatedBy?: readonly MonospaceSystemUsercontactsUpdatedByCreateRelatedInput[];
+	dealsCreatedBy?: readonly MonospaceSystemUserdealsCreatedByCreateRelatedInput[];
+	dealsOwner?: readonly MonospaceSystemUserdealsOwnerCreateRelatedInput[];
+	dealsUpdatedBy?: readonly MonospaceSystemUserdealsUpdatedByCreateRelatedInput[];
+	email?: string | null;
+	emailTemplatesCreatedBy?: readonly MonospaceSystemUseremailTemplatesCreatedByCreateRelatedInput[];
+	emailTemplatesUpdatedBy?: readonly MonospaceSystemUseremailTemplatesUpdatedByCreateRelatedInput[];
+	fullName?: string | null;
+	id: Uuid;
+	interviewsCreatedBy?: readonly MonospaceSystemUserinterviewsCreatedByCreateRelatedInput[];
+	interviewsUpdatedBy?: readonly MonospaceSystemUserinterviewsUpdatedByCreateRelatedInput[];
+	isService: boolean;
+	lastActivityAt?: string | null;
+	offersCreatedBy?: readonly MonospaceSystemUseroffersCreatedByCreateRelatedInput[];
+	offersUpdatedBy?: readonly MonospaceSystemUseroffersUpdatedByCreateRelatedInput[];
+	organizationsCreatedBy?: readonly MonospaceSystemUserorganizationsCreatedByCreateRelatedInput[];
+	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
+	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
+	requisitionsCreatedBy?: readonly MonospaceSystemUserrequisitionsCreatedByCreateRelatedInput[];
+	requisitionsUpdatedBy?: readonly MonospaceSystemUserrequisitionsUpdatedByCreateRelatedInput[];
+	roleRequestsCreatedBy?: readonly MonospaceSystemUserroleRequestsCreatedByCreateRelatedInput[];
+	roleRequestsUpdatedBy?: readonly MonospaceSystemUserroleRequestsUpdatedByCreateRelatedInput[];
+	roles?: readonly MonospaceSystemUserrolesCreateRelatedInput[];
+	scorecardsCreatedBy?: readonly MonospaceSystemUserscorecardsCreatedByCreateRelatedInput[];
+	serviceOwnerId?: Uuid | null;
+	status?: string;
+	storageValues?: readonly MonospaceSystemUserstorageValuesCreateRelatedInput[];
+	workforcePlanRolesCreatedBy?: readonly MonospaceSystemUserworkforcePlanRolesCreatedByCreateRelatedInput[];
+	workforcePlanRolesUpdatedBy?: readonly MonospaceSystemUserworkforcePlanRolesUpdatedByCreateRelatedInput[];
+}
+
+export type scorecardsupdatedByRelationFieldArguments = {
+	filter?: MonospaceSystemUserFilterInput;
+}
+
+export type scorecardsupdatedByUpdateOneRelatedOperationsInput = {
+	_connect?: scorecardsupdatedByConnectInput;
+	_create?: scorecardsupdatedByCreateArguments;
+	_delete?: MonospaceSystemUserDeleteArguments;
+	_disconnect?: MonospaceSystemUserDisconnectOneInput;
+	_update?: MonospaceSystemUserUpdateInput;
 }
 
 export type stripeChargesCollectionOutput = {
@@ -11405,6 +20418,546 @@ export type usersticketsUpdateManyRelatedOperationsInput = {
 	_update?: ticketsUpdateInput;
 }
 
+export type workforcePlanRolesCollectionOutput = {
+	approvals?: { data: approvalsCollectionOutput[] };
+	approvedHeadcount?: number | null;
+	budgetAmount?: string | null;
+	createdAt?: string;
+	createdBy?: MonospaceSystemUserCollectionOutput | null;
+	createdById?: Uuid | null;
+	currency?: string;
+	currentHeadcount?: number;
+	departmentId?: Uuid;
+	departments?: departmentsCollectionOutput;
+	employmentType?: string;
+	hireType?: string;
+	id?: Uuid;
+	jobLevelId?: Uuid | null;
+	job_levels?: jobLevelsCollectionOutput | null;
+	locations?: string | null;
+	planYear?: number;
+	plannedHeadcount?: number;
+	roleName?: string;
+	role_requests?: { data: roleRequestsCollectionOutput[] };
+	status?: string;
+	team?: string | null;
+	updatedAt?: string;
+	updatedBy?: MonospaceSystemUserCollectionOutput | null;
+	updatedById?: Uuid | null;
+}
+
+export type workforcePlanRolesCollectionOutputFieldsInput = readonly ("approvedHeadcount" | "budgetAmount" | "createdAt" | "createdById" | "currency" | "currentHeadcount" | "departmentId" | "employmentType" | "hireType" | "id" | "jobLevelId" | "locations" | "planYear" | "plannedHeadcount" | "roleName" | "status" | "team" | "updatedAt" | "updatedById" | "*" | `${string}:${"approvedHeadcount" | "budgetAmount" | "createdAt" | "createdById" | "currency" | "currentHeadcount" | "departmentId" | "employmentType" | "hireType" | "id" | "jobLevelId" | "locations" | "planYear" | "plannedHeadcount" | "roleName" | "status" | "team" | "updatedAt" | "updatedById"}`)[];
+
+export type workforcePlanRolesCollectionOutputIncludeInput = {
+	"approvals"?: (workforcePlanRolesapprovalsRelationFieldArguments & { "fields"?: approvalsCollectionOutputFieldsInput; "include"?: approvalsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (workforcePlanRolesapprovalsRelationFieldArguments & { "fields"?: approvalsCollectionOutputFieldsInput; "include"?: approvalsCollectionOutputIncludeInput })>]?: never };
+	"createdBy"?: (workforcePlanRolescreatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (workforcePlanRolescreatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput })>]?: never };
+	"departments"?: ({ "fields"?: departmentsCollectionOutputFieldsInput; "include"?: departmentsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof ({ "fields"?: departmentsCollectionOutputFieldsInput; "include"?: departmentsCollectionOutputIncludeInput })>]?: never };
+	"job_levels"?: (workforcePlanRolesjob_levelsRelationFieldArguments & { "fields"?: jobLevelsCollectionOutputFieldsInput; "include"?: jobLevelsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (workforcePlanRolesjob_levelsRelationFieldArguments & { "fields"?: jobLevelsCollectionOutputFieldsInput; "include"?: jobLevelsCollectionOutputIncludeInput })>]?: never };
+	"role_requests"?: (workforcePlanRolesrole_requestsRelationFieldArguments & { "fields"?: roleRequestsCollectionOutputFieldsInput; "include"?: roleRequestsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (workforcePlanRolesrole_requestsRelationFieldArguments & { "fields"?: roleRequestsCollectionOutputFieldsInput; "include"?: roleRequestsCollectionOutputIncludeInput })>]?: never };
+	"updatedBy"?: (workforcePlanRolesupdatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (workforcePlanRolesupdatedByRelationFieldArguments & { "fields"?: MonospaceSystemUserCollectionOutputFieldsInput; "include"?: MonospaceSystemUserCollectionOutputIncludeInput })>]?: never };
+} & { [K in `${string}:${"approvals"}`]?: workforcePlanRolesCollectionOutputIncludeInput["approvals"] } & { [K in `${string}:${"createdBy"}`]?: workforcePlanRolesCollectionOutputIncludeInput["createdBy"] } & { [K in `${string}:${"departments"}`]?: workforcePlanRolesCollectionOutputIncludeInput["departments"] } & { [K in `${string}:${"job_levels"}`]?: workforcePlanRolesCollectionOutputIncludeInput["job_levels"] } & { [K in `${string}:${"role_requests"}`]?: workforcePlanRolesCollectionOutputIncludeInput["role_requests"] } & { [K in `${string}:${"updatedBy"}`]?: workforcePlanRolesCollectionOutputIncludeInput["updatedBy"] };
+
+export type workforcePlanRolesCreateArguments = {
+	data: readonly workforcePlanRolesCreateInput[];
+}
+
+export type workforcePlanRolesCreateInput = {
+	approvals?: readonly workforcePlanRolesapprovalsCreateRelatedInput[];
+	approvedHeadcount?: number | null;
+	budgetAmount?: string | null;
+	createdAt?: string;
+	createdBy?: workforcePlanRolescreatedByCreateRelatedInput;
+	currency?: string;
+	currentHeadcount?: number;
+	departments: workforcePlanRolesdepartmentsCreateRelatedInput;
+	employmentType?: string;
+	hireType?: string;
+	id?: Uuid;
+	job_levels?: workforcePlanRolesjob_levelsCreateRelatedInput;
+	locations?: string | null;
+	planYear: number;
+	plannedHeadcount?: number;
+	roleName: string;
+	role_requests?: readonly workforcePlanRolesrole_requestsCreateRelatedInput[];
+	status?: string;
+	team?: string | null;
+	updatedAt?: string;
+	updatedBy?: workforcePlanRolesupdatedByCreateRelatedInput;
+}
+
+export type workforcePlanRolesDeleteArguments = {
+	filter?: workforcePlanRolesFilterInput;
+}
+
+export type workforcePlanRolesDeleteOneArguments = {
+	filter?: workforcePlanRolesFilterInput;
+	key: Uuid;
+}
+
+export type workforcePlanRolesDisconnectManyInput = {
+	filter?: workforcePlanRolesFilterInput;
+}
+
+export type workforcePlanRolesDisconnectOneInput = {}
+
+export type workforcePlanRolesFilterInput = {
+	_and?: readonly workforcePlanRolesFilterInput[];
+	_not?: workforcePlanRolesFilterInput;
+	_or?: readonly workforcePlanRolesFilterInput[];
+	approvals?: approvalsFilterQuantifierInput | approvalsFilterInput;
+	approvedHeadcount?: IntegerFilterNullablePrimitiveInput | number | null;
+	budgetAmount?: DecimalFilterNullablePrimitiveInput | string | null;
+	createdAt?: DateTimeFilterPrimitiveInput | string;
+	createdBy?: MonospaceSystemUserFilterInput;
+	createdById?: UuidFilterNullablePrimitiveInput | Uuid | null;
+	currency?: StringFilterPrimitiveInput | string;
+	currentHeadcount?: IntegerFilterPrimitiveInput | number;
+	departmentId?: UuidFilterPrimitiveInput | Uuid;
+	departments?: departmentsFilterInput;
+	employmentType?: StringFilterPrimitiveInput | string;
+	hireType?: StringFilterPrimitiveInput | string;
+	id?: UuidFilterPrimitiveInput | Uuid;
+	jobLevelId?: UuidFilterNullablePrimitiveInput | Uuid | null;
+	job_levels?: jobLevelsFilterInput;
+	locations?: StringFilterNullablePrimitiveInput | string | null;
+	planYear?: IntegerFilterPrimitiveInput | number;
+	plannedHeadcount?: IntegerFilterPrimitiveInput | number;
+	roleName?: StringFilterPrimitiveInput | string;
+	role_requests?: roleRequestsFilterQuantifierInput | roleRequestsFilterInput;
+	status?: StringFilterPrimitiveInput | string;
+	team?: StringFilterNullablePrimitiveInput | string | null;
+	updatedAt?: DateTimeFilterPrimitiveInput | string;
+	updatedBy?: MonospaceSystemUserFilterInput;
+	updatedById?: UuidFilterNullablePrimitiveInput | Uuid | null;
+}
+
+export type workforcePlanRolesFilterQuantifierInput = {
+	_every?: workforcePlanRolesFilterInput;
+	_none?: workforcePlanRolesFilterInput;
+	_some?: workforcePlanRolesFilterInput;
+}
+
+export type workforcePlanRolesListArguments = {
+	filter?: workforcePlanRolesFilterInput;
+	limit?: Int64Input;
+	meta?: MetaArguments;
+	offset?: UInt64Input;
+	sort?: readonly workforcePlanRolesSortSpecifier[];
+}
+
+export type workforcePlanRolesReadArguments = {
+	filter?: workforcePlanRolesFilterInput;
+	key: Uuid;
+}
+
+export type workforcePlanRolesSortSpecifier = {
+	approvedHeadcount?: SortFieldOptions;
+	budgetAmount?: SortFieldOptions;
+	createdAt?: SortFieldOptions;
+	createdById?: SortFieldOptions;
+	currency?: SortFieldOptions;
+	currentHeadcount?: SortFieldOptions;
+	departmentId?: SortFieldOptions;
+	employmentType?: SortFieldOptions;
+	hireType?: SortFieldOptions;
+	id?: SortFieldOptions;
+	jobLevelId?: SortFieldOptions;
+	locations?: SortFieldOptions;
+	planYear?: SortFieldOptions;
+	plannedHeadcount?: SortFieldOptions;
+	roleName?: SortFieldOptions;
+	status?: SortFieldOptions;
+	team?: SortFieldOptions;
+	updatedAt?: SortFieldOptions;
+	updatedById?: SortFieldOptions;
+}
+
+export type workforcePlanRolesUpdateArguments = {
+	data: workforcePlanRolesUpdateDataInput;
+	filter?: workforcePlanRolesFilterInput;
+}
+
+export type workforcePlanRolesUpdateDataInput = {
+	approvals?: readonly workforcePlanRolesapprovalsUpdateManyRelatedOperationsInput[];
+	approvedHeadcount?: number | null;
+	budgetAmount?: string | null;
+	createdAt?: string;
+	createdBy?: readonly workforcePlanRolescreatedByUpdateOneRelatedOperationsInput[];
+	createdById?: Uuid | null;
+	currency?: string;
+	currentHeadcount?: number;
+	departmentId?: Uuid;
+	departments?: readonly workforcePlanRolesdepartmentsUpdateOneRelatedOperationsInput[];
+	employmentType?: string;
+	hireType?: string;
+	id?: Uuid;
+	jobLevelId?: Uuid | null;
+	job_levels?: readonly workforcePlanRolesjob_levelsUpdateOneRelatedOperationsInput[];
+	locations?: string | null;
+	planYear?: number;
+	plannedHeadcount?: number;
+	roleName?: string;
+	role_requests?: readonly workforcePlanRolesrole_requestsUpdateManyRelatedOperationsInput[];
+	status?: string;
+	team?: string | null;
+	updatedAt?: string;
+	updatedBy?: readonly workforcePlanRolesupdatedByUpdateOneRelatedOperationsInput[];
+	updatedById?: Uuid | null;
+}
+
+export type workforcePlanRolesUpdateInput = {
+	data: workforcePlanRolesUpdateDataInput;
+	filter?: workforcePlanRolesFilterInput;
+}
+
+export type workforcePlanRolesUpdateOneArguments = {
+	data: workforcePlanRolesUpdateDataInput;
+	filter?: workforcePlanRolesFilterInput;
+	key: Uuid;
+}
+
+export type workforcePlanRolesapprovalsConnectBackwardKeysInput = {
+	id?: Uuid;
+}
+
+export type workforcePlanRolesapprovalsConnectInput = {
+	keys: readonly workforcePlanRolesapprovalsConnectBackwardKeysInput[];
+}
+
+export type workforcePlanRolesapprovalsCreateArguments = {
+	data: readonly workforcePlanRolesapprovalsCreateRelatedWithoutTypeInput[];
+}
+
+export type workforcePlanRolesapprovalsCreateRelatedInput = {
+	_connect?: workforcePlanRolesapprovalsConnectInput;
+	_create?: workforcePlanRolesapprovalsCreateArguments;
+}
+
+export type workforcePlanRolesapprovalsCreateRelatedWithoutTypeInput = {
+	approverRole: string;
+	approverUserId?: Uuid | null;
+	createdAt?: string;
+	decidedAt?: string | null;
+	decision?: string;
+	id?: Uuid;
+	note?: string | null;
+	offers?: approvalsoffersCreateRelatedInput;
+	role_requests?: approvalsrole_requestsCreateRelatedInput;
+	step: number;
+}
+
+export type workforcePlanRolesapprovalsRelationFieldArguments = {
+	filter?: approvalsFilterInput;
+	limit?: Int64Input;
+	offset?: UInt64Input;
+	sort?: readonly approvalsSortSpecifier[];
+}
+
+export type workforcePlanRolesapprovalsUpdateManyRelatedOperationsInput = {
+	_connect?: workforcePlanRolesapprovalsConnectInput;
+	_create?: workforcePlanRolesapprovalsCreateArguments;
+	_delete?: approvalsDeleteArguments;
+	_disconnect?: approvalsDisconnectManyInput;
+	_update?: approvalsUpdateInput;
+}
+
+export type workforcePlanRolescreatedByConnectForwardKeyInput = {
+	id: Uuid | null;
+}
+
+export type workforcePlanRolescreatedByConnectInput = {
+	key: workforcePlanRolescreatedByConnectForwardKeyInput;
+}
+
+export type workforcePlanRolescreatedByCreateArguments = {
+	data: workforcePlanRolescreatedByCreateRelatedWithoutTypeInput;
+}
+
+export type workforcePlanRolescreatedByCreateRelatedInput = {
+	_connect?: workforcePlanRolescreatedByConnectInput;
+	_create?: workforcePlanRolescreatedByCreateArguments;
+}
+
+export type workforcePlanRolescreatedByCreateRelatedWithoutTypeInput = {
+	activitiesCreatedBy?: readonly MonospaceSystemUseractivitiesCreatedByCreateRelatedInput[];
+	activitiesOwner?: readonly MonospaceSystemUseractivitiesOwnerCreateRelatedInput[];
+	activitiesUpdatedBy?: readonly MonospaceSystemUseractivitiesUpdatedByCreateRelatedInput[];
+	affiliationsCreatedBy?: readonly MonospaceSystemUseraffiliationsCreatedByCreateRelatedInput[];
+	affiliationsUpdatedBy?: readonly MonospaceSystemUseraffiliationsUpdatedByCreateRelatedInput[];
+	appearance?: string | null;
+	applicationsCreatedBy?: readonly MonospaceSystemUserapplicationsCreatedByCreateRelatedInput[];
+	applicationsUpdatedBy?: readonly MonospaceSystemUserapplicationsUpdatedByCreateRelatedInput[];
+	attachmentsCreatedBy?: readonly MonospaceSystemUserattachmentsCreatedByCreateRelatedInput[];
+	avatarId?: Uuid | null;
+	candidateFilesCreatedBy?: readonly MonospaceSystemUsercandidateFilesCreatedByCreateRelatedInput[];
+	candidateMessagesCreatedBy?: readonly MonospaceSystemUsercandidateMessagesCreatedByCreateRelatedInput[];
+	candidateNotesCreatedBy?: readonly MonospaceSystemUsercandidateNotesCreatedByCreateRelatedInput[];
+	candidateNotesUpdatedBy?: readonly MonospaceSystemUsercandidateNotesUpdatedByCreateRelatedInput[];
+	candidatesCreatedBy?: readonly MonospaceSystemUsercandidatesCreatedByCreateRelatedInput[];
+	candidatesUpdatedBy?: readonly MonospaceSystemUsercandidatesUpdatedByCreateRelatedInput[];
+	contactsCreatedBy?: readonly MonospaceSystemUsercontactsCreatedByCreateRelatedInput[];
+	contactsOwner?: readonly MonospaceSystemUsercontactsOwnerCreateRelatedInput[];
+	contactsUpdatedBy?: readonly MonospaceSystemUsercontactsUpdatedByCreateRelatedInput[];
+	dealsCreatedBy?: readonly MonospaceSystemUserdealsCreatedByCreateRelatedInput[];
+	dealsOwner?: readonly MonospaceSystemUserdealsOwnerCreateRelatedInput[];
+	dealsUpdatedBy?: readonly MonospaceSystemUserdealsUpdatedByCreateRelatedInput[];
+	email?: string | null;
+	emailTemplatesCreatedBy?: readonly MonospaceSystemUseremailTemplatesCreatedByCreateRelatedInput[];
+	emailTemplatesUpdatedBy?: readonly MonospaceSystemUseremailTemplatesUpdatedByCreateRelatedInput[];
+	fullName?: string | null;
+	id: Uuid;
+	interviewsCreatedBy?: readonly MonospaceSystemUserinterviewsCreatedByCreateRelatedInput[];
+	interviewsUpdatedBy?: readonly MonospaceSystemUserinterviewsUpdatedByCreateRelatedInput[];
+	isService: boolean;
+	lastActivityAt?: string | null;
+	offersCreatedBy?: readonly MonospaceSystemUseroffersCreatedByCreateRelatedInput[];
+	offersUpdatedBy?: readonly MonospaceSystemUseroffersUpdatedByCreateRelatedInput[];
+	organizationsCreatedBy?: readonly MonospaceSystemUserorganizationsCreatedByCreateRelatedInput[];
+	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
+	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
+	requisitionsCreatedBy?: readonly MonospaceSystemUserrequisitionsCreatedByCreateRelatedInput[];
+	requisitionsUpdatedBy?: readonly MonospaceSystemUserrequisitionsUpdatedByCreateRelatedInput[];
+	roleRequestsCreatedBy?: readonly MonospaceSystemUserroleRequestsCreatedByCreateRelatedInput[];
+	roleRequestsUpdatedBy?: readonly MonospaceSystemUserroleRequestsUpdatedByCreateRelatedInput[];
+	roles?: readonly MonospaceSystemUserrolesCreateRelatedInput[];
+	scorecardsCreatedBy?: readonly MonospaceSystemUserscorecardsCreatedByCreateRelatedInput[];
+	scorecardsUpdatedBy?: readonly MonospaceSystemUserscorecardsUpdatedByCreateRelatedInput[];
+	serviceOwnerId?: Uuid | null;
+	status?: string;
+	storageValues?: readonly MonospaceSystemUserstorageValuesCreateRelatedInput[];
+	workforcePlanRolesUpdatedBy?: readonly MonospaceSystemUserworkforcePlanRolesUpdatedByCreateRelatedInput[];
+}
+
+export type workforcePlanRolescreatedByRelationFieldArguments = {
+	filter?: MonospaceSystemUserFilterInput;
+}
+
+export type workforcePlanRolescreatedByUpdateOneRelatedOperationsInput = {
+	_connect?: workforcePlanRolescreatedByConnectInput;
+	_create?: workforcePlanRolescreatedByCreateArguments;
+	_delete?: MonospaceSystemUserDeleteArguments;
+	_disconnect?: MonospaceSystemUserDisconnectOneInput;
+	_update?: MonospaceSystemUserUpdateInput;
+}
+
+export type workforcePlanRolesdepartmentsConnectForwardKeyInput = {
+	id: Uuid;
+}
+
+export type workforcePlanRolesdepartmentsConnectInput = {
+	key: workforcePlanRolesdepartmentsConnectForwardKeyInput;
+}
+
+export type workforcePlanRolesdepartmentsCreateArguments = {
+	data: workforcePlanRolesdepartmentsCreateRelatedWithoutTypeInput;
+}
+
+export type workforcePlanRolesdepartmentsCreateRelatedInput = {
+	_connect?: workforcePlanRolesdepartmentsConnectInput;
+	_create?: workforcePlanRolesdepartmentsCreateArguments;
+}
+
+export type workforcePlanRolesdepartmentsCreateRelatedWithoutTypeInput = {
+	createdAt?: string;
+	hasVariableComp?: boolean;
+	headUserId?: Uuid | null;
+	id?: Uuid;
+	name: string;
+	requisitions?: readonly departmentsrequisitionsCreateRelatedInput[];
+	role_requests?: readonly departmentsrole_requestsCreateRelatedInput[];
+}
+
+export type workforcePlanRolesdepartmentsUpdateOneRelatedOperationsInput = {
+	_connect?: workforcePlanRolesdepartmentsConnectInput;
+	_create?: workforcePlanRolesdepartmentsCreateArguments;
+	_update?: departmentsUpdateInput;
+}
+
+export type workforcePlanRolesjob_levelsConnectForwardKeyInput = {
+	id: Uuid | null;
+}
+
+export type workforcePlanRolesjob_levelsConnectInput = {
+	key: workforcePlanRolesjob_levelsConnectForwardKeyInput;
+}
+
+export type workforcePlanRolesjob_levelsCreateArguments = {
+	data: workforcePlanRolesjob_levelsCreateRelatedWithoutTypeInput;
+}
+
+export type workforcePlanRolesjob_levelsCreateRelatedInput = {
+	_connect?: workforcePlanRolesjob_levelsConnectInput;
+	_create?: workforcePlanRolesjob_levelsCreateArguments;
+}
+
+export type workforcePlanRolesjob_levelsCreateRelatedWithoutTypeInput = {
+	id?: Uuid;
+	name: string;
+	position: number;
+	requisitions?: readonly jobLevelsrequisitionsCreateRelatedInput[];
+	role_requests?: readonly jobLevelsrole_requestsCreateRelatedInput[];
+	track?: string;
+}
+
+export type workforcePlanRolesjob_levelsRelationFieldArguments = {
+	filter?: jobLevelsFilterInput;
+}
+
+export type workforcePlanRolesjob_levelsUpdateOneRelatedOperationsInput = {
+	_connect?: workforcePlanRolesjob_levelsConnectInput;
+	_create?: workforcePlanRolesjob_levelsCreateArguments;
+	_delete?: jobLevelsDeleteArguments;
+	_disconnect?: jobLevelsDisconnectOneInput;
+	_update?: jobLevelsUpdateInput;
+}
+
+export type workforcePlanRolesrole_requestsConnectBackwardKeysInput = {
+	id?: Uuid;
+}
+
+export type workforcePlanRolesrole_requestsConnectInput = {
+	keys: readonly workforcePlanRolesrole_requestsConnectBackwardKeysInput[];
+}
+
+export type workforcePlanRolesrole_requestsCreateArguments = {
+	data: readonly workforcePlanRolesrole_requestsCreateRelatedWithoutTypeInput[];
+}
+
+export type workforcePlanRolesrole_requestsCreateRelatedInput = {
+	_connect?: workforcePlanRolesrole_requestsConnectInput;
+	_create?: workforcePlanRolesrole_requestsCreateArguments;
+}
+
+export type workforcePlanRolesrole_requestsCreateRelatedWithoutTypeInput = {
+	approvals?: readonly roleRequestsapprovalsCreateRelatedInput[];
+	approvedBaseMax?: string | null;
+	approvedBaseMin?: string | null;
+	approvedCurrency?: string | null;
+	approvedEquityUnits?: number | null;
+	approvedVariableMax?: string | null;
+	approvedVariableMin?: string | null;
+	businessJustification?: string | null;
+	compMax?: string | null;
+	compMin?: string | null;
+	createdAt?: string;
+	createdBy?: roleRequestscreatedByCreateRelatedInput;
+	currency?: string;
+	decidedAt?: string | null;
+	decidedByUserId?: Uuid | null;
+	decisionNote?: string | null;
+	departments: roleRequestsdepartmentsCreateRelatedInput;
+	employmentType?: string;
+	hiringManagerUserId?: Uuid | null;
+	hiringReason?: string;
+	hiringReasonDetail?: string | null;
+	id?: Uuid;
+	job_levels?: roleRequestsjob_levelsCreateRelatedInput;
+	locations?: string | null;
+	numberOfHires?: number;
+	requesterUserId?: Uuid | null;
+	requisitions?: roleRequestsrequisitionsCreateRelatedInput;
+	roleName: string;
+	status?: string;
+	updatedAt?: string;
+	updatedBy?: roleRequestsupdatedByCreateRelatedInput;
+	urgency?: string;
+	urgencyImpact?: string | null;
+}
+
+export type workforcePlanRolesrole_requestsRelationFieldArguments = {
+	filter?: roleRequestsFilterInput;
+	limit?: Int64Input;
+	offset?: UInt64Input;
+	sort?: readonly roleRequestsSortSpecifier[];
+}
+
+export type workforcePlanRolesrole_requestsUpdateManyRelatedOperationsInput = {
+	_connect?: workforcePlanRolesrole_requestsConnectInput;
+	_create?: workforcePlanRolesrole_requestsCreateArguments;
+	_delete?: roleRequestsDeleteArguments;
+	_disconnect?: roleRequestsDisconnectManyInput;
+	_update?: roleRequestsUpdateInput;
+}
+
+export type workforcePlanRolesupdatedByConnectForwardKeyInput = {
+	id: Uuid | null;
+}
+
+export type workforcePlanRolesupdatedByConnectInput = {
+	key: workforcePlanRolesupdatedByConnectForwardKeyInput;
+}
+
+export type workforcePlanRolesupdatedByCreateArguments = {
+	data: workforcePlanRolesupdatedByCreateRelatedWithoutTypeInput;
+}
+
+export type workforcePlanRolesupdatedByCreateRelatedInput = {
+	_connect?: workforcePlanRolesupdatedByConnectInput;
+	_create?: workforcePlanRolesupdatedByCreateArguments;
+}
+
+export type workforcePlanRolesupdatedByCreateRelatedWithoutTypeInput = {
+	activitiesCreatedBy?: readonly MonospaceSystemUseractivitiesCreatedByCreateRelatedInput[];
+	activitiesOwner?: readonly MonospaceSystemUseractivitiesOwnerCreateRelatedInput[];
+	activitiesUpdatedBy?: readonly MonospaceSystemUseractivitiesUpdatedByCreateRelatedInput[];
+	affiliationsCreatedBy?: readonly MonospaceSystemUseraffiliationsCreatedByCreateRelatedInput[];
+	affiliationsUpdatedBy?: readonly MonospaceSystemUseraffiliationsUpdatedByCreateRelatedInput[];
+	appearance?: string | null;
+	applicationsCreatedBy?: readonly MonospaceSystemUserapplicationsCreatedByCreateRelatedInput[];
+	applicationsUpdatedBy?: readonly MonospaceSystemUserapplicationsUpdatedByCreateRelatedInput[];
+	attachmentsCreatedBy?: readonly MonospaceSystemUserattachmentsCreatedByCreateRelatedInput[];
+	avatarId?: Uuid | null;
+	candidateFilesCreatedBy?: readonly MonospaceSystemUsercandidateFilesCreatedByCreateRelatedInput[];
+	candidateMessagesCreatedBy?: readonly MonospaceSystemUsercandidateMessagesCreatedByCreateRelatedInput[];
+	candidateNotesCreatedBy?: readonly MonospaceSystemUsercandidateNotesCreatedByCreateRelatedInput[];
+	candidateNotesUpdatedBy?: readonly MonospaceSystemUsercandidateNotesUpdatedByCreateRelatedInput[];
+	candidatesCreatedBy?: readonly MonospaceSystemUsercandidatesCreatedByCreateRelatedInput[];
+	candidatesUpdatedBy?: readonly MonospaceSystemUsercandidatesUpdatedByCreateRelatedInput[];
+	contactsCreatedBy?: readonly MonospaceSystemUsercontactsCreatedByCreateRelatedInput[];
+	contactsOwner?: readonly MonospaceSystemUsercontactsOwnerCreateRelatedInput[];
+	contactsUpdatedBy?: readonly MonospaceSystemUsercontactsUpdatedByCreateRelatedInput[];
+	dealsCreatedBy?: readonly MonospaceSystemUserdealsCreatedByCreateRelatedInput[];
+	dealsOwner?: readonly MonospaceSystemUserdealsOwnerCreateRelatedInput[];
+	dealsUpdatedBy?: readonly MonospaceSystemUserdealsUpdatedByCreateRelatedInput[];
+	email?: string | null;
+	emailTemplatesCreatedBy?: readonly MonospaceSystemUseremailTemplatesCreatedByCreateRelatedInput[];
+	emailTemplatesUpdatedBy?: readonly MonospaceSystemUseremailTemplatesUpdatedByCreateRelatedInput[];
+	fullName?: string | null;
+	id: Uuid;
+	interviewsCreatedBy?: readonly MonospaceSystemUserinterviewsCreatedByCreateRelatedInput[];
+	interviewsUpdatedBy?: readonly MonospaceSystemUserinterviewsUpdatedByCreateRelatedInput[];
+	isService: boolean;
+	lastActivityAt?: string | null;
+	offersCreatedBy?: readonly MonospaceSystemUseroffersCreatedByCreateRelatedInput[];
+	offersUpdatedBy?: readonly MonospaceSystemUseroffersUpdatedByCreateRelatedInput[];
+	organizationsCreatedBy?: readonly MonospaceSystemUserorganizationsCreatedByCreateRelatedInput[];
+	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
+	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
+	requisitionsCreatedBy?: readonly MonospaceSystemUserrequisitionsCreatedByCreateRelatedInput[];
+	requisitionsUpdatedBy?: readonly MonospaceSystemUserrequisitionsUpdatedByCreateRelatedInput[];
+	roleRequestsCreatedBy?: readonly MonospaceSystemUserroleRequestsCreatedByCreateRelatedInput[];
+	roleRequestsUpdatedBy?: readonly MonospaceSystemUserroleRequestsUpdatedByCreateRelatedInput[];
+	roles?: readonly MonospaceSystemUserrolesCreateRelatedInput[];
+	scorecardsCreatedBy?: readonly MonospaceSystemUserscorecardsCreatedByCreateRelatedInput[];
+	scorecardsUpdatedBy?: readonly MonospaceSystemUserscorecardsUpdatedByCreateRelatedInput[];
+	serviceOwnerId?: Uuid | null;
+	status?: string;
+	storageValues?: readonly MonospaceSystemUserstorageValuesCreateRelatedInput[];
+	workforcePlanRolesCreatedBy?: readonly MonospaceSystemUserworkforcePlanRolesCreatedByCreateRelatedInput[];
+}
+
+export type workforcePlanRolesupdatedByRelationFieldArguments = {
+	filter?: MonospaceSystemUserFilterInput;
+}
+
+export type workforcePlanRolesupdatedByUpdateOneRelatedOperationsInput = {
+	_connect?: workforcePlanRolesupdatedByConnectInput;
+	_create?: workforcePlanRolesupdatedByCreateArguments;
+	_delete?: MonospaceSystemUserDeleteArguments;
+	_disconnect?: MonospaceSystemUserDisconnectOneInput;
+	_update?: MonospaceSystemUserUpdateInput;
+}
+
 }
 
 
@@ -11664,6 +21217,173 @@ export type affiliationsCollection = {
   }
 }
 
+export type applicationsCollection = {
+  '~primitiveKeys': 'appliedAt' | 'candidateId' | 'createdAt' | 'createdById' | 'id' | 'interviewStageId' | 'lastActivityAt' | 'rejectionReason' | 'requisitionId' | 'stageEnteredAt' | 'status' | 'updatedAt' | 'updatedById';
+  '~relations': {
+    candidates: candidatesCollection;
+    interview_stages: interviewStagesCollection;
+    interviews: interviewsCollection[];
+    offers: offersCollection;
+    public_applications: publicApplicationsCollection[];
+    requisitions: requisitionsCollection;
+  };
+
+  '~readOne': {
+    '~key': Uuid;
+    '~output': _Types.applicationsCollectionOutput;
+    '~parameters': {
+      filter?: _Types.applicationsFilterInput;
+      fields?: _Types.applicationsCollectionOutputFieldsInput;
+      include?: _Types.applicationsCollectionOutputIncludeInput;
+    };
+  }
+
+  '~readMany': {
+    '~output': _Types.applicationsCollectionOutput;
+    '~responseMeta': _Types.ResponseMeta;
+    '~parameters': {
+      filter?: _Types.applicationsFilterInput;
+      sort?: readonly _Types.applicationsSortSpecifier[];
+      fields?: _Types.applicationsCollectionOutputFieldsInput;
+      include?: _Types.applicationsCollectionOutputIncludeInput;
+      meta?: _Types.MetaArguments;
+      limit?: number;
+      offset?: number;
+    };
+  }
+
+  '~create': {
+    '~input': _Types.applicationsCreateInput;
+    '~output': _Types.applicationsCollectionOutput;
+    '~parameters': {
+      fields?: _Types.applicationsCollectionOutputFieldsInput;
+      include?: _Types.applicationsCollectionOutputIncludeInput;
+    };
+  }
+
+  '~updateOne': {
+    '~key': Uuid;
+    '~input': _Types.applicationsUpdateDataInput;
+    '~output': _Types.applicationsCollectionOutput;
+    '~parameters': {
+      filter?: _Types.applicationsFilterInput;
+      fields?: _Types.applicationsCollectionOutputFieldsInput;
+      include?: _Types.applicationsCollectionOutputIncludeInput;
+    };
+  }
+
+  '~updateMany': {
+    '~input': _Types.applicationsUpdateDataInput;
+    '~output': _Types.applicationsCollectionOutput;
+    '~parameters': {
+      filter?: _Types.applicationsFilterInput;
+      fields?: _Types.applicationsCollectionOutputFieldsInput;
+      include?: _Types.applicationsCollectionOutputIncludeInput;
+    };
+  }
+
+  '~deleteOne': {
+    '~key': Uuid;
+    '~output': _Types.applicationsCollectionOutput;
+    '~parameters': {
+      filter?: _Types.applicationsFilterInput;
+      fields?: _Types.applicationsCollectionOutputFieldsInput;
+      include?: _Types.applicationsCollectionOutputIncludeInput;
+    };
+  }
+
+  '~deleteMany': {
+    '~output': _Types.applicationsCollectionOutput;
+    '~parameters': {
+      filter?: _Types.applicationsFilterInput;
+      fields?: _Types.applicationsCollectionOutputFieldsInput;
+      include?: _Types.applicationsCollectionOutputIncludeInput;
+    };
+  }
+}
+
+export type approvalsCollection = {
+  '~primitiveKeys': 'approverRole' | 'approverUserId' | 'createdAt' | 'decidedAt' | 'decision' | 'id' | 'note' | 'offerId' | 'roleRequestId' | 'step' | 'workforcePlanRoleId';
+  '~relations': {
+    offers: offersCollection;
+    role_requests: roleRequestsCollection;
+    workforce_plan_roles: workforcePlanRolesCollection;
+  };
+
+  '~readOne': {
+    '~key': Uuid;
+    '~output': _Types.approvalsCollectionOutput;
+    '~parameters': {
+      filter?: _Types.approvalsFilterInput;
+      fields?: _Types.approvalsCollectionOutputFieldsInput;
+      include?: _Types.approvalsCollectionOutputIncludeInput;
+    };
+  }
+
+  '~readMany': {
+    '~output': _Types.approvalsCollectionOutput;
+    '~responseMeta': _Types.ResponseMeta;
+    '~parameters': {
+      filter?: _Types.approvalsFilterInput;
+      sort?: readonly _Types.approvalsSortSpecifier[];
+      fields?: _Types.approvalsCollectionOutputFieldsInput;
+      include?: _Types.approvalsCollectionOutputIncludeInput;
+      meta?: _Types.MetaArguments;
+      limit?: number;
+      offset?: number;
+    };
+  }
+
+  '~create': {
+    '~input': _Types.approvalsCreateInput;
+    '~output': _Types.approvalsCollectionOutput;
+    '~parameters': {
+      fields?: _Types.approvalsCollectionOutputFieldsInput;
+      include?: _Types.approvalsCollectionOutputIncludeInput;
+    };
+  }
+
+  '~updateOne': {
+    '~key': Uuid;
+    '~input': _Types.approvalsUpdateDataInput;
+    '~output': _Types.approvalsCollectionOutput;
+    '~parameters': {
+      filter?: _Types.approvalsFilterInput;
+      fields?: _Types.approvalsCollectionOutputFieldsInput;
+      include?: _Types.approvalsCollectionOutputIncludeInput;
+    };
+  }
+
+  '~updateMany': {
+    '~input': _Types.approvalsUpdateDataInput;
+    '~output': _Types.approvalsCollectionOutput;
+    '~parameters': {
+      filter?: _Types.approvalsFilterInput;
+      fields?: _Types.approvalsCollectionOutputFieldsInput;
+      include?: _Types.approvalsCollectionOutputIncludeInput;
+    };
+  }
+
+  '~deleteOne': {
+    '~key': Uuid;
+    '~output': _Types.approvalsCollectionOutput;
+    '~parameters': {
+      filter?: _Types.approvalsFilterInput;
+      fields?: _Types.approvalsCollectionOutputFieldsInput;
+      include?: _Types.approvalsCollectionOutputIncludeInput;
+    };
+  }
+
+  '~deleteMany': {
+    '~output': _Types.approvalsCollectionOutput;
+    '~parameters': {
+      filter?: _Types.approvalsFilterInput;
+      fields?: _Types.approvalsCollectionOutputFieldsInput;
+      include?: _Types.approvalsCollectionOutputIncludeInput;
+    };
+  }
+}
+
 export type attachmentsCollection = {
   '~primitiveKeys': 'activityId' | 'assetId' | 'contactId' | 'contentType' | 'createdAt' | 'createdById' | 'dealId' | 'fileName' | 'id' | 'organizationId' | 'sizeBytes' | 'url';
   '~relations': {
@@ -11743,6 +21463,523 @@ export type attachmentsCollection = {
       filter?: _Types.attachmentsFilterInput;
       fields?: _Types.attachmentsCollectionOutputFieldsInput;
       include?: _Types.attachmentsCollectionOutputIncludeInput;
+    };
+  }
+}
+
+export type auditEventsCollection = {
+  '~primitiveKeys': 'action' | 'actorUserId' | 'candidateId' | 'changes' | 'id' | 'occurredAt' | 'recordId' | 'tableName';
+  '~relations': Record<never, never>;
+
+  '~readOne': {
+    '~key': Uuid;
+    '~output': _Types.auditEventsCollectionOutput;
+    '~parameters': {
+      filter?: _Types.auditEventsFilterInput;
+      fields?: _Types.auditEventsCollectionOutputFieldsInput;
+      include?: _Types.auditEventsCollectionOutputIncludeInput;
+    };
+  }
+
+  '~readMany': {
+    '~output': _Types.auditEventsCollectionOutput;
+    '~responseMeta': _Types.ResponseMeta;
+    '~parameters': {
+      filter?: _Types.auditEventsFilterInput;
+      sort?: readonly _Types.auditEventsSortSpecifier[];
+      fields?: _Types.auditEventsCollectionOutputFieldsInput;
+      include?: _Types.auditEventsCollectionOutputIncludeInput;
+      meta?: _Types.MetaArguments;
+      limit?: number;
+      offset?: number;
+    };
+  }
+
+  '~create': {
+    '~input': _Types.auditEventsCreateInput;
+    '~output': _Types.auditEventsCollectionOutput;
+    '~parameters': {
+      fields?: _Types.auditEventsCollectionOutputFieldsInput;
+      include?: _Types.auditEventsCollectionOutputIncludeInput;
+    };
+  }
+
+  '~updateOne': {
+    '~key': Uuid;
+    '~input': _Types.auditEventsUpdateDataInput;
+    '~output': _Types.auditEventsCollectionOutput;
+    '~parameters': {
+      filter?: _Types.auditEventsFilterInput;
+      fields?: _Types.auditEventsCollectionOutputFieldsInput;
+      include?: _Types.auditEventsCollectionOutputIncludeInput;
+    };
+  }
+
+  '~updateMany': {
+    '~input': _Types.auditEventsUpdateDataInput;
+    '~output': _Types.auditEventsCollectionOutput;
+    '~parameters': {
+      filter?: _Types.auditEventsFilterInput;
+      fields?: _Types.auditEventsCollectionOutputFieldsInput;
+      include?: _Types.auditEventsCollectionOutputIncludeInput;
+    };
+  }
+
+  '~deleteOne': {
+    '~key': Uuid;
+    '~output': _Types.auditEventsCollectionOutput;
+    '~parameters': {
+      filter?: _Types.auditEventsFilterInput;
+      fields?: _Types.auditEventsCollectionOutputFieldsInput;
+      include?: _Types.auditEventsCollectionOutputIncludeInput;
+    };
+  }
+
+  '~deleteMany': {
+    '~output': _Types.auditEventsCollectionOutput;
+    '~parameters': {
+      filter?: _Types.auditEventsFilterInput;
+      fields?: _Types.auditEventsCollectionOutputFieldsInput;
+      include?: _Types.auditEventsCollectionOutputIncludeInput;
+    };
+  }
+}
+
+export type candidateFilesCollection = {
+  '~primitiveKeys': 'assetId' | 'candidateId' | 'contentType' | 'createdAt' | 'createdById' | 'fileName' | 'id' | 'kind' | 'url';
+  '~relations': {
+    candidates: candidatesCollection;
+  };
+
+  '~readOne': {
+    '~key': Uuid;
+    '~output': _Types.candidateFilesCollectionOutput;
+    '~parameters': {
+      filter?: _Types.candidateFilesFilterInput;
+      fields?: _Types.candidateFilesCollectionOutputFieldsInput;
+      include?: _Types.candidateFilesCollectionOutputIncludeInput;
+    };
+  }
+
+  '~readMany': {
+    '~output': _Types.candidateFilesCollectionOutput;
+    '~responseMeta': _Types.ResponseMeta;
+    '~parameters': {
+      filter?: _Types.candidateFilesFilterInput;
+      sort?: readonly _Types.candidateFilesSortSpecifier[];
+      fields?: _Types.candidateFilesCollectionOutputFieldsInput;
+      include?: _Types.candidateFilesCollectionOutputIncludeInput;
+      meta?: _Types.MetaArguments;
+      limit?: number;
+      offset?: number;
+    };
+  }
+
+  '~create': {
+    '~input': _Types.candidateFilesCreateInput;
+    '~output': _Types.candidateFilesCollectionOutput;
+    '~parameters': {
+      fields?: _Types.candidateFilesCollectionOutputFieldsInput;
+      include?: _Types.candidateFilesCollectionOutputIncludeInput;
+    };
+  }
+
+  '~updateOne': {
+    '~key': Uuid;
+    '~input': _Types.candidateFilesUpdateDataInput;
+    '~output': _Types.candidateFilesCollectionOutput;
+    '~parameters': {
+      filter?: _Types.candidateFilesFilterInput;
+      fields?: _Types.candidateFilesCollectionOutputFieldsInput;
+      include?: _Types.candidateFilesCollectionOutputIncludeInput;
+    };
+  }
+
+  '~updateMany': {
+    '~input': _Types.candidateFilesUpdateDataInput;
+    '~output': _Types.candidateFilesCollectionOutput;
+    '~parameters': {
+      filter?: _Types.candidateFilesFilterInput;
+      fields?: _Types.candidateFilesCollectionOutputFieldsInput;
+      include?: _Types.candidateFilesCollectionOutputIncludeInput;
+    };
+  }
+
+  '~deleteOne': {
+    '~key': Uuid;
+    '~output': _Types.candidateFilesCollectionOutput;
+    '~parameters': {
+      filter?: _Types.candidateFilesFilterInput;
+      fields?: _Types.candidateFilesCollectionOutputFieldsInput;
+      include?: _Types.candidateFilesCollectionOutputIncludeInput;
+    };
+  }
+
+  '~deleteMany': {
+    '~output': _Types.candidateFilesCollectionOutput;
+    '~parameters': {
+      filter?: _Types.candidateFilesFilterInput;
+      fields?: _Types.candidateFilesCollectionOutputFieldsInput;
+      include?: _Types.candidateFilesCollectionOutputIncludeInput;
+    };
+  }
+}
+
+export type candidateMessagesCollection = {
+  '~primitiveKeys': 'body' | 'candidateId' | 'createdAt' | 'createdById' | 'direction' | 'id' | 'sendAt' | 'status' | 'subject';
+  '~relations': {
+    candidates: candidatesCollection;
+  };
+
+  '~readOne': {
+    '~key': Uuid;
+    '~output': _Types.candidateMessagesCollectionOutput;
+    '~parameters': {
+      filter?: _Types.candidateMessagesFilterInput;
+      fields?: _Types.candidateMessagesCollectionOutputFieldsInput;
+      include?: _Types.candidateMessagesCollectionOutputIncludeInput;
+    };
+  }
+
+  '~readMany': {
+    '~output': _Types.candidateMessagesCollectionOutput;
+    '~responseMeta': _Types.ResponseMeta;
+    '~parameters': {
+      filter?: _Types.candidateMessagesFilterInput;
+      sort?: readonly _Types.candidateMessagesSortSpecifier[];
+      fields?: _Types.candidateMessagesCollectionOutputFieldsInput;
+      include?: _Types.candidateMessagesCollectionOutputIncludeInput;
+      meta?: _Types.MetaArguments;
+      limit?: number;
+      offset?: number;
+    };
+  }
+
+  '~create': {
+    '~input': _Types.candidateMessagesCreateInput;
+    '~output': _Types.candidateMessagesCollectionOutput;
+    '~parameters': {
+      fields?: _Types.candidateMessagesCollectionOutputFieldsInput;
+      include?: _Types.candidateMessagesCollectionOutputIncludeInput;
+    };
+  }
+
+  '~updateOne': {
+    '~key': Uuid;
+    '~input': _Types.candidateMessagesUpdateDataInput;
+    '~output': _Types.candidateMessagesCollectionOutput;
+    '~parameters': {
+      filter?: _Types.candidateMessagesFilterInput;
+      fields?: _Types.candidateMessagesCollectionOutputFieldsInput;
+      include?: _Types.candidateMessagesCollectionOutputIncludeInput;
+    };
+  }
+
+  '~updateMany': {
+    '~input': _Types.candidateMessagesUpdateDataInput;
+    '~output': _Types.candidateMessagesCollectionOutput;
+    '~parameters': {
+      filter?: _Types.candidateMessagesFilterInput;
+      fields?: _Types.candidateMessagesCollectionOutputFieldsInput;
+      include?: _Types.candidateMessagesCollectionOutputIncludeInput;
+    };
+  }
+
+  '~deleteOne': {
+    '~key': Uuid;
+    '~output': _Types.candidateMessagesCollectionOutput;
+    '~parameters': {
+      filter?: _Types.candidateMessagesFilterInput;
+      fields?: _Types.candidateMessagesCollectionOutputFieldsInput;
+      include?: _Types.candidateMessagesCollectionOutputIncludeInput;
+    };
+  }
+
+  '~deleteMany': {
+    '~output': _Types.candidateMessagesCollectionOutput;
+    '~parameters': {
+      filter?: _Types.candidateMessagesFilterInput;
+      fields?: _Types.candidateMessagesCollectionOutputFieldsInput;
+      include?: _Types.candidateMessagesCollectionOutputIncludeInput;
+    };
+  }
+}
+
+export type candidateNotesCollection = {
+  '~primitiveKeys': 'body' | 'candidateId' | 'createdAt' | 'createdById' | 'id' | 'updatedAt' | 'updatedById' | 'visibility';
+  '~relations': {
+    candidates: candidatesCollection;
+  };
+
+  '~readOne': {
+    '~key': Uuid;
+    '~output': _Types.candidateNotesCollectionOutput;
+    '~parameters': {
+      filter?: _Types.candidateNotesFilterInput;
+      fields?: _Types.candidateNotesCollectionOutputFieldsInput;
+      include?: _Types.candidateNotesCollectionOutputIncludeInput;
+    };
+  }
+
+  '~readMany': {
+    '~output': _Types.candidateNotesCollectionOutput;
+    '~responseMeta': _Types.ResponseMeta;
+    '~parameters': {
+      filter?: _Types.candidateNotesFilterInput;
+      sort?: readonly _Types.candidateNotesSortSpecifier[];
+      fields?: _Types.candidateNotesCollectionOutputFieldsInput;
+      include?: _Types.candidateNotesCollectionOutputIncludeInput;
+      meta?: _Types.MetaArguments;
+      limit?: number;
+      offset?: number;
+    };
+  }
+
+  '~create': {
+    '~input': _Types.candidateNotesCreateInput;
+    '~output': _Types.candidateNotesCollectionOutput;
+    '~parameters': {
+      fields?: _Types.candidateNotesCollectionOutputFieldsInput;
+      include?: _Types.candidateNotesCollectionOutputIncludeInput;
+    };
+  }
+
+  '~updateOne': {
+    '~key': Uuid;
+    '~input': _Types.candidateNotesUpdateDataInput;
+    '~output': _Types.candidateNotesCollectionOutput;
+    '~parameters': {
+      filter?: _Types.candidateNotesFilterInput;
+      fields?: _Types.candidateNotesCollectionOutputFieldsInput;
+      include?: _Types.candidateNotesCollectionOutputIncludeInput;
+    };
+  }
+
+  '~updateMany': {
+    '~input': _Types.candidateNotesUpdateDataInput;
+    '~output': _Types.candidateNotesCollectionOutput;
+    '~parameters': {
+      filter?: _Types.candidateNotesFilterInput;
+      fields?: _Types.candidateNotesCollectionOutputFieldsInput;
+      include?: _Types.candidateNotesCollectionOutputIncludeInput;
+    };
+  }
+
+  '~deleteOne': {
+    '~key': Uuid;
+    '~output': _Types.candidateNotesCollectionOutput;
+    '~parameters': {
+      filter?: _Types.candidateNotesFilterInput;
+      fields?: _Types.candidateNotesCollectionOutputFieldsInput;
+      include?: _Types.candidateNotesCollectionOutputIncludeInput;
+    };
+  }
+
+  '~deleteMany': {
+    '~output': _Types.candidateNotesCollectionOutput;
+    '~parameters': {
+      filter?: _Types.candidateNotesFilterInput;
+      fields?: _Types.candidateNotesCollectionOutputFieldsInput;
+      include?: _Types.candidateNotesCollectionOutputIncludeInput;
+    };
+  }
+}
+
+export type candidatesCollection = {
+  '~primitiveKeys': 'city' | 'consentAt' | 'country' | 'createdAt' | 'createdById' | 'email' | 'firstName' | 'githubUrl' | 'id' | 'inTalentPool' | 'lastName' | 'linkedinUrl' | 'needsSponsorship' | 'phone' | 'portfolioUrl' | 'privacyNoticeSentAt' | 'referrerUserId' | 'retainUntil' | 'source' | 'sourceDetail' | 'tags' | 'updatedAt' | 'updatedById' | 'workAuthorized';
+  '~relations': {
+    applications: applicationsCollection[];
+    candidate_files: candidateFilesCollection[];
+    candidate_messages: candidateMessagesCollection[];
+    candidate_notes: candidateNotesCollection[];
+    public_applications: publicApplicationsCollection[];
+  };
+
+  '~readOne': {
+    '~key': Uuid;
+    '~output': _Types.candidatesCollectionOutput;
+    '~parameters': {
+      filter?: _Types.candidatesFilterInput;
+      fields?: _Types.candidatesCollectionOutputFieldsInput;
+      include?: _Types.candidatesCollectionOutputIncludeInput;
+    };
+  }
+
+  '~readMany': {
+    '~output': _Types.candidatesCollectionOutput;
+    '~responseMeta': _Types.ResponseMeta;
+    '~parameters': {
+      filter?: _Types.candidatesFilterInput;
+      sort?: readonly _Types.candidatesSortSpecifier[];
+      fields?: _Types.candidatesCollectionOutputFieldsInput;
+      include?: _Types.candidatesCollectionOutputIncludeInput;
+      meta?: _Types.MetaArguments;
+      limit?: number;
+      offset?: number;
+    };
+  }
+
+  '~create': {
+    '~input': _Types.candidatesCreateInput;
+    '~output': _Types.candidatesCollectionOutput;
+    '~parameters': {
+      fields?: _Types.candidatesCollectionOutputFieldsInput;
+      include?: _Types.candidatesCollectionOutputIncludeInput;
+    };
+  }
+
+  '~updateOne': {
+    '~key': Uuid;
+    '~input': _Types.candidatesUpdateDataInput;
+    '~output': _Types.candidatesCollectionOutput;
+    '~parameters': {
+      filter?: _Types.candidatesFilterInput;
+      fields?: _Types.candidatesCollectionOutputFieldsInput;
+      include?: _Types.candidatesCollectionOutputIncludeInput;
+    };
+  }
+
+  '~updateMany': {
+    '~input': _Types.candidatesUpdateDataInput;
+    '~output': _Types.candidatesCollectionOutput;
+    '~parameters': {
+      filter?: _Types.candidatesFilterInput;
+      fields?: _Types.candidatesCollectionOutputFieldsInput;
+      include?: _Types.candidatesCollectionOutputIncludeInput;
+    };
+  }
+
+  '~deleteOne': {
+    '~key': Uuid;
+    '~output': _Types.candidatesCollectionOutput;
+    '~parameters': {
+      filter?: _Types.candidatesFilterInput;
+      fields?: _Types.candidatesCollectionOutputFieldsInput;
+      include?: _Types.candidatesCollectionOutputIncludeInput;
+    };
+  }
+
+  '~deleteMany': {
+    '~output': _Types.candidatesCollectionOutput;
+    '~parameters': {
+      filter?: _Types.candidatesFilterInput;
+      fields?: _Types.candidatesCollectionOutputFieldsInput;
+      include?: _Types.candidatesCollectionOutputIncludeInput;
+    };
+  }
+}
+
+export type checkrCandidatesCollection = {
+  '~primitiveKeys': 'adjudication' | 'createdAt' | 'customId' | 'dob' | 'email' | 'firstName' | 'id' | 'lastName' | 'metadata' | 'middleName' | 'phone' | 'zipcode';
+  '~relations': {
+    invitations: checkrInvitationsCollection[];
+    reports: checkrReportsCollection[];
+  };
+
+  '~readOne': {
+    '~key': string;
+    '~output': _Types.checkrCandidatesCollectionOutput;
+    '~parameters': {
+      fields?: _Types.checkrCandidatesCollectionOutputFieldsInput;
+      include?: _Types.checkrCandidatesCollectionOutputIncludeInput;
+    };
+  }
+
+  '~readMany': {
+    '~output': _Types.checkrCandidatesCollectionOutput;
+    '~responseMeta': _Types.ResponseMeta;
+    '~parameters': {
+      filter?: _Types.checkrCandidatesFilterInput;
+      fields?: _Types.checkrCandidatesCollectionOutputFieldsInput;
+      include?: _Types.checkrCandidatesCollectionOutputIncludeInput;
+      meta?: _Types.MetaArguments;
+      limit?: number;
+      offset?: number;
+    };
+  }
+}
+
+export type checkrInvitationsCollection = {
+  '~primitiveKeys': 'archived' | 'candidateId' | 'completedAt' | 'createdAt' | 'deletedAt' | 'expiresAt' | 'id' | 'invitationUrl' | 'package' | 'reportId' | 'status';
+  '~relations': {
+    candidate: checkrCandidatesCollection;
+    report: checkrReportsCollection;
+  };
+
+  '~readOne': {
+    '~key': string;
+    '~output': _Types.checkrInvitationsCollectionOutput;
+    '~parameters': {
+      fields?: _Types.checkrInvitationsCollectionOutputFieldsInput;
+      include?: _Types.checkrInvitationsCollectionOutputIncludeInput;
+    };
+  }
+
+  '~readMany': {
+    '~output': _Types.checkrInvitationsCollectionOutput;
+    '~responseMeta': _Types.ResponseMeta;
+    '~parameters': {
+      filter?: _Types.checkrInvitationsFilterInput;
+      fields?: _Types.checkrInvitationsCollectionOutputFieldsInput;
+      include?: _Types.checkrInvitationsCollectionOutputIncludeInput;
+      meta?: _Types.MetaArguments;
+      limit?: number;
+      offset?: number;
+    };
+  }
+}
+
+export type checkrPackagesCollection = {
+  '~primitiveKeys': 'applyUrl' | 'createdAt' | 'deletedAt' | 'id' | 'name' | 'price' | 'screenings' | 'slug';
+  '~relations': Record<never, never>;
+
+  '~readOne': {
+    '~key': string;
+    '~output': _Types.checkrPackagesCollectionOutput;
+    '~parameters': {
+      fields?: _Types.checkrPackagesCollectionOutputFieldsInput;
+      include?: _Types.checkrPackagesCollectionOutputIncludeInput;
+    };
+  }
+
+  '~readMany': {
+    '~output': _Types.checkrPackagesCollectionOutput;
+    '~responseMeta': _Types.ResponseMeta;
+    '~parameters': {
+      filter?: _Types.checkrPackagesFilterInput;
+      fields?: _Types.checkrPackagesCollectionOutputFieldsInput;
+      include?: _Types.checkrPackagesCollectionOutputIncludeInput;
+      meta?: _Types.MetaArguments;
+      limit?: number;
+      offset?: number;
+    };
+  }
+}
+
+export type checkrReportsCollection = {
+  '~primitiveKeys': 'adjudication' | 'archived' | 'assessment' | 'candidateId' | 'completedAt' | 'createdAt' | 'estimatedCompletionTime' | 'id' | 'includesCanceled' | 'package' | 'result' | 'revisedAt' | 'source' | 'status' | 'turnaroundTime' | 'upgradedAt';
+  '~relations': {
+    candidate: checkrCandidatesCollection;
+    invitations: checkrInvitationsCollection[];
+  };
+
+  '~readOne': {
+    '~key': string;
+    '~output': _Types.checkrReportsCollectionOutput;
+    '~parameters': {
+      fields?: _Types.checkrReportsCollectionOutputFieldsInput;
+      include?: _Types.checkrReportsCollectionOutputIncludeInput;
+    };
+  }
+
+  '~readMany': {
+    '~output': _Types.checkrReportsCollectionOutput;
+    '~parameters': {
+      filter?: _Types.checkrReportsFilterInput;
+      fields?: _Types.checkrReportsCollectionOutputFieldsInput;
+      include?: _Types.checkrReportsCollectionOutputIncludeInput;
+      limit?: number;
+      offset?: number;
     };
   }
 }
@@ -11915,6 +22152,166 @@ export type dealsCollection = {
   }
 }
 
+export type departmentsCollection = {
+  '~primitiveKeys': 'createdAt' | 'hasVariableComp' | 'headUserId' | 'id' | 'name';
+  '~relations': {
+    requisitions: requisitionsCollection[];
+    role_requests: roleRequestsCollection[];
+    workforce_plan_roles: workforcePlanRolesCollection[];
+  };
+
+  '~readOne': {
+    '~key': Uuid;
+    '~output': _Types.departmentsCollectionOutput;
+    '~parameters': {
+      filter?: _Types.departmentsFilterInput;
+      fields?: _Types.departmentsCollectionOutputFieldsInput;
+      include?: _Types.departmentsCollectionOutputIncludeInput;
+    };
+  }
+
+  '~readMany': {
+    '~output': _Types.departmentsCollectionOutput;
+    '~responseMeta': _Types.ResponseMeta;
+    '~parameters': {
+      filter?: _Types.departmentsFilterInput;
+      sort?: readonly _Types.departmentsSortSpecifier[];
+      fields?: _Types.departmentsCollectionOutputFieldsInput;
+      include?: _Types.departmentsCollectionOutputIncludeInput;
+      meta?: _Types.MetaArguments;
+      limit?: number;
+      offset?: number;
+    };
+  }
+
+  '~create': {
+    '~input': _Types.departmentsCreateInput;
+    '~output': _Types.departmentsCollectionOutput;
+    '~parameters': {
+      fields?: _Types.departmentsCollectionOutputFieldsInput;
+      include?: _Types.departmentsCollectionOutputIncludeInput;
+    };
+  }
+
+  '~updateOne': {
+    '~key': Uuid;
+    '~input': _Types.departmentsUpdateDataInput;
+    '~output': _Types.departmentsCollectionOutput;
+    '~parameters': {
+      filter?: _Types.departmentsFilterInput;
+      fields?: _Types.departmentsCollectionOutputFieldsInput;
+      include?: _Types.departmentsCollectionOutputIncludeInput;
+    };
+  }
+
+  '~updateMany': {
+    '~input': _Types.departmentsUpdateDataInput;
+    '~output': _Types.departmentsCollectionOutput;
+    '~parameters': {
+      filter?: _Types.departmentsFilterInput;
+      fields?: _Types.departmentsCollectionOutputFieldsInput;
+      include?: _Types.departmentsCollectionOutputIncludeInput;
+    };
+  }
+
+  '~deleteOne': {
+    '~key': Uuid;
+    '~output': _Types.departmentsCollectionOutput;
+    '~parameters': {
+      filter?: _Types.departmentsFilterInput;
+      fields?: _Types.departmentsCollectionOutputFieldsInput;
+      include?: _Types.departmentsCollectionOutputIncludeInput;
+    };
+  }
+
+  '~deleteMany': {
+    '~output': _Types.departmentsCollectionOutput;
+    '~parameters': {
+      filter?: _Types.departmentsFilterInput;
+      fields?: _Types.departmentsCollectionOutputFieldsInput;
+      include?: _Types.departmentsCollectionOutputIncludeInput;
+    };
+  }
+}
+
+export type emailTemplatesCollection = {
+  '~primitiveKeys': 'body' | 'createdAt' | 'createdById' | 'id' | 'name' | 'subject' | 'updatedAt' | 'updatedById';
+  '~relations': Record<never, never>;
+
+  '~readOne': {
+    '~key': Uuid;
+    '~output': _Types.emailTemplatesCollectionOutput;
+    '~parameters': {
+      filter?: _Types.emailTemplatesFilterInput;
+      fields?: _Types.emailTemplatesCollectionOutputFieldsInput;
+      include?: _Types.emailTemplatesCollectionOutputIncludeInput;
+    };
+  }
+
+  '~readMany': {
+    '~output': _Types.emailTemplatesCollectionOutput;
+    '~responseMeta': _Types.ResponseMeta;
+    '~parameters': {
+      filter?: _Types.emailTemplatesFilterInput;
+      sort?: readonly _Types.emailTemplatesSortSpecifier[];
+      fields?: _Types.emailTemplatesCollectionOutputFieldsInput;
+      include?: _Types.emailTemplatesCollectionOutputIncludeInput;
+      meta?: _Types.MetaArguments;
+      limit?: number;
+      offset?: number;
+    };
+  }
+
+  '~create': {
+    '~input': _Types.emailTemplatesCreateInput;
+    '~output': _Types.emailTemplatesCollectionOutput;
+    '~parameters': {
+      fields?: _Types.emailTemplatesCollectionOutputFieldsInput;
+      include?: _Types.emailTemplatesCollectionOutputIncludeInput;
+    };
+  }
+
+  '~updateOne': {
+    '~key': Uuid;
+    '~input': _Types.emailTemplatesUpdateDataInput;
+    '~output': _Types.emailTemplatesCollectionOutput;
+    '~parameters': {
+      filter?: _Types.emailTemplatesFilterInput;
+      fields?: _Types.emailTemplatesCollectionOutputFieldsInput;
+      include?: _Types.emailTemplatesCollectionOutputIncludeInput;
+    };
+  }
+
+  '~updateMany': {
+    '~input': _Types.emailTemplatesUpdateDataInput;
+    '~output': _Types.emailTemplatesCollectionOutput;
+    '~parameters': {
+      filter?: _Types.emailTemplatesFilterInput;
+      fields?: _Types.emailTemplatesCollectionOutputFieldsInput;
+      include?: _Types.emailTemplatesCollectionOutputIncludeInput;
+    };
+  }
+
+  '~deleteOne': {
+    '~key': Uuid;
+    '~output': _Types.emailTemplatesCollectionOutput;
+    '~parameters': {
+      filter?: _Types.emailTemplatesFilterInput;
+      fields?: _Types.emailTemplatesCollectionOutputFieldsInput;
+      include?: _Types.emailTemplatesCollectionOutputIncludeInput;
+    };
+  }
+
+  '~deleteMany': {
+    '~output': _Types.emailTemplatesCollectionOutput;
+    '~parameters': {
+      filter?: _Types.emailTemplatesFilterInput;
+      fields?: _Types.emailTemplatesCollectionOutputFieldsInput;
+      include?: _Types.emailTemplatesCollectionOutputIncludeInput;
+    };
+  }
+}
+
 export type eventsCollection = {
   '~primitiveKeys': 'accountId' | 'detail' | 'id' | 'occurredAt' | 'type' | 'userId';
   '~relations': {
@@ -11992,6 +22389,492 @@ export type eventsCollection = {
       filter?: _Types.eventsFilterInput;
       fields?: _Types.eventsCollectionOutputFieldsInput;
       include?: _Types.eventsCollectionOutputIncludeInput;
+    };
+  }
+}
+
+export type hiringLocationsCollection = {
+  '~primitiveKeys': 'id' | 'name' | 'position';
+  '~relations': Record<never, never>;
+
+  '~readOne': {
+    '~key': Uuid;
+    '~output': _Types.hiringLocationsCollectionOutput;
+    '~parameters': {
+      filter?: _Types.hiringLocationsFilterInput;
+      fields?: _Types.hiringLocationsCollectionOutputFieldsInput;
+      include?: _Types.hiringLocationsCollectionOutputIncludeInput;
+    };
+  }
+
+  '~readMany': {
+    '~output': _Types.hiringLocationsCollectionOutput;
+    '~responseMeta': _Types.ResponseMeta;
+    '~parameters': {
+      filter?: _Types.hiringLocationsFilterInput;
+      sort?: readonly _Types.hiringLocationsSortSpecifier[];
+      fields?: _Types.hiringLocationsCollectionOutputFieldsInput;
+      include?: _Types.hiringLocationsCollectionOutputIncludeInput;
+      meta?: _Types.MetaArguments;
+      limit?: number;
+      offset?: number;
+    };
+  }
+
+  '~create': {
+    '~input': _Types.hiringLocationsCreateInput;
+    '~output': _Types.hiringLocationsCollectionOutput;
+    '~parameters': {
+      fields?: _Types.hiringLocationsCollectionOutputFieldsInput;
+      include?: _Types.hiringLocationsCollectionOutputIncludeInput;
+    };
+  }
+
+  '~updateOne': {
+    '~key': Uuid;
+    '~input': _Types.hiringLocationsUpdateDataInput;
+    '~output': _Types.hiringLocationsCollectionOutput;
+    '~parameters': {
+      filter?: _Types.hiringLocationsFilterInput;
+      fields?: _Types.hiringLocationsCollectionOutputFieldsInput;
+      include?: _Types.hiringLocationsCollectionOutputIncludeInput;
+    };
+  }
+
+  '~updateMany': {
+    '~input': _Types.hiringLocationsUpdateDataInput;
+    '~output': _Types.hiringLocationsCollectionOutput;
+    '~parameters': {
+      filter?: _Types.hiringLocationsFilterInput;
+      fields?: _Types.hiringLocationsCollectionOutputFieldsInput;
+      include?: _Types.hiringLocationsCollectionOutputIncludeInput;
+    };
+  }
+
+  '~deleteOne': {
+    '~key': Uuid;
+    '~output': _Types.hiringLocationsCollectionOutput;
+    '~parameters': {
+      filter?: _Types.hiringLocationsFilterInput;
+      fields?: _Types.hiringLocationsCollectionOutputFieldsInput;
+      include?: _Types.hiringLocationsCollectionOutputIncludeInput;
+    };
+  }
+
+  '~deleteMany': {
+    '~output': _Types.hiringLocationsCollectionOutput;
+    '~parameters': {
+      filter?: _Types.hiringLocationsFilterInput;
+      fields?: _Types.hiringLocationsCollectionOutputFieldsInput;
+      include?: _Types.hiringLocationsCollectionOutputIncludeInput;
+    };
+  }
+}
+
+export type interviewParticipantsCollection = {
+  '~primitiveKeys': 'id' | 'interviewId' | 'userId';
+  '~relations': {
+    interviews: interviewsCollection;
+  };
+
+  '~readOne': {
+    '~key': Uuid;
+    '~output': _Types.interviewParticipantsCollectionOutput;
+    '~parameters': {
+      filter?: _Types.interviewParticipantsFilterInput;
+      fields?: _Types.interviewParticipantsCollectionOutputFieldsInput;
+      include?: _Types.interviewParticipantsCollectionOutputIncludeInput;
+    };
+  }
+
+  '~readMany': {
+    '~output': _Types.interviewParticipantsCollectionOutput;
+    '~responseMeta': _Types.ResponseMeta;
+    '~parameters': {
+      filter?: _Types.interviewParticipantsFilterInput;
+      sort?: readonly _Types.interviewParticipantsSortSpecifier[];
+      fields?: _Types.interviewParticipantsCollectionOutputFieldsInput;
+      include?: _Types.interviewParticipantsCollectionOutputIncludeInput;
+      meta?: _Types.MetaArguments;
+      limit?: number;
+      offset?: number;
+    };
+  }
+
+  '~create': {
+    '~input': _Types.interviewParticipantsCreateInput;
+    '~output': _Types.interviewParticipantsCollectionOutput;
+    '~parameters': {
+      fields?: _Types.interviewParticipantsCollectionOutputFieldsInput;
+      include?: _Types.interviewParticipantsCollectionOutputIncludeInput;
+    };
+  }
+
+  '~updateOne': {
+    '~key': Uuid;
+    '~input': _Types.interviewParticipantsUpdateDataInput;
+    '~output': _Types.interviewParticipantsCollectionOutput;
+    '~parameters': {
+      filter?: _Types.interviewParticipantsFilterInput;
+      fields?: _Types.interviewParticipantsCollectionOutputFieldsInput;
+      include?: _Types.interviewParticipantsCollectionOutputIncludeInput;
+    };
+  }
+
+  '~updateMany': {
+    '~input': _Types.interviewParticipantsUpdateDataInput;
+    '~output': _Types.interviewParticipantsCollectionOutput;
+    '~parameters': {
+      filter?: _Types.interviewParticipantsFilterInput;
+      fields?: _Types.interviewParticipantsCollectionOutputFieldsInput;
+      include?: _Types.interviewParticipantsCollectionOutputIncludeInput;
+    };
+  }
+
+  '~deleteOne': {
+    '~key': Uuid;
+    '~output': _Types.interviewParticipantsCollectionOutput;
+    '~parameters': {
+      filter?: _Types.interviewParticipantsFilterInput;
+      fields?: _Types.interviewParticipantsCollectionOutputFieldsInput;
+      include?: _Types.interviewParticipantsCollectionOutputIncludeInput;
+    };
+  }
+
+  '~deleteMany': {
+    '~output': _Types.interviewParticipantsCollectionOutput;
+    '~parameters': {
+      filter?: _Types.interviewParticipantsFilterInput;
+      fields?: _Types.interviewParticipantsCollectionOutputFieldsInput;
+      include?: _Types.interviewParticipantsCollectionOutputIncludeInput;
+    };
+  }
+}
+
+export type interviewStagesCollection = {
+  '~primitiveKeys': 'id' | 'kind' | 'name' | 'position' | 'requisitionId' | 'slaDays';
+  '~relations': {
+    applications: applicationsCollection[];
+    interviews: interviewsCollection[];
+    requisitions: requisitionsCollection;
+  };
+
+  '~readOne': {
+    '~key': Uuid;
+    '~output': _Types.interviewStagesCollectionOutput;
+    '~parameters': {
+      filter?: _Types.interviewStagesFilterInput;
+      fields?: _Types.interviewStagesCollectionOutputFieldsInput;
+      include?: _Types.interviewStagesCollectionOutputIncludeInput;
+    };
+  }
+
+  '~readMany': {
+    '~output': _Types.interviewStagesCollectionOutput;
+    '~responseMeta': _Types.ResponseMeta;
+    '~parameters': {
+      filter?: _Types.interviewStagesFilterInput;
+      sort?: readonly _Types.interviewStagesSortSpecifier[];
+      fields?: _Types.interviewStagesCollectionOutputFieldsInput;
+      include?: _Types.interviewStagesCollectionOutputIncludeInput;
+      meta?: _Types.MetaArguments;
+      limit?: number;
+      offset?: number;
+    };
+  }
+
+  '~create': {
+    '~input': _Types.interviewStagesCreateInput;
+    '~output': _Types.interviewStagesCollectionOutput;
+    '~parameters': {
+      fields?: _Types.interviewStagesCollectionOutputFieldsInput;
+      include?: _Types.interviewStagesCollectionOutputIncludeInput;
+    };
+  }
+
+  '~updateOne': {
+    '~key': Uuid;
+    '~input': _Types.interviewStagesUpdateDataInput;
+    '~output': _Types.interviewStagesCollectionOutput;
+    '~parameters': {
+      filter?: _Types.interviewStagesFilterInput;
+      fields?: _Types.interviewStagesCollectionOutputFieldsInput;
+      include?: _Types.interviewStagesCollectionOutputIncludeInput;
+    };
+  }
+
+  '~updateMany': {
+    '~input': _Types.interviewStagesUpdateDataInput;
+    '~output': _Types.interviewStagesCollectionOutput;
+    '~parameters': {
+      filter?: _Types.interviewStagesFilterInput;
+      fields?: _Types.interviewStagesCollectionOutputFieldsInput;
+      include?: _Types.interviewStagesCollectionOutputIncludeInput;
+    };
+  }
+
+  '~deleteOne': {
+    '~key': Uuid;
+    '~output': _Types.interviewStagesCollectionOutput;
+    '~parameters': {
+      filter?: _Types.interviewStagesFilterInput;
+      fields?: _Types.interviewStagesCollectionOutputFieldsInput;
+      include?: _Types.interviewStagesCollectionOutputIncludeInput;
+    };
+  }
+
+  '~deleteMany': {
+    '~output': _Types.interviewStagesCollectionOutput;
+    '~parameters': {
+      filter?: _Types.interviewStagesFilterInput;
+      fields?: _Types.interviewStagesCollectionOutputFieldsInput;
+      include?: _Types.interviewStagesCollectionOutputIncludeInput;
+    };
+  }
+}
+
+export type interviewsCollection = {
+  '~primitiveKeys': 'applicationId' | 'createdAt' | 'createdById' | 'endsAt' | 'id' | 'interviewStageId' | 'meetingUrl' | 'startsAt' | 'status' | 'title' | 'updatedAt' | 'updatedById';
+  '~relations': {
+    applications: applicationsCollection;
+    interview_participants: interviewParticipantsCollection[];
+    interview_stages: interviewStagesCollection;
+    scorecards: scorecardsCollection[];
+  };
+
+  '~readOne': {
+    '~key': Uuid;
+    '~output': _Types.interviewsCollectionOutput;
+    '~parameters': {
+      filter?: _Types.interviewsFilterInput;
+      fields?: _Types.interviewsCollectionOutputFieldsInput;
+      include?: _Types.interviewsCollectionOutputIncludeInput;
+    };
+  }
+
+  '~readMany': {
+    '~output': _Types.interviewsCollectionOutput;
+    '~responseMeta': _Types.ResponseMeta;
+    '~parameters': {
+      filter?: _Types.interviewsFilterInput;
+      sort?: readonly _Types.interviewsSortSpecifier[];
+      fields?: _Types.interviewsCollectionOutputFieldsInput;
+      include?: _Types.interviewsCollectionOutputIncludeInput;
+      meta?: _Types.MetaArguments;
+      limit?: number;
+      offset?: number;
+    };
+  }
+
+  '~create': {
+    '~input': _Types.interviewsCreateInput;
+    '~output': _Types.interviewsCollectionOutput;
+    '~parameters': {
+      fields?: _Types.interviewsCollectionOutputFieldsInput;
+      include?: _Types.interviewsCollectionOutputIncludeInput;
+    };
+  }
+
+  '~updateOne': {
+    '~key': Uuid;
+    '~input': _Types.interviewsUpdateDataInput;
+    '~output': _Types.interviewsCollectionOutput;
+    '~parameters': {
+      filter?: _Types.interviewsFilterInput;
+      fields?: _Types.interviewsCollectionOutputFieldsInput;
+      include?: _Types.interviewsCollectionOutputIncludeInput;
+    };
+  }
+
+  '~updateMany': {
+    '~input': _Types.interviewsUpdateDataInput;
+    '~output': _Types.interviewsCollectionOutput;
+    '~parameters': {
+      filter?: _Types.interviewsFilterInput;
+      fields?: _Types.interviewsCollectionOutputFieldsInput;
+      include?: _Types.interviewsCollectionOutputIncludeInput;
+    };
+  }
+
+  '~deleteOne': {
+    '~key': Uuid;
+    '~output': _Types.interviewsCollectionOutput;
+    '~parameters': {
+      filter?: _Types.interviewsFilterInput;
+      fields?: _Types.interviewsCollectionOutputFieldsInput;
+      include?: _Types.interviewsCollectionOutputIncludeInput;
+    };
+  }
+
+  '~deleteMany': {
+    '~output': _Types.interviewsCollectionOutput;
+    '~parameters': {
+      filter?: _Types.interviewsFilterInput;
+      fields?: _Types.interviewsCollectionOutputFieldsInput;
+      include?: _Types.interviewsCollectionOutputIncludeInput;
+    };
+  }
+}
+
+export type jobLevelsCollection = {
+  '~primitiveKeys': 'id' | 'name' | 'position' | 'track';
+  '~relations': {
+    requisitions: requisitionsCollection[];
+    role_requests: roleRequestsCollection[];
+    workforce_plan_roles: workforcePlanRolesCollection[];
+  };
+
+  '~readOne': {
+    '~key': Uuid;
+    '~output': _Types.jobLevelsCollectionOutput;
+    '~parameters': {
+      filter?: _Types.jobLevelsFilterInput;
+      fields?: _Types.jobLevelsCollectionOutputFieldsInput;
+      include?: _Types.jobLevelsCollectionOutputIncludeInput;
+    };
+  }
+
+  '~readMany': {
+    '~output': _Types.jobLevelsCollectionOutput;
+    '~responseMeta': _Types.ResponseMeta;
+    '~parameters': {
+      filter?: _Types.jobLevelsFilterInput;
+      sort?: readonly _Types.jobLevelsSortSpecifier[];
+      fields?: _Types.jobLevelsCollectionOutputFieldsInput;
+      include?: _Types.jobLevelsCollectionOutputIncludeInput;
+      meta?: _Types.MetaArguments;
+      limit?: number;
+      offset?: number;
+    };
+  }
+
+  '~create': {
+    '~input': _Types.jobLevelsCreateInput;
+    '~output': _Types.jobLevelsCollectionOutput;
+    '~parameters': {
+      fields?: _Types.jobLevelsCollectionOutputFieldsInput;
+      include?: _Types.jobLevelsCollectionOutputIncludeInput;
+    };
+  }
+
+  '~updateOne': {
+    '~key': Uuid;
+    '~input': _Types.jobLevelsUpdateDataInput;
+    '~output': _Types.jobLevelsCollectionOutput;
+    '~parameters': {
+      filter?: _Types.jobLevelsFilterInput;
+      fields?: _Types.jobLevelsCollectionOutputFieldsInput;
+      include?: _Types.jobLevelsCollectionOutputIncludeInput;
+    };
+  }
+
+  '~updateMany': {
+    '~input': _Types.jobLevelsUpdateDataInput;
+    '~output': _Types.jobLevelsCollectionOutput;
+    '~parameters': {
+      filter?: _Types.jobLevelsFilterInput;
+      fields?: _Types.jobLevelsCollectionOutputFieldsInput;
+      include?: _Types.jobLevelsCollectionOutputIncludeInput;
+    };
+  }
+
+  '~deleteOne': {
+    '~key': Uuid;
+    '~output': _Types.jobLevelsCollectionOutput;
+    '~parameters': {
+      filter?: _Types.jobLevelsFilterInput;
+      fields?: _Types.jobLevelsCollectionOutputFieldsInput;
+      include?: _Types.jobLevelsCollectionOutputIncludeInput;
+    };
+  }
+
+  '~deleteMany': {
+    '~output': _Types.jobLevelsCollectionOutput;
+    '~parameters': {
+      filter?: _Types.jobLevelsFilterInput;
+      fields?: _Types.jobLevelsCollectionOutputFieldsInput;
+      include?: _Types.jobLevelsCollectionOutputIncludeInput;
+    };
+  }
+}
+
+export type offersCollection = {
+  '~primitiveKeys': 'applicationId' | 'baseSalary' | 'candidateIntro' | 'createdAt' | 'createdById' | 'currency' | 'equityUnits' | 'id' | 'proposedStartDate' | 'searchOverview' | 'status' | 'updatedAt' | 'updatedById';
+  '~relations': {
+    applications: applicationsCollection;
+    approvals: approvalsCollection[];
+  };
+
+  '~readOne': {
+    '~key': Uuid;
+    '~output': _Types.offersCollectionOutput;
+    '~parameters': {
+      filter?: _Types.offersFilterInput;
+      fields?: _Types.offersCollectionOutputFieldsInput;
+      include?: _Types.offersCollectionOutputIncludeInput;
+    };
+  }
+
+  '~readMany': {
+    '~output': _Types.offersCollectionOutput;
+    '~responseMeta': _Types.ResponseMeta;
+    '~parameters': {
+      filter?: _Types.offersFilterInput;
+      sort?: readonly _Types.offersSortSpecifier[];
+      fields?: _Types.offersCollectionOutputFieldsInput;
+      include?: _Types.offersCollectionOutputIncludeInput;
+      meta?: _Types.MetaArguments;
+      limit?: number;
+      offset?: number;
+    };
+  }
+
+  '~create': {
+    '~input': _Types.offersCreateInput;
+    '~output': _Types.offersCollectionOutput;
+    '~parameters': {
+      fields?: _Types.offersCollectionOutputFieldsInput;
+      include?: _Types.offersCollectionOutputIncludeInput;
+    };
+  }
+
+  '~updateOne': {
+    '~key': Uuid;
+    '~input': _Types.offersUpdateDataInput;
+    '~output': _Types.offersCollectionOutput;
+    '~parameters': {
+      filter?: _Types.offersFilterInput;
+      fields?: _Types.offersCollectionOutputFieldsInput;
+      include?: _Types.offersCollectionOutputIncludeInput;
+    };
+  }
+
+  '~updateMany': {
+    '~input': _Types.offersUpdateDataInput;
+    '~output': _Types.offersCollectionOutput;
+    '~parameters': {
+      filter?: _Types.offersFilterInput;
+      fields?: _Types.offersCollectionOutputFieldsInput;
+      include?: _Types.offersCollectionOutputIncludeInput;
+    };
+  }
+
+  '~deleteOne': {
+    '~key': Uuid;
+    '~output': _Types.offersCollectionOutput;
+    '~parameters': {
+      filter?: _Types.offersFilterInput;
+      fields?: _Types.offersCollectionOutputFieldsInput;
+      include?: _Types.offersCollectionOutputIncludeInput;
+    };
+  }
+
+  '~deleteMany': {
+    '~output': _Types.offersCollectionOutput;
+    '~parameters': {
+      filter?: _Types.offersFilterInput;
+      fields?: _Types.offersCollectionOutputFieldsInput;
+      include?: _Types.offersCollectionOutputIncludeInput;
     };
   }
 }
@@ -12236,6 +23119,337 @@ export type plansCollection = {
       filter?: _Types.plansFilterInput;
       fields?: _Types.plansCollectionOutputFieldsInput;
       include?: _Types.plansCollectionOutputIncludeInput;
+    };
+  }
+}
+
+export type publicApplicationsCollection = {
+  '~primitiveKeys': 'applicationId' | 'candidateId' | 'city' | 'consent' | 'country' | 'createdAt' | 'email' | 'firstName' | 'githubUrl' | 'id' | 'lastName' | 'linkedinUrl' | 'needsSponsorship' | 'phone' | 'portfolioUrl' | 'requisitionId' | 'resumeAssetId' | 'resumeFileName' | 'resumeUrl' | 'workAuthorized';
+  '~relations': {
+    applications: applicationsCollection;
+    candidates: candidatesCollection;
+    requisitions: requisitionsCollection;
+  };
+
+  '~readOne': {
+    '~key': Uuid;
+    '~output': _Types.publicApplicationsCollectionOutput;
+    '~parameters': {
+      filter?: _Types.publicApplicationsFilterInput;
+      fields?: _Types.publicApplicationsCollectionOutputFieldsInput;
+      include?: _Types.publicApplicationsCollectionOutputIncludeInput;
+    };
+  }
+
+  '~readMany': {
+    '~output': _Types.publicApplicationsCollectionOutput;
+    '~responseMeta': _Types.ResponseMeta;
+    '~parameters': {
+      filter?: _Types.publicApplicationsFilterInput;
+      sort?: readonly _Types.publicApplicationsSortSpecifier[];
+      fields?: _Types.publicApplicationsCollectionOutputFieldsInput;
+      include?: _Types.publicApplicationsCollectionOutputIncludeInput;
+      meta?: _Types.MetaArguments;
+      limit?: number;
+      offset?: number;
+    };
+  }
+
+  '~create': {
+    '~input': _Types.publicApplicationsCreateInput;
+    '~output': _Types.publicApplicationsCollectionOutput;
+    '~parameters': {
+      fields?: _Types.publicApplicationsCollectionOutputFieldsInput;
+      include?: _Types.publicApplicationsCollectionOutputIncludeInput;
+    };
+  }
+
+  '~updateOne': {
+    '~key': Uuid;
+    '~input': _Types.publicApplicationsUpdateDataInput;
+    '~output': _Types.publicApplicationsCollectionOutput;
+    '~parameters': {
+      filter?: _Types.publicApplicationsFilterInput;
+      fields?: _Types.publicApplicationsCollectionOutputFieldsInput;
+      include?: _Types.publicApplicationsCollectionOutputIncludeInput;
+    };
+  }
+
+  '~updateMany': {
+    '~input': _Types.publicApplicationsUpdateDataInput;
+    '~output': _Types.publicApplicationsCollectionOutput;
+    '~parameters': {
+      filter?: _Types.publicApplicationsFilterInput;
+      fields?: _Types.publicApplicationsCollectionOutputFieldsInput;
+      include?: _Types.publicApplicationsCollectionOutputIncludeInput;
+    };
+  }
+
+  '~deleteOne': {
+    '~key': Uuid;
+    '~output': _Types.publicApplicationsCollectionOutput;
+    '~parameters': {
+      filter?: _Types.publicApplicationsFilterInput;
+      fields?: _Types.publicApplicationsCollectionOutputFieldsInput;
+      include?: _Types.publicApplicationsCollectionOutputIncludeInput;
+    };
+  }
+
+  '~deleteMany': {
+    '~output': _Types.publicApplicationsCollectionOutput;
+    '~parameters': {
+      filter?: _Types.publicApplicationsFilterInput;
+      fields?: _Types.publicApplicationsCollectionOutputFieldsInput;
+      include?: _Types.publicApplicationsCollectionOutputIncludeInput;
+    };
+  }
+}
+
+export type requisitionsCollection = {
+  '~primitiveKeys': 'closedAt' | 'compMax' | 'compMin' | 'createdAt' | 'createdById' | 'currency' | 'departmentId' | 'description' | 'employmentType' | 'hiringManagerUserId' | 'hiringReason' | 'id' | 'isConfidential' | 'isLeadership' | 'jobLevelId' | 'kickoffAt' | 'kickoffNotes' | 'locations' | 'mustHaveSkills' | 'niceToHaveSkills' | 'numberOfHires' | 'openedAt' | 'postExternally' | 'recruiterUserId' | 'reqNumber' | 'roleRequestId' | 'status' | 'teamSize' | 'title' | 'updatedAt' | 'updatedById' | 'urgency';
+  '~relations': {
+    applications: applicationsCollection[];
+    departments: departmentsCollection;
+    interview_stages: interviewStagesCollection[];
+    job_levels: jobLevelsCollection;
+    public_applications: publicApplicationsCollection[];
+    role_requests: roleRequestsCollection;
+  };
+
+  '~readOne': {
+    '~key': Uuid;
+    '~output': _Types.requisitionsCollectionOutput;
+    '~parameters': {
+      filter?: _Types.requisitionsFilterInput;
+      fields?: _Types.requisitionsCollectionOutputFieldsInput;
+      include?: _Types.requisitionsCollectionOutputIncludeInput;
+    };
+  }
+
+  '~readMany': {
+    '~output': _Types.requisitionsCollectionOutput;
+    '~responseMeta': _Types.ResponseMeta;
+    '~parameters': {
+      filter?: _Types.requisitionsFilterInput;
+      sort?: readonly _Types.requisitionsSortSpecifier[];
+      fields?: _Types.requisitionsCollectionOutputFieldsInput;
+      include?: _Types.requisitionsCollectionOutputIncludeInput;
+      meta?: _Types.MetaArguments;
+      limit?: number;
+      offset?: number;
+    };
+  }
+
+  '~create': {
+    '~input': _Types.requisitionsCreateInput;
+    '~output': _Types.requisitionsCollectionOutput;
+    '~parameters': {
+      fields?: _Types.requisitionsCollectionOutputFieldsInput;
+      include?: _Types.requisitionsCollectionOutputIncludeInput;
+    };
+  }
+
+  '~updateOne': {
+    '~key': Uuid;
+    '~input': _Types.requisitionsUpdateDataInput;
+    '~output': _Types.requisitionsCollectionOutput;
+    '~parameters': {
+      filter?: _Types.requisitionsFilterInput;
+      fields?: _Types.requisitionsCollectionOutputFieldsInput;
+      include?: _Types.requisitionsCollectionOutputIncludeInput;
+    };
+  }
+
+  '~updateMany': {
+    '~input': _Types.requisitionsUpdateDataInput;
+    '~output': _Types.requisitionsCollectionOutput;
+    '~parameters': {
+      filter?: _Types.requisitionsFilterInput;
+      fields?: _Types.requisitionsCollectionOutputFieldsInput;
+      include?: _Types.requisitionsCollectionOutputIncludeInput;
+    };
+  }
+
+  '~deleteOne': {
+    '~key': Uuid;
+    '~output': _Types.requisitionsCollectionOutput;
+    '~parameters': {
+      filter?: _Types.requisitionsFilterInput;
+      fields?: _Types.requisitionsCollectionOutputFieldsInput;
+      include?: _Types.requisitionsCollectionOutputIncludeInput;
+    };
+  }
+
+  '~deleteMany': {
+    '~output': _Types.requisitionsCollectionOutput;
+    '~parameters': {
+      filter?: _Types.requisitionsFilterInput;
+      fields?: _Types.requisitionsCollectionOutputFieldsInput;
+      include?: _Types.requisitionsCollectionOutputIncludeInput;
+    };
+  }
+}
+
+export type roleRequestsCollection = {
+  '~primitiveKeys': 'approvedBaseMax' | 'approvedBaseMin' | 'approvedCurrency' | 'approvedEquityUnits' | 'approvedVariableMax' | 'approvedVariableMin' | 'businessJustification' | 'compMax' | 'compMin' | 'createdAt' | 'createdById' | 'currency' | 'decidedAt' | 'decidedByUserId' | 'decisionNote' | 'departmentId' | 'employmentType' | 'hiringManagerUserId' | 'hiringReason' | 'hiringReasonDetail' | 'id' | 'jobLevelId' | 'locations' | 'numberOfHires' | 'requesterUserId' | 'roleName' | 'status' | 'updatedAt' | 'updatedById' | 'urgency' | 'urgencyImpact' | 'workforcePlanRoleId';
+  '~relations': {
+    approvals: approvalsCollection[];
+    departments: departmentsCollection;
+    job_levels: jobLevelsCollection;
+    requisitions: requisitionsCollection;
+    workforce_plan_roles: workforcePlanRolesCollection;
+  };
+
+  '~readOne': {
+    '~key': Uuid;
+    '~output': _Types.roleRequestsCollectionOutput;
+    '~parameters': {
+      filter?: _Types.roleRequestsFilterInput;
+      fields?: _Types.roleRequestsCollectionOutputFieldsInput;
+      include?: _Types.roleRequestsCollectionOutputIncludeInput;
+    };
+  }
+
+  '~readMany': {
+    '~output': _Types.roleRequestsCollectionOutput;
+    '~responseMeta': _Types.ResponseMeta;
+    '~parameters': {
+      filter?: _Types.roleRequestsFilterInput;
+      sort?: readonly _Types.roleRequestsSortSpecifier[];
+      fields?: _Types.roleRequestsCollectionOutputFieldsInput;
+      include?: _Types.roleRequestsCollectionOutputIncludeInput;
+      meta?: _Types.MetaArguments;
+      limit?: number;
+      offset?: number;
+    };
+  }
+
+  '~create': {
+    '~input': _Types.roleRequestsCreateInput;
+    '~output': _Types.roleRequestsCollectionOutput;
+    '~parameters': {
+      fields?: _Types.roleRequestsCollectionOutputFieldsInput;
+      include?: _Types.roleRequestsCollectionOutputIncludeInput;
+    };
+  }
+
+  '~updateOne': {
+    '~key': Uuid;
+    '~input': _Types.roleRequestsUpdateDataInput;
+    '~output': _Types.roleRequestsCollectionOutput;
+    '~parameters': {
+      filter?: _Types.roleRequestsFilterInput;
+      fields?: _Types.roleRequestsCollectionOutputFieldsInput;
+      include?: _Types.roleRequestsCollectionOutputIncludeInput;
+    };
+  }
+
+  '~updateMany': {
+    '~input': _Types.roleRequestsUpdateDataInput;
+    '~output': _Types.roleRequestsCollectionOutput;
+    '~parameters': {
+      filter?: _Types.roleRequestsFilterInput;
+      fields?: _Types.roleRequestsCollectionOutputFieldsInput;
+      include?: _Types.roleRequestsCollectionOutputIncludeInput;
+    };
+  }
+
+  '~deleteOne': {
+    '~key': Uuid;
+    '~output': _Types.roleRequestsCollectionOutput;
+    '~parameters': {
+      filter?: _Types.roleRequestsFilterInput;
+      fields?: _Types.roleRequestsCollectionOutputFieldsInput;
+      include?: _Types.roleRequestsCollectionOutputIncludeInput;
+    };
+  }
+
+  '~deleteMany': {
+    '~output': _Types.roleRequestsCollectionOutput;
+    '~parameters': {
+      filter?: _Types.roleRequestsFilterInput;
+      fields?: _Types.roleRequestsCollectionOutputFieldsInput;
+      include?: _Types.roleRequestsCollectionOutputIncludeInput;
+    };
+  }
+}
+
+export type scorecardsCollection = {
+  '~primitiveKeys': 'createdById' | 'flags' | 'id' | 'interviewId' | 'interviewerUserId' | 'positives' | 'recommendation' | 'submittedAt' | 'summary' | 'updatedAt' | 'updatedById';
+  '~relations': {
+    interviews: interviewsCollection;
+  };
+
+  '~readOne': {
+    '~key': Uuid;
+    '~output': _Types.scorecardsCollectionOutput;
+    '~parameters': {
+      filter?: _Types.scorecardsFilterInput;
+      fields?: _Types.scorecardsCollectionOutputFieldsInput;
+      include?: _Types.scorecardsCollectionOutputIncludeInput;
+    };
+  }
+
+  '~readMany': {
+    '~output': _Types.scorecardsCollectionOutput;
+    '~responseMeta': _Types.ResponseMeta;
+    '~parameters': {
+      filter?: _Types.scorecardsFilterInput;
+      sort?: readonly _Types.scorecardsSortSpecifier[];
+      fields?: _Types.scorecardsCollectionOutputFieldsInput;
+      include?: _Types.scorecardsCollectionOutputIncludeInput;
+      meta?: _Types.MetaArguments;
+      limit?: number;
+      offset?: number;
+    };
+  }
+
+  '~create': {
+    '~input': _Types.scorecardsCreateInput;
+    '~output': _Types.scorecardsCollectionOutput;
+    '~parameters': {
+      fields?: _Types.scorecardsCollectionOutputFieldsInput;
+      include?: _Types.scorecardsCollectionOutputIncludeInput;
+    };
+  }
+
+  '~updateOne': {
+    '~key': Uuid;
+    '~input': _Types.scorecardsUpdateDataInput;
+    '~output': _Types.scorecardsCollectionOutput;
+    '~parameters': {
+      filter?: _Types.scorecardsFilterInput;
+      fields?: _Types.scorecardsCollectionOutputFieldsInput;
+      include?: _Types.scorecardsCollectionOutputIncludeInput;
+    };
+  }
+
+  '~updateMany': {
+    '~input': _Types.scorecardsUpdateDataInput;
+    '~output': _Types.scorecardsCollectionOutput;
+    '~parameters': {
+      filter?: _Types.scorecardsFilterInput;
+      fields?: _Types.scorecardsCollectionOutputFieldsInput;
+      include?: _Types.scorecardsCollectionOutputIncludeInput;
+    };
+  }
+
+  '~deleteOne': {
+    '~key': Uuid;
+    '~output': _Types.scorecardsCollectionOutput;
+    '~parameters': {
+      filter?: _Types.scorecardsFilterInput;
+      fields?: _Types.scorecardsCollectionOutputFieldsInput;
+      include?: _Types.scorecardsCollectionOutputIncludeInput;
+    };
+  }
+
+  '~deleteMany': {
+    '~output': _Types.scorecardsCollectionOutput;
+    '~parameters': {
+      filter?: _Types.scorecardsFilterInput;
+      fields?: _Types.scorecardsCollectionOutputFieldsInput;
+      include?: _Types.scorecardsCollectionOutputIncludeInput;
     };
   }
 }
@@ -12593,6 +23807,89 @@ export type usersCollection = {
   }
 }
 
+export type workforcePlanRolesCollection = {
+  '~primitiveKeys': 'approvedHeadcount' | 'budgetAmount' | 'createdAt' | 'createdById' | 'currency' | 'currentHeadcount' | 'departmentId' | 'employmentType' | 'hireType' | 'id' | 'jobLevelId' | 'locations' | 'planYear' | 'plannedHeadcount' | 'roleName' | 'status' | 'team' | 'updatedAt' | 'updatedById';
+  '~relations': {
+    approvals: approvalsCollection[];
+    departments: departmentsCollection;
+    job_levels: jobLevelsCollection;
+    role_requests: roleRequestsCollection[];
+  };
+
+  '~readOne': {
+    '~key': Uuid;
+    '~output': _Types.workforcePlanRolesCollectionOutput;
+    '~parameters': {
+      filter?: _Types.workforcePlanRolesFilterInput;
+      fields?: _Types.workforcePlanRolesCollectionOutputFieldsInput;
+      include?: _Types.workforcePlanRolesCollectionOutputIncludeInput;
+    };
+  }
+
+  '~readMany': {
+    '~output': _Types.workforcePlanRolesCollectionOutput;
+    '~responseMeta': _Types.ResponseMeta;
+    '~parameters': {
+      filter?: _Types.workforcePlanRolesFilterInput;
+      sort?: readonly _Types.workforcePlanRolesSortSpecifier[];
+      fields?: _Types.workforcePlanRolesCollectionOutputFieldsInput;
+      include?: _Types.workforcePlanRolesCollectionOutputIncludeInput;
+      meta?: _Types.MetaArguments;
+      limit?: number;
+      offset?: number;
+    };
+  }
+
+  '~create': {
+    '~input': _Types.workforcePlanRolesCreateInput;
+    '~output': _Types.workforcePlanRolesCollectionOutput;
+    '~parameters': {
+      fields?: _Types.workforcePlanRolesCollectionOutputFieldsInput;
+      include?: _Types.workforcePlanRolesCollectionOutputIncludeInput;
+    };
+  }
+
+  '~updateOne': {
+    '~key': Uuid;
+    '~input': _Types.workforcePlanRolesUpdateDataInput;
+    '~output': _Types.workforcePlanRolesCollectionOutput;
+    '~parameters': {
+      filter?: _Types.workforcePlanRolesFilterInput;
+      fields?: _Types.workforcePlanRolesCollectionOutputFieldsInput;
+      include?: _Types.workforcePlanRolesCollectionOutputIncludeInput;
+    };
+  }
+
+  '~updateMany': {
+    '~input': _Types.workforcePlanRolesUpdateDataInput;
+    '~output': _Types.workforcePlanRolesCollectionOutput;
+    '~parameters': {
+      filter?: _Types.workforcePlanRolesFilterInput;
+      fields?: _Types.workforcePlanRolesCollectionOutputFieldsInput;
+      include?: _Types.workforcePlanRolesCollectionOutputIncludeInput;
+    };
+  }
+
+  '~deleteOne': {
+    '~key': Uuid;
+    '~output': _Types.workforcePlanRolesCollectionOutput;
+    '~parameters': {
+      filter?: _Types.workforcePlanRolesFilterInput;
+      fields?: _Types.workforcePlanRolesCollectionOutputFieldsInput;
+      include?: _Types.workforcePlanRolesCollectionOutputIncludeInput;
+    };
+  }
+
+  '~deleteMany': {
+    '~output': _Types.workforcePlanRolesCollectionOutput;
+    '~parameters': {
+      filter?: _Types.workforcePlanRolesFilterInput;
+      fields?: _Types.workforcePlanRolesCollectionOutputFieldsInput;
+      include?: _Types.workforcePlanRolesCollectionOutputIncludeInput;
+    };
+  }
+}
+
 // =============================================================================
 // PER-COLLECTION TYPE ALIASES
 // =============================================================================
@@ -12756,6 +24053,112 @@ export type affiliationsUpdateManyResult<T extends affiliationsUpdateManyParamet
 export type affiliationsDeleteOneResult<T extends affiliationsDeleteOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<affiliationsCollection, T, 'deleteOne', Opts>;
 export type affiliationsDeleteManyResult<T extends affiliationsDeleteManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<affiliationsCollection, T, 'deleteMany', Opts>;
 
+// --- applications: Per-Collection Type Aliases ---
+
+export type applicationsKey = ReadOneKey<applicationsCollection>;
+export type applicationsUpdateOneInput = UpdateOneInput<applicationsCollection>;
+export type applicationsUpdateManyInput = UpdateManyInput<applicationsCollection>;
+export type applicationsCreateOneInput = CreateOneInput<applicationsCollection>;
+export type applicationsCreateManyInput = CreateManyInput<applicationsCollection>;
+export type applicationsReadOneFields = OperationFields<applicationsCollection, 'readOne'>;
+export type applicationsReadManyFields = OperationFields<applicationsCollection, 'readMany'>;
+export type applicationsReadFirstFields = OperationFields<applicationsCollection, 'readMany'>;
+export type applicationsCreateOneFields = OperationFields<applicationsCollection, 'createOne'>;
+export type applicationsCreateManyFields = OperationFields<applicationsCollection, 'createMany'>;
+export type applicationsUpdateOneFields = OperationFields<applicationsCollection, 'updateOne'>;
+export type applicationsUpdateManyFields = OperationFields<applicationsCollection, 'updateMany'>;
+export type applicationsDeleteOneFields = OperationFields<applicationsCollection, 'deleteOne'>;
+export type applicationsDeleteManyFields = OperationFields<applicationsCollection, 'deleteMany'>;
+export type applicationsReadOneArgs = ReadOneOptions<applicationsCollection>;
+export type applicationsReadManyArgs = ReadManyParameters<applicationsCollection>;
+export type applicationsReadFirstArgs = ReadManyParameters<applicationsCollection>;
+export type applicationsCreateOneArgs = CreateOneOptions<applicationsCollection>;
+export type applicationsCreateManyArgs = CreateManyOptions<applicationsCollection>;
+export type applicationsUpdateOneArgs = UpdateOneOptions<applicationsCollection>;
+export type applicationsUpdateManyArgs = UpdateManyOptions<applicationsCollection>;
+export type applicationsDeleteOneArgs = DeleteOneOptions<applicationsCollection>;
+export type applicationsDeleteManyArgs = DeleteManyParameters<applicationsCollection>;
+export type applicationsReadOneParameters = ReadOneParameters<applicationsCollection>;
+export type applicationsReadManyParameters = ReadManyParameters<applicationsCollection>;
+export type applicationsReadFirstParameters = ReadManyParameters<applicationsCollection>;
+export type applicationsCreateOneParameters = CreateOneParameters<applicationsCollection>;
+export type applicationsCreateManyParameters = CreateManyParameters<applicationsCollection>;
+export type applicationsUpdateOneParameters = UpdateOneParameters<applicationsCollection>;
+export type applicationsUpdateManyParameters = UpdateManyParameters<applicationsCollection>;
+export type applicationsDeleteOneParameters = DeleteOneParameters<applicationsCollection>;
+export type applicationsDeleteManyParameters = DeleteManyParameters<applicationsCollection>;
+export type applicationsReadOneResultItem<T extends applicationsReadOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<applicationsCollection, T, 'readOne', Opts>;
+export type applicationsReadManyResultItem<T extends applicationsReadManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<applicationsCollection, T, 'readMany', Opts>;
+export type applicationsReadFirstResultItem<T extends applicationsReadFirstParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<applicationsCollection, T, 'readMany', Opts>;
+export type applicationsCreateOneResultItem<T extends applicationsCreateOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<applicationsCollection, T, 'createOne', Opts>;
+export type applicationsCreateManyResultItem<T extends applicationsCreateManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<applicationsCollection, T, 'createMany', Opts>;
+export type applicationsUpdateOneResultItem<T extends applicationsUpdateOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<applicationsCollection, T, 'updateOne', Opts>;
+export type applicationsUpdateManyResultItem<T extends applicationsUpdateManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<applicationsCollection, T, 'updateMany', Opts>;
+export type applicationsDeleteOneResultItem<T extends applicationsDeleteOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<applicationsCollection, T, 'deleteOne', Opts>;
+export type applicationsDeleteManyResultItem<T extends applicationsDeleteManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<applicationsCollection, T, 'deleteMany', Opts>;
+export type applicationsReadOneResult<T extends applicationsReadOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<applicationsCollection, T, 'readOne', Opts>;
+export type applicationsReadManyResult<T extends applicationsReadManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<applicationsCollection, T, 'readMany', Opts>;
+export type applicationsReadFirstResult<T extends applicationsReadFirstParameters, Opts extends Partial<TypeOptions> = {}> = ReadFirstResult<applicationsCollection, T, Opts>;
+export type applicationsCreateOneResult<T extends applicationsCreateOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<applicationsCollection, T, 'createOne', Opts>;
+export type applicationsCreateManyResult<T extends applicationsCreateManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<applicationsCollection, T, 'createMany', Opts>;
+export type applicationsUpdateOneResult<T extends applicationsUpdateOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<applicationsCollection, T, 'updateOne', Opts>;
+export type applicationsUpdateManyResult<T extends applicationsUpdateManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<applicationsCollection, T, 'updateMany', Opts>;
+export type applicationsDeleteOneResult<T extends applicationsDeleteOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<applicationsCollection, T, 'deleteOne', Opts>;
+export type applicationsDeleteManyResult<T extends applicationsDeleteManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<applicationsCollection, T, 'deleteMany', Opts>;
+
+// --- approvals: Per-Collection Type Aliases ---
+
+export type approvalsKey = ReadOneKey<approvalsCollection>;
+export type approvalsUpdateOneInput = UpdateOneInput<approvalsCollection>;
+export type approvalsUpdateManyInput = UpdateManyInput<approvalsCollection>;
+export type approvalsCreateOneInput = CreateOneInput<approvalsCollection>;
+export type approvalsCreateManyInput = CreateManyInput<approvalsCollection>;
+export type approvalsReadOneFields = OperationFields<approvalsCollection, 'readOne'>;
+export type approvalsReadManyFields = OperationFields<approvalsCollection, 'readMany'>;
+export type approvalsReadFirstFields = OperationFields<approvalsCollection, 'readMany'>;
+export type approvalsCreateOneFields = OperationFields<approvalsCollection, 'createOne'>;
+export type approvalsCreateManyFields = OperationFields<approvalsCollection, 'createMany'>;
+export type approvalsUpdateOneFields = OperationFields<approvalsCollection, 'updateOne'>;
+export type approvalsUpdateManyFields = OperationFields<approvalsCollection, 'updateMany'>;
+export type approvalsDeleteOneFields = OperationFields<approvalsCollection, 'deleteOne'>;
+export type approvalsDeleteManyFields = OperationFields<approvalsCollection, 'deleteMany'>;
+export type approvalsReadOneArgs = ReadOneOptions<approvalsCollection>;
+export type approvalsReadManyArgs = ReadManyParameters<approvalsCollection>;
+export type approvalsReadFirstArgs = ReadManyParameters<approvalsCollection>;
+export type approvalsCreateOneArgs = CreateOneOptions<approvalsCollection>;
+export type approvalsCreateManyArgs = CreateManyOptions<approvalsCollection>;
+export type approvalsUpdateOneArgs = UpdateOneOptions<approvalsCollection>;
+export type approvalsUpdateManyArgs = UpdateManyOptions<approvalsCollection>;
+export type approvalsDeleteOneArgs = DeleteOneOptions<approvalsCollection>;
+export type approvalsDeleteManyArgs = DeleteManyParameters<approvalsCollection>;
+export type approvalsReadOneParameters = ReadOneParameters<approvalsCollection>;
+export type approvalsReadManyParameters = ReadManyParameters<approvalsCollection>;
+export type approvalsReadFirstParameters = ReadManyParameters<approvalsCollection>;
+export type approvalsCreateOneParameters = CreateOneParameters<approvalsCollection>;
+export type approvalsCreateManyParameters = CreateManyParameters<approvalsCollection>;
+export type approvalsUpdateOneParameters = UpdateOneParameters<approvalsCollection>;
+export type approvalsUpdateManyParameters = UpdateManyParameters<approvalsCollection>;
+export type approvalsDeleteOneParameters = DeleteOneParameters<approvalsCollection>;
+export type approvalsDeleteManyParameters = DeleteManyParameters<approvalsCollection>;
+export type approvalsReadOneResultItem<T extends approvalsReadOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<approvalsCollection, T, 'readOne', Opts>;
+export type approvalsReadManyResultItem<T extends approvalsReadManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<approvalsCollection, T, 'readMany', Opts>;
+export type approvalsReadFirstResultItem<T extends approvalsReadFirstParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<approvalsCollection, T, 'readMany', Opts>;
+export type approvalsCreateOneResultItem<T extends approvalsCreateOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<approvalsCollection, T, 'createOne', Opts>;
+export type approvalsCreateManyResultItem<T extends approvalsCreateManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<approvalsCollection, T, 'createMany', Opts>;
+export type approvalsUpdateOneResultItem<T extends approvalsUpdateOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<approvalsCollection, T, 'updateOne', Opts>;
+export type approvalsUpdateManyResultItem<T extends approvalsUpdateManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<approvalsCollection, T, 'updateMany', Opts>;
+export type approvalsDeleteOneResultItem<T extends approvalsDeleteOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<approvalsCollection, T, 'deleteOne', Opts>;
+export type approvalsDeleteManyResultItem<T extends approvalsDeleteManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<approvalsCollection, T, 'deleteMany', Opts>;
+export type approvalsReadOneResult<T extends approvalsReadOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<approvalsCollection, T, 'readOne', Opts>;
+export type approvalsReadManyResult<T extends approvalsReadManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<approvalsCollection, T, 'readMany', Opts>;
+export type approvalsReadFirstResult<T extends approvalsReadFirstParameters, Opts extends Partial<TypeOptions> = {}> = ReadFirstResult<approvalsCollection, T, Opts>;
+export type approvalsCreateOneResult<T extends approvalsCreateOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<approvalsCollection, T, 'createOne', Opts>;
+export type approvalsCreateManyResult<T extends approvalsCreateManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<approvalsCollection, T, 'createMany', Opts>;
+export type approvalsUpdateOneResult<T extends approvalsUpdateOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<approvalsCollection, T, 'updateOne', Opts>;
+export type approvalsUpdateManyResult<T extends approvalsUpdateManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<approvalsCollection, T, 'updateMany', Opts>;
+export type approvalsDeleteOneResult<T extends approvalsDeleteOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<approvalsCollection, T, 'deleteOne', Opts>;
+export type approvalsDeleteManyResult<T extends approvalsDeleteManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<approvalsCollection, T, 'deleteMany', Opts>;
+
 // --- attachments: Per-Collection Type Aliases ---
 
 export type attachmentsKey = ReadOneKey<attachmentsCollection>;
@@ -12808,6 +24211,347 @@ export type attachmentsUpdateOneResult<T extends attachmentsUpdateOneParameters,
 export type attachmentsUpdateManyResult<T extends attachmentsUpdateManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<attachmentsCollection, T, 'updateMany', Opts>;
 export type attachmentsDeleteOneResult<T extends attachmentsDeleteOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<attachmentsCollection, T, 'deleteOne', Opts>;
 export type attachmentsDeleteManyResult<T extends attachmentsDeleteManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<attachmentsCollection, T, 'deleteMany', Opts>;
+
+// --- auditEvents: Per-Collection Type Aliases ---
+
+export type auditEventsKey = ReadOneKey<auditEventsCollection>;
+export type auditEventsUpdateOneInput = UpdateOneInput<auditEventsCollection>;
+export type auditEventsUpdateManyInput = UpdateManyInput<auditEventsCollection>;
+export type auditEventsCreateOneInput = CreateOneInput<auditEventsCollection>;
+export type auditEventsCreateManyInput = CreateManyInput<auditEventsCollection>;
+export type auditEventsReadOneFields = OperationFields<auditEventsCollection, 'readOne'>;
+export type auditEventsReadManyFields = OperationFields<auditEventsCollection, 'readMany'>;
+export type auditEventsReadFirstFields = OperationFields<auditEventsCollection, 'readMany'>;
+export type auditEventsCreateOneFields = OperationFields<auditEventsCollection, 'createOne'>;
+export type auditEventsCreateManyFields = OperationFields<auditEventsCollection, 'createMany'>;
+export type auditEventsUpdateOneFields = OperationFields<auditEventsCollection, 'updateOne'>;
+export type auditEventsUpdateManyFields = OperationFields<auditEventsCollection, 'updateMany'>;
+export type auditEventsDeleteOneFields = OperationFields<auditEventsCollection, 'deleteOne'>;
+export type auditEventsDeleteManyFields = OperationFields<auditEventsCollection, 'deleteMany'>;
+export type auditEventsReadOneArgs = ReadOneOptions<auditEventsCollection>;
+export type auditEventsReadManyArgs = ReadManyParameters<auditEventsCollection>;
+export type auditEventsReadFirstArgs = ReadManyParameters<auditEventsCollection>;
+export type auditEventsCreateOneArgs = CreateOneOptions<auditEventsCollection>;
+export type auditEventsCreateManyArgs = CreateManyOptions<auditEventsCollection>;
+export type auditEventsUpdateOneArgs = UpdateOneOptions<auditEventsCollection>;
+export type auditEventsUpdateManyArgs = UpdateManyOptions<auditEventsCollection>;
+export type auditEventsDeleteOneArgs = DeleteOneOptions<auditEventsCollection>;
+export type auditEventsDeleteManyArgs = DeleteManyParameters<auditEventsCollection>;
+export type auditEventsReadOneParameters = ReadOneParameters<auditEventsCollection>;
+export type auditEventsReadManyParameters = ReadManyParameters<auditEventsCollection>;
+export type auditEventsReadFirstParameters = ReadManyParameters<auditEventsCollection>;
+export type auditEventsCreateOneParameters = CreateOneParameters<auditEventsCollection>;
+export type auditEventsCreateManyParameters = CreateManyParameters<auditEventsCollection>;
+export type auditEventsUpdateOneParameters = UpdateOneParameters<auditEventsCollection>;
+export type auditEventsUpdateManyParameters = UpdateManyParameters<auditEventsCollection>;
+export type auditEventsDeleteOneParameters = DeleteOneParameters<auditEventsCollection>;
+export type auditEventsDeleteManyParameters = DeleteManyParameters<auditEventsCollection>;
+export type auditEventsReadOneResultItem<T extends auditEventsReadOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<auditEventsCollection, T, 'readOne', Opts>;
+export type auditEventsReadManyResultItem<T extends auditEventsReadManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<auditEventsCollection, T, 'readMany', Opts>;
+export type auditEventsReadFirstResultItem<T extends auditEventsReadFirstParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<auditEventsCollection, T, 'readMany', Opts>;
+export type auditEventsCreateOneResultItem<T extends auditEventsCreateOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<auditEventsCollection, T, 'createOne', Opts>;
+export type auditEventsCreateManyResultItem<T extends auditEventsCreateManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<auditEventsCollection, T, 'createMany', Opts>;
+export type auditEventsUpdateOneResultItem<T extends auditEventsUpdateOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<auditEventsCollection, T, 'updateOne', Opts>;
+export type auditEventsUpdateManyResultItem<T extends auditEventsUpdateManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<auditEventsCollection, T, 'updateMany', Opts>;
+export type auditEventsDeleteOneResultItem<T extends auditEventsDeleteOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<auditEventsCollection, T, 'deleteOne', Opts>;
+export type auditEventsDeleteManyResultItem<T extends auditEventsDeleteManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<auditEventsCollection, T, 'deleteMany', Opts>;
+export type auditEventsReadOneResult<T extends auditEventsReadOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<auditEventsCollection, T, 'readOne', Opts>;
+export type auditEventsReadManyResult<T extends auditEventsReadManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<auditEventsCollection, T, 'readMany', Opts>;
+export type auditEventsReadFirstResult<T extends auditEventsReadFirstParameters, Opts extends Partial<TypeOptions> = {}> = ReadFirstResult<auditEventsCollection, T, Opts>;
+export type auditEventsCreateOneResult<T extends auditEventsCreateOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<auditEventsCollection, T, 'createOne', Opts>;
+export type auditEventsCreateManyResult<T extends auditEventsCreateManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<auditEventsCollection, T, 'createMany', Opts>;
+export type auditEventsUpdateOneResult<T extends auditEventsUpdateOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<auditEventsCollection, T, 'updateOne', Opts>;
+export type auditEventsUpdateManyResult<T extends auditEventsUpdateManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<auditEventsCollection, T, 'updateMany', Opts>;
+export type auditEventsDeleteOneResult<T extends auditEventsDeleteOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<auditEventsCollection, T, 'deleteOne', Opts>;
+export type auditEventsDeleteManyResult<T extends auditEventsDeleteManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<auditEventsCollection, T, 'deleteMany', Opts>;
+
+// --- candidateFiles: Per-Collection Type Aliases ---
+
+export type candidateFilesKey = ReadOneKey<candidateFilesCollection>;
+export type candidateFilesUpdateOneInput = UpdateOneInput<candidateFilesCollection>;
+export type candidateFilesUpdateManyInput = UpdateManyInput<candidateFilesCollection>;
+export type candidateFilesCreateOneInput = CreateOneInput<candidateFilesCollection>;
+export type candidateFilesCreateManyInput = CreateManyInput<candidateFilesCollection>;
+export type candidateFilesReadOneFields = OperationFields<candidateFilesCollection, 'readOne'>;
+export type candidateFilesReadManyFields = OperationFields<candidateFilesCollection, 'readMany'>;
+export type candidateFilesReadFirstFields = OperationFields<candidateFilesCollection, 'readMany'>;
+export type candidateFilesCreateOneFields = OperationFields<candidateFilesCollection, 'createOne'>;
+export type candidateFilesCreateManyFields = OperationFields<candidateFilesCollection, 'createMany'>;
+export type candidateFilesUpdateOneFields = OperationFields<candidateFilesCollection, 'updateOne'>;
+export type candidateFilesUpdateManyFields = OperationFields<candidateFilesCollection, 'updateMany'>;
+export type candidateFilesDeleteOneFields = OperationFields<candidateFilesCollection, 'deleteOne'>;
+export type candidateFilesDeleteManyFields = OperationFields<candidateFilesCollection, 'deleteMany'>;
+export type candidateFilesReadOneArgs = ReadOneOptions<candidateFilesCollection>;
+export type candidateFilesReadManyArgs = ReadManyParameters<candidateFilesCollection>;
+export type candidateFilesReadFirstArgs = ReadManyParameters<candidateFilesCollection>;
+export type candidateFilesCreateOneArgs = CreateOneOptions<candidateFilesCollection>;
+export type candidateFilesCreateManyArgs = CreateManyOptions<candidateFilesCollection>;
+export type candidateFilesUpdateOneArgs = UpdateOneOptions<candidateFilesCollection>;
+export type candidateFilesUpdateManyArgs = UpdateManyOptions<candidateFilesCollection>;
+export type candidateFilesDeleteOneArgs = DeleteOneOptions<candidateFilesCollection>;
+export type candidateFilesDeleteManyArgs = DeleteManyParameters<candidateFilesCollection>;
+export type candidateFilesReadOneParameters = ReadOneParameters<candidateFilesCollection>;
+export type candidateFilesReadManyParameters = ReadManyParameters<candidateFilesCollection>;
+export type candidateFilesReadFirstParameters = ReadManyParameters<candidateFilesCollection>;
+export type candidateFilesCreateOneParameters = CreateOneParameters<candidateFilesCollection>;
+export type candidateFilesCreateManyParameters = CreateManyParameters<candidateFilesCollection>;
+export type candidateFilesUpdateOneParameters = UpdateOneParameters<candidateFilesCollection>;
+export type candidateFilesUpdateManyParameters = UpdateManyParameters<candidateFilesCollection>;
+export type candidateFilesDeleteOneParameters = DeleteOneParameters<candidateFilesCollection>;
+export type candidateFilesDeleteManyParameters = DeleteManyParameters<candidateFilesCollection>;
+export type candidateFilesReadOneResultItem<T extends candidateFilesReadOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<candidateFilesCollection, T, 'readOne', Opts>;
+export type candidateFilesReadManyResultItem<T extends candidateFilesReadManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<candidateFilesCollection, T, 'readMany', Opts>;
+export type candidateFilesReadFirstResultItem<T extends candidateFilesReadFirstParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<candidateFilesCollection, T, 'readMany', Opts>;
+export type candidateFilesCreateOneResultItem<T extends candidateFilesCreateOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<candidateFilesCollection, T, 'createOne', Opts>;
+export type candidateFilesCreateManyResultItem<T extends candidateFilesCreateManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<candidateFilesCollection, T, 'createMany', Opts>;
+export type candidateFilesUpdateOneResultItem<T extends candidateFilesUpdateOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<candidateFilesCollection, T, 'updateOne', Opts>;
+export type candidateFilesUpdateManyResultItem<T extends candidateFilesUpdateManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<candidateFilesCollection, T, 'updateMany', Opts>;
+export type candidateFilesDeleteOneResultItem<T extends candidateFilesDeleteOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<candidateFilesCollection, T, 'deleteOne', Opts>;
+export type candidateFilesDeleteManyResultItem<T extends candidateFilesDeleteManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<candidateFilesCollection, T, 'deleteMany', Opts>;
+export type candidateFilesReadOneResult<T extends candidateFilesReadOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<candidateFilesCollection, T, 'readOne', Opts>;
+export type candidateFilesReadManyResult<T extends candidateFilesReadManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<candidateFilesCollection, T, 'readMany', Opts>;
+export type candidateFilesReadFirstResult<T extends candidateFilesReadFirstParameters, Opts extends Partial<TypeOptions> = {}> = ReadFirstResult<candidateFilesCollection, T, Opts>;
+export type candidateFilesCreateOneResult<T extends candidateFilesCreateOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<candidateFilesCollection, T, 'createOne', Opts>;
+export type candidateFilesCreateManyResult<T extends candidateFilesCreateManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<candidateFilesCollection, T, 'createMany', Opts>;
+export type candidateFilesUpdateOneResult<T extends candidateFilesUpdateOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<candidateFilesCollection, T, 'updateOne', Opts>;
+export type candidateFilesUpdateManyResult<T extends candidateFilesUpdateManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<candidateFilesCollection, T, 'updateMany', Opts>;
+export type candidateFilesDeleteOneResult<T extends candidateFilesDeleteOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<candidateFilesCollection, T, 'deleteOne', Opts>;
+export type candidateFilesDeleteManyResult<T extends candidateFilesDeleteManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<candidateFilesCollection, T, 'deleteMany', Opts>;
+
+// --- candidateMessages: Per-Collection Type Aliases ---
+
+export type candidateMessagesKey = ReadOneKey<candidateMessagesCollection>;
+export type candidateMessagesUpdateOneInput = UpdateOneInput<candidateMessagesCollection>;
+export type candidateMessagesUpdateManyInput = UpdateManyInput<candidateMessagesCollection>;
+export type candidateMessagesCreateOneInput = CreateOneInput<candidateMessagesCollection>;
+export type candidateMessagesCreateManyInput = CreateManyInput<candidateMessagesCollection>;
+export type candidateMessagesReadOneFields = OperationFields<candidateMessagesCollection, 'readOne'>;
+export type candidateMessagesReadManyFields = OperationFields<candidateMessagesCollection, 'readMany'>;
+export type candidateMessagesReadFirstFields = OperationFields<candidateMessagesCollection, 'readMany'>;
+export type candidateMessagesCreateOneFields = OperationFields<candidateMessagesCollection, 'createOne'>;
+export type candidateMessagesCreateManyFields = OperationFields<candidateMessagesCollection, 'createMany'>;
+export type candidateMessagesUpdateOneFields = OperationFields<candidateMessagesCollection, 'updateOne'>;
+export type candidateMessagesUpdateManyFields = OperationFields<candidateMessagesCollection, 'updateMany'>;
+export type candidateMessagesDeleteOneFields = OperationFields<candidateMessagesCollection, 'deleteOne'>;
+export type candidateMessagesDeleteManyFields = OperationFields<candidateMessagesCollection, 'deleteMany'>;
+export type candidateMessagesReadOneArgs = ReadOneOptions<candidateMessagesCollection>;
+export type candidateMessagesReadManyArgs = ReadManyParameters<candidateMessagesCollection>;
+export type candidateMessagesReadFirstArgs = ReadManyParameters<candidateMessagesCollection>;
+export type candidateMessagesCreateOneArgs = CreateOneOptions<candidateMessagesCollection>;
+export type candidateMessagesCreateManyArgs = CreateManyOptions<candidateMessagesCollection>;
+export type candidateMessagesUpdateOneArgs = UpdateOneOptions<candidateMessagesCollection>;
+export type candidateMessagesUpdateManyArgs = UpdateManyOptions<candidateMessagesCollection>;
+export type candidateMessagesDeleteOneArgs = DeleteOneOptions<candidateMessagesCollection>;
+export type candidateMessagesDeleteManyArgs = DeleteManyParameters<candidateMessagesCollection>;
+export type candidateMessagesReadOneParameters = ReadOneParameters<candidateMessagesCollection>;
+export type candidateMessagesReadManyParameters = ReadManyParameters<candidateMessagesCollection>;
+export type candidateMessagesReadFirstParameters = ReadManyParameters<candidateMessagesCollection>;
+export type candidateMessagesCreateOneParameters = CreateOneParameters<candidateMessagesCollection>;
+export type candidateMessagesCreateManyParameters = CreateManyParameters<candidateMessagesCollection>;
+export type candidateMessagesUpdateOneParameters = UpdateOneParameters<candidateMessagesCollection>;
+export type candidateMessagesUpdateManyParameters = UpdateManyParameters<candidateMessagesCollection>;
+export type candidateMessagesDeleteOneParameters = DeleteOneParameters<candidateMessagesCollection>;
+export type candidateMessagesDeleteManyParameters = DeleteManyParameters<candidateMessagesCollection>;
+export type candidateMessagesReadOneResultItem<T extends candidateMessagesReadOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<candidateMessagesCollection, T, 'readOne', Opts>;
+export type candidateMessagesReadManyResultItem<T extends candidateMessagesReadManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<candidateMessagesCollection, T, 'readMany', Opts>;
+export type candidateMessagesReadFirstResultItem<T extends candidateMessagesReadFirstParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<candidateMessagesCollection, T, 'readMany', Opts>;
+export type candidateMessagesCreateOneResultItem<T extends candidateMessagesCreateOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<candidateMessagesCollection, T, 'createOne', Opts>;
+export type candidateMessagesCreateManyResultItem<T extends candidateMessagesCreateManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<candidateMessagesCollection, T, 'createMany', Opts>;
+export type candidateMessagesUpdateOneResultItem<T extends candidateMessagesUpdateOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<candidateMessagesCollection, T, 'updateOne', Opts>;
+export type candidateMessagesUpdateManyResultItem<T extends candidateMessagesUpdateManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<candidateMessagesCollection, T, 'updateMany', Opts>;
+export type candidateMessagesDeleteOneResultItem<T extends candidateMessagesDeleteOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<candidateMessagesCollection, T, 'deleteOne', Opts>;
+export type candidateMessagesDeleteManyResultItem<T extends candidateMessagesDeleteManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<candidateMessagesCollection, T, 'deleteMany', Opts>;
+export type candidateMessagesReadOneResult<T extends candidateMessagesReadOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<candidateMessagesCollection, T, 'readOne', Opts>;
+export type candidateMessagesReadManyResult<T extends candidateMessagesReadManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<candidateMessagesCollection, T, 'readMany', Opts>;
+export type candidateMessagesReadFirstResult<T extends candidateMessagesReadFirstParameters, Opts extends Partial<TypeOptions> = {}> = ReadFirstResult<candidateMessagesCollection, T, Opts>;
+export type candidateMessagesCreateOneResult<T extends candidateMessagesCreateOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<candidateMessagesCollection, T, 'createOne', Opts>;
+export type candidateMessagesCreateManyResult<T extends candidateMessagesCreateManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<candidateMessagesCollection, T, 'createMany', Opts>;
+export type candidateMessagesUpdateOneResult<T extends candidateMessagesUpdateOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<candidateMessagesCollection, T, 'updateOne', Opts>;
+export type candidateMessagesUpdateManyResult<T extends candidateMessagesUpdateManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<candidateMessagesCollection, T, 'updateMany', Opts>;
+export type candidateMessagesDeleteOneResult<T extends candidateMessagesDeleteOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<candidateMessagesCollection, T, 'deleteOne', Opts>;
+export type candidateMessagesDeleteManyResult<T extends candidateMessagesDeleteManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<candidateMessagesCollection, T, 'deleteMany', Opts>;
+
+// --- candidateNotes: Per-Collection Type Aliases ---
+
+export type candidateNotesKey = ReadOneKey<candidateNotesCollection>;
+export type candidateNotesUpdateOneInput = UpdateOneInput<candidateNotesCollection>;
+export type candidateNotesUpdateManyInput = UpdateManyInput<candidateNotesCollection>;
+export type candidateNotesCreateOneInput = CreateOneInput<candidateNotesCollection>;
+export type candidateNotesCreateManyInput = CreateManyInput<candidateNotesCollection>;
+export type candidateNotesReadOneFields = OperationFields<candidateNotesCollection, 'readOne'>;
+export type candidateNotesReadManyFields = OperationFields<candidateNotesCollection, 'readMany'>;
+export type candidateNotesReadFirstFields = OperationFields<candidateNotesCollection, 'readMany'>;
+export type candidateNotesCreateOneFields = OperationFields<candidateNotesCollection, 'createOne'>;
+export type candidateNotesCreateManyFields = OperationFields<candidateNotesCollection, 'createMany'>;
+export type candidateNotesUpdateOneFields = OperationFields<candidateNotesCollection, 'updateOne'>;
+export type candidateNotesUpdateManyFields = OperationFields<candidateNotesCollection, 'updateMany'>;
+export type candidateNotesDeleteOneFields = OperationFields<candidateNotesCollection, 'deleteOne'>;
+export type candidateNotesDeleteManyFields = OperationFields<candidateNotesCollection, 'deleteMany'>;
+export type candidateNotesReadOneArgs = ReadOneOptions<candidateNotesCollection>;
+export type candidateNotesReadManyArgs = ReadManyParameters<candidateNotesCollection>;
+export type candidateNotesReadFirstArgs = ReadManyParameters<candidateNotesCollection>;
+export type candidateNotesCreateOneArgs = CreateOneOptions<candidateNotesCollection>;
+export type candidateNotesCreateManyArgs = CreateManyOptions<candidateNotesCollection>;
+export type candidateNotesUpdateOneArgs = UpdateOneOptions<candidateNotesCollection>;
+export type candidateNotesUpdateManyArgs = UpdateManyOptions<candidateNotesCollection>;
+export type candidateNotesDeleteOneArgs = DeleteOneOptions<candidateNotesCollection>;
+export type candidateNotesDeleteManyArgs = DeleteManyParameters<candidateNotesCollection>;
+export type candidateNotesReadOneParameters = ReadOneParameters<candidateNotesCollection>;
+export type candidateNotesReadManyParameters = ReadManyParameters<candidateNotesCollection>;
+export type candidateNotesReadFirstParameters = ReadManyParameters<candidateNotesCollection>;
+export type candidateNotesCreateOneParameters = CreateOneParameters<candidateNotesCollection>;
+export type candidateNotesCreateManyParameters = CreateManyParameters<candidateNotesCollection>;
+export type candidateNotesUpdateOneParameters = UpdateOneParameters<candidateNotesCollection>;
+export type candidateNotesUpdateManyParameters = UpdateManyParameters<candidateNotesCollection>;
+export type candidateNotesDeleteOneParameters = DeleteOneParameters<candidateNotesCollection>;
+export type candidateNotesDeleteManyParameters = DeleteManyParameters<candidateNotesCollection>;
+export type candidateNotesReadOneResultItem<T extends candidateNotesReadOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<candidateNotesCollection, T, 'readOne', Opts>;
+export type candidateNotesReadManyResultItem<T extends candidateNotesReadManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<candidateNotesCollection, T, 'readMany', Opts>;
+export type candidateNotesReadFirstResultItem<T extends candidateNotesReadFirstParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<candidateNotesCollection, T, 'readMany', Opts>;
+export type candidateNotesCreateOneResultItem<T extends candidateNotesCreateOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<candidateNotesCollection, T, 'createOne', Opts>;
+export type candidateNotesCreateManyResultItem<T extends candidateNotesCreateManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<candidateNotesCollection, T, 'createMany', Opts>;
+export type candidateNotesUpdateOneResultItem<T extends candidateNotesUpdateOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<candidateNotesCollection, T, 'updateOne', Opts>;
+export type candidateNotesUpdateManyResultItem<T extends candidateNotesUpdateManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<candidateNotesCollection, T, 'updateMany', Opts>;
+export type candidateNotesDeleteOneResultItem<T extends candidateNotesDeleteOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<candidateNotesCollection, T, 'deleteOne', Opts>;
+export type candidateNotesDeleteManyResultItem<T extends candidateNotesDeleteManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<candidateNotesCollection, T, 'deleteMany', Opts>;
+export type candidateNotesReadOneResult<T extends candidateNotesReadOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<candidateNotesCollection, T, 'readOne', Opts>;
+export type candidateNotesReadManyResult<T extends candidateNotesReadManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<candidateNotesCollection, T, 'readMany', Opts>;
+export type candidateNotesReadFirstResult<T extends candidateNotesReadFirstParameters, Opts extends Partial<TypeOptions> = {}> = ReadFirstResult<candidateNotesCollection, T, Opts>;
+export type candidateNotesCreateOneResult<T extends candidateNotesCreateOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<candidateNotesCollection, T, 'createOne', Opts>;
+export type candidateNotesCreateManyResult<T extends candidateNotesCreateManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<candidateNotesCollection, T, 'createMany', Opts>;
+export type candidateNotesUpdateOneResult<T extends candidateNotesUpdateOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<candidateNotesCollection, T, 'updateOne', Opts>;
+export type candidateNotesUpdateManyResult<T extends candidateNotesUpdateManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<candidateNotesCollection, T, 'updateMany', Opts>;
+export type candidateNotesDeleteOneResult<T extends candidateNotesDeleteOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<candidateNotesCollection, T, 'deleteOne', Opts>;
+export type candidateNotesDeleteManyResult<T extends candidateNotesDeleteManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<candidateNotesCollection, T, 'deleteMany', Opts>;
+
+// --- candidates: Per-Collection Type Aliases ---
+
+export type candidatesKey = ReadOneKey<candidatesCollection>;
+export type candidatesUpdateOneInput = UpdateOneInput<candidatesCollection>;
+export type candidatesUpdateManyInput = UpdateManyInput<candidatesCollection>;
+export type candidatesCreateOneInput = CreateOneInput<candidatesCollection>;
+export type candidatesCreateManyInput = CreateManyInput<candidatesCollection>;
+export type candidatesReadOneFields = OperationFields<candidatesCollection, 'readOne'>;
+export type candidatesReadManyFields = OperationFields<candidatesCollection, 'readMany'>;
+export type candidatesReadFirstFields = OperationFields<candidatesCollection, 'readMany'>;
+export type candidatesCreateOneFields = OperationFields<candidatesCollection, 'createOne'>;
+export type candidatesCreateManyFields = OperationFields<candidatesCollection, 'createMany'>;
+export type candidatesUpdateOneFields = OperationFields<candidatesCollection, 'updateOne'>;
+export type candidatesUpdateManyFields = OperationFields<candidatesCollection, 'updateMany'>;
+export type candidatesDeleteOneFields = OperationFields<candidatesCollection, 'deleteOne'>;
+export type candidatesDeleteManyFields = OperationFields<candidatesCollection, 'deleteMany'>;
+export type candidatesReadOneArgs = ReadOneOptions<candidatesCollection>;
+export type candidatesReadManyArgs = ReadManyParameters<candidatesCollection>;
+export type candidatesReadFirstArgs = ReadManyParameters<candidatesCollection>;
+export type candidatesCreateOneArgs = CreateOneOptions<candidatesCollection>;
+export type candidatesCreateManyArgs = CreateManyOptions<candidatesCollection>;
+export type candidatesUpdateOneArgs = UpdateOneOptions<candidatesCollection>;
+export type candidatesUpdateManyArgs = UpdateManyOptions<candidatesCollection>;
+export type candidatesDeleteOneArgs = DeleteOneOptions<candidatesCollection>;
+export type candidatesDeleteManyArgs = DeleteManyParameters<candidatesCollection>;
+export type candidatesReadOneParameters = ReadOneParameters<candidatesCollection>;
+export type candidatesReadManyParameters = ReadManyParameters<candidatesCollection>;
+export type candidatesReadFirstParameters = ReadManyParameters<candidatesCollection>;
+export type candidatesCreateOneParameters = CreateOneParameters<candidatesCollection>;
+export type candidatesCreateManyParameters = CreateManyParameters<candidatesCollection>;
+export type candidatesUpdateOneParameters = UpdateOneParameters<candidatesCollection>;
+export type candidatesUpdateManyParameters = UpdateManyParameters<candidatesCollection>;
+export type candidatesDeleteOneParameters = DeleteOneParameters<candidatesCollection>;
+export type candidatesDeleteManyParameters = DeleteManyParameters<candidatesCollection>;
+export type candidatesReadOneResultItem<T extends candidatesReadOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<candidatesCollection, T, 'readOne', Opts>;
+export type candidatesReadManyResultItem<T extends candidatesReadManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<candidatesCollection, T, 'readMany', Opts>;
+export type candidatesReadFirstResultItem<T extends candidatesReadFirstParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<candidatesCollection, T, 'readMany', Opts>;
+export type candidatesCreateOneResultItem<T extends candidatesCreateOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<candidatesCollection, T, 'createOne', Opts>;
+export type candidatesCreateManyResultItem<T extends candidatesCreateManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<candidatesCollection, T, 'createMany', Opts>;
+export type candidatesUpdateOneResultItem<T extends candidatesUpdateOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<candidatesCollection, T, 'updateOne', Opts>;
+export type candidatesUpdateManyResultItem<T extends candidatesUpdateManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<candidatesCollection, T, 'updateMany', Opts>;
+export type candidatesDeleteOneResultItem<T extends candidatesDeleteOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<candidatesCollection, T, 'deleteOne', Opts>;
+export type candidatesDeleteManyResultItem<T extends candidatesDeleteManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<candidatesCollection, T, 'deleteMany', Opts>;
+export type candidatesReadOneResult<T extends candidatesReadOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<candidatesCollection, T, 'readOne', Opts>;
+export type candidatesReadManyResult<T extends candidatesReadManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<candidatesCollection, T, 'readMany', Opts>;
+export type candidatesReadFirstResult<T extends candidatesReadFirstParameters, Opts extends Partial<TypeOptions> = {}> = ReadFirstResult<candidatesCollection, T, Opts>;
+export type candidatesCreateOneResult<T extends candidatesCreateOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<candidatesCollection, T, 'createOne', Opts>;
+export type candidatesCreateManyResult<T extends candidatesCreateManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<candidatesCollection, T, 'createMany', Opts>;
+export type candidatesUpdateOneResult<T extends candidatesUpdateOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<candidatesCollection, T, 'updateOne', Opts>;
+export type candidatesUpdateManyResult<T extends candidatesUpdateManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<candidatesCollection, T, 'updateMany', Opts>;
+export type candidatesDeleteOneResult<T extends candidatesDeleteOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<candidatesCollection, T, 'deleteOne', Opts>;
+export type candidatesDeleteManyResult<T extends candidatesDeleteManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<candidatesCollection, T, 'deleteMany', Opts>;
+
+// --- checkrCandidates: Per-Collection Type Aliases ---
+
+export type checkrCandidatesKey = ReadOneKey<checkrCandidatesCollection>;
+export type checkrCandidatesReadOneFields = OperationFields<checkrCandidatesCollection, 'readOne'>;
+export type checkrCandidatesReadManyFields = OperationFields<checkrCandidatesCollection, 'readMany'>;
+export type checkrCandidatesReadFirstFields = OperationFields<checkrCandidatesCollection, 'readMany'>;
+export type checkrCandidatesReadOneArgs = ReadOneOptions<checkrCandidatesCollection>;
+export type checkrCandidatesReadManyArgs = ReadManyParameters<checkrCandidatesCollection>;
+export type checkrCandidatesReadFirstArgs = ReadManyParameters<checkrCandidatesCollection>;
+export type checkrCandidatesReadOneParameters = ReadOneParameters<checkrCandidatesCollection>;
+export type checkrCandidatesReadManyParameters = ReadManyParameters<checkrCandidatesCollection>;
+export type checkrCandidatesReadFirstParameters = ReadManyParameters<checkrCandidatesCollection>;
+export type checkrCandidatesReadOneResultItem<T extends checkrCandidatesReadOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<checkrCandidatesCollection, T, 'readOne', Opts>;
+export type checkrCandidatesReadManyResultItem<T extends checkrCandidatesReadManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<checkrCandidatesCollection, T, 'readMany', Opts>;
+export type checkrCandidatesReadFirstResultItem<T extends checkrCandidatesReadFirstParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<checkrCandidatesCollection, T, 'readMany', Opts>;
+export type checkrCandidatesReadOneResult<T extends checkrCandidatesReadOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<checkrCandidatesCollection, T, 'readOne', Opts>;
+export type checkrCandidatesReadManyResult<T extends checkrCandidatesReadManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<checkrCandidatesCollection, T, 'readMany', Opts>;
+export type checkrCandidatesReadFirstResult<T extends checkrCandidatesReadFirstParameters, Opts extends Partial<TypeOptions> = {}> = ReadFirstResult<checkrCandidatesCollection, T, Opts>;
+
+// --- checkrInvitations: Per-Collection Type Aliases ---
+
+export type checkrInvitationsKey = ReadOneKey<checkrInvitationsCollection>;
+export type checkrInvitationsReadOneFields = OperationFields<checkrInvitationsCollection, 'readOne'>;
+export type checkrInvitationsReadManyFields = OperationFields<checkrInvitationsCollection, 'readMany'>;
+export type checkrInvitationsReadFirstFields = OperationFields<checkrInvitationsCollection, 'readMany'>;
+export type checkrInvitationsReadOneArgs = ReadOneOptions<checkrInvitationsCollection>;
+export type checkrInvitationsReadManyArgs = ReadManyParameters<checkrInvitationsCollection>;
+export type checkrInvitationsReadFirstArgs = ReadManyParameters<checkrInvitationsCollection>;
+export type checkrInvitationsReadOneParameters = ReadOneParameters<checkrInvitationsCollection>;
+export type checkrInvitationsReadManyParameters = ReadManyParameters<checkrInvitationsCollection>;
+export type checkrInvitationsReadFirstParameters = ReadManyParameters<checkrInvitationsCollection>;
+export type checkrInvitationsReadOneResultItem<T extends checkrInvitationsReadOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<checkrInvitationsCollection, T, 'readOne', Opts>;
+export type checkrInvitationsReadManyResultItem<T extends checkrInvitationsReadManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<checkrInvitationsCollection, T, 'readMany', Opts>;
+export type checkrInvitationsReadFirstResultItem<T extends checkrInvitationsReadFirstParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<checkrInvitationsCollection, T, 'readMany', Opts>;
+export type checkrInvitationsReadOneResult<T extends checkrInvitationsReadOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<checkrInvitationsCollection, T, 'readOne', Opts>;
+export type checkrInvitationsReadManyResult<T extends checkrInvitationsReadManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<checkrInvitationsCollection, T, 'readMany', Opts>;
+export type checkrInvitationsReadFirstResult<T extends checkrInvitationsReadFirstParameters, Opts extends Partial<TypeOptions> = {}> = ReadFirstResult<checkrInvitationsCollection, T, Opts>;
+
+// --- checkrPackages: Per-Collection Type Aliases ---
+
+export type checkrPackagesKey = ReadOneKey<checkrPackagesCollection>;
+export type checkrPackagesReadOneFields = OperationFields<checkrPackagesCollection, 'readOne'>;
+export type checkrPackagesReadManyFields = OperationFields<checkrPackagesCollection, 'readMany'>;
+export type checkrPackagesReadFirstFields = OperationFields<checkrPackagesCollection, 'readMany'>;
+export type checkrPackagesReadOneArgs = ReadOneOptions<checkrPackagesCollection>;
+export type checkrPackagesReadManyArgs = ReadManyParameters<checkrPackagesCollection>;
+export type checkrPackagesReadFirstArgs = ReadManyParameters<checkrPackagesCollection>;
+export type checkrPackagesReadOneParameters = ReadOneParameters<checkrPackagesCollection>;
+export type checkrPackagesReadManyParameters = ReadManyParameters<checkrPackagesCollection>;
+export type checkrPackagesReadFirstParameters = ReadManyParameters<checkrPackagesCollection>;
+export type checkrPackagesReadOneResultItem<T extends checkrPackagesReadOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<checkrPackagesCollection, T, 'readOne', Opts>;
+export type checkrPackagesReadManyResultItem<T extends checkrPackagesReadManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<checkrPackagesCollection, T, 'readMany', Opts>;
+export type checkrPackagesReadFirstResultItem<T extends checkrPackagesReadFirstParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<checkrPackagesCollection, T, 'readMany', Opts>;
+export type checkrPackagesReadOneResult<T extends checkrPackagesReadOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<checkrPackagesCollection, T, 'readOne', Opts>;
+export type checkrPackagesReadManyResult<T extends checkrPackagesReadManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<checkrPackagesCollection, T, 'readMany', Opts>;
+export type checkrPackagesReadFirstResult<T extends checkrPackagesReadFirstParameters, Opts extends Partial<TypeOptions> = {}> = ReadFirstResult<checkrPackagesCollection, T, Opts>;
+
+// --- checkrReports: Per-Collection Type Aliases ---
+
+export type checkrReportsKey = ReadOneKey<checkrReportsCollection>;
+export type checkrReportsReadOneFields = OperationFields<checkrReportsCollection, 'readOne'>;
+export type checkrReportsReadManyFields = OperationFields<checkrReportsCollection, 'readMany'>;
+export type checkrReportsReadFirstFields = OperationFields<checkrReportsCollection, 'readMany'>;
+export type checkrReportsReadOneArgs = ReadOneOptions<checkrReportsCollection>;
+export type checkrReportsReadManyArgs = ReadManyParameters<checkrReportsCollection>;
+export type checkrReportsReadFirstArgs = ReadManyParameters<checkrReportsCollection>;
+export type checkrReportsReadOneParameters = ReadOneParameters<checkrReportsCollection>;
+export type checkrReportsReadManyParameters = ReadManyParameters<checkrReportsCollection>;
+export type checkrReportsReadFirstParameters = ReadManyParameters<checkrReportsCollection>;
+export type checkrReportsReadOneResultItem<T extends checkrReportsReadOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<checkrReportsCollection, T, 'readOne', Opts>;
+export type checkrReportsReadManyResultItem<T extends checkrReportsReadManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<checkrReportsCollection, T, 'readMany', Opts>;
+export type checkrReportsReadFirstResultItem<T extends checkrReportsReadFirstParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<checkrReportsCollection, T, 'readMany', Opts>;
+export type checkrReportsReadOneResult<T extends checkrReportsReadOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<checkrReportsCollection, T, 'readOne', Opts>;
+export type checkrReportsReadManyResult<T extends checkrReportsReadManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<checkrReportsCollection, T, 'readMany', Opts>;
+export type checkrReportsReadFirstResult<T extends checkrReportsReadFirstParameters, Opts extends Partial<TypeOptions> = {}> = ReadFirstResult<checkrReportsCollection, T, Opts>;
 
 // --- contacts: Per-Collection Type Aliases ---
 
@@ -12915,6 +24659,112 @@ export type dealsUpdateManyResult<T extends dealsUpdateManyParameters, Opts exte
 export type dealsDeleteOneResult<T extends dealsDeleteOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<dealsCollection, T, 'deleteOne', Opts>;
 export type dealsDeleteManyResult<T extends dealsDeleteManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<dealsCollection, T, 'deleteMany', Opts>;
 
+// --- departments: Per-Collection Type Aliases ---
+
+export type departmentsKey = ReadOneKey<departmentsCollection>;
+export type departmentsUpdateOneInput = UpdateOneInput<departmentsCollection>;
+export type departmentsUpdateManyInput = UpdateManyInput<departmentsCollection>;
+export type departmentsCreateOneInput = CreateOneInput<departmentsCollection>;
+export type departmentsCreateManyInput = CreateManyInput<departmentsCollection>;
+export type departmentsReadOneFields = OperationFields<departmentsCollection, 'readOne'>;
+export type departmentsReadManyFields = OperationFields<departmentsCollection, 'readMany'>;
+export type departmentsReadFirstFields = OperationFields<departmentsCollection, 'readMany'>;
+export type departmentsCreateOneFields = OperationFields<departmentsCollection, 'createOne'>;
+export type departmentsCreateManyFields = OperationFields<departmentsCollection, 'createMany'>;
+export type departmentsUpdateOneFields = OperationFields<departmentsCollection, 'updateOne'>;
+export type departmentsUpdateManyFields = OperationFields<departmentsCollection, 'updateMany'>;
+export type departmentsDeleteOneFields = OperationFields<departmentsCollection, 'deleteOne'>;
+export type departmentsDeleteManyFields = OperationFields<departmentsCollection, 'deleteMany'>;
+export type departmentsReadOneArgs = ReadOneOptions<departmentsCollection>;
+export type departmentsReadManyArgs = ReadManyParameters<departmentsCollection>;
+export type departmentsReadFirstArgs = ReadManyParameters<departmentsCollection>;
+export type departmentsCreateOneArgs = CreateOneOptions<departmentsCollection>;
+export type departmentsCreateManyArgs = CreateManyOptions<departmentsCollection>;
+export type departmentsUpdateOneArgs = UpdateOneOptions<departmentsCollection>;
+export type departmentsUpdateManyArgs = UpdateManyOptions<departmentsCollection>;
+export type departmentsDeleteOneArgs = DeleteOneOptions<departmentsCollection>;
+export type departmentsDeleteManyArgs = DeleteManyParameters<departmentsCollection>;
+export type departmentsReadOneParameters = ReadOneParameters<departmentsCollection>;
+export type departmentsReadManyParameters = ReadManyParameters<departmentsCollection>;
+export type departmentsReadFirstParameters = ReadManyParameters<departmentsCollection>;
+export type departmentsCreateOneParameters = CreateOneParameters<departmentsCollection>;
+export type departmentsCreateManyParameters = CreateManyParameters<departmentsCollection>;
+export type departmentsUpdateOneParameters = UpdateOneParameters<departmentsCollection>;
+export type departmentsUpdateManyParameters = UpdateManyParameters<departmentsCollection>;
+export type departmentsDeleteOneParameters = DeleteOneParameters<departmentsCollection>;
+export type departmentsDeleteManyParameters = DeleteManyParameters<departmentsCollection>;
+export type departmentsReadOneResultItem<T extends departmentsReadOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<departmentsCollection, T, 'readOne', Opts>;
+export type departmentsReadManyResultItem<T extends departmentsReadManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<departmentsCollection, T, 'readMany', Opts>;
+export type departmentsReadFirstResultItem<T extends departmentsReadFirstParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<departmentsCollection, T, 'readMany', Opts>;
+export type departmentsCreateOneResultItem<T extends departmentsCreateOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<departmentsCollection, T, 'createOne', Opts>;
+export type departmentsCreateManyResultItem<T extends departmentsCreateManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<departmentsCollection, T, 'createMany', Opts>;
+export type departmentsUpdateOneResultItem<T extends departmentsUpdateOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<departmentsCollection, T, 'updateOne', Opts>;
+export type departmentsUpdateManyResultItem<T extends departmentsUpdateManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<departmentsCollection, T, 'updateMany', Opts>;
+export type departmentsDeleteOneResultItem<T extends departmentsDeleteOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<departmentsCollection, T, 'deleteOne', Opts>;
+export type departmentsDeleteManyResultItem<T extends departmentsDeleteManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<departmentsCollection, T, 'deleteMany', Opts>;
+export type departmentsReadOneResult<T extends departmentsReadOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<departmentsCollection, T, 'readOne', Opts>;
+export type departmentsReadManyResult<T extends departmentsReadManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<departmentsCollection, T, 'readMany', Opts>;
+export type departmentsReadFirstResult<T extends departmentsReadFirstParameters, Opts extends Partial<TypeOptions> = {}> = ReadFirstResult<departmentsCollection, T, Opts>;
+export type departmentsCreateOneResult<T extends departmentsCreateOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<departmentsCollection, T, 'createOne', Opts>;
+export type departmentsCreateManyResult<T extends departmentsCreateManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<departmentsCollection, T, 'createMany', Opts>;
+export type departmentsUpdateOneResult<T extends departmentsUpdateOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<departmentsCollection, T, 'updateOne', Opts>;
+export type departmentsUpdateManyResult<T extends departmentsUpdateManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<departmentsCollection, T, 'updateMany', Opts>;
+export type departmentsDeleteOneResult<T extends departmentsDeleteOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<departmentsCollection, T, 'deleteOne', Opts>;
+export type departmentsDeleteManyResult<T extends departmentsDeleteManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<departmentsCollection, T, 'deleteMany', Opts>;
+
+// --- emailTemplates: Per-Collection Type Aliases ---
+
+export type emailTemplatesKey = ReadOneKey<emailTemplatesCollection>;
+export type emailTemplatesUpdateOneInput = UpdateOneInput<emailTemplatesCollection>;
+export type emailTemplatesUpdateManyInput = UpdateManyInput<emailTemplatesCollection>;
+export type emailTemplatesCreateOneInput = CreateOneInput<emailTemplatesCollection>;
+export type emailTemplatesCreateManyInput = CreateManyInput<emailTemplatesCollection>;
+export type emailTemplatesReadOneFields = OperationFields<emailTemplatesCollection, 'readOne'>;
+export type emailTemplatesReadManyFields = OperationFields<emailTemplatesCollection, 'readMany'>;
+export type emailTemplatesReadFirstFields = OperationFields<emailTemplatesCollection, 'readMany'>;
+export type emailTemplatesCreateOneFields = OperationFields<emailTemplatesCollection, 'createOne'>;
+export type emailTemplatesCreateManyFields = OperationFields<emailTemplatesCollection, 'createMany'>;
+export type emailTemplatesUpdateOneFields = OperationFields<emailTemplatesCollection, 'updateOne'>;
+export type emailTemplatesUpdateManyFields = OperationFields<emailTemplatesCollection, 'updateMany'>;
+export type emailTemplatesDeleteOneFields = OperationFields<emailTemplatesCollection, 'deleteOne'>;
+export type emailTemplatesDeleteManyFields = OperationFields<emailTemplatesCollection, 'deleteMany'>;
+export type emailTemplatesReadOneArgs = ReadOneOptions<emailTemplatesCollection>;
+export type emailTemplatesReadManyArgs = ReadManyParameters<emailTemplatesCollection>;
+export type emailTemplatesReadFirstArgs = ReadManyParameters<emailTemplatesCollection>;
+export type emailTemplatesCreateOneArgs = CreateOneOptions<emailTemplatesCollection>;
+export type emailTemplatesCreateManyArgs = CreateManyOptions<emailTemplatesCollection>;
+export type emailTemplatesUpdateOneArgs = UpdateOneOptions<emailTemplatesCollection>;
+export type emailTemplatesUpdateManyArgs = UpdateManyOptions<emailTemplatesCollection>;
+export type emailTemplatesDeleteOneArgs = DeleteOneOptions<emailTemplatesCollection>;
+export type emailTemplatesDeleteManyArgs = DeleteManyParameters<emailTemplatesCollection>;
+export type emailTemplatesReadOneParameters = ReadOneParameters<emailTemplatesCollection>;
+export type emailTemplatesReadManyParameters = ReadManyParameters<emailTemplatesCollection>;
+export type emailTemplatesReadFirstParameters = ReadManyParameters<emailTemplatesCollection>;
+export type emailTemplatesCreateOneParameters = CreateOneParameters<emailTemplatesCollection>;
+export type emailTemplatesCreateManyParameters = CreateManyParameters<emailTemplatesCollection>;
+export type emailTemplatesUpdateOneParameters = UpdateOneParameters<emailTemplatesCollection>;
+export type emailTemplatesUpdateManyParameters = UpdateManyParameters<emailTemplatesCollection>;
+export type emailTemplatesDeleteOneParameters = DeleteOneParameters<emailTemplatesCollection>;
+export type emailTemplatesDeleteManyParameters = DeleteManyParameters<emailTemplatesCollection>;
+export type emailTemplatesReadOneResultItem<T extends emailTemplatesReadOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<emailTemplatesCollection, T, 'readOne', Opts>;
+export type emailTemplatesReadManyResultItem<T extends emailTemplatesReadManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<emailTemplatesCollection, T, 'readMany', Opts>;
+export type emailTemplatesReadFirstResultItem<T extends emailTemplatesReadFirstParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<emailTemplatesCollection, T, 'readMany', Opts>;
+export type emailTemplatesCreateOneResultItem<T extends emailTemplatesCreateOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<emailTemplatesCollection, T, 'createOne', Opts>;
+export type emailTemplatesCreateManyResultItem<T extends emailTemplatesCreateManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<emailTemplatesCollection, T, 'createMany', Opts>;
+export type emailTemplatesUpdateOneResultItem<T extends emailTemplatesUpdateOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<emailTemplatesCollection, T, 'updateOne', Opts>;
+export type emailTemplatesUpdateManyResultItem<T extends emailTemplatesUpdateManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<emailTemplatesCollection, T, 'updateMany', Opts>;
+export type emailTemplatesDeleteOneResultItem<T extends emailTemplatesDeleteOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<emailTemplatesCollection, T, 'deleteOne', Opts>;
+export type emailTemplatesDeleteManyResultItem<T extends emailTemplatesDeleteManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<emailTemplatesCollection, T, 'deleteMany', Opts>;
+export type emailTemplatesReadOneResult<T extends emailTemplatesReadOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<emailTemplatesCollection, T, 'readOne', Opts>;
+export type emailTemplatesReadManyResult<T extends emailTemplatesReadManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<emailTemplatesCollection, T, 'readMany', Opts>;
+export type emailTemplatesReadFirstResult<T extends emailTemplatesReadFirstParameters, Opts extends Partial<TypeOptions> = {}> = ReadFirstResult<emailTemplatesCollection, T, Opts>;
+export type emailTemplatesCreateOneResult<T extends emailTemplatesCreateOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<emailTemplatesCollection, T, 'createOne', Opts>;
+export type emailTemplatesCreateManyResult<T extends emailTemplatesCreateManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<emailTemplatesCollection, T, 'createMany', Opts>;
+export type emailTemplatesUpdateOneResult<T extends emailTemplatesUpdateOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<emailTemplatesCollection, T, 'updateOne', Opts>;
+export type emailTemplatesUpdateManyResult<T extends emailTemplatesUpdateManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<emailTemplatesCollection, T, 'updateMany', Opts>;
+export type emailTemplatesDeleteOneResult<T extends emailTemplatesDeleteOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<emailTemplatesCollection, T, 'deleteOne', Opts>;
+export type emailTemplatesDeleteManyResult<T extends emailTemplatesDeleteManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<emailTemplatesCollection, T, 'deleteMany', Opts>;
+
 // --- events: Per-Collection Type Aliases ---
 
 export type eventsKey = ReadOneKey<eventsCollection>;
@@ -12967,6 +24817,324 @@ export type eventsUpdateOneResult<T extends eventsUpdateOneParameters, Opts exte
 export type eventsUpdateManyResult<T extends eventsUpdateManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<eventsCollection, T, 'updateMany', Opts>;
 export type eventsDeleteOneResult<T extends eventsDeleteOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<eventsCollection, T, 'deleteOne', Opts>;
 export type eventsDeleteManyResult<T extends eventsDeleteManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<eventsCollection, T, 'deleteMany', Opts>;
+
+// --- hiringLocations: Per-Collection Type Aliases ---
+
+export type hiringLocationsKey = ReadOneKey<hiringLocationsCollection>;
+export type hiringLocationsUpdateOneInput = UpdateOneInput<hiringLocationsCollection>;
+export type hiringLocationsUpdateManyInput = UpdateManyInput<hiringLocationsCollection>;
+export type hiringLocationsCreateOneInput = CreateOneInput<hiringLocationsCollection>;
+export type hiringLocationsCreateManyInput = CreateManyInput<hiringLocationsCollection>;
+export type hiringLocationsReadOneFields = OperationFields<hiringLocationsCollection, 'readOne'>;
+export type hiringLocationsReadManyFields = OperationFields<hiringLocationsCollection, 'readMany'>;
+export type hiringLocationsReadFirstFields = OperationFields<hiringLocationsCollection, 'readMany'>;
+export type hiringLocationsCreateOneFields = OperationFields<hiringLocationsCollection, 'createOne'>;
+export type hiringLocationsCreateManyFields = OperationFields<hiringLocationsCollection, 'createMany'>;
+export type hiringLocationsUpdateOneFields = OperationFields<hiringLocationsCollection, 'updateOne'>;
+export type hiringLocationsUpdateManyFields = OperationFields<hiringLocationsCollection, 'updateMany'>;
+export type hiringLocationsDeleteOneFields = OperationFields<hiringLocationsCollection, 'deleteOne'>;
+export type hiringLocationsDeleteManyFields = OperationFields<hiringLocationsCollection, 'deleteMany'>;
+export type hiringLocationsReadOneArgs = ReadOneOptions<hiringLocationsCollection>;
+export type hiringLocationsReadManyArgs = ReadManyParameters<hiringLocationsCollection>;
+export type hiringLocationsReadFirstArgs = ReadManyParameters<hiringLocationsCollection>;
+export type hiringLocationsCreateOneArgs = CreateOneOptions<hiringLocationsCollection>;
+export type hiringLocationsCreateManyArgs = CreateManyOptions<hiringLocationsCollection>;
+export type hiringLocationsUpdateOneArgs = UpdateOneOptions<hiringLocationsCollection>;
+export type hiringLocationsUpdateManyArgs = UpdateManyOptions<hiringLocationsCollection>;
+export type hiringLocationsDeleteOneArgs = DeleteOneOptions<hiringLocationsCollection>;
+export type hiringLocationsDeleteManyArgs = DeleteManyParameters<hiringLocationsCollection>;
+export type hiringLocationsReadOneParameters = ReadOneParameters<hiringLocationsCollection>;
+export type hiringLocationsReadManyParameters = ReadManyParameters<hiringLocationsCollection>;
+export type hiringLocationsReadFirstParameters = ReadManyParameters<hiringLocationsCollection>;
+export type hiringLocationsCreateOneParameters = CreateOneParameters<hiringLocationsCollection>;
+export type hiringLocationsCreateManyParameters = CreateManyParameters<hiringLocationsCollection>;
+export type hiringLocationsUpdateOneParameters = UpdateOneParameters<hiringLocationsCollection>;
+export type hiringLocationsUpdateManyParameters = UpdateManyParameters<hiringLocationsCollection>;
+export type hiringLocationsDeleteOneParameters = DeleteOneParameters<hiringLocationsCollection>;
+export type hiringLocationsDeleteManyParameters = DeleteManyParameters<hiringLocationsCollection>;
+export type hiringLocationsReadOneResultItem<T extends hiringLocationsReadOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<hiringLocationsCollection, T, 'readOne', Opts>;
+export type hiringLocationsReadManyResultItem<T extends hiringLocationsReadManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<hiringLocationsCollection, T, 'readMany', Opts>;
+export type hiringLocationsReadFirstResultItem<T extends hiringLocationsReadFirstParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<hiringLocationsCollection, T, 'readMany', Opts>;
+export type hiringLocationsCreateOneResultItem<T extends hiringLocationsCreateOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<hiringLocationsCollection, T, 'createOne', Opts>;
+export type hiringLocationsCreateManyResultItem<T extends hiringLocationsCreateManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<hiringLocationsCollection, T, 'createMany', Opts>;
+export type hiringLocationsUpdateOneResultItem<T extends hiringLocationsUpdateOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<hiringLocationsCollection, T, 'updateOne', Opts>;
+export type hiringLocationsUpdateManyResultItem<T extends hiringLocationsUpdateManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<hiringLocationsCollection, T, 'updateMany', Opts>;
+export type hiringLocationsDeleteOneResultItem<T extends hiringLocationsDeleteOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<hiringLocationsCollection, T, 'deleteOne', Opts>;
+export type hiringLocationsDeleteManyResultItem<T extends hiringLocationsDeleteManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<hiringLocationsCollection, T, 'deleteMany', Opts>;
+export type hiringLocationsReadOneResult<T extends hiringLocationsReadOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<hiringLocationsCollection, T, 'readOne', Opts>;
+export type hiringLocationsReadManyResult<T extends hiringLocationsReadManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<hiringLocationsCollection, T, 'readMany', Opts>;
+export type hiringLocationsReadFirstResult<T extends hiringLocationsReadFirstParameters, Opts extends Partial<TypeOptions> = {}> = ReadFirstResult<hiringLocationsCollection, T, Opts>;
+export type hiringLocationsCreateOneResult<T extends hiringLocationsCreateOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<hiringLocationsCollection, T, 'createOne', Opts>;
+export type hiringLocationsCreateManyResult<T extends hiringLocationsCreateManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<hiringLocationsCollection, T, 'createMany', Opts>;
+export type hiringLocationsUpdateOneResult<T extends hiringLocationsUpdateOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<hiringLocationsCollection, T, 'updateOne', Opts>;
+export type hiringLocationsUpdateManyResult<T extends hiringLocationsUpdateManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<hiringLocationsCollection, T, 'updateMany', Opts>;
+export type hiringLocationsDeleteOneResult<T extends hiringLocationsDeleteOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<hiringLocationsCollection, T, 'deleteOne', Opts>;
+export type hiringLocationsDeleteManyResult<T extends hiringLocationsDeleteManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<hiringLocationsCollection, T, 'deleteMany', Opts>;
+
+// --- interviewParticipants: Per-Collection Type Aliases ---
+
+export type interviewParticipantsKey = ReadOneKey<interviewParticipantsCollection>;
+export type interviewParticipantsUpdateOneInput = UpdateOneInput<interviewParticipantsCollection>;
+export type interviewParticipantsUpdateManyInput = UpdateManyInput<interviewParticipantsCollection>;
+export type interviewParticipantsCreateOneInput = CreateOneInput<interviewParticipantsCollection>;
+export type interviewParticipantsCreateManyInput = CreateManyInput<interviewParticipantsCollection>;
+export type interviewParticipantsReadOneFields = OperationFields<interviewParticipantsCollection, 'readOne'>;
+export type interviewParticipantsReadManyFields = OperationFields<interviewParticipantsCollection, 'readMany'>;
+export type interviewParticipantsReadFirstFields = OperationFields<interviewParticipantsCollection, 'readMany'>;
+export type interviewParticipantsCreateOneFields = OperationFields<interviewParticipantsCollection, 'createOne'>;
+export type interviewParticipantsCreateManyFields = OperationFields<interviewParticipantsCollection, 'createMany'>;
+export type interviewParticipantsUpdateOneFields = OperationFields<interviewParticipantsCollection, 'updateOne'>;
+export type interviewParticipantsUpdateManyFields = OperationFields<interviewParticipantsCollection, 'updateMany'>;
+export type interviewParticipantsDeleteOneFields = OperationFields<interviewParticipantsCollection, 'deleteOne'>;
+export type interviewParticipantsDeleteManyFields = OperationFields<interviewParticipantsCollection, 'deleteMany'>;
+export type interviewParticipantsReadOneArgs = ReadOneOptions<interviewParticipantsCollection>;
+export type interviewParticipantsReadManyArgs = ReadManyParameters<interviewParticipantsCollection>;
+export type interviewParticipantsReadFirstArgs = ReadManyParameters<interviewParticipantsCollection>;
+export type interviewParticipantsCreateOneArgs = CreateOneOptions<interviewParticipantsCollection>;
+export type interviewParticipantsCreateManyArgs = CreateManyOptions<interviewParticipantsCollection>;
+export type interviewParticipantsUpdateOneArgs = UpdateOneOptions<interviewParticipantsCollection>;
+export type interviewParticipantsUpdateManyArgs = UpdateManyOptions<interviewParticipantsCollection>;
+export type interviewParticipantsDeleteOneArgs = DeleteOneOptions<interviewParticipantsCollection>;
+export type interviewParticipantsDeleteManyArgs = DeleteManyParameters<interviewParticipantsCollection>;
+export type interviewParticipantsReadOneParameters = ReadOneParameters<interviewParticipantsCollection>;
+export type interviewParticipantsReadManyParameters = ReadManyParameters<interviewParticipantsCollection>;
+export type interviewParticipantsReadFirstParameters = ReadManyParameters<interviewParticipantsCollection>;
+export type interviewParticipantsCreateOneParameters = CreateOneParameters<interviewParticipantsCollection>;
+export type interviewParticipantsCreateManyParameters = CreateManyParameters<interviewParticipantsCollection>;
+export type interviewParticipantsUpdateOneParameters = UpdateOneParameters<interviewParticipantsCollection>;
+export type interviewParticipantsUpdateManyParameters = UpdateManyParameters<interviewParticipantsCollection>;
+export type interviewParticipantsDeleteOneParameters = DeleteOneParameters<interviewParticipantsCollection>;
+export type interviewParticipantsDeleteManyParameters = DeleteManyParameters<interviewParticipantsCollection>;
+export type interviewParticipantsReadOneResultItem<T extends interviewParticipantsReadOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<interviewParticipantsCollection, T, 'readOne', Opts>;
+export type interviewParticipantsReadManyResultItem<T extends interviewParticipantsReadManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<interviewParticipantsCollection, T, 'readMany', Opts>;
+export type interviewParticipantsReadFirstResultItem<T extends interviewParticipantsReadFirstParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<interviewParticipantsCollection, T, 'readMany', Opts>;
+export type interviewParticipantsCreateOneResultItem<T extends interviewParticipantsCreateOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<interviewParticipantsCollection, T, 'createOne', Opts>;
+export type interviewParticipantsCreateManyResultItem<T extends interviewParticipantsCreateManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<interviewParticipantsCollection, T, 'createMany', Opts>;
+export type interviewParticipantsUpdateOneResultItem<T extends interviewParticipantsUpdateOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<interviewParticipantsCollection, T, 'updateOne', Opts>;
+export type interviewParticipantsUpdateManyResultItem<T extends interviewParticipantsUpdateManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<interviewParticipantsCollection, T, 'updateMany', Opts>;
+export type interviewParticipantsDeleteOneResultItem<T extends interviewParticipantsDeleteOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<interviewParticipantsCollection, T, 'deleteOne', Opts>;
+export type interviewParticipantsDeleteManyResultItem<T extends interviewParticipantsDeleteManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<interviewParticipantsCollection, T, 'deleteMany', Opts>;
+export type interviewParticipantsReadOneResult<T extends interviewParticipantsReadOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<interviewParticipantsCollection, T, 'readOne', Opts>;
+export type interviewParticipantsReadManyResult<T extends interviewParticipantsReadManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<interviewParticipantsCollection, T, 'readMany', Opts>;
+export type interviewParticipantsReadFirstResult<T extends interviewParticipantsReadFirstParameters, Opts extends Partial<TypeOptions> = {}> = ReadFirstResult<interviewParticipantsCollection, T, Opts>;
+export type interviewParticipantsCreateOneResult<T extends interviewParticipantsCreateOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<interviewParticipantsCollection, T, 'createOne', Opts>;
+export type interviewParticipantsCreateManyResult<T extends interviewParticipantsCreateManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<interviewParticipantsCollection, T, 'createMany', Opts>;
+export type interviewParticipantsUpdateOneResult<T extends interviewParticipantsUpdateOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<interviewParticipantsCollection, T, 'updateOne', Opts>;
+export type interviewParticipantsUpdateManyResult<T extends interviewParticipantsUpdateManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<interviewParticipantsCollection, T, 'updateMany', Opts>;
+export type interviewParticipantsDeleteOneResult<T extends interviewParticipantsDeleteOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<interviewParticipantsCollection, T, 'deleteOne', Opts>;
+export type interviewParticipantsDeleteManyResult<T extends interviewParticipantsDeleteManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<interviewParticipantsCollection, T, 'deleteMany', Opts>;
+
+// --- interviewStages: Per-Collection Type Aliases ---
+
+export type interviewStagesKey = ReadOneKey<interviewStagesCollection>;
+export type interviewStagesUpdateOneInput = UpdateOneInput<interviewStagesCollection>;
+export type interviewStagesUpdateManyInput = UpdateManyInput<interviewStagesCollection>;
+export type interviewStagesCreateOneInput = CreateOneInput<interviewStagesCollection>;
+export type interviewStagesCreateManyInput = CreateManyInput<interviewStagesCollection>;
+export type interviewStagesReadOneFields = OperationFields<interviewStagesCollection, 'readOne'>;
+export type interviewStagesReadManyFields = OperationFields<interviewStagesCollection, 'readMany'>;
+export type interviewStagesReadFirstFields = OperationFields<interviewStagesCollection, 'readMany'>;
+export type interviewStagesCreateOneFields = OperationFields<interviewStagesCollection, 'createOne'>;
+export type interviewStagesCreateManyFields = OperationFields<interviewStagesCollection, 'createMany'>;
+export type interviewStagesUpdateOneFields = OperationFields<interviewStagesCollection, 'updateOne'>;
+export type interviewStagesUpdateManyFields = OperationFields<interviewStagesCollection, 'updateMany'>;
+export type interviewStagesDeleteOneFields = OperationFields<interviewStagesCollection, 'deleteOne'>;
+export type interviewStagesDeleteManyFields = OperationFields<interviewStagesCollection, 'deleteMany'>;
+export type interviewStagesReadOneArgs = ReadOneOptions<interviewStagesCollection>;
+export type interviewStagesReadManyArgs = ReadManyParameters<interviewStagesCollection>;
+export type interviewStagesReadFirstArgs = ReadManyParameters<interviewStagesCollection>;
+export type interviewStagesCreateOneArgs = CreateOneOptions<interviewStagesCollection>;
+export type interviewStagesCreateManyArgs = CreateManyOptions<interviewStagesCollection>;
+export type interviewStagesUpdateOneArgs = UpdateOneOptions<interviewStagesCollection>;
+export type interviewStagesUpdateManyArgs = UpdateManyOptions<interviewStagesCollection>;
+export type interviewStagesDeleteOneArgs = DeleteOneOptions<interviewStagesCollection>;
+export type interviewStagesDeleteManyArgs = DeleteManyParameters<interviewStagesCollection>;
+export type interviewStagesReadOneParameters = ReadOneParameters<interviewStagesCollection>;
+export type interviewStagesReadManyParameters = ReadManyParameters<interviewStagesCollection>;
+export type interviewStagesReadFirstParameters = ReadManyParameters<interviewStagesCollection>;
+export type interviewStagesCreateOneParameters = CreateOneParameters<interviewStagesCollection>;
+export type interviewStagesCreateManyParameters = CreateManyParameters<interviewStagesCollection>;
+export type interviewStagesUpdateOneParameters = UpdateOneParameters<interviewStagesCollection>;
+export type interviewStagesUpdateManyParameters = UpdateManyParameters<interviewStagesCollection>;
+export type interviewStagesDeleteOneParameters = DeleteOneParameters<interviewStagesCollection>;
+export type interviewStagesDeleteManyParameters = DeleteManyParameters<interviewStagesCollection>;
+export type interviewStagesReadOneResultItem<T extends interviewStagesReadOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<interviewStagesCollection, T, 'readOne', Opts>;
+export type interviewStagesReadManyResultItem<T extends interviewStagesReadManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<interviewStagesCollection, T, 'readMany', Opts>;
+export type interviewStagesReadFirstResultItem<T extends interviewStagesReadFirstParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<interviewStagesCollection, T, 'readMany', Opts>;
+export type interviewStagesCreateOneResultItem<T extends interviewStagesCreateOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<interviewStagesCollection, T, 'createOne', Opts>;
+export type interviewStagesCreateManyResultItem<T extends interviewStagesCreateManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<interviewStagesCollection, T, 'createMany', Opts>;
+export type interviewStagesUpdateOneResultItem<T extends interviewStagesUpdateOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<interviewStagesCollection, T, 'updateOne', Opts>;
+export type interviewStagesUpdateManyResultItem<T extends interviewStagesUpdateManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<interviewStagesCollection, T, 'updateMany', Opts>;
+export type interviewStagesDeleteOneResultItem<T extends interviewStagesDeleteOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<interviewStagesCollection, T, 'deleteOne', Opts>;
+export type interviewStagesDeleteManyResultItem<T extends interviewStagesDeleteManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<interviewStagesCollection, T, 'deleteMany', Opts>;
+export type interviewStagesReadOneResult<T extends interviewStagesReadOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<interviewStagesCollection, T, 'readOne', Opts>;
+export type interviewStagesReadManyResult<T extends interviewStagesReadManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<interviewStagesCollection, T, 'readMany', Opts>;
+export type interviewStagesReadFirstResult<T extends interviewStagesReadFirstParameters, Opts extends Partial<TypeOptions> = {}> = ReadFirstResult<interviewStagesCollection, T, Opts>;
+export type interviewStagesCreateOneResult<T extends interviewStagesCreateOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<interviewStagesCollection, T, 'createOne', Opts>;
+export type interviewStagesCreateManyResult<T extends interviewStagesCreateManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<interviewStagesCollection, T, 'createMany', Opts>;
+export type interviewStagesUpdateOneResult<T extends interviewStagesUpdateOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<interviewStagesCollection, T, 'updateOne', Opts>;
+export type interviewStagesUpdateManyResult<T extends interviewStagesUpdateManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<interviewStagesCollection, T, 'updateMany', Opts>;
+export type interviewStagesDeleteOneResult<T extends interviewStagesDeleteOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<interviewStagesCollection, T, 'deleteOne', Opts>;
+export type interviewStagesDeleteManyResult<T extends interviewStagesDeleteManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<interviewStagesCollection, T, 'deleteMany', Opts>;
+
+// --- interviews: Per-Collection Type Aliases ---
+
+export type interviewsKey = ReadOneKey<interviewsCollection>;
+export type interviewsUpdateOneInput = UpdateOneInput<interviewsCollection>;
+export type interviewsUpdateManyInput = UpdateManyInput<interviewsCollection>;
+export type interviewsCreateOneInput = CreateOneInput<interviewsCollection>;
+export type interviewsCreateManyInput = CreateManyInput<interviewsCollection>;
+export type interviewsReadOneFields = OperationFields<interviewsCollection, 'readOne'>;
+export type interviewsReadManyFields = OperationFields<interviewsCollection, 'readMany'>;
+export type interviewsReadFirstFields = OperationFields<interviewsCollection, 'readMany'>;
+export type interviewsCreateOneFields = OperationFields<interviewsCollection, 'createOne'>;
+export type interviewsCreateManyFields = OperationFields<interviewsCollection, 'createMany'>;
+export type interviewsUpdateOneFields = OperationFields<interviewsCollection, 'updateOne'>;
+export type interviewsUpdateManyFields = OperationFields<interviewsCollection, 'updateMany'>;
+export type interviewsDeleteOneFields = OperationFields<interviewsCollection, 'deleteOne'>;
+export type interviewsDeleteManyFields = OperationFields<interviewsCollection, 'deleteMany'>;
+export type interviewsReadOneArgs = ReadOneOptions<interviewsCollection>;
+export type interviewsReadManyArgs = ReadManyParameters<interviewsCollection>;
+export type interviewsReadFirstArgs = ReadManyParameters<interviewsCollection>;
+export type interviewsCreateOneArgs = CreateOneOptions<interviewsCollection>;
+export type interviewsCreateManyArgs = CreateManyOptions<interviewsCollection>;
+export type interviewsUpdateOneArgs = UpdateOneOptions<interviewsCollection>;
+export type interviewsUpdateManyArgs = UpdateManyOptions<interviewsCollection>;
+export type interviewsDeleteOneArgs = DeleteOneOptions<interviewsCollection>;
+export type interviewsDeleteManyArgs = DeleteManyParameters<interviewsCollection>;
+export type interviewsReadOneParameters = ReadOneParameters<interviewsCollection>;
+export type interviewsReadManyParameters = ReadManyParameters<interviewsCollection>;
+export type interviewsReadFirstParameters = ReadManyParameters<interviewsCollection>;
+export type interviewsCreateOneParameters = CreateOneParameters<interviewsCollection>;
+export type interviewsCreateManyParameters = CreateManyParameters<interviewsCollection>;
+export type interviewsUpdateOneParameters = UpdateOneParameters<interviewsCollection>;
+export type interviewsUpdateManyParameters = UpdateManyParameters<interviewsCollection>;
+export type interviewsDeleteOneParameters = DeleteOneParameters<interviewsCollection>;
+export type interviewsDeleteManyParameters = DeleteManyParameters<interviewsCollection>;
+export type interviewsReadOneResultItem<T extends interviewsReadOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<interviewsCollection, T, 'readOne', Opts>;
+export type interviewsReadManyResultItem<T extends interviewsReadManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<interviewsCollection, T, 'readMany', Opts>;
+export type interviewsReadFirstResultItem<T extends interviewsReadFirstParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<interviewsCollection, T, 'readMany', Opts>;
+export type interviewsCreateOneResultItem<T extends interviewsCreateOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<interviewsCollection, T, 'createOne', Opts>;
+export type interviewsCreateManyResultItem<T extends interviewsCreateManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<interviewsCollection, T, 'createMany', Opts>;
+export type interviewsUpdateOneResultItem<T extends interviewsUpdateOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<interviewsCollection, T, 'updateOne', Opts>;
+export type interviewsUpdateManyResultItem<T extends interviewsUpdateManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<interviewsCollection, T, 'updateMany', Opts>;
+export type interviewsDeleteOneResultItem<T extends interviewsDeleteOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<interviewsCollection, T, 'deleteOne', Opts>;
+export type interviewsDeleteManyResultItem<T extends interviewsDeleteManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<interviewsCollection, T, 'deleteMany', Opts>;
+export type interviewsReadOneResult<T extends interviewsReadOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<interviewsCollection, T, 'readOne', Opts>;
+export type interviewsReadManyResult<T extends interviewsReadManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<interviewsCollection, T, 'readMany', Opts>;
+export type interviewsReadFirstResult<T extends interviewsReadFirstParameters, Opts extends Partial<TypeOptions> = {}> = ReadFirstResult<interviewsCollection, T, Opts>;
+export type interviewsCreateOneResult<T extends interviewsCreateOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<interviewsCollection, T, 'createOne', Opts>;
+export type interviewsCreateManyResult<T extends interviewsCreateManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<interviewsCollection, T, 'createMany', Opts>;
+export type interviewsUpdateOneResult<T extends interviewsUpdateOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<interviewsCollection, T, 'updateOne', Opts>;
+export type interviewsUpdateManyResult<T extends interviewsUpdateManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<interviewsCollection, T, 'updateMany', Opts>;
+export type interviewsDeleteOneResult<T extends interviewsDeleteOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<interviewsCollection, T, 'deleteOne', Opts>;
+export type interviewsDeleteManyResult<T extends interviewsDeleteManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<interviewsCollection, T, 'deleteMany', Opts>;
+
+// --- jobLevels: Per-Collection Type Aliases ---
+
+export type jobLevelsKey = ReadOneKey<jobLevelsCollection>;
+export type jobLevelsUpdateOneInput = UpdateOneInput<jobLevelsCollection>;
+export type jobLevelsUpdateManyInput = UpdateManyInput<jobLevelsCollection>;
+export type jobLevelsCreateOneInput = CreateOneInput<jobLevelsCollection>;
+export type jobLevelsCreateManyInput = CreateManyInput<jobLevelsCollection>;
+export type jobLevelsReadOneFields = OperationFields<jobLevelsCollection, 'readOne'>;
+export type jobLevelsReadManyFields = OperationFields<jobLevelsCollection, 'readMany'>;
+export type jobLevelsReadFirstFields = OperationFields<jobLevelsCollection, 'readMany'>;
+export type jobLevelsCreateOneFields = OperationFields<jobLevelsCollection, 'createOne'>;
+export type jobLevelsCreateManyFields = OperationFields<jobLevelsCollection, 'createMany'>;
+export type jobLevelsUpdateOneFields = OperationFields<jobLevelsCollection, 'updateOne'>;
+export type jobLevelsUpdateManyFields = OperationFields<jobLevelsCollection, 'updateMany'>;
+export type jobLevelsDeleteOneFields = OperationFields<jobLevelsCollection, 'deleteOne'>;
+export type jobLevelsDeleteManyFields = OperationFields<jobLevelsCollection, 'deleteMany'>;
+export type jobLevelsReadOneArgs = ReadOneOptions<jobLevelsCollection>;
+export type jobLevelsReadManyArgs = ReadManyParameters<jobLevelsCollection>;
+export type jobLevelsReadFirstArgs = ReadManyParameters<jobLevelsCollection>;
+export type jobLevelsCreateOneArgs = CreateOneOptions<jobLevelsCollection>;
+export type jobLevelsCreateManyArgs = CreateManyOptions<jobLevelsCollection>;
+export type jobLevelsUpdateOneArgs = UpdateOneOptions<jobLevelsCollection>;
+export type jobLevelsUpdateManyArgs = UpdateManyOptions<jobLevelsCollection>;
+export type jobLevelsDeleteOneArgs = DeleteOneOptions<jobLevelsCollection>;
+export type jobLevelsDeleteManyArgs = DeleteManyParameters<jobLevelsCollection>;
+export type jobLevelsReadOneParameters = ReadOneParameters<jobLevelsCollection>;
+export type jobLevelsReadManyParameters = ReadManyParameters<jobLevelsCollection>;
+export type jobLevelsReadFirstParameters = ReadManyParameters<jobLevelsCollection>;
+export type jobLevelsCreateOneParameters = CreateOneParameters<jobLevelsCollection>;
+export type jobLevelsCreateManyParameters = CreateManyParameters<jobLevelsCollection>;
+export type jobLevelsUpdateOneParameters = UpdateOneParameters<jobLevelsCollection>;
+export type jobLevelsUpdateManyParameters = UpdateManyParameters<jobLevelsCollection>;
+export type jobLevelsDeleteOneParameters = DeleteOneParameters<jobLevelsCollection>;
+export type jobLevelsDeleteManyParameters = DeleteManyParameters<jobLevelsCollection>;
+export type jobLevelsReadOneResultItem<T extends jobLevelsReadOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<jobLevelsCollection, T, 'readOne', Opts>;
+export type jobLevelsReadManyResultItem<T extends jobLevelsReadManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<jobLevelsCollection, T, 'readMany', Opts>;
+export type jobLevelsReadFirstResultItem<T extends jobLevelsReadFirstParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<jobLevelsCollection, T, 'readMany', Opts>;
+export type jobLevelsCreateOneResultItem<T extends jobLevelsCreateOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<jobLevelsCollection, T, 'createOne', Opts>;
+export type jobLevelsCreateManyResultItem<T extends jobLevelsCreateManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<jobLevelsCollection, T, 'createMany', Opts>;
+export type jobLevelsUpdateOneResultItem<T extends jobLevelsUpdateOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<jobLevelsCollection, T, 'updateOne', Opts>;
+export type jobLevelsUpdateManyResultItem<T extends jobLevelsUpdateManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<jobLevelsCollection, T, 'updateMany', Opts>;
+export type jobLevelsDeleteOneResultItem<T extends jobLevelsDeleteOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<jobLevelsCollection, T, 'deleteOne', Opts>;
+export type jobLevelsDeleteManyResultItem<T extends jobLevelsDeleteManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<jobLevelsCollection, T, 'deleteMany', Opts>;
+export type jobLevelsReadOneResult<T extends jobLevelsReadOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<jobLevelsCollection, T, 'readOne', Opts>;
+export type jobLevelsReadManyResult<T extends jobLevelsReadManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<jobLevelsCollection, T, 'readMany', Opts>;
+export type jobLevelsReadFirstResult<T extends jobLevelsReadFirstParameters, Opts extends Partial<TypeOptions> = {}> = ReadFirstResult<jobLevelsCollection, T, Opts>;
+export type jobLevelsCreateOneResult<T extends jobLevelsCreateOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<jobLevelsCollection, T, 'createOne', Opts>;
+export type jobLevelsCreateManyResult<T extends jobLevelsCreateManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<jobLevelsCollection, T, 'createMany', Opts>;
+export type jobLevelsUpdateOneResult<T extends jobLevelsUpdateOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<jobLevelsCollection, T, 'updateOne', Opts>;
+export type jobLevelsUpdateManyResult<T extends jobLevelsUpdateManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<jobLevelsCollection, T, 'updateMany', Opts>;
+export type jobLevelsDeleteOneResult<T extends jobLevelsDeleteOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<jobLevelsCollection, T, 'deleteOne', Opts>;
+export type jobLevelsDeleteManyResult<T extends jobLevelsDeleteManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<jobLevelsCollection, T, 'deleteMany', Opts>;
+
+// --- offers: Per-Collection Type Aliases ---
+
+export type offersKey = ReadOneKey<offersCollection>;
+export type offersUpdateOneInput = UpdateOneInput<offersCollection>;
+export type offersUpdateManyInput = UpdateManyInput<offersCollection>;
+export type offersCreateOneInput = CreateOneInput<offersCollection>;
+export type offersCreateManyInput = CreateManyInput<offersCollection>;
+export type offersReadOneFields = OperationFields<offersCollection, 'readOne'>;
+export type offersReadManyFields = OperationFields<offersCollection, 'readMany'>;
+export type offersReadFirstFields = OperationFields<offersCollection, 'readMany'>;
+export type offersCreateOneFields = OperationFields<offersCollection, 'createOne'>;
+export type offersCreateManyFields = OperationFields<offersCollection, 'createMany'>;
+export type offersUpdateOneFields = OperationFields<offersCollection, 'updateOne'>;
+export type offersUpdateManyFields = OperationFields<offersCollection, 'updateMany'>;
+export type offersDeleteOneFields = OperationFields<offersCollection, 'deleteOne'>;
+export type offersDeleteManyFields = OperationFields<offersCollection, 'deleteMany'>;
+export type offersReadOneArgs = ReadOneOptions<offersCollection>;
+export type offersReadManyArgs = ReadManyParameters<offersCollection>;
+export type offersReadFirstArgs = ReadManyParameters<offersCollection>;
+export type offersCreateOneArgs = CreateOneOptions<offersCollection>;
+export type offersCreateManyArgs = CreateManyOptions<offersCollection>;
+export type offersUpdateOneArgs = UpdateOneOptions<offersCollection>;
+export type offersUpdateManyArgs = UpdateManyOptions<offersCollection>;
+export type offersDeleteOneArgs = DeleteOneOptions<offersCollection>;
+export type offersDeleteManyArgs = DeleteManyParameters<offersCollection>;
+export type offersReadOneParameters = ReadOneParameters<offersCollection>;
+export type offersReadManyParameters = ReadManyParameters<offersCollection>;
+export type offersReadFirstParameters = ReadManyParameters<offersCollection>;
+export type offersCreateOneParameters = CreateOneParameters<offersCollection>;
+export type offersCreateManyParameters = CreateManyParameters<offersCollection>;
+export type offersUpdateOneParameters = UpdateOneParameters<offersCollection>;
+export type offersUpdateManyParameters = UpdateManyParameters<offersCollection>;
+export type offersDeleteOneParameters = DeleteOneParameters<offersCollection>;
+export type offersDeleteManyParameters = DeleteManyParameters<offersCollection>;
+export type offersReadOneResultItem<T extends offersReadOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<offersCollection, T, 'readOne', Opts>;
+export type offersReadManyResultItem<T extends offersReadManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<offersCollection, T, 'readMany', Opts>;
+export type offersReadFirstResultItem<T extends offersReadFirstParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<offersCollection, T, 'readMany', Opts>;
+export type offersCreateOneResultItem<T extends offersCreateOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<offersCollection, T, 'createOne', Opts>;
+export type offersCreateManyResultItem<T extends offersCreateManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<offersCollection, T, 'createMany', Opts>;
+export type offersUpdateOneResultItem<T extends offersUpdateOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<offersCollection, T, 'updateOne', Opts>;
+export type offersUpdateManyResultItem<T extends offersUpdateManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<offersCollection, T, 'updateMany', Opts>;
+export type offersDeleteOneResultItem<T extends offersDeleteOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<offersCollection, T, 'deleteOne', Opts>;
+export type offersDeleteManyResultItem<T extends offersDeleteManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<offersCollection, T, 'deleteMany', Opts>;
+export type offersReadOneResult<T extends offersReadOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<offersCollection, T, 'readOne', Opts>;
+export type offersReadManyResult<T extends offersReadManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<offersCollection, T, 'readMany', Opts>;
+export type offersReadFirstResult<T extends offersReadFirstParameters, Opts extends Partial<TypeOptions> = {}> = ReadFirstResult<offersCollection, T, Opts>;
+export type offersCreateOneResult<T extends offersCreateOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<offersCollection, T, 'createOne', Opts>;
+export type offersCreateManyResult<T extends offersCreateManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<offersCollection, T, 'createMany', Opts>;
+export type offersUpdateOneResult<T extends offersUpdateOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<offersCollection, T, 'updateOne', Opts>;
+export type offersUpdateManyResult<T extends offersUpdateManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<offersCollection, T, 'updateMany', Opts>;
+export type offersDeleteOneResult<T extends offersDeleteOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<offersCollection, T, 'deleteOne', Opts>;
+export type offersDeleteManyResult<T extends offersDeleteManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<offersCollection, T, 'deleteMany', Opts>;
 
 // --- organizations: Per-Collection Type Aliases ---
 
@@ -13126,6 +25294,218 @@ export type plansUpdateOneResult<T extends plansUpdateOneParameters, Opts extend
 export type plansUpdateManyResult<T extends plansUpdateManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<plansCollection, T, 'updateMany', Opts>;
 export type plansDeleteOneResult<T extends plansDeleteOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<plansCollection, T, 'deleteOne', Opts>;
 export type plansDeleteManyResult<T extends plansDeleteManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<plansCollection, T, 'deleteMany', Opts>;
+
+// --- publicApplications: Per-Collection Type Aliases ---
+
+export type publicApplicationsKey = ReadOneKey<publicApplicationsCollection>;
+export type publicApplicationsUpdateOneInput = UpdateOneInput<publicApplicationsCollection>;
+export type publicApplicationsUpdateManyInput = UpdateManyInput<publicApplicationsCollection>;
+export type publicApplicationsCreateOneInput = CreateOneInput<publicApplicationsCollection>;
+export type publicApplicationsCreateManyInput = CreateManyInput<publicApplicationsCollection>;
+export type publicApplicationsReadOneFields = OperationFields<publicApplicationsCollection, 'readOne'>;
+export type publicApplicationsReadManyFields = OperationFields<publicApplicationsCollection, 'readMany'>;
+export type publicApplicationsReadFirstFields = OperationFields<publicApplicationsCollection, 'readMany'>;
+export type publicApplicationsCreateOneFields = OperationFields<publicApplicationsCollection, 'createOne'>;
+export type publicApplicationsCreateManyFields = OperationFields<publicApplicationsCollection, 'createMany'>;
+export type publicApplicationsUpdateOneFields = OperationFields<publicApplicationsCollection, 'updateOne'>;
+export type publicApplicationsUpdateManyFields = OperationFields<publicApplicationsCollection, 'updateMany'>;
+export type publicApplicationsDeleteOneFields = OperationFields<publicApplicationsCollection, 'deleteOne'>;
+export type publicApplicationsDeleteManyFields = OperationFields<publicApplicationsCollection, 'deleteMany'>;
+export type publicApplicationsReadOneArgs = ReadOneOptions<publicApplicationsCollection>;
+export type publicApplicationsReadManyArgs = ReadManyParameters<publicApplicationsCollection>;
+export type publicApplicationsReadFirstArgs = ReadManyParameters<publicApplicationsCollection>;
+export type publicApplicationsCreateOneArgs = CreateOneOptions<publicApplicationsCollection>;
+export type publicApplicationsCreateManyArgs = CreateManyOptions<publicApplicationsCollection>;
+export type publicApplicationsUpdateOneArgs = UpdateOneOptions<publicApplicationsCollection>;
+export type publicApplicationsUpdateManyArgs = UpdateManyOptions<publicApplicationsCollection>;
+export type publicApplicationsDeleteOneArgs = DeleteOneOptions<publicApplicationsCollection>;
+export type publicApplicationsDeleteManyArgs = DeleteManyParameters<publicApplicationsCollection>;
+export type publicApplicationsReadOneParameters = ReadOneParameters<publicApplicationsCollection>;
+export type publicApplicationsReadManyParameters = ReadManyParameters<publicApplicationsCollection>;
+export type publicApplicationsReadFirstParameters = ReadManyParameters<publicApplicationsCollection>;
+export type publicApplicationsCreateOneParameters = CreateOneParameters<publicApplicationsCollection>;
+export type publicApplicationsCreateManyParameters = CreateManyParameters<publicApplicationsCollection>;
+export type publicApplicationsUpdateOneParameters = UpdateOneParameters<publicApplicationsCollection>;
+export type publicApplicationsUpdateManyParameters = UpdateManyParameters<publicApplicationsCollection>;
+export type publicApplicationsDeleteOneParameters = DeleteOneParameters<publicApplicationsCollection>;
+export type publicApplicationsDeleteManyParameters = DeleteManyParameters<publicApplicationsCollection>;
+export type publicApplicationsReadOneResultItem<T extends publicApplicationsReadOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<publicApplicationsCollection, T, 'readOne', Opts>;
+export type publicApplicationsReadManyResultItem<T extends publicApplicationsReadManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<publicApplicationsCollection, T, 'readMany', Opts>;
+export type publicApplicationsReadFirstResultItem<T extends publicApplicationsReadFirstParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<publicApplicationsCollection, T, 'readMany', Opts>;
+export type publicApplicationsCreateOneResultItem<T extends publicApplicationsCreateOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<publicApplicationsCollection, T, 'createOne', Opts>;
+export type publicApplicationsCreateManyResultItem<T extends publicApplicationsCreateManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<publicApplicationsCollection, T, 'createMany', Opts>;
+export type publicApplicationsUpdateOneResultItem<T extends publicApplicationsUpdateOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<publicApplicationsCollection, T, 'updateOne', Opts>;
+export type publicApplicationsUpdateManyResultItem<T extends publicApplicationsUpdateManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<publicApplicationsCollection, T, 'updateMany', Opts>;
+export type publicApplicationsDeleteOneResultItem<T extends publicApplicationsDeleteOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<publicApplicationsCollection, T, 'deleteOne', Opts>;
+export type publicApplicationsDeleteManyResultItem<T extends publicApplicationsDeleteManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<publicApplicationsCollection, T, 'deleteMany', Opts>;
+export type publicApplicationsReadOneResult<T extends publicApplicationsReadOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<publicApplicationsCollection, T, 'readOne', Opts>;
+export type publicApplicationsReadManyResult<T extends publicApplicationsReadManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<publicApplicationsCollection, T, 'readMany', Opts>;
+export type publicApplicationsReadFirstResult<T extends publicApplicationsReadFirstParameters, Opts extends Partial<TypeOptions> = {}> = ReadFirstResult<publicApplicationsCollection, T, Opts>;
+export type publicApplicationsCreateOneResult<T extends publicApplicationsCreateOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<publicApplicationsCollection, T, 'createOne', Opts>;
+export type publicApplicationsCreateManyResult<T extends publicApplicationsCreateManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<publicApplicationsCollection, T, 'createMany', Opts>;
+export type publicApplicationsUpdateOneResult<T extends publicApplicationsUpdateOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<publicApplicationsCollection, T, 'updateOne', Opts>;
+export type publicApplicationsUpdateManyResult<T extends publicApplicationsUpdateManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<publicApplicationsCollection, T, 'updateMany', Opts>;
+export type publicApplicationsDeleteOneResult<T extends publicApplicationsDeleteOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<publicApplicationsCollection, T, 'deleteOne', Opts>;
+export type publicApplicationsDeleteManyResult<T extends publicApplicationsDeleteManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<publicApplicationsCollection, T, 'deleteMany', Opts>;
+
+// --- requisitions: Per-Collection Type Aliases ---
+
+export type requisitionsKey = ReadOneKey<requisitionsCollection>;
+export type requisitionsUpdateOneInput = UpdateOneInput<requisitionsCollection>;
+export type requisitionsUpdateManyInput = UpdateManyInput<requisitionsCollection>;
+export type requisitionsCreateOneInput = CreateOneInput<requisitionsCollection>;
+export type requisitionsCreateManyInput = CreateManyInput<requisitionsCollection>;
+export type requisitionsReadOneFields = OperationFields<requisitionsCollection, 'readOne'>;
+export type requisitionsReadManyFields = OperationFields<requisitionsCollection, 'readMany'>;
+export type requisitionsReadFirstFields = OperationFields<requisitionsCollection, 'readMany'>;
+export type requisitionsCreateOneFields = OperationFields<requisitionsCollection, 'createOne'>;
+export type requisitionsCreateManyFields = OperationFields<requisitionsCollection, 'createMany'>;
+export type requisitionsUpdateOneFields = OperationFields<requisitionsCollection, 'updateOne'>;
+export type requisitionsUpdateManyFields = OperationFields<requisitionsCollection, 'updateMany'>;
+export type requisitionsDeleteOneFields = OperationFields<requisitionsCollection, 'deleteOne'>;
+export type requisitionsDeleteManyFields = OperationFields<requisitionsCollection, 'deleteMany'>;
+export type requisitionsReadOneArgs = ReadOneOptions<requisitionsCollection>;
+export type requisitionsReadManyArgs = ReadManyParameters<requisitionsCollection>;
+export type requisitionsReadFirstArgs = ReadManyParameters<requisitionsCollection>;
+export type requisitionsCreateOneArgs = CreateOneOptions<requisitionsCollection>;
+export type requisitionsCreateManyArgs = CreateManyOptions<requisitionsCollection>;
+export type requisitionsUpdateOneArgs = UpdateOneOptions<requisitionsCollection>;
+export type requisitionsUpdateManyArgs = UpdateManyOptions<requisitionsCollection>;
+export type requisitionsDeleteOneArgs = DeleteOneOptions<requisitionsCollection>;
+export type requisitionsDeleteManyArgs = DeleteManyParameters<requisitionsCollection>;
+export type requisitionsReadOneParameters = ReadOneParameters<requisitionsCollection>;
+export type requisitionsReadManyParameters = ReadManyParameters<requisitionsCollection>;
+export type requisitionsReadFirstParameters = ReadManyParameters<requisitionsCollection>;
+export type requisitionsCreateOneParameters = CreateOneParameters<requisitionsCollection>;
+export type requisitionsCreateManyParameters = CreateManyParameters<requisitionsCollection>;
+export type requisitionsUpdateOneParameters = UpdateOneParameters<requisitionsCollection>;
+export type requisitionsUpdateManyParameters = UpdateManyParameters<requisitionsCollection>;
+export type requisitionsDeleteOneParameters = DeleteOneParameters<requisitionsCollection>;
+export type requisitionsDeleteManyParameters = DeleteManyParameters<requisitionsCollection>;
+export type requisitionsReadOneResultItem<T extends requisitionsReadOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<requisitionsCollection, T, 'readOne', Opts>;
+export type requisitionsReadManyResultItem<T extends requisitionsReadManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<requisitionsCollection, T, 'readMany', Opts>;
+export type requisitionsReadFirstResultItem<T extends requisitionsReadFirstParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<requisitionsCollection, T, 'readMany', Opts>;
+export type requisitionsCreateOneResultItem<T extends requisitionsCreateOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<requisitionsCollection, T, 'createOne', Opts>;
+export type requisitionsCreateManyResultItem<T extends requisitionsCreateManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<requisitionsCollection, T, 'createMany', Opts>;
+export type requisitionsUpdateOneResultItem<T extends requisitionsUpdateOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<requisitionsCollection, T, 'updateOne', Opts>;
+export type requisitionsUpdateManyResultItem<T extends requisitionsUpdateManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<requisitionsCollection, T, 'updateMany', Opts>;
+export type requisitionsDeleteOneResultItem<T extends requisitionsDeleteOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<requisitionsCollection, T, 'deleteOne', Opts>;
+export type requisitionsDeleteManyResultItem<T extends requisitionsDeleteManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<requisitionsCollection, T, 'deleteMany', Opts>;
+export type requisitionsReadOneResult<T extends requisitionsReadOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<requisitionsCollection, T, 'readOne', Opts>;
+export type requisitionsReadManyResult<T extends requisitionsReadManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<requisitionsCollection, T, 'readMany', Opts>;
+export type requisitionsReadFirstResult<T extends requisitionsReadFirstParameters, Opts extends Partial<TypeOptions> = {}> = ReadFirstResult<requisitionsCollection, T, Opts>;
+export type requisitionsCreateOneResult<T extends requisitionsCreateOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<requisitionsCollection, T, 'createOne', Opts>;
+export type requisitionsCreateManyResult<T extends requisitionsCreateManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<requisitionsCollection, T, 'createMany', Opts>;
+export type requisitionsUpdateOneResult<T extends requisitionsUpdateOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<requisitionsCollection, T, 'updateOne', Opts>;
+export type requisitionsUpdateManyResult<T extends requisitionsUpdateManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<requisitionsCollection, T, 'updateMany', Opts>;
+export type requisitionsDeleteOneResult<T extends requisitionsDeleteOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<requisitionsCollection, T, 'deleteOne', Opts>;
+export type requisitionsDeleteManyResult<T extends requisitionsDeleteManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<requisitionsCollection, T, 'deleteMany', Opts>;
+
+// --- roleRequests: Per-Collection Type Aliases ---
+
+export type roleRequestsKey = ReadOneKey<roleRequestsCollection>;
+export type roleRequestsUpdateOneInput = UpdateOneInput<roleRequestsCollection>;
+export type roleRequestsUpdateManyInput = UpdateManyInput<roleRequestsCollection>;
+export type roleRequestsCreateOneInput = CreateOneInput<roleRequestsCollection>;
+export type roleRequestsCreateManyInput = CreateManyInput<roleRequestsCollection>;
+export type roleRequestsReadOneFields = OperationFields<roleRequestsCollection, 'readOne'>;
+export type roleRequestsReadManyFields = OperationFields<roleRequestsCollection, 'readMany'>;
+export type roleRequestsReadFirstFields = OperationFields<roleRequestsCollection, 'readMany'>;
+export type roleRequestsCreateOneFields = OperationFields<roleRequestsCollection, 'createOne'>;
+export type roleRequestsCreateManyFields = OperationFields<roleRequestsCollection, 'createMany'>;
+export type roleRequestsUpdateOneFields = OperationFields<roleRequestsCollection, 'updateOne'>;
+export type roleRequestsUpdateManyFields = OperationFields<roleRequestsCollection, 'updateMany'>;
+export type roleRequestsDeleteOneFields = OperationFields<roleRequestsCollection, 'deleteOne'>;
+export type roleRequestsDeleteManyFields = OperationFields<roleRequestsCollection, 'deleteMany'>;
+export type roleRequestsReadOneArgs = ReadOneOptions<roleRequestsCollection>;
+export type roleRequestsReadManyArgs = ReadManyParameters<roleRequestsCollection>;
+export type roleRequestsReadFirstArgs = ReadManyParameters<roleRequestsCollection>;
+export type roleRequestsCreateOneArgs = CreateOneOptions<roleRequestsCollection>;
+export type roleRequestsCreateManyArgs = CreateManyOptions<roleRequestsCollection>;
+export type roleRequestsUpdateOneArgs = UpdateOneOptions<roleRequestsCollection>;
+export type roleRequestsUpdateManyArgs = UpdateManyOptions<roleRequestsCollection>;
+export type roleRequestsDeleteOneArgs = DeleteOneOptions<roleRequestsCollection>;
+export type roleRequestsDeleteManyArgs = DeleteManyParameters<roleRequestsCollection>;
+export type roleRequestsReadOneParameters = ReadOneParameters<roleRequestsCollection>;
+export type roleRequestsReadManyParameters = ReadManyParameters<roleRequestsCollection>;
+export type roleRequestsReadFirstParameters = ReadManyParameters<roleRequestsCollection>;
+export type roleRequestsCreateOneParameters = CreateOneParameters<roleRequestsCollection>;
+export type roleRequestsCreateManyParameters = CreateManyParameters<roleRequestsCollection>;
+export type roleRequestsUpdateOneParameters = UpdateOneParameters<roleRequestsCollection>;
+export type roleRequestsUpdateManyParameters = UpdateManyParameters<roleRequestsCollection>;
+export type roleRequestsDeleteOneParameters = DeleteOneParameters<roleRequestsCollection>;
+export type roleRequestsDeleteManyParameters = DeleteManyParameters<roleRequestsCollection>;
+export type roleRequestsReadOneResultItem<T extends roleRequestsReadOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<roleRequestsCollection, T, 'readOne', Opts>;
+export type roleRequestsReadManyResultItem<T extends roleRequestsReadManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<roleRequestsCollection, T, 'readMany', Opts>;
+export type roleRequestsReadFirstResultItem<T extends roleRequestsReadFirstParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<roleRequestsCollection, T, 'readMany', Opts>;
+export type roleRequestsCreateOneResultItem<T extends roleRequestsCreateOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<roleRequestsCollection, T, 'createOne', Opts>;
+export type roleRequestsCreateManyResultItem<T extends roleRequestsCreateManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<roleRequestsCollection, T, 'createMany', Opts>;
+export type roleRequestsUpdateOneResultItem<T extends roleRequestsUpdateOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<roleRequestsCollection, T, 'updateOne', Opts>;
+export type roleRequestsUpdateManyResultItem<T extends roleRequestsUpdateManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<roleRequestsCollection, T, 'updateMany', Opts>;
+export type roleRequestsDeleteOneResultItem<T extends roleRequestsDeleteOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<roleRequestsCollection, T, 'deleteOne', Opts>;
+export type roleRequestsDeleteManyResultItem<T extends roleRequestsDeleteManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<roleRequestsCollection, T, 'deleteMany', Opts>;
+export type roleRequestsReadOneResult<T extends roleRequestsReadOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<roleRequestsCollection, T, 'readOne', Opts>;
+export type roleRequestsReadManyResult<T extends roleRequestsReadManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<roleRequestsCollection, T, 'readMany', Opts>;
+export type roleRequestsReadFirstResult<T extends roleRequestsReadFirstParameters, Opts extends Partial<TypeOptions> = {}> = ReadFirstResult<roleRequestsCollection, T, Opts>;
+export type roleRequestsCreateOneResult<T extends roleRequestsCreateOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<roleRequestsCollection, T, 'createOne', Opts>;
+export type roleRequestsCreateManyResult<T extends roleRequestsCreateManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<roleRequestsCollection, T, 'createMany', Opts>;
+export type roleRequestsUpdateOneResult<T extends roleRequestsUpdateOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<roleRequestsCollection, T, 'updateOne', Opts>;
+export type roleRequestsUpdateManyResult<T extends roleRequestsUpdateManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<roleRequestsCollection, T, 'updateMany', Opts>;
+export type roleRequestsDeleteOneResult<T extends roleRequestsDeleteOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<roleRequestsCollection, T, 'deleteOne', Opts>;
+export type roleRequestsDeleteManyResult<T extends roleRequestsDeleteManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<roleRequestsCollection, T, 'deleteMany', Opts>;
+
+// --- scorecards: Per-Collection Type Aliases ---
+
+export type scorecardsKey = ReadOneKey<scorecardsCollection>;
+export type scorecardsUpdateOneInput = UpdateOneInput<scorecardsCollection>;
+export type scorecardsUpdateManyInput = UpdateManyInput<scorecardsCollection>;
+export type scorecardsCreateOneInput = CreateOneInput<scorecardsCollection>;
+export type scorecardsCreateManyInput = CreateManyInput<scorecardsCollection>;
+export type scorecardsReadOneFields = OperationFields<scorecardsCollection, 'readOne'>;
+export type scorecardsReadManyFields = OperationFields<scorecardsCollection, 'readMany'>;
+export type scorecardsReadFirstFields = OperationFields<scorecardsCollection, 'readMany'>;
+export type scorecardsCreateOneFields = OperationFields<scorecardsCollection, 'createOne'>;
+export type scorecardsCreateManyFields = OperationFields<scorecardsCollection, 'createMany'>;
+export type scorecardsUpdateOneFields = OperationFields<scorecardsCollection, 'updateOne'>;
+export type scorecardsUpdateManyFields = OperationFields<scorecardsCollection, 'updateMany'>;
+export type scorecardsDeleteOneFields = OperationFields<scorecardsCollection, 'deleteOne'>;
+export type scorecardsDeleteManyFields = OperationFields<scorecardsCollection, 'deleteMany'>;
+export type scorecardsReadOneArgs = ReadOneOptions<scorecardsCollection>;
+export type scorecardsReadManyArgs = ReadManyParameters<scorecardsCollection>;
+export type scorecardsReadFirstArgs = ReadManyParameters<scorecardsCollection>;
+export type scorecardsCreateOneArgs = CreateOneOptions<scorecardsCollection>;
+export type scorecardsCreateManyArgs = CreateManyOptions<scorecardsCollection>;
+export type scorecardsUpdateOneArgs = UpdateOneOptions<scorecardsCollection>;
+export type scorecardsUpdateManyArgs = UpdateManyOptions<scorecardsCollection>;
+export type scorecardsDeleteOneArgs = DeleteOneOptions<scorecardsCollection>;
+export type scorecardsDeleteManyArgs = DeleteManyParameters<scorecardsCollection>;
+export type scorecardsReadOneParameters = ReadOneParameters<scorecardsCollection>;
+export type scorecardsReadManyParameters = ReadManyParameters<scorecardsCollection>;
+export type scorecardsReadFirstParameters = ReadManyParameters<scorecardsCollection>;
+export type scorecardsCreateOneParameters = CreateOneParameters<scorecardsCollection>;
+export type scorecardsCreateManyParameters = CreateManyParameters<scorecardsCollection>;
+export type scorecardsUpdateOneParameters = UpdateOneParameters<scorecardsCollection>;
+export type scorecardsUpdateManyParameters = UpdateManyParameters<scorecardsCollection>;
+export type scorecardsDeleteOneParameters = DeleteOneParameters<scorecardsCollection>;
+export type scorecardsDeleteManyParameters = DeleteManyParameters<scorecardsCollection>;
+export type scorecardsReadOneResultItem<T extends scorecardsReadOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<scorecardsCollection, T, 'readOne', Opts>;
+export type scorecardsReadManyResultItem<T extends scorecardsReadManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<scorecardsCollection, T, 'readMany', Opts>;
+export type scorecardsReadFirstResultItem<T extends scorecardsReadFirstParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<scorecardsCollection, T, 'readMany', Opts>;
+export type scorecardsCreateOneResultItem<T extends scorecardsCreateOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<scorecardsCollection, T, 'createOne', Opts>;
+export type scorecardsCreateManyResultItem<T extends scorecardsCreateManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<scorecardsCollection, T, 'createMany', Opts>;
+export type scorecardsUpdateOneResultItem<T extends scorecardsUpdateOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<scorecardsCollection, T, 'updateOne', Opts>;
+export type scorecardsUpdateManyResultItem<T extends scorecardsUpdateManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<scorecardsCollection, T, 'updateMany', Opts>;
+export type scorecardsDeleteOneResultItem<T extends scorecardsDeleteOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<scorecardsCollection, T, 'deleteOne', Opts>;
+export type scorecardsDeleteManyResultItem<T extends scorecardsDeleteManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<scorecardsCollection, T, 'deleteMany', Opts>;
+export type scorecardsReadOneResult<T extends scorecardsReadOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<scorecardsCollection, T, 'readOne', Opts>;
+export type scorecardsReadManyResult<T extends scorecardsReadManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<scorecardsCollection, T, 'readMany', Opts>;
+export type scorecardsReadFirstResult<T extends scorecardsReadFirstParameters, Opts extends Partial<TypeOptions> = {}> = ReadFirstResult<scorecardsCollection, T, Opts>;
+export type scorecardsCreateOneResult<T extends scorecardsCreateOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<scorecardsCollection, T, 'createOne', Opts>;
+export type scorecardsCreateManyResult<T extends scorecardsCreateManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<scorecardsCollection, T, 'createMany', Opts>;
+export type scorecardsUpdateOneResult<T extends scorecardsUpdateOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<scorecardsCollection, T, 'updateOne', Opts>;
+export type scorecardsUpdateManyResult<T extends scorecardsUpdateManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<scorecardsCollection, T, 'updateMany', Opts>;
+export type scorecardsDeleteOneResult<T extends scorecardsDeleteOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<scorecardsCollection, T, 'deleteOne', Opts>;
+export type scorecardsDeleteManyResult<T extends scorecardsDeleteManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<scorecardsCollection, T, 'deleteMany', Opts>;
 
 // --- stripeCharges: Per-Collection Type Aliases ---
 
@@ -13358,6 +25738,59 @@ export type usersUpdateManyResult<T extends usersUpdateManyParameters, Opts exte
 export type usersDeleteOneResult<T extends usersDeleteOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<usersCollection, T, 'deleteOne', Opts>;
 export type usersDeleteManyResult<T extends usersDeleteManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<usersCollection, T, 'deleteMany', Opts>;
 
+// --- workforcePlanRoles: Per-Collection Type Aliases ---
+
+export type workforcePlanRolesKey = ReadOneKey<workforcePlanRolesCollection>;
+export type workforcePlanRolesUpdateOneInput = UpdateOneInput<workforcePlanRolesCollection>;
+export type workforcePlanRolesUpdateManyInput = UpdateManyInput<workforcePlanRolesCollection>;
+export type workforcePlanRolesCreateOneInput = CreateOneInput<workforcePlanRolesCollection>;
+export type workforcePlanRolesCreateManyInput = CreateManyInput<workforcePlanRolesCollection>;
+export type workforcePlanRolesReadOneFields = OperationFields<workforcePlanRolesCollection, 'readOne'>;
+export type workforcePlanRolesReadManyFields = OperationFields<workforcePlanRolesCollection, 'readMany'>;
+export type workforcePlanRolesReadFirstFields = OperationFields<workforcePlanRolesCollection, 'readMany'>;
+export type workforcePlanRolesCreateOneFields = OperationFields<workforcePlanRolesCollection, 'createOne'>;
+export type workforcePlanRolesCreateManyFields = OperationFields<workforcePlanRolesCollection, 'createMany'>;
+export type workforcePlanRolesUpdateOneFields = OperationFields<workforcePlanRolesCollection, 'updateOne'>;
+export type workforcePlanRolesUpdateManyFields = OperationFields<workforcePlanRolesCollection, 'updateMany'>;
+export type workforcePlanRolesDeleteOneFields = OperationFields<workforcePlanRolesCollection, 'deleteOne'>;
+export type workforcePlanRolesDeleteManyFields = OperationFields<workforcePlanRolesCollection, 'deleteMany'>;
+export type workforcePlanRolesReadOneArgs = ReadOneOptions<workforcePlanRolesCollection>;
+export type workforcePlanRolesReadManyArgs = ReadManyParameters<workforcePlanRolesCollection>;
+export type workforcePlanRolesReadFirstArgs = ReadManyParameters<workforcePlanRolesCollection>;
+export type workforcePlanRolesCreateOneArgs = CreateOneOptions<workforcePlanRolesCollection>;
+export type workforcePlanRolesCreateManyArgs = CreateManyOptions<workforcePlanRolesCollection>;
+export type workforcePlanRolesUpdateOneArgs = UpdateOneOptions<workforcePlanRolesCollection>;
+export type workforcePlanRolesUpdateManyArgs = UpdateManyOptions<workforcePlanRolesCollection>;
+export type workforcePlanRolesDeleteOneArgs = DeleteOneOptions<workforcePlanRolesCollection>;
+export type workforcePlanRolesDeleteManyArgs = DeleteManyParameters<workforcePlanRolesCollection>;
+export type workforcePlanRolesReadOneParameters = ReadOneParameters<workforcePlanRolesCollection>;
+export type workforcePlanRolesReadManyParameters = ReadManyParameters<workforcePlanRolesCollection>;
+export type workforcePlanRolesReadFirstParameters = ReadManyParameters<workforcePlanRolesCollection>;
+export type workforcePlanRolesCreateOneParameters = CreateOneParameters<workforcePlanRolesCollection>;
+export type workforcePlanRolesCreateManyParameters = CreateManyParameters<workforcePlanRolesCollection>;
+export type workforcePlanRolesUpdateOneParameters = UpdateOneParameters<workforcePlanRolesCollection>;
+export type workforcePlanRolesUpdateManyParameters = UpdateManyParameters<workforcePlanRolesCollection>;
+export type workforcePlanRolesDeleteOneParameters = DeleteOneParameters<workforcePlanRolesCollection>;
+export type workforcePlanRolesDeleteManyParameters = DeleteManyParameters<workforcePlanRolesCollection>;
+export type workforcePlanRolesReadOneResultItem<T extends workforcePlanRolesReadOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<workforcePlanRolesCollection, T, 'readOne', Opts>;
+export type workforcePlanRolesReadManyResultItem<T extends workforcePlanRolesReadManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<workforcePlanRolesCollection, T, 'readMany', Opts>;
+export type workforcePlanRolesReadFirstResultItem<T extends workforcePlanRolesReadFirstParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<workforcePlanRolesCollection, T, 'readMany', Opts>;
+export type workforcePlanRolesCreateOneResultItem<T extends workforcePlanRolesCreateOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<workforcePlanRolesCollection, T, 'createOne', Opts>;
+export type workforcePlanRolesCreateManyResultItem<T extends workforcePlanRolesCreateManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<workforcePlanRolesCollection, T, 'createMany', Opts>;
+export type workforcePlanRolesUpdateOneResultItem<T extends workforcePlanRolesUpdateOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<workforcePlanRolesCollection, T, 'updateOne', Opts>;
+export type workforcePlanRolesUpdateManyResultItem<T extends workforcePlanRolesUpdateManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<workforcePlanRolesCollection, T, 'updateMany', Opts>;
+export type workforcePlanRolesDeleteOneResultItem<T extends workforcePlanRolesDeleteOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<workforcePlanRolesCollection, T, 'deleteOne', Opts>;
+export type workforcePlanRolesDeleteManyResultItem<T extends workforcePlanRolesDeleteManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<workforcePlanRolesCollection, T, 'deleteMany', Opts>;
+export type workforcePlanRolesReadOneResult<T extends workforcePlanRolesReadOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<workforcePlanRolesCollection, T, 'readOne', Opts>;
+export type workforcePlanRolesReadManyResult<T extends workforcePlanRolesReadManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<workforcePlanRolesCollection, T, 'readMany', Opts>;
+export type workforcePlanRolesReadFirstResult<T extends workforcePlanRolesReadFirstParameters, Opts extends Partial<TypeOptions> = {}> = ReadFirstResult<workforcePlanRolesCollection, T, Opts>;
+export type workforcePlanRolesCreateOneResult<T extends workforcePlanRolesCreateOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<workforcePlanRolesCollection, T, 'createOne', Opts>;
+export type workforcePlanRolesCreateManyResult<T extends workforcePlanRolesCreateManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<workforcePlanRolesCollection, T, 'createMany', Opts>;
+export type workforcePlanRolesUpdateOneResult<T extends workforcePlanRolesUpdateOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<workforcePlanRolesCollection, T, 'updateOne', Opts>;
+export type workforcePlanRolesUpdateManyResult<T extends workforcePlanRolesUpdateManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<workforcePlanRolesCollection, T, 'updateMany', Opts>;
+export type workforcePlanRolesDeleteOneResult<T extends workforcePlanRolesDeleteOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<workforcePlanRolesCollection, T, 'deleteOne', Opts>;
+export type workforcePlanRolesDeleteManyResult<T extends workforcePlanRolesDeleteManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<workforcePlanRolesCollection, T, 'deleteMany', Opts>;
+
 // =============================================================================
 // SCHEMA
 // =============================================================================
@@ -13456,6 +25889,67 @@ export type Schema = {
    */
   affiliations: affiliationsCollection;
   /**
+   * applications collection.
+   *
+   * Collection output shape
+   *
+   * ```typescript
+   * {
+   *   "appliedAt": string;
+   *   "candidateId": Uuid;
+   *   "candidates": candidatesCollectionOutput;
+   *   "createdAt": string;
+   *   "createdBy": MonospaceSystemUserCollectionOutput | null;
+   *   "createdById": Uuid | null;
+   *   "id": Uuid;
+   *   "interviewStageId": Uuid;
+   *   "interview_stages": interviewStagesCollectionOutput;
+   *   "interviews": { "data": interviewsCollectionOutput[]; "meta"?: ResponseMeta };
+   *   "lastActivityAt": string;
+   *   "offers": offersCollectionOutput | null;
+   *   "public_applications": { "data": publicApplicationsCollectionOutput[]; "meta"?: ResponseMeta };
+   *   "rejectionReason": string | null;
+   *   "requisitionId": Uuid;
+   *   "requisitions": requisitionsCollectionOutput;
+   *   "stageEnteredAt": string;
+   *   "status": string;
+   *   "updatedAt": string;
+   *   "updatedBy": MonospaceSystemUserCollectionOutput | null;
+   *   "updatedById": Uuid | null;
+   * }
+   * ```
+   *
+   * Returned fields depend on the selection; strictNull also accounts for fields hidden by permissions.
+   */
+  applications: applicationsCollection;
+  /**
+   * approvals collection.
+   *
+   * Collection output shape
+   *
+   * ```typescript
+   * {
+   *   "approverRole": string;
+   *   "approverUserId": Uuid | null;
+   *   "createdAt": string;
+   *   "decidedAt": string | null;
+   *   "decision": string;
+   *   "id": Uuid;
+   *   "note": string | null;
+   *   "offerId": Uuid | null;
+   *   "offers": offersCollectionOutput | null;
+   *   "roleRequestId": Uuid | null;
+   *   "role_requests": roleRequestsCollectionOutput | null;
+   *   "step": number;
+   *   "workforcePlanRoleId": Uuid | null;
+   *   "workforce_plan_roles": workforcePlanRolesCollectionOutput | null;
+   * }
+   * ```
+   *
+   * Returned fields depend on the selection; strictNull also accounts for fields hidden by permissions.
+   */
+  approvals: approvalsCollection;
+  /**
    * attachments collection.
    *
    * Collection output shape
@@ -13485,6 +25979,250 @@ export type Schema = {
    * Returned fields depend on the selection; strictNull also accounts for fields hidden by permissions.
    */
   attachments: attachmentsCollection;
+  /**
+   * auditEvents collection.
+   *
+   * Collection output shape
+   *
+   * ```typescript
+   * {
+   *   "action": string;
+   *   "actorUserId": Uuid | null;
+   *   "candidateId": Uuid | null;
+   *   "changes": JsonValue;
+   *   "id": Uuid;
+   *   "occurredAt": string;
+   *   "recordId": Uuid;
+   *   "tableName": string;
+   * }
+   * ```
+   *
+   * Returned fields depend on the selection; strictNull also accounts for fields hidden by permissions.
+   */
+  auditEvents: auditEventsCollection;
+  /**
+   * candidateFiles collection.
+   *
+   * Collection output shape
+   *
+   * ```typescript
+   * {
+   *   "assetId": Uuid | null;
+   *   "candidateId": Uuid;
+   *   "candidates": candidatesCollectionOutput;
+   *   "contentType": string | null;
+   *   "createdAt": string;
+   *   "createdBy": MonospaceSystemUserCollectionOutput | null;
+   *   "createdById": Uuid | null;
+   *   "fileName": string;
+   *   "id": Uuid;
+   *   "kind": string;
+   *   "url": string | null;
+   * }
+   * ```
+   *
+   * Returned fields depend on the selection; strictNull also accounts for fields hidden by permissions.
+   */
+  candidateFiles: candidateFilesCollection;
+  /**
+   * candidateMessages collection.
+   *
+   * Collection output shape
+   *
+   * ```typescript
+   * {
+   *   "body": string | null;
+   *   "candidateId": Uuid;
+   *   "candidates": candidatesCollectionOutput;
+   *   "createdAt": string;
+   *   "createdBy": MonospaceSystemUserCollectionOutput | null;
+   *   "createdById": Uuid | null;
+   *   "direction": string;
+   *   "id": Uuid;
+   *   "sendAt": string;
+   *   "status": string;
+   *   "subject": string;
+   * }
+   * ```
+   *
+   * Returned fields depend on the selection; strictNull also accounts for fields hidden by permissions.
+   */
+  candidateMessages: candidateMessagesCollection;
+  /**
+   * candidateNotes collection.
+   *
+   * Collection output shape
+   *
+   * ```typescript
+   * {
+   *   "body": string;
+   *   "candidateId": Uuid;
+   *   "candidates": candidatesCollectionOutput;
+   *   "createdAt": string;
+   *   "createdBy": MonospaceSystemUserCollectionOutput | null;
+   *   "createdById": Uuid | null;
+   *   "id": Uuid;
+   *   "updatedAt": string;
+   *   "updatedBy": MonospaceSystemUserCollectionOutput | null;
+   *   "updatedById": Uuid | null;
+   *   "visibility": string;
+   * }
+   * ```
+   *
+   * Returned fields depend on the selection; strictNull also accounts for fields hidden by permissions.
+   */
+  candidateNotes: candidateNotesCollection;
+  /**
+   * candidates collection.
+   *
+   * Collection output shape
+   *
+   * ```typescript
+   * {
+   *   "applications": { "data": applicationsCollectionOutput[]; "meta"?: ResponseMeta };
+   *   "candidate_files": { "data": candidateFilesCollectionOutput[]; "meta"?: ResponseMeta };
+   *   "candidate_messages": { "data": candidateMessagesCollectionOutput[]; "meta"?: ResponseMeta };
+   *   "candidate_notes": { "data": candidateNotesCollectionOutput[]; "meta"?: ResponseMeta };
+   *   "city": string | null;
+   *   "consentAt": string | null;
+   *   "country": string | null;
+   *   "createdAt": string;
+   *   "createdBy": MonospaceSystemUserCollectionOutput | null;
+   *   "createdById": Uuid | null;
+   *   "email": string;
+   *   "firstName": string;
+   *   "githubUrl": string | null;
+   *   "id": Uuid;
+   *   "inTalentPool": boolean;
+   *   "lastName": string;
+   *   "linkedinUrl": string | null;
+   *   "needsSponsorship": boolean | null;
+   *   "phone": string | null;
+   *   "portfolioUrl": string | null;
+   *   "privacyNoticeSentAt": string | null;
+   *   "public_applications": { "data": publicApplicationsCollectionOutput[]; "meta"?: ResponseMeta };
+   *   "referrerUserId": Uuid | null;
+   *   "retainUntil": string | null;
+   *   "source": string;
+   *   "sourceDetail": string | null;
+   *   "tags": string | null;
+   *   "updatedAt": string;
+   *   "updatedBy": MonospaceSystemUserCollectionOutput | null;
+   *   "updatedById": Uuid | null;
+   *   "workAuthorized": boolean | null;
+   * }
+   * ```
+   *
+   * Returned fields depend on the selection; strictNull also accounts for fields hidden by permissions.
+   */
+  candidates: candidatesCollection;
+  /**
+   * checkrCandidates collection.
+   *
+   * Collection output shape
+   *
+   * ```typescript
+   * {
+   *   "adjudication": string | null;
+   *   "createdAt": string | null;
+   *   "customId": string | null;
+   *   "dob": string | null;
+   *   "email": string | null;
+   *   "firstName": string | null;
+   *   "geoIds": { "data": string[]; "meta"?: ResponseMeta };
+   *   "id": string;
+   *   "invitations": { "data": checkrInvitationsCollectionOutput[]; "meta"?: ResponseMeta };
+   *   "lastName": string | null;
+   *   "metadata": JsonValue | null;
+   *   "middleName": string | null;
+   *   "phone": string | null;
+   *   "reportIds": { "data": string[]; "meta"?: ResponseMeta };
+   *   "reports": { "data": checkrReportsCollectionOutput[]; "meta"?: ResponseMeta };
+   *   "zipcode": string | null;
+   * }
+   * ```
+   *
+   * Returned fields depend on the selection; strictNull also accounts for fields hidden by permissions.
+   */
+  checkrCandidates: checkrCandidatesCollection;
+  /**
+   * checkrInvitations collection.
+   *
+   * Collection output shape
+   *
+   * ```typescript
+   * {
+   *   "archived": boolean;
+   *   "candidate": checkrCandidatesCollectionOutput;
+   *   "candidateId": string;
+   *   "completedAt": string | null;
+   *   "createdAt": string | null;
+   *   "deletedAt": string | null;
+   *   "expiresAt": string | null;
+   *   "id": string;
+   *   "invitationUrl": string | null;
+   *   "package": string | null;
+   *   "report": checkrReportsCollectionOutput | null;
+   *   "reportId": string | null;
+   *   "status": string;
+   * }
+   * ```
+   *
+   * Returned fields depend on the selection; strictNull also accounts for fields hidden by permissions.
+   */
+  checkrInvitations: checkrInvitationsCollection;
+  /**
+   * checkrPackages collection.
+   *
+   * Collection output shape
+   *
+   * ```typescript
+   * {
+   *   "applyUrl": string | null;
+   *   "createdAt": string | null;
+   *   "deletedAt": string | null;
+   *   "id": string;
+   *   "name": string;
+   *   "price": number | null;
+   *   "screenings": JsonValue | null;
+   *   "slug": string;
+   * }
+   * ```
+   *
+   * Returned fields depend on the selection; strictNull also accounts for fields hidden by permissions.
+   */
+  checkrPackages: checkrPackagesCollection;
+  /**
+   * checkrReports collection.
+   *
+   * Collection output shape
+   *
+   * ```typescript
+   * {
+   *   "adjudication": string | null;
+   *   "archived": boolean;
+   *   "assessment": string | null;
+   *   "candidate": checkrCandidatesCollectionOutput;
+   *   "candidateId": string;
+   *   "completedAt": string | null;
+   *   "createdAt": string | null;
+   *   "estimatedCompletionTime": string | null;
+   *   "id": string;
+   *   "includesCanceled": boolean;
+   *   "invitations": { "data": checkrInvitationsCollectionOutput[]; "meta"?: ResponseMeta };
+   *   "package": string | null;
+   *   "result": string | null;
+   *   "revisedAt": string | null;
+   *   "source": string | null;
+   *   "status": string;
+   *   "turnaroundTime": number | null;
+   *   "upgradedAt": string | null;
+   * }
+   * ```
+   *
+   * Returned fields depend on the selection; strictNull also accounts for fields hidden by permissions.
+   */
+  checkrReports: checkrReportsCollection;
   /**
    * contacts collection.
    *
@@ -13555,6 +26293,50 @@ export type Schema = {
    */
   deals: dealsCollection;
   /**
+   * departments collection.
+   *
+   * Collection output shape
+   *
+   * ```typescript
+   * {
+   *   "createdAt": string;
+   *   "hasVariableComp": boolean;
+   *   "headUserId": Uuid | null;
+   *   "id": Uuid;
+   *   "name": string;
+   *   "requisitions": { "data": requisitionsCollectionOutput[]; "meta"?: ResponseMeta };
+   *   "role_requests": { "data": roleRequestsCollectionOutput[]; "meta"?: ResponseMeta };
+   *   "workforce_plan_roles": { "data": workforcePlanRolesCollectionOutput[]; "meta"?: ResponseMeta };
+   * }
+   * ```
+   *
+   * Returned fields depend on the selection; strictNull also accounts for fields hidden by permissions.
+   */
+  departments: departmentsCollection;
+  /**
+   * emailTemplates collection.
+   *
+   * Collection output shape
+   *
+   * ```typescript
+   * {
+   *   "body": string;
+   *   "createdAt": string;
+   *   "createdBy": MonospaceSystemUserCollectionOutput | null;
+   *   "createdById": Uuid | null;
+   *   "id": Uuid;
+   *   "name": string;
+   *   "subject": string;
+   *   "updatedAt": string;
+   *   "updatedBy": MonospaceSystemUserCollectionOutput | null;
+   *   "updatedById": Uuid | null;
+   * }
+   * ```
+   *
+   * Returned fields depend on the selection; strictNull also accounts for fields hidden by permissions.
+   */
+  emailTemplates: emailTemplatesCollection;
+  /**
    * events collection.
    *
    * Collection output shape
@@ -13575,6 +26357,142 @@ export type Schema = {
    * Returned fields depend on the selection; strictNull also accounts for fields hidden by permissions.
    */
   events: eventsCollection;
+  /**
+   * hiringLocations collection.
+   *
+   * Collection output shape
+   *
+   * ```typescript
+   * {
+   *   "id": Uuid;
+   *   "name": string;
+   *   "position": number;
+   * }
+   * ```
+   *
+   * Returned fields depend on the selection; strictNull also accounts for fields hidden by permissions.
+   */
+  hiringLocations: hiringLocationsCollection;
+  /**
+   * interviewParticipants collection.
+   *
+   * Collection output shape
+   *
+   * ```typescript
+   * {
+   *   "id": Uuid;
+   *   "interviewId": Uuid;
+   *   "interviews": interviewsCollectionOutput;
+   *   "userId": Uuid;
+   * }
+   * ```
+   *
+   * Returned fields depend on the selection; strictNull also accounts for fields hidden by permissions.
+   */
+  interviewParticipants: interviewParticipantsCollection;
+  /**
+   * interviewStages collection.
+   *
+   * Collection output shape
+   *
+   * ```typescript
+   * {
+   *   "applications": { "data": applicationsCollectionOutput[]; "meta"?: ResponseMeta };
+   *   "id": Uuid;
+   *   "interviews": { "data": interviewsCollectionOutput[]; "meta"?: ResponseMeta };
+   *   "kind": string;
+   *   "name": string;
+   *   "position": number;
+   *   "requisitionId": Uuid;
+   *   "requisitions": requisitionsCollectionOutput;
+   *   "slaDays": number | null;
+   * }
+   * ```
+   *
+   * Returned fields depend on the selection; strictNull also accounts for fields hidden by permissions.
+   */
+  interviewStages: interviewStagesCollection;
+  /**
+   * interviews collection.
+   *
+   * Collection output shape
+   *
+   * ```typescript
+   * {
+   *   "applicationId": Uuid;
+   *   "applications": applicationsCollectionOutput;
+   *   "createdAt": string;
+   *   "createdBy": MonospaceSystemUserCollectionOutput | null;
+   *   "createdById": Uuid | null;
+   *   "endsAt": string;
+   *   "id": Uuid;
+   *   "interviewStageId": Uuid | null;
+   *   "interview_participants": { "data": interviewParticipantsCollectionOutput[]; "meta"?: ResponseMeta };
+   *   "interview_stages": interviewStagesCollectionOutput | null;
+   *   "meetingUrl": string | null;
+   *   "scorecards": { "data": scorecardsCollectionOutput[]; "meta"?: ResponseMeta };
+   *   "startsAt": string;
+   *   "status": string;
+   *   "title": string;
+   *   "updatedAt": string;
+   *   "updatedBy": MonospaceSystemUserCollectionOutput | null;
+   *   "updatedById": Uuid | null;
+   * }
+   * ```
+   *
+   * Returned fields depend on the selection; strictNull also accounts for fields hidden by permissions.
+   */
+  interviews: interviewsCollection;
+  /**
+   * jobLevels collection.
+   *
+   * Collection output shape
+   *
+   * ```typescript
+   * {
+   *   "id": Uuid;
+   *   "name": string;
+   *   "position": number;
+   *   "requisitions": { "data": requisitionsCollectionOutput[]; "meta"?: ResponseMeta };
+   *   "role_requests": { "data": roleRequestsCollectionOutput[]; "meta"?: ResponseMeta };
+   *   "track": string;
+   *   "workforce_plan_roles": { "data": workforcePlanRolesCollectionOutput[]; "meta"?: ResponseMeta };
+   * }
+   * ```
+   *
+   * Returned fields depend on the selection; strictNull also accounts for fields hidden by permissions.
+   */
+  jobLevels: jobLevelsCollection;
+  /**
+   * offers collection.
+   *
+   * Collection output shape
+   *
+   * ```typescript
+   * {
+   *   "applicationId": Uuid;
+   *   "applications": applicationsCollectionOutput;
+   *   "approvals": { "data": approvalsCollectionOutput[]; "meta"?: ResponseMeta };
+   *   "baseSalary": string | null;
+   *   "candidateIntro": string | null;
+   *   "createdAt": string;
+   *   "createdBy": MonospaceSystemUserCollectionOutput | null;
+   *   "createdById": Uuid | null;
+   *   "currency": string;
+   *   "equityUnits": number | null;
+   *   "id": Uuid;
+   *   "proposedStartDate": string | null;
+   *   "searchOverview": string | null;
+   *   "status": string;
+   *   "updatedAt": string;
+   *   "updatedBy": MonospaceSystemUserCollectionOutput | null;
+   *   "updatedById": Uuid | null;
+   * }
+   * ```
+   *
+   * Returned fields depend on the selection; strictNull also accounts for fields hidden by permissions.
+   */
+  offers: offersCollection;
   /**
    * organizations collection.
    *
@@ -13650,6 +26568,174 @@ export type Schema = {
    * Returned fields depend on the selection; strictNull also accounts for fields hidden by permissions.
    */
   plans: plansCollection;
+  /**
+   * publicApplications collection.
+   *
+   * Collection output shape
+   *
+   * ```typescript
+   * {
+   *   "applicationId": Uuid | null;
+   *   "applications": applicationsCollectionOutput | null;
+   *   "candidateId": Uuid | null;
+   *   "candidates": candidatesCollectionOutput | null;
+   *   "city": string | null;
+   *   "consent": boolean;
+   *   "country": string | null;
+   *   "createdAt": string;
+   *   "email": string;
+   *   "firstName": string;
+   *   "githubUrl": string | null;
+   *   "id": Uuid;
+   *   "lastName": string;
+   *   "linkedinUrl": string | null;
+   *   "needsSponsorship": boolean | null;
+   *   "phone": string | null;
+   *   "portfolioUrl": string | null;
+   *   "requisitionId": Uuid;
+   *   "requisitions": requisitionsCollectionOutput;
+   *   "resumeAssetId": Uuid | null;
+   *   "resumeFileName": string | null;
+   *   "resumeUrl": string | null;
+   *   "workAuthorized": boolean | null;
+   * }
+   * ```
+   *
+   * Returned fields depend on the selection; strictNull also accounts for fields hidden by permissions.
+   */
+  publicApplications: publicApplicationsCollection;
+  /**
+   * requisitions collection.
+   *
+   * Collection output shape
+   *
+   * ```typescript
+   * {
+   *   "applications": { "data": applicationsCollectionOutput[]; "meta"?: ResponseMeta };
+   *   "closedAt": string | null;
+   *   "compMax": string | null;
+   *   "compMin": string | null;
+   *   "createdAt": string;
+   *   "createdBy": MonospaceSystemUserCollectionOutput | null;
+   *   "createdById": Uuid | null;
+   *   "currency": string;
+   *   "departmentId": Uuid;
+   *   "departments": departmentsCollectionOutput;
+   *   "description": string | null;
+   *   "employmentType": string;
+   *   "hiringManagerUserId": Uuid | null;
+   *   "hiringReason": string | null;
+   *   "id": Uuid;
+   *   "interview_stages": { "data": interviewStagesCollectionOutput[]; "meta"?: ResponseMeta };
+   *   "isConfidential": boolean;
+   *   "isLeadership": boolean;
+   *   "jobLevelId": Uuid | null;
+   *   "job_levels": jobLevelsCollectionOutput | null;
+   *   "kickoffAt": string | null;
+   *   "kickoffNotes": string | null;
+   *   "locations": string | null;
+   *   "mustHaveSkills": string | null;
+   *   "niceToHaveSkills": string | null;
+   *   "numberOfHires": number;
+   *   "openedAt": string | null;
+   *   "postExternally": boolean;
+   *   "public_applications": { "data": publicApplicationsCollectionOutput[]; "meta"?: ResponseMeta };
+   *   "recruiterUserId": Uuid | null;
+   *   "reqNumber": number;
+   *   "roleRequestId": Uuid | null;
+   *   "role_requests": roleRequestsCollectionOutput | null;
+   *   "status": string;
+   *   "teamSize": number | null;
+   *   "title": string;
+   *   "updatedAt": string;
+   *   "updatedBy": MonospaceSystemUserCollectionOutput | null;
+   *   "updatedById": Uuid | null;
+   *   "urgency": string;
+   * }
+   * ```
+   *
+   * Returned fields depend on the selection; strictNull also accounts for fields hidden by permissions.
+   */
+  requisitions: requisitionsCollection;
+  /**
+   * roleRequests collection.
+   *
+   * Collection output shape
+   *
+   * ```typescript
+   * {
+   *   "approvals": { "data": approvalsCollectionOutput[]; "meta"?: ResponseMeta };
+   *   "approvedBaseMax": string | null;
+   *   "approvedBaseMin": string | null;
+   *   "approvedCurrency": string | null;
+   *   "approvedEquityUnits": number | null;
+   *   "approvedVariableMax": string | null;
+   *   "approvedVariableMin": string | null;
+   *   "businessJustification": string | null;
+   *   "compMax": string | null;
+   *   "compMin": string | null;
+   *   "createdAt": string;
+   *   "createdBy": MonospaceSystemUserCollectionOutput | null;
+   *   "createdById": Uuid | null;
+   *   "currency": string;
+   *   "decidedAt": string | null;
+   *   "decidedByUserId": Uuid | null;
+   *   "decisionNote": string | null;
+   *   "departmentId": Uuid;
+   *   "departments": departmentsCollectionOutput;
+   *   "employmentType": string;
+   *   "hiringManagerUserId": Uuid | null;
+   *   "hiringReason": string;
+   *   "hiringReasonDetail": string | null;
+   *   "id": Uuid;
+   *   "jobLevelId": Uuid | null;
+   *   "job_levels": jobLevelsCollectionOutput | null;
+   *   "locations": string | null;
+   *   "numberOfHires": number;
+   *   "requesterUserId": Uuid | null;
+   *   "requisitions": requisitionsCollectionOutput | null;
+   *   "roleName": string;
+   *   "status": string;
+   *   "updatedAt": string;
+   *   "updatedBy": MonospaceSystemUserCollectionOutput | null;
+   *   "updatedById": Uuid | null;
+   *   "urgency": string;
+   *   "urgencyImpact": string | null;
+   *   "workforcePlanRoleId": Uuid | null;
+   *   "workforce_plan_roles": workforcePlanRolesCollectionOutput | null;
+   * }
+   * ```
+   *
+   * Returned fields depend on the selection; strictNull also accounts for fields hidden by permissions.
+   */
+  roleRequests: roleRequestsCollection;
+  /**
+   * scorecards collection.
+   *
+   * Collection output shape
+   *
+   * ```typescript
+   * {
+   *   "createdBy": MonospaceSystemUserCollectionOutput | null;
+   *   "createdById": Uuid | null;
+   *   "flags": string | null;
+   *   "id": Uuid;
+   *   "interviewId": Uuid;
+   *   "interviewerUserId": Uuid;
+   *   "interviews": interviewsCollectionOutput;
+   *   "positives": string | null;
+   *   "recommendation": string;
+   *   "submittedAt": string;
+   *   "summary": string | null;
+   *   "updatedAt": string;
+   *   "updatedBy": MonospaceSystemUserCollectionOutput | null;
+   *   "updatedById": Uuid | null;
+   * }
+   * ```
+   *
+   * Returned fields depend on the selection; strictNull also accounts for fields hidden by permissions.
+   */
+  scorecards: scorecardsCollection;
   /**
    * stripeCharges collection.
    *
@@ -13773,6 +26859,44 @@ export type Schema = {
    * Returned fields depend on the selection; strictNull also accounts for fields hidden by permissions.
    */
   users: usersCollection;
+  /**
+   * workforcePlanRoles collection.
+   *
+   * Collection output shape
+   *
+   * ```typescript
+   * {
+   *   "approvals": { "data": approvalsCollectionOutput[]; "meta"?: ResponseMeta };
+   *   "approvedHeadcount": number | null;
+   *   "budgetAmount": string | null;
+   *   "createdAt": string;
+   *   "createdBy": MonospaceSystemUserCollectionOutput | null;
+   *   "createdById": Uuid | null;
+   *   "currency": string;
+   *   "currentHeadcount": number;
+   *   "departmentId": Uuid;
+   *   "departments": departmentsCollectionOutput;
+   *   "employmentType": string;
+   *   "hireType": string;
+   *   "id": Uuid;
+   *   "jobLevelId": Uuid | null;
+   *   "job_levels": jobLevelsCollectionOutput | null;
+   *   "locations": string | null;
+   *   "planYear": number;
+   *   "plannedHeadcount": number;
+   *   "roleName": string;
+   *   "role_requests": { "data": roleRequestsCollectionOutput[]; "meta"?: ResponseMeta };
+   *   "status": string;
+   *   "team": string | null;
+   *   "updatedAt": string;
+   *   "updatedBy": MonospaceSystemUserCollectionOutput | null;
+   *   "updatedById": Uuid | null;
+   * }
+   * ```
+   *
+   * Returned fields depend on the selection; strictNull also accounts for fields hidden by permissions.
+   */
+  workforcePlanRoles: workforcePlanRolesCollection;
 }
 
 // =============================================================================

@@ -86,7 +86,10 @@ const moduleRuntime = z
     writes: names.default([]),
     auditColumns: z.record(z.string(), names).default({}),
     setup,
-    demoUserCredential: env.optional(),
+    demoUserCredential: z
+      .string()
+      .regex(/^[A-Z][A-Za-z0-9]*$/)
+      .optional(),
   })
   .superRefine((runtime, context) => {
     const missing = runtime.writes.filter((name) => !runtime.collections.includes(name))

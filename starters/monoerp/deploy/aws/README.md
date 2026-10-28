@@ -206,7 +206,7 @@ CloudFront-to-load-balancer traffic uses plain HTTP in this starter. Browser-to-
 
 The optional package is `@monoerp/aws`. `pnpm aws <command>` forwards to its scripts; run `pnpm --filter @monoerp/aws typecheck` to check it alone. Rename stack/resource IDs, database/final snapshot names, `monoerp.internal`, and the sender in this folder together. Review `pnpm aws plan` first, since identity changes may replace resources.
 
-A module may declare `x-monoerp.demoUserCredential` to name an environment variable used by deployed setup for demo users. Supply it separately from the admin credential.
+A module may declare `x-monoerp.demoUserCredential` to name the secret (for example `AtsDemoCredentials`) that holds the deployed demo users' password. Setup generates it per stage, apart from the admin credential, and passes it as `DEMO_USER_PASSWORD`.
 
 ## Lint
 

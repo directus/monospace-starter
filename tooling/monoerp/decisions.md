@@ -40,11 +40,13 @@ Paths are relative to `starters/monoerp`. How the modules and connectors fit is 
 
 **Rules out:** a CRM role or permission table, app-side access checks treated as security, and a privileged server proxy that bypasses a user's permissions. Roles and policies are managed in Studio.
 
+**The one signed-out write:** the careers page lets visitors apply without an account, through Monospace's public role (`modules/ats/infra/monospace/setup/ats-public.mjs`). Applying means finding or creating a candidate by email, which a visitor must never be able to read. So visitors can only insert into `public_applications`, and a database trigger does the rest (`modules/ats/README.md`).
+
 ## The license key is optional
 
-**Why:** Monospace without a key runs on its free Starter tier, and signed-in module data works on it. That keeps the quickstart free of sign-ups. A key only adds what a real team needs: more than 3 users, custom roles and policies, service accounts, and SSO.
+**Why:** Monospace without a key runs on its free Starter tier, and signed-in module data works on it. Full ATS setup needs additional seats and custom policies (see `modules/ats/README.md`). That keeps the quickstart free of sign-ups. A key only adds what a real team needs: more than 3 users, custom roles and policies, service accounts, and SSO.
 
-**What that means:** local setup must keep working without a key. HTTP 402 licensing refusals skip the affected step with a clear message on keyless installs. Demo people already created are retained. Other errors, including licensing refusals with a configured key, still fail setup. `docker-compose.yml` only passes `MONOSPACE_LICENSE__KEY` when it's set, because Monospace refuses to start with an empty one. The AWS deploy requires a key, since a deployed stage is for a team.
+**What that means:** local setup must keep working without a key. HTTP 402 licensing refusals skip the affected step with a clear message on keyless installs. Demo people already created are retained; public careers remains disabled without its policy. Other errors, including licensing refusals with a configured key, still fail setup. `docker-compose.yml` only passes `MONOSPACE_LICENSE__KEY` when it's set, because Monospace refuses to start with an empty one. The AWS deploy requires a key, since a deployed stage is for a team.
 
 ## CRM data uses UUIDs; portal IDs stay as the portal has them
 

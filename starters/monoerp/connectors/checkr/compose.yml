@@ -1,0 +1,13 @@
+services:
+  checkr:
+    build: ./emulator
+    restart: unless-stopped
+    ports:
+      - '127.0.0.1:${CHECKR_PORT:-4020}:4020'
+    healthcheck:
+      test: ['CMD', 'wget', '-qO-', 'http://127.0.0.1:4020/health']
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    networks:
+      - monospace

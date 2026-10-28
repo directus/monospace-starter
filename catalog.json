@@ -8,12 +8,22 @@
       "description": "Shared app shell, authentication, database, and setup",
       "modules": [
         {
+          "id": "ats",
+          "label": "ATS",
+          "description": "Jobs, candidates, interviews and offers"
+        },
+        {
           "id": "crm",
           "label": "CRM",
           "description": "Organizations, contacts, and deals."
         }
       ],
       "connectors": [
+        {
+          "id": "checkr",
+          "label": "Checkr",
+          "description": "Background checks"
+        },
         {
           "id": "portal",
           "label": "Portal",

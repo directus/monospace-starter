@@ -463,6 +463,25 @@ importers:
         specifier: 4.1.11
         version: 4.1.11(@types/node@24.10.13)(@vitest/browser-playwright@4.1.11)(@vitest/browser-preview@4.1.11)(@voidzero-dev/vite-plus-core@0.3.0(@types/node@24.10.13)(jiti@2.7.0)(typescript@6.0.3)(yaml@2.9.1))(jsdom@30.0.1)(msw@2.15.0(@types/node@24.10.13)(typescript@6.0.3))
 
+  connectors/checkr/extension:
+    dependencies:
+      '@monospace/extension-kit':
+        specifier: 0.3.0
+        version: 0.3.0
+    devDependencies:
+      '@monospace/cli':
+        specifier: 0.2.1
+        version: 0.2.1(patch_hash=a148fa6163d0e93e2fc3bb459bcca838a9c7f532bcb041c7724d0f28f4038cfe)(typescript@6.0.3)
+      rolldown:
+        specifier: 1.2.6
+        version: 1.2.6
+      typescript:
+        specifier: 6.0.3
+        version: 6.0.3
+      vitest:
+        specifier: 4.1.11
+        version: 4.1.11(@types/node@24.10.13)(@vitest/browser-playwright@4.1.11)(@vitest/browser-preview@4.1.11)(@voidzero-dev/vite-plus-core@0.3.0(@types/node@24.10.13)(jiti@2.7.0)(typescript@6.0.3)(yaml@2.9.1))(jsdom@30.0.1)(msw@2.15.0(@types/node@24.10.13)(typescript@6.0.3))
+
   connectors/portal/frontend:
     dependencies:
       '@tanstack/react-query':
@@ -580,6 +599,76 @@ importers:
       typescript:
         specifier: 6.0.3
         version: 6.0.3
+
+  modules/ats:
+    dependencies:
+      '@base-ui/react':
+        specifier: 'catalog:'
+        version: 1.7.0(@date-fns/tz@1.5.0)(@types/react@19.2.18)(date-fns@4.4.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
+      '@dnd-kit/abstract':
+        specifier: 'catalog:'
+        version: 0.5.0
+      '@dnd-kit/helpers':
+        specifier: 'catalog:'
+        version: 0.5.0
+      '@dnd-kit/react':
+        specifier: 'catalog:'
+        version: 0.5.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
+      '@monospace/sdk':
+        specifier: 1.0.0
+        version: 1.0.0(typescript@6.0.3)
+      '@tanstack/charts':
+        specifier: 'catalog:'
+        version: 0.16.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(solid-js@1.9.15)
+      '@tanstack/react-form':
+        specifier: 'catalog:'
+        version: 1.33.5(@tanstack/react-start@1.168.49(@voidzero-dev/vite-plus-core@0.3.0(@types/node@24.10.13)(jiti@2.7.0)(typescript@6.0.3)(yaml@2.9.1))(crossws@0.4.12(srvx@0.11.22))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(rolldown@1.2.6)(supports-color@7.2.0))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
+      '@tanstack/react-query':
+        specifier: 'catalog:'
+        version: 5.102.8(react@19.2.8)
+      '@tanstack/react-router':
+        specifier: 'catalog:'
+        version: 1.170.32(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
+      lucide-react:
+        specifier: 'catalog:'
+        version: 1.38.0(react@19.2.8)
+      qrcode.react:
+        specifier: 4.2.0
+        version: 4.2.0(react@19.2.8)
+      react:
+        specifier: 'catalog:'
+        version: 19.2.8
+      react-dom:
+        specifier: 'catalog:'
+        version: 19.2.8(react@19.2.8)
+      sonner:
+        specifier: 'catalog:'
+        version: 2.0.8(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
+      zod:
+        specifier: 'catalog:'
+        version: 4.5.4
+    devDependencies:
+      '@testing-library/jest-dom':
+        specifier: 'catalog:'
+        version: 7.0.1(@testing-library/dom@10.4.1)(vitest@4.1.11)
+      '@testing-library/react':
+        specifier: 'catalog:'
+        version: 16.3.3(@testing-library/dom@10.4.1)(@types/react-dom@19.2.5(@types/react@19.2.18))(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
+      '@types/react':
+        specifier: 'catalog:'
+        version: 19.2.18
+      '@types/react-dom':
+        specifier: 'catalog:'
+        version: 19.2.5(@types/react@19.2.18)
+      msw:
+        specifier: 'catalog:'
+        version: 2.15.0(@types/node@24.10.13)(typescript@6.0.3)
+      vite:
+        specifier: npm:@voidzero-dev/vite-plus-core@0.3.0
+        version: '@voidzero-dev/vite-plus-core@0.3.0(@types/node@24.10.13)(jiti@2.7.0)(typescript@6.0.3)(yaml@2.9.1)'
+      vitest:
+        specifier: 4.1.11
+        version: 4.1.11(@types/node@24.10.13)(@vitest/browser-playwright@4.1.11)(@vitest/browser-preview@4.1.11)(@voidzero-dev/vite-plus-core@0.3.0(@types/node@24.10.13)(jiti@2.7.0)(typescript@6.0.3)(yaml@2.9.1))(jsdom@30.0.1)(msw@2.15.0(@types/node@24.10.13)(typescript@6.0.3))
 
   modules/crm:
     dependencies:
@@ -4865,6 +4954,11 @@ packages:
   punycode@2.3.1:
     resolution: {integrity: sha512-vYt7UD1U9Wg6138shLtLOvdAu+8DsC/ilFtEVHcH+wydcSpNE20AfSOduf6MkRFahL5FY7X1oU7nKVZFtfq8Fg==}
     engines: {node: '>=6'}
+
+  qrcode.react@4.2.0:
+    resolution: {integrity: sha512-QpgqWi8rD9DsS9EP3z7BT+5lY5SFhsqGjpgW5DY/i3mK4M9DTBNz3ErMi8BWYEfI3L0d8GIbGmcdFAS1uIRGjA==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
 
   react-day-picker@10.0.1:
     resolution: {integrity: sha512-eNh6BlwcYInWaJtRv18mXQ06Ys/H6rdTZAnTaSdOYJuTpwP1JMCHNd1FDRadA+gbeinq+psdULN5Xnowy9mV8w==}
@@ -9442,6 +9536,10 @@ snapshots:
       prosemirror-transform: 1.12.1
 
   punycode@2.3.1: {}
+
+  qrcode.react@4.2.0(react@19.2.8):
+    dependencies:
+      react: 19.2.8
 
   react-day-picker@10.0.1(@types/react@19.2.18)(react@19.2.8):
     dependencies:

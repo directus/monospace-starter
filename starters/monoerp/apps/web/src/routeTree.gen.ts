@@ -10,9 +10,21 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as appsWebSrcRoutesAppRouteImport } from './routes/_app'
+import { Route as CareersRouteImport } from './../../../modules/ats/routes/public/careers'
 import { Route as appsWebSrcRoutesLoginRouteImport } from './routes/login'
+import { Route as SlidesRouteImport } from './../../../modules/ats/routes/public/slides'
 import { Route as appsWebSrcRoutesAppIndexRouteImport } from './routes/_app/index'
 import { Route as appsWebSrcRoutesAppSettingsRouteImport } from './routes/_app/settings'
+import { Route as CareersDotindexRouteImport } from './../../../modules/ats/routes/public/careers.index'
+import { Route as CareersDotjobIdRouteImport } from './../../../modules/ats/routes/public/careers.$jobId'
+import { Route as AtsIndexRouteImport } from './../../../modules/ats/routes/app/index'
+import { Route as AtsApprovalsRouteImport } from './../../../modules/ats/routes/app/approvals'
+import { Route as AtsCandidatesRouteImport } from './../../../modules/ats/routes/app/candidates'
+import { Route as AtsInterviewsRouteImport } from './../../../modules/ats/routes/app/interviews'
+import { Route as AtsJobsRouteImport } from './../../../modules/ats/routes/app/jobs'
+import { Route as AtsOpenRolesRouteImport } from './../../../modules/ats/routes/app/open-roles'
+import { Route as AtsRoleRequestsRouteImport } from './../../../modules/ats/routes/app/role-requests'
+import { Route as AtsWorkforcePlanRouteImport } from './../../../modules/ats/routes/app/workforce-plan'
 import { Route as CrmIndexRouteImport } from './../../../modules/crm/routes/app/index'
 import { Route as CrmActivityRouteImport } from './../../../modules/crm/routes/app/activity'
 import { Route as CrmContactsRouteImport } from './../../../modules/crm/routes/app/contacts'
@@ -20,18 +32,35 @@ import { Route as CrmDealsRouteImport } from './../../../modules/crm/routes/app/
 import { Route as CrmOrganizationsRouteImport } from './../../../modules/crm/routes/app/organizations'
 import { Route as appsWebSrcRoutesAppSettingsDotindexRouteImport } from './routes/_app/settings.index'
 import { Route as appsWebSrcRoutesAppSettingsDotaccountRouteImport } from './routes/_app/settings.account'
+import { Route as AtsCandidates_DotcandidateIdRouteImport } from './../../../modules/ats/routes/app/candidates_.$candidateId'
+import { Route as AtsJobs_DotjobIdRouteImport } from './../../../modules/ats/routes/app/jobs_.$jobId'
+import { Route as AtsRoleRequests_DotrequestIdRouteImport } from './../../../modules/ats/routes/app/role-requests_.$requestId'
 import { Route as CrmContacts_DotcontactIdRouteImport } from './../../../modules/crm/routes/app/contacts_.$contactId'
 import { Route as CrmDeals_DotdealIdRouteImport } from './../../../modules/crm/routes/app/deals_.$dealId'
 import { Route as CrmOrganizations_DotorganizationIdRouteImport } from './../../../modules/crm/routes/app/organizations_.$organizationId'
+import { Route as AtsDepartmentsRouteImport } from './../../../modules/ats/routes/settings/departments'
+import { Route as AtsEmailTemplatesRouteImport } from './../../../modules/ats/routes/settings/email-templates'
+import { Route as AtsJobLevelsRouteImport } from './../../../modules/ats/routes/settings/job-levels'
+import { Route as AtsLocationsRouteImport } from './../../../modules/ats/routes/settings/locations'
 import { Route as CrmPipelineStagesRouteImport } from './../../../modules/crm/routes/settings/pipeline-stages'
 
 const appsWebSrcRoutesAppRoute = appsWebSrcRoutesAppRouteImport.update({
   id: '/_app',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CareersRoute = CareersRouteImport.update({
+  id: '/careers',
+  path: '/careers',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const appsWebSrcRoutesLoginRoute = appsWebSrcRoutesLoginRouteImport.update({
   id: '/login',
   path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SlidesRoute = SlidesRouteImport.update({
+  id: '/slides',
+  path: '/slides',
   getParentRoute: () => rootRouteImport,
 } as any)
 const appsWebSrcRoutesAppIndexRoute =
@@ -46,6 +75,56 @@ const appsWebSrcRoutesAppSettingsRoute =
     path: '/settings',
     getParentRoute: () => appsWebSrcRoutesAppRoute,
   } as any)
+const CareersDotindexRoute = CareersDotindexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => CareersRoute,
+} as any)
+const CareersDotjobIdRoute = CareersDotjobIdRouteImport.update({
+  id: '/$jobId',
+  path: '/$jobId',
+  getParentRoute: () => CareersRoute,
+} as any)
+const AtsIndexRoute = AtsIndexRouteImport.update({
+  id: '/ats/',
+  path: '/ats/',
+  getParentRoute: () => appsWebSrcRoutesAppRoute,
+} as any)
+const AtsApprovalsRoute = AtsApprovalsRouteImport.update({
+  id: '/ats/approvals',
+  path: '/ats/approvals',
+  getParentRoute: () => appsWebSrcRoutesAppRoute,
+} as any)
+const AtsCandidatesRoute = AtsCandidatesRouteImport.update({
+  id: '/ats/candidates',
+  path: '/ats/candidates',
+  getParentRoute: () => appsWebSrcRoutesAppRoute,
+} as any)
+const AtsInterviewsRoute = AtsInterviewsRouteImport.update({
+  id: '/ats/interviews',
+  path: '/ats/interviews',
+  getParentRoute: () => appsWebSrcRoutesAppRoute,
+} as any)
+const AtsJobsRoute = AtsJobsRouteImport.update({
+  id: '/ats/jobs',
+  path: '/ats/jobs',
+  getParentRoute: () => appsWebSrcRoutesAppRoute,
+} as any)
+const AtsOpenRolesRoute = AtsOpenRolesRouteImport.update({
+  id: '/ats/open-roles',
+  path: '/ats/open-roles',
+  getParentRoute: () => appsWebSrcRoutesAppRoute,
+} as any)
+const AtsRoleRequestsRoute = AtsRoleRequestsRouteImport.update({
+  id: '/ats/role-requests',
+  path: '/ats/role-requests',
+  getParentRoute: () => appsWebSrcRoutesAppRoute,
+} as any)
+const AtsWorkforcePlanRoute = AtsWorkforcePlanRouteImport.update({
+  id: '/ats/workforce-plan',
+  path: '/ats/workforce-plan',
+  getParentRoute: () => appsWebSrcRoutesAppRoute,
+} as any)
 const CrmIndexRoute = CrmIndexRouteImport.update({
   id: '/crm/',
   path: '/crm/',
@@ -83,6 +162,23 @@ const appsWebSrcRoutesAppSettingsDotaccountRoute =
     path: '/account',
     getParentRoute: () => appsWebSrcRoutesAppSettingsRoute,
   } as any)
+const AtsCandidates_DotcandidateIdRoute =
+  AtsCandidates_DotcandidateIdRouteImport.update({
+    id: '/ats/candidates_/$candidateId',
+    path: '/ats/candidates/$candidateId',
+    getParentRoute: () => appsWebSrcRoutesAppRoute,
+  } as any)
+const AtsJobs_DotjobIdRoute = AtsJobs_DotjobIdRouteImport.update({
+  id: '/ats/jobs_/$jobId',
+  path: '/ats/jobs/$jobId',
+  getParentRoute: () => appsWebSrcRoutesAppRoute,
+} as any)
+const AtsRoleRequests_DotrequestIdRoute =
+  AtsRoleRequests_DotrequestIdRouteImport.update({
+    id: '/ats/role-requests_/$requestId',
+    path: '/ats/role-requests/$requestId',
+    getParentRoute: () => appsWebSrcRoutesAppRoute,
+  } as any)
 const CrmContacts_DotcontactIdRoute =
   CrmContacts_DotcontactIdRouteImport.update({
     id: '/crm/contacts_/$contactId',
@@ -100,6 +196,26 @@ const CrmOrganizations_DotorganizationIdRoute =
     path: '/crm/organizations/$organizationId',
     getParentRoute: () => appsWebSrcRoutesAppRoute,
   } as any)
+const AtsDepartmentsRoute = AtsDepartmentsRouteImport.update({
+  id: '/ats/departments',
+  path: '/ats/departments',
+  getParentRoute: () => appsWebSrcRoutesAppSettingsRoute,
+} as any)
+const AtsEmailTemplatesRoute = AtsEmailTemplatesRouteImport.update({
+  id: '/ats/email-templates',
+  path: '/ats/email-templates',
+  getParentRoute: () => appsWebSrcRoutesAppSettingsRoute,
+} as any)
+const AtsJobLevelsRoute = AtsJobLevelsRouteImport.update({
+  id: '/ats/job-levels',
+  path: '/ats/job-levels',
+  getParentRoute: () => appsWebSrcRoutesAppSettingsRoute,
+} as any)
+const AtsLocationsRoute = AtsLocationsRouteImport.update({
+  id: '/ats/locations',
+  path: '/ats/locations',
+  getParentRoute: () => appsWebSrcRoutesAppSettingsRoute,
+} as any)
 const CrmPipelineStagesRoute = CrmPipelineStagesRouteImport.update({
   id: '/crm/pipeline-stages',
   path: '/crm/pipeline-stages',
@@ -108,107 +224,221 @@ const CrmPipelineStagesRoute = CrmPipelineStagesRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof appsWebSrcRoutesAppIndexRoute
+  '/careers': typeof CareersRouteWithChildren
   '/login': typeof appsWebSrcRoutesLoginRoute
+  '/slides': typeof SlidesRoute
   '/settings': typeof appsWebSrcRoutesAppSettingsRouteWithChildren
+  '/careers/$jobId': typeof CareersDotjobIdRoute
+  '/careers/': typeof CareersDotindexRoute
+  '/ats/approvals': typeof AtsApprovalsRoute
+  '/ats/candidates': typeof AtsCandidatesRoute
+  '/ats/interviews': typeof AtsInterviewsRoute
+  '/ats/jobs': typeof AtsJobsRoute
+  '/ats/open-roles': typeof AtsOpenRolesRoute
+  '/ats/role-requests': typeof AtsRoleRequestsRoute
+  '/ats/workforce-plan': typeof AtsWorkforcePlanRoute
   '/crm/activity': typeof CrmActivityRoute
   '/crm/contacts': typeof CrmContactsRoute
   '/crm/deals': typeof CrmDealsRoute
   '/crm/organizations': typeof CrmOrganizationsRoute
   '/settings/account': typeof appsWebSrcRoutesAppSettingsDotaccountRoute
+  '/ats/': typeof AtsIndexRoute
   '/crm/': typeof CrmIndexRoute
   '/settings/': typeof appsWebSrcRoutesAppSettingsDotindexRoute
+  '/ats/candidates/$candidateId': typeof AtsCandidates_DotcandidateIdRoute
+  '/ats/jobs/$jobId': typeof AtsJobs_DotjobIdRoute
+  '/ats/role-requests/$requestId': typeof AtsRoleRequests_DotrequestIdRoute
   '/crm/contacts/$contactId': typeof CrmContacts_DotcontactIdRoute
   '/crm/deals/$dealId': typeof CrmDeals_DotdealIdRoute
   '/crm/organizations/$organizationId': typeof CrmOrganizations_DotorganizationIdRoute
+  '/settings/ats/departments': typeof AtsDepartmentsRoute
+  '/settings/ats/email-templates': typeof AtsEmailTemplatesRoute
+  '/settings/ats/job-levels': typeof AtsJobLevelsRoute
+  '/settings/ats/locations': typeof AtsLocationsRoute
   '/settings/crm/pipeline-stages': typeof CrmPipelineStagesRoute
 }
 export interface FileRoutesByTo {
   '/login': typeof appsWebSrcRoutesLoginRoute
+  '/slides': typeof SlidesRoute
+  '/careers/$jobId': typeof CareersDotjobIdRoute
   '/': typeof appsWebSrcRoutesAppIndexRoute
+  '/careers': typeof CareersDotindexRoute
+  '/ats/approvals': typeof AtsApprovalsRoute
+  '/ats/candidates': typeof AtsCandidatesRoute
+  '/ats/interviews': typeof AtsInterviewsRoute
+  '/ats/jobs': typeof AtsJobsRoute
+  '/ats/open-roles': typeof AtsOpenRolesRoute
+  '/ats/role-requests': typeof AtsRoleRequestsRoute
+  '/ats/workforce-plan': typeof AtsWorkforcePlanRoute
   '/crm/activity': typeof CrmActivityRoute
   '/crm/contacts': typeof CrmContactsRoute
   '/crm/deals': typeof CrmDealsRoute
   '/crm/organizations': typeof CrmOrganizationsRoute
   '/settings/account': typeof appsWebSrcRoutesAppSettingsDotaccountRoute
+  '/ats': typeof AtsIndexRoute
   '/crm': typeof CrmIndexRoute
   '/settings': typeof appsWebSrcRoutesAppSettingsDotindexRoute
+  '/ats/candidates/$candidateId': typeof AtsCandidates_DotcandidateIdRoute
+  '/ats/jobs/$jobId': typeof AtsJobs_DotjobIdRoute
+  '/ats/role-requests/$requestId': typeof AtsRoleRequests_DotrequestIdRoute
   '/crm/contacts/$contactId': typeof CrmContacts_DotcontactIdRoute
   '/crm/deals/$dealId': typeof CrmDeals_DotdealIdRoute
   '/crm/organizations/$organizationId': typeof CrmOrganizations_DotorganizationIdRoute
+  '/settings/ats/departments': typeof AtsDepartmentsRoute
+  '/settings/ats/email-templates': typeof AtsEmailTemplatesRoute
+  '/settings/ats/job-levels': typeof AtsJobLevelsRoute
+  '/settings/ats/locations': typeof AtsLocationsRoute
   '/settings/crm/pipeline-stages': typeof CrmPipelineStagesRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_app': typeof appsWebSrcRoutesAppRouteWithChildren
+  '/careers': typeof CareersRouteWithChildren
   '/login': typeof appsWebSrcRoutesLoginRoute
+  '/slides': typeof SlidesRoute
   '/_app/settings': typeof appsWebSrcRoutesAppSettingsRouteWithChildren
+  '/careers/$jobId': typeof CareersDotjobIdRoute
   '/_app/': typeof appsWebSrcRoutesAppIndexRoute
+  '/careers/': typeof CareersDotindexRoute
+  '/_app/ats/approvals': typeof AtsApprovalsRoute
+  '/_app/ats/candidates': typeof AtsCandidatesRoute
+  '/_app/ats/interviews': typeof AtsInterviewsRoute
+  '/_app/ats/jobs': typeof AtsJobsRoute
+  '/_app/ats/open-roles': typeof AtsOpenRolesRoute
+  '/_app/ats/role-requests': typeof AtsRoleRequestsRoute
+  '/_app/ats/workforce-plan': typeof AtsWorkforcePlanRoute
   '/_app/crm/activity': typeof CrmActivityRoute
   '/_app/crm/contacts': typeof CrmContactsRoute
   '/_app/crm/deals': typeof CrmDealsRoute
   '/_app/crm/organizations': typeof CrmOrganizationsRoute
   '/_app/settings/account': typeof appsWebSrcRoutesAppSettingsDotaccountRoute
+  '/_app/ats/': typeof AtsIndexRoute
   '/_app/crm/': typeof CrmIndexRoute
   '/_app/settings/': typeof appsWebSrcRoutesAppSettingsDotindexRoute
+  '/_app/ats/candidates_/$candidateId': typeof AtsCandidates_DotcandidateIdRoute
+  '/_app/ats/jobs_/$jobId': typeof AtsJobs_DotjobIdRoute
+  '/_app/ats/role-requests_/$requestId': typeof AtsRoleRequests_DotrequestIdRoute
   '/_app/crm/contacts_/$contactId': typeof CrmContacts_DotcontactIdRoute
   '/_app/crm/deals_/$dealId': typeof CrmDeals_DotdealIdRoute
   '/_app/crm/organizations_/$organizationId': typeof CrmOrganizations_DotorganizationIdRoute
+  '/_app/settings/ats/departments': typeof AtsDepartmentsRoute
+  '/_app/settings/ats/email-templates': typeof AtsEmailTemplatesRoute
+  '/_app/settings/ats/job-levels': typeof AtsJobLevelsRoute
+  '/_app/settings/ats/locations': typeof AtsLocationsRoute
   '/_app/settings/crm/pipeline-stages': typeof CrmPipelineStagesRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/careers'
     | '/login'
+    | '/slides'
     | '/settings'
+    | '/careers/$jobId'
+    | '/careers/'
+    | '/ats/approvals'
+    | '/ats/candidates'
+    | '/ats/interviews'
+    | '/ats/jobs'
+    | '/ats/open-roles'
+    | '/ats/role-requests'
+    | '/ats/workforce-plan'
     | '/crm/activity'
     | '/crm/contacts'
     | '/crm/deals'
     | '/crm/organizations'
     | '/settings/account'
+    | '/ats/'
     | '/crm/'
     | '/settings/'
+    | '/ats/candidates/$candidateId'
+    | '/ats/jobs/$jobId'
+    | '/ats/role-requests/$requestId'
     | '/crm/contacts/$contactId'
     | '/crm/deals/$dealId'
     | '/crm/organizations/$organizationId'
+    | '/settings/ats/departments'
+    | '/settings/ats/email-templates'
+    | '/settings/ats/job-levels'
+    | '/settings/ats/locations'
     | '/settings/crm/pipeline-stages'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/login'
+    | '/slides'
+    | '/careers/$jobId'
     | '/'
+    | '/careers'
+    | '/ats/approvals'
+    | '/ats/candidates'
+    | '/ats/interviews'
+    | '/ats/jobs'
+    | '/ats/open-roles'
+    | '/ats/role-requests'
+    | '/ats/workforce-plan'
     | '/crm/activity'
     | '/crm/contacts'
     | '/crm/deals'
     | '/crm/organizations'
     | '/settings/account'
+    | '/ats'
     | '/crm'
     | '/settings'
+    | '/ats/candidates/$candidateId'
+    | '/ats/jobs/$jobId'
+    | '/ats/role-requests/$requestId'
     | '/crm/contacts/$contactId'
     | '/crm/deals/$dealId'
     | '/crm/organizations/$organizationId'
+    | '/settings/ats/departments'
+    | '/settings/ats/email-templates'
+    | '/settings/ats/job-levels'
+    | '/settings/ats/locations'
     | '/settings/crm/pipeline-stages'
   id:
     | '__root__'
     | '/_app'
+    | '/careers'
     | '/login'
+    | '/slides'
     | '/_app/settings'
+    | '/careers/$jobId'
     | '/_app/'
+    | '/careers/'
+    | '/_app/ats/approvals'
+    | '/_app/ats/candidates'
+    | '/_app/ats/interviews'
+    | '/_app/ats/jobs'
+    | '/_app/ats/open-roles'
+    | '/_app/ats/role-requests'
+    | '/_app/ats/workforce-plan'
     | '/_app/crm/activity'
     | '/_app/crm/contacts'
     | '/_app/crm/deals'
     | '/_app/crm/organizations'
     | '/_app/settings/account'
+    | '/_app/ats/'
     | '/_app/crm/'
     | '/_app/settings/'
+    | '/_app/ats/candidates_/$candidateId'
+    | '/_app/ats/jobs_/$jobId'
+    | '/_app/ats/role-requests_/$requestId'
     | '/_app/crm/contacts_/$contactId'
     | '/_app/crm/deals_/$dealId'
     | '/_app/crm/organizations_/$organizationId'
+    | '/_app/settings/ats/departments'
+    | '/_app/settings/ats/email-templates'
+    | '/_app/settings/ats/job-levels'
+    | '/_app/settings/ats/locations'
     | '/_app/settings/crm/pipeline-stages'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   appsWebSrcRoutesAppRoute: typeof appsWebSrcRoutesAppRouteWithChildren
+  CareersRoute: typeof CareersRouteWithChildren
   appsWebSrcRoutesLoginRoute: typeof appsWebSrcRoutesLoginRoute
+  SlidesRoute: typeof SlidesRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -220,11 +450,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof appsWebSrcRoutesAppRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/careers': {
+      id: '/careers'
+      path: '/careers'
+      fullPath: '/careers'
+      preLoaderRoute: typeof CareersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/login': {
       id: '/login'
       path: '/login'
       fullPath: '/login'
       preLoaderRoute: typeof appsWebSrcRoutesLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/slides': {
+      id: '/slides'
+      path: '/slides'
+      fullPath: '/slides'
+      preLoaderRoute: typeof SlidesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_app/': {
@@ -239,6 +483,76 @@ declare module '@tanstack/react-router' {
       path: '/settings'
       fullPath: '/settings'
       preLoaderRoute: typeof appsWebSrcRoutesAppSettingsRouteImport
+      parentRoute: typeof appsWebSrcRoutesAppRoute
+    }
+    '/careers/': {
+      id: '/careers/'
+      path: '/'
+      fullPath: '/careers/'
+      preLoaderRoute: typeof CareersDotindexRouteImport
+      parentRoute: typeof CareersRoute
+    }
+    '/careers/$jobId': {
+      id: '/careers/$jobId'
+      path: '/$jobId'
+      fullPath: '/careers/$jobId'
+      preLoaderRoute: typeof CareersDotjobIdRouteImport
+      parentRoute: typeof CareersRoute
+    }
+    '/_app/ats/': {
+      id: '/_app/ats/'
+      path: '/ats'
+      fullPath: '/ats/'
+      preLoaderRoute: typeof AtsIndexRouteImport
+      parentRoute: typeof appsWebSrcRoutesAppRoute
+    }
+    '/_app/ats/approvals': {
+      id: '/_app/ats/approvals'
+      path: '/ats/approvals'
+      fullPath: '/ats/approvals'
+      preLoaderRoute: typeof AtsApprovalsRouteImport
+      parentRoute: typeof appsWebSrcRoutesAppRoute
+    }
+    '/_app/ats/candidates': {
+      id: '/_app/ats/candidates'
+      path: '/ats/candidates'
+      fullPath: '/ats/candidates'
+      preLoaderRoute: typeof AtsCandidatesRouteImport
+      parentRoute: typeof appsWebSrcRoutesAppRoute
+    }
+    '/_app/ats/interviews': {
+      id: '/_app/ats/interviews'
+      path: '/ats/interviews'
+      fullPath: '/ats/interviews'
+      preLoaderRoute: typeof AtsInterviewsRouteImport
+      parentRoute: typeof appsWebSrcRoutesAppRoute
+    }
+    '/_app/ats/jobs': {
+      id: '/_app/ats/jobs'
+      path: '/ats/jobs'
+      fullPath: '/ats/jobs'
+      preLoaderRoute: typeof AtsJobsRouteImport
+      parentRoute: typeof appsWebSrcRoutesAppRoute
+    }
+    '/_app/ats/open-roles': {
+      id: '/_app/ats/open-roles'
+      path: '/ats/open-roles'
+      fullPath: '/ats/open-roles'
+      preLoaderRoute: typeof AtsOpenRolesRouteImport
+      parentRoute: typeof appsWebSrcRoutesAppRoute
+    }
+    '/_app/ats/role-requests': {
+      id: '/_app/ats/role-requests'
+      path: '/ats/role-requests'
+      fullPath: '/ats/role-requests'
+      preLoaderRoute: typeof AtsRoleRequestsRouteImport
+      parentRoute: typeof appsWebSrcRoutesAppRoute
+    }
+    '/_app/ats/workforce-plan': {
+      id: '/_app/ats/workforce-plan'
+      path: '/ats/workforce-plan'
+      fullPath: '/ats/workforce-plan'
+      preLoaderRoute: typeof AtsWorkforcePlanRouteImport
       parentRoute: typeof appsWebSrcRoutesAppRoute
     }
     '/_app/crm/': {
@@ -290,6 +604,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof appsWebSrcRoutesAppSettingsDotaccountRouteImport
       parentRoute: typeof appsWebSrcRoutesAppSettingsRoute
     }
+    '/_app/ats/candidates_/$candidateId': {
+      id: '/_app/ats/candidates_/$candidateId'
+      path: '/ats/candidates/$candidateId'
+      fullPath: '/ats/candidates/$candidateId'
+      preLoaderRoute: typeof AtsCandidates_DotcandidateIdRouteImport
+      parentRoute: typeof appsWebSrcRoutesAppRoute
+    }
+    '/_app/ats/jobs_/$jobId': {
+      id: '/_app/ats/jobs_/$jobId'
+      path: '/ats/jobs/$jobId'
+      fullPath: '/ats/jobs/$jobId'
+      preLoaderRoute: typeof AtsJobs_DotjobIdRouteImport
+      parentRoute: typeof appsWebSrcRoutesAppRoute
+    }
+    '/_app/ats/role-requests_/$requestId': {
+      id: '/_app/ats/role-requests_/$requestId'
+      path: '/ats/role-requests/$requestId'
+      fullPath: '/ats/role-requests/$requestId'
+      preLoaderRoute: typeof AtsRoleRequests_DotrequestIdRouteImport
+      parentRoute: typeof appsWebSrcRoutesAppRoute
+    }
     '/_app/crm/contacts_/$contactId': {
       id: '/_app/crm/contacts_/$contactId'
       path: '/crm/contacts/$contactId'
@@ -311,6 +646,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CrmOrganizations_DotorganizationIdRouteImport
       parentRoute: typeof appsWebSrcRoutesAppRoute
     }
+    '/_app/settings/ats/departments': {
+      id: '/_app/settings/ats/departments'
+      path: '/ats/departments'
+      fullPath: '/settings/ats/departments'
+      preLoaderRoute: typeof AtsDepartmentsRouteImport
+      parentRoute: typeof appsWebSrcRoutesAppSettingsRoute
+    }
+    '/_app/settings/ats/email-templates': {
+      id: '/_app/settings/ats/email-templates'
+      path: '/ats/email-templates'
+      fullPath: '/settings/ats/email-templates'
+      preLoaderRoute: typeof AtsEmailTemplatesRouteImport
+      parentRoute: typeof appsWebSrcRoutesAppSettingsRoute
+    }
+    '/_app/settings/ats/job-levels': {
+      id: '/_app/settings/ats/job-levels'
+      path: '/ats/job-levels'
+      fullPath: '/settings/ats/job-levels'
+      preLoaderRoute: typeof AtsJobLevelsRouteImport
+      parentRoute: typeof appsWebSrcRoutesAppSettingsRoute
+    }
+    '/_app/settings/ats/locations': {
+      id: '/_app/settings/ats/locations'
+      path: '/ats/locations'
+      fullPath: '/settings/ats/locations'
+      preLoaderRoute: typeof AtsLocationsRouteImport
+      parentRoute: typeof appsWebSrcRoutesAppSettingsRoute
+    }
     '/_app/settings/crm/pipeline-stages': {
       id: '/_app/settings/crm/pipeline-stages'
       path: '/crm/pipeline-stages'
@@ -324,6 +687,10 @@ declare module '@tanstack/react-router' {
 interface appsWebSrcRoutesAppSettingsRouteChildren {
   appsWebSrcRoutesAppSettingsDotaccountRoute: typeof appsWebSrcRoutesAppSettingsDotaccountRoute
   appsWebSrcRoutesAppSettingsDotindexRoute: typeof appsWebSrcRoutesAppSettingsDotindexRoute
+  AtsDepartmentsRoute: typeof AtsDepartmentsRoute
+  AtsEmailTemplatesRoute: typeof AtsEmailTemplatesRoute
+  AtsJobLevelsRoute: typeof AtsJobLevelsRoute
+  AtsLocationsRoute: typeof AtsLocationsRoute
   CrmPipelineStagesRoute: typeof CrmPipelineStagesRoute
 }
 
@@ -333,6 +700,10 @@ const appsWebSrcRoutesAppSettingsRouteChildren: appsWebSrcRoutesAppSettingsRoute
       appsWebSrcRoutesAppSettingsDotaccountRoute,
     appsWebSrcRoutesAppSettingsDotindexRoute:
       appsWebSrcRoutesAppSettingsDotindexRoute,
+    AtsDepartmentsRoute: AtsDepartmentsRoute,
+    AtsEmailTemplatesRoute: AtsEmailTemplatesRoute,
+    AtsJobLevelsRoute: AtsJobLevelsRoute,
+    AtsLocationsRoute: AtsLocationsRoute,
     CrmPipelineStagesRoute: CrmPipelineStagesRoute,
   }
 
@@ -344,11 +715,22 @@ const appsWebSrcRoutesAppSettingsRouteWithChildren =
 interface appsWebSrcRoutesAppRouteChildren {
   appsWebSrcRoutesAppSettingsRoute: typeof appsWebSrcRoutesAppSettingsRouteWithChildren
   appsWebSrcRoutesAppIndexRoute: typeof appsWebSrcRoutesAppIndexRoute
+  AtsApprovalsRoute: typeof AtsApprovalsRoute
+  AtsCandidatesRoute: typeof AtsCandidatesRoute
+  AtsInterviewsRoute: typeof AtsInterviewsRoute
+  AtsJobsRoute: typeof AtsJobsRoute
+  AtsOpenRolesRoute: typeof AtsOpenRolesRoute
+  AtsRoleRequestsRoute: typeof AtsRoleRequestsRoute
+  AtsWorkforcePlanRoute: typeof AtsWorkforcePlanRoute
   CrmActivityRoute: typeof CrmActivityRoute
   CrmContactsRoute: typeof CrmContactsRoute
   CrmDealsRoute: typeof CrmDealsRoute
   CrmOrganizationsRoute: typeof CrmOrganizationsRoute
+  AtsIndexRoute: typeof AtsIndexRoute
   CrmIndexRoute: typeof CrmIndexRoute
+  AtsCandidates_DotcandidateIdRoute: typeof AtsCandidates_DotcandidateIdRoute
+  AtsJobs_DotjobIdRoute: typeof AtsJobs_DotjobIdRoute
+  AtsRoleRequests_DotrequestIdRoute: typeof AtsRoleRequests_DotrequestIdRoute
   CrmContacts_DotcontactIdRoute: typeof CrmContacts_DotcontactIdRoute
   CrmDeals_DotdealIdRoute: typeof CrmDeals_DotdealIdRoute
   CrmOrganizations_DotorganizationIdRoute: typeof CrmOrganizations_DotorganizationIdRoute
@@ -358,11 +740,22 @@ const appsWebSrcRoutesAppRouteChildren: appsWebSrcRoutesAppRouteChildren = {
   appsWebSrcRoutesAppSettingsRoute:
     appsWebSrcRoutesAppSettingsRouteWithChildren,
   appsWebSrcRoutesAppIndexRoute: appsWebSrcRoutesAppIndexRoute,
+  AtsApprovalsRoute: AtsApprovalsRoute,
+  AtsCandidatesRoute: AtsCandidatesRoute,
+  AtsInterviewsRoute: AtsInterviewsRoute,
+  AtsJobsRoute: AtsJobsRoute,
+  AtsOpenRolesRoute: AtsOpenRolesRoute,
+  AtsRoleRequestsRoute: AtsRoleRequestsRoute,
+  AtsWorkforcePlanRoute: AtsWorkforcePlanRoute,
   CrmActivityRoute: CrmActivityRoute,
   CrmContactsRoute: CrmContactsRoute,
   CrmDealsRoute: CrmDealsRoute,
   CrmOrganizationsRoute: CrmOrganizationsRoute,
+  AtsIndexRoute: AtsIndexRoute,
   CrmIndexRoute: CrmIndexRoute,
+  AtsCandidates_DotcandidateIdRoute: AtsCandidates_DotcandidateIdRoute,
+  AtsJobs_DotjobIdRoute: AtsJobs_DotjobIdRoute,
+  AtsRoleRequests_DotrequestIdRoute: AtsRoleRequests_DotrequestIdRoute,
   CrmContacts_DotcontactIdRoute: CrmContacts_DotcontactIdRoute,
   CrmDeals_DotdealIdRoute: CrmDeals_DotdealIdRoute,
   CrmOrganizations_DotorganizationIdRoute:
@@ -372,9 +765,24 @@ const appsWebSrcRoutesAppRouteChildren: appsWebSrcRoutesAppRouteChildren = {
 const appsWebSrcRoutesAppRouteWithChildren =
   appsWebSrcRoutesAppRoute._addFileChildren(appsWebSrcRoutesAppRouteChildren)
 
+interface CareersRouteChildren {
+  CareersDotjobIdRoute: typeof CareersDotjobIdRoute
+  CareersDotindexRoute: typeof CareersDotindexRoute
+}
+
+const CareersRouteChildren: CareersRouteChildren = {
+  CareersDotjobIdRoute: CareersDotjobIdRoute,
+  CareersDotindexRoute: CareersDotindexRoute,
+}
+
+const CareersRouteWithChildren =
+  CareersRoute._addFileChildren(CareersRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   appsWebSrcRoutesAppRoute: appsWebSrcRoutesAppRouteWithChildren,
+  CareersRoute: CareersRouteWithChildren,
   appsWebSrcRoutesLoginRoute: appsWebSrcRoutesLoginRoute,
+  SlidesRoute: SlidesRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

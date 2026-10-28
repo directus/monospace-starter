@@ -4,7 +4,7 @@
 /* eslint-disable */
 
 import * as z from 'zod'
-import type { activitiesCreateOneInput, activitiesUpdateOneInput, affiliationsCreateOneInput, affiliationsUpdateOneInput, attachmentsCreateOneInput, attachmentsUpdateOneInput, contactsCreateOneInput, contactsUpdateOneInput, dealsCreateOneInput, dealsUpdateOneInput, organizationsCreateOneInput, organizationsUpdateOneInput } from './index'
+import type { activitiesCreateOneInput, activitiesUpdateOneInput, affiliationsCreateOneInput, affiliationsUpdateOneInput, applicationsCreateOneInput, applicationsUpdateOneInput, approvalsCreateOneInput, approvalsUpdateOneInput, attachmentsCreateOneInput, attachmentsUpdateOneInput, candidateFilesCreateOneInput, candidateFilesUpdateOneInput, candidateMessagesCreateOneInput, candidateMessagesUpdateOneInput, candidateNotesCreateOneInput, candidateNotesUpdateOneInput, candidatesCreateOneInput, candidatesUpdateOneInput, contactsCreateOneInput, contactsUpdateOneInput, dealsCreateOneInput, dealsUpdateOneInput, departmentsCreateOneInput, departmentsUpdateOneInput, emailTemplatesCreateOneInput, emailTemplatesUpdateOneInput, hiringLocationsCreateOneInput, hiringLocationsUpdateOneInput, interviewParticipantsCreateOneInput, interviewParticipantsUpdateOneInput, interviewStagesCreateOneInput, interviewStagesUpdateOneInput, interviewsCreateOneInput, interviewsUpdateOneInput, jobLevelsCreateOneInput, jobLevelsUpdateOneInput, offersCreateOneInput, offersUpdateOneInput, organizationsCreateOneInput, organizationsUpdateOneInput, publicApplicationsCreateOneInput, publicApplicationsUpdateOneInput, requisitionsCreateOneInput, requisitionsUpdateOneInput, roleRequestsCreateOneInput, roleRequestsUpdateOneInput, scorecardsCreateOneInput, scorecardsUpdateOneInput, workforcePlanRolesCreateOneInput, workforcePlanRolesUpdateOneInput } from './index'
 
 const definitions = {
   "accountsDeleteArguments": {
@@ -1379,6 +1379,14 @@ const definitions = {
           }
         ]
       },
+      "applicationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "applicationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
       "attachmentsCreatedBy": {
         "type": "array",
         "items": {}
@@ -1393,6 +1401,30 @@ const definitions = {
             "type": "null"
           }
         ]
+      },
+      "candidateFilesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateMessagesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateNotesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateNotesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidatesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidatesUpdatedBy": {
+        "type": "array",
+        "items": {}
       },
       "contactsCreatedBy": {
         "type": "array",
@@ -1428,6 +1460,14 @@ const definitions = {
           }
         ]
       },
+      "emailTemplatesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "emailTemplatesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
       "fullName": {
         "oneOf": [
           {
@@ -1441,6 +1481,14 @@ const definitions = {
       "id": {
         "type": "string",
         "format": "uuid"
+      },
+      "interviewsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "interviewsUpdatedBy": {
+        "type": "array",
+        "items": {}
       },
       "isService": {
         "type": "boolean"
@@ -1456,6 +1504,14 @@ const definitions = {
           }
         ]
       },
+      "offersCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "offersUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
       "organizationsCreatedBy": {
         "type": "array",
         "items": {}
@@ -1468,7 +1524,31 @@ const definitions = {
         "type": "array",
         "items": {}
       },
+      "requisitionsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "requisitionsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roleRequestsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roleRequestsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
       "roles": {
+        "type": "array",
+        "items": {}
+      },
+      "scorecardsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "scorecardsUpdatedBy": {
         "type": "array",
         "items": {}
       },
@@ -1487,6 +1567,14 @@ const definitions = {
         "type": "string"
       },
       "storageValues": {
+        "type": "array",
+        "items": {}
+      },
+      "workforcePlanRolesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "workforcePlanRolesUpdatedBy": {
         "type": "array",
         "items": {}
       }
@@ -2326,6 +2414,14 @@ const definitions = {
           }
         ]
       },
+      "applicationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "applicationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
       "attachmentsCreatedBy": {
         "type": "array",
         "items": {}
@@ -2340,6 +2436,30 @@ const definitions = {
             "type": "null"
           }
         ]
+      },
+      "candidateFilesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateMessagesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateNotesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateNotesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidatesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidatesUpdatedBy": {
+        "type": "array",
+        "items": {}
       },
       "contactsCreatedBy": {
         "type": "array",
@@ -2375,6 +2495,14 @@ const definitions = {
           }
         ]
       },
+      "emailTemplatesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "emailTemplatesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
       "fullName": {
         "oneOf": [
           {
@@ -2388,6 +2516,14 @@ const definitions = {
       "id": {
         "type": "string",
         "format": "uuid"
+      },
+      "interviewsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "interviewsUpdatedBy": {
+        "type": "array",
+        "items": {}
       },
       "isService": {
         "type": "boolean"
@@ -2403,6 +2539,14 @@ const definitions = {
           }
         ]
       },
+      "offersCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "offersUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
       "organizationsCreatedBy": {
         "type": "array",
         "items": {}
@@ -2415,7 +2559,31 @@ const definitions = {
         "type": "array",
         "items": {}
       },
+      "requisitionsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "requisitionsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roleRequestsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roleRequestsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
       "roles": {
+        "type": "array",
+        "items": {}
+      },
+      "scorecardsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "scorecardsUpdatedBy": {
         "type": "array",
         "items": {}
       },
@@ -2434,6 +2602,14 @@ const definitions = {
         "type": "string"
       },
       "storageValues": {
+        "type": "array",
+        "items": {}
+      },
+      "workforcePlanRolesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "workforcePlanRolesUpdatedBy": {
         "type": "array",
         "items": {}
       }
@@ -2707,6 +2883,14 @@ const definitions = {
           }
         ]
       },
+      "applicationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "applicationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
       "attachmentsCreatedBy": {
         "type": "array",
         "items": {}
@@ -2721,6 +2905,30 @@ const definitions = {
             "type": "null"
           }
         ]
+      },
+      "candidateFilesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateMessagesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateNotesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateNotesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidatesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidatesUpdatedBy": {
+        "type": "array",
+        "items": {}
       },
       "contactsCreatedBy": {
         "type": "array",
@@ -2756,6 +2964,14 @@ const definitions = {
           }
         ]
       },
+      "emailTemplatesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "emailTemplatesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
       "fullName": {
         "oneOf": [
           {
@@ -2769,6 +2985,14 @@ const definitions = {
       "id": {
         "type": "string",
         "format": "uuid"
+      },
+      "interviewsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "interviewsUpdatedBy": {
+        "type": "array",
+        "items": {}
       },
       "isService": {
         "type": "boolean"
@@ -2784,6 +3008,14 @@ const definitions = {
           }
         ]
       },
+      "offersCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "offersUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
       "organizationsCreatedBy": {
         "type": "array",
         "items": {}
@@ -2796,7 +3028,31 @@ const definitions = {
         "type": "array",
         "items": {}
       },
+      "requisitionsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "requisitionsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roleRequestsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roleRequestsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
       "roles": {
+        "type": "array",
+        "items": {}
+      },
+      "scorecardsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "scorecardsUpdatedBy": {
         "type": "array",
         "items": {}
       },
@@ -2815,6 +3071,14 @@ const definitions = {
         "type": "string"
       },
       "storageValues": {
+        "type": "array",
+        "items": {}
+      },
+      "workforcePlanRolesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "workforcePlanRolesUpdatedBy": {
         "type": "array",
         "items": {}
       }
@@ -3086,6 +3350,14 @@ const definitions = {
           }
         ]
       },
+      "applicationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "applicationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
       "attachmentsCreatedBy": {
         "type": "array",
         "items": {}
@@ -3100,6 +3372,30 @@ const definitions = {
             "type": "null"
           }
         ]
+      },
+      "candidateFilesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateMessagesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateNotesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateNotesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidatesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidatesUpdatedBy": {
+        "type": "array",
+        "items": {}
       },
       "contactsCreatedBy": {
         "type": "array",
@@ -3135,6 +3431,14 @@ const definitions = {
           }
         ]
       },
+      "emailTemplatesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "emailTemplatesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
       "fullName": {
         "oneOf": [
           {
@@ -3148,6 +3452,14 @@ const definitions = {
       "id": {
         "type": "string",
         "format": "uuid"
+      },
+      "interviewsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "interviewsUpdatedBy": {
+        "type": "array",
+        "items": {}
       },
       "isService": {
         "type": "boolean"
@@ -3163,6 +3475,14 @@ const definitions = {
           }
         ]
       },
+      "offersCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "offersUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
       "organizationsCreatedBy": {
         "type": "array",
         "items": {}
@@ -3175,7 +3495,31 @@ const definitions = {
         "type": "array",
         "items": {}
       },
+      "requisitionsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "requisitionsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roleRequestsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roleRequestsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
       "roles": {
+        "type": "array",
+        "items": {}
+      },
+      "scorecardsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "scorecardsUpdatedBy": {
         "type": "array",
         "items": {}
       },
@@ -3194,6 +3538,14 @@ const definitions = {
         "type": "string"
       },
       "storageValues": {
+        "type": "array",
+        "items": {}
+      },
+      "workforcePlanRolesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "workforcePlanRolesUpdatedBy": {
         "type": "array",
         "items": {}
       }
@@ -3876,6 +4228,14 @@ const definitions = {
           }
         ]
       },
+      "applicationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "applicationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
       "attachmentsCreatedBy": {
         "type": "array",
         "items": {}
@@ -3890,6 +4250,30 @@ const definitions = {
             "type": "null"
           }
         ]
+      },
+      "candidateFilesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateMessagesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateNotesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateNotesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidatesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidatesUpdatedBy": {
+        "type": "array",
+        "items": {}
       },
       "contactsCreatedBy": {
         "type": "array",
@@ -3925,6 +4309,14 @@ const definitions = {
           }
         ]
       },
+      "emailTemplatesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "emailTemplatesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
       "fullName": {
         "oneOf": [
           {
@@ -3938,6 +4330,14 @@ const definitions = {
       "id": {
         "type": "string",
         "format": "uuid"
+      },
+      "interviewsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "interviewsUpdatedBy": {
+        "type": "array",
+        "items": {}
       },
       "isService": {
         "type": "boolean"
@@ -3953,6 +4353,14 @@ const definitions = {
           }
         ]
       },
+      "offersCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "offersUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
       "organizationsCreatedBy": {
         "type": "array",
         "items": {}
@@ -3965,7 +4373,31 @@ const definitions = {
         "type": "array",
         "items": {}
       },
+      "requisitionsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "requisitionsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roleRequestsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roleRequestsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
       "roles": {
+        "type": "array",
+        "items": {}
+      },
+      "scorecardsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "scorecardsUpdatedBy": {
         "type": "array",
         "items": {}
       },
@@ -3984,6 +4416,14 @@ const definitions = {
         "type": "string"
       },
       "storageValues": {
+        "type": "array",
+        "items": {}
+      },
+      "workforcePlanRolesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "workforcePlanRolesUpdatedBy": {
         "type": "array",
         "items": {}
       }
@@ -4021,6 +4461,3310 @@ const definitions = {
     "required": [
       "data"
     ]
+  },
+  "applicationscandidatesConnectForwardKeyInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "applicationscandidatesConnectInput": {
+    "type": "object",
+    "properties": {
+      "key": {
+        "$ref": "#/$defs/applicationscandidatesConnectForwardKeyInput"
+      }
+    },
+    "required": [
+      "key"
+    ]
+  },
+  "applicationscandidatesCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/applicationscandidatesCreateRelatedWithoutTypeInput"
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "applicationscandidatesCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/applicationscandidatesConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/applicationscandidatesCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "applicationscandidatesCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "candidate_files": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/candidatescandidate_filesCreateRelatedInput"
+        }
+      },
+      "candidate_messages": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/candidatescandidate_messagesCreateRelatedInput"
+        }
+      },
+      "candidate_notes": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/candidatescandidate_notesCreateRelatedInput"
+        }
+      },
+      "city": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "consentAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "country": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "createdBy": {
+        "$ref": "#/$defs/candidatescreatedByCreateRelatedInput"
+      },
+      "email": {
+        "type": "string"
+      },
+      "firstName": {
+        "type": "string"
+      },
+      "githubUrl": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "inTalentPool": {
+        "type": "boolean"
+      },
+      "lastName": {
+        "type": "string"
+      },
+      "linkedinUrl": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "needsSponsorship": {
+        "oneOf": [
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "phone": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "portfolioUrl": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "privacyNoticeSentAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "public_applications": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/candidatespublic_applicationsCreateRelatedInput"
+        }
+      },
+      "referrerUserId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "retainUntil": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "source": {
+        "type": "string"
+      },
+      "sourceDetail": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "tags": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "updatedAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "updatedBy": {
+        "$ref": "#/$defs/candidatesupdatedByCreateRelatedInput"
+      },
+      "workAuthorized": {
+        "oneOf": [
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": [
+      "email",
+      "firstName",
+      "lastName"
+    ]
+  },
+  "applicationscandidatesUpdateOneRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/applicationscandidatesConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/applicationscandidatesCreateArguments"
+      },
+      "_update": {
+        "$ref": "#/$defs/candidatesUpdateInput"
+      }
+    },
+    "required": []
+  },
+  "applicationscreatedByConnectForwardKeyInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "applicationscreatedByConnectInput": {
+    "type": "object",
+    "properties": {
+      "key": {
+        "$ref": "#/$defs/applicationscreatedByConnectForwardKeyInput"
+      }
+    },
+    "required": [
+      "key"
+    ]
+  },
+  "applicationscreatedByCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/applicationscreatedByCreateRelatedWithoutTypeInput"
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "applicationscreatedByCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/applicationscreatedByConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/applicationscreatedByCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "applicationscreatedByCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "activitiesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "activitiesOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "activitiesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "affiliationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "affiliationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "appearance": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "applicationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "attachmentsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "avatarId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "candidateFilesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateMessagesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateNotesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateNotesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidatesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidatesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "contactsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "contactsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "contactsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "email": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "emailTemplatesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "emailTemplatesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "fullName": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "interviewsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "interviewsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "isService": {
+        "type": "boolean"
+      },
+      "lastActivityAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "offersCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "offersUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "organizationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "organizationsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "organizationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "requisitionsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "requisitionsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roleRequestsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roleRequestsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roles": {
+        "type": "array",
+        "items": {}
+      },
+      "scorecardsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "scorecardsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "serviceOwnerId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "status": {
+        "type": "string"
+      },
+      "storageValues": {
+        "type": "array",
+        "items": {}
+      },
+      "workforcePlanRolesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "workforcePlanRolesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      }
+    },
+    "required": [
+      "id",
+      "isService"
+    ]
+  },
+  "applicationscreatedByUpdateOneRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/applicationscreatedByConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/applicationscreatedByCreateArguments"
+      },
+      "_delete": {},
+      "_disconnect": {},
+      "_update": {}
+    },
+    "required": []
+  },
+  "applicationsCreateInput": {
+    "type": "object",
+    "properties": {
+      "appliedAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "candidates": {
+        "$ref": "#/$defs/applicationscandidatesCreateRelatedInput"
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "createdBy": {
+        "$ref": "#/$defs/applicationscreatedByCreateRelatedInput"
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "interview_stages": {
+        "$ref": "#/$defs/applicationsinterview_stagesCreateRelatedInput"
+      },
+      "interviews": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/applicationsinterviewsCreateRelatedInput"
+        }
+      },
+      "lastActivityAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "offers": {
+        "$ref": "#/$defs/applicationsoffersCreateRelatedInput"
+      },
+      "public_applications": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/applicationspublic_applicationsCreateRelatedInput"
+        }
+      },
+      "rejectionReason": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "requisitions": {
+        "$ref": "#/$defs/applicationsrequisitionsCreateRelatedInput"
+      },
+      "stageEnteredAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "status": {
+        "type": "string"
+      },
+      "updatedAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "updatedBy": {
+        "$ref": "#/$defs/applicationsupdatedByCreateRelatedInput"
+      }
+    },
+    "required": [
+      "candidates",
+      "interview_stages",
+      "requisitions"
+    ]
+  },
+  "applicationsDeleteArguments": {
+    "type": "object",
+    "properties": {
+      "filter": {
+        "$ref": "#/$defs/applicationsFilterInput"
+      }
+    },
+    "required": []
+  },
+  "applicationsDisconnectOneInput": {
+    "type": "object",
+    "properties": {},
+    "required": []
+  },
+  "applicationsFilterInput": {
+    "type": "object",
+    "properties": {
+      "_and": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/applicationsFilterInput"
+        }
+      },
+      "_not": {
+        "$ref": "#/$defs/applicationsFilterInput"
+      },
+      "_or": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/applicationsFilterInput"
+        }
+      },
+      "appliedAt": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/DateTimeFilterPrimitiveInput"
+          },
+          {
+            "type": "string",
+            "format": "date-time"
+          }
+        ]
+      },
+      "candidateId": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterPrimitiveInput"
+          },
+          {
+            "type": "string",
+            "format": "uuid"
+          }
+        ]
+      },
+      "candidates": {
+        "$ref": "#/$defs/candidatesFilterInput"
+      },
+      "createdAt": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/DateTimeFilterPrimitiveInput"
+          },
+          {
+            "type": "string",
+            "format": "date-time"
+          }
+        ]
+      },
+      "createdBy": {},
+      "createdById": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "id": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterPrimitiveInput"
+          },
+          {
+            "type": "string",
+            "format": "uuid"
+          }
+        ]
+      },
+      "interviewStageId": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterPrimitiveInput"
+          },
+          {
+            "type": "string",
+            "format": "uuid"
+          }
+        ]
+      },
+      "interview_stages": {
+        "$ref": "#/$defs/interviewStagesFilterInput"
+      },
+      "interviews": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/interviewsFilterQuantifierInput"
+          },
+          {
+            "$ref": "#/$defs/interviewsFilterInput"
+          }
+        ]
+      },
+      "lastActivityAt": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/DateTimeFilterPrimitiveInput"
+          },
+          {
+            "type": "string",
+            "format": "date-time"
+          }
+        ]
+      },
+      "offers": {
+        "$ref": "#/$defs/offersFilterInput"
+      },
+      "public_applications": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/publicApplicationsFilterQuantifierInput"
+          },
+          {
+            "$ref": "#/$defs/publicApplicationsFilterInput"
+          }
+        ]
+      },
+      "rejectionReason": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "requisitionId": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterPrimitiveInput"
+          },
+          {
+            "type": "string",
+            "format": "uuid"
+          }
+        ]
+      },
+      "requisitions": {
+        "$ref": "#/$defs/requisitionsFilterInput"
+      },
+      "stageEnteredAt": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/DateTimeFilterPrimitiveInput"
+          },
+          {
+            "type": "string",
+            "format": "date-time"
+          }
+        ]
+      },
+      "status": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterPrimitiveInput"
+          },
+          {
+            "type": "string"
+          }
+        ]
+      },
+      "updatedAt": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/DateTimeFilterPrimitiveInput"
+          },
+          {
+            "type": "string",
+            "format": "date-time"
+          }
+        ]
+      },
+      "updatedBy": {},
+      "updatedById": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "required": []
+  },
+  "applicationsFilterQuantifierInput": {
+    "type": "object",
+    "properties": {
+      "_every": {
+        "$ref": "#/$defs/applicationsFilterInput"
+      },
+      "_none": {
+        "$ref": "#/$defs/applicationsFilterInput"
+      },
+      "_some": {
+        "$ref": "#/$defs/applicationsFilterInput"
+      }
+    },
+    "required": []
+  },
+  "applicationsinterview_stagesConnectForwardKeyInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "applicationsinterview_stagesConnectInput": {
+    "type": "object",
+    "properties": {
+      "key": {
+        "$ref": "#/$defs/applicationsinterview_stagesConnectForwardKeyInput"
+      }
+    },
+    "required": [
+      "key"
+    ]
+  },
+  "applicationsinterview_stagesCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/applicationsinterview_stagesCreateRelatedWithoutTypeInput"
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "applicationsinterview_stagesCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/applicationsinterview_stagesConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/applicationsinterview_stagesCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "applicationsinterview_stagesCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "interviews": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/interviewStagesinterviewsCreateRelatedInput"
+        }
+      },
+      "kind": {
+        "type": "string"
+      },
+      "name": {
+        "type": "string"
+      },
+      "position": {
+        "type": "number"
+      },
+      "requisitions": {
+        "$ref": "#/$defs/interviewStagesrequisitionsCreateRelatedInput"
+      },
+      "slaDays": {
+        "oneOf": [
+          {
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": [
+      "name",
+      "position",
+      "requisitions"
+    ]
+  },
+  "applicationsinterview_stagesUpdateOneRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/applicationsinterview_stagesConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/applicationsinterview_stagesCreateArguments"
+      },
+      "_update": {
+        "$ref": "#/$defs/interviewStagesUpdateInput"
+      }
+    },
+    "required": []
+  },
+  "applicationsinterviewsConnectBackwardKeysInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      }
+    },
+    "required": []
+  },
+  "applicationsinterviewsConnectInput": {
+    "type": "object",
+    "properties": {
+      "keys": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/applicationsinterviewsConnectBackwardKeysInput"
+        }
+      }
+    },
+    "required": [
+      "keys"
+    ]
+  },
+  "applicationsinterviewsCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/applicationsinterviewsCreateRelatedWithoutTypeInput"
+        }
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "applicationsinterviewsCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/applicationsinterviewsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/applicationsinterviewsCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "applicationsinterviewsCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "createdBy": {
+        "$ref": "#/$defs/interviewscreatedByCreateRelatedInput"
+      },
+      "endsAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "interview_participants": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/interviewsinterview_participantsCreateRelatedInput"
+        }
+      },
+      "interview_stages": {
+        "$ref": "#/$defs/interviewsinterview_stagesCreateRelatedInput"
+      },
+      "meetingUrl": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "scorecards": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/interviewsscorecardsCreateRelatedInput"
+        }
+      },
+      "startsAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "status": {
+        "type": "string"
+      },
+      "title": {
+        "type": "string"
+      },
+      "updatedAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "updatedBy": {
+        "$ref": "#/$defs/interviewsupdatedByCreateRelatedInput"
+      }
+    },
+    "required": [
+      "endsAt",
+      "startsAt",
+      "title"
+    ]
+  },
+  "applicationsinterviewsUpdateManyRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/applicationsinterviewsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/applicationsinterviewsCreateArguments"
+      },
+      "_delete": {
+        "$ref": "#/$defs/interviewsDeleteArguments"
+      },
+      "_update": {
+        "$ref": "#/$defs/interviewsUpdateInput"
+      }
+    },
+    "required": []
+  },
+  "applicationsoffersConnectBackwardKeysInput": {
+    "type": "object",
+    "properties": {
+      "applicationId": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      }
+    },
+    "required": []
+  },
+  "applicationsoffersConnectInput": {
+    "type": "object",
+    "properties": {
+      "key": {
+        "$ref": "#/$defs/applicationsoffersConnectBackwardKeysInput"
+      }
+    },
+    "required": [
+      "key"
+    ]
+  },
+  "applicationsoffersCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/applicationsoffersCreateRelatedWithoutTypeInput"
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "applicationsoffersCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/applicationsoffersConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/applicationsoffersCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "applicationsoffersCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "approvals": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/offersapprovalsCreateRelatedInput"
+        }
+      },
+      "baseSalary": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "decimal",
+            "example": "123.345"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "candidateIntro": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "createdBy": {
+        "$ref": "#/$defs/offerscreatedByCreateRelatedInput"
+      },
+      "currency": {
+        "type": "string"
+      },
+      "equityUnits": {
+        "oneOf": [
+          {
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "proposedStartDate": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "searchOverview": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "status": {
+        "type": "string"
+      },
+      "updatedAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "updatedBy": {
+        "$ref": "#/$defs/offersupdatedByCreateRelatedInput"
+      }
+    },
+    "required": []
+  },
+  "applicationsoffersUpdateOneRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_delete": {
+        "$ref": "#/$defs/offersDeleteArguments"
+      },
+      "_update": {
+        "$ref": "#/$defs/offersUpdateInput"
+      }
+    },
+    "required": []
+  },
+  "applicationspublic_applicationsConnectBackwardKeysInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      }
+    },
+    "required": []
+  },
+  "applicationspublic_applicationsConnectInput": {
+    "type": "object",
+    "properties": {
+      "keys": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/applicationspublic_applicationsConnectBackwardKeysInput"
+        }
+      }
+    },
+    "required": [
+      "keys"
+    ]
+  },
+  "applicationspublic_applicationsCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/applicationspublic_applicationsCreateRelatedWithoutTypeInput"
+        }
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "applicationspublic_applicationsCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/applicationspublic_applicationsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/applicationspublic_applicationsCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "applicationspublic_applicationsCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "candidates": {
+        "$ref": "#/$defs/publicApplicationscandidatesCreateRelatedInput"
+      },
+      "city": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "consent": {
+        "type": "boolean"
+      },
+      "country": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "email": {
+        "type": "string"
+      },
+      "firstName": {
+        "type": "string"
+      },
+      "githubUrl": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "lastName": {
+        "type": "string"
+      },
+      "linkedinUrl": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "needsSponsorship": {
+        "oneOf": [
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "phone": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "portfolioUrl": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "requisitions": {
+        "$ref": "#/$defs/publicApplicationsrequisitionsCreateRelatedInput"
+      },
+      "resumeAssetId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "resumeFileName": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "resumeUrl": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "workAuthorized": {
+        "oneOf": [
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": [
+      "consent",
+      "email",
+      "firstName",
+      "lastName",
+      "requisitions"
+    ]
+  },
+  "applicationspublic_applicationsUpdateManyRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/applicationspublic_applicationsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/applicationspublic_applicationsCreateArguments"
+      },
+      "_delete": {
+        "$ref": "#/$defs/publicApplicationsDeleteArguments"
+      },
+      "_disconnect": {
+        "$ref": "#/$defs/publicApplicationsDisconnectManyInput"
+      },
+      "_update": {
+        "$ref": "#/$defs/publicApplicationsUpdateInput"
+      }
+    },
+    "required": []
+  },
+  "applicationsrequisitionsConnectForwardKeyInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "applicationsrequisitionsConnectInput": {
+    "type": "object",
+    "properties": {
+      "key": {
+        "$ref": "#/$defs/applicationsrequisitionsConnectForwardKeyInput"
+      }
+    },
+    "required": [
+      "key"
+    ]
+  },
+  "applicationsrequisitionsCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/applicationsrequisitionsCreateRelatedWithoutTypeInput"
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "applicationsrequisitionsCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/applicationsrequisitionsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/applicationsrequisitionsCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "applicationsrequisitionsCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "closedAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "compMax": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "decimal",
+            "example": "123.345"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "compMin": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "decimal",
+            "example": "123.345"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "createdBy": {
+        "$ref": "#/$defs/requisitionscreatedByCreateRelatedInput"
+      },
+      "currency": {
+        "type": "string"
+      },
+      "departments": {
+        "$ref": "#/$defs/requisitionsdepartmentsCreateRelatedInput"
+      },
+      "description": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "employmentType": {
+        "type": "string"
+      },
+      "hiringManagerUserId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "hiringReason": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "interview_stages": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/requisitionsinterview_stagesCreateRelatedInput"
+        }
+      },
+      "isConfidential": {
+        "type": "boolean"
+      },
+      "isLeadership": {
+        "type": "boolean"
+      },
+      "job_levels": {
+        "$ref": "#/$defs/requisitionsjob_levelsCreateRelatedInput"
+      },
+      "kickoffAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "kickoffNotes": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "locations": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "mustHaveSkills": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "niceToHaveSkills": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "numberOfHires": {
+        "type": "integer"
+      },
+      "openedAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "postExternally": {
+        "type": "boolean"
+      },
+      "public_applications": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/requisitionspublic_applicationsCreateRelatedInput"
+        }
+      },
+      "recruiterUserId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "reqNumber": {
+        "type": "integer"
+      },
+      "role_requests": {
+        "$ref": "#/$defs/requisitionsrole_requestsCreateRelatedInput"
+      },
+      "status": {
+        "type": "string"
+      },
+      "teamSize": {
+        "oneOf": [
+          {
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "title": {
+        "type": "string"
+      },
+      "updatedAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "updatedBy": {
+        "$ref": "#/$defs/requisitionsupdatedByCreateRelatedInput"
+      },
+      "urgency": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "departments",
+      "title"
+    ]
+  },
+  "applicationsrequisitionsUpdateOneRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/applicationsrequisitionsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/applicationsrequisitionsCreateArguments"
+      },
+      "_update": {
+        "$ref": "#/$defs/requisitionsUpdateInput"
+      }
+    },
+    "required": []
+  },
+  "applicationsUpdateDataInput": {
+    "type": "object",
+    "properties": {
+      "appliedAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "candidateId": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "candidates": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/applicationscandidatesUpdateOneRelatedOperationsInput"
+        }
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "createdBy": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/applicationscreatedByUpdateOneRelatedOperationsInput"
+        }
+      },
+      "createdById": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "interviewStageId": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "interview_stages": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/applicationsinterview_stagesUpdateOneRelatedOperationsInput"
+        }
+      },
+      "interviews": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/applicationsinterviewsUpdateManyRelatedOperationsInput"
+        }
+      },
+      "lastActivityAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "offers": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/applicationsoffersUpdateOneRelatedOperationsInput"
+        }
+      },
+      "public_applications": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/applicationspublic_applicationsUpdateManyRelatedOperationsInput"
+        }
+      },
+      "rejectionReason": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "requisitionId": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "requisitions": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/applicationsrequisitionsUpdateOneRelatedOperationsInput"
+        }
+      },
+      "stageEnteredAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "status": {
+        "type": "string"
+      },
+      "updatedAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "updatedBy": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/applicationsupdatedByUpdateOneRelatedOperationsInput"
+        }
+      },
+      "updatedById": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": []
+  },
+  "applicationsupdatedByConnectForwardKeyInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "applicationsupdatedByConnectInput": {
+    "type": "object",
+    "properties": {
+      "key": {
+        "$ref": "#/$defs/applicationsupdatedByConnectForwardKeyInput"
+      }
+    },
+    "required": [
+      "key"
+    ]
+  },
+  "applicationsupdatedByCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/applicationsupdatedByCreateRelatedWithoutTypeInput"
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "applicationsupdatedByCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/applicationsupdatedByConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/applicationsupdatedByCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "applicationsupdatedByCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "activitiesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "activitiesOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "activitiesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "affiliationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "affiliationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "appearance": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "applicationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "attachmentsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "avatarId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "candidateFilesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateMessagesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateNotesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateNotesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidatesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidatesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "contactsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "contactsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "contactsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "email": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "emailTemplatesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "emailTemplatesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "fullName": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "interviewsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "interviewsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "isService": {
+        "type": "boolean"
+      },
+      "lastActivityAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "offersCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "offersUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "organizationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "organizationsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "organizationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "requisitionsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "requisitionsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roleRequestsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roleRequestsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roles": {
+        "type": "array",
+        "items": {}
+      },
+      "scorecardsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "scorecardsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "serviceOwnerId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "status": {
+        "type": "string"
+      },
+      "storageValues": {
+        "type": "array",
+        "items": {}
+      },
+      "workforcePlanRolesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "workforcePlanRolesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      }
+    },
+    "required": [
+      "id",
+      "isService"
+    ]
+  },
+  "applicationsupdatedByUpdateOneRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/applicationsupdatedByConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/applicationsupdatedByCreateArguments"
+      },
+      "_delete": {},
+      "_disconnect": {},
+      "_update": {}
+    },
+    "required": []
+  },
+  "applicationsUpdateInput": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/applicationsUpdateDataInput"
+      },
+      "filter": {
+        "$ref": "#/$defs/applicationsFilterInput"
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "approvalsCreateInput": {
+    "type": "object",
+    "properties": {
+      "approverRole": {
+        "type": "string"
+      },
+      "approverUserId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "decidedAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "decision": {
+        "type": "string"
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "note": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "offers": {
+        "$ref": "#/$defs/approvalsoffersCreateRelatedInput"
+      },
+      "role_requests": {
+        "$ref": "#/$defs/approvalsrole_requestsCreateRelatedInput"
+      },
+      "step": {
+        "type": "integer"
+      },
+      "workforce_plan_roles": {
+        "$ref": "#/$defs/approvalsworkforce_plan_rolesCreateRelatedInput"
+      }
+    },
+    "required": [
+      "approverRole",
+      "step"
+    ]
+  },
+  "approvalsDeleteArguments": {
+    "type": "object",
+    "properties": {
+      "filter": {
+        "$ref": "#/$defs/approvalsFilterInput"
+      }
+    },
+    "required": []
+  },
+  "approvalsDisconnectManyInput": {
+    "type": "object",
+    "properties": {
+      "filter": {
+        "$ref": "#/$defs/approvalsFilterInput"
+      }
+    },
+    "required": []
+  },
+  "approvalsFilterInput": {
+    "type": "object",
+    "properties": {
+      "_and": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/approvalsFilterInput"
+        }
+      },
+      "_not": {
+        "$ref": "#/$defs/approvalsFilterInput"
+      },
+      "_or": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/approvalsFilterInput"
+        }
+      },
+      "approverRole": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterPrimitiveInput"
+          },
+          {
+            "type": "string"
+          }
+        ]
+      },
+      "approverUserId": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "createdAt": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/DateTimeFilterPrimitiveInput"
+          },
+          {
+            "type": "string",
+            "format": "date-time"
+          }
+        ]
+      },
+      "decidedAt": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/DateTimeFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "decision": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterPrimitiveInput"
+          },
+          {
+            "type": "string"
+          }
+        ]
+      },
+      "id": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterPrimitiveInput"
+          },
+          {
+            "type": "string",
+            "format": "uuid"
+          }
+        ]
+      },
+      "note": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "offerId": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "offers": {
+        "$ref": "#/$defs/offersFilterInput"
+      },
+      "roleRequestId": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "role_requests": {
+        "$ref": "#/$defs/roleRequestsFilterInput"
+      },
+      "step": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/IntegerFilterPrimitiveInput"
+          },
+          {
+            "type": "integer"
+          }
+        ]
+      },
+      "workforcePlanRoleId": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "workforce_plan_roles": {
+        "$ref": "#/$defs/workforcePlanRolesFilterInput"
+      }
+    },
+    "required": []
+  },
+  "approvalsFilterQuantifierInput": {
+    "type": "object",
+    "properties": {
+      "_every": {
+        "$ref": "#/$defs/approvalsFilterInput"
+      },
+      "_none": {
+        "$ref": "#/$defs/approvalsFilterInput"
+      },
+      "_some": {
+        "$ref": "#/$defs/approvalsFilterInput"
+      }
+    },
+    "required": []
+  },
+  "approvalsoffersConnectForwardKeyInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "approvalsoffersConnectInput": {
+    "type": "object",
+    "properties": {
+      "key": {
+        "$ref": "#/$defs/approvalsoffersConnectForwardKeyInput"
+      }
+    },
+    "required": [
+      "key"
+    ]
+  },
+  "approvalsoffersCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/approvalsoffersCreateRelatedWithoutTypeInput"
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "approvalsoffersCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/approvalsoffersConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/approvalsoffersCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "approvalsoffersCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "applications": {
+        "$ref": "#/$defs/offersapplicationsCreateRelatedInput"
+      },
+      "baseSalary": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "decimal",
+            "example": "123.345"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "candidateIntro": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "createdBy": {
+        "$ref": "#/$defs/offerscreatedByCreateRelatedInput"
+      },
+      "currency": {
+        "type": "string"
+      },
+      "equityUnits": {
+        "oneOf": [
+          {
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "proposedStartDate": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "searchOverview": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "status": {
+        "type": "string"
+      },
+      "updatedAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "updatedBy": {
+        "$ref": "#/$defs/offersupdatedByCreateRelatedInput"
+      }
+    },
+    "required": [
+      "applications"
+    ]
+  },
+  "approvalsoffersUpdateOneRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/approvalsoffersConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/approvalsoffersCreateArguments"
+      },
+      "_delete": {
+        "$ref": "#/$defs/offersDeleteArguments"
+      },
+      "_disconnect": {
+        "$ref": "#/$defs/offersDisconnectOneInput"
+      },
+      "_update": {
+        "$ref": "#/$defs/offersUpdateInput"
+      }
+    },
+    "required": []
+  },
+  "approvalsrole_requestsConnectForwardKeyInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "approvalsrole_requestsConnectInput": {
+    "type": "object",
+    "properties": {
+      "key": {
+        "$ref": "#/$defs/approvalsrole_requestsConnectForwardKeyInput"
+      }
+    },
+    "required": [
+      "key"
+    ]
+  },
+  "approvalsrole_requestsCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/approvalsrole_requestsCreateRelatedWithoutTypeInput"
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "approvalsrole_requestsCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/approvalsrole_requestsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/approvalsrole_requestsCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "approvalsrole_requestsCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "approvedBaseMax": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "decimal",
+            "example": "123.345"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "approvedBaseMin": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "decimal",
+            "example": "123.345"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "approvedCurrency": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "approvedEquityUnits": {
+        "oneOf": [
+          {
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "approvedVariableMax": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "decimal",
+            "example": "123.345"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "approvedVariableMin": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "decimal",
+            "example": "123.345"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "businessJustification": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "compMax": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "decimal",
+            "example": "123.345"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "compMin": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "decimal",
+            "example": "123.345"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "createdBy": {
+        "$ref": "#/$defs/roleRequestscreatedByCreateRelatedInput"
+      },
+      "currency": {
+        "type": "string"
+      },
+      "decidedAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "decidedByUserId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "decisionNote": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "departments": {
+        "$ref": "#/$defs/roleRequestsdepartmentsCreateRelatedInput"
+      },
+      "employmentType": {
+        "type": "string"
+      },
+      "hiringManagerUserId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "hiringReason": {
+        "type": "string"
+      },
+      "hiringReasonDetail": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "job_levels": {
+        "$ref": "#/$defs/roleRequestsjob_levelsCreateRelatedInput"
+      },
+      "locations": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "numberOfHires": {
+        "type": "integer"
+      },
+      "requesterUserId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "requisitions": {
+        "$ref": "#/$defs/roleRequestsrequisitionsCreateRelatedInput"
+      },
+      "roleName": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "updatedAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "updatedBy": {
+        "$ref": "#/$defs/roleRequestsupdatedByCreateRelatedInput"
+      },
+      "urgency": {
+        "type": "string"
+      },
+      "urgencyImpact": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "workforce_plan_roles": {
+        "$ref": "#/$defs/roleRequestsworkforce_plan_rolesCreateRelatedInput"
+      }
+    },
+    "required": [
+      "departments",
+      "roleName"
+    ]
+  },
+  "approvalsrole_requestsUpdateOneRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/approvalsrole_requestsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/approvalsrole_requestsCreateArguments"
+      },
+      "_delete": {
+        "$ref": "#/$defs/roleRequestsDeleteArguments"
+      },
+      "_disconnect": {
+        "$ref": "#/$defs/roleRequestsDisconnectOneInput"
+      },
+      "_update": {
+        "$ref": "#/$defs/roleRequestsUpdateInput"
+      }
+    },
+    "required": []
+  },
+  "approvalsUpdateDataInput": {
+    "type": "object",
+    "properties": {
+      "approverRole": {
+        "type": "string"
+      },
+      "approverUserId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "decidedAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "decision": {
+        "type": "string"
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "note": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "offerId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "offers": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/approvalsoffersUpdateOneRelatedOperationsInput"
+        }
+      },
+      "roleRequestId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "role_requests": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/approvalsrole_requestsUpdateOneRelatedOperationsInput"
+        }
+      },
+      "step": {
+        "type": "integer"
+      },
+      "workforcePlanRoleId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "workforce_plan_roles": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/approvalsworkforce_plan_rolesUpdateOneRelatedOperationsInput"
+        }
+      }
+    },
+    "required": []
+  },
+  "approvalsUpdateInput": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/approvalsUpdateDataInput"
+      },
+      "filter": {
+        "$ref": "#/$defs/approvalsFilterInput"
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "approvalsworkforce_plan_rolesConnectForwardKeyInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "approvalsworkforce_plan_rolesConnectInput": {
+    "type": "object",
+    "properties": {
+      "key": {
+        "$ref": "#/$defs/approvalsworkforce_plan_rolesConnectForwardKeyInput"
+      }
+    },
+    "required": [
+      "key"
+    ]
+  },
+  "approvalsworkforce_plan_rolesCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/approvalsworkforce_plan_rolesCreateRelatedWithoutTypeInput"
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "approvalsworkforce_plan_rolesCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/approvalsworkforce_plan_rolesConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/approvalsworkforce_plan_rolesCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "approvalsworkforce_plan_rolesCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "approvedHeadcount": {
+        "oneOf": [
+          {
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "budgetAmount": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "decimal",
+            "example": "123.345"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "createdBy": {
+        "$ref": "#/$defs/workforcePlanRolescreatedByCreateRelatedInput"
+      },
+      "currency": {
+        "type": "string"
+      },
+      "currentHeadcount": {
+        "type": "integer"
+      },
+      "departments": {
+        "$ref": "#/$defs/workforcePlanRolesdepartmentsCreateRelatedInput"
+      },
+      "employmentType": {
+        "type": "string"
+      },
+      "hireType": {
+        "type": "string"
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "job_levels": {
+        "$ref": "#/$defs/workforcePlanRolesjob_levelsCreateRelatedInput"
+      },
+      "locations": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "planYear": {
+        "type": "integer"
+      },
+      "plannedHeadcount": {
+        "type": "integer"
+      },
+      "roleName": {
+        "type": "string"
+      },
+      "role_requests": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/workforcePlanRolesrole_requestsCreateRelatedInput"
+        }
+      },
+      "status": {
+        "type": "string"
+      },
+      "team": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "updatedAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "updatedBy": {
+        "$ref": "#/$defs/workforcePlanRolesupdatedByCreateRelatedInput"
+      }
+    },
+    "required": [
+      "departments",
+      "planYear",
+      "roleName"
+    ]
+  },
+  "approvalsworkforce_plan_rolesUpdateOneRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/approvalsworkforce_plan_rolesConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/approvalsworkforce_plan_rolesCreateArguments"
+      },
+      "_delete": {
+        "$ref": "#/$defs/workforcePlanRolesDeleteArguments"
+      },
+      "_disconnect": {
+        "$ref": "#/$defs/workforcePlanRolesDisconnectOneInput"
+      },
+      "_update": {
+        "$ref": "#/$defs/workforcePlanRolesUpdateInput"
+      }
+    },
+    "required": []
   },
   "attachmentsactivityConnectForwardKeyInput": {
     "type": "object",
@@ -4435,6 +8179,14 @@ const definitions = {
           }
         ]
       },
+      "applicationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "applicationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
       "avatarId": {
         "oneOf": [
           {
@@ -4445,6 +8197,30 @@ const definitions = {
             "type": "null"
           }
         ]
+      },
+      "candidateFilesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateMessagesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateNotesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateNotesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidatesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidatesUpdatedBy": {
+        "type": "array",
+        "items": {}
       },
       "contactsCreatedBy": {
         "type": "array",
@@ -4480,6 +8256,14 @@ const definitions = {
           }
         ]
       },
+      "emailTemplatesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "emailTemplatesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
       "fullName": {
         "oneOf": [
           {
@@ -4493,6 +8277,14 @@ const definitions = {
       "id": {
         "type": "string",
         "format": "uuid"
+      },
+      "interviewsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "interviewsUpdatedBy": {
+        "type": "array",
+        "items": {}
       },
       "isService": {
         "type": "boolean"
@@ -4508,6 +8300,14 @@ const definitions = {
           }
         ]
       },
+      "offersCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "offersUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
       "organizationsCreatedBy": {
         "type": "array",
         "items": {}
@@ -4520,7 +8320,31 @@ const definitions = {
         "type": "array",
         "items": {}
       },
+      "requisitionsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "requisitionsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roleRequestsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roleRequestsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
       "roles": {
+        "type": "array",
+        "items": {}
+      },
+      "scorecardsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "scorecardsUpdatedBy": {
         "type": "array",
         "items": {}
       },
@@ -4539,6 +8363,14 @@ const definitions = {
         "type": "string"
       },
       "storageValues": {
+        "type": "array",
+        "items": {}
+      },
+      "workforcePlanRolesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "workforcePlanRolesUpdatedBy": {
         "type": "array",
         "items": {}
       }
@@ -5359,6 +9191,35 @@ const definitions = {
       "data"
     ]
   },
+  "BooleanFilterNullablePrimitiveInput": {
+    "type": "object",
+    "properties": {
+      "_eq": {
+        "oneOf": [
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "_neq": {
+        "oneOf": [
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "_null": {
+        "type": "boolean"
+      }
+    },
+    "required": []
+  },
   "BooleanFilterPrimitiveInput": {
     "type": "object",
     "properties": {
@@ -5370,6 +9231,5127 @@ const definitions = {
       }
     },
     "required": []
+  },
+  "candidateFilescandidatesConnectForwardKeyInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "candidateFilescandidatesConnectInput": {
+    "type": "object",
+    "properties": {
+      "key": {
+        "$ref": "#/$defs/candidateFilescandidatesConnectForwardKeyInput"
+      }
+    },
+    "required": [
+      "key"
+    ]
+  },
+  "candidateFilescandidatesCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/candidateFilescandidatesCreateRelatedWithoutTypeInput"
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "candidateFilescandidatesCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/candidateFilescandidatesConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/candidateFilescandidatesCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "candidateFilescandidatesCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "applications": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/candidatesapplicationsCreateRelatedInput"
+        }
+      },
+      "candidate_messages": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/candidatescandidate_messagesCreateRelatedInput"
+        }
+      },
+      "candidate_notes": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/candidatescandidate_notesCreateRelatedInput"
+        }
+      },
+      "city": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "consentAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "country": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "createdBy": {
+        "$ref": "#/$defs/candidatescreatedByCreateRelatedInput"
+      },
+      "email": {
+        "type": "string"
+      },
+      "firstName": {
+        "type": "string"
+      },
+      "githubUrl": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "inTalentPool": {
+        "type": "boolean"
+      },
+      "lastName": {
+        "type": "string"
+      },
+      "linkedinUrl": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "needsSponsorship": {
+        "oneOf": [
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "phone": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "portfolioUrl": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "privacyNoticeSentAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "public_applications": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/candidatespublic_applicationsCreateRelatedInput"
+        }
+      },
+      "referrerUserId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "retainUntil": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "source": {
+        "type": "string"
+      },
+      "sourceDetail": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "tags": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "updatedAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "updatedBy": {
+        "$ref": "#/$defs/candidatesupdatedByCreateRelatedInput"
+      },
+      "workAuthorized": {
+        "oneOf": [
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": [
+      "email",
+      "firstName",
+      "lastName"
+    ]
+  },
+  "candidateFilescandidatesUpdateOneRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/candidateFilescandidatesConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/candidateFilescandidatesCreateArguments"
+      },
+      "_update": {
+        "$ref": "#/$defs/candidatesUpdateInput"
+      }
+    },
+    "required": []
+  },
+  "candidateFilescreatedByConnectForwardKeyInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "candidateFilescreatedByConnectInput": {
+    "type": "object",
+    "properties": {
+      "key": {
+        "$ref": "#/$defs/candidateFilescreatedByConnectForwardKeyInput"
+      }
+    },
+    "required": [
+      "key"
+    ]
+  },
+  "candidateFilescreatedByCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/candidateFilescreatedByCreateRelatedWithoutTypeInput"
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "candidateFilescreatedByCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/candidateFilescreatedByConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/candidateFilescreatedByCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "candidateFilescreatedByCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "activitiesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "activitiesOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "activitiesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "affiliationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "affiliationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "appearance": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "applicationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "applicationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "attachmentsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "avatarId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "candidateMessagesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateNotesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateNotesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidatesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidatesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "contactsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "contactsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "contactsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "email": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "emailTemplatesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "emailTemplatesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "fullName": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "interviewsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "interviewsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "isService": {
+        "type": "boolean"
+      },
+      "lastActivityAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "offersCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "offersUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "organizationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "organizationsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "organizationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "requisitionsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "requisitionsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roleRequestsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roleRequestsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roles": {
+        "type": "array",
+        "items": {}
+      },
+      "scorecardsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "scorecardsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "serviceOwnerId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "status": {
+        "type": "string"
+      },
+      "storageValues": {
+        "type": "array",
+        "items": {}
+      },
+      "workforcePlanRolesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "workforcePlanRolesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      }
+    },
+    "required": [
+      "id",
+      "isService"
+    ]
+  },
+  "candidateFilescreatedByUpdateOneRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/candidateFilescreatedByConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/candidateFilescreatedByCreateArguments"
+      },
+      "_delete": {},
+      "_disconnect": {},
+      "_update": {}
+    },
+    "required": []
+  },
+  "candidateFilesCreateInput": {
+    "type": "object",
+    "properties": {
+      "assetId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "candidates": {
+        "$ref": "#/$defs/candidateFilescandidatesCreateRelatedInput"
+      },
+      "contentType": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "createdBy": {
+        "$ref": "#/$defs/candidateFilescreatedByCreateRelatedInput"
+      },
+      "fileName": {
+        "type": "string"
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "kind": {
+        "type": "string"
+      },
+      "url": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": [
+      "candidates",
+      "fileName"
+    ]
+  },
+  "candidateFilesDeleteArguments": {
+    "type": "object",
+    "properties": {
+      "filter": {
+        "$ref": "#/$defs/candidateFilesFilterInput"
+      }
+    },
+    "required": []
+  },
+  "candidateFilesFilterInput": {
+    "type": "object",
+    "properties": {
+      "_and": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/candidateFilesFilterInput"
+        }
+      },
+      "_not": {
+        "$ref": "#/$defs/candidateFilesFilterInput"
+      },
+      "_or": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/candidateFilesFilterInput"
+        }
+      },
+      "assetId": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "candidateId": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterPrimitiveInput"
+          },
+          {
+            "type": "string",
+            "format": "uuid"
+          }
+        ]
+      },
+      "candidates": {
+        "$ref": "#/$defs/candidatesFilterInput"
+      },
+      "contentType": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "createdAt": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/DateTimeFilterPrimitiveInput"
+          },
+          {
+            "type": "string",
+            "format": "date-time"
+          }
+        ]
+      },
+      "createdBy": {},
+      "createdById": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "fileName": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterPrimitiveInput"
+          },
+          {
+            "type": "string"
+          }
+        ]
+      },
+      "id": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterPrimitiveInput"
+          },
+          {
+            "type": "string",
+            "format": "uuid"
+          }
+        ]
+      },
+      "kind": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterPrimitiveInput"
+          },
+          {
+            "type": "string"
+          }
+        ]
+      },
+      "url": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "required": []
+  },
+  "candidateFilesFilterQuantifierInput": {
+    "type": "object",
+    "properties": {
+      "_every": {
+        "$ref": "#/$defs/candidateFilesFilterInput"
+      },
+      "_none": {
+        "$ref": "#/$defs/candidateFilesFilterInput"
+      },
+      "_some": {
+        "$ref": "#/$defs/candidateFilesFilterInput"
+      }
+    },
+    "required": []
+  },
+  "candidateFilesUpdateDataInput": {
+    "type": "object",
+    "properties": {
+      "assetId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "candidateId": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "candidates": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/candidateFilescandidatesUpdateOneRelatedOperationsInput"
+        }
+      },
+      "contentType": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "createdBy": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/candidateFilescreatedByUpdateOneRelatedOperationsInput"
+        }
+      },
+      "createdById": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "fileName": {
+        "type": "string"
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "kind": {
+        "type": "string"
+      },
+      "url": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": []
+  },
+  "candidateFilesUpdateInput": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/candidateFilesUpdateDataInput"
+      },
+      "filter": {
+        "$ref": "#/$defs/candidateFilesFilterInput"
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "candidateMessagescandidatesConnectForwardKeyInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "candidateMessagescandidatesConnectInput": {
+    "type": "object",
+    "properties": {
+      "key": {
+        "$ref": "#/$defs/candidateMessagescandidatesConnectForwardKeyInput"
+      }
+    },
+    "required": [
+      "key"
+    ]
+  },
+  "candidateMessagescandidatesCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/candidateMessagescandidatesCreateRelatedWithoutTypeInput"
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "candidateMessagescandidatesCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/candidateMessagescandidatesConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/candidateMessagescandidatesCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "candidateMessagescandidatesCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "applications": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/candidatesapplicationsCreateRelatedInput"
+        }
+      },
+      "candidate_files": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/candidatescandidate_filesCreateRelatedInput"
+        }
+      },
+      "candidate_notes": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/candidatescandidate_notesCreateRelatedInput"
+        }
+      },
+      "city": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "consentAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "country": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "createdBy": {
+        "$ref": "#/$defs/candidatescreatedByCreateRelatedInput"
+      },
+      "email": {
+        "type": "string"
+      },
+      "firstName": {
+        "type": "string"
+      },
+      "githubUrl": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "inTalentPool": {
+        "type": "boolean"
+      },
+      "lastName": {
+        "type": "string"
+      },
+      "linkedinUrl": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "needsSponsorship": {
+        "oneOf": [
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "phone": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "portfolioUrl": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "privacyNoticeSentAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "public_applications": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/candidatespublic_applicationsCreateRelatedInput"
+        }
+      },
+      "referrerUserId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "retainUntil": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "source": {
+        "type": "string"
+      },
+      "sourceDetail": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "tags": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "updatedAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "updatedBy": {
+        "$ref": "#/$defs/candidatesupdatedByCreateRelatedInput"
+      },
+      "workAuthorized": {
+        "oneOf": [
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": [
+      "email",
+      "firstName",
+      "lastName"
+    ]
+  },
+  "candidateMessagescandidatesUpdateOneRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/candidateMessagescandidatesConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/candidateMessagescandidatesCreateArguments"
+      },
+      "_update": {
+        "$ref": "#/$defs/candidatesUpdateInput"
+      }
+    },
+    "required": []
+  },
+  "candidateMessagescreatedByConnectForwardKeyInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "candidateMessagescreatedByConnectInput": {
+    "type": "object",
+    "properties": {
+      "key": {
+        "$ref": "#/$defs/candidateMessagescreatedByConnectForwardKeyInput"
+      }
+    },
+    "required": [
+      "key"
+    ]
+  },
+  "candidateMessagescreatedByCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/candidateMessagescreatedByCreateRelatedWithoutTypeInput"
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "candidateMessagescreatedByCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/candidateMessagescreatedByConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/candidateMessagescreatedByCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "candidateMessagescreatedByCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "activitiesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "activitiesOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "activitiesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "affiliationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "affiliationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "appearance": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "applicationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "applicationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "attachmentsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "avatarId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "candidateFilesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateNotesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateNotesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidatesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidatesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "contactsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "contactsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "contactsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "email": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "emailTemplatesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "emailTemplatesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "fullName": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "interviewsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "interviewsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "isService": {
+        "type": "boolean"
+      },
+      "lastActivityAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "offersCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "offersUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "organizationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "organizationsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "organizationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "requisitionsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "requisitionsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roleRequestsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roleRequestsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roles": {
+        "type": "array",
+        "items": {}
+      },
+      "scorecardsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "scorecardsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "serviceOwnerId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "status": {
+        "type": "string"
+      },
+      "storageValues": {
+        "type": "array",
+        "items": {}
+      },
+      "workforcePlanRolesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "workforcePlanRolesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      }
+    },
+    "required": [
+      "id",
+      "isService"
+    ]
+  },
+  "candidateMessagescreatedByUpdateOneRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/candidateMessagescreatedByConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/candidateMessagescreatedByCreateArguments"
+      },
+      "_delete": {},
+      "_disconnect": {},
+      "_update": {}
+    },
+    "required": []
+  },
+  "candidateMessagesCreateInput": {
+    "type": "object",
+    "properties": {
+      "body": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "candidates": {
+        "$ref": "#/$defs/candidateMessagescandidatesCreateRelatedInput"
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "createdBy": {
+        "$ref": "#/$defs/candidateMessagescreatedByCreateRelatedInput"
+      },
+      "direction": {
+        "type": "string"
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "sendAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "status": {
+        "type": "string"
+      },
+      "subject": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "candidates",
+      "subject"
+    ]
+  },
+  "candidateMessagesDeleteArguments": {
+    "type": "object",
+    "properties": {
+      "filter": {
+        "$ref": "#/$defs/candidateMessagesFilterInput"
+      }
+    },
+    "required": []
+  },
+  "candidateMessagesFilterInput": {
+    "type": "object",
+    "properties": {
+      "_and": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/candidateMessagesFilterInput"
+        }
+      },
+      "_not": {
+        "$ref": "#/$defs/candidateMessagesFilterInput"
+      },
+      "_or": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/candidateMessagesFilterInput"
+        }
+      },
+      "body": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "candidateId": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterPrimitiveInput"
+          },
+          {
+            "type": "string",
+            "format": "uuid"
+          }
+        ]
+      },
+      "candidates": {
+        "$ref": "#/$defs/candidatesFilterInput"
+      },
+      "createdAt": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/DateTimeFilterPrimitiveInput"
+          },
+          {
+            "type": "string",
+            "format": "date-time"
+          }
+        ]
+      },
+      "createdBy": {},
+      "createdById": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "direction": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterPrimitiveInput"
+          },
+          {
+            "type": "string"
+          }
+        ]
+      },
+      "id": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterPrimitiveInput"
+          },
+          {
+            "type": "string",
+            "format": "uuid"
+          }
+        ]
+      },
+      "sendAt": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/DateTimeFilterPrimitiveInput"
+          },
+          {
+            "type": "string",
+            "format": "date-time"
+          }
+        ]
+      },
+      "status": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterPrimitiveInput"
+          },
+          {
+            "type": "string"
+          }
+        ]
+      },
+      "subject": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterPrimitiveInput"
+          },
+          {
+            "type": "string"
+          }
+        ]
+      }
+    },
+    "required": []
+  },
+  "candidateMessagesFilterQuantifierInput": {
+    "type": "object",
+    "properties": {
+      "_every": {
+        "$ref": "#/$defs/candidateMessagesFilterInput"
+      },
+      "_none": {
+        "$ref": "#/$defs/candidateMessagesFilterInput"
+      },
+      "_some": {
+        "$ref": "#/$defs/candidateMessagesFilterInput"
+      }
+    },
+    "required": []
+  },
+  "candidateMessagesUpdateDataInput": {
+    "type": "object",
+    "properties": {
+      "body": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "candidateId": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "candidates": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/candidateMessagescandidatesUpdateOneRelatedOperationsInput"
+        }
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "createdBy": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/candidateMessagescreatedByUpdateOneRelatedOperationsInput"
+        }
+      },
+      "createdById": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "direction": {
+        "type": "string"
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "sendAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "status": {
+        "type": "string"
+      },
+      "subject": {
+        "type": "string"
+      }
+    },
+    "required": []
+  },
+  "candidateMessagesUpdateInput": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/candidateMessagesUpdateDataInput"
+      },
+      "filter": {
+        "$ref": "#/$defs/candidateMessagesFilterInput"
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "candidateNotescandidatesConnectForwardKeyInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "candidateNotescandidatesConnectInput": {
+    "type": "object",
+    "properties": {
+      "key": {
+        "$ref": "#/$defs/candidateNotescandidatesConnectForwardKeyInput"
+      }
+    },
+    "required": [
+      "key"
+    ]
+  },
+  "candidateNotescandidatesCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/candidateNotescandidatesCreateRelatedWithoutTypeInput"
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "candidateNotescandidatesCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/candidateNotescandidatesConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/candidateNotescandidatesCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "candidateNotescandidatesCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "applications": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/candidatesapplicationsCreateRelatedInput"
+        }
+      },
+      "candidate_files": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/candidatescandidate_filesCreateRelatedInput"
+        }
+      },
+      "candidate_messages": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/candidatescandidate_messagesCreateRelatedInput"
+        }
+      },
+      "city": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "consentAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "country": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "createdBy": {
+        "$ref": "#/$defs/candidatescreatedByCreateRelatedInput"
+      },
+      "email": {
+        "type": "string"
+      },
+      "firstName": {
+        "type": "string"
+      },
+      "githubUrl": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "inTalentPool": {
+        "type": "boolean"
+      },
+      "lastName": {
+        "type": "string"
+      },
+      "linkedinUrl": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "needsSponsorship": {
+        "oneOf": [
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "phone": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "portfolioUrl": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "privacyNoticeSentAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "public_applications": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/candidatespublic_applicationsCreateRelatedInput"
+        }
+      },
+      "referrerUserId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "retainUntil": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "source": {
+        "type": "string"
+      },
+      "sourceDetail": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "tags": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "updatedAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "updatedBy": {
+        "$ref": "#/$defs/candidatesupdatedByCreateRelatedInput"
+      },
+      "workAuthorized": {
+        "oneOf": [
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": [
+      "email",
+      "firstName",
+      "lastName"
+    ]
+  },
+  "candidateNotescandidatesUpdateOneRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/candidateNotescandidatesConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/candidateNotescandidatesCreateArguments"
+      },
+      "_update": {
+        "$ref": "#/$defs/candidatesUpdateInput"
+      }
+    },
+    "required": []
+  },
+  "candidateNotescreatedByConnectForwardKeyInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "candidateNotescreatedByConnectInput": {
+    "type": "object",
+    "properties": {
+      "key": {
+        "$ref": "#/$defs/candidateNotescreatedByConnectForwardKeyInput"
+      }
+    },
+    "required": [
+      "key"
+    ]
+  },
+  "candidateNotescreatedByCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/candidateNotescreatedByCreateRelatedWithoutTypeInput"
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "candidateNotescreatedByCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/candidateNotescreatedByConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/candidateNotescreatedByCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "candidateNotescreatedByCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "activitiesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "activitiesOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "activitiesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "affiliationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "affiliationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "appearance": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "applicationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "applicationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "attachmentsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "avatarId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "candidateFilesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateMessagesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateNotesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidatesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidatesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "contactsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "contactsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "contactsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "email": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "emailTemplatesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "emailTemplatesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "fullName": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "interviewsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "interviewsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "isService": {
+        "type": "boolean"
+      },
+      "lastActivityAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "offersCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "offersUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "organizationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "organizationsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "organizationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "requisitionsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "requisitionsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roleRequestsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roleRequestsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roles": {
+        "type": "array",
+        "items": {}
+      },
+      "scorecardsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "scorecardsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "serviceOwnerId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "status": {
+        "type": "string"
+      },
+      "storageValues": {
+        "type": "array",
+        "items": {}
+      },
+      "workforcePlanRolesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "workforcePlanRolesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      }
+    },
+    "required": [
+      "id",
+      "isService"
+    ]
+  },
+  "candidateNotescreatedByUpdateOneRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/candidateNotescreatedByConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/candidateNotescreatedByCreateArguments"
+      },
+      "_delete": {},
+      "_disconnect": {},
+      "_update": {}
+    },
+    "required": []
+  },
+  "candidateNotesCreateInput": {
+    "type": "object",
+    "properties": {
+      "body": {
+        "type": "string"
+      },
+      "candidates": {
+        "$ref": "#/$defs/candidateNotescandidatesCreateRelatedInput"
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "createdBy": {
+        "$ref": "#/$defs/candidateNotescreatedByCreateRelatedInput"
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "updatedAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "updatedBy": {
+        "$ref": "#/$defs/candidateNotesupdatedByCreateRelatedInput"
+      },
+      "visibility": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "body",
+      "candidates"
+    ]
+  },
+  "candidateNotesDeleteArguments": {
+    "type": "object",
+    "properties": {
+      "filter": {
+        "$ref": "#/$defs/candidateNotesFilterInput"
+      }
+    },
+    "required": []
+  },
+  "candidateNotesFilterInput": {
+    "type": "object",
+    "properties": {
+      "_and": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/candidateNotesFilterInput"
+        }
+      },
+      "_not": {
+        "$ref": "#/$defs/candidateNotesFilterInput"
+      },
+      "_or": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/candidateNotesFilterInput"
+        }
+      },
+      "body": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterPrimitiveInput"
+          },
+          {
+            "type": "string"
+          }
+        ]
+      },
+      "candidateId": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterPrimitiveInput"
+          },
+          {
+            "type": "string",
+            "format": "uuid"
+          }
+        ]
+      },
+      "candidates": {
+        "$ref": "#/$defs/candidatesFilterInput"
+      },
+      "createdAt": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/DateTimeFilterPrimitiveInput"
+          },
+          {
+            "type": "string",
+            "format": "date-time"
+          }
+        ]
+      },
+      "createdBy": {},
+      "createdById": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "id": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterPrimitiveInput"
+          },
+          {
+            "type": "string",
+            "format": "uuid"
+          }
+        ]
+      },
+      "updatedAt": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/DateTimeFilterPrimitiveInput"
+          },
+          {
+            "type": "string",
+            "format": "date-time"
+          }
+        ]
+      },
+      "updatedBy": {},
+      "updatedById": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "visibility": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterPrimitiveInput"
+          },
+          {
+            "type": "string"
+          }
+        ]
+      }
+    },
+    "required": []
+  },
+  "candidateNotesFilterQuantifierInput": {
+    "type": "object",
+    "properties": {
+      "_every": {
+        "$ref": "#/$defs/candidateNotesFilterInput"
+      },
+      "_none": {
+        "$ref": "#/$defs/candidateNotesFilterInput"
+      },
+      "_some": {
+        "$ref": "#/$defs/candidateNotesFilterInput"
+      }
+    },
+    "required": []
+  },
+  "candidateNotesUpdateDataInput": {
+    "type": "object",
+    "properties": {
+      "body": {
+        "type": "string"
+      },
+      "candidateId": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "candidates": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/candidateNotescandidatesUpdateOneRelatedOperationsInput"
+        }
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "createdBy": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/candidateNotescreatedByUpdateOneRelatedOperationsInput"
+        }
+      },
+      "createdById": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "updatedAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "updatedBy": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/candidateNotesupdatedByUpdateOneRelatedOperationsInput"
+        }
+      },
+      "updatedById": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "visibility": {
+        "type": "string"
+      }
+    },
+    "required": []
+  },
+  "candidateNotesupdatedByConnectForwardKeyInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "candidateNotesupdatedByConnectInput": {
+    "type": "object",
+    "properties": {
+      "key": {
+        "$ref": "#/$defs/candidateNotesupdatedByConnectForwardKeyInput"
+      }
+    },
+    "required": [
+      "key"
+    ]
+  },
+  "candidateNotesupdatedByCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/candidateNotesupdatedByCreateRelatedWithoutTypeInput"
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "candidateNotesupdatedByCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/candidateNotesupdatedByConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/candidateNotesupdatedByCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "candidateNotesupdatedByCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "activitiesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "activitiesOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "activitiesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "affiliationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "affiliationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "appearance": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "applicationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "applicationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "attachmentsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "avatarId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "candidateFilesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateMessagesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateNotesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidatesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidatesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "contactsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "contactsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "contactsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "email": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "emailTemplatesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "emailTemplatesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "fullName": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "interviewsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "interviewsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "isService": {
+        "type": "boolean"
+      },
+      "lastActivityAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "offersCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "offersUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "organizationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "organizationsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "organizationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "requisitionsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "requisitionsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roleRequestsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roleRequestsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roles": {
+        "type": "array",
+        "items": {}
+      },
+      "scorecardsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "scorecardsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "serviceOwnerId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "status": {
+        "type": "string"
+      },
+      "storageValues": {
+        "type": "array",
+        "items": {}
+      },
+      "workforcePlanRolesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "workforcePlanRolesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      }
+    },
+    "required": [
+      "id",
+      "isService"
+    ]
+  },
+  "candidateNotesupdatedByUpdateOneRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/candidateNotesupdatedByConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/candidateNotesupdatedByCreateArguments"
+      },
+      "_delete": {},
+      "_disconnect": {},
+      "_update": {}
+    },
+    "required": []
+  },
+  "candidateNotesUpdateInput": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/candidateNotesUpdateDataInput"
+      },
+      "filter": {
+        "$ref": "#/$defs/candidateNotesFilterInput"
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "candidatesapplicationsConnectBackwardKeysInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      }
+    },
+    "required": []
+  },
+  "candidatesapplicationsConnectInput": {
+    "type": "object",
+    "properties": {
+      "keys": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/candidatesapplicationsConnectBackwardKeysInput"
+        }
+      }
+    },
+    "required": [
+      "keys"
+    ]
+  },
+  "candidatesapplicationsCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/candidatesapplicationsCreateRelatedWithoutTypeInput"
+        }
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "candidatesapplicationsCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/candidatesapplicationsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/candidatesapplicationsCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "candidatesapplicationsCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "appliedAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "createdBy": {
+        "$ref": "#/$defs/applicationscreatedByCreateRelatedInput"
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "interview_stages": {
+        "$ref": "#/$defs/applicationsinterview_stagesCreateRelatedInput"
+      },
+      "interviews": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/applicationsinterviewsCreateRelatedInput"
+        }
+      },
+      "lastActivityAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "offers": {
+        "$ref": "#/$defs/applicationsoffersCreateRelatedInput"
+      },
+      "public_applications": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/applicationspublic_applicationsCreateRelatedInput"
+        }
+      },
+      "rejectionReason": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "requisitions": {
+        "$ref": "#/$defs/applicationsrequisitionsCreateRelatedInput"
+      },
+      "stageEnteredAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "status": {
+        "type": "string"
+      },
+      "updatedAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "updatedBy": {
+        "$ref": "#/$defs/applicationsupdatedByCreateRelatedInput"
+      }
+    },
+    "required": [
+      "interview_stages",
+      "requisitions"
+    ]
+  },
+  "candidatesapplicationsUpdateManyRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/candidatesapplicationsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/candidatesapplicationsCreateArguments"
+      },
+      "_delete": {
+        "$ref": "#/$defs/applicationsDeleteArguments"
+      },
+      "_update": {
+        "$ref": "#/$defs/applicationsUpdateInput"
+      }
+    },
+    "required": []
+  },
+  "candidatescandidate_filesConnectBackwardKeysInput": {
+    "type": "object",
+    "properties": {
+      "assetId": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      }
+    },
+    "required": []
+  },
+  "candidatescandidate_filesConnectInput": {
+    "type": "object",
+    "properties": {
+      "keys": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/candidatescandidate_filesConnectBackwardKeysInput"
+        }
+      }
+    },
+    "required": [
+      "keys"
+    ]
+  },
+  "candidatescandidate_filesCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/candidatescandidate_filesCreateRelatedWithoutTypeInput"
+        }
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "candidatescandidate_filesCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/candidatescandidate_filesConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/candidatescandidate_filesCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "candidatescandidate_filesCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "assetId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "contentType": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "createdBy": {
+        "$ref": "#/$defs/candidateFilescreatedByCreateRelatedInput"
+      },
+      "fileName": {
+        "type": "string"
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "kind": {
+        "type": "string"
+      },
+      "url": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": [
+      "fileName"
+    ]
+  },
+  "candidatescandidate_filesUpdateManyRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/candidatescandidate_filesConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/candidatescandidate_filesCreateArguments"
+      },
+      "_delete": {
+        "$ref": "#/$defs/candidateFilesDeleteArguments"
+      },
+      "_update": {
+        "$ref": "#/$defs/candidateFilesUpdateInput"
+      }
+    },
+    "required": []
+  },
+  "candidatescandidate_messagesConnectBackwardKeysInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      }
+    },
+    "required": []
+  },
+  "candidatescandidate_messagesConnectInput": {
+    "type": "object",
+    "properties": {
+      "keys": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/candidatescandidate_messagesConnectBackwardKeysInput"
+        }
+      }
+    },
+    "required": [
+      "keys"
+    ]
+  },
+  "candidatescandidate_messagesCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/candidatescandidate_messagesCreateRelatedWithoutTypeInput"
+        }
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "candidatescandidate_messagesCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/candidatescandidate_messagesConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/candidatescandidate_messagesCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "candidatescandidate_messagesCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "body": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "createdBy": {
+        "$ref": "#/$defs/candidateMessagescreatedByCreateRelatedInput"
+      },
+      "direction": {
+        "type": "string"
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "sendAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "status": {
+        "type": "string"
+      },
+      "subject": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "subject"
+    ]
+  },
+  "candidatescandidate_messagesUpdateManyRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/candidatescandidate_messagesConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/candidatescandidate_messagesCreateArguments"
+      },
+      "_delete": {
+        "$ref": "#/$defs/candidateMessagesDeleteArguments"
+      },
+      "_update": {
+        "$ref": "#/$defs/candidateMessagesUpdateInput"
+      }
+    },
+    "required": []
+  },
+  "candidatescandidate_notesConnectBackwardKeysInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      }
+    },
+    "required": []
+  },
+  "candidatescandidate_notesConnectInput": {
+    "type": "object",
+    "properties": {
+      "keys": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/candidatescandidate_notesConnectBackwardKeysInput"
+        }
+      }
+    },
+    "required": [
+      "keys"
+    ]
+  },
+  "candidatescandidate_notesCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/candidatescandidate_notesCreateRelatedWithoutTypeInput"
+        }
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "candidatescandidate_notesCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/candidatescandidate_notesConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/candidatescandidate_notesCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "candidatescandidate_notesCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "body": {
+        "type": "string"
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "createdBy": {
+        "$ref": "#/$defs/candidateNotescreatedByCreateRelatedInput"
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "updatedAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "updatedBy": {
+        "$ref": "#/$defs/candidateNotesupdatedByCreateRelatedInput"
+      },
+      "visibility": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "body"
+    ]
+  },
+  "candidatescandidate_notesUpdateManyRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/candidatescandidate_notesConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/candidatescandidate_notesCreateArguments"
+      },
+      "_delete": {
+        "$ref": "#/$defs/candidateNotesDeleteArguments"
+      },
+      "_update": {
+        "$ref": "#/$defs/candidateNotesUpdateInput"
+      }
+    },
+    "required": []
+  },
+  "candidatescreatedByConnectForwardKeyInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "candidatescreatedByConnectInput": {
+    "type": "object",
+    "properties": {
+      "key": {
+        "$ref": "#/$defs/candidatescreatedByConnectForwardKeyInput"
+      }
+    },
+    "required": [
+      "key"
+    ]
+  },
+  "candidatescreatedByCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/candidatescreatedByCreateRelatedWithoutTypeInput"
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "candidatescreatedByCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/candidatescreatedByConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/candidatescreatedByCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "candidatescreatedByCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "activitiesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "activitiesOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "activitiesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "affiliationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "affiliationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "appearance": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "applicationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "applicationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "attachmentsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "avatarId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "candidateFilesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateMessagesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateNotesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateNotesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidatesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "contactsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "contactsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "contactsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "email": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "emailTemplatesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "emailTemplatesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "fullName": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "interviewsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "interviewsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "isService": {
+        "type": "boolean"
+      },
+      "lastActivityAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "offersCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "offersUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "organizationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "organizationsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "organizationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "requisitionsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "requisitionsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roleRequestsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roleRequestsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roles": {
+        "type": "array",
+        "items": {}
+      },
+      "scorecardsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "scorecardsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "serviceOwnerId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "status": {
+        "type": "string"
+      },
+      "storageValues": {
+        "type": "array",
+        "items": {}
+      },
+      "workforcePlanRolesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "workforcePlanRolesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      }
+    },
+    "required": [
+      "id",
+      "isService"
+    ]
+  },
+  "candidatescreatedByUpdateOneRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/candidatescreatedByConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/candidatescreatedByCreateArguments"
+      },
+      "_delete": {},
+      "_disconnect": {},
+      "_update": {}
+    },
+    "required": []
+  },
+  "candidatesCreateInput": {
+    "type": "object",
+    "properties": {
+      "applications": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/candidatesapplicationsCreateRelatedInput"
+        }
+      },
+      "candidate_files": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/candidatescandidate_filesCreateRelatedInput"
+        }
+      },
+      "candidate_messages": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/candidatescandidate_messagesCreateRelatedInput"
+        }
+      },
+      "candidate_notes": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/candidatescandidate_notesCreateRelatedInput"
+        }
+      },
+      "city": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "consentAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "country": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "createdBy": {
+        "$ref": "#/$defs/candidatescreatedByCreateRelatedInput"
+      },
+      "email": {
+        "type": "string"
+      },
+      "firstName": {
+        "type": "string"
+      },
+      "githubUrl": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "inTalentPool": {
+        "type": "boolean"
+      },
+      "lastName": {
+        "type": "string"
+      },
+      "linkedinUrl": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "needsSponsorship": {
+        "oneOf": [
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "phone": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "portfolioUrl": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "privacyNoticeSentAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "public_applications": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/candidatespublic_applicationsCreateRelatedInput"
+        }
+      },
+      "referrerUserId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "retainUntil": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "source": {
+        "type": "string"
+      },
+      "sourceDetail": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "tags": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "updatedAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "updatedBy": {
+        "$ref": "#/$defs/candidatesupdatedByCreateRelatedInput"
+      },
+      "workAuthorized": {
+        "oneOf": [
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": [
+      "email",
+      "firstName",
+      "lastName"
+    ]
+  },
+  "candidatesDeleteArguments": {
+    "type": "object",
+    "properties": {
+      "filter": {
+        "$ref": "#/$defs/candidatesFilterInput"
+      }
+    },
+    "required": []
+  },
+  "candidatesDisconnectOneInput": {
+    "type": "object",
+    "properties": {},
+    "required": []
+  },
+  "candidatesFilterInput": {
+    "type": "object",
+    "properties": {
+      "_and": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/candidatesFilterInput"
+        }
+      },
+      "_not": {
+        "$ref": "#/$defs/candidatesFilterInput"
+      },
+      "_or": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/candidatesFilterInput"
+        }
+      },
+      "applications": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/applicationsFilterQuantifierInput"
+          },
+          {
+            "$ref": "#/$defs/applicationsFilterInput"
+          }
+        ]
+      },
+      "candidate_files": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/candidateFilesFilterQuantifierInput"
+          },
+          {
+            "$ref": "#/$defs/candidateFilesFilterInput"
+          }
+        ]
+      },
+      "candidate_messages": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/candidateMessagesFilterQuantifierInput"
+          },
+          {
+            "$ref": "#/$defs/candidateMessagesFilterInput"
+          }
+        ]
+      },
+      "candidate_notes": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/candidateNotesFilterQuantifierInput"
+          },
+          {
+            "$ref": "#/$defs/candidateNotesFilterInput"
+          }
+        ]
+      },
+      "city": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "consentAt": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/DateTimeFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "country": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "createdAt": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/DateTimeFilterPrimitiveInput"
+          },
+          {
+            "type": "string",
+            "format": "date-time"
+          }
+        ]
+      },
+      "createdBy": {},
+      "createdById": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "email": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterPrimitiveInput"
+          },
+          {
+            "type": "string"
+          }
+        ]
+      },
+      "firstName": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterPrimitiveInput"
+          },
+          {
+            "type": "string"
+          }
+        ]
+      },
+      "githubUrl": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "id": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterPrimitiveInput"
+          },
+          {
+            "type": "string",
+            "format": "uuid"
+          }
+        ]
+      },
+      "inTalentPool": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/BooleanFilterPrimitiveInput"
+          },
+          {
+            "type": "boolean"
+          }
+        ]
+      },
+      "lastName": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterPrimitiveInput"
+          },
+          {
+            "type": "string"
+          }
+        ]
+      },
+      "linkedinUrl": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "needsSponsorship": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/BooleanFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "phone": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "portfolioUrl": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "privacyNoticeSentAt": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/DateTimeFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "public_applications": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/publicApplicationsFilterQuantifierInput"
+          },
+          {
+            "$ref": "#/$defs/publicApplicationsFilterInput"
+          }
+        ]
+      },
+      "referrerUserId": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "retainUntil": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/DateFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "date"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "source": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterPrimitiveInput"
+          },
+          {
+            "type": "string"
+          }
+        ]
+      },
+      "sourceDetail": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "tags": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "updatedAt": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/DateTimeFilterPrimitiveInput"
+          },
+          {
+            "type": "string",
+            "format": "date-time"
+          }
+        ]
+      },
+      "updatedBy": {},
+      "updatedById": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "workAuthorized": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/BooleanFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "required": []
+  },
+  "candidatespublic_applicationsConnectBackwardKeysInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      }
+    },
+    "required": []
+  },
+  "candidatespublic_applicationsConnectInput": {
+    "type": "object",
+    "properties": {
+      "keys": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/candidatespublic_applicationsConnectBackwardKeysInput"
+        }
+      }
+    },
+    "required": [
+      "keys"
+    ]
+  },
+  "candidatespublic_applicationsCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/candidatespublic_applicationsCreateRelatedWithoutTypeInput"
+        }
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "candidatespublic_applicationsCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/candidatespublic_applicationsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/candidatespublic_applicationsCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "candidatespublic_applicationsCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "applications": {
+        "$ref": "#/$defs/publicApplicationsapplicationsCreateRelatedInput"
+      },
+      "city": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "consent": {
+        "type": "boolean"
+      },
+      "country": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "email": {
+        "type": "string"
+      },
+      "firstName": {
+        "type": "string"
+      },
+      "githubUrl": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "lastName": {
+        "type": "string"
+      },
+      "linkedinUrl": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "needsSponsorship": {
+        "oneOf": [
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "phone": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "portfolioUrl": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "requisitions": {
+        "$ref": "#/$defs/publicApplicationsrequisitionsCreateRelatedInput"
+      },
+      "resumeAssetId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "resumeFileName": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "resumeUrl": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "workAuthorized": {
+        "oneOf": [
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": [
+      "consent",
+      "email",
+      "firstName",
+      "lastName",
+      "requisitions"
+    ]
+  },
+  "candidatespublic_applicationsUpdateManyRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/candidatespublic_applicationsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/candidatespublic_applicationsCreateArguments"
+      },
+      "_delete": {
+        "$ref": "#/$defs/publicApplicationsDeleteArguments"
+      },
+      "_disconnect": {
+        "$ref": "#/$defs/publicApplicationsDisconnectManyInput"
+      },
+      "_update": {
+        "$ref": "#/$defs/publicApplicationsUpdateInput"
+      }
+    },
+    "required": []
+  },
+  "candidatesUpdateDataInput": {
+    "type": "object",
+    "properties": {
+      "applications": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/candidatesapplicationsUpdateManyRelatedOperationsInput"
+        }
+      },
+      "candidate_files": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/candidatescandidate_filesUpdateManyRelatedOperationsInput"
+        }
+      },
+      "candidate_messages": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/candidatescandidate_messagesUpdateManyRelatedOperationsInput"
+        }
+      },
+      "candidate_notes": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/candidatescandidate_notesUpdateManyRelatedOperationsInput"
+        }
+      },
+      "city": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "consentAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "country": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "createdBy": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/candidatescreatedByUpdateOneRelatedOperationsInput"
+        }
+      },
+      "createdById": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "email": {
+        "type": "string"
+      },
+      "firstName": {
+        "type": "string"
+      },
+      "githubUrl": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "inTalentPool": {
+        "type": "boolean"
+      },
+      "lastName": {
+        "type": "string"
+      },
+      "linkedinUrl": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "needsSponsorship": {
+        "oneOf": [
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "phone": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "portfolioUrl": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "privacyNoticeSentAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "public_applications": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/candidatespublic_applicationsUpdateManyRelatedOperationsInput"
+        }
+      },
+      "referrerUserId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "retainUntil": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "source": {
+        "type": "string"
+      },
+      "sourceDetail": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "tags": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "updatedAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "updatedBy": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/candidatesupdatedByUpdateOneRelatedOperationsInput"
+        }
+      },
+      "updatedById": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "workAuthorized": {
+        "oneOf": [
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": []
+  },
+  "candidatesupdatedByConnectForwardKeyInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "candidatesupdatedByConnectInput": {
+    "type": "object",
+    "properties": {
+      "key": {
+        "$ref": "#/$defs/candidatesupdatedByConnectForwardKeyInput"
+      }
+    },
+    "required": [
+      "key"
+    ]
+  },
+  "candidatesupdatedByCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/candidatesupdatedByCreateRelatedWithoutTypeInput"
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "candidatesupdatedByCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/candidatesupdatedByConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/candidatesupdatedByCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "candidatesupdatedByCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "activitiesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "activitiesOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "activitiesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "affiliationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "affiliationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "appearance": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "applicationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "applicationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "attachmentsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "avatarId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "candidateFilesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateMessagesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateNotesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateNotesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidatesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "contactsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "contactsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "contactsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "email": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "emailTemplatesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "emailTemplatesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "fullName": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "interviewsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "interviewsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "isService": {
+        "type": "boolean"
+      },
+      "lastActivityAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "offersCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "offersUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "organizationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "organizationsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "organizationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "requisitionsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "requisitionsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roleRequestsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roleRequestsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roles": {
+        "type": "array",
+        "items": {}
+      },
+      "scorecardsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "scorecardsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "serviceOwnerId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "status": {
+        "type": "string"
+      },
+      "storageValues": {
+        "type": "array",
+        "items": {}
+      },
+      "workforcePlanRolesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "workforcePlanRolesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      }
+    },
+    "required": [
+      "id",
+      "isService"
+    ]
+  },
+  "candidatesupdatedByUpdateOneRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/candidatesupdatedByConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/candidatesupdatedByCreateArguments"
+      },
+      "_delete": {},
+      "_disconnect": {},
+      "_update": {}
+    },
+    "required": []
+  },
+  "candidatesUpdateInput": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/candidatesUpdateDataInput"
+      },
+      "filter": {
+        "$ref": "#/$defs/candidatesFilterInput"
+      }
+    },
+    "required": [
+      "data"
+    ]
   },
   "contactsactivitiesConnectBackwardKeysInput": {
     "type": "object",
@@ -5910,6 +14892,14 @@ const definitions = {
           }
         ]
       },
+      "applicationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "applicationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
       "attachmentsCreatedBy": {
         "type": "array",
         "items": {}
@@ -5924,6 +14914,30 @@ const definitions = {
             "type": "null"
           }
         ]
+      },
+      "candidateFilesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateMessagesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateNotesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateNotesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidatesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidatesUpdatedBy": {
+        "type": "array",
+        "items": {}
       },
       "contactsOwner": {
         "type": "array",
@@ -5955,6 +14969,14 @@ const definitions = {
           }
         ]
       },
+      "emailTemplatesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "emailTemplatesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
       "fullName": {
         "oneOf": [
           {
@@ -5968,6 +14990,14 @@ const definitions = {
       "id": {
         "type": "string",
         "format": "uuid"
+      },
+      "interviewsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "interviewsUpdatedBy": {
+        "type": "array",
+        "items": {}
       },
       "isService": {
         "type": "boolean"
@@ -5983,6 +15013,14 @@ const definitions = {
           }
         ]
       },
+      "offersCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "offersUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
       "organizationsCreatedBy": {
         "type": "array",
         "items": {}
@@ -5995,7 +15033,31 @@ const definitions = {
         "type": "array",
         "items": {}
       },
+      "requisitionsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "requisitionsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roleRequestsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roleRequestsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
       "roles": {
+        "type": "array",
+        "items": {}
+      },
+      "scorecardsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "scorecardsUpdatedBy": {
         "type": "array",
         "items": {}
       },
@@ -6014,6 +15076,14 @@ const definitions = {
         "type": "string"
       },
       "storageValues": {
+        "type": "array",
+        "items": {}
+      },
+      "workforcePlanRolesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "workforcePlanRolesUpdatedBy": {
         "type": "array",
         "items": {}
       }
@@ -6631,6 +15701,14 @@ const definitions = {
           }
         ]
       },
+      "applicationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "applicationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
       "attachmentsCreatedBy": {
         "type": "array",
         "items": {}
@@ -6645,6 +15723,30 @@ const definitions = {
             "type": "null"
           }
         ]
+      },
+      "candidateFilesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateMessagesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateNotesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateNotesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidatesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidatesUpdatedBy": {
+        "type": "array",
+        "items": {}
       },
       "contactsCreatedBy": {
         "type": "array",
@@ -6676,6 +15778,14 @@ const definitions = {
           }
         ]
       },
+      "emailTemplatesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "emailTemplatesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
       "fullName": {
         "oneOf": [
           {
@@ -6689,6 +15799,14 @@ const definitions = {
       "id": {
         "type": "string",
         "format": "uuid"
+      },
+      "interviewsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "interviewsUpdatedBy": {
+        "type": "array",
+        "items": {}
       },
       "isService": {
         "type": "boolean"
@@ -6704,6 +15822,14 @@ const definitions = {
           }
         ]
       },
+      "offersCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "offersUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
       "organizationsCreatedBy": {
         "type": "array",
         "items": {}
@@ -6716,7 +15842,31 @@ const definitions = {
         "type": "array",
         "items": {}
       },
+      "requisitionsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "requisitionsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roleRequestsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roleRequestsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
       "roles": {
+        "type": "array",
+        "items": {}
+      },
+      "scorecardsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "scorecardsUpdatedBy": {
         "type": "array",
         "items": {}
       },
@@ -6735,6 +15885,14 @@ const definitions = {
         "type": "string"
       },
       "storageValues": {
+        "type": "array",
+        "items": {}
+      },
+      "workforcePlanRolesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "workforcePlanRolesUpdatedBy": {
         "type": "array",
         "items": {}
       }
@@ -7097,6 +16255,14 @@ const definitions = {
           }
         ]
       },
+      "applicationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "applicationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
       "attachmentsCreatedBy": {
         "type": "array",
         "items": {}
@@ -7111,6 +16277,30 @@ const definitions = {
             "type": "null"
           }
         ]
+      },
+      "candidateFilesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateMessagesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateNotesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateNotesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidatesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidatesUpdatedBy": {
+        "type": "array",
+        "items": {}
       },
       "contactsCreatedBy": {
         "type": "array",
@@ -7142,6 +16332,14 @@ const definitions = {
           }
         ]
       },
+      "emailTemplatesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "emailTemplatesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
       "fullName": {
         "oneOf": [
           {
@@ -7155,6 +16353,14 @@ const definitions = {
       "id": {
         "type": "string",
         "format": "uuid"
+      },
+      "interviewsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "interviewsUpdatedBy": {
+        "type": "array",
+        "items": {}
       },
       "isService": {
         "type": "boolean"
@@ -7170,6 +16376,14 @@ const definitions = {
           }
         ]
       },
+      "offersCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "offersUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
       "organizationsCreatedBy": {
         "type": "array",
         "items": {}
@@ -7182,7 +16396,31 @@ const definitions = {
         "type": "array",
         "items": {}
       },
+      "requisitionsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "requisitionsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roleRequestsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roleRequestsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
       "roles": {
+        "type": "array",
+        "items": {}
+      },
+      "scorecardsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "scorecardsUpdatedBy": {
         "type": "array",
         "items": {}
       },
@@ -7201,6 +16439,14 @@ const definitions = {
         "type": "string"
       },
       "storageValues": {
+        "type": "array",
+        "items": {}
+      },
+      "workforcePlanRolesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "workforcePlanRolesUpdatedBy": {
         "type": "array",
         "items": {}
       }
@@ -8094,6 +17340,14 @@ const definitions = {
           }
         ]
       },
+      "applicationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "applicationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
       "attachmentsCreatedBy": {
         "type": "array",
         "items": {}
@@ -8108,6 +17362,30 @@ const definitions = {
             "type": "null"
           }
         ]
+      },
+      "candidateFilesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateMessagesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateNotesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateNotesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidatesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidatesUpdatedBy": {
+        "type": "array",
+        "items": {}
       },
       "contactsCreatedBy": {
         "type": "array",
@@ -8139,6 +17417,14 @@ const definitions = {
           }
         ]
       },
+      "emailTemplatesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "emailTemplatesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
       "fullName": {
         "oneOf": [
           {
@@ -8152,6 +17438,14 @@ const definitions = {
       "id": {
         "type": "string",
         "format": "uuid"
+      },
+      "interviewsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "interviewsUpdatedBy": {
+        "type": "array",
+        "items": {}
       },
       "isService": {
         "type": "boolean"
@@ -8167,6 +17461,14 @@ const definitions = {
           }
         ]
       },
+      "offersCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "offersUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
       "organizationsCreatedBy": {
         "type": "array",
         "items": {}
@@ -8179,7 +17481,31 @@ const definitions = {
         "type": "array",
         "items": {}
       },
+      "requisitionsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "requisitionsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roleRequestsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roleRequestsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
       "roles": {
+        "type": "array",
+        "items": {}
+      },
+      "scorecardsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "scorecardsUpdatedBy": {
         "type": "array",
         "items": {}
       },
@@ -8198,6 +17524,14 @@ const definitions = {
         "type": "string"
       },
       "storageValues": {
+        "type": "array",
+        "items": {}
+      },
+      "workforcePlanRolesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "workforcePlanRolesUpdatedBy": {
         "type": "array",
         "items": {}
       }
@@ -8861,6 +18195,14 @@ const definitions = {
           }
         ]
       },
+      "applicationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "applicationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
       "attachmentsCreatedBy": {
         "type": "array",
         "items": {}
@@ -8875,6 +18217,30 @@ const definitions = {
             "type": "null"
           }
         ]
+      },
+      "candidateFilesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateMessagesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateNotesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateNotesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidatesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidatesUpdatedBy": {
+        "type": "array",
+        "items": {}
       },
       "contactsCreatedBy": {
         "type": "array",
@@ -8906,6 +18272,14 @@ const definitions = {
           }
         ]
       },
+      "emailTemplatesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "emailTemplatesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
       "fullName": {
         "oneOf": [
           {
@@ -8919,6 +18293,14 @@ const definitions = {
       "id": {
         "type": "string",
         "format": "uuid"
+      },
+      "interviewsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "interviewsUpdatedBy": {
+        "type": "array",
+        "items": {}
       },
       "isService": {
         "type": "boolean"
@@ -8934,6 +18316,14 @@ const definitions = {
           }
         ]
       },
+      "offersCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "offersUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
       "organizationsCreatedBy": {
         "type": "array",
         "items": {}
@@ -8946,7 +18336,31 @@ const definitions = {
         "type": "array",
         "items": {}
       },
+      "requisitionsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "requisitionsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roleRequestsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roleRequestsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
       "roles": {
+        "type": "array",
+        "items": {}
+      },
+      "scorecardsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "scorecardsUpdatedBy": {
         "type": "array",
         "items": {}
       },
@@ -8965,6 +18379,14 @@ const definitions = {
         "type": "string"
       },
       "storageValues": {
+        "type": "array",
+        "items": {}
+      },
+      "workforcePlanRolesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "workforcePlanRolesUpdatedBy": {
         "type": "array",
         "items": {}
       }
@@ -9331,6 +18753,14 @@ const definitions = {
           }
         ]
       },
+      "applicationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "applicationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
       "attachmentsCreatedBy": {
         "type": "array",
         "items": {}
@@ -9345,6 +18775,30 @@ const definitions = {
             "type": "null"
           }
         ]
+      },
+      "candidateFilesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateMessagesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateNotesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateNotesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidatesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidatesUpdatedBy": {
+        "type": "array",
+        "items": {}
       },
       "contactsCreatedBy": {
         "type": "array",
@@ -9376,6 +18830,14 @@ const definitions = {
           }
         ]
       },
+      "emailTemplatesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "emailTemplatesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
       "fullName": {
         "oneOf": [
           {
@@ -9389,6 +18851,14 @@ const definitions = {
       "id": {
         "type": "string",
         "format": "uuid"
+      },
+      "interviewsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "interviewsUpdatedBy": {
+        "type": "array",
+        "items": {}
       },
       "isService": {
         "type": "boolean"
@@ -9404,6 +18874,14 @@ const definitions = {
           }
         ]
       },
+      "offersCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "offersUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
       "organizationsCreatedBy": {
         "type": "array",
         "items": {}
@@ -9416,7 +18894,31 @@ const definitions = {
         "type": "array",
         "items": {}
       },
+      "requisitionsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "requisitionsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roleRequestsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roleRequestsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
       "roles": {
+        "type": "array",
+        "items": {}
+      },
+      "scorecardsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "scorecardsUpdatedBy": {
         "type": "array",
         "items": {}
       },
@@ -9435,6 +18937,14 @@ const definitions = {
         "type": "string"
       },
       "storageValues": {
+        "type": "array",
+        "items": {}
+      },
+      "workforcePlanRolesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "workforcePlanRolesUpdatedBy": {
         "type": "array",
         "items": {}
       }
@@ -9637,6 +19147,1729 @@ const definitions = {
           "example": "123.345"
         }
       }
+    },
+    "required": []
+  },
+  "departmentsCreateInput": {
+    "type": "object",
+    "properties": {
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "hasVariableComp": {
+        "type": "boolean"
+      },
+      "headUserId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "name": {
+        "type": "string"
+      },
+      "requisitions": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/departmentsrequisitionsCreateRelatedInput"
+        }
+      },
+      "role_requests": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/departmentsrole_requestsCreateRelatedInput"
+        }
+      },
+      "workforce_plan_roles": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/departmentsworkforce_plan_rolesCreateRelatedInput"
+        }
+      }
+    },
+    "required": [
+      "name"
+    ]
+  },
+  "departmentsFilterInput": {
+    "type": "object",
+    "properties": {
+      "_and": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/departmentsFilterInput"
+        }
+      },
+      "_not": {
+        "$ref": "#/$defs/departmentsFilterInput"
+      },
+      "_or": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/departmentsFilterInput"
+        }
+      },
+      "createdAt": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/DateTimeFilterPrimitiveInput"
+          },
+          {
+            "type": "string",
+            "format": "date-time"
+          }
+        ]
+      },
+      "hasVariableComp": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/BooleanFilterPrimitiveInput"
+          },
+          {
+            "type": "boolean"
+          }
+        ]
+      },
+      "headUserId": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "id": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterPrimitiveInput"
+          },
+          {
+            "type": "string",
+            "format": "uuid"
+          }
+        ]
+      },
+      "name": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterPrimitiveInput"
+          },
+          {
+            "type": "string"
+          }
+        ]
+      },
+      "requisitions": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/requisitionsFilterQuantifierInput"
+          },
+          {
+            "$ref": "#/$defs/requisitionsFilterInput"
+          }
+        ]
+      },
+      "role_requests": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/roleRequestsFilterQuantifierInput"
+          },
+          {
+            "$ref": "#/$defs/roleRequestsFilterInput"
+          }
+        ]
+      },
+      "workforce_plan_roles": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/workforcePlanRolesFilterQuantifierInput"
+          },
+          {
+            "$ref": "#/$defs/workforcePlanRolesFilterInput"
+          }
+        ]
+      }
+    },
+    "required": []
+  },
+  "departmentsrequisitionsConnectBackwardKeysInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "reqNumber": {
+        "type": "integer"
+      },
+      "roleRequestId": {
+        "type": "string",
+        "format": "uuid"
+      }
+    },
+    "required": []
+  },
+  "departmentsrequisitionsConnectInput": {
+    "type": "object",
+    "properties": {
+      "keys": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/departmentsrequisitionsConnectBackwardKeysInput"
+        }
+      }
+    },
+    "required": [
+      "keys"
+    ]
+  },
+  "departmentsrequisitionsCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/departmentsrequisitionsCreateRelatedWithoutTypeInput"
+        }
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "departmentsrequisitionsCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/departmentsrequisitionsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/departmentsrequisitionsCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "departmentsrequisitionsCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "applications": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/requisitionsapplicationsCreateRelatedInput"
+        }
+      },
+      "closedAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "compMax": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "decimal",
+            "example": "123.345"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "compMin": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "decimal",
+            "example": "123.345"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "createdBy": {
+        "$ref": "#/$defs/requisitionscreatedByCreateRelatedInput"
+      },
+      "currency": {
+        "type": "string"
+      },
+      "description": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "employmentType": {
+        "type": "string"
+      },
+      "hiringManagerUserId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "hiringReason": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "interview_stages": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/requisitionsinterview_stagesCreateRelatedInput"
+        }
+      },
+      "isConfidential": {
+        "type": "boolean"
+      },
+      "isLeadership": {
+        "type": "boolean"
+      },
+      "job_levels": {
+        "$ref": "#/$defs/requisitionsjob_levelsCreateRelatedInput"
+      },
+      "kickoffAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "kickoffNotes": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "locations": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "mustHaveSkills": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "niceToHaveSkills": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "numberOfHires": {
+        "type": "integer"
+      },
+      "openedAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "postExternally": {
+        "type": "boolean"
+      },
+      "public_applications": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/requisitionspublic_applicationsCreateRelatedInput"
+        }
+      },
+      "recruiterUserId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "reqNumber": {
+        "type": "integer"
+      },
+      "role_requests": {
+        "$ref": "#/$defs/requisitionsrole_requestsCreateRelatedInput"
+      },
+      "status": {
+        "type": "string"
+      },
+      "teamSize": {
+        "oneOf": [
+          {
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "title": {
+        "type": "string"
+      },
+      "updatedAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "updatedBy": {
+        "$ref": "#/$defs/requisitionsupdatedByCreateRelatedInput"
+      },
+      "urgency": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "title"
+    ]
+  },
+  "departmentsrequisitionsUpdateManyRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/departmentsrequisitionsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/departmentsrequisitionsCreateArguments"
+      },
+      "_delete": {
+        "$ref": "#/$defs/requisitionsDeleteArguments"
+      },
+      "_update": {
+        "$ref": "#/$defs/requisitionsUpdateInput"
+      }
+    },
+    "required": []
+  },
+  "departmentsrole_requestsConnectBackwardKeysInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      }
+    },
+    "required": []
+  },
+  "departmentsrole_requestsConnectInput": {
+    "type": "object",
+    "properties": {
+      "keys": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/departmentsrole_requestsConnectBackwardKeysInput"
+        }
+      }
+    },
+    "required": [
+      "keys"
+    ]
+  },
+  "departmentsrole_requestsCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/departmentsrole_requestsCreateRelatedWithoutTypeInput"
+        }
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "departmentsrole_requestsCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/departmentsrole_requestsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/departmentsrole_requestsCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "departmentsrole_requestsCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "approvals": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/roleRequestsapprovalsCreateRelatedInput"
+        }
+      },
+      "approvedBaseMax": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "decimal",
+            "example": "123.345"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "approvedBaseMin": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "decimal",
+            "example": "123.345"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "approvedCurrency": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "approvedEquityUnits": {
+        "oneOf": [
+          {
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "approvedVariableMax": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "decimal",
+            "example": "123.345"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "approvedVariableMin": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "decimal",
+            "example": "123.345"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "businessJustification": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "compMax": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "decimal",
+            "example": "123.345"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "compMin": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "decimal",
+            "example": "123.345"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "createdBy": {
+        "$ref": "#/$defs/roleRequestscreatedByCreateRelatedInput"
+      },
+      "currency": {
+        "type": "string"
+      },
+      "decidedAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "decidedByUserId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "decisionNote": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "employmentType": {
+        "type": "string"
+      },
+      "hiringManagerUserId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "hiringReason": {
+        "type": "string"
+      },
+      "hiringReasonDetail": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "job_levels": {
+        "$ref": "#/$defs/roleRequestsjob_levelsCreateRelatedInput"
+      },
+      "locations": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "numberOfHires": {
+        "type": "integer"
+      },
+      "requesterUserId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "requisitions": {
+        "$ref": "#/$defs/roleRequestsrequisitionsCreateRelatedInput"
+      },
+      "roleName": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "updatedAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "updatedBy": {
+        "$ref": "#/$defs/roleRequestsupdatedByCreateRelatedInput"
+      },
+      "urgency": {
+        "type": "string"
+      },
+      "urgencyImpact": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "workforce_plan_roles": {
+        "$ref": "#/$defs/roleRequestsworkforce_plan_rolesCreateRelatedInput"
+      }
+    },
+    "required": [
+      "roleName"
+    ]
+  },
+  "departmentsrole_requestsUpdateManyRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/departmentsrole_requestsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/departmentsrole_requestsCreateArguments"
+      },
+      "_delete": {
+        "$ref": "#/$defs/roleRequestsDeleteArguments"
+      },
+      "_update": {
+        "$ref": "#/$defs/roleRequestsUpdateInput"
+      }
+    },
+    "required": []
+  },
+  "departmentsUpdateDataInput": {
+    "type": "object",
+    "properties": {
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "hasVariableComp": {
+        "type": "boolean"
+      },
+      "headUserId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "name": {
+        "type": "string"
+      },
+      "requisitions": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/departmentsrequisitionsUpdateManyRelatedOperationsInput"
+        }
+      },
+      "role_requests": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/departmentsrole_requestsUpdateManyRelatedOperationsInput"
+        }
+      },
+      "workforce_plan_roles": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/departmentsworkforce_plan_rolesUpdateManyRelatedOperationsInput"
+        }
+      }
+    },
+    "required": []
+  },
+  "departmentsUpdateInput": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/departmentsUpdateDataInput"
+      },
+      "filter": {
+        "$ref": "#/$defs/departmentsFilterInput"
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "departmentsworkforce_plan_rolesConnectBackwardKeysInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      }
+    },
+    "required": []
+  },
+  "departmentsworkforce_plan_rolesConnectInput": {
+    "type": "object",
+    "properties": {
+      "keys": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/departmentsworkforce_plan_rolesConnectBackwardKeysInput"
+        }
+      }
+    },
+    "required": [
+      "keys"
+    ]
+  },
+  "departmentsworkforce_plan_rolesCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/departmentsworkforce_plan_rolesCreateRelatedWithoutTypeInput"
+        }
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "departmentsworkforce_plan_rolesCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/departmentsworkforce_plan_rolesConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/departmentsworkforce_plan_rolesCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "departmentsworkforce_plan_rolesCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "approvals": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/workforcePlanRolesapprovalsCreateRelatedInput"
+        }
+      },
+      "approvedHeadcount": {
+        "oneOf": [
+          {
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "budgetAmount": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "decimal",
+            "example": "123.345"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "createdBy": {
+        "$ref": "#/$defs/workforcePlanRolescreatedByCreateRelatedInput"
+      },
+      "currency": {
+        "type": "string"
+      },
+      "currentHeadcount": {
+        "type": "integer"
+      },
+      "employmentType": {
+        "type": "string"
+      },
+      "hireType": {
+        "type": "string"
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "job_levels": {
+        "$ref": "#/$defs/workforcePlanRolesjob_levelsCreateRelatedInput"
+      },
+      "locations": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "planYear": {
+        "type": "integer"
+      },
+      "plannedHeadcount": {
+        "type": "integer"
+      },
+      "roleName": {
+        "type": "string"
+      },
+      "role_requests": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/workforcePlanRolesrole_requestsCreateRelatedInput"
+        }
+      },
+      "status": {
+        "type": "string"
+      },
+      "team": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "updatedAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "updatedBy": {
+        "$ref": "#/$defs/workforcePlanRolesupdatedByCreateRelatedInput"
+      }
+    },
+    "required": [
+      "planYear",
+      "roleName"
+    ]
+  },
+  "departmentsworkforce_plan_rolesUpdateManyRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/departmentsworkforce_plan_rolesConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/departmentsworkforce_plan_rolesCreateArguments"
+      },
+      "_delete": {
+        "$ref": "#/$defs/workforcePlanRolesDeleteArguments"
+      },
+      "_update": {
+        "$ref": "#/$defs/workforcePlanRolesUpdateInput"
+      }
+    },
+    "required": []
+  },
+  "emailTemplatescreatedByConnectForwardKeyInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "emailTemplatescreatedByConnectInput": {
+    "type": "object",
+    "properties": {
+      "key": {
+        "$ref": "#/$defs/emailTemplatescreatedByConnectForwardKeyInput"
+      }
+    },
+    "required": [
+      "key"
+    ]
+  },
+  "emailTemplatescreatedByCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/emailTemplatescreatedByCreateRelatedWithoutTypeInput"
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "emailTemplatescreatedByCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/emailTemplatescreatedByConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/emailTemplatescreatedByCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "emailTemplatescreatedByCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "activitiesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "activitiesOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "activitiesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "affiliationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "affiliationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "appearance": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "applicationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "applicationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "attachmentsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "avatarId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "candidateFilesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateMessagesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateNotesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateNotesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidatesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidatesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "contactsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "contactsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "contactsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "email": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "emailTemplatesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "fullName": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "interviewsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "interviewsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "isService": {
+        "type": "boolean"
+      },
+      "lastActivityAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "offersCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "offersUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "organizationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "organizationsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "organizationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "requisitionsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "requisitionsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roleRequestsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roleRequestsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roles": {
+        "type": "array",
+        "items": {}
+      },
+      "scorecardsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "scorecardsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "serviceOwnerId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "status": {
+        "type": "string"
+      },
+      "storageValues": {
+        "type": "array",
+        "items": {}
+      },
+      "workforcePlanRolesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "workforcePlanRolesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      }
+    },
+    "required": [
+      "id",
+      "isService"
+    ]
+  },
+  "emailTemplatescreatedByUpdateOneRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/emailTemplatescreatedByConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/emailTemplatescreatedByCreateArguments"
+      },
+      "_delete": {},
+      "_disconnect": {},
+      "_update": {}
+    },
+    "required": []
+  },
+  "emailTemplatesCreateInput": {
+    "type": "object",
+    "properties": {
+      "body": {
+        "type": "string"
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "createdBy": {
+        "$ref": "#/$defs/emailTemplatescreatedByCreateRelatedInput"
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "name": {
+        "type": "string"
+      },
+      "subject": {
+        "type": "string"
+      },
+      "updatedAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "updatedBy": {
+        "$ref": "#/$defs/emailTemplatesupdatedByCreateRelatedInput"
+      }
+    },
+    "required": [
+      "body",
+      "name",
+      "subject"
+    ]
+  },
+  "emailTemplatesUpdateDataInput": {
+    "type": "object",
+    "properties": {
+      "body": {
+        "type": "string"
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "createdBy": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/emailTemplatescreatedByUpdateOneRelatedOperationsInput"
+        }
+      },
+      "createdById": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "name": {
+        "type": "string"
+      },
+      "subject": {
+        "type": "string"
+      },
+      "updatedAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "updatedBy": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/emailTemplatesupdatedByUpdateOneRelatedOperationsInput"
+        }
+      },
+      "updatedById": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": []
+  },
+  "emailTemplatesupdatedByConnectForwardKeyInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "emailTemplatesupdatedByConnectInput": {
+    "type": "object",
+    "properties": {
+      "key": {
+        "$ref": "#/$defs/emailTemplatesupdatedByConnectForwardKeyInput"
+      }
+    },
+    "required": [
+      "key"
+    ]
+  },
+  "emailTemplatesupdatedByCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/emailTemplatesupdatedByCreateRelatedWithoutTypeInput"
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "emailTemplatesupdatedByCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/emailTemplatesupdatedByConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/emailTemplatesupdatedByCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "emailTemplatesupdatedByCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "activitiesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "activitiesOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "activitiesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "affiliationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "affiliationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "appearance": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "applicationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "applicationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "attachmentsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "avatarId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "candidateFilesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateMessagesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateNotesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateNotesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidatesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidatesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "contactsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "contactsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "contactsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "email": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "emailTemplatesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "fullName": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "interviewsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "interviewsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "isService": {
+        "type": "boolean"
+      },
+      "lastActivityAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "offersCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "offersUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "organizationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "organizationsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "organizationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "requisitionsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "requisitionsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roleRequestsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roleRequestsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roles": {
+        "type": "array",
+        "items": {}
+      },
+      "scorecardsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "scorecardsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "serviceOwnerId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "status": {
+        "type": "string"
+      },
+      "storageValues": {
+        "type": "array",
+        "items": {}
+      },
+      "workforcePlanRolesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "workforcePlanRolesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      }
+    },
+    "required": [
+      "id",
+      "isService"
+    ]
+  },
+  "emailTemplatesupdatedByUpdateOneRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/emailTemplatesupdatedByConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/emailTemplatesupdatedByCreateArguments"
+      },
+      "_delete": {},
+      "_disconnect": {},
+      "_update": {}
     },
     "required": []
   },
@@ -10123,6 +21356,41 @@ const definitions = {
     },
     "required": []
   },
+  "hiringLocationsCreateInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "name": {
+        "type": "string"
+      },
+      "position": {
+        "type": "number"
+      }
+    },
+    "required": [
+      "name",
+      "position"
+    ]
+  },
+  "hiringLocationsUpdateDataInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "name": {
+        "type": "string"
+      },
+      "position": {
+        "type": "number"
+      }
+    },
+    "required": []
+  },
   "Int64FilterNullablePrimitiveInput": {
     "type": "object",
     "properties": {
@@ -10210,6 +21478,85 @@ const definitions = {
     "format": "int64",
     "pattern": "^-?[0-9]+$"
   },
+  "IntegerFilterNullablePrimitiveInput": {
+    "type": "object",
+    "properties": {
+      "_between": {
+        "type": "array",
+        "items": {
+          "type": "integer"
+        }
+      },
+      "_eq": {
+        "oneOf": [
+          {
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "_gt": {
+        "type": "integer"
+      },
+      "_gte": {
+        "type": "integer"
+      },
+      "_in": {
+        "type": "array",
+        "items": {
+          "oneOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "_lt": {
+        "type": "integer"
+      },
+      "_lte": {
+        "type": "integer"
+      },
+      "_nbetween": {
+        "type": "array",
+        "items": {
+          "type": "integer"
+        }
+      },
+      "_neq": {
+        "oneOf": [
+          {
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "_nin": {
+        "type": "array",
+        "items": {
+          "oneOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "_null": {
+        "type": "boolean"
+      }
+    },
+    "required": []
+  },
   "IntegerFilterPrimitiveInput": {
     "type": "object",
     "properties": {
@@ -10257,6 +21604,4947 @@ const definitions = {
       }
     },
     "required": []
+  },
+  "interviewParticipantsCreateInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "interviews": {
+        "$ref": "#/$defs/interviewParticipantsinterviewsCreateRelatedInput"
+      },
+      "userId": {
+        "type": "string",
+        "format": "uuid"
+      }
+    },
+    "required": [
+      "interviews",
+      "userId"
+    ]
+  },
+  "interviewParticipantsDeleteArguments": {
+    "type": "object",
+    "properties": {
+      "filter": {
+        "$ref": "#/$defs/interviewParticipantsFilterInput"
+      }
+    },
+    "required": []
+  },
+  "interviewParticipantsFilterInput": {
+    "type": "object",
+    "properties": {
+      "_and": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/interviewParticipantsFilterInput"
+        }
+      },
+      "_not": {
+        "$ref": "#/$defs/interviewParticipantsFilterInput"
+      },
+      "_or": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/interviewParticipantsFilterInput"
+        }
+      },
+      "id": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterPrimitiveInput"
+          },
+          {
+            "type": "string",
+            "format": "uuid"
+          }
+        ]
+      },
+      "interviewId": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterPrimitiveInput"
+          },
+          {
+            "type": "string",
+            "format": "uuid"
+          }
+        ]
+      },
+      "interviews": {
+        "$ref": "#/$defs/interviewsFilterInput"
+      },
+      "userId": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterPrimitiveInput"
+          },
+          {
+            "type": "string",
+            "format": "uuid"
+          }
+        ]
+      }
+    },
+    "required": []
+  },
+  "interviewParticipantsFilterQuantifierInput": {
+    "type": "object",
+    "properties": {
+      "_every": {
+        "$ref": "#/$defs/interviewParticipantsFilterInput"
+      },
+      "_none": {
+        "$ref": "#/$defs/interviewParticipantsFilterInput"
+      },
+      "_some": {
+        "$ref": "#/$defs/interviewParticipantsFilterInput"
+      }
+    },
+    "required": []
+  },
+  "interviewParticipantsinterviewsConnectForwardKeyInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "interviewParticipantsinterviewsConnectInput": {
+    "type": "object",
+    "properties": {
+      "key": {
+        "$ref": "#/$defs/interviewParticipantsinterviewsConnectForwardKeyInput"
+      }
+    },
+    "required": [
+      "key"
+    ]
+  },
+  "interviewParticipantsinterviewsCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/interviewParticipantsinterviewsCreateRelatedWithoutTypeInput"
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "interviewParticipantsinterviewsCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/interviewParticipantsinterviewsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/interviewParticipantsinterviewsCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "interviewParticipantsinterviewsCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "applications": {
+        "$ref": "#/$defs/interviewsapplicationsCreateRelatedInput"
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "createdBy": {
+        "$ref": "#/$defs/interviewscreatedByCreateRelatedInput"
+      },
+      "endsAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "interview_stages": {
+        "$ref": "#/$defs/interviewsinterview_stagesCreateRelatedInput"
+      },
+      "meetingUrl": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "scorecards": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/interviewsscorecardsCreateRelatedInput"
+        }
+      },
+      "startsAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "status": {
+        "type": "string"
+      },
+      "title": {
+        "type": "string"
+      },
+      "updatedAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "updatedBy": {
+        "$ref": "#/$defs/interviewsupdatedByCreateRelatedInput"
+      }
+    },
+    "required": [
+      "applications",
+      "endsAt",
+      "startsAt",
+      "title"
+    ]
+  },
+  "interviewParticipantsinterviewsUpdateOneRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/interviewParticipantsinterviewsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/interviewParticipantsinterviewsCreateArguments"
+      },
+      "_update": {
+        "$ref": "#/$defs/interviewsUpdateInput"
+      }
+    },
+    "required": []
+  },
+  "interviewParticipantsUpdateDataInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "interviewId": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "interviews": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/interviewParticipantsinterviewsUpdateOneRelatedOperationsInput"
+        }
+      },
+      "userId": {
+        "type": "string",
+        "format": "uuid"
+      }
+    },
+    "required": []
+  },
+  "interviewParticipantsUpdateInput": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/interviewParticipantsUpdateDataInput"
+      },
+      "filter": {
+        "$ref": "#/$defs/interviewParticipantsFilterInput"
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "interviewsapplicationsConnectForwardKeyInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "interviewsapplicationsConnectInput": {
+    "type": "object",
+    "properties": {
+      "key": {
+        "$ref": "#/$defs/interviewsapplicationsConnectForwardKeyInput"
+      }
+    },
+    "required": [
+      "key"
+    ]
+  },
+  "interviewsapplicationsCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/interviewsapplicationsCreateRelatedWithoutTypeInput"
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "interviewsapplicationsCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/interviewsapplicationsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/interviewsapplicationsCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "interviewsapplicationsCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "appliedAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "candidates": {
+        "$ref": "#/$defs/applicationscandidatesCreateRelatedInput"
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "createdBy": {
+        "$ref": "#/$defs/applicationscreatedByCreateRelatedInput"
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "interview_stages": {
+        "$ref": "#/$defs/applicationsinterview_stagesCreateRelatedInput"
+      },
+      "lastActivityAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "offers": {
+        "$ref": "#/$defs/applicationsoffersCreateRelatedInput"
+      },
+      "public_applications": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/applicationspublic_applicationsCreateRelatedInput"
+        }
+      },
+      "rejectionReason": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "requisitions": {
+        "$ref": "#/$defs/applicationsrequisitionsCreateRelatedInput"
+      },
+      "stageEnteredAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "status": {
+        "type": "string"
+      },
+      "updatedAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "updatedBy": {
+        "$ref": "#/$defs/applicationsupdatedByCreateRelatedInput"
+      }
+    },
+    "required": [
+      "candidates",
+      "interview_stages",
+      "requisitions"
+    ]
+  },
+  "interviewsapplicationsUpdateOneRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/interviewsapplicationsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/interviewsapplicationsCreateArguments"
+      },
+      "_update": {
+        "$ref": "#/$defs/applicationsUpdateInput"
+      }
+    },
+    "required": []
+  },
+  "interviewscreatedByConnectForwardKeyInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "interviewscreatedByConnectInput": {
+    "type": "object",
+    "properties": {
+      "key": {
+        "$ref": "#/$defs/interviewscreatedByConnectForwardKeyInput"
+      }
+    },
+    "required": [
+      "key"
+    ]
+  },
+  "interviewscreatedByCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/interviewscreatedByCreateRelatedWithoutTypeInput"
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "interviewscreatedByCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/interviewscreatedByConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/interviewscreatedByCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "interviewscreatedByCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "activitiesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "activitiesOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "activitiesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "affiliationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "affiliationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "appearance": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "applicationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "applicationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "attachmentsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "avatarId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "candidateFilesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateMessagesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateNotesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateNotesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidatesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidatesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "contactsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "contactsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "contactsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "email": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "emailTemplatesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "emailTemplatesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "fullName": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "interviewsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "isService": {
+        "type": "boolean"
+      },
+      "lastActivityAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "offersCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "offersUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "organizationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "organizationsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "organizationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "requisitionsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "requisitionsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roleRequestsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roleRequestsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roles": {
+        "type": "array",
+        "items": {}
+      },
+      "scorecardsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "scorecardsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "serviceOwnerId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "status": {
+        "type": "string"
+      },
+      "storageValues": {
+        "type": "array",
+        "items": {}
+      },
+      "workforcePlanRolesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "workforcePlanRolesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      }
+    },
+    "required": [
+      "id",
+      "isService"
+    ]
+  },
+  "interviewscreatedByUpdateOneRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/interviewscreatedByConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/interviewscreatedByCreateArguments"
+      },
+      "_delete": {},
+      "_disconnect": {},
+      "_update": {}
+    },
+    "required": []
+  },
+  "interviewsCreateInput": {
+    "type": "object",
+    "properties": {
+      "applications": {
+        "$ref": "#/$defs/interviewsapplicationsCreateRelatedInput"
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "createdBy": {
+        "$ref": "#/$defs/interviewscreatedByCreateRelatedInput"
+      },
+      "endsAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "interview_participants": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/interviewsinterview_participantsCreateRelatedInput"
+        }
+      },
+      "interview_stages": {
+        "$ref": "#/$defs/interviewsinterview_stagesCreateRelatedInput"
+      },
+      "meetingUrl": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "scorecards": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/interviewsscorecardsCreateRelatedInput"
+        }
+      },
+      "startsAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "status": {
+        "type": "string"
+      },
+      "title": {
+        "type": "string"
+      },
+      "updatedAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "updatedBy": {
+        "$ref": "#/$defs/interviewsupdatedByCreateRelatedInput"
+      }
+    },
+    "required": [
+      "applications",
+      "endsAt",
+      "startsAt",
+      "title"
+    ]
+  },
+  "interviewsDeleteArguments": {
+    "type": "object",
+    "properties": {
+      "filter": {
+        "$ref": "#/$defs/interviewsFilterInput"
+      }
+    },
+    "required": []
+  },
+  "interviewsDisconnectManyInput": {
+    "type": "object",
+    "properties": {
+      "filter": {
+        "$ref": "#/$defs/interviewsFilterInput"
+      }
+    },
+    "required": []
+  },
+  "interviewsFilterInput": {
+    "type": "object",
+    "properties": {
+      "_and": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/interviewsFilterInput"
+        }
+      },
+      "_not": {
+        "$ref": "#/$defs/interviewsFilterInput"
+      },
+      "_or": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/interviewsFilterInput"
+        }
+      },
+      "applicationId": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterPrimitiveInput"
+          },
+          {
+            "type": "string",
+            "format": "uuid"
+          }
+        ]
+      },
+      "applications": {
+        "$ref": "#/$defs/applicationsFilterInput"
+      },
+      "createdAt": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/DateTimeFilterPrimitiveInput"
+          },
+          {
+            "type": "string",
+            "format": "date-time"
+          }
+        ]
+      },
+      "createdBy": {},
+      "createdById": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "endsAt": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/DateTimeFilterPrimitiveInput"
+          },
+          {
+            "type": "string",
+            "format": "date-time"
+          }
+        ]
+      },
+      "id": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterPrimitiveInput"
+          },
+          {
+            "type": "string",
+            "format": "uuid"
+          }
+        ]
+      },
+      "interviewStageId": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "interview_participants": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/interviewParticipantsFilterQuantifierInput"
+          },
+          {
+            "$ref": "#/$defs/interviewParticipantsFilterInput"
+          }
+        ]
+      },
+      "interview_stages": {
+        "$ref": "#/$defs/interviewStagesFilterInput"
+      },
+      "meetingUrl": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "scorecards": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/scorecardsFilterQuantifierInput"
+          },
+          {
+            "$ref": "#/$defs/scorecardsFilterInput"
+          }
+        ]
+      },
+      "startsAt": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/DateTimeFilterPrimitiveInput"
+          },
+          {
+            "type": "string",
+            "format": "date-time"
+          }
+        ]
+      },
+      "status": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterPrimitiveInput"
+          },
+          {
+            "type": "string"
+          }
+        ]
+      },
+      "title": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterPrimitiveInput"
+          },
+          {
+            "type": "string"
+          }
+        ]
+      },
+      "updatedAt": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/DateTimeFilterPrimitiveInput"
+          },
+          {
+            "type": "string",
+            "format": "date-time"
+          }
+        ]
+      },
+      "updatedBy": {},
+      "updatedById": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "required": []
+  },
+  "interviewsFilterQuantifierInput": {
+    "type": "object",
+    "properties": {
+      "_every": {
+        "$ref": "#/$defs/interviewsFilterInput"
+      },
+      "_none": {
+        "$ref": "#/$defs/interviewsFilterInput"
+      },
+      "_some": {
+        "$ref": "#/$defs/interviewsFilterInput"
+      }
+    },
+    "required": []
+  },
+  "interviewsinterview_participantsConnectBackwardKeysInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      }
+    },
+    "required": []
+  },
+  "interviewsinterview_participantsConnectInput": {
+    "type": "object",
+    "properties": {
+      "keys": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/interviewsinterview_participantsConnectBackwardKeysInput"
+        }
+      }
+    },
+    "required": [
+      "keys"
+    ]
+  },
+  "interviewsinterview_participantsCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/interviewsinterview_participantsCreateRelatedWithoutTypeInput"
+        }
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "interviewsinterview_participantsCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/interviewsinterview_participantsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/interviewsinterview_participantsCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "interviewsinterview_participantsCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "userId": {
+        "type": "string",
+        "format": "uuid"
+      }
+    },
+    "required": [
+      "userId"
+    ]
+  },
+  "interviewsinterview_participantsUpdateManyRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/interviewsinterview_participantsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/interviewsinterview_participantsCreateArguments"
+      },
+      "_delete": {
+        "$ref": "#/$defs/interviewParticipantsDeleteArguments"
+      },
+      "_update": {
+        "$ref": "#/$defs/interviewParticipantsUpdateInput"
+      }
+    },
+    "required": []
+  },
+  "interviewsinterview_stagesConnectForwardKeyInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "interviewsinterview_stagesConnectInput": {
+    "type": "object",
+    "properties": {
+      "key": {
+        "$ref": "#/$defs/interviewsinterview_stagesConnectForwardKeyInput"
+      }
+    },
+    "required": [
+      "key"
+    ]
+  },
+  "interviewsinterview_stagesCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/interviewsinterview_stagesCreateRelatedWithoutTypeInput"
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "interviewsinterview_stagesCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/interviewsinterview_stagesConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/interviewsinterview_stagesCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "interviewsinterview_stagesCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "applications": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/interviewStagesapplicationsCreateRelatedInput"
+        }
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "kind": {
+        "type": "string"
+      },
+      "name": {
+        "type": "string"
+      },
+      "position": {
+        "type": "number"
+      },
+      "requisitions": {
+        "$ref": "#/$defs/interviewStagesrequisitionsCreateRelatedInput"
+      },
+      "slaDays": {
+        "oneOf": [
+          {
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": [
+      "name",
+      "position",
+      "requisitions"
+    ]
+  },
+  "interviewsinterview_stagesUpdateOneRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/interviewsinterview_stagesConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/interviewsinterview_stagesCreateArguments"
+      },
+      "_delete": {
+        "$ref": "#/$defs/interviewStagesDeleteArguments"
+      },
+      "_disconnect": {
+        "$ref": "#/$defs/interviewStagesDisconnectOneInput"
+      },
+      "_update": {
+        "$ref": "#/$defs/interviewStagesUpdateInput"
+      }
+    },
+    "required": []
+  },
+  "interviewsscorecardsConnectBackwardKeysInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      }
+    },
+    "required": []
+  },
+  "interviewsscorecardsConnectInput": {
+    "type": "object",
+    "properties": {
+      "keys": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/interviewsscorecardsConnectBackwardKeysInput"
+        }
+      }
+    },
+    "required": [
+      "keys"
+    ]
+  },
+  "interviewsscorecardsCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/interviewsscorecardsCreateRelatedWithoutTypeInput"
+        }
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "interviewsscorecardsCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/interviewsscorecardsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/interviewsscorecardsCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "interviewsscorecardsCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "createdBy": {
+        "$ref": "#/$defs/scorecardscreatedByCreateRelatedInput"
+      },
+      "flags": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "interviewerUserId": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "positives": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "recommendation": {
+        "type": "string"
+      },
+      "submittedAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "summary": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "updatedAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "updatedBy": {
+        "$ref": "#/$defs/scorecardsupdatedByCreateRelatedInput"
+      }
+    },
+    "required": [
+      "interviewerUserId",
+      "recommendation"
+    ]
+  },
+  "interviewsscorecardsUpdateManyRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/interviewsscorecardsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/interviewsscorecardsCreateArguments"
+      },
+      "_delete": {
+        "$ref": "#/$defs/scorecardsDeleteArguments"
+      },
+      "_update": {
+        "$ref": "#/$defs/scorecardsUpdateInput"
+      }
+    },
+    "required": []
+  },
+  "interviewStagesapplicationsConnectBackwardKeysInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      }
+    },
+    "required": []
+  },
+  "interviewStagesapplicationsConnectInput": {
+    "type": "object",
+    "properties": {
+      "keys": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/interviewStagesapplicationsConnectBackwardKeysInput"
+        }
+      }
+    },
+    "required": [
+      "keys"
+    ]
+  },
+  "interviewStagesapplicationsCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/interviewStagesapplicationsCreateRelatedWithoutTypeInput"
+        }
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "interviewStagesapplicationsCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/interviewStagesapplicationsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/interviewStagesapplicationsCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "interviewStagesapplicationsCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "appliedAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "candidates": {
+        "$ref": "#/$defs/applicationscandidatesCreateRelatedInput"
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "createdBy": {
+        "$ref": "#/$defs/applicationscreatedByCreateRelatedInput"
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "interviews": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/applicationsinterviewsCreateRelatedInput"
+        }
+      },
+      "lastActivityAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "offers": {
+        "$ref": "#/$defs/applicationsoffersCreateRelatedInput"
+      },
+      "public_applications": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/applicationspublic_applicationsCreateRelatedInput"
+        }
+      },
+      "rejectionReason": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "requisitions": {
+        "$ref": "#/$defs/applicationsrequisitionsCreateRelatedInput"
+      },
+      "stageEnteredAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "status": {
+        "type": "string"
+      },
+      "updatedAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "updatedBy": {
+        "$ref": "#/$defs/applicationsupdatedByCreateRelatedInput"
+      }
+    },
+    "required": [
+      "candidates",
+      "requisitions"
+    ]
+  },
+  "interviewStagesapplicationsUpdateManyRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/interviewStagesapplicationsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/interviewStagesapplicationsCreateArguments"
+      },
+      "_delete": {
+        "$ref": "#/$defs/applicationsDeleteArguments"
+      },
+      "_update": {
+        "$ref": "#/$defs/applicationsUpdateInput"
+      }
+    },
+    "required": []
+  },
+  "interviewStagesCreateInput": {
+    "type": "object",
+    "properties": {
+      "applications": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/interviewStagesapplicationsCreateRelatedInput"
+        }
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "interviews": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/interviewStagesinterviewsCreateRelatedInput"
+        }
+      },
+      "kind": {
+        "type": "string"
+      },
+      "name": {
+        "type": "string"
+      },
+      "position": {
+        "type": "number"
+      },
+      "requisitions": {
+        "$ref": "#/$defs/interviewStagesrequisitionsCreateRelatedInput"
+      },
+      "slaDays": {
+        "oneOf": [
+          {
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": [
+      "name",
+      "position",
+      "requisitions"
+    ]
+  },
+  "interviewStagesDeleteArguments": {
+    "type": "object",
+    "properties": {
+      "filter": {
+        "$ref": "#/$defs/interviewStagesFilterInput"
+      }
+    },
+    "required": []
+  },
+  "interviewStagesDisconnectOneInput": {
+    "type": "object",
+    "properties": {},
+    "required": []
+  },
+  "interviewStagesFilterInput": {
+    "type": "object",
+    "properties": {
+      "_and": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/interviewStagesFilterInput"
+        }
+      },
+      "_not": {
+        "$ref": "#/$defs/interviewStagesFilterInput"
+      },
+      "_or": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/interviewStagesFilterInput"
+        }
+      },
+      "applications": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/applicationsFilterQuantifierInput"
+          },
+          {
+            "$ref": "#/$defs/applicationsFilterInput"
+          }
+        ]
+      },
+      "id": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterPrimitiveInput"
+          },
+          {
+            "type": "string",
+            "format": "uuid"
+          }
+        ]
+      },
+      "interviews": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/interviewsFilterQuantifierInput"
+          },
+          {
+            "$ref": "#/$defs/interviewsFilterInput"
+          }
+        ]
+      },
+      "kind": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterPrimitiveInput"
+          },
+          {
+            "type": "string"
+          }
+        ]
+      },
+      "name": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterPrimitiveInput"
+          },
+          {
+            "type": "string"
+          }
+        ]
+      },
+      "position": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/FloatFilterPrimitiveInput"
+          },
+          {
+            "type": "number"
+          }
+        ]
+      },
+      "requisitionId": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterPrimitiveInput"
+          },
+          {
+            "type": "string",
+            "format": "uuid"
+          }
+        ]
+      },
+      "requisitions": {
+        "$ref": "#/$defs/requisitionsFilterInput"
+      },
+      "slaDays": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/IntegerFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "required": []
+  },
+  "interviewStagesFilterQuantifierInput": {
+    "type": "object",
+    "properties": {
+      "_every": {
+        "$ref": "#/$defs/interviewStagesFilterInput"
+      },
+      "_none": {
+        "$ref": "#/$defs/interviewStagesFilterInput"
+      },
+      "_some": {
+        "$ref": "#/$defs/interviewStagesFilterInput"
+      }
+    },
+    "required": []
+  },
+  "interviewStagesinterviewsConnectBackwardKeysInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      }
+    },
+    "required": []
+  },
+  "interviewStagesinterviewsConnectInput": {
+    "type": "object",
+    "properties": {
+      "keys": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/interviewStagesinterviewsConnectBackwardKeysInput"
+        }
+      }
+    },
+    "required": [
+      "keys"
+    ]
+  },
+  "interviewStagesinterviewsCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/interviewStagesinterviewsCreateRelatedWithoutTypeInput"
+        }
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "interviewStagesinterviewsCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/interviewStagesinterviewsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/interviewStagesinterviewsCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "interviewStagesinterviewsCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "applications": {
+        "$ref": "#/$defs/interviewsapplicationsCreateRelatedInput"
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "createdBy": {
+        "$ref": "#/$defs/interviewscreatedByCreateRelatedInput"
+      },
+      "endsAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "interview_participants": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/interviewsinterview_participantsCreateRelatedInput"
+        }
+      },
+      "meetingUrl": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "scorecards": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/interviewsscorecardsCreateRelatedInput"
+        }
+      },
+      "startsAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "status": {
+        "type": "string"
+      },
+      "title": {
+        "type": "string"
+      },
+      "updatedAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "updatedBy": {
+        "$ref": "#/$defs/interviewsupdatedByCreateRelatedInput"
+      }
+    },
+    "required": [
+      "applications",
+      "endsAt",
+      "startsAt",
+      "title"
+    ]
+  },
+  "interviewStagesinterviewsUpdateManyRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/interviewStagesinterviewsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/interviewStagesinterviewsCreateArguments"
+      },
+      "_delete": {
+        "$ref": "#/$defs/interviewsDeleteArguments"
+      },
+      "_disconnect": {
+        "$ref": "#/$defs/interviewsDisconnectManyInput"
+      },
+      "_update": {
+        "$ref": "#/$defs/interviewsUpdateInput"
+      }
+    },
+    "required": []
+  },
+  "interviewStagesrequisitionsConnectForwardKeyInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "interviewStagesrequisitionsConnectInput": {
+    "type": "object",
+    "properties": {
+      "key": {
+        "$ref": "#/$defs/interviewStagesrequisitionsConnectForwardKeyInput"
+      }
+    },
+    "required": [
+      "key"
+    ]
+  },
+  "interviewStagesrequisitionsCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/interviewStagesrequisitionsCreateRelatedWithoutTypeInput"
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "interviewStagesrequisitionsCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/interviewStagesrequisitionsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/interviewStagesrequisitionsCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "interviewStagesrequisitionsCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "applications": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/requisitionsapplicationsCreateRelatedInput"
+        }
+      },
+      "closedAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "compMax": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "decimal",
+            "example": "123.345"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "compMin": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "decimal",
+            "example": "123.345"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "createdBy": {
+        "$ref": "#/$defs/requisitionscreatedByCreateRelatedInput"
+      },
+      "currency": {
+        "type": "string"
+      },
+      "departments": {
+        "$ref": "#/$defs/requisitionsdepartmentsCreateRelatedInput"
+      },
+      "description": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "employmentType": {
+        "type": "string"
+      },
+      "hiringManagerUserId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "hiringReason": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "isConfidential": {
+        "type": "boolean"
+      },
+      "isLeadership": {
+        "type": "boolean"
+      },
+      "job_levels": {
+        "$ref": "#/$defs/requisitionsjob_levelsCreateRelatedInput"
+      },
+      "kickoffAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "kickoffNotes": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "locations": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "mustHaveSkills": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "niceToHaveSkills": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "numberOfHires": {
+        "type": "integer"
+      },
+      "openedAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "postExternally": {
+        "type": "boolean"
+      },
+      "public_applications": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/requisitionspublic_applicationsCreateRelatedInput"
+        }
+      },
+      "recruiterUserId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "reqNumber": {
+        "type": "integer"
+      },
+      "role_requests": {
+        "$ref": "#/$defs/requisitionsrole_requestsCreateRelatedInput"
+      },
+      "status": {
+        "type": "string"
+      },
+      "teamSize": {
+        "oneOf": [
+          {
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "title": {
+        "type": "string"
+      },
+      "updatedAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "updatedBy": {
+        "$ref": "#/$defs/requisitionsupdatedByCreateRelatedInput"
+      },
+      "urgency": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "departments",
+      "title"
+    ]
+  },
+  "interviewStagesrequisitionsUpdateOneRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/interviewStagesrequisitionsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/interviewStagesrequisitionsCreateArguments"
+      },
+      "_update": {
+        "$ref": "#/$defs/requisitionsUpdateInput"
+      }
+    },
+    "required": []
+  },
+  "interviewStagesUpdateDataInput": {
+    "type": "object",
+    "properties": {
+      "applications": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/interviewStagesapplicationsUpdateManyRelatedOperationsInput"
+        }
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "interviews": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/interviewStagesinterviewsUpdateManyRelatedOperationsInput"
+        }
+      },
+      "kind": {
+        "type": "string"
+      },
+      "name": {
+        "type": "string"
+      },
+      "position": {
+        "type": "number"
+      },
+      "requisitionId": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "requisitions": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/interviewStagesrequisitionsUpdateOneRelatedOperationsInput"
+        }
+      },
+      "slaDays": {
+        "oneOf": [
+          {
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": []
+  },
+  "interviewStagesUpdateInput": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/interviewStagesUpdateDataInput"
+      },
+      "filter": {
+        "$ref": "#/$defs/interviewStagesFilterInput"
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "interviewsUpdateDataInput": {
+    "type": "object",
+    "properties": {
+      "applicationId": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "applications": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/interviewsapplicationsUpdateOneRelatedOperationsInput"
+        }
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "createdBy": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/interviewscreatedByUpdateOneRelatedOperationsInput"
+        }
+      },
+      "createdById": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "endsAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "interviewStageId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "interview_participants": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/interviewsinterview_participantsUpdateManyRelatedOperationsInput"
+        }
+      },
+      "interview_stages": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/interviewsinterview_stagesUpdateOneRelatedOperationsInput"
+        }
+      },
+      "meetingUrl": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "scorecards": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/interviewsscorecardsUpdateManyRelatedOperationsInput"
+        }
+      },
+      "startsAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "status": {
+        "type": "string"
+      },
+      "title": {
+        "type": "string"
+      },
+      "updatedAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "updatedBy": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/interviewsupdatedByUpdateOneRelatedOperationsInput"
+        }
+      },
+      "updatedById": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": []
+  },
+  "interviewsupdatedByConnectForwardKeyInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "interviewsupdatedByConnectInput": {
+    "type": "object",
+    "properties": {
+      "key": {
+        "$ref": "#/$defs/interviewsupdatedByConnectForwardKeyInput"
+      }
+    },
+    "required": [
+      "key"
+    ]
+  },
+  "interviewsupdatedByCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/interviewsupdatedByCreateRelatedWithoutTypeInput"
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "interviewsupdatedByCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/interviewsupdatedByConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/interviewsupdatedByCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "interviewsupdatedByCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "activitiesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "activitiesOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "activitiesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "affiliationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "affiliationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "appearance": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "applicationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "applicationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "attachmentsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "avatarId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "candidateFilesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateMessagesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateNotesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateNotesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidatesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidatesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "contactsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "contactsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "contactsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "email": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "emailTemplatesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "emailTemplatesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "fullName": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "interviewsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "isService": {
+        "type": "boolean"
+      },
+      "lastActivityAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "offersCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "offersUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "organizationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "organizationsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "organizationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "requisitionsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "requisitionsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roleRequestsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roleRequestsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roles": {
+        "type": "array",
+        "items": {}
+      },
+      "scorecardsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "scorecardsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "serviceOwnerId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "status": {
+        "type": "string"
+      },
+      "storageValues": {
+        "type": "array",
+        "items": {}
+      },
+      "workforcePlanRolesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "workforcePlanRolesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      }
+    },
+    "required": [
+      "id",
+      "isService"
+    ]
+  },
+  "interviewsupdatedByUpdateOneRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/interviewsupdatedByConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/interviewsupdatedByCreateArguments"
+      },
+      "_delete": {},
+      "_disconnect": {},
+      "_update": {}
+    },
+    "required": []
+  },
+  "interviewsUpdateInput": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/interviewsUpdateDataInput"
+      },
+      "filter": {
+        "$ref": "#/$defs/interviewsFilterInput"
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "jobLevelsCreateInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "name": {
+        "type": "string"
+      },
+      "position": {
+        "type": "number"
+      },
+      "requisitions": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/jobLevelsrequisitionsCreateRelatedInput"
+        }
+      },
+      "role_requests": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/jobLevelsrole_requestsCreateRelatedInput"
+        }
+      },
+      "track": {
+        "type": "string"
+      },
+      "workforce_plan_roles": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/jobLevelsworkforce_plan_rolesCreateRelatedInput"
+        }
+      }
+    },
+    "required": [
+      "name",
+      "position"
+    ]
+  },
+  "jobLevelsDeleteArguments": {
+    "type": "object",
+    "properties": {
+      "filter": {
+        "$ref": "#/$defs/jobLevelsFilterInput"
+      }
+    },
+    "required": []
+  },
+  "jobLevelsDisconnectOneInput": {
+    "type": "object",
+    "properties": {},
+    "required": []
+  },
+  "jobLevelsFilterInput": {
+    "type": "object",
+    "properties": {
+      "_and": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/jobLevelsFilterInput"
+        }
+      },
+      "_not": {
+        "$ref": "#/$defs/jobLevelsFilterInput"
+      },
+      "_or": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/jobLevelsFilterInput"
+        }
+      },
+      "id": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterPrimitiveInput"
+          },
+          {
+            "type": "string",
+            "format": "uuid"
+          }
+        ]
+      },
+      "name": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterPrimitiveInput"
+          },
+          {
+            "type": "string"
+          }
+        ]
+      },
+      "position": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/FloatFilterPrimitiveInput"
+          },
+          {
+            "type": "number"
+          }
+        ]
+      },
+      "requisitions": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/requisitionsFilterQuantifierInput"
+          },
+          {
+            "$ref": "#/$defs/requisitionsFilterInput"
+          }
+        ]
+      },
+      "role_requests": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/roleRequestsFilterQuantifierInput"
+          },
+          {
+            "$ref": "#/$defs/roleRequestsFilterInput"
+          }
+        ]
+      },
+      "track": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterPrimitiveInput"
+          },
+          {
+            "type": "string"
+          }
+        ]
+      },
+      "workforce_plan_roles": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/workforcePlanRolesFilterQuantifierInput"
+          },
+          {
+            "$ref": "#/$defs/workforcePlanRolesFilterInput"
+          }
+        ]
+      }
+    },
+    "required": []
+  },
+  "jobLevelsrequisitionsConnectBackwardKeysInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "reqNumber": {
+        "type": "integer"
+      },
+      "roleRequestId": {
+        "type": "string",
+        "format": "uuid"
+      }
+    },
+    "required": []
+  },
+  "jobLevelsrequisitionsConnectInput": {
+    "type": "object",
+    "properties": {
+      "keys": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/jobLevelsrequisitionsConnectBackwardKeysInput"
+        }
+      }
+    },
+    "required": [
+      "keys"
+    ]
+  },
+  "jobLevelsrequisitionsCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/jobLevelsrequisitionsCreateRelatedWithoutTypeInput"
+        }
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "jobLevelsrequisitionsCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/jobLevelsrequisitionsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/jobLevelsrequisitionsCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "jobLevelsrequisitionsCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "applications": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/requisitionsapplicationsCreateRelatedInput"
+        }
+      },
+      "closedAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "compMax": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "decimal",
+            "example": "123.345"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "compMin": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "decimal",
+            "example": "123.345"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "createdBy": {
+        "$ref": "#/$defs/requisitionscreatedByCreateRelatedInput"
+      },
+      "currency": {
+        "type": "string"
+      },
+      "departments": {
+        "$ref": "#/$defs/requisitionsdepartmentsCreateRelatedInput"
+      },
+      "description": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "employmentType": {
+        "type": "string"
+      },
+      "hiringManagerUserId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "hiringReason": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "interview_stages": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/requisitionsinterview_stagesCreateRelatedInput"
+        }
+      },
+      "isConfidential": {
+        "type": "boolean"
+      },
+      "isLeadership": {
+        "type": "boolean"
+      },
+      "kickoffAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "kickoffNotes": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "locations": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "mustHaveSkills": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "niceToHaveSkills": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "numberOfHires": {
+        "type": "integer"
+      },
+      "openedAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "postExternally": {
+        "type": "boolean"
+      },
+      "public_applications": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/requisitionspublic_applicationsCreateRelatedInput"
+        }
+      },
+      "recruiterUserId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "reqNumber": {
+        "type": "integer"
+      },
+      "role_requests": {
+        "$ref": "#/$defs/requisitionsrole_requestsCreateRelatedInput"
+      },
+      "status": {
+        "type": "string"
+      },
+      "teamSize": {
+        "oneOf": [
+          {
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "title": {
+        "type": "string"
+      },
+      "updatedAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "updatedBy": {
+        "$ref": "#/$defs/requisitionsupdatedByCreateRelatedInput"
+      },
+      "urgency": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "departments",
+      "title"
+    ]
+  },
+  "jobLevelsrequisitionsUpdateManyRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/jobLevelsrequisitionsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/jobLevelsrequisitionsCreateArguments"
+      },
+      "_delete": {
+        "$ref": "#/$defs/requisitionsDeleteArguments"
+      },
+      "_disconnect": {
+        "$ref": "#/$defs/requisitionsDisconnectManyInput"
+      },
+      "_update": {
+        "$ref": "#/$defs/requisitionsUpdateInput"
+      }
+    },
+    "required": []
+  },
+  "jobLevelsrole_requestsConnectBackwardKeysInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      }
+    },
+    "required": []
+  },
+  "jobLevelsrole_requestsConnectInput": {
+    "type": "object",
+    "properties": {
+      "keys": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/jobLevelsrole_requestsConnectBackwardKeysInput"
+        }
+      }
+    },
+    "required": [
+      "keys"
+    ]
+  },
+  "jobLevelsrole_requestsCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/jobLevelsrole_requestsCreateRelatedWithoutTypeInput"
+        }
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "jobLevelsrole_requestsCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/jobLevelsrole_requestsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/jobLevelsrole_requestsCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "jobLevelsrole_requestsCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "approvals": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/roleRequestsapprovalsCreateRelatedInput"
+        }
+      },
+      "approvedBaseMax": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "decimal",
+            "example": "123.345"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "approvedBaseMin": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "decimal",
+            "example": "123.345"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "approvedCurrency": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "approvedEquityUnits": {
+        "oneOf": [
+          {
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "approvedVariableMax": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "decimal",
+            "example": "123.345"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "approvedVariableMin": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "decimal",
+            "example": "123.345"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "businessJustification": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "compMax": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "decimal",
+            "example": "123.345"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "compMin": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "decimal",
+            "example": "123.345"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "createdBy": {
+        "$ref": "#/$defs/roleRequestscreatedByCreateRelatedInput"
+      },
+      "currency": {
+        "type": "string"
+      },
+      "decidedAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "decidedByUserId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "decisionNote": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "departments": {
+        "$ref": "#/$defs/roleRequestsdepartmentsCreateRelatedInput"
+      },
+      "employmentType": {
+        "type": "string"
+      },
+      "hiringManagerUserId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "hiringReason": {
+        "type": "string"
+      },
+      "hiringReasonDetail": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "locations": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "numberOfHires": {
+        "type": "integer"
+      },
+      "requesterUserId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "requisitions": {
+        "$ref": "#/$defs/roleRequestsrequisitionsCreateRelatedInput"
+      },
+      "roleName": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "updatedAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "updatedBy": {
+        "$ref": "#/$defs/roleRequestsupdatedByCreateRelatedInput"
+      },
+      "urgency": {
+        "type": "string"
+      },
+      "urgencyImpact": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "workforce_plan_roles": {
+        "$ref": "#/$defs/roleRequestsworkforce_plan_rolesCreateRelatedInput"
+      }
+    },
+    "required": [
+      "departments",
+      "roleName"
+    ]
+  },
+  "jobLevelsrole_requestsUpdateManyRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/jobLevelsrole_requestsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/jobLevelsrole_requestsCreateArguments"
+      },
+      "_delete": {
+        "$ref": "#/$defs/roleRequestsDeleteArguments"
+      },
+      "_disconnect": {
+        "$ref": "#/$defs/roleRequestsDisconnectManyInput"
+      },
+      "_update": {
+        "$ref": "#/$defs/roleRequestsUpdateInput"
+      }
+    },
+    "required": []
+  },
+  "jobLevelsUpdateDataInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "name": {
+        "type": "string"
+      },
+      "position": {
+        "type": "number"
+      },
+      "requisitions": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/jobLevelsrequisitionsUpdateManyRelatedOperationsInput"
+        }
+      },
+      "role_requests": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/jobLevelsrole_requestsUpdateManyRelatedOperationsInput"
+        }
+      },
+      "track": {
+        "type": "string"
+      },
+      "workforce_plan_roles": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/jobLevelsworkforce_plan_rolesUpdateManyRelatedOperationsInput"
+        }
+      }
+    },
+    "required": []
+  },
+  "jobLevelsUpdateInput": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/jobLevelsUpdateDataInput"
+      },
+      "filter": {
+        "$ref": "#/$defs/jobLevelsFilterInput"
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "jobLevelsworkforce_plan_rolesConnectBackwardKeysInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      }
+    },
+    "required": []
+  },
+  "jobLevelsworkforce_plan_rolesConnectInput": {
+    "type": "object",
+    "properties": {
+      "keys": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/jobLevelsworkforce_plan_rolesConnectBackwardKeysInput"
+        }
+      }
+    },
+    "required": [
+      "keys"
+    ]
+  },
+  "jobLevelsworkforce_plan_rolesCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/jobLevelsworkforce_plan_rolesCreateRelatedWithoutTypeInput"
+        }
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "jobLevelsworkforce_plan_rolesCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/jobLevelsworkforce_plan_rolesConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/jobLevelsworkforce_plan_rolesCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "jobLevelsworkforce_plan_rolesCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "approvals": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/workforcePlanRolesapprovalsCreateRelatedInput"
+        }
+      },
+      "approvedHeadcount": {
+        "oneOf": [
+          {
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "budgetAmount": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "decimal",
+            "example": "123.345"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "createdBy": {
+        "$ref": "#/$defs/workforcePlanRolescreatedByCreateRelatedInput"
+      },
+      "currency": {
+        "type": "string"
+      },
+      "currentHeadcount": {
+        "type": "integer"
+      },
+      "departments": {
+        "$ref": "#/$defs/workforcePlanRolesdepartmentsCreateRelatedInput"
+      },
+      "employmentType": {
+        "type": "string"
+      },
+      "hireType": {
+        "type": "string"
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "locations": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "planYear": {
+        "type": "integer"
+      },
+      "plannedHeadcount": {
+        "type": "integer"
+      },
+      "roleName": {
+        "type": "string"
+      },
+      "role_requests": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/workforcePlanRolesrole_requestsCreateRelatedInput"
+        }
+      },
+      "status": {
+        "type": "string"
+      },
+      "team": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "updatedAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "updatedBy": {
+        "$ref": "#/$defs/workforcePlanRolesupdatedByCreateRelatedInput"
+      }
+    },
+    "required": [
+      "departments",
+      "planYear",
+      "roleName"
+    ]
+  },
+  "jobLevelsworkforce_plan_rolesUpdateManyRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/jobLevelsworkforce_plan_rolesConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/jobLevelsworkforce_plan_rolesCreateArguments"
+      },
+      "_delete": {
+        "$ref": "#/$defs/workforcePlanRolesDeleteArguments"
+      },
+      "_disconnect": {
+        "$ref": "#/$defs/workforcePlanRolesDisconnectManyInput"
+      },
+      "_update": {
+        "$ref": "#/$defs/workforcePlanRolesUpdateInput"
+      }
+    },
+    "required": []
+  },
+  "offersapplicationsConnectForwardKeyInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "offersapplicationsConnectInput": {
+    "type": "object",
+    "properties": {
+      "key": {
+        "$ref": "#/$defs/offersapplicationsConnectForwardKeyInput"
+      }
+    },
+    "required": [
+      "key"
+    ]
+  },
+  "offersapplicationsCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/offersapplicationsCreateRelatedWithoutTypeInput"
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "offersapplicationsCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/offersapplicationsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/offersapplicationsCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "offersapplicationsCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "appliedAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "candidates": {
+        "$ref": "#/$defs/applicationscandidatesCreateRelatedInput"
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "createdBy": {
+        "$ref": "#/$defs/applicationscreatedByCreateRelatedInput"
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "interview_stages": {
+        "$ref": "#/$defs/applicationsinterview_stagesCreateRelatedInput"
+      },
+      "interviews": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/applicationsinterviewsCreateRelatedInput"
+        }
+      },
+      "lastActivityAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "public_applications": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/applicationspublic_applicationsCreateRelatedInput"
+        }
+      },
+      "rejectionReason": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "requisitions": {
+        "$ref": "#/$defs/applicationsrequisitionsCreateRelatedInput"
+      },
+      "stageEnteredAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "status": {
+        "type": "string"
+      },
+      "updatedAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "updatedBy": {
+        "$ref": "#/$defs/applicationsupdatedByCreateRelatedInput"
+      }
+    },
+    "required": [
+      "candidates",
+      "interview_stages",
+      "requisitions"
+    ]
+  },
+  "offersapplicationsUpdateOneRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_update": {
+        "$ref": "#/$defs/applicationsUpdateInput"
+      }
+    },
+    "required": []
+  },
+  "offersapprovalsConnectBackwardKeysInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      }
+    },
+    "required": []
+  },
+  "offersapprovalsConnectInput": {
+    "type": "object",
+    "properties": {
+      "keys": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/offersapprovalsConnectBackwardKeysInput"
+        }
+      }
+    },
+    "required": [
+      "keys"
+    ]
+  },
+  "offersapprovalsCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/offersapprovalsCreateRelatedWithoutTypeInput"
+        }
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "offersapprovalsCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/offersapprovalsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/offersapprovalsCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "offersapprovalsCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "approverRole": {
+        "type": "string"
+      },
+      "approverUserId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "decidedAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "decision": {
+        "type": "string"
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "note": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "role_requests": {
+        "$ref": "#/$defs/approvalsrole_requestsCreateRelatedInput"
+      },
+      "step": {
+        "type": "integer"
+      },
+      "workforce_plan_roles": {
+        "$ref": "#/$defs/approvalsworkforce_plan_rolesCreateRelatedInput"
+      }
+    },
+    "required": [
+      "approverRole",
+      "step"
+    ]
+  },
+  "offersapprovalsUpdateManyRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/offersapprovalsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/offersapprovalsCreateArguments"
+      },
+      "_delete": {
+        "$ref": "#/$defs/approvalsDeleteArguments"
+      },
+      "_disconnect": {
+        "$ref": "#/$defs/approvalsDisconnectManyInput"
+      },
+      "_update": {
+        "$ref": "#/$defs/approvalsUpdateInput"
+      }
+    },
+    "required": []
+  },
+  "offerscreatedByConnectForwardKeyInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "offerscreatedByConnectInput": {
+    "type": "object",
+    "properties": {
+      "key": {
+        "$ref": "#/$defs/offerscreatedByConnectForwardKeyInput"
+      }
+    },
+    "required": [
+      "key"
+    ]
+  },
+  "offerscreatedByCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/offerscreatedByCreateRelatedWithoutTypeInput"
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "offerscreatedByCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/offerscreatedByConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/offerscreatedByCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "offerscreatedByCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "activitiesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "activitiesOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "activitiesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "affiliationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "affiliationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "appearance": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "applicationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "applicationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "attachmentsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "avatarId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "candidateFilesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateMessagesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateNotesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateNotesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidatesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidatesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "contactsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "contactsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "contactsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "email": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "emailTemplatesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "emailTemplatesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "fullName": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "interviewsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "interviewsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "isService": {
+        "type": "boolean"
+      },
+      "lastActivityAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "offersUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "organizationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "organizationsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "organizationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "requisitionsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "requisitionsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roleRequestsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roleRequestsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roles": {
+        "type": "array",
+        "items": {}
+      },
+      "scorecardsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "scorecardsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "serviceOwnerId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "status": {
+        "type": "string"
+      },
+      "storageValues": {
+        "type": "array",
+        "items": {}
+      },
+      "workforcePlanRolesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "workforcePlanRolesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      }
+    },
+    "required": [
+      "id",
+      "isService"
+    ]
+  },
+  "offerscreatedByUpdateOneRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/offerscreatedByConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/offerscreatedByCreateArguments"
+      },
+      "_delete": {},
+      "_disconnect": {},
+      "_update": {}
+    },
+    "required": []
+  },
+  "offersCreateInput": {
+    "type": "object",
+    "properties": {
+      "applications": {
+        "$ref": "#/$defs/offersapplicationsCreateRelatedInput"
+      },
+      "approvals": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/offersapprovalsCreateRelatedInput"
+        }
+      },
+      "baseSalary": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "decimal",
+            "example": "123.345"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "candidateIntro": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "createdBy": {
+        "$ref": "#/$defs/offerscreatedByCreateRelatedInput"
+      },
+      "currency": {
+        "type": "string"
+      },
+      "equityUnits": {
+        "oneOf": [
+          {
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "proposedStartDate": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "searchOverview": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "status": {
+        "type": "string"
+      },
+      "updatedAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "updatedBy": {
+        "$ref": "#/$defs/offersupdatedByCreateRelatedInput"
+      }
+    },
+    "required": [
+      "applications"
+    ]
+  },
+  "offersDeleteArguments": {
+    "type": "object",
+    "properties": {
+      "filter": {
+        "$ref": "#/$defs/offersFilterInput"
+      }
+    },
+    "required": []
+  },
+  "offersDisconnectOneInput": {
+    "type": "object",
+    "properties": {},
+    "required": []
+  },
+  "offersFilterInput": {
+    "type": "object",
+    "properties": {
+      "_and": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/offersFilterInput"
+        }
+      },
+      "_not": {
+        "$ref": "#/$defs/offersFilterInput"
+      },
+      "_or": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/offersFilterInput"
+        }
+      },
+      "applicationId": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterPrimitiveInput"
+          },
+          {
+            "type": "string",
+            "format": "uuid"
+          }
+        ]
+      },
+      "applications": {
+        "$ref": "#/$defs/applicationsFilterInput"
+      },
+      "approvals": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/approvalsFilterQuantifierInput"
+          },
+          {
+            "$ref": "#/$defs/approvalsFilterInput"
+          }
+        ]
+      },
+      "baseSalary": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/DecimalFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "decimal",
+                "example": "123.345"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "candidateIntro": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "createdAt": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/DateTimeFilterPrimitiveInput"
+          },
+          {
+            "type": "string",
+            "format": "date-time"
+          }
+        ]
+      },
+      "createdBy": {},
+      "createdById": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "currency": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterPrimitiveInput"
+          },
+          {
+            "type": "string"
+          }
+        ]
+      },
+      "equityUnits": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/IntegerFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "id": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterPrimitiveInput"
+          },
+          {
+            "type": "string",
+            "format": "uuid"
+          }
+        ]
+      },
+      "proposedStartDate": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/DateFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "date"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "searchOverview": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "status": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterPrimitiveInput"
+          },
+          {
+            "type": "string"
+          }
+        ]
+      },
+      "updatedAt": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/DateTimeFilterPrimitiveInput"
+          },
+          {
+            "type": "string",
+            "format": "date-time"
+          }
+        ]
+      },
+      "updatedBy": {},
+      "updatedById": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "required": []
+  },
+  "offersUpdateDataInput": {
+    "type": "object",
+    "properties": {
+      "applicationId": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "applications": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/offersapplicationsUpdateOneRelatedOperationsInput"
+        }
+      },
+      "approvals": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/offersapprovalsUpdateManyRelatedOperationsInput"
+        }
+      },
+      "baseSalary": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "decimal",
+            "example": "123.345"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "candidateIntro": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "createdBy": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/offerscreatedByUpdateOneRelatedOperationsInput"
+        }
+      },
+      "createdById": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "currency": {
+        "type": "string"
+      },
+      "equityUnits": {
+        "oneOf": [
+          {
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "proposedStartDate": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "searchOverview": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "status": {
+        "type": "string"
+      },
+      "updatedAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "updatedBy": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/offersupdatedByUpdateOneRelatedOperationsInput"
+        }
+      },
+      "updatedById": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": []
+  },
+  "offersupdatedByConnectForwardKeyInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "offersupdatedByConnectInput": {
+    "type": "object",
+    "properties": {
+      "key": {
+        "$ref": "#/$defs/offersupdatedByConnectForwardKeyInput"
+      }
+    },
+    "required": [
+      "key"
+    ]
+  },
+  "offersupdatedByCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/offersupdatedByCreateRelatedWithoutTypeInput"
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "offersupdatedByCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/offersupdatedByConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/offersupdatedByCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "offersupdatedByCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "activitiesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "activitiesOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "activitiesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "affiliationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "affiliationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "appearance": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "applicationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "applicationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "attachmentsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "avatarId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "candidateFilesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateMessagesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateNotesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateNotesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidatesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidatesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "contactsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "contactsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "contactsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "email": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "emailTemplatesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "emailTemplatesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "fullName": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "interviewsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "interviewsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "isService": {
+        "type": "boolean"
+      },
+      "lastActivityAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "offersCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "organizationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "organizationsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "organizationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "requisitionsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "requisitionsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roleRequestsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roleRequestsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roles": {
+        "type": "array",
+        "items": {}
+      },
+      "scorecardsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "scorecardsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "serviceOwnerId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "status": {
+        "type": "string"
+      },
+      "storageValues": {
+        "type": "array",
+        "items": {}
+      },
+      "workforcePlanRolesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "workforcePlanRolesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      }
+    },
+    "required": [
+      "id",
+      "isService"
+    ]
+  },
+  "offersupdatedByUpdateOneRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/offersupdatedByConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/offersupdatedByCreateArguments"
+      },
+      "_delete": {},
+      "_disconnect": {},
+      "_update": {}
+    },
+    "required": []
+  },
+  "offersUpdateInput": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/offersUpdateDataInput"
+      },
+      "filter": {
+        "$ref": "#/$defs/offersFilterInput"
+      }
+    },
+    "required": [
+      "data"
+    ]
   },
   "organizationsactivitiesConnectBackwardKeysInput": {
     "type": "object",
@@ -10789,6 +27077,14 @@ const definitions = {
           }
         ]
       },
+      "applicationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "applicationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
       "attachmentsCreatedBy": {
         "type": "array",
         "items": {}
@@ -10803,6 +27099,30 @@ const definitions = {
             "type": "null"
           }
         ]
+      },
+      "candidateFilesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateMessagesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateNotesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateNotesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidatesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidatesUpdatedBy": {
+        "type": "array",
+        "items": {}
       },
       "contactsCreatedBy": {
         "type": "array",
@@ -10838,6 +27158,14 @@ const definitions = {
           }
         ]
       },
+      "emailTemplatesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "emailTemplatesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
       "fullName": {
         "oneOf": [
           {
@@ -10851,6 +27179,14 @@ const definitions = {
       "id": {
         "type": "string",
         "format": "uuid"
+      },
+      "interviewsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "interviewsUpdatedBy": {
+        "type": "array",
+        "items": {}
       },
       "isService": {
         "type": "boolean"
@@ -10866,6 +27202,14 @@ const definitions = {
           }
         ]
       },
+      "offersCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "offersUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
       "organizationsOwner": {
         "type": "array",
         "items": {}
@@ -10874,7 +27218,31 @@ const definitions = {
         "type": "array",
         "items": {}
       },
+      "requisitionsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "requisitionsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roleRequestsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roleRequestsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
       "roles": {
+        "type": "array",
+        "items": {}
+      },
+      "scorecardsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "scorecardsUpdatedBy": {
         "type": "array",
         "items": {}
       },
@@ -10893,6 +27261,14 @@ const definitions = {
         "type": "string"
       },
       "storageValues": {
+        "type": "array",
+        "items": {}
+      },
+      "workforcePlanRolesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "workforcePlanRolesUpdatedBy": {
         "type": "array",
         "items": {}
       }
@@ -11505,6 +27881,14 @@ const definitions = {
           }
         ]
       },
+      "applicationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "applicationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
       "attachmentsCreatedBy": {
         "type": "array",
         "items": {}
@@ -11519,6 +27903,30 @@ const definitions = {
             "type": "null"
           }
         ]
+      },
+      "candidateFilesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateMessagesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateNotesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateNotesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidatesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidatesUpdatedBy": {
+        "type": "array",
+        "items": {}
       },
       "contactsCreatedBy": {
         "type": "array",
@@ -11554,6 +27962,14 @@ const definitions = {
           }
         ]
       },
+      "emailTemplatesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "emailTemplatesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
       "fullName": {
         "oneOf": [
           {
@@ -11567,6 +27983,14 @@ const definitions = {
       "id": {
         "type": "string",
         "format": "uuid"
+      },
+      "interviewsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "interviewsUpdatedBy": {
+        "type": "array",
+        "items": {}
       },
       "isService": {
         "type": "boolean"
@@ -11582,6 +28006,14 @@ const definitions = {
           }
         ]
       },
+      "offersCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "offersUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
       "organizationsCreatedBy": {
         "type": "array",
         "items": {}
@@ -11590,7 +28022,31 @@ const definitions = {
         "type": "array",
         "items": {}
       },
+      "requisitionsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "requisitionsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roleRequestsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roleRequestsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
       "roles": {
+        "type": "array",
+        "items": {}
+      },
+      "scorecardsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "scorecardsUpdatedBy": {
         "type": "array",
         "items": {}
       },
@@ -11609,6 +28065,14 @@ const definitions = {
         "type": "string"
       },
       "storageValues": {
+        "type": "array",
+        "items": {}
+      },
+      "workforcePlanRolesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "workforcePlanRolesUpdatedBy": {
         "type": "array",
         "items": {}
       }
@@ -11949,6 +28413,14 @@ const definitions = {
           }
         ]
       },
+      "applicationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "applicationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
       "attachmentsCreatedBy": {
         "type": "array",
         "items": {}
@@ -11963,6 +28435,30 @@ const definitions = {
             "type": "null"
           }
         ]
+      },
+      "candidateFilesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateMessagesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateNotesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateNotesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidatesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidatesUpdatedBy": {
+        "type": "array",
+        "items": {}
       },
       "contactsCreatedBy": {
         "type": "array",
@@ -11998,6 +28494,14 @@ const definitions = {
           }
         ]
       },
+      "emailTemplatesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "emailTemplatesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
       "fullName": {
         "oneOf": [
           {
@@ -12011,6 +28515,14 @@ const definitions = {
       "id": {
         "type": "string",
         "format": "uuid"
+      },
+      "interviewsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "interviewsUpdatedBy": {
+        "type": "array",
+        "items": {}
       },
       "isService": {
         "type": "boolean"
@@ -12026,6 +28538,14 @@ const definitions = {
           }
         ]
       },
+      "offersCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "offersUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
       "organizationsCreatedBy": {
         "type": "array",
         "items": {}
@@ -12034,7 +28554,31 @@ const definitions = {
         "type": "array",
         "items": {}
       },
+      "requisitionsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "requisitionsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roleRequestsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roleRequestsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
       "roles": {
+        "type": "array",
+        "items": {}
+      },
+      "scorecardsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "scorecardsUpdatedBy": {
         "type": "array",
         "items": {}
       },
@@ -12053,6 +28597,14 @@ const definitions = {
         "type": "string"
       },
       "storageValues": {
+        "type": "array",
+        "items": {}
+      },
+      "workforcePlanRolesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "workforcePlanRolesUpdatedBy": {
         "type": "array",
         "items": {}
       }
@@ -12665,6 +29217,7847 @@ const definitions = {
       },
       "filter": {
         "$ref": "#/$defs/plansFilterInput"
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "publicApplicationsapplicationsConnectForwardKeyInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "publicApplicationsapplicationsConnectInput": {
+    "type": "object",
+    "properties": {
+      "key": {
+        "$ref": "#/$defs/publicApplicationsapplicationsConnectForwardKeyInput"
+      }
+    },
+    "required": [
+      "key"
+    ]
+  },
+  "publicApplicationsapplicationsCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/publicApplicationsapplicationsCreateRelatedWithoutTypeInput"
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "publicApplicationsapplicationsCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/publicApplicationsapplicationsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/publicApplicationsapplicationsCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "publicApplicationsapplicationsCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "appliedAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "candidates": {
+        "$ref": "#/$defs/applicationscandidatesCreateRelatedInput"
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "createdBy": {
+        "$ref": "#/$defs/applicationscreatedByCreateRelatedInput"
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "interview_stages": {
+        "$ref": "#/$defs/applicationsinterview_stagesCreateRelatedInput"
+      },
+      "interviews": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/applicationsinterviewsCreateRelatedInput"
+        }
+      },
+      "lastActivityAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "offers": {
+        "$ref": "#/$defs/applicationsoffersCreateRelatedInput"
+      },
+      "rejectionReason": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "requisitions": {
+        "$ref": "#/$defs/applicationsrequisitionsCreateRelatedInput"
+      },
+      "stageEnteredAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "status": {
+        "type": "string"
+      },
+      "updatedAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "updatedBy": {
+        "$ref": "#/$defs/applicationsupdatedByCreateRelatedInput"
+      }
+    },
+    "required": [
+      "candidates",
+      "interview_stages",
+      "requisitions"
+    ]
+  },
+  "publicApplicationsapplicationsUpdateOneRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/publicApplicationsapplicationsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/publicApplicationsapplicationsCreateArguments"
+      },
+      "_delete": {
+        "$ref": "#/$defs/applicationsDeleteArguments"
+      },
+      "_disconnect": {
+        "$ref": "#/$defs/applicationsDisconnectOneInput"
+      },
+      "_update": {
+        "$ref": "#/$defs/applicationsUpdateInput"
+      }
+    },
+    "required": []
+  },
+  "publicApplicationscandidatesConnectForwardKeyInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "publicApplicationscandidatesConnectInput": {
+    "type": "object",
+    "properties": {
+      "key": {
+        "$ref": "#/$defs/publicApplicationscandidatesConnectForwardKeyInput"
+      }
+    },
+    "required": [
+      "key"
+    ]
+  },
+  "publicApplicationscandidatesCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/publicApplicationscandidatesCreateRelatedWithoutTypeInput"
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "publicApplicationscandidatesCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/publicApplicationscandidatesConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/publicApplicationscandidatesCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "publicApplicationscandidatesCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "applications": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/candidatesapplicationsCreateRelatedInput"
+        }
+      },
+      "candidate_files": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/candidatescandidate_filesCreateRelatedInput"
+        }
+      },
+      "candidate_messages": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/candidatescandidate_messagesCreateRelatedInput"
+        }
+      },
+      "candidate_notes": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/candidatescandidate_notesCreateRelatedInput"
+        }
+      },
+      "city": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "consentAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "country": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "createdBy": {
+        "$ref": "#/$defs/candidatescreatedByCreateRelatedInput"
+      },
+      "email": {
+        "type": "string"
+      },
+      "firstName": {
+        "type": "string"
+      },
+      "githubUrl": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "inTalentPool": {
+        "type": "boolean"
+      },
+      "lastName": {
+        "type": "string"
+      },
+      "linkedinUrl": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "needsSponsorship": {
+        "oneOf": [
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "phone": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "portfolioUrl": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "privacyNoticeSentAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "referrerUserId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "retainUntil": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "source": {
+        "type": "string"
+      },
+      "sourceDetail": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "tags": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "updatedAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "updatedBy": {
+        "$ref": "#/$defs/candidatesupdatedByCreateRelatedInput"
+      },
+      "workAuthorized": {
+        "oneOf": [
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": [
+      "email",
+      "firstName",
+      "lastName"
+    ]
+  },
+  "publicApplicationscandidatesUpdateOneRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/publicApplicationscandidatesConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/publicApplicationscandidatesCreateArguments"
+      },
+      "_delete": {
+        "$ref": "#/$defs/candidatesDeleteArguments"
+      },
+      "_disconnect": {
+        "$ref": "#/$defs/candidatesDisconnectOneInput"
+      },
+      "_update": {
+        "$ref": "#/$defs/candidatesUpdateInput"
+      }
+    },
+    "required": []
+  },
+  "publicApplicationsCreateInput": {
+    "type": "object",
+    "properties": {
+      "applications": {
+        "$ref": "#/$defs/publicApplicationsapplicationsCreateRelatedInput"
+      },
+      "candidates": {
+        "$ref": "#/$defs/publicApplicationscandidatesCreateRelatedInput"
+      },
+      "city": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "consent": {
+        "type": "boolean"
+      },
+      "country": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "email": {
+        "type": "string"
+      },
+      "firstName": {
+        "type": "string"
+      },
+      "githubUrl": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "lastName": {
+        "type": "string"
+      },
+      "linkedinUrl": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "needsSponsorship": {
+        "oneOf": [
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "phone": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "portfolioUrl": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "requisitions": {
+        "$ref": "#/$defs/publicApplicationsrequisitionsCreateRelatedInput"
+      },
+      "resumeAssetId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "resumeFileName": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "resumeUrl": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "workAuthorized": {
+        "oneOf": [
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": [
+      "consent",
+      "email",
+      "firstName",
+      "lastName",
+      "requisitions"
+    ]
+  },
+  "publicApplicationsDeleteArguments": {
+    "type": "object",
+    "properties": {
+      "filter": {
+        "$ref": "#/$defs/publicApplicationsFilterInput"
+      }
+    },
+    "required": []
+  },
+  "publicApplicationsDisconnectManyInput": {
+    "type": "object",
+    "properties": {
+      "filter": {
+        "$ref": "#/$defs/publicApplicationsFilterInput"
+      }
+    },
+    "required": []
+  },
+  "publicApplicationsFilterInput": {
+    "type": "object",
+    "properties": {
+      "_and": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/publicApplicationsFilterInput"
+        }
+      },
+      "_not": {
+        "$ref": "#/$defs/publicApplicationsFilterInput"
+      },
+      "_or": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/publicApplicationsFilterInput"
+        }
+      },
+      "applicationId": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "applications": {
+        "$ref": "#/$defs/applicationsFilterInput"
+      },
+      "candidateId": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "candidates": {
+        "$ref": "#/$defs/candidatesFilterInput"
+      },
+      "city": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "consent": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/BooleanFilterPrimitiveInput"
+          },
+          {
+            "type": "boolean"
+          }
+        ]
+      },
+      "country": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "createdAt": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/DateTimeFilterPrimitiveInput"
+          },
+          {
+            "type": "string",
+            "format": "date-time"
+          }
+        ]
+      },
+      "email": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterPrimitiveInput"
+          },
+          {
+            "type": "string"
+          }
+        ]
+      },
+      "firstName": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterPrimitiveInput"
+          },
+          {
+            "type": "string"
+          }
+        ]
+      },
+      "githubUrl": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "id": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterPrimitiveInput"
+          },
+          {
+            "type": "string",
+            "format": "uuid"
+          }
+        ]
+      },
+      "lastName": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterPrimitiveInput"
+          },
+          {
+            "type": "string"
+          }
+        ]
+      },
+      "linkedinUrl": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "needsSponsorship": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/BooleanFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "phone": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "portfolioUrl": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "requisitionId": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterPrimitiveInput"
+          },
+          {
+            "type": "string",
+            "format": "uuid"
+          }
+        ]
+      },
+      "requisitions": {
+        "$ref": "#/$defs/requisitionsFilterInput"
+      },
+      "resumeAssetId": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "resumeFileName": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "resumeUrl": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "workAuthorized": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/BooleanFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "required": []
+  },
+  "publicApplicationsFilterQuantifierInput": {
+    "type": "object",
+    "properties": {
+      "_every": {
+        "$ref": "#/$defs/publicApplicationsFilterInput"
+      },
+      "_none": {
+        "$ref": "#/$defs/publicApplicationsFilterInput"
+      },
+      "_some": {
+        "$ref": "#/$defs/publicApplicationsFilterInput"
+      }
+    },
+    "required": []
+  },
+  "publicApplicationsrequisitionsConnectForwardKeyInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "publicApplicationsrequisitionsConnectInput": {
+    "type": "object",
+    "properties": {
+      "key": {
+        "$ref": "#/$defs/publicApplicationsrequisitionsConnectForwardKeyInput"
+      }
+    },
+    "required": [
+      "key"
+    ]
+  },
+  "publicApplicationsrequisitionsCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/publicApplicationsrequisitionsCreateRelatedWithoutTypeInput"
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "publicApplicationsrequisitionsCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/publicApplicationsrequisitionsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/publicApplicationsrequisitionsCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "publicApplicationsrequisitionsCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "applications": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/requisitionsapplicationsCreateRelatedInput"
+        }
+      },
+      "closedAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "compMax": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "decimal",
+            "example": "123.345"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "compMin": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "decimal",
+            "example": "123.345"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "createdBy": {
+        "$ref": "#/$defs/requisitionscreatedByCreateRelatedInput"
+      },
+      "currency": {
+        "type": "string"
+      },
+      "departments": {
+        "$ref": "#/$defs/requisitionsdepartmentsCreateRelatedInput"
+      },
+      "description": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "employmentType": {
+        "type": "string"
+      },
+      "hiringManagerUserId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "hiringReason": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "interview_stages": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/requisitionsinterview_stagesCreateRelatedInput"
+        }
+      },
+      "isConfidential": {
+        "type": "boolean"
+      },
+      "isLeadership": {
+        "type": "boolean"
+      },
+      "job_levels": {
+        "$ref": "#/$defs/requisitionsjob_levelsCreateRelatedInput"
+      },
+      "kickoffAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "kickoffNotes": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "locations": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "mustHaveSkills": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "niceToHaveSkills": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "numberOfHires": {
+        "type": "integer"
+      },
+      "openedAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "postExternally": {
+        "type": "boolean"
+      },
+      "recruiterUserId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "reqNumber": {
+        "type": "integer"
+      },
+      "role_requests": {
+        "$ref": "#/$defs/requisitionsrole_requestsCreateRelatedInput"
+      },
+      "status": {
+        "type": "string"
+      },
+      "teamSize": {
+        "oneOf": [
+          {
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "title": {
+        "type": "string"
+      },
+      "updatedAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "updatedBy": {
+        "$ref": "#/$defs/requisitionsupdatedByCreateRelatedInput"
+      },
+      "urgency": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "departments",
+      "title"
+    ]
+  },
+  "publicApplicationsrequisitionsUpdateOneRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/publicApplicationsrequisitionsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/publicApplicationsrequisitionsCreateArguments"
+      },
+      "_update": {
+        "$ref": "#/$defs/requisitionsUpdateInput"
+      }
+    },
+    "required": []
+  },
+  "publicApplicationsUpdateDataInput": {
+    "type": "object",
+    "properties": {
+      "applicationId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "applications": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/publicApplicationsapplicationsUpdateOneRelatedOperationsInput"
+        }
+      },
+      "candidateId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "candidates": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/publicApplicationscandidatesUpdateOneRelatedOperationsInput"
+        }
+      },
+      "city": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "consent": {
+        "type": "boolean"
+      },
+      "country": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "email": {
+        "type": "string"
+      },
+      "firstName": {
+        "type": "string"
+      },
+      "githubUrl": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "lastName": {
+        "type": "string"
+      },
+      "linkedinUrl": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "needsSponsorship": {
+        "oneOf": [
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "phone": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "portfolioUrl": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "requisitionId": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "requisitions": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/publicApplicationsrequisitionsUpdateOneRelatedOperationsInput"
+        }
+      },
+      "resumeAssetId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "resumeFileName": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "resumeUrl": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "workAuthorized": {
+        "oneOf": [
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": []
+  },
+  "publicApplicationsUpdateInput": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/publicApplicationsUpdateDataInput"
+      },
+      "filter": {
+        "$ref": "#/$defs/publicApplicationsFilterInput"
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "requisitionsapplicationsConnectBackwardKeysInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      }
+    },
+    "required": []
+  },
+  "requisitionsapplicationsConnectInput": {
+    "type": "object",
+    "properties": {
+      "keys": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/requisitionsapplicationsConnectBackwardKeysInput"
+        }
+      }
+    },
+    "required": [
+      "keys"
+    ]
+  },
+  "requisitionsapplicationsCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/requisitionsapplicationsCreateRelatedWithoutTypeInput"
+        }
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "requisitionsapplicationsCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/requisitionsapplicationsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/requisitionsapplicationsCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "requisitionsapplicationsCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "appliedAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "candidates": {
+        "$ref": "#/$defs/applicationscandidatesCreateRelatedInput"
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "createdBy": {
+        "$ref": "#/$defs/applicationscreatedByCreateRelatedInput"
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "interview_stages": {
+        "$ref": "#/$defs/applicationsinterview_stagesCreateRelatedInput"
+      },
+      "interviews": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/applicationsinterviewsCreateRelatedInput"
+        }
+      },
+      "lastActivityAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "offers": {
+        "$ref": "#/$defs/applicationsoffersCreateRelatedInput"
+      },
+      "public_applications": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/applicationspublic_applicationsCreateRelatedInput"
+        }
+      },
+      "rejectionReason": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "stageEnteredAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "status": {
+        "type": "string"
+      },
+      "updatedAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "updatedBy": {
+        "$ref": "#/$defs/applicationsupdatedByCreateRelatedInput"
+      }
+    },
+    "required": [
+      "candidates",
+      "interview_stages"
+    ]
+  },
+  "requisitionsapplicationsUpdateManyRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/requisitionsapplicationsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/requisitionsapplicationsCreateArguments"
+      },
+      "_delete": {
+        "$ref": "#/$defs/applicationsDeleteArguments"
+      },
+      "_update": {
+        "$ref": "#/$defs/applicationsUpdateInput"
+      }
+    },
+    "required": []
+  },
+  "requisitionscreatedByConnectForwardKeyInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "requisitionscreatedByConnectInput": {
+    "type": "object",
+    "properties": {
+      "key": {
+        "$ref": "#/$defs/requisitionscreatedByConnectForwardKeyInput"
+      }
+    },
+    "required": [
+      "key"
+    ]
+  },
+  "requisitionscreatedByCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/requisitionscreatedByCreateRelatedWithoutTypeInput"
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "requisitionscreatedByCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/requisitionscreatedByConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/requisitionscreatedByCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "requisitionscreatedByCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "activitiesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "activitiesOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "activitiesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "affiliationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "affiliationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "appearance": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "applicationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "applicationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "attachmentsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "avatarId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "candidateFilesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateMessagesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateNotesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateNotesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidatesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidatesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "contactsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "contactsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "contactsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "email": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "emailTemplatesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "emailTemplatesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "fullName": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "interviewsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "interviewsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "isService": {
+        "type": "boolean"
+      },
+      "lastActivityAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "offersCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "offersUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "organizationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "organizationsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "organizationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "requisitionsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roleRequestsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roleRequestsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roles": {
+        "type": "array",
+        "items": {}
+      },
+      "scorecardsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "scorecardsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "serviceOwnerId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "status": {
+        "type": "string"
+      },
+      "storageValues": {
+        "type": "array",
+        "items": {}
+      },
+      "workforcePlanRolesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "workforcePlanRolesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      }
+    },
+    "required": [
+      "id",
+      "isService"
+    ]
+  },
+  "requisitionscreatedByUpdateOneRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/requisitionscreatedByConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/requisitionscreatedByCreateArguments"
+      },
+      "_delete": {},
+      "_disconnect": {},
+      "_update": {}
+    },
+    "required": []
+  },
+  "requisitionsCreateInput": {
+    "type": "object",
+    "properties": {
+      "applications": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/requisitionsapplicationsCreateRelatedInput"
+        }
+      },
+      "closedAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "compMax": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "decimal",
+            "example": "123.345"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "compMin": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "decimal",
+            "example": "123.345"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "createdBy": {
+        "$ref": "#/$defs/requisitionscreatedByCreateRelatedInput"
+      },
+      "currency": {
+        "type": "string"
+      },
+      "departments": {
+        "$ref": "#/$defs/requisitionsdepartmentsCreateRelatedInput"
+      },
+      "description": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "employmentType": {
+        "type": "string"
+      },
+      "hiringManagerUserId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "hiringReason": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "interview_stages": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/requisitionsinterview_stagesCreateRelatedInput"
+        }
+      },
+      "isConfidential": {
+        "type": "boolean"
+      },
+      "isLeadership": {
+        "type": "boolean"
+      },
+      "job_levels": {
+        "$ref": "#/$defs/requisitionsjob_levelsCreateRelatedInput"
+      },
+      "kickoffAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "kickoffNotes": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "locations": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "mustHaveSkills": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "niceToHaveSkills": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "numberOfHires": {
+        "type": "integer"
+      },
+      "openedAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "postExternally": {
+        "type": "boolean"
+      },
+      "public_applications": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/requisitionspublic_applicationsCreateRelatedInput"
+        }
+      },
+      "recruiterUserId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "reqNumber": {
+        "type": "integer"
+      },
+      "role_requests": {
+        "$ref": "#/$defs/requisitionsrole_requestsCreateRelatedInput"
+      },
+      "status": {
+        "type": "string"
+      },
+      "teamSize": {
+        "oneOf": [
+          {
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "title": {
+        "type": "string"
+      },
+      "updatedAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "updatedBy": {
+        "$ref": "#/$defs/requisitionsupdatedByCreateRelatedInput"
+      },
+      "urgency": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "departments",
+      "title"
+    ]
+  },
+  "requisitionsDeleteArguments": {
+    "type": "object",
+    "properties": {
+      "filter": {
+        "$ref": "#/$defs/requisitionsFilterInput"
+      }
+    },
+    "required": []
+  },
+  "requisitionsdepartmentsConnectForwardKeyInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "requisitionsdepartmentsConnectInput": {
+    "type": "object",
+    "properties": {
+      "key": {
+        "$ref": "#/$defs/requisitionsdepartmentsConnectForwardKeyInput"
+      }
+    },
+    "required": [
+      "key"
+    ]
+  },
+  "requisitionsdepartmentsCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/requisitionsdepartmentsCreateRelatedWithoutTypeInput"
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "requisitionsdepartmentsCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/requisitionsdepartmentsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/requisitionsdepartmentsCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "requisitionsdepartmentsCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "hasVariableComp": {
+        "type": "boolean"
+      },
+      "headUserId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "name": {
+        "type": "string"
+      },
+      "role_requests": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/departmentsrole_requestsCreateRelatedInput"
+        }
+      },
+      "workforce_plan_roles": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/departmentsworkforce_plan_rolesCreateRelatedInput"
+        }
+      }
+    },
+    "required": [
+      "name"
+    ]
+  },
+  "requisitionsdepartmentsUpdateOneRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/requisitionsdepartmentsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/requisitionsdepartmentsCreateArguments"
+      },
+      "_update": {
+        "$ref": "#/$defs/departmentsUpdateInput"
+      }
+    },
+    "required": []
+  },
+  "requisitionsDisconnectManyInput": {
+    "type": "object",
+    "properties": {
+      "filter": {
+        "$ref": "#/$defs/requisitionsFilterInput"
+      }
+    },
+    "required": []
+  },
+  "requisitionsDisconnectOneInput": {
+    "type": "object",
+    "properties": {},
+    "required": []
+  },
+  "requisitionsFilterInput": {
+    "type": "object",
+    "properties": {
+      "_and": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/requisitionsFilterInput"
+        }
+      },
+      "_not": {
+        "$ref": "#/$defs/requisitionsFilterInput"
+      },
+      "_or": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/requisitionsFilterInput"
+        }
+      },
+      "applications": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/applicationsFilterQuantifierInput"
+          },
+          {
+            "$ref": "#/$defs/applicationsFilterInput"
+          }
+        ]
+      },
+      "closedAt": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/DateTimeFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "compMax": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/DecimalFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "decimal",
+                "example": "123.345"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "compMin": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/DecimalFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "decimal",
+                "example": "123.345"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "createdAt": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/DateTimeFilterPrimitiveInput"
+          },
+          {
+            "type": "string",
+            "format": "date-time"
+          }
+        ]
+      },
+      "createdBy": {},
+      "createdById": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "currency": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterPrimitiveInput"
+          },
+          {
+            "type": "string"
+          }
+        ]
+      },
+      "departmentId": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterPrimitiveInput"
+          },
+          {
+            "type": "string",
+            "format": "uuid"
+          }
+        ]
+      },
+      "departments": {
+        "$ref": "#/$defs/departmentsFilterInput"
+      },
+      "description": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "employmentType": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterPrimitiveInput"
+          },
+          {
+            "type": "string"
+          }
+        ]
+      },
+      "hiringManagerUserId": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "hiringReason": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "id": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterPrimitiveInput"
+          },
+          {
+            "type": "string",
+            "format": "uuid"
+          }
+        ]
+      },
+      "interview_stages": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/interviewStagesFilterQuantifierInput"
+          },
+          {
+            "$ref": "#/$defs/interviewStagesFilterInput"
+          }
+        ]
+      },
+      "isConfidential": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/BooleanFilterPrimitiveInput"
+          },
+          {
+            "type": "boolean"
+          }
+        ]
+      },
+      "isLeadership": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/BooleanFilterPrimitiveInput"
+          },
+          {
+            "type": "boolean"
+          }
+        ]
+      },
+      "jobLevelId": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "job_levels": {
+        "$ref": "#/$defs/jobLevelsFilterInput"
+      },
+      "kickoffAt": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/DateTimeFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "kickoffNotes": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "locations": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "mustHaveSkills": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "niceToHaveSkills": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "numberOfHires": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/IntegerFilterPrimitiveInput"
+          },
+          {
+            "type": "integer"
+          }
+        ]
+      },
+      "openedAt": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/DateTimeFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "postExternally": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/BooleanFilterPrimitiveInput"
+          },
+          {
+            "type": "boolean"
+          }
+        ]
+      },
+      "public_applications": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/publicApplicationsFilterQuantifierInput"
+          },
+          {
+            "$ref": "#/$defs/publicApplicationsFilterInput"
+          }
+        ]
+      },
+      "recruiterUserId": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "reqNumber": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/IntegerFilterPrimitiveInput"
+          },
+          {
+            "type": "integer"
+          }
+        ]
+      },
+      "roleRequestId": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "role_requests": {
+        "$ref": "#/$defs/roleRequestsFilterInput"
+      },
+      "status": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterPrimitiveInput"
+          },
+          {
+            "type": "string"
+          }
+        ]
+      },
+      "teamSize": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/IntegerFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "title": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterPrimitiveInput"
+          },
+          {
+            "type": "string"
+          }
+        ]
+      },
+      "updatedAt": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/DateTimeFilterPrimitiveInput"
+          },
+          {
+            "type": "string",
+            "format": "date-time"
+          }
+        ]
+      },
+      "updatedBy": {},
+      "updatedById": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "urgency": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterPrimitiveInput"
+          },
+          {
+            "type": "string"
+          }
+        ]
+      }
+    },
+    "required": []
+  },
+  "requisitionsFilterQuantifierInput": {
+    "type": "object",
+    "properties": {
+      "_every": {
+        "$ref": "#/$defs/requisitionsFilterInput"
+      },
+      "_none": {
+        "$ref": "#/$defs/requisitionsFilterInput"
+      },
+      "_some": {
+        "$ref": "#/$defs/requisitionsFilterInput"
+      }
+    },
+    "required": []
+  },
+  "requisitionsinterview_stagesConnectBackwardKeysInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      }
+    },
+    "required": []
+  },
+  "requisitionsinterview_stagesConnectInput": {
+    "type": "object",
+    "properties": {
+      "keys": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/requisitionsinterview_stagesConnectBackwardKeysInput"
+        }
+      }
+    },
+    "required": [
+      "keys"
+    ]
+  },
+  "requisitionsinterview_stagesCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/requisitionsinterview_stagesCreateRelatedWithoutTypeInput"
+        }
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "requisitionsinterview_stagesCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/requisitionsinterview_stagesConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/requisitionsinterview_stagesCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "requisitionsinterview_stagesCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "applications": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/interviewStagesapplicationsCreateRelatedInput"
+        }
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "interviews": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/interviewStagesinterviewsCreateRelatedInput"
+        }
+      },
+      "kind": {
+        "type": "string"
+      },
+      "name": {
+        "type": "string"
+      },
+      "position": {
+        "type": "number"
+      },
+      "slaDays": {
+        "oneOf": [
+          {
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": [
+      "name",
+      "position"
+    ]
+  },
+  "requisitionsinterview_stagesUpdateManyRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/requisitionsinterview_stagesConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/requisitionsinterview_stagesCreateArguments"
+      },
+      "_delete": {
+        "$ref": "#/$defs/interviewStagesDeleteArguments"
+      },
+      "_update": {
+        "$ref": "#/$defs/interviewStagesUpdateInput"
+      }
+    },
+    "required": []
+  },
+  "requisitionsjob_levelsConnectForwardKeyInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "requisitionsjob_levelsConnectInput": {
+    "type": "object",
+    "properties": {
+      "key": {
+        "$ref": "#/$defs/requisitionsjob_levelsConnectForwardKeyInput"
+      }
+    },
+    "required": [
+      "key"
+    ]
+  },
+  "requisitionsjob_levelsCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/requisitionsjob_levelsCreateRelatedWithoutTypeInput"
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "requisitionsjob_levelsCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/requisitionsjob_levelsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/requisitionsjob_levelsCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "requisitionsjob_levelsCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "name": {
+        "type": "string"
+      },
+      "position": {
+        "type": "number"
+      },
+      "role_requests": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/jobLevelsrole_requestsCreateRelatedInput"
+        }
+      },
+      "track": {
+        "type": "string"
+      },
+      "workforce_plan_roles": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/jobLevelsworkforce_plan_rolesCreateRelatedInput"
+        }
+      }
+    },
+    "required": [
+      "name",
+      "position"
+    ]
+  },
+  "requisitionsjob_levelsUpdateOneRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/requisitionsjob_levelsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/requisitionsjob_levelsCreateArguments"
+      },
+      "_delete": {
+        "$ref": "#/$defs/jobLevelsDeleteArguments"
+      },
+      "_disconnect": {
+        "$ref": "#/$defs/jobLevelsDisconnectOneInput"
+      },
+      "_update": {
+        "$ref": "#/$defs/jobLevelsUpdateInput"
+      }
+    },
+    "required": []
+  },
+  "requisitionspublic_applicationsConnectBackwardKeysInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      }
+    },
+    "required": []
+  },
+  "requisitionspublic_applicationsConnectInput": {
+    "type": "object",
+    "properties": {
+      "keys": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/requisitionspublic_applicationsConnectBackwardKeysInput"
+        }
+      }
+    },
+    "required": [
+      "keys"
+    ]
+  },
+  "requisitionspublic_applicationsCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/requisitionspublic_applicationsCreateRelatedWithoutTypeInput"
+        }
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "requisitionspublic_applicationsCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/requisitionspublic_applicationsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/requisitionspublic_applicationsCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "requisitionspublic_applicationsCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "applications": {
+        "$ref": "#/$defs/publicApplicationsapplicationsCreateRelatedInput"
+      },
+      "candidates": {
+        "$ref": "#/$defs/publicApplicationscandidatesCreateRelatedInput"
+      },
+      "city": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "consent": {
+        "type": "boolean"
+      },
+      "country": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "email": {
+        "type": "string"
+      },
+      "firstName": {
+        "type": "string"
+      },
+      "githubUrl": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "lastName": {
+        "type": "string"
+      },
+      "linkedinUrl": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "needsSponsorship": {
+        "oneOf": [
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "phone": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "portfolioUrl": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "resumeAssetId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "resumeFileName": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "resumeUrl": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "workAuthorized": {
+        "oneOf": [
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": [
+      "consent",
+      "email",
+      "firstName",
+      "lastName"
+    ]
+  },
+  "requisitionspublic_applicationsUpdateManyRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/requisitionspublic_applicationsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/requisitionspublic_applicationsCreateArguments"
+      },
+      "_delete": {
+        "$ref": "#/$defs/publicApplicationsDeleteArguments"
+      },
+      "_update": {
+        "$ref": "#/$defs/publicApplicationsUpdateInput"
+      }
+    },
+    "required": []
+  },
+  "requisitionsrole_requestsConnectForwardKeyInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "requisitionsrole_requestsConnectInput": {
+    "type": "object",
+    "properties": {
+      "key": {
+        "$ref": "#/$defs/requisitionsrole_requestsConnectForwardKeyInput"
+      }
+    },
+    "required": [
+      "key"
+    ]
+  },
+  "requisitionsrole_requestsCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/requisitionsrole_requestsCreateRelatedWithoutTypeInput"
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "requisitionsrole_requestsCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/requisitionsrole_requestsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/requisitionsrole_requestsCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "requisitionsrole_requestsCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "approvals": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/roleRequestsapprovalsCreateRelatedInput"
+        }
+      },
+      "approvedBaseMax": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "decimal",
+            "example": "123.345"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "approvedBaseMin": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "decimal",
+            "example": "123.345"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "approvedCurrency": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "approvedEquityUnits": {
+        "oneOf": [
+          {
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "approvedVariableMax": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "decimal",
+            "example": "123.345"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "approvedVariableMin": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "decimal",
+            "example": "123.345"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "businessJustification": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "compMax": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "decimal",
+            "example": "123.345"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "compMin": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "decimal",
+            "example": "123.345"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "createdBy": {
+        "$ref": "#/$defs/roleRequestscreatedByCreateRelatedInput"
+      },
+      "currency": {
+        "type": "string"
+      },
+      "decidedAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "decidedByUserId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "decisionNote": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "departments": {
+        "$ref": "#/$defs/roleRequestsdepartmentsCreateRelatedInput"
+      },
+      "employmentType": {
+        "type": "string"
+      },
+      "hiringManagerUserId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "hiringReason": {
+        "type": "string"
+      },
+      "hiringReasonDetail": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "job_levels": {
+        "$ref": "#/$defs/roleRequestsjob_levelsCreateRelatedInput"
+      },
+      "locations": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "numberOfHires": {
+        "type": "integer"
+      },
+      "requesterUserId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "roleName": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "updatedAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "updatedBy": {
+        "$ref": "#/$defs/roleRequestsupdatedByCreateRelatedInput"
+      },
+      "urgency": {
+        "type": "string"
+      },
+      "urgencyImpact": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "workforce_plan_roles": {
+        "$ref": "#/$defs/roleRequestsworkforce_plan_rolesCreateRelatedInput"
+      }
+    },
+    "required": [
+      "departments",
+      "roleName"
+    ]
+  },
+  "requisitionsrole_requestsUpdateOneRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/requisitionsrole_requestsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/requisitionsrole_requestsCreateArguments"
+      },
+      "_delete": {
+        "$ref": "#/$defs/roleRequestsDeleteArguments"
+      },
+      "_disconnect": {
+        "$ref": "#/$defs/roleRequestsDisconnectOneInput"
+      },
+      "_update": {
+        "$ref": "#/$defs/roleRequestsUpdateInput"
+      }
+    },
+    "required": []
+  },
+  "requisitionsUpdateDataInput": {
+    "type": "object",
+    "properties": {
+      "applications": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/requisitionsapplicationsUpdateManyRelatedOperationsInput"
+        }
+      },
+      "closedAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "compMax": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "decimal",
+            "example": "123.345"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "compMin": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "decimal",
+            "example": "123.345"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "createdBy": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/requisitionscreatedByUpdateOneRelatedOperationsInput"
+        }
+      },
+      "createdById": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "currency": {
+        "type": "string"
+      },
+      "departmentId": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "departments": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/requisitionsdepartmentsUpdateOneRelatedOperationsInput"
+        }
+      },
+      "description": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "employmentType": {
+        "type": "string"
+      },
+      "hiringManagerUserId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "hiringReason": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "interview_stages": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/requisitionsinterview_stagesUpdateManyRelatedOperationsInput"
+        }
+      },
+      "isConfidential": {
+        "type": "boolean"
+      },
+      "isLeadership": {
+        "type": "boolean"
+      },
+      "jobLevelId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "job_levels": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/requisitionsjob_levelsUpdateOneRelatedOperationsInput"
+        }
+      },
+      "kickoffAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "kickoffNotes": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "locations": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "mustHaveSkills": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "niceToHaveSkills": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "numberOfHires": {
+        "type": "integer"
+      },
+      "openedAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "postExternally": {
+        "type": "boolean"
+      },
+      "public_applications": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/requisitionspublic_applicationsUpdateManyRelatedOperationsInput"
+        }
+      },
+      "recruiterUserId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "reqNumber": {
+        "type": "integer"
+      },
+      "roleRequestId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "role_requests": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/requisitionsrole_requestsUpdateOneRelatedOperationsInput"
+        }
+      },
+      "status": {
+        "type": "string"
+      },
+      "teamSize": {
+        "oneOf": [
+          {
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "title": {
+        "type": "string"
+      },
+      "updatedAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "updatedBy": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/requisitionsupdatedByUpdateOneRelatedOperationsInput"
+        }
+      },
+      "updatedById": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "urgency": {
+        "type": "string"
+      }
+    },
+    "required": []
+  },
+  "requisitionsupdatedByConnectForwardKeyInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "requisitionsupdatedByConnectInput": {
+    "type": "object",
+    "properties": {
+      "key": {
+        "$ref": "#/$defs/requisitionsupdatedByConnectForwardKeyInput"
+      }
+    },
+    "required": [
+      "key"
+    ]
+  },
+  "requisitionsupdatedByCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/requisitionsupdatedByCreateRelatedWithoutTypeInput"
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "requisitionsupdatedByCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/requisitionsupdatedByConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/requisitionsupdatedByCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "requisitionsupdatedByCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "activitiesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "activitiesOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "activitiesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "affiliationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "affiliationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "appearance": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "applicationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "applicationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "attachmentsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "avatarId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "candidateFilesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateMessagesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateNotesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateNotesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidatesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidatesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "contactsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "contactsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "contactsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "email": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "emailTemplatesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "emailTemplatesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "fullName": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "interviewsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "interviewsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "isService": {
+        "type": "boolean"
+      },
+      "lastActivityAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "offersCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "offersUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "organizationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "organizationsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "organizationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "requisitionsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roleRequestsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roleRequestsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roles": {
+        "type": "array",
+        "items": {}
+      },
+      "scorecardsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "scorecardsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "serviceOwnerId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "status": {
+        "type": "string"
+      },
+      "storageValues": {
+        "type": "array",
+        "items": {}
+      },
+      "workforcePlanRolesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "workforcePlanRolesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      }
+    },
+    "required": [
+      "id",
+      "isService"
+    ]
+  },
+  "requisitionsupdatedByUpdateOneRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/requisitionsupdatedByConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/requisitionsupdatedByCreateArguments"
+      },
+      "_delete": {},
+      "_disconnect": {},
+      "_update": {}
+    },
+    "required": []
+  },
+  "requisitionsUpdateInput": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/requisitionsUpdateDataInput"
+      },
+      "filter": {
+        "$ref": "#/$defs/requisitionsFilterInput"
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "roleRequestsapprovalsConnectBackwardKeysInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      }
+    },
+    "required": []
+  },
+  "roleRequestsapprovalsConnectInput": {
+    "type": "object",
+    "properties": {
+      "keys": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/roleRequestsapprovalsConnectBackwardKeysInput"
+        }
+      }
+    },
+    "required": [
+      "keys"
+    ]
+  },
+  "roleRequestsapprovalsCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/roleRequestsapprovalsCreateRelatedWithoutTypeInput"
+        }
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "roleRequestsapprovalsCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/roleRequestsapprovalsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/roleRequestsapprovalsCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "roleRequestsapprovalsCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "approverRole": {
+        "type": "string"
+      },
+      "approverUserId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "decidedAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "decision": {
+        "type": "string"
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "note": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "offers": {
+        "$ref": "#/$defs/approvalsoffersCreateRelatedInput"
+      },
+      "step": {
+        "type": "integer"
+      },
+      "workforce_plan_roles": {
+        "$ref": "#/$defs/approvalsworkforce_plan_rolesCreateRelatedInput"
+      }
+    },
+    "required": [
+      "approverRole",
+      "step"
+    ]
+  },
+  "roleRequestsapprovalsUpdateManyRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/roleRequestsapprovalsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/roleRequestsapprovalsCreateArguments"
+      },
+      "_delete": {
+        "$ref": "#/$defs/approvalsDeleteArguments"
+      },
+      "_disconnect": {
+        "$ref": "#/$defs/approvalsDisconnectManyInput"
+      },
+      "_update": {
+        "$ref": "#/$defs/approvalsUpdateInput"
+      }
+    },
+    "required": []
+  },
+  "roleRequestscreatedByConnectForwardKeyInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "roleRequestscreatedByConnectInput": {
+    "type": "object",
+    "properties": {
+      "key": {
+        "$ref": "#/$defs/roleRequestscreatedByConnectForwardKeyInput"
+      }
+    },
+    "required": [
+      "key"
+    ]
+  },
+  "roleRequestscreatedByCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/roleRequestscreatedByCreateRelatedWithoutTypeInput"
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "roleRequestscreatedByCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/roleRequestscreatedByConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/roleRequestscreatedByCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "roleRequestscreatedByCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "activitiesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "activitiesOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "activitiesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "affiliationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "affiliationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "appearance": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "applicationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "applicationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "attachmentsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "avatarId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "candidateFilesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateMessagesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateNotesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateNotesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidatesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidatesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "contactsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "contactsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "contactsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "email": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "emailTemplatesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "emailTemplatesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "fullName": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "interviewsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "interviewsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "isService": {
+        "type": "boolean"
+      },
+      "lastActivityAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "offersCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "offersUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "organizationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "organizationsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "organizationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "requisitionsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "requisitionsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roleRequestsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roles": {
+        "type": "array",
+        "items": {}
+      },
+      "scorecardsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "scorecardsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "serviceOwnerId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "status": {
+        "type": "string"
+      },
+      "storageValues": {
+        "type": "array",
+        "items": {}
+      },
+      "workforcePlanRolesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "workforcePlanRolesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      }
+    },
+    "required": [
+      "id",
+      "isService"
+    ]
+  },
+  "roleRequestscreatedByUpdateOneRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/roleRequestscreatedByConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/roleRequestscreatedByCreateArguments"
+      },
+      "_delete": {},
+      "_disconnect": {},
+      "_update": {}
+    },
+    "required": []
+  },
+  "roleRequestsCreateInput": {
+    "type": "object",
+    "properties": {
+      "approvals": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/roleRequestsapprovalsCreateRelatedInput"
+        }
+      },
+      "approvedBaseMax": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "decimal",
+            "example": "123.345"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "approvedBaseMin": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "decimal",
+            "example": "123.345"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "approvedCurrency": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "approvedEquityUnits": {
+        "oneOf": [
+          {
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "approvedVariableMax": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "decimal",
+            "example": "123.345"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "approvedVariableMin": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "decimal",
+            "example": "123.345"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "businessJustification": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "compMax": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "decimal",
+            "example": "123.345"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "compMin": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "decimal",
+            "example": "123.345"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "createdBy": {
+        "$ref": "#/$defs/roleRequestscreatedByCreateRelatedInput"
+      },
+      "currency": {
+        "type": "string"
+      },
+      "decidedAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "decidedByUserId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "decisionNote": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "departments": {
+        "$ref": "#/$defs/roleRequestsdepartmentsCreateRelatedInput"
+      },
+      "employmentType": {
+        "type": "string"
+      },
+      "hiringManagerUserId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "hiringReason": {
+        "type": "string"
+      },
+      "hiringReasonDetail": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "job_levels": {
+        "$ref": "#/$defs/roleRequestsjob_levelsCreateRelatedInput"
+      },
+      "locations": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "numberOfHires": {
+        "type": "integer"
+      },
+      "requesterUserId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "requisitions": {
+        "$ref": "#/$defs/roleRequestsrequisitionsCreateRelatedInput"
+      },
+      "roleName": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "updatedAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "updatedBy": {
+        "$ref": "#/$defs/roleRequestsupdatedByCreateRelatedInput"
+      },
+      "urgency": {
+        "type": "string"
+      },
+      "urgencyImpact": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "workforce_plan_roles": {
+        "$ref": "#/$defs/roleRequestsworkforce_plan_rolesCreateRelatedInput"
+      }
+    },
+    "required": [
+      "departments",
+      "roleName"
+    ]
+  },
+  "roleRequestsDeleteArguments": {
+    "type": "object",
+    "properties": {
+      "filter": {
+        "$ref": "#/$defs/roleRequestsFilterInput"
+      }
+    },
+    "required": []
+  },
+  "roleRequestsdepartmentsConnectForwardKeyInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "roleRequestsdepartmentsConnectInput": {
+    "type": "object",
+    "properties": {
+      "key": {
+        "$ref": "#/$defs/roleRequestsdepartmentsConnectForwardKeyInput"
+      }
+    },
+    "required": [
+      "key"
+    ]
+  },
+  "roleRequestsdepartmentsCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/roleRequestsdepartmentsCreateRelatedWithoutTypeInput"
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "roleRequestsdepartmentsCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/roleRequestsdepartmentsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/roleRequestsdepartmentsCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "roleRequestsdepartmentsCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "hasVariableComp": {
+        "type": "boolean"
+      },
+      "headUserId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "name": {
+        "type": "string"
+      },
+      "requisitions": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/departmentsrequisitionsCreateRelatedInput"
+        }
+      },
+      "workforce_plan_roles": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/departmentsworkforce_plan_rolesCreateRelatedInput"
+        }
+      }
+    },
+    "required": [
+      "name"
+    ]
+  },
+  "roleRequestsdepartmentsUpdateOneRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/roleRequestsdepartmentsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/roleRequestsdepartmentsCreateArguments"
+      },
+      "_update": {
+        "$ref": "#/$defs/departmentsUpdateInput"
+      }
+    },
+    "required": []
+  },
+  "roleRequestsDisconnectManyInput": {
+    "type": "object",
+    "properties": {
+      "filter": {
+        "$ref": "#/$defs/roleRequestsFilterInput"
+      }
+    },
+    "required": []
+  },
+  "roleRequestsDisconnectOneInput": {
+    "type": "object",
+    "properties": {},
+    "required": []
+  },
+  "roleRequestsFilterInput": {
+    "type": "object",
+    "properties": {
+      "_and": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/roleRequestsFilterInput"
+        }
+      },
+      "_not": {
+        "$ref": "#/$defs/roleRequestsFilterInput"
+      },
+      "_or": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/roleRequestsFilterInput"
+        }
+      },
+      "approvals": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/approvalsFilterQuantifierInput"
+          },
+          {
+            "$ref": "#/$defs/approvalsFilterInput"
+          }
+        ]
+      },
+      "approvedBaseMax": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/DecimalFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "decimal",
+                "example": "123.345"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "approvedBaseMin": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/DecimalFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "decimal",
+                "example": "123.345"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "approvedCurrency": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "approvedEquityUnits": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/IntegerFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "approvedVariableMax": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/DecimalFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "decimal",
+                "example": "123.345"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "approvedVariableMin": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/DecimalFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "decimal",
+                "example": "123.345"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "businessJustification": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "compMax": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/DecimalFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "decimal",
+                "example": "123.345"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "compMin": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/DecimalFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "decimal",
+                "example": "123.345"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "createdAt": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/DateTimeFilterPrimitiveInput"
+          },
+          {
+            "type": "string",
+            "format": "date-time"
+          }
+        ]
+      },
+      "createdBy": {},
+      "createdById": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "currency": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterPrimitiveInput"
+          },
+          {
+            "type": "string"
+          }
+        ]
+      },
+      "decidedAt": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/DateTimeFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "decidedByUserId": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "decisionNote": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "departmentId": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterPrimitiveInput"
+          },
+          {
+            "type": "string",
+            "format": "uuid"
+          }
+        ]
+      },
+      "departments": {
+        "$ref": "#/$defs/departmentsFilterInput"
+      },
+      "employmentType": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterPrimitiveInput"
+          },
+          {
+            "type": "string"
+          }
+        ]
+      },
+      "hiringManagerUserId": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "hiringReason": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterPrimitiveInput"
+          },
+          {
+            "type": "string"
+          }
+        ]
+      },
+      "hiringReasonDetail": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "id": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterPrimitiveInput"
+          },
+          {
+            "type": "string",
+            "format": "uuid"
+          }
+        ]
+      },
+      "jobLevelId": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "job_levels": {
+        "$ref": "#/$defs/jobLevelsFilterInput"
+      },
+      "locations": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "numberOfHires": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/IntegerFilterPrimitiveInput"
+          },
+          {
+            "type": "integer"
+          }
+        ]
+      },
+      "requesterUserId": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "requisitions": {
+        "$ref": "#/$defs/requisitionsFilterInput"
+      },
+      "roleName": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterPrimitiveInput"
+          },
+          {
+            "type": "string"
+          }
+        ]
+      },
+      "status": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterPrimitiveInput"
+          },
+          {
+            "type": "string"
+          }
+        ]
+      },
+      "updatedAt": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/DateTimeFilterPrimitiveInput"
+          },
+          {
+            "type": "string",
+            "format": "date-time"
+          }
+        ]
+      },
+      "updatedBy": {},
+      "updatedById": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "urgency": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterPrimitiveInput"
+          },
+          {
+            "type": "string"
+          }
+        ]
+      },
+      "urgencyImpact": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "workforcePlanRoleId": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "workforce_plan_roles": {
+        "$ref": "#/$defs/workforcePlanRolesFilterInput"
+      }
+    },
+    "required": []
+  },
+  "roleRequestsFilterQuantifierInput": {
+    "type": "object",
+    "properties": {
+      "_every": {
+        "$ref": "#/$defs/roleRequestsFilterInput"
+      },
+      "_none": {
+        "$ref": "#/$defs/roleRequestsFilterInput"
+      },
+      "_some": {
+        "$ref": "#/$defs/roleRequestsFilterInput"
+      }
+    },
+    "required": []
+  },
+  "roleRequestsjob_levelsConnectForwardKeyInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "roleRequestsjob_levelsConnectInput": {
+    "type": "object",
+    "properties": {
+      "key": {
+        "$ref": "#/$defs/roleRequestsjob_levelsConnectForwardKeyInput"
+      }
+    },
+    "required": [
+      "key"
+    ]
+  },
+  "roleRequestsjob_levelsCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/roleRequestsjob_levelsCreateRelatedWithoutTypeInput"
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "roleRequestsjob_levelsCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/roleRequestsjob_levelsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/roleRequestsjob_levelsCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "roleRequestsjob_levelsCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "name": {
+        "type": "string"
+      },
+      "position": {
+        "type": "number"
+      },
+      "requisitions": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/jobLevelsrequisitionsCreateRelatedInput"
+        }
+      },
+      "track": {
+        "type": "string"
+      },
+      "workforce_plan_roles": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/jobLevelsworkforce_plan_rolesCreateRelatedInput"
+        }
+      }
+    },
+    "required": [
+      "name",
+      "position"
+    ]
+  },
+  "roleRequestsjob_levelsUpdateOneRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/roleRequestsjob_levelsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/roleRequestsjob_levelsCreateArguments"
+      },
+      "_delete": {
+        "$ref": "#/$defs/jobLevelsDeleteArguments"
+      },
+      "_disconnect": {
+        "$ref": "#/$defs/jobLevelsDisconnectOneInput"
+      },
+      "_update": {
+        "$ref": "#/$defs/jobLevelsUpdateInput"
+      }
+    },
+    "required": []
+  },
+  "roleRequestsrequisitionsConnectBackwardKeysInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "reqNumber": {
+        "type": "integer"
+      },
+      "roleRequestId": {
+        "type": "string",
+        "format": "uuid"
+      }
+    },
+    "required": []
+  },
+  "roleRequestsrequisitionsConnectInput": {
+    "type": "object",
+    "properties": {
+      "key": {
+        "$ref": "#/$defs/roleRequestsrequisitionsConnectBackwardKeysInput"
+      }
+    },
+    "required": [
+      "key"
+    ]
+  },
+  "roleRequestsrequisitionsCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/roleRequestsrequisitionsCreateRelatedWithoutTypeInput"
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "roleRequestsrequisitionsCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/roleRequestsrequisitionsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/roleRequestsrequisitionsCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "roleRequestsrequisitionsCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "applications": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/requisitionsapplicationsCreateRelatedInput"
+        }
+      },
+      "closedAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "compMax": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "decimal",
+            "example": "123.345"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "compMin": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "decimal",
+            "example": "123.345"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "createdBy": {
+        "$ref": "#/$defs/requisitionscreatedByCreateRelatedInput"
+      },
+      "currency": {
+        "type": "string"
+      },
+      "departments": {
+        "$ref": "#/$defs/requisitionsdepartmentsCreateRelatedInput"
+      },
+      "description": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "employmentType": {
+        "type": "string"
+      },
+      "hiringManagerUserId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "hiringReason": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "interview_stages": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/requisitionsinterview_stagesCreateRelatedInput"
+        }
+      },
+      "isConfidential": {
+        "type": "boolean"
+      },
+      "isLeadership": {
+        "type": "boolean"
+      },
+      "job_levels": {
+        "$ref": "#/$defs/requisitionsjob_levelsCreateRelatedInput"
+      },
+      "kickoffAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "kickoffNotes": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "locations": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "mustHaveSkills": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "niceToHaveSkills": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "numberOfHires": {
+        "type": "integer"
+      },
+      "openedAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "postExternally": {
+        "type": "boolean"
+      },
+      "public_applications": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/requisitionspublic_applicationsCreateRelatedInput"
+        }
+      },
+      "recruiterUserId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "reqNumber": {
+        "type": "integer"
+      },
+      "status": {
+        "type": "string"
+      },
+      "teamSize": {
+        "oneOf": [
+          {
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "title": {
+        "type": "string"
+      },
+      "updatedAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "updatedBy": {
+        "$ref": "#/$defs/requisitionsupdatedByCreateRelatedInput"
+      },
+      "urgency": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "departments",
+      "title"
+    ]
+  },
+  "roleRequestsrequisitionsUpdateOneRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/roleRequestsrequisitionsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/roleRequestsrequisitionsCreateArguments"
+      },
+      "_delete": {
+        "$ref": "#/$defs/requisitionsDeleteArguments"
+      },
+      "_disconnect": {
+        "$ref": "#/$defs/requisitionsDisconnectOneInput"
+      },
+      "_update": {
+        "$ref": "#/$defs/requisitionsUpdateInput"
+      }
+    },
+    "required": []
+  },
+  "roleRequestsUpdateDataInput": {
+    "type": "object",
+    "properties": {
+      "approvals": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/roleRequestsapprovalsUpdateManyRelatedOperationsInput"
+        }
+      },
+      "approvedBaseMax": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "decimal",
+            "example": "123.345"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "approvedBaseMin": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "decimal",
+            "example": "123.345"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "approvedCurrency": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "approvedEquityUnits": {
+        "oneOf": [
+          {
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "approvedVariableMax": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "decimal",
+            "example": "123.345"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "approvedVariableMin": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "decimal",
+            "example": "123.345"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "businessJustification": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "compMax": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "decimal",
+            "example": "123.345"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "compMin": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "decimal",
+            "example": "123.345"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "createdBy": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/roleRequestscreatedByUpdateOneRelatedOperationsInput"
+        }
+      },
+      "createdById": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "currency": {
+        "type": "string"
+      },
+      "decidedAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "decidedByUserId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "decisionNote": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "departmentId": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "departments": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/roleRequestsdepartmentsUpdateOneRelatedOperationsInput"
+        }
+      },
+      "employmentType": {
+        "type": "string"
+      },
+      "hiringManagerUserId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "hiringReason": {
+        "type": "string"
+      },
+      "hiringReasonDetail": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "jobLevelId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "job_levels": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/roleRequestsjob_levelsUpdateOneRelatedOperationsInput"
+        }
+      },
+      "locations": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "numberOfHires": {
+        "type": "integer"
+      },
+      "requesterUserId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "requisitions": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/roleRequestsrequisitionsUpdateOneRelatedOperationsInput"
+        }
+      },
+      "roleName": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "updatedAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "updatedBy": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/roleRequestsupdatedByUpdateOneRelatedOperationsInput"
+        }
+      },
+      "updatedById": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "urgency": {
+        "type": "string"
+      },
+      "urgencyImpact": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "workforcePlanRoleId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "workforce_plan_roles": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/roleRequestsworkforce_plan_rolesUpdateOneRelatedOperationsInput"
+        }
+      }
+    },
+    "required": []
+  },
+  "roleRequestsupdatedByConnectForwardKeyInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "roleRequestsupdatedByConnectInput": {
+    "type": "object",
+    "properties": {
+      "key": {
+        "$ref": "#/$defs/roleRequestsupdatedByConnectForwardKeyInput"
+      }
+    },
+    "required": [
+      "key"
+    ]
+  },
+  "roleRequestsupdatedByCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/roleRequestsupdatedByCreateRelatedWithoutTypeInput"
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "roleRequestsupdatedByCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/roleRequestsupdatedByConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/roleRequestsupdatedByCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "roleRequestsupdatedByCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "activitiesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "activitiesOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "activitiesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "affiliationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "affiliationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "appearance": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "applicationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "applicationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "attachmentsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "avatarId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "candidateFilesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateMessagesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateNotesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateNotesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidatesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidatesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "contactsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "contactsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "contactsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "email": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "emailTemplatesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "emailTemplatesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "fullName": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "interviewsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "interviewsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "isService": {
+        "type": "boolean"
+      },
+      "lastActivityAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "offersCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "offersUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "organizationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "organizationsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "organizationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "requisitionsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "requisitionsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roleRequestsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roles": {
+        "type": "array",
+        "items": {}
+      },
+      "scorecardsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "scorecardsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "serviceOwnerId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "status": {
+        "type": "string"
+      },
+      "storageValues": {
+        "type": "array",
+        "items": {}
+      },
+      "workforcePlanRolesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "workforcePlanRolesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      }
+    },
+    "required": [
+      "id",
+      "isService"
+    ]
+  },
+  "roleRequestsupdatedByUpdateOneRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/roleRequestsupdatedByConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/roleRequestsupdatedByCreateArguments"
+      },
+      "_delete": {},
+      "_disconnect": {},
+      "_update": {}
+    },
+    "required": []
+  },
+  "roleRequestsUpdateInput": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/roleRequestsUpdateDataInput"
+      },
+      "filter": {
+        "$ref": "#/$defs/roleRequestsFilterInput"
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "roleRequestsworkforce_plan_rolesConnectForwardKeyInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "roleRequestsworkforce_plan_rolesConnectInput": {
+    "type": "object",
+    "properties": {
+      "key": {
+        "$ref": "#/$defs/roleRequestsworkforce_plan_rolesConnectForwardKeyInput"
+      }
+    },
+    "required": [
+      "key"
+    ]
+  },
+  "roleRequestsworkforce_plan_rolesCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/roleRequestsworkforce_plan_rolesCreateRelatedWithoutTypeInput"
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "roleRequestsworkforce_plan_rolesCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/roleRequestsworkforce_plan_rolesConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/roleRequestsworkforce_plan_rolesCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "roleRequestsworkforce_plan_rolesCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "approvals": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/workforcePlanRolesapprovalsCreateRelatedInput"
+        }
+      },
+      "approvedHeadcount": {
+        "oneOf": [
+          {
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "budgetAmount": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "decimal",
+            "example": "123.345"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "createdBy": {
+        "$ref": "#/$defs/workforcePlanRolescreatedByCreateRelatedInput"
+      },
+      "currency": {
+        "type": "string"
+      },
+      "currentHeadcount": {
+        "type": "integer"
+      },
+      "departments": {
+        "$ref": "#/$defs/workforcePlanRolesdepartmentsCreateRelatedInput"
+      },
+      "employmentType": {
+        "type": "string"
+      },
+      "hireType": {
+        "type": "string"
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "job_levels": {
+        "$ref": "#/$defs/workforcePlanRolesjob_levelsCreateRelatedInput"
+      },
+      "locations": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "planYear": {
+        "type": "integer"
+      },
+      "plannedHeadcount": {
+        "type": "integer"
+      },
+      "roleName": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "team": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "updatedAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "updatedBy": {
+        "$ref": "#/$defs/workforcePlanRolesupdatedByCreateRelatedInput"
+      }
+    },
+    "required": [
+      "departments",
+      "planYear",
+      "roleName"
+    ]
+  },
+  "roleRequestsworkforce_plan_rolesUpdateOneRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/roleRequestsworkforce_plan_rolesConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/roleRequestsworkforce_plan_rolesCreateArguments"
+      },
+      "_delete": {
+        "$ref": "#/$defs/workforcePlanRolesDeleteArguments"
+      },
+      "_disconnect": {
+        "$ref": "#/$defs/workforcePlanRolesDisconnectOneInput"
+      },
+      "_update": {
+        "$ref": "#/$defs/workforcePlanRolesUpdateInput"
+      }
+    },
+    "required": []
+  },
+  "scorecardscreatedByConnectForwardKeyInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "scorecardscreatedByConnectInput": {
+    "type": "object",
+    "properties": {
+      "key": {
+        "$ref": "#/$defs/scorecardscreatedByConnectForwardKeyInput"
+      }
+    },
+    "required": [
+      "key"
+    ]
+  },
+  "scorecardscreatedByCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/scorecardscreatedByCreateRelatedWithoutTypeInput"
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "scorecardscreatedByCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/scorecardscreatedByConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/scorecardscreatedByCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "scorecardscreatedByCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "activitiesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "activitiesOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "activitiesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "affiliationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "affiliationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "appearance": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "applicationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "applicationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "attachmentsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "avatarId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "candidateFilesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateMessagesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateNotesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateNotesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidatesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidatesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "contactsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "contactsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "contactsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "email": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "emailTemplatesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "emailTemplatesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "fullName": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "interviewsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "interviewsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "isService": {
+        "type": "boolean"
+      },
+      "lastActivityAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "offersCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "offersUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "organizationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "organizationsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "organizationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "requisitionsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "requisitionsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roleRequestsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roleRequestsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roles": {
+        "type": "array",
+        "items": {}
+      },
+      "scorecardsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "serviceOwnerId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "status": {
+        "type": "string"
+      },
+      "storageValues": {
+        "type": "array",
+        "items": {}
+      },
+      "workforcePlanRolesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "workforcePlanRolesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      }
+    },
+    "required": [
+      "id",
+      "isService"
+    ]
+  },
+  "scorecardscreatedByUpdateOneRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/scorecardscreatedByConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/scorecardscreatedByCreateArguments"
+      },
+      "_delete": {},
+      "_disconnect": {},
+      "_update": {}
+    },
+    "required": []
+  },
+  "scorecardsCreateInput": {
+    "type": "object",
+    "properties": {
+      "createdBy": {
+        "$ref": "#/$defs/scorecardscreatedByCreateRelatedInput"
+      },
+      "flags": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "interviewerUserId": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "interviews": {
+        "$ref": "#/$defs/scorecardsinterviewsCreateRelatedInput"
+      },
+      "positives": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "recommendation": {
+        "type": "string"
+      },
+      "submittedAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "summary": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "updatedAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "updatedBy": {
+        "$ref": "#/$defs/scorecardsupdatedByCreateRelatedInput"
+      }
+    },
+    "required": [
+      "interviewerUserId",
+      "interviews",
+      "recommendation"
+    ]
+  },
+  "scorecardsDeleteArguments": {
+    "type": "object",
+    "properties": {
+      "filter": {
+        "$ref": "#/$defs/scorecardsFilterInput"
+      }
+    },
+    "required": []
+  },
+  "scorecardsFilterInput": {
+    "type": "object",
+    "properties": {
+      "_and": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/scorecardsFilterInput"
+        }
+      },
+      "_not": {
+        "$ref": "#/$defs/scorecardsFilterInput"
+      },
+      "_or": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/scorecardsFilterInput"
+        }
+      },
+      "createdBy": {},
+      "createdById": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "flags": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "id": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterPrimitiveInput"
+          },
+          {
+            "type": "string",
+            "format": "uuid"
+          }
+        ]
+      },
+      "interviewId": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterPrimitiveInput"
+          },
+          {
+            "type": "string",
+            "format": "uuid"
+          }
+        ]
+      },
+      "interviewerUserId": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterPrimitiveInput"
+          },
+          {
+            "type": "string",
+            "format": "uuid"
+          }
+        ]
+      },
+      "interviews": {
+        "$ref": "#/$defs/interviewsFilterInput"
+      },
+      "positives": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "recommendation": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterPrimitiveInput"
+          },
+          {
+            "type": "string"
+          }
+        ]
+      },
+      "submittedAt": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/DateTimeFilterPrimitiveInput"
+          },
+          {
+            "type": "string",
+            "format": "date-time"
+          }
+        ]
+      },
+      "summary": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "updatedAt": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/DateTimeFilterPrimitiveInput"
+          },
+          {
+            "type": "string",
+            "format": "date-time"
+          }
+        ]
+      },
+      "updatedBy": {},
+      "updatedById": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "required": []
+  },
+  "scorecardsFilterQuantifierInput": {
+    "type": "object",
+    "properties": {
+      "_every": {
+        "$ref": "#/$defs/scorecardsFilterInput"
+      },
+      "_none": {
+        "$ref": "#/$defs/scorecardsFilterInput"
+      },
+      "_some": {
+        "$ref": "#/$defs/scorecardsFilterInput"
+      }
+    },
+    "required": []
+  },
+  "scorecardsinterviewsConnectForwardKeyInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "scorecardsinterviewsConnectInput": {
+    "type": "object",
+    "properties": {
+      "key": {
+        "$ref": "#/$defs/scorecardsinterviewsConnectForwardKeyInput"
+      }
+    },
+    "required": [
+      "key"
+    ]
+  },
+  "scorecardsinterviewsCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/scorecardsinterviewsCreateRelatedWithoutTypeInput"
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "scorecardsinterviewsCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/scorecardsinterviewsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/scorecardsinterviewsCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "scorecardsinterviewsCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "applications": {
+        "$ref": "#/$defs/interviewsapplicationsCreateRelatedInput"
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "createdBy": {
+        "$ref": "#/$defs/interviewscreatedByCreateRelatedInput"
+      },
+      "endsAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "interview_participants": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/interviewsinterview_participantsCreateRelatedInput"
+        }
+      },
+      "interview_stages": {
+        "$ref": "#/$defs/interviewsinterview_stagesCreateRelatedInput"
+      },
+      "meetingUrl": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "startsAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "status": {
+        "type": "string"
+      },
+      "title": {
+        "type": "string"
+      },
+      "updatedAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "updatedBy": {
+        "$ref": "#/$defs/interviewsupdatedByCreateRelatedInput"
+      }
+    },
+    "required": [
+      "applications",
+      "endsAt",
+      "startsAt",
+      "title"
+    ]
+  },
+  "scorecardsinterviewsUpdateOneRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/scorecardsinterviewsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/scorecardsinterviewsCreateArguments"
+      },
+      "_update": {
+        "$ref": "#/$defs/interviewsUpdateInput"
+      }
+    },
+    "required": []
+  },
+  "scorecardsUpdateDataInput": {
+    "type": "object",
+    "properties": {
+      "createdBy": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/scorecardscreatedByUpdateOneRelatedOperationsInput"
+        }
+      },
+      "createdById": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "flags": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "interviewId": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "interviewerUserId": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "interviews": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/scorecardsinterviewsUpdateOneRelatedOperationsInput"
+        }
+      },
+      "positives": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "recommendation": {
+        "type": "string"
+      },
+      "submittedAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "summary": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "updatedAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "updatedBy": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/scorecardsupdatedByUpdateOneRelatedOperationsInput"
+        }
+      },
+      "updatedById": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": []
+  },
+  "scorecardsupdatedByConnectForwardKeyInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "scorecardsupdatedByConnectInput": {
+    "type": "object",
+    "properties": {
+      "key": {
+        "$ref": "#/$defs/scorecardsupdatedByConnectForwardKeyInput"
+      }
+    },
+    "required": [
+      "key"
+    ]
+  },
+  "scorecardsupdatedByCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/scorecardsupdatedByCreateRelatedWithoutTypeInput"
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "scorecardsupdatedByCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/scorecardsupdatedByConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/scorecardsupdatedByCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "scorecardsupdatedByCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "activitiesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "activitiesOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "activitiesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "affiliationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "affiliationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "appearance": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "applicationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "applicationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "attachmentsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "avatarId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "candidateFilesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateMessagesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateNotesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateNotesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidatesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidatesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "contactsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "contactsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "contactsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "email": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "emailTemplatesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "emailTemplatesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "fullName": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "interviewsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "interviewsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "isService": {
+        "type": "boolean"
+      },
+      "lastActivityAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "offersCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "offersUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "organizationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "organizationsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "organizationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "requisitionsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "requisitionsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roleRequestsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roleRequestsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roles": {
+        "type": "array",
+        "items": {}
+      },
+      "scorecardsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "serviceOwnerId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "status": {
+        "type": "string"
+      },
+      "storageValues": {
+        "type": "array",
+        "items": {}
+      },
+      "workforcePlanRolesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "workforcePlanRolesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      }
+    },
+    "required": [
+      "id",
+      "isService"
+    ]
+  },
+  "scorecardsupdatedByUpdateOneRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/scorecardsupdatedByConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/scorecardsupdatedByCreateArguments"
+      },
+      "_delete": {},
+      "_disconnect": {},
+      "_update": {}
+    },
+    "required": []
+  },
+  "scorecardsUpdateInput": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/scorecardsUpdateDataInput"
+      },
+      "filter": {
+        "$ref": "#/$defs/scorecardsFilterInput"
       }
     },
     "required": [
@@ -14944,6 +39337,1897 @@ const definitions = {
       }
     },
     "required": []
+  },
+  "workforcePlanRolesapprovalsConnectBackwardKeysInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      }
+    },
+    "required": []
+  },
+  "workforcePlanRolesapprovalsConnectInput": {
+    "type": "object",
+    "properties": {
+      "keys": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/workforcePlanRolesapprovalsConnectBackwardKeysInput"
+        }
+      }
+    },
+    "required": [
+      "keys"
+    ]
+  },
+  "workforcePlanRolesapprovalsCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/workforcePlanRolesapprovalsCreateRelatedWithoutTypeInput"
+        }
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "workforcePlanRolesapprovalsCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/workforcePlanRolesapprovalsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/workforcePlanRolesapprovalsCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "workforcePlanRolesapprovalsCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "approverRole": {
+        "type": "string"
+      },
+      "approverUserId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "decidedAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "decision": {
+        "type": "string"
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "note": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "offers": {
+        "$ref": "#/$defs/approvalsoffersCreateRelatedInput"
+      },
+      "role_requests": {
+        "$ref": "#/$defs/approvalsrole_requestsCreateRelatedInput"
+      },
+      "step": {
+        "type": "integer"
+      }
+    },
+    "required": [
+      "approverRole",
+      "step"
+    ]
+  },
+  "workforcePlanRolesapprovalsUpdateManyRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/workforcePlanRolesapprovalsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/workforcePlanRolesapprovalsCreateArguments"
+      },
+      "_delete": {
+        "$ref": "#/$defs/approvalsDeleteArguments"
+      },
+      "_disconnect": {
+        "$ref": "#/$defs/approvalsDisconnectManyInput"
+      },
+      "_update": {
+        "$ref": "#/$defs/approvalsUpdateInput"
+      }
+    },
+    "required": []
+  },
+  "workforcePlanRolescreatedByConnectForwardKeyInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "workforcePlanRolescreatedByConnectInput": {
+    "type": "object",
+    "properties": {
+      "key": {
+        "$ref": "#/$defs/workforcePlanRolescreatedByConnectForwardKeyInput"
+      }
+    },
+    "required": [
+      "key"
+    ]
+  },
+  "workforcePlanRolescreatedByCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/workforcePlanRolescreatedByCreateRelatedWithoutTypeInput"
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "workforcePlanRolescreatedByCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/workforcePlanRolescreatedByConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/workforcePlanRolescreatedByCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "workforcePlanRolescreatedByCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "activitiesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "activitiesOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "activitiesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "affiliationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "affiliationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "appearance": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "applicationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "applicationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "attachmentsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "avatarId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "candidateFilesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateMessagesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateNotesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateNotesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidatesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidatesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "contactsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "contactsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "contactsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "email": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "emailTemplatesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "emailTemplatesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "fullName": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "interviewsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "interviewsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "isService": {
+        "type": "boolean"
+      },
+      "lastActivityAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "offersCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "offersUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "organizationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "organizationsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "organizationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "requisitionsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "requisitionsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roleRequestsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roleRequestsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roles": {
+        "type": "array",
+        "items": {}
+      },
+      "scorecardsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "scorecardsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "serviceOwnerId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "status": {
+        "type": "string"
+      },
+      "storageValues": {
+        "type": "array",
+        "items": {}
+      },
+      "workforcePlanRolesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      }
+    },
+    "required": [
+      "id",
+      "isService"
+    ]
+  },
+  "workforcePlanRolescreatedByUpdateOneRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/workforcePlanRolescreatedByConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/workforcePlanRolescreatedByCreateArguments"
+      },
+      "_delete": {},
+      "_disconnect": {},
+      "_update": {}
+    },
+    "required": []
+  },
+  "workforcePlanRolesCreateInput": {
+    "type": "object",
+    "properties": {
+      "approvals": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/workforcePlanRolesapprovalsCreateRelatedInput"
+        }
+      },
+      "approvedHeadcount": {
+        "oneOf": [
+          {
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "budgetAmount": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "decimal",
+            "example": "123.345"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "createdBy": {
+        "$ref": "#/$defs/workforcePlanRolescreatedByCreateRelatedInput"
+      },
+      "currency": {
+        "type": "string"
+      },
+      "currentHeadcount": {
+        "type": "integer"
+      },
+      "departments": {
+        "$ref": "#/$defs/workforcePlanRolesdepartmentsCreateRelatedInput"
+      },
+      "employmentType": {
+        "type": "string"
+      },
+      "hireType": {
+        "type": "string"
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "job_levels": {
+        "$ref": "#/$defs/workforcePlanRolesjob_levelsCreateRelatedInput"
+      },
+      "locations": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "planYear": {
+        "type": "integer"
+      },
+      "plannedHeadcount": {
+        "type": "integer"
+      },
+      "roleName": {
+        "type": "string"
+      },
+      "role_requests": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/workforcePlanRolesrole_requestsCreateRelatedInput"
+        }
+      },
+      "status": {
+        "type": "string"
+      },
+      "team": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "updatedAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "updatedBy": {
+        "$ref": "#/$defs/workforcePlanRolesupdatedByCreateRelatedInput"
+      }
+    },
+    "required": [
+      "departments",
+      "planYear",
+      "roleName"
+    ]
+  },
+  "workforcePlanRolesDeleteArguments": {
+    "type": "object",
+    "properties": {
+      "filter": {
+        "$ref": "#/$defs/workforcePlanRolesFilterInput"
+      }
+    },
+    "required": []
+  },
+  "workforcePlanRolesdepartmentsConnectForwardKeyInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "workforcePlanRolesdepartmentsConnectInput": {
+    "type": "object",
+    "properties": {
+      "key": {
+        "$ref": "#/$defs/workforcePlanRolesdepartmentsConnectForwardKeyInput"
+      }
+    },
+    "required": [
+      "key"
+    ]
+  },
+  "workforcePlanRolesdepartmentsCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/workforcePlanRolesdepartmentsCreateRelatedWithoutTypeInput"
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "workforcePlanRolesdepartmentsCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/workforcePlanRolesdepartmentsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/workforcePlanRolesdepartmentsCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "workforcePlanRolesdepartmentsCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "hasVariableComp": {
+        "type": "boolean"
+      },
+      "headUserId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "name": {
+        "type": "string"
+      },
+      "requisitions": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/departmentsrequisitionsCreateRelatedInput"
+        }
+      },
+      "role_requests": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/departmentsrole_requestsCreateRelatedInput"
+        }
+      }
+    },
+    "required": [
+      "name"
+    ]
+  },
+  "workforcePlanRolesdepartmentsUpdateOneRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/workforcePlanRolesdepartmentsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/workforcePlanRolesdepartmentsCreateArguments"
+      },
+      "_update": {
+        "$ref": "#/$defs/departmentsUpdateInput"
+      }
+    },
+    "required": []
+  },
+  "workforcePlanRolesDisconnectManyInput": {
+    "type": "object",
+    "properties": {
+      "filter": {
+        "$ref": "#/$defs/workforcePlanRolesFilterInput"
+      }
+    },
+    "required": []
+  },
+  "workforcePlanRolesDisconnectOneInput": {
+    "type": "object",
+    "properties": {},
+    "required": []
+  },
+  "workforcePlanRolesFilterInput": {
+    "type": "object",
+    "properties": {
+      "_and": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/workforcePlanRolesFilterInput"
+        }
+      },
+      "_not": {
+        "$ref": "#/$defs/workforcePlanRolesFilterInput"
+      },
+      "_or": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/workforcePlanRolesFilterInput"
+        }
+      },
+      "approvals": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/approvalsFilterQuantifierInput"
+          },
+          {
+            "$ref": "#/$defs/approvalsFilterInput"
+          }
+        ]
+      },
+      "approvedHeadcount": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/IntegerFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "budgetAmount": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/DecimalFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "decimal",
+                "example": "123.345"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "createdAt": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/DateTimeFilterPrimitiveInput"
+          },
+          {
+            "type": "string",
+            "format": "date-time"
+          }
+        ]
+      },
+      "createdBy": {},
+      "createdById": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "currency": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterPrimitiveInput"
+          },
+          {
+            "type": "string"
+          }
+        ]
+      },
+      "currentHeadcount": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/IntegerFilterPrimitiveInput"
+          },
+          {
+            "type": "integer"
+          }
+        ]
+      },
+      "departmentId": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterPrimitiveInput"
+          },
+          {
+            "type": "string",
+            "format": "uuid"
+          }
+        ]
+      },
+      "departments": {
+        "$ref": "#/$defs/departmentsFilterInput"
+      },
+      "employmentType": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterPrimitiveInput"
+          },
+          {
+            "type": "string"
+          }
+        ]
+      },
+      "hireType": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterPrimitiveInput"
+          },
+          {
+            "type": "string"
+          }
+        ]
+      },
+      "id": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterPrimitiveInput"
+          },
+          {
+            "type": "string",
+            "format": "uuid"
+          }
+        ]
+      },
+      "jobLevelId": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "job_levels": {
+        "$ref": "#/$defs/jobLevelsFilterInput"
+      },
+      "locations": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "planYear": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/IntegerFilterPrimitiveInput"
+          },
+          {
+            "type": "integer"
+          }
+        ]
+      },
+      "plannedHeadcount": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/IntegerFilterPrimitiveInput"
+          },
+          {
+            "type": "integer"
+          }
+        ]
+      },
+      "roleName": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterPrimitiveInput"
+          },
+          {
+            "type": "string"
+          }
+        ]
+      },
+      "role_requests": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/roleRequestsFilterQuantifierInput"
+          },
+          {
+            "$ref": "#/$defs/roleRequestsFilterInput"
+          }
+        ]
+      },
+      "status": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterPrimitiveInput"
+          },
+          {
+            "type": "string"
+          }
+        ]
+      },
+      "team": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/StringFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      },
+      "updatedAt": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/DateTimeFilterPrimitiveInput"
+          },
+          {
+            "type": "string",
+            "format": "date-time"
+          }
+        ]
+      },
+      "updatedBy": {},
+      "updatedById": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/UuidFilterNullablePrimitiveInput"
+          },
+          {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "required": []
+  },
+  "workforcePlanRolesFilterQuantifierInput": {
+    "type": "object",
+    "properties": {
+      "_every": {
+        "$ref": "#/$defs/workforcePlanRolesFilterInput"
+      },
+      "_none": {
+        "$ref": "#/$defs/workforcePlanRolesFilterInput"
+      },
+      "_some": {
+        "$ref": "#/$defs/workforcePlanRolesFilterInput"
+      }
+    },
+    "required": []
+  },
+  "workforcePlanRolesjob_levelsConnectForwardKeyInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "workforcePlanRolesjob_levelsConnectInput": {
+    "type": "object",
+    "properties": {
+      "key": {
+        "$ref": "#/$defs/workforcePlanRolesjob_levelsConnectForwardKeyInput"
+      }
+    },
+    "required": [
+      "key"
+    ]
+  },
+  "workforcePlanRolesjob_levelsCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/workforcePlanRolesjob_levelsCreateRelatedWithoutTypeInput"
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "workforcePlanRolesjob_levelsCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/workforcePlanRolesjob_levelsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/workforcePlanRolesjob_levelsCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "workforcePlanRolesjob_levelsCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "name": {
+        "type": "string"
+      },
+      "position": {
+        "type": "number"
+      },
+      "requisitions": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/jobLevelsrequisitionsCreateRelatedInput"
+        }
+      },
+      "role_requests": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/jobLevelsrole_requestsCreateRelatedInput"
+        }
+      },
+      "track": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "name",
+      "position"
+    ]
+  },
+  "workforcePlanRolesjob_levelsUpdateOneRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/workforcePlanRolesjob_levelsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/workforcePlanRolesjob_levelsCreateArguments"
+      },
+      "_delete": {
+        "$ref": "#/$defs/jobLevelsDeleteArguments"
+      },
+      "_disconnect": {
+        "$ref": "#/$defs/jobLevelsDisconnectOneInput"
+      },
+      "_update": {
+        "$ref": "#/$defs/jobLevelsUpdateInput"
+      }
+    },
+    "required": []
+  },
+  "workforcePlanRolesrole_requestsConnectBackwardKeysInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      }
+    },
+    "required": []
+  },
+  "workforcePlanRolesrole_requestsConnectInput": {
+    "type": "object",
+    "properties": {
+      "keys": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/workforcePlanRolesrole_requestsConnectBackwardKeysInput"
+        }
+      }
+    },
+    "required": [
+      "keys"
+    ]
+  },
+  "workforcePlanRolesrole_requestsCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/workforcePlanRolesrole_requestsCreateRelatedWithoutTypeInput"
+        }
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "workforcePlanRolesrole_requestsCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/workforcePlanRolesrole_requestsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/workforcePlanRolesrole_requestsCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "workforcePlanRolesrole_requestsCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "approvals": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/roleRequestsapprovalsCreateRelatedInput"
+        }
+      },
+      "approvedBaseMax": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "decimal",
+            "example": "123.345"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "approvedBaseMin": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "decimal",
+            "example": "123.345"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "approvedCurrency": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "approvedEquityUnits": {
+        "oneOf": [
+          {
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "approvedVariableMax": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "decimal",
+            "example": "123.345"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "approvedVariableMin": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "decimal",
+            "example": "123.345"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "businessJustification": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "compMax": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "decimal",
+            "example": "123.345"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "compMin": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "decimal",
+            "example": "123.345"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "createdBy": {
+        "$ref": "#/$defs/roleRequestscreatedByCreateRelatedInput"
+      },
+      "currency": {
+        "type": "string"
+      },
+      "decidedAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "decidedByUserId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "decisionNote": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "departments": {
+        "$ref": "#/$defs/roleRequestsdepartmentsCreateRelatedInput"
+      },
+      "employmentType": {
+        "type": "string"
+      },
+      "hiringManagerUserId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "hiringReason": {
+        "type": "string"
+      },
+      "hiringReasonDetail": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "job_levels": {
+        "$ref": "#/$defs/roleRequestsjob_levelsCreateRelatedInput"
+      },
+      "locations": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "numberOfHires": {
+        "type": "integer"
+      },
+      "requesterUserId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "requisitions": {
+        "$ref": "#/$defs/roleRequestsrequisitionsCreateRelatedInput"
+      },
+      "roleName": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "updatedAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "updatedBy": {
+        "$ref": "#/$defs/roleRequestsupdatedByCreateRelatedInput"
+      },
+      "urgency": {
+        "type": "string"
+      },
+      "urgencyImpact": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": [
+      "departments",
+      "roleName"
+    ]
+  },
+  "workforcePlanRolesrole_requestsUpdateManyRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/workforcePlanRolesrole_requestsConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/workforcePlanRolesrole_requestsCreateArguments"
+      },
+      "_delete": {
+        "$ref": "#/$defs/roleRequestsDeleteArguments"
+      },
+      "_disconnect": {
+        "$ref": "#/$defs/roleRequestsDisconnectManyInput"
+      },
+      "_update": {
+        "$ref": "#/$defs/roleRequestsUpdateInput"
+      }
+    },
+    "required": []
+  },
+  "workforcePlanRolesUpdateDataInput": {
+    "type": "object",
+    "properties": {
+      "approvals": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/workforcePlanRolesapprovalsUpdateManyRelatedOperationsInput"
+        }
+      },
+      "approvedHeadcount": {
+        "oneOf": [
+          {
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "budgetAmount": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "decimal",
+            "example": "123.345"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "createdAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "createdBy": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/workforcePlanRolescreatedByUpdateOneRelatedOperationsInput"
+        }
+      },
+      "createdById": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "currency": {
+        "type": "string"
+      },
+      "currentHeadcount": {
+        "type": "integer"
+      },
+      "departmentId": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "departments": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/workforcePlanRolesdepartmentsUpdateOneRelatedOperationsInput"
+        }
+      },
+      "employmentType": {
+        "type": "string"
+      },
+      "hireType": {
+        "type": "string"
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "jobLevelId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "job_levels": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/workforcePlanRolesjob_levelsUpdateOneRelatedOperationsInput"
+        }
+      },
+      "locations": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "planYear": {
+        "type": "integer"
+      },
+      "plannedHeadcount": {
+        "type": "integer"
+      },
+      "roleName": {
+        "type": "string"
+      },
+      "role_requests": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/workforcePlanRolesrole_requestsUpdateManyRelatedOperationsInput"
+        }
+      },
+      "status": {
+        "type": "string"
+      },
+      "team": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "updatedAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "updatedBy": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/workforcePlanRolesupdatedByUpdateOneRelatedOperationsInput"
+        }
+      },
+      "updatedById": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": []
+  },
+  "workforcePlanRolesupdatedByConnectForwardKeyInput": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+  "workforcePlanRolesupdatedByConnectInput": {
+    "type": "object",
+    "properties": {
+      "key": {
+        "$ref": "#/$defs/workforcePlanRolesupdatedByConnectForwardKeyInput"
+      }
+    },
+    "required": [
+      "key"
+    ]
+  },
+  "workforcePlanRolesupdatedByCreateArguments": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/workforcePlanRolesupdatedByCreateRelatedWithoutTypeInput"
+      }
+    },
+    "required": [
+      "data"
+    ]
+  },
+  "workforcePlanRolesupdatedByCreateRelatedInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/workforcePlanRolesupdatedByConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/workforcePlanRolesupdatedByCreateArguments"
+      }
+    },
+    "required": []
+  },
+  "workforcePlanRolesupdatedByCreateRelatedWithoutTypeInput": {
+    "type": "object",
+    "properties": {
+      "activitiesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "activitiesOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "activitiesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "affiliationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "affiliationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "appearance": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "applicationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "applicationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "attachmentsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "avatarId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "candidateFilesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateMessagesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateNotesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidateNotesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidatesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "candidatesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "contactsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "contactsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "contactsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "dealsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "email": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "emailTemplatesCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "emailTemplatesUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "fullName": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "interviewsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "interviewsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "isService": {
+        "type": "boolean"
+      },
+      "lastActivityAt": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "offersCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "offersUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "organizationsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "organizationsOwner": {
+        "type": "array",
+        "items": {}
+      },
+      "organizationsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "requisitionsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "requisitionsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roleRequestsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roleRequestsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "roles": {
+        "type": "array",
+        "items": {}
+      },
+      "scorecardsCreatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "scorecardsUpdatedBy": {
+        "type": "array",
+        "items": {}
+      },
+      "serviceOwnerId": {
+        "oneOf": [
+          {
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "status": {
+        "type": "string"
+      },
+      "storageValues": {
+        "type": "array",
+        "items": {}
+      },
+      "workforcePlanRolesCreatedBy": {
+        "type": "array",
+        "items": {}
+      }
+    },
+    "required": [
+      "id",
+      "isService"
+    ]
+  },
+  "workforcePlanRolesupdatedByUpdateOneRelatedOperationsInput": {
+    "type": "object",
+    "properties": {
+      "_connect": {
+        "$ref": "#/$defs/workforcePlanRolesupdatedByConnectInput"
+      },
+      "_create": {
+        "$ref": "#/$defs/workforcePlanRolesupdatedByCreateArguments"
+      },
+      "_delete": {},
+      "_disconnect": {},
+      "_update": {}
+    },
+    "required": []
+  },
+  "workforcePlanRolesUpdateInput": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/workforcePlanRolesUpdateDataInput"
+      },
+      "filter": {
+        "$ref": "#/$defs/workforcePlanRolesFilterInput"
+      }
+    },
+    "required": [
+      "data"
+    ]
   }
 } as const
 
@@ -14962,6 +41246,44 @@ function fromComponent<T>(component: string): z.ZodType<T> {
   )
 }
 
+export const applicationsCreateSchema = fromComponent<applicationsCreateOneInput>('applicationsCreateInput')
+export const applicationsUpdateSchema = fromComponent<applicationsUpdateOneInput>('applicationsUpdateDataInput')
+export const approvalsCreateSchema = fromComponent<approvalsCreateOneInput>('approvalsCreateInput')
+export const approvalsUpdateSchema = fromComponent<approvalsUpdateOneInput>('approvalsUpdateDataInput')
+export const candidateFilesCreateSchema = fromComponent<candidateFilesCreateOneInput>('candidateFilesCreateInput')
+export const candidateFilesUpdateSchema = fromComponent<candidateFilesUpdateOneInput>('candidateFilesUpdateDataInput')
+export const candidateMessagesCreateSchema = fromComponent<candidateMessagesCreateOneInput>('candidateMessagesCreateInput')
+export const candidateMessagesUpdateSchema = fromComponent<candidateMessagesUpdateOneInput>('candidateMessagesUpdateDataInput')
+export const candidateNotesCreateSchema = fromComponent<candidateNotesCreateOneInput>('candidateNotesCreateInput')
+export const candidateNotesUpdateSchema = fromComponent<candidateNotesUpdateOneInput>('candidateNotesUpdateDataInput')
+export const candidatesCreateSchema = fromComponent<candidatesCreateOneInput>('candidatesCreateInput')
+export const candidatesUpdateSchema = fromComponent<candidatesUpdateOneInput>('candidatesUpdateDataInput')
+export const departmentsCreateSchema = fromComponent<departmentsCreateOneInput>('departmentsCreateInput')
+export const departmentsUpdateSchema = fromComponent<departmentsUpdateOneInput>('departmentsUpdateDataInput')
+export const emailTemplatesCreateSchema = fromComponent<emailTemplatesCreateOneInput>('emailTemplatesCreateInput')
+export const emailTemplatesUpdateSchema = fromComponent<emailTemplatesUpdateOneInput>('emailTemplatesUpdateDataInput')
+export const hiringLocationsCreateSchema = fromComponent<hiringLocationsCreateOneInput>('hiringLocationsCreateInput')
+export const hiringLocationsUpdateSchema = fromComponent<hiringLocationsUpdateOneInput>('hiringLocationsUpdateDataInput')
+export const interviewParticipantsCreateSchema = fromComponent<interviewParticipantsCreateOneInput>('interviewParticipantsCreateInput')
+export const interviewParticipantsUpdateSchema = fromComponent<interviewParticipantsUpdateOneInput>('interviewParticipantsUpdateDataInput')
+export const interviewStagesCreateSchema = fromComponent<interviewStagesCreateOneInput>('interviewStagesCreateInput')
+export const interviewStagesUpdateSchema = fromComponent<interviewStagesUpdateOneInput>('interviewStagesUpdateDataInput')
+export const interviewsCreateSchema = fromComponent<interviewsCreateOneInput>('interviewsCreateInput')
+export const interviewsUpdateSchema = fromComponent<interviewsUpdateOneInput>('interviewsUpdateDataInput')
+export const jobLevelsCreateSchema = fromComponent<jobLevelsCreateOneInput>('jobLevelsCreateInput')
+export const jobLevelsUpdateSchema = fromComponent<jobLevelsUpdateOneInput>('jobLevelsUpdateDataInput')
+export const offersCreateSchema = fromComponent<offersCreateOneInput>('offersCreateInput')
+export const offersUpdateSchema = fromComponent<offersUpdateOneInput>('offersUpdateDataInput')
+export const publicApplicationsCreateSchema = fromComponent<publicApplicationsCreateOneInput>('publicApplicationsCreateInput')
+export const publicApplicationsUpdateSchema = fromComponent<publicApplicationsUpdateOneInput>('publicApplicationsUpdateDataInput')
+export const requisitionsCreateSchema = fromComponent<requisitionsCreateOneInput>('requisitionsCreateInput')
+export const requisitionsUpdateSchema = fromComponent<requisitionsUpdateOneInput>('requisitionsUpdateDataInput')
+export const roleRequestsCreateSchema = fromComponent<roleRequestsCreateOneInput>('roleRequestsCreateInput')
+export const roleRequestsUpdateSchema = fromComponent<roleRequestsUpdateOneInput>('roleRequestsUpdateDataInput')
+export const scorecardsCreateSchema = fromComponent<scorecardsCreateOneInput>('scorecardsCreateInput')
+export const scorecardsUpdateSchema = fromComponent<scorecardsUpdateOneInput>('scorecardsUpdateDataInput')
+export const workforcePlanRolesCreateSchema = fromComponent<workforcePlanRolesCreateOneInput>('workforcePlanRolesCreateInput')
+export const workforcePlanRolesUpdateSchema = fromComponent<workforcePlanRolesUpdateOneInput>('workforcePlanRolesUpdateDataInput')
 export const attachmentsCreateSchema = fromComponent<attachmentsCreateOneInput>('attachmentsCreateInput')
 export const attachmentsUpdateSchema = fromComponent<attachmentsUpdateOneInput>('attachmentsUpdateDataInput')
 export const affiliationsCreateSchema = fromComponent<affiliationsCreateOneInput>('affiliationsCreateInput')

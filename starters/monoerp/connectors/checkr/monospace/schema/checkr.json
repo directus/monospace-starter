@@ -1,0 +1,48 @@
+{
+  "collections": {
+    "candidates": {
+      "apiName": "checkrCandidates",
+      "meta": {
+        "displayTemplate": "{first_name} {last_name}",
+        "displayName": "Checkr Candidates",
+        "description": "People in Checkr, matched to ATS candidates by email.",
+        "icon": "lucide:shield-check",
+        "isHidden": false,
+        "color": "#0F9D8A"
+      }
+    },
+    "invitations": {
+      "apiName": "checkrInvitations",
+      "meta": {
+        "displayTemplate": "{package} \u00b7 {status}",
+        "displayName": "Checkr Invitations",
+        "description": "Background check invitations sent to candidates.",
+        "icon": "lucide:mail-check",
+        "isHidden": false,
+        "color": "#0F9D8A"
+      }
+    },
+    "packages": {
+      "apiName": "checkrPackages",
+      "meta": {
+        "displayTemplate": "{name}",
+        "displayName": "Checkr Packages",
+        "description": "The screenings a background check can run.",
+        "icon": "lucide:package-check",
+        "isHidden": false,
+        "color": "#0F9D8A"
+      }
+    },
+    "reports": {
+      "apiName": "checkrReports",
+      "meta": {
+        "displayTemplate": "{package} \u00b7 {status}",
+        "displayName": "Checkr Reports",
+        "description": "Background check reports and their results.",
+        "icon": "lucide:file-check",
+        "isHidden": false,
+        "color": "#0F9D8A"
+      }
+    }
+  }
+}
