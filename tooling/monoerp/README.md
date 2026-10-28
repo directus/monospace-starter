@@ -15,7 +15,7 @@ Edit `starters/monoerp` directly and open a pull request. There is no other copy
 
 Two root workflows check it:
 
-- [`starters.yml`](../../.github/workflows/starters.yml) runs `pnpm verify`.
+- [`starters.yml`](../../.github/workflows/starters.yml) runs `pnpm verify` and the browser tests.
 - [`monoerp-combinations.yml`](../../.github/workflows/monoerp-combinations.yml) runs this folder's unit tests and every [combination](combinations.md).
 
 Before opening a pull request, run in `starters/monoerp`:

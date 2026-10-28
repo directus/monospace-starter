@@ -50,3 +50,30 @@ jobs:
           cache-dependency-path: starters/${{ matrix.starter }}/pnpm-lock.yaml
       - run: pnpm install --frozen-lockfile
       - run: pnpm verify
+      # Browser tests run in any workspace package that depends on Playwright and defines test:browser.
+      - id: playwright
+        run: |
+          pnpm ls -r --depth 0 --json playwright | node --input-type=module -e '
+            import { readFileSync } from "node:fs";
+            const pkg = JSON.parse(readFileSync(0, "utf8")).find(
+              (pkg) => pkg.dependencies?.playwright ?? pkg.devDependencies?.playwright,
+            );
+            const playwright = pkg?.dependencies?.playwright ?? pkg?.devDependencies?.playwright;
+            if (pkg) console.log(`dir=${pkg.path}\nversion=${playwright.version}`);
+          ' >> "$GITHUB_OUTPUT"
+      - if: steps.playwright.outputs.version
+        id: browsers
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ runner.arch }}-${{ steps.playwright.outputs.version }}
+      - if: steps.playwright.outputs.version && steps.browsers.outputs.cache-hit != 'true'
+        run: pnpm -C "$PLAYWRIGHT_DIR" exec playwright install --with-deps chromium
+        env:
+          PLAYWRIGHT_DIR: ${{ steps.playwright.outputs.dir }}
+      - if: steps.playwright.outputs.version && steps.browsers.outputs.cache-hit == 'true'
+        run: pnpm -C "$PLAYWRIGHT_DIR" exec playwright install-deps chromium
+        env:
+          PLAYWRIGHT_DIR: ${{ steps.playwright.outputs.dir }}
+      - if: steps.playwright.outputs.version
+        run: pnpm -r --if-present test:browser
