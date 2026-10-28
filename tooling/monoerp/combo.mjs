@@ -107,21 +107,7 @@ export function combinations(manifests) {
 async function runCombination(name, manifests) {
   const combo = combinations(manifests).find((candidate) => candidate.name === name)
 
-  if (!combo) {
-    const match = /^([a-z][a-z0-9-]*)-(?:only|without-([a-z][a-z0-9-]*))$/.exec(name)
-
-    if (
-      match &&
-      (!manifests.some((manifest) => manifest.id === match[1]) ||
-        (match[2] && !manifests.some((manifest) => manifest.id === match[2])))
-    ) {
-      console.log(`SKIP ${name}: referenced manifest is absent`)
-
-      return
-    }
-
-    throw new Error(`Unknown combination: ${name}`)
-  }
+  if (!combo) throw new Error(`Unknown combination: ${name}`)
 
   const source = fileURLToPath(repository)
   const scratch = mkdtempSync(join(tmpdir(), 'monoerp-combo-'))
@@ -318,8 +304,8 @@ async function runCombination(name, manifests) {
     }
 
     const routes = [
-      { path: '/', status: '200' },
-      { path: '/login', status: '200' },
+      { path: '/', status: 200 },
+      { path: '/login', status: 200 },
     ]
 
     for (const module of manifests.filter((manifest) => manifest.kind === 'module')) {
@@ -327,25 +313,16 @@ async function runCombination(name, manifests) {
       const path = /basePath:\s*['"]([^'"]+)['"]/.exec(entry)?.[1]
 
       if (!path) throw new Error(`${module.id}: module.ts must declare a literal basePath`)
-      routes.push({ path, status: combo.remove.includes(module.id) ? '404' : '200' })
+      routes.push({ path, status: combo.remove.includes(module.id) ? 404 : 200 })
     }
 
     for (const { path, status } of routes) {
-      const actual = run(
-        'curl',
-        [
-          '--silent',
-          '--show-error',
-          '--max-time',
-          '30',
-          '--output',
-          '/dev/null',
-          '--write-out',
-          '%{http_code}',
-          `${address}${path}`,
-        ],
-        true,
-      )
+      const actual = (
+        await fetch(`${address}${path}`, {
+          redirect: 'manual',
+          signal: AbortSignal.timeout(30_000),
+        })
+      ).status
 
       if (actual !== status) throw new Error(`${path}: expected HTTP ${status}, received ${actual}`)
       console.log(`${path}: HTTP ${actual}`)
