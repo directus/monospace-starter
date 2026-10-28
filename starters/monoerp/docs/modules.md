@@ -65,14 +65,14 @@ The CLI never reads `x-monoerp`; `tools/manifest-schema.mjs` validates it.
 
 Paths are relative to the part folder.
 
-| Part   | Path                                                     | Meaning                                                      |
-| ------ | -------------------------------------------------------- | ------------------------------------------------------------ |
-| Module | `module.ts`                                              | UI entry (required)                                          |
-| Module | `routes/<kind>/`                                         | `app` pages at `/<id>`, `settings` pages at `/settings/<id>` |
-| Module | `infra/postgres/{init,migrations}`                       | SQL and demo data                                            |
-| Module | `infra/monospace/schema/*.json`, `infra/monospace/setup` | Schema settings files and setup scripts                      |
-| Any    | `compose.yml`                                            | Local services                                               |
-| Deploy | `lint/config.ts`                                         | Vite+ lint fragment                                          |
+| Part                | Path                                                     | Meaning                                                      |
+| ------------------- | -------------------------------------------------------- | ------------------------------------------------------------ |
+| Module              | `module.ts`                                              | UI entry (required)                                          |
+| Module              | `routes/<kind>/`                                         | `app` pages at `/<id>`, `settings` pages at `/settings/<id>` |
+| Module              | `infra/postgres/{init,migrations}`                       | SQL and demo data                                            |
+| Module              | `infra/monospace/schema/*.json`, `infra/monospace/setup` | Schema settings files and setup scripts                      |
+| Module or connector | `compose.yml`                                            | Local services                                               |
+| Deploy              | `lint/config.ts`                                         | Vite+ lint fragment                                          |
 
 Connector paths are in the [connector contract](../connectors/README.md#connector-contract); `OPTIONAL_SOURCES` in [Source selection](../connectors/README.md#source-selection).
 
@@ -128,7 +128,7 @@ Where it's read:
 
 ## Module search
 
-`search` in the manifest is a `ModuleSearch`: a list of `scopes` (one per record type, each with a label, an icon, and a `list(q)` link to its list page filtered to the query) and `search(q, scopeId?)`, which returns groups of hits. The palette merges every module's results and offers a scope picker. Build links with `linkOptions` so the router checks them.
+`search` in the UI entry is a `ModuleSearch`: a list of `scopes` (one per record type, each with a label, an icon, and a `list(q)` link to its list page filtered to the query) and `search(q, scopeId?)`, which returns groups of hits. The palette merges every module's results and offers a scope picker. Build links with `linkOptions` so the router checks them.
 
 Copy `modules/crm/search.ts`: a small `readMany` per record type with a search filter from `modules/crm/data.ts`, mapped to `SearchHit`s.
 

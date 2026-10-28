@@ -4,7 +4,7 @@ The optional Stripe extension exposes customers, products, prices, payment inten
 
 ## Use Stripe
 
-1. Keep or copy the whole `connectors/stripe` folder. Add `stripe` to a module's connector declarations, or include it in `OPTIONAL_SOURCES` if you use an override. CRM Billing also needs selected Portal.
+1. Keep or copy the whole `connectors/stripe` folder. An installed connector is selected unless `OPTIONAL_SOURCES` leaves it out. CRM Billing also needs selected Portal.
 2. For the local demo, keep the defaults. For real Stripe, set `STRIPE_API_KEY` and `STRIPE_API_BASE=https://api.stripe.com` in `.env`. Portal account Stripe IDs must match your real customer IDs.
 3. Run the [shared setup commands](../README.md#add-a-connector). Setup builds and installs the extension, creates its source, and joins Portal accounts to Stripe customers.
 4. Run `pnpm verify` and browser tests for any UI changes. To rebuild Stripe alone, run `pnpm --dir connectors/stripe/extension build` from the repo root.
@@ -15,7 +15,7 @@ If the source already exists, remove Portal's `stripeCustomer` relation and the 
 
 | Path                                         | Purpose                                                                                         |
 | -------------------------------------------- | ----------------------------------------------------------------------------------------------- |
-| `connector.json`                             | Source settings, environment names, installed extension ID, and optional CRM feature            |
+| `connector.json`                             | Source settings, environment names, setup steps, and the optional CRM feature                   |
 | `extension/`                                 | Monospace extension package, built with `@monospace/extension-kit` 0.3.0 for Monospace v1.0.0   |
 | `extension/extension.config.json`            | Extension/provider IDs, capabilities, and host permissions                                      |
 | `emulator/`                                  | Local Stripe API and matching demo billing data                                                 |

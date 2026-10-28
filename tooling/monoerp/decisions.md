@@ -48,7 +48,7 @@ Paths are relative to `starters/monoerp`. How the modules and connectors fit is 
 
 ## CRM data uses UUIDs; portal IDs stay as the portal has them
 
-**Why:** CRM tables use native UUID primary keys with database defaults (`infra/modules/crm/postgres/init/001_schema.sql`). Portal IDs are strings (`acct-0003`), and Monospace passes them through unchanged, so the app sees the other team's IDs as they are.
+**Why:** CRM tables use native UUID primary keys with database defaults (`modules/crm/infra/postgres/init/001_schema.sql`). Portal IDs are strings (`acct-0003`), and Monospace passes them through unchanged, so the app sees the other team's IDs as they are.
 
 **Rules out:** converting or remapping portal IDs in the app.
 

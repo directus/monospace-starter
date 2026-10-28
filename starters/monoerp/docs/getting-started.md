@@ -90,17 +90,17 @@ Monospace decides permissions on every request. The app only reads the signed-in
 
 Where things live:
 
-| Path                         | What                                                                                                                            |
-| ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
-| `apps/web/src/routes`        | Shared pages: sign-in, home, settings. File names are URLs                                                                      |
-| `modules/<id>`               | Each module: reads (`data.ts`), writes (`mutations.ts`), copy, components, and its pages in `routes/`                           |
-| `apps/web/src/generated`     | The typed Monospace client. Generated; don't edit                                                                               |
-| `starter.json`               | Shared ownership manifest                                                                                                       |
-| `modules/<id>/infra`         | The module schemas, migrations, demo data, and Monospace setup                                                                  |
-| `connectors/portal/emulator` | The portal stand-in's schema and demo data                                                                                      |
-| `infra/monospace`            | The `pnpm setup:*` scripts, and setup and installed connector extensions; labels live in each owner’s `monospace/schema/*.json` |
-| `connectors/stripe`          | The Stripe data connector                                                                                                       |
-| `connectors/stripe/emulator` | The local Stripe and its billing data                                                                                           |
+| Path                         | What                                                                                                             |
+| ---------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| `apps/web/src/routes`        | Shared pages: sign-in, home, settings. File names are URLs                                                       |
+| `modules/<id>`               | Each module: reads (`data.ts`), writes (`mutations.ts`), copy, components, and its pages in `routes/`            |
+| `apps/web/src/generated`     | The typed Monospace client. Generated; don't edit                                                                |
+| `starter.json`               | Shared ownership manifest                                                                                        |
+| `modules/<id>/infra`         | The module schemas, migrations, demo data, and Monospace setup                                                   |
+| `connectors/portal/emulator` | The portal stand-in's schema and demo data                                                                       |
+| `infra/monospace`            | The `pnpm setup:*` scripts and installed connector builds; labels live in each owner's `monospace/schema/*.json` |
+| `connectors/stripe`          | The Stripe data connector                                                                                        |
+| `connectors/stripe/emulator` | The local Stripe and its billing data                                                                            |
 
 More in [`architecture.md`](architecture.md).
 
@@ -114,14 +114,14 @@ Use a fresh stack when changing infrastructure names; keep the old volumes as a 
 
 | What                                            | Where                                                                                                                                            | Safe after first setup?                     |
 | ----------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------- |
-| Display name and description                    | [app.copy.ts:1](../apps/web/src/lib/app.copy.ts#L1), README and brand assets                                                                     | Yes                                         |
+| Display name and description                    | [app.copy.ts:4](../apps/web/src/lib/app.copy.ts#L4), README and brand assets                                                                     | Yes                                         |
 | App ID (browser storage prefix)                 | [app.config.json:2](../app.config.json#L2) `appId`                                                                                               | Yes (preferences reset)                     |
 | Package scope `@monoerp/*`                      | [package.json:2](../package.json#L2), [apps/web/package.json:2](../apps/web/package.json#L2), other workspace packages and matching pnpm filters | Yes                                         |
 | Workspace `monoerp`                             | [app.config.json:3](../app.config.json#L3) `workspace`; run setup and regenerate                                                                 | No                                          |
 | App source `App`                                | [app.config.json:4](../app.config.json#L4) `appSource`; run setup and regenerate                                                                 | No                                          |
-| Database/user `app`, service `app-postgres`     | [docker-compose.yml:28](../docker-compose.yml#L28), [sources.mjs:20](../infra/monospace/setup/sources.mjs#L20), deployment configuration         | No                                          |
+| Database/user `app`, service `app-postgres`     | [docker-compose.yml:25](../docker-compose.yml#L25), [sources.mjs:25](../infra/monospace/setup/sources.mjs#L25), deployment configuration         | No                                          |
 | Stripe provider `monoerp/stripe-data-connector` | [extension.config.json:11](../connectors/stripe/extension/extension.config.json#L11) and [connector.json](../connectors/stripe/connector.json)   | No                                          |
-| Extension `monoerp__stripe`                     | [connector.json](../connectors/stripe/connector.json) `extension.installed`                                                                      | No                                          |
+| Extension `monoerp__stripe`                     | [extension.config.json:2](../connectors/stripe/extension/extension.config.json#L2) `id`; the installed folder name is the id with `/` as `__`    | No                                          |
 | Runtime key `x-monoerp`                         | All manifests and [manifest-schema.mjs](../tools/manifest-schema.mjs)                                                                            | Yes (update readers and manifests together) |
 
 ### Add a field
@@ -173,13 +173,13 @@ Portal accounts link to Stripe customers by `stripe_customer_id`, so those IDs n
 
 ### Drop a source
 
-Preview with `pnpm app:remove portal --dry-run`. With CRM and Stripe installed, Portal removal is refused; run `pnpm app:remove stripe` first, then `pnpm app:remove portal`. Follow the [shared removal steps](../connectors/README.md#remove-a-module-connector-or-deploy-target) to retire an existing source and regenerate the app.
+Preview with `pnpm app:remove portal --dry-run`, then run `pnpm app:remove portal`. Stripe's Billing tab needs Portal, so it turns off and the command says so; run `pnpm app:remove stripe` too if you don't want it. Follow the [shared removal steps](../connectors/README.md#remove-a-module-connector-or-deploy-target) to retire an existing source and regenerate the app.
 
 For connector selection and `OPTIONAL_SOURCES`, see [Source selection](../connectors/README.md#source-selection). After copying or deleting module or connector folders, run `pnpm install` before starting Compose.
 
 ### Add a module
 
-To add a business area such as inventory or support, copy the four CRM folders and follow the [module guide](modules.md#add-a-module). The sidebar, breadcrumbs, home page, and ⌘K discover its UI entry without shell changes. [Frontend conventions](frontend.md) cover lists, forms, and detail pages.
+To add a business area such as inventory or support, copy `modules/crm` and follow the [module guide](modules.md#add-a-module). The sidebar, breadcrumbs, home page, and ⌘K discover its UI entry without shell changes. [Frontend conventions](frontend.md) cover lists, forms, and detail pages.
 
 ### Start without the demo data
 

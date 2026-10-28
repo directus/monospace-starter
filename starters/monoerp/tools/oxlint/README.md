@@ -20,7 +20,7 @@ All of these are errors, so `pnpm check` fails on them. They come from `tools/ox
 - **`no-unknown-parameters`, `no-unknown-returns`, `no-unknown-type-aliases`:** no `unknown` in function signatures or type aliases. Parse the data where it enters the app (a Zod schema, a response parser) and pass the named type along. A `cause` parameter and type-guard subjects are allowed.
 - **`no-object-parameters`, `no-unsafe-dictionary-type`:** no `object` parameters, and no `Record<string, unknown>` (or `any`, `object`, `{}`) values. Use the real type.
 - **`no-runtime-typeof`:** no `typeof x === 'string'` checks on data. Parse it at the boundary, then branch on the parsed value.
-- **`no-module-mocking`:** see above.
+- **`no-module-mocking`:** no `vi.mock`, `vi.doMock`, or `jest.mock`. Fake the network with MSW, or pass the dependency in (see `docs/testing.md`).
 - **`require-readable-spacing`:** blank lines after imports, around functions and types, around multi-line declarations, before `return`, `if`, loops, `switch`, and `try`, and after any block. `vp check --fix` (and so the pre-commit hook) adds them for you.
 - **`no-array-filter-map`, `no-reduce-accumulator-copy`, `oxc/no-accumulating-spread`:** do it in one pass (`flatMap`, a loop) instead of chained passes or copying an accumulator every step.
 - **`no-conditional-empty-object-spread`:** no `...(ok ? { a } : {})`. Build the object directly.

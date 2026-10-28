@@ -45,7 +45,7 @@ Setup (`infra/monospace/setup/setup.mjs`) runs these stages in order:
 
 The PostgreSQL `ops` schema holds migration bookkeeping and is excluded from the API. On local keyless installs, a licensed step refused with HTTP 402 logs an explanation and setup continues; other failures still stop setup. A configured key or production run makes licensing refusals fatal.
 
-For the manifest contract and validator details, see [module or connector manifests](modules.md#starter-module-and-connector-manifests) and [How app:doctor works](modules.md#how-appdoctor-works). With several Monospace replicas, setup retries a newly created workspace until replicas can see it.
+For the manifest contract and validator details, see [the manifests](modules.md#starter-module-connector-and-deploy-manifests) and [How app:doctor works](modules.md#how-appdoctor-works). With several Monospace replicas, setup retries a newly created workspace until replicas can see it.
 
 ## Schema settings
 
@@ -62,9 +62,9 @@ Cross-source relation creation isn't in the JSON. Audit joins live in `audit-use
 
 The app talks to Monospace through a client generated from the workspace's OpenAPI document. Never edit `apps/web/src/generated/` by hand.
 
-1. `apps/web/scripts/fetch-openapi.ts` downloads the OpenAPI document and trims it to the collections declared by present modules in `modules/*/module.json` plus active `frontend` entries in `connectors/*/connector.json`. Feature selection uses installed modules and backend connector selection, including required connectors. The full document (every system collection, plus both databases joined) makes types so deep that `tsc` fails with "Excessive stack depth". When a new optional feature reads a collection, declare it in the feature, not its host module.
+1. `apps/web/scripts/fetch-openapi.ts` downloads the OpenAPI document and trims it to the collections declared by present modules in `modules/*/module.json` plus active `contributes` features in `connectors/*/connector.json`. Feature selection uses installed modules and backend connector selection, including required connectors. The full document (every system collection, plus both databases joined) makes types so deep that `tsc` fails with "Excessive stack depth". When a new optional feature reads a collection, declare it in the feature, not its host module.
 2. `monospace sdk generate` (`@monospace/cli`, configured in `apps/web/monospace.config.ts`) writes the typed client to `apps/web/src/generated/monospace/index.ts`.
-3. `apps/web/scripts/generate-zod-schemas.ts` writes Zod create and update schemas (`organizationsCreateSchema` and so on) to `schemas.ts`, using Zod's `fromJSONSchema()`. Forms and mutations validate with them. Each module or active feature's `schemas` array selects its write schemas.
+3. `apps/web/scripts/generate-zod-schemas.ts` writes Zod create and update schemas (`organizationsCreateSchema` and so on) to `schemas.ts`, using Zod's `fromJSONSchema()`. Forms and mutations validate with them. Each module's `writes` list selects its write schemas.
 
 Both scripts use `MONOSPACE_API_KEY` if it's set, and otherwise sign in with the admin email and password from `.env`. `pnpm generate:schemas` reruns only step 3.
 
@@ -111,7 +111,7 @@ The workarounds are implemented in the code. These notes explain what they cover
 
 **64-bit integers come through as strings.** Postgres `bigint` columns (an attachment's `size_bytes`) and Stripe amounts are strings in the API and the generated client. Workaround: convert where they're shown (`formatBytes` in `apps/web/src/lib/assets.ts`, `connectors/stripe/frontend/crm/billing.ts`).
 
-**A relation into an extension source needs the other side to hold the key.** A relation pair with both sides unconstrained counts as editing the extension's data model and is refused. Workaround: the portal-to-Stripe relation marks the portal side constrained (`isConstrained: true` in `connectors/stripe/monospace/setup/portal-stripe-relation.mjs`). It's metadata only; MySQL gets no foreign key.
+**A relation into an extension source needs the other side to hold the key.** A relation pair with both sides unconstrained counts as editing the extension's data model and is refused. Workaround: the portal-to-Stripe relation marks the portal side constrained (`constrained: true` in `connectors/stripe/monospace/setup/portal-stripe-relation.mjs`). It's metadata only; MySQL gets no foreign key.
 
 **Monospace's own tables aren't served through `/items`.** Users, roles, policies, files, data sources, and schema metadata each have their own endpoint (`/members`, `/system/user-role`, `/roles/{id}/policies`, `/schema/...`), which need an explicit `fields` list and allow no `include`. They're also left out of the OpenAPI document as collections, so the generated client doesn't cover them. Collections and fields have no list endpoint at all; they're only in the schema manifest Studio reads (`GET /{workspace}/schema`). Workaround: the app reads members, roles, and policies in `apps/web/src/lib/monospace-system.ts`, and the setup scripts read collections through `readSources`, `readCollections`, and `metaPaths` in `infra/monospace/setup/lib.mjs`. Relations to them, such as `owner`, still work in `include`.
 
