@@ -5,6 +5,12 @@ import { defineConfig } from 'vite-plus'
 
 import { frontendFeatures, moduleFeaturePaths } from './scripts/module-collections'
 
+const browserTests = [
+  'src/**/*.browser.tsx',
+  '../../modules/*/**/*.browser.tsx',
+  ...frontendFeatures.active.map((feature) => `../../${feature.path}/**/*.browser.tsx`),
+]
+
 export default defineConfig({
   resolve: {
     dedupe: ['react', 'react-dom', '@tanstack/react-query', '@tanstack/react-router'],
@@ -13,24 +19,12 @@ export default defineConfig({
   define: {
     __MODULE_FEATURE_PATHS__: JSON.stringify(moduleFeaturePaths),
   },
-  optimizeDeps: {
-    entries: [
-      'src/**/*.browser.tsx',
-      '../../modules/*/**/*.browser.tsx',
-      '../../modules/*/**/*.browser.tsx',
-      ...frontendFeatures.active.map((feature) => `../../${feature.path}/**/*.browser.tsx`),
-    ],
-  },
+  optimizeDeps: { entries: browserTests },
   plugins: [react({ compiler: true }), tailwindcss()],
   // Serves MSW's service worker (test/public/mockServiceWorker.js) to browser tests only.
   publicDir: 'test/public',
   test: {
-    include: [
-      'src/**/*.browser.tsx',
-      '../../modules/*/**/*.browser.tsx',
-      '../../modules/*/**/*.browser.tsx',
-      ...frontendFeatures.active.map((feature) => `../../${feature.path}/**/*.browser.tsx`),
-    ],
+    include: browserTests,
     browser: {
       enabled: true,
       headless: true,

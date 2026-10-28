@@ -17,8 +17,6 @@ writeFileSync(
           '**/*.tsx',
           '../../modules/*/**/*.ts',
           '../../modules/*/**/*.tsx',
-          '../../modules/*/**/*.ts',
-          '../../modules/*/**/*.tsx',
           ...frontendFeatures.active.flatMap((feature) => [
             `../../${feature.path}/**/*.ts`,
             `../../${feature.path}/**/*.tsx`,
