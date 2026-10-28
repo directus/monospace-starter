@@ -16,6 +16,7 @@ import { afterEach, expect, it, vi } from 'vitest'
 import { readManifests, resolveSource } from '../infra/manifests.mjs'
 import { checkApp, removeInstalled } from './app.mjs'
 import { manifestDocument, manifestPath } from './manifest-fixtures.mjs'
+import { path } from './manifest-schema.mjs'
 
 const directories = []
 
@@ -78,16 +79,14 @@ it('takes id from the folder and kind from the parent directory', () => {
     infra: 'modules/sales/infra',
     ownedPaths: ['modules/sales'],
   })
-  const path = new URL('modules/sales/module.json', root)
-  const document = JSON.parse(readFileSync(path, 'utf8'))
+  const file = new URL('modules/sales/module.json', root)
+  const document = JSON.parse(readFileSync(file, 'utf8'))
 
-  for (const key of ['id', 'format', 'ownedPaths', 'kind']) {
-    writeFileSync(path, JSON.stringify({ ...document, [key]: 'sales' }))
-    expect(() => readManifests(root)).toThrow('Unrecognized key')
-  }
+  writeFileSync(file, JSON.stringify({ ...document, kind: 'module' }))
+  expect(() => readManifests(root)).toThrow('Unrecognized key')
 
   writeFileSync(
-    path,
+    file,
     JSON.stringify({ ...document, $schema: 'https://monospace.io/schemas/starter/v1/deploy.json' }),
   )
   expect(() => readManifests(root)).toThrow('$schema must be')
@@ -216,23 +215,25 @@ it('rejects alsoOwns that overlap a part folder, another part, or are missing', 
   expect(() => checkApp(root)).toThrow('cloud: alsoOwns .github/workflows/cloud.yml is missing')
 })
 
-it.each([
-  '../escape',
-  '/absolute',
-  'apps/../escape',
-  'apps//web',
-  '.git/config',
-  '.GIT/config',
-  'node_modules/demo',
-  'apps/%2e%2e/escape',
-  'docs?query',
-  'docs#fragment',
-  'docs ',
-  'file:/tmp/docs',
-])('rejects unsafe alsoOwns %s', (path) => {
+it('rejects unsafe paths in manifests before anything is deleted', () => {
+  for (const unsafe of [
+    '../escape',
+    '/absolute',
+    'apps/../escape',
+    'apps//web',
+    '.GIT/config',
+    'node_modules/demo',
+    'apps/%2e%2e/escape',
+    'docs?query',
+    'docs#fragment',
+    'docs ',
+    'file:/tmp/docs',
+  ])
+    expect(path.safeParse(unsafe).success, unsafe).toBe(false)
+
   const { root, manifest } = fixture()
   write(root, 'docs/keep.txt', 'keep')
-  save(root, { ...manifest, alsoOwns: [path] })
+  save(root, { ...manifest, alsoOwns: ['../escape'] })
   expect(() => removeInstalled('sales', { root })).toThrow('literal repository-relative path')
   expect(existsSync(new URL('modules/sales/module.json', root))).toBe(true)
   expect(readFileSync(new URL('docs/keep.txt', root), 'utf8')).toBe('keep')

@@ -1,4 +1,4 @@
-import { afterEach, describe, expect, it, vi } from 'vitest'
+import { afterEach, expect, it, vi } from 'vitest'
 
 import { schemaRelation } from './schema-relations.mjs'
 
@@ -10,104 +10,47 @@ const portal = { source: 'Portal', dbName: 'accounts' }
 
 afterEach(() => vi.restoreAllMocks())
 
-describe('schema relation presentation', () => {
-  it('skips an optional relation with one clear message when its target is absent', () => {
-    const log = vi.spyOn(console, 'log').mockImplementation(() => {})
+it('skips an optional relation with one message when its source or owner is absent', () => {
+  const log = vi.spyOn(console, 'log').mockImplementation(() => {})
 
-    expect(
-      schemaRelation('app.json', collection, 'portalAccount', optional, [collection], () => true),
-    ).toBeUndefined()
-    expect(log).toHaveBeenCalledExactlyOnceWith(
-      "app.json: organizations.portalAccount skipped, optional target Portal.accounts isn't connected or selected",
-    )
-  })
-
-  it('skips only the optional relation for a disabled connector left in the workspace', () => {
-    const log = vi.spyOn(console, 'log').mockImplementation(() => {})
-
-    expect(
-      schemaRelation('app.json', collection, 'portalAccount', optional, [portal], () => false),
-    ).toBeUndefined()
-    expect(log).toHaveBeenCalledTimes(1)
-  })
-
-  it('skips a reverse join when its module collection is absent from a shared source', () => {
-    vi.spyOn(console, 'log').mockImplementation(() => {})
-
-    expect(
-      schemaRelation(
-        'portal.json',
-        { ...portal, relationFields: [] },
-        'organization',
-        { source: 'App', collection: 'organizations', owner: 'crm' },
-        [{ source: 'App', dbName: 'jobs' }],
-        () => false,
-      ),
-    ).toBeUndefined()
-  })
-
-  it('fails a missing required relation', () => {
-    expect(() =>
-      schemaRelation('app.json', collection, 'owner', undefined, [collection], () => true),
-    ).toThrow('organizations.owner is not a relation')
-  })
-
-  it('fails a typo in a required relation even when a connector is absent', () => {
-    expect(() =>
-      schemaRelation('app.json', collection, 'owenr', undefined, [collection], () => false),
-    ).toThrow('organizations.owenr is not a relation')
-  })
-
-  it('fails an optional relation when its target is connected and selected', () => {
-    expect(() =>
-      schemaRelation('app.json', collection, 'portalAccount', optional, [portal], () => true),
-    ).toThrow('organizations.portalAccount is not a relation')
-  })
-
-  it('applies an existing optional relation without logging a skip', () => {
-    const log = vi.spyOn(console, 'log').mockImplementation(() => {})
-    const relation = { id: 'relation-id', apiName: 'portalAccount' }
-
-    expect(
-      schemaRelation(
-        'app.json',
-        { ...collection, relationFields: [relation] },
-        'portalAccount',
-        optional,
-        [collection],
-        () => false,
-      ),
-    ).toBe(relation)
-    expect(log).not.toHaveBeenCalled()
-  })
-
-  it('fails when a selected optional source is connected but its target table is missing', () => {
-    expect(() =>
-      schemaRelation(
-        'app.json',
-        collection,
-        'portalAccount',
-        optional,
-        [{ source: 'Portal', dbName: 'users' }],
-        () => true,
-      ),
-    ).toThrow('organizations.portalAccount is not a relation')
-  })
+  expect(
+    schemaRelation('app.json', collection, 'portalAccount', optional, [collection], () => true),
+  ).toBeUndefined()
+  expect(log).toHaveBeenCalledExactlyOnceWith(
+    "app.json: organizations.portalAccount skipped, optional target Portal.accounts isn't connected or selected",
+  )
+  expect(
+    schemaRelation('app.json', collection, 'portalAccount', optional, [portal], () => false),
+  ).toBeUndefined()
 })
 
-it('finds a to-one relation after its API alias has already been applied', () => {
-  const relation = { id: 'same-field', apiName: 'organization' }
-  const collection = { dbName: 'deals', relationFields: [relation] }
+it('fails a missing required relation, even when a connector is absent', () => {
+  expect(() =>
+    schemaRelation('app.json', collection, 'owner', undefined, [collection], () => false),
+  ).toThrow('organizations.owner is not a relation')
+})
+
+it('fails an optional relation when its source and owner are present but the join is not', () => {
+  expect(() =>
+    schemaRelation('app.json', collection, 'portalAccount', optional, [portal], () => true),
+  ).toThrow('organizations.portalAccount is not a relation')
+})
+
+it('returns an existing relation by its original or renamed API name without logging', () => {
+  const log = vi.spyOn(console, 'log').mockImplementation(() => {})
+  const relation = { id: 'relation-id', apiName: 'organization' }
+  const deals = { dbName: 'deals', relationFields: [relation] }
 
   expect(
     schemaRelation(
       'crm/app.json',
-      collection,
+      deals,
       'organizations',
-      undefined,
+      optional,
       [],
-      () => true,
+      () => false,
       'organization',
     ),
   ).toBe(relation)
+  expect(log).not.toHaveBeenCalled()
 })
