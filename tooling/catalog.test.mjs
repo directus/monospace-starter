@@ -6,7 +6,7 @@ import { dirname, join } from 'node:path'
 import { it } from 'node:test'
 import { fileURLToPath } from 'node:url'
 
-import { buildCatalog, render, schema } from './catalog.mjs'
+import { buildCatalog, checkReadme, readmeHeadings, render, schema } from './catalog.mjs'
 
 function write(root, path, value) {
   mkdirSync(dirname(join(root, path)), { recursive: true })
@@ -36,6 +36,9 @@ function fixture() {
   })
   write(root, 'starters/sales/connectors/README.md', '# Connectors')
   write(root, 'starters/blank/starter.json', { label: 'Blank', description: 'Nothing else' })
+  const readme = `# Name\n\n${readmeHeadings.map((heading) => `## ${heading}\n\ntext\n`).join('\n')}`
+  write(root, 'starters/sales/README.md', readme)
+  write(root, 'starters/blank/README.md', `${readme}\n## Extra\n`)
 
   return root
 }
@@ -80,6 +83,18 @@ it('fails on a starter or part folder without a usable manifest', () => {
     () => buildCatalog(other),
     /starters\/blank\/starter\.json: description must be a non-empty string/,
   )
+})
+
+it('requires every README section, in order, allowing extra sections', () => {
+  const root = fixture()
+  checkReadme(root, 'starters/sales')
+  checkReadme(root, 'starters/blank')
+
+  write(root, 'starters/blank/README.md', '# Blank\n\n## Quickstart\n\n## Docs\n')
+  assert.throws(() => checkReadme(root, 'starters/blank'), /"## What's inside" is missing or out of order/)
+
+  write(root, 'starters/blank/README.md', readFileSync(join(root, 'starters/sales/README.md'), 'utf8').replace('## Deploy', '## Deployment'))
+  assert.throws(() => checkReadme(root, 'starters/blank'), /"## Deploy" is missing/)
 })
 
 it('matches the committed catalog.json', () => {

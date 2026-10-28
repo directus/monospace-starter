@@ -19,7 +19,7 @@ After adding, removing, or renaming a starter or part, or changing a label or de
 node tooling/catalog.mjs
 ```
 
-`node tooling/catalog.mjs --check` exits 1 when the committed file is stale. Both root workflows run it first:
+`node tooling/catalog.mjs --check` exits 1 when the committed file is stale, or when a starter's `README.md` lacks one of the sections in [`starters/README.md`](../starters/README.md) or has them out of order. Both root workflows run it first:
 
 - [`starters.yml`](../.github/workflows/starters.yml) builds its starter matrix from `catalog.json`.
 - [`monoerp-combinations.yml`](../.github/workflows/monoerp-combinations.yml) fails before installing anything when the catalog is stale. Its matrix of combinations still comes from `node tooling/monoerp/combo.mjs --list`, since combinations depend on each part's `requires`, which the catalog does not carry.

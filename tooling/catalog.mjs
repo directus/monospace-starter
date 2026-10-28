@@ -58,6 +58,37 @@ export function buildCatalog(root) {
   }
 }
 
+// Every starter README has these sections in this order (starters/README.md).
+export const readmeHeadings = [
+  "What's inside",
+  'Quickstart',
+  'Everyday commands',
+  'Project layout',
+  'Removing parts',
+  'Deploy',
+  'Docs',
+  'License',
+]
+
+export function checkReadme(root, path) {
+  const file = join(root, path, 'README.md')
+
+  if (!existsSync(file)) throw new Error(`${path}/README.md is missing`)
+
+  const headings = readFileSync(file, 'utf8')
+    .split('\n')
+    .flatMap((line) => (line.startsWith('## ') ? [line.slice(3).trim()] : []))
+
+  let next = 0
+
+  for (const heading of headings) if (heading === readmeHeadings[next]) next++
+
+  if (next < readmeHeadings.length)
+    throw new Error(
+      `${path}/README.md: "## ${readmeHeadings[next]}" is missing or out of order; see starters/README.md`,
+    )
+}
+
 export function render(catalog) {
   return `${JSON.stringify(catalog, null, 2)}\n`
 }
@@ -77,6 +108,8 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
         throw new Error(
           'catalog.json is stale. Run node tooling/catalog.mjs and commit the result.',
         )
+
+      for (const starter of folders(join(root, 'starters'))) checkReadme(root, `starters/${starter}`)
       console.log('catalog.json is up to date')
     } else {
       writeFileSync(file, expected)
