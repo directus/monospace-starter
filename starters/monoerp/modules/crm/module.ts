@@ -1,13 +1,13 @@
 import { Handshake } from 'lucide-react'
 
 import { settingsPaths } from '@/lib/module-settings'
+import type { ModuleEntry } from '@/lib/modules/types'
 import { crmCopy } from '@/modules/crm/crm.copy'
 import { crmSearch } from '@/modules/crm/search'
-import type { ModuleEntry } from '@/modules/types'
 
-import moduleConfig from '../../../../../modules/crm/module.json'
+import moduleConfig from './module.json'
 
-declare module '@/modules/types' {
+declare module '@/lib/modules/types' {
   interface ModuleRegistry {
     crm: true
   }

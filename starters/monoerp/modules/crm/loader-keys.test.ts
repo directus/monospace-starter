@@ -2,10 +2,10 @@ import { QueryClient } from '@tanstack/react-query'
 import type { QueryKey } from '@tanstack/react-query'
 import { describe, expect, it, vi } from 'vitest'
 
-import { Route as ActivityRoute } from '@/routes/_app/crm/activity'
-import { Route as ContactsRoute } from '@/routes/_app/crm/contacts'
-import { Route as DealsRoute } from '@/routes/_app/crm/deals'
-import { Route as OrganizationsRoute } from '@/routes/_app/crm/organizations'
+import { Route as ActivityRoute } from '@/modules/crm/routes/app/activity'
+import { Route as ContactsRoute } from '@/modules/crm/routes/app/contacts'
+import { Route as DealsRoute } from '@/modules/crm/routes/app/deals'
+import { Route as OrganizationsRoute } from '@/modules/crm/routes/app/organizations'
 
 import { contactsPagesQuery, dealsPagesQuery, dealsQuery, organizationsPagesQuery } from './data'
 

@@ -34,7 +34,7 @@ Sign-in goes through the same `/api/*` path, so Monospace's session cookies belo
 
 - The typed client in `apps/web/src/generated/monospace` comes from the workspace's OpenAPI document (`pnpm generate`). `apps/web/src/lib/monospace.ts` creates it for the `monoerp` workspace.
 - Screens call it straight from the browser, wrapped in TanStack Query. Query defaults are in `apps/web/src/router.tsx`.
-- Reads live in each module's `data.ts` (`apps/web/src/modules/crm/data.ts`). They ask for exactly the fields and related records a screen needs, in one request where possible.
+- Reads live in each module's `data.ts` (`modules/crm/data.ts`). They ask for exactly the fields and related records a screen needs, in one request where possible.
 - Writes live in `mutations.ts`. Inputs are checked with the generated Zod schemas before they're sent, and the affected queries are refreshed after.
 - Workflows that take several steps (closing a deal and adding a note, for example) are several requests from the browser. Monospace runs each request in one database transaction, but there's nothing that spans requests.
 
@@ -50,7 +50,7 @@ Core, modules, and connectors own separate folders. The [module guide](modules.m
 
 The workspace has three data sources:
 
-- **App** (PostgreSQL): organizations, contacts, deals, activity, attachments. The app reads and writes it. Schema in `infra/modules/crm/postgres`.
+- **App** (PostgreSQL): organizations, contacts, deals, activity, attachments. The app reads and writes it. Schema in `modules/crm/infra/postgres`.
 - **Portal** (MySQL): a stand-in for a product another team owns (accounts, users, plans, subscriptions, tickets, events). Monospace connects as a user with `SELECT` only (`connectors/portal/emulator/init/003_reader.sh`). Schema in `connectors/portal/emulator`.
 - **Stripe** (an API): customers, products, prices, payment intents, and charges, through the data connector extension in `connectors/stripe`. Locally it points at a Stripe emulator (`connectors/stripe/emulator`).
 

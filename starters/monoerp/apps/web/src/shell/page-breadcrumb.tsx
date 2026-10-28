@@ -3,7 +3,7 @@ import { useCallback, useEffect, useSyncExternalStore } from 'react'
 
 import { BreadcrumbPage } from '@/components/ui/breadcrumb'
 import { appCopy } from '@/lib/app.copy'
-import type { PageMeta } from '@/modules/types'
+import type { PageMeta } from '@/lib/modules/types'
 
 export function PageBreadcrumb({
   page,

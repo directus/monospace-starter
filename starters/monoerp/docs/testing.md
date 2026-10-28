@@ -25,7 +25,7 @@ Vitest, next to the code they test: `activity.ts` and `activity.test.ts` sit sid
 
 Tests for a connector's source defaults live in `connectors/<id>/connector.test.mjs`, inside that connector's owned folder. Shared tests must use fixtures rather than assume optional modules or connectors are installed.
 
-A small, typical one, `apps/web/src/modules/crm/activity.test.ts`:
+A small, typical one, `modules/crm/activity.test.ts`:
 
 ```ts
 describe('filterRelationOptions', () => {
@@ -38,7 +38,7 @@ describe('filterRelationOptions', () => {
 
 Name tests after the behavior (`it('offers an undo action that reopens the activity')`), not the function. For asynchronously opened controls, await `findByRole` before selecting an option: Base UI opens select popups on an animation frame, after `user.click` can finish.
 
-`modules/boundaries.test.ts` checks every source file, including tests, for imports across module boundaries. Modules can import core and their own files. Core cannot import a module's files; the module registry (`modules/index.ts`) and generated route registry (`routeTree.gen.ts`) are the exceptions. Routes use the module or connector manifests' ownership map: a module route (including settings and public routes) can import only its own module; shared routes use core registries. The check covers imports, re-exports, type imports, and literal dynamic imports, using both aliases and relative paths.
+`lib/modules/boundaries.test.ts` checks every source file, including tests, for imports across module boundaries. Modules can import core and their own files. Core cannot import a module's files; the module registry (`lib/modules/index.ts`) and generated route registry (`routeTree.gen.ts`) are the exceptions. Routes use the module or connector manifests' ownership map: a module route (including settings and public routes) can import only its own module; shared routes use core registries. The check covers imports, re-exports, type imports, and literal dynamic imports, using both aliases and relative paths.
 
 ## Browser tests
 
@@ -52,7 +52,7 @@ pnpm --filter @monoerp/web exec playwright install chromium
 
 `await page.screenshot()` inside a test saves an image to `apps/web/node_modules/.cache/browser-screenshots`, which is handy for checking layout by eye.
 
-A good example is `apps/web/src/modules/crm/mutations.browser.tsx`. It renders a component, clicks with `page.getByRole(...)`, waits with `expect.element(...).toBeVisible()`, and checks what was sent to the server.
+A good example is `modules/crm/mutations.browser.tsx`. It renders a component, clicks with `page.getByRole(...)`, waits with `expect.element(...).toBeVisible()`, and checks what was sent to the server.
 
 ## Faking the network with MSW
 

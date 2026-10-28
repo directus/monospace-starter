@@ -18,11 +18,11 @@ CREATE TABLE IF NOT EXISTS ops.schema_migrations (
 );
 SQL
 
-for dir in "$infra_dir/postgres/core/migrations" "$infra_dir"/modules/*/postgres/migrations; do
+for dir in "$infra_dir/postgres/core/migrations" "$infra_dir"/../modules/*/infra/postgres/migrations; do
   [ -d "$dir" ] || continue
   case "$dir" in
     */postgres/core/migrations) owner=core ;;
-    *) owner=$(basename "$(dirname "$(dirname "$dir")")") ;;
+    *) owner=$(basename "$(dirname "$(dirname "$(dirname "$dir")")")") ;;
   esac
   for file in "$dir"/*.sql; do
     [ -f "$file" ] || continue

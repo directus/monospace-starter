@@ -53,7 +53,7 @@ export function StageStepper({
     <ol
       ref={railRef}
       aria-label={crmCopy.deals.stepper.label}
-      className="relative flex min-w-0 max-sm:[scrollbar-width:none] max-sm:overflow-x-auto"
+      className="relative flex min-w-0 max-sm:overflow-x-auto max-sm:[scrollbar-width:none]"
     >
       {segments.map((stage, index) => {
         const isOutcome = stage === outcome

@@ -93,11 +93,11 @@ Where things live:
 | Path                         | What                                                                                                                            |
 | ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
 | `apps/web/src/routes`        | Pages. File names are URLs                                                                                                      |
-| `apps/web/src/modules`       | Each module's reads (`data.ts`), writes (`mutations.ts`), and copy                                                              |
+| `modules/<id>`               | Each module's reads (`data.ts`), writes (`mutations.ts`), and copy                                                              |
 | `apps/web/src/generated`     | The typed Monospace client. Generated; don't edit                                                                               |
 | `starter.json`               | Shared ownership manifest                                                                                                       |
 | `modules/`                   | Module manifests                                                                                                                |
-| `infra/modules`              | The module schemas, migrations, demo data, and Monospace setup                                                                  |
+| `modules/<id>/infra`         | The module schemas, migrations, demo data, and Monospace setup                                                                  |
 | `connectors/portal/emulator` | The portal stand-in's schema and demo data                                                                                      |
 | `infra/monospace`            | The `pnpm setup:*` scripts, and setup and installed connector extensions; labels live in each owner’s `monospace/schema/*.json` |
 | `connectors/stripe`          | The Stripe data connector                                                                                                       |
@@ -129,13 +129,13 @@ Use a fresh stack when changing infrastructure names; keep the old volumes as a 
 
 Say organizations need an employee count.
 
-1. Add a migration, `infra/modules/crm/postgres/migrations/<next>_employee_count.sql`:
+1. Add a migration, `modules/crm/infra/postgres/migrations/<next>_employee_count.sql`:
 
    ```sql
    ALTER TABLE organizations ADD COLUMN employee_count integer;
    ```
 
-2. Make the same change in `infra/modules/crm/postgres/init/001_schema.sql`, so a fresh database gets it too.
+2. Make the same change in `modules/crm/infra/postgres/init/001_schema.sql`, so a fresh database gets it too.
 3. Apply it and tell Monospace:
 
    ```bash
@@ -144,7 +144,7 @@ Say organizations need an employee count.
    pnpm generate           # the typed client learns about it
    ```
 
-4. Show it. Add it to the fields the organization page reads (`apps/web/src/modules/crm/data.ts`) and to the page (`apps/web/src/routes/_app/crm/organizations_.$organizationId.tsx`). `tsc` tells you if a name is wrong.
+4. Show it. Add it to the fields the organization page reads (`modules/crm/data.ts`) and to the page (`modules/crm/routes/app/organizations_.$organizationId.tsx`). `tsc` tells you if a name is wrong.
 
 Labels, field order, and icons live in each module or connector’s `monospace/schema/*.json` and go in with `pnpm schema:apply`. If you'd rather set them in Studio, run `pnpm schema:export` afterwards to save them to the repo. See [`data-model.md`](data-model.md).
 
@@ -184,7 +184,7 @@ To add a business area such as inventory or support, copy the four CRM folders a
 
 ### Start without the demo data
 
-The databases load their schema and demo data the first time their Docker volume is created. To start empty, delete `infra/modules/crm/postgres/init/002_seed.sql` (and `connectors/portal/emulator/init/002_seed.sql`, if you keep the portal) before your first `docker compose up`. The deal stages come with the demo data, so add yours in Settings > Pipeline stages before creating deals.
+The databases load their schema and demo data the first time their Docker volume is created. To start empty, delete `modules/crm/infra/postgres/init/002_seed.sql` (and `connectors/portal/emulator/init/002_seed.sql`, if you keep the portal) before your first `docker compose up`. The deal stages come with the demo data, so add yours in Settings > Pipeline stages before creating deals.
 
 On a stack that already has data, `docker compose down --volumes` deletes all of it (the databases and Monospace's own settings), and the next `up` starts over.
 

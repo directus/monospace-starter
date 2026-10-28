@@ -2,13 +2,13 @@
 
 monoERP reads two databases and Stripe. The app database (PostgreSQL) is ours: the app reads and writes it. The customer portal's MySQL belongs to "another team": the app only reads it. Stripe bills the portal's accounts. Monospace joins all three, so one request can return an organization with its portal account, plan, tickets, and Stripe charges.
 
-Collection and primitive field API names are camelCase (`pipeline_stages` → `pipelineStages`, `portal_account_id` → `portalAccountId`). CRM to-one relations are singular: `organization`, `contact`, `deal`, `stage`, and an attachment's `activity`. To-many relations stay plural (`affiliations`, `deals`, `activities`, `attachments`). These aliases are declared in `infra/modules/crm/monospace/schema/app.json`; setup renames API fields without renaming SQL tables or foreign-key columns.
+Collection and primitive field API names are camelCase (`pipeline_stages` → `pipelineStages`, `portal_account_id` → `portalAccountId`). CRM to-one relations are singular: `organization`, `contact`, `deal`, `stage`, and an attachment's `activity`. To-many relations stay plural (`affiliations`, `deals`, `activities`, `attachments`). These aliases are declared in `modules/crm/infra/monospace/schema/app.json`; setup renames API fields without renaming SQL tables or foreign-key columns.
 
 For example, a deal includes `organization`, `contact`, and `stage`; an activity includes `organization`, `contact`, and `deal`. An organization's `deals` still returns a list. Schema export preserves the explicit aliases so a later fresh setup produces the same API.
 
 ## CRM tables in the app database
 
-Schema: `infra/modules/crm/postgres/init/001_schema.sql`. Every table has a UUID `id` that the database generates. Timestamps are `timestamptz`, and `updated_at` is set by a trigger on update.
+Schema: `modules/crm/infra/postgres/init/001_schema.sql`. Every table has a UUID `id` that the database generates. Timestamps are `timestamptz`, and `updated_at` is set by a trigger on update.
 
 | Table             | What a row is                                                                                                                                                                                                                                                    |
 | ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -93,7 +93,7 @@ The portal has `connectors/portal/emulator/migrations/` too, for changes "the ot
 
 ## Demo data
 
-`infra/modules/crm/postgres/init/002_seed.sql` and `connectors/portal/emulator/init/002_seed.sql` load on the first `docker compose up` (and in deployments that seed).
+`modules/crm/infra/postgres/init/002_seed.sql` and `connectors/portal/emulator/init/002_seed.sql` load on the first `docker compose up` (and in deployments that seed).
 
 - Organizations are real, well-known companies with their real domains, so logos resolve. Contacts are fictional and use `example.com` style addresses.
 - The two seeds are built to line up. Portal account `i` belongs to CRM organization `i`, and each account's first portal users are that organization's CRM contacts, matched by email. One organization deliberately has no portal account.

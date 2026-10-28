@@ -25,9 +25,13 @@ export default defineConfig(({ mode }) => {
     resolve: {
       dedupe: ['react', 'react-dom', '@tanstack/react-query', '@tanstack/react-router'],
       tsconfigPaths: true,
-      alias: {
-        '@': fileURLToPath(new URL('./src/', import.meta.url)),
-      },
+      alias: [
+        {
+          find: '@/modules',
+          replacement: fileURLToPath(new URL('../../modules/', import.meta.url)),
+        },
+        { find: '@', replacement: fileURLToPath(new URL('./src/', import.meta.url)) },
+      ],
     },
     define: {
       __MODULE_FEATURE_PATHS__: JSON.stringify(moduleFeaturePaths),
@@ -35,6 +39,14 @@ export default defineConfig(({ mode }) => {
     // Fail rather than move to the next free port: another copy may already be on this one.
     server: { port: Number(process.env.APP_PORT ?? 3000), strictPort: true },
     plugins: [
+      {
+        // Module route folders sit outside this package, so Vite doesn't watch them for new
+        // files. Watching them keeps the route tree generator informed about added routes.
+        name: 'monoerp:watch-modules',
+        configureServer(server) {
+          server.watcher.add(fileURLToPath(new URL('../../modules/', import.meta.url)))
+        },
+      },
       devtools(),
       nitro({
         // Without this the server bundle can split the router into chunks that import each other,
@@ -53,7 +65,11 @@ export default defineConfig(({ mode }) => {
         },
       }),
       tailwindcss(),
-      tanstackStart(),
+      tanstackStart({
+        // Route files live in apps/web/src/routes and in each modules/*/routes; routes.ts maps
+        // both from the repository root. tsr.config.json repeats this for `tsr generate`.
+        router: { routesDirectory: '../../../', virtualRouteConfig: './routes.ts' },
+      }),
       viteReact({ compiler: true }),
     ],
   }

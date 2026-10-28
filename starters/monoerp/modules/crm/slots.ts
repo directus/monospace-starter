@@ -3,9 +3,9 @@ import type { ComponentType } from 'react'
 
 import type { organizationsUpdateOneInput } from '@/generated/monospace'
 import type { ListFilterField } from '@/lib/filters'
+import { selectFeatures } from '@/lib/modules/features'
+import type { RecordHistoryQuery } from '@/lib/modules/types'
 import type { OrganizationRow } from '@/modules/crm/data'
-import { selectFeatures } from '@/modules/features'
-import type { RecordHistoryQuery } from '@/modules/types'
 
 type Organization = { [Field in keyof OrganizationRow]?: OrganizationRow[Field] | null }
 
@@ -70,11 +70,11 @@ const features = import.meta.glob<{
   organizationList?: OrganizationListContribution
   contactPanel?: ContactPanelContribution
   dealSummary?: DealSummaryContribution
-}>('../../../../../connectors/*/frontend/crm/feature.tsx', { eager: true })
+}>('../../connectors/*/frontend/crm/feature.tsx', { eager: true })
 
 const selected = selectFeatures(
   __MODULE_FEATURE_PATHS__.crm ?? [],
-  (path) => features[`../../../../../${path}/feature.tsx`],
+  (path) => features[`../../${path}/feature.tsx`],
 )
 
 export const organizationPanels = selected.map((feature) => feature.default)

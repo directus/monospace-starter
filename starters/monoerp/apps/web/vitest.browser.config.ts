@@ -11,9 +11,10 @@ export default defineConfig({
   resolve: {
     dedupe: ['react', 'react-dom', '@tanstack/react-query', '@tanstack/react-router'],
     tsconfigPaths: true,
-    alias: {
-      '@': fileURLToPath(new URL('./src/', import.meta.url)),
-    },
+    alias: [
+      { find: '@/modules', replacement: fileURLToPath(new URL('../../modules/', import.meta.url)) },
+      { find: '@', replacement: fileURLToPath(new URL('./src/', import.meta.url)) },
+    ],
   },
   define: {
     __MODULE_FEATURE_PATHS__: JSON.stringify(moduleFeaturePaths),
@@ -21,6 +22,8 @@ export default defineConfig({
   optimizeDeps: {
     entries: [
       'src/**/*.browser.tsx',
+      '../../modules/*/**/*.browser.tsx',
+      '../../modules/*/**/*.browser.tsx',
       ...frontendFeatures.active.map((feature) => `../../${feature.path}/**/*.browser.tsx`),
     ],
   },
@@ -30,6 +33,8 @@ export default defineConfig({
   test: {
     include: [
       'src/**/*.browser.tsx',
+      '../../modules/*/**/*.browser.tsx',
+      '../../modules/*/**/*.browser.tsx',
       ...frontendFeatures.active.map((feature) => `../../${feature.path}/**/*.browser.tsx`),
     ],
     browser: {

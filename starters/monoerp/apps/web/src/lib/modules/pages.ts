@@ -1,7 +1,7 @@
 import { useRouter } from '@tanstack/react-router'
 import { useMemo } from 'react'
 
-import type { PageMeta, RoutePath } from '@/modules/types'
+import type { PageMeta, RoutePath } from '@/lib/modules/types'
 
 type Page = PageMeta & { to: RoutePath }
 

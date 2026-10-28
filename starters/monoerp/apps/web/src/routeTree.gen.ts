@@ -9,147 +9,151 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as AppRouteImport } from './routes/_app'
-import { Route as LoginRouteImport } from './routes/login'
-import { Route as AppIndexRouteImport } from './routes/_app/index'
-import { Route as AppSettingsRouteImport } from './routes/_app/settings'
-import { Route as AppCrmIndexRouteImport } from './routes/_app/crm/index'
-import { Route as AppCrmActivityRouteImport } from './routes/_app/crm/activity'
-import { Route as AppCrmContactsRouteImport } from './routes/_app/crm/contacts'
-import { Route as AppCrmDealsRouteImport } from './routes/_app/crm/deals'
-import { Route as AppCrmOrganizationsRouteImport } from './routes/_app/crm/organizations'
-import { Route as AppSettingsIndexRouteImport } from './routes/_app/settings.index'
-import { Route as AppSettingsAccountRouteImport } from './routes/_app/settings.account'
-import { Route as AppCrmContactsContactIdRouteImport } from './routes/_app/crm/contacts_.$contactId'
-import { Route as AppCrmDealsDealIdRouteImport } from './routes/_app/crm/deals_.$dealId'
-import { Route as AppCrmOrganizationsOrganizationIdRouteImport } from './routes/_app/crm/organizations_.$organizationId'
-import { Route as AppSettingsCrmPipelineStagesRouteImport } from './routes/_app/settings.crm.pipeline-stages'
+import { Route as appsWebSrcRoutesAppRouteImport } from './routes/_app'
+import { Route as appsWebSrcRoutesLoginRouteImport } from './routes/login'
+import { Route as appsWebSrcRoutesAppIndexRouteImport } from './routes/_app/index'
+import { Route as appsWebSrcRoutesAppSettingsRouteImport } from './routes/_app/settings'
+import { Route as CrmIndexRouteImport } from './../../../modules/crm/routes/app/index'
+import { Route as CrmActivityRouteImport } from './../../../modules/crm/routes/app/activity'
+import { Route as CrmContactsRouteImport } from './../../../modules/crm/routes/app/contacts'
+import { Route as CrmDealsRouteImport } from './../../../modules/crm/routes/app/deals'
+import { Route as CrmOrganizationsRouteImport } from './../../../modules/crm/routes/app/organizations'
+import { Route as appsWebSrcRoutesAppSettingsDotindexRouteImport } from './routes/_app/settings.index'
+import { Route as appsWebSrcRoutesAppSettingsDotaccountRouteImport } from './routes/_app/settings.account'
+import { Route as CrmContacts_DotcontactIdRouteImport } from './../../../modules/crm/routes/app/contacts_.$contactId'
+import { Route as CrmDeals_DotdealIdRouteImport } from './../../../modules/crm/routes/app/deals_.$dealId'
+import { Route as CrmOrganizations_DotorganizationIdRouteImport } from './../../../modules/crm/routes/app/organizations_.$organizationId'
+import { Route as CrmPipelineStagesRouteImport } from './../../../modules/crm/routes/settings/pipeline-stages'
 
-const AppRoute = AppRouteImport.update({
+const appsWebSrcRoutesAppRoute = appsWebSrcRoutesAppRouteImport.update({
   id: '/_app',
   getParentRoute: () => rootRouteImport,
 } as any)
-const LoginRoute = LoginRouteImport.update({
+const appsWebSrcRoutesLoginRoute = appsWebSrcRoutesLoginRouteImport.update({
   id: '/login',
   path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AppIndexRoute = AppIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppSettingsRoute = AppSettingsRouteImport.update({
-  id: '/settings',
-  path: '/settings',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppCrmIndexRoute = AppCrmIndexRouteImport.update({
+const appsWebSrcRoutesAppIndexRoute =
+  appsWebSrcRoutesAppIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => appsWebSrcRoutesAppRoute,
+  } as any)
+const appsWebSrcRoutesAppSettingsRoute =
+  appsWebSrcRoutesAppSettingsRouteImport.update({
+    id: '/settings',
+    path: '/settings',
+    getParentRoute: () => appsWebSrcRoutesAppRoute,
+  } as any)
+const CrmIndexRoute = CrmIndexRouteImport.update({
   id: '/crm/',
   path: '/crm/',
-  getParentRoute: () => AppRoute,
+  getParentRoute: () => appsWebSrcRoutesAppRoute,
 } as any)
-const AppCrmActivityRoute = AppCrmActivityRouteImport.update({
+const CrmActivityRoute = CrmActivityRouteImport.update({
   id: '/crm/activity',
   path: '/crm/activity',
-  getParentRoute: () => AppRoute,
+  getParentRoute: () => appsWebSrcRoutesAppRoute,
 } as any)
-const AppCrmContactsRoute = AppCrmContactsRouteImport.update({
+const CrmContactsRoute = CrmContactsRouteImport.update({
   id: '/crm/contacts',
   path: '/crm/contacts',
-  getParentRoute: () => AppRoute,
+  getParentRoute: () => appsWebSrcRoutesAppRoute,
 } as any)
-const AppCrmDealsRoute = AppCrmDealsRouteImport.update({
+const CrmDealsRoute = CrmDealsRouteImport.update({
   id: '/crm/deals',
   path: '/crm/deals',
-  getParentRoute: () => AppRoute,
+  getParentRoute: () => appsWebSrcRoutesAppRoute,
 } as any)
-const AppCrmOrganizationsRoute = AppCrmOrganizationsRouteImport.update({
+const CrmOrganizationsRoute = CrmOrganizationsRouteImport.update({
   id: '/crm/organizations',
   path: '/crm/organizations',
-  getParentRoute: () => AppRoute,
+  getParentRoute: () => appsWebSrcRoutesAppRoute,
 } as any)
-const AppSettingsIndexRoute = AppSettingsIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => AppSettingsRoute,
-} as any)
-const AppSettingsAccountRoute = AppSettingsAccountRouteImport.update({
-  id: '/account',
-  path: '/account',
-  getParentRoute: () => AppSettingsRoute,
-} as any)
-const AppCrmContactsContactIdRoute = AppCrmContactsContactIdRouteImport.update({
-  id: '/crm/contacts_/$contactId',
-  path: '/crm/contacts/$contactId',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppCrmDealsDealIdRoute = AppCrmDealsDealIdRouteImport.update({
+const appsWebSrcRoutesAppSettingsDotindexRoute =
+  appsWebSrcRoutesAppSettingsDotindexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => appsWebSrcRoutesAppSettingsRoute,
+  } as any)
+const appsWebSrcRoutesAppSettingsDotaccountRoute =
+  appsWebSrcRoutesAppSettingsDotaccountRouteImport.update({
+    id: '/account',
+    path: '/account',
+    getParentRoute: () => appsWebSrcRoutesAppSettingsRoute,
+  } as any)
+const CrmContacts_DotcontactIdRoute =
+  CrmContacts_DotcontactIdRouteImport.update({
+    id: '/crm/contacts_/$contactId',
+    path: '/crm/contacts/$contactId',
+    getParentRoute: () => appsWebSrcRoutesAppRoute,
+  } as any)
+const CrmDeals_DotdealIdRoute = CrmDeals_DotdealIdRouteImport.update({
   id: '/crm/deals_/$dealId',
   path: '/crm/deals/$dealId',
-  getParentRoute: () => AppRoute,
+  getParentRoute: () => appsWebSrcRoutesAppRoute,
 } as any)
-const AppCrmOrganizationsOrganizationIdRoute =
-  AppCrmOrganizationsOrganizationIdRouteImport.update({
+const CrmOrganizations_DotorganizationIdRoute =
+  CrmOrganizations_DotorganizationIdRouteImport.update({
     id: '/crm/organizations_/$organizationId',
     path: '/crm/organizations/$organizationId',
-    getParentRoute: () => AppRoute,
+    getParentRoute: () => appsWebSrcRoutesAppRoute,
   } as any)
-const AppSettingsCrmPipelineStagesRoute =
-  AppSettingsCrmPipelineStagesRouteImport.update({
-    id: '/crm/pipeline-stages',
-    path: '/crm/pipeline-stages',
-    getParentRoute: () => AppSettingsRoute,
-  } as any)
+const CrmPipelineStagesRoute = CrmPipelineStagesRouteImport.update({
+  id: '/crm/pipeline-stages',
+  path: '/crm/pipeline-stages',
+  getParentRoute: () => appsWebSrcRoutesAppSettingsRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof AppIndexRoute
-  '/login': typeof LoginRoute
-  '/settings': typeof AppSettingsRouteWithChildren
-  '/crm/activity': typeof AppCrmActivityRoute
-  '/crm/contacts': typeof AppCrmContactsRoute
-  '/crm/deals': typeof AppCrmDealsRoute
-  '/crm/organizations': typeof AppCrmOrganizationsRoute
-  '/settings/account': typeof AppSettingsAccountRoute
-  '/crm/': typeof AppCrmIndexRoute
-  '/settings/': typeof AppSettingsIndexRoute
-  '/crm/contacts/$contactId': typeof AppCrmContactsContactIdRoute
-  '/crm/deals/$dealId': typeof AppCrmDealsDealIdRoute
-  '/crm/organizations/$organizationId': typeof AppCrmOrganizationsOrganizationIdRoute
-  '/settings/crm/pipeline-stages': typeof AppSettingsCrmPipelineStagesRoute
+  '/': typeof appsWebSrcRoutesAppIndexRoute
+  '/login': typeof appsWebSrcRoutesLoginRoute
+  '/settings': typeof appsWebSrcRoutesAppSettingsRouteWithChildren
+  '/crm/activity': typeof CrmActivityRoute
+  '/crm/contacts': typeof CrmContactsRoute
+  '/crm/deals': typeof CrmDealsRoute
+  '/crm/organizations': typeof CrmOrganizationsRoute
+  '/settings/account': typeof appsWebSrcRoutesAppSettingsDotaccountRoute
+  '/crm/': typeof CrmIndexRoute
+  '/settings/': typeof appsWebSrcRoutesAppSettingsDotindexRoute
+  '/crm/contacts/$contactId': typeof CrmContacts_DotcontactIdRoute
+  '/crm/deals/$dealId': typeof CrmDeals_DotdealIdRoute
+  '/crm/organizations/$organizationId': typeof CrmOrganizations_DotorganizationIdRoute
+  '/settings/crm/pipeline-stages': typeof CrmPipelineStagesRoute
 }
 export interface FileRoutesByTo {
-  '/login': typeof LoginRoute
-  '/': typeof AppIndexRoute
-  '/crm/activity': typeof AppCrmActivityRoute
-  '/crm/contacts': typeof AppCrmContactsRoute
-  '/crm/deals': typeof AppCrmDealsRoute
-  '/crm/organizations': typeof AppCrmOrganizationsRoute
-  '/settings/account': typeof AppSettingsAccountRoute
-  '/crm': typeof AppCrmIndexRoute
-  '/settings': typeof AppSettingsIndexRoute
-  '/crm/contacts/$contactId': typeof AppCrmContactsContactIdRoute
-  '/crm/deals/$dealId': typeof AppCrmDealsDealIdRoute
-  '/crm/organizations/$organizationId': typeof AppCrmOrganizationsOrganizationIdRoute
-  '/settings/crm/pipeline-stages': typeof AppSettingsCrmPipelineStagesRoute
+  '/login': typeof appsWebSrcRoutesLoginRoute
+  '/': typeof appsWebSrcRoutesAppIndexRoute
+  '/crm/activity': typeof CrmActivityRoute
+  '/crm/contacts': typeof CrmContactsRoute
+  '/crm/deals': typeof CrmDealsRoute
+  '/crm/organizations': typeof CrmOrganizationsRoute
+  '/settings/account': typeof appsWebSrcRoutesAppSettingsDotaccountRoute
+  '/crm': typeof CrmIndexRoute
+  '/settings': typeof appsWebSrcRoutesAppSettingsDotindexRoute
+  '/crm/contacts/$contactId': typeof CrmContacts_DotcontactIdRoute
+  '/crm/deals/$dealId': typeof CrmDeals_DotdealIdRoute
+  '/crm/organizations/$organizationId': typeof CrmOrganizations_DotorganizationIdRoute
+  '/settings/crm/pipeline-stages': typeof CrmPipelineStagesRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/_app': typeof AppRouteWithChildren
-  '/login': typeof LoginRoute
-  '/_app/settings': typeof AppSettingsRouteWithChildren
-  '/_app/': typeof AppIndexRoute
-  '/_app/crm/activity': typeof AppCrmActivityRoute
-  '/_app/crm/contacts': typeof AppCrmContactsRoute
-  '/_app/crm/deals': typeof AppCrmDealsRoute
-  '/_app/crm/organizations': typeof AppCrmOrganizationsRoute
-  '/_app/settings/account': typeof AppSettingsAccountRoute
-  '/_app/crm/': typeof AppCrmIndexRoute
-  '/_app/settings/': typeof AppSettingsIndexRoute
-  '/_app/crm/contacts_/$contactId': typeof AppCrmContactsContactIdRoute
-  '/_app/crm/deals_/$dealId': typeof AppCrmDealsDealIdRoute
-  '/_app/crm/organizations_/$organizationId': typeof AppCrmOrganizationsOrganizationIdRoute
-  '/_app/settings/crm/pipeline-stages': typeof AppSettingsCrmPipelineStagesRoute
+  '/_app': typeof appsWebSrcRoutesAppRouteWithChildren
+  '/login': typeof appsWebSrcRoutesLoginRoute
+  '/_app/settings': typeof appsWebSrcRoutesAppSettingsRouteWithChildren
+  '/_app/': typeof appsWebSrcRoutesAppIndexRoute
+  '/_app/crm/activity': typeof CrmActivityRoute
+  '/_app/crm/contacts': typeof CrmContactsRoute
+  '/_app/crm/deals': typeof CrmDealsRoute
+  '/_app/crm/organizations': typeof CrmOrganizationsRoute
+  '/_app/settings/account': typeof appsWebSrcRoutesAppSettingsDotaccountRoute
+  '/_app/crm/': typeof CrmIndexRoute
+  '/_app/settings/': typeof appsWebSrcRoutesAppSettingsDotindexRoute
+  '/_app/crm/contacts_/$contactId': typeof CrmContacts_DotcontactIdRoute
+  '/_app/crm/deals_/$dealId': typeof CrmDeals_DotdealIdRoute
+  '/_app/crm/organizations_/$organizationId': typeof CrmOrganizations_DotorganizationIdRoute
+  '/_app/settings/crm/pipeline-stages': typeof CrmPipelineStagesRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -203,8 +207,8 @@ export interface FileRouteTypes {
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  AppRoute: typeof AppRouteWithChildren
-  LoginRoute: typeof LoginRoute
+  appsWebSrcRoutesAppRoute: typeof appsWebSrcRoutesAppRouteWithChildren
+  appsWebSrcRoutesLoginRoute: typeof appsWebSrcRoutesLoginRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -213,158 +217,164 @@ declare module '@tanstack/react-router' {
       id: '/_app'
       path: ''
       fullPath: '/'
-      preLoaderRoute: typeof AppRouteImport
+      preLoaderRoute: typeof appsWebSrcRoutesAppRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/login': {
       id: '/login'
       path: '/login'
       fullPath: '/login'
-      preLoaderRoute: typeof LoginRouteImport
+      preLoaderRoute: typeof appsWebSrcRoutesLoginRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_app/': {
       id: '/_app/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof AppIndexRouteImport
-      parentRoute: typeof AppRoute
+      preLoaderRoute: typeof appsWebSrcRoutesAppIndexRouteImport
+      parentRoute: typeof appsWebSrcRoutesAppRoute
     }
     '/_app/settings': {
       id: '/_app/settings'
       path: '/settings'
       fullPath: '/settings'
-      preLoaderRoute: typeof AppSettingsRouteImport
-      parentRoute: typeof AppRoute
+      preLoaderRoute: typeof appsWebSrcRoutesAppSettingsRouteImport
+      parentRoute: typeof appsWebSrcRoutesAppRoute
     }
     '/_app/crm/': {
       id: '/_app/crm/'
       path: '/crm'
       fullPath: '/crm/'
-      preLoaderRoute: typeof AppCrmIndexRouteImport
-      parentRoute: typeof AppRoute
+      preLoaderRoute: typeof CrmIndexRouteImport
+      parentRoute: typeof appsWebSrcRoutesAppRoute
     }
     '/_app/crm/activity': {
       id: '/_app/crm/activity'
       path: '/crm/activity'
       fullPath: '/crm/activity'
-      preLoaderRoute: typeof AppCrmActivityRouteImport
-      parentRoute: typeof AppRoute
+      preLoaderRoute: typeof CrmActivityRouteImport
+      parentRoute: typeof appsWebSrcRoutesAppRoute
     }
     '/_app/crm/contacts': {
       id: '/_app/crm/contacts'
       path: '/crm/contacts'
       fullPath: '/crm/contacts'
-      preLoaderRoute: typeof AppCrmContactsRouteImport
-      parentRoute: typeof AppRoute
+      preLoaderRoute: typeof CrmContactsRouteImport
+      parentRoute: typeof appsWebSrcRoutesAppRoute
     }
     '/_app/crm/deals': {
       id: '/_app/crm/deals'
       path: '/crm/deals'
       fullPath: '/crm/deals'
-      preLoaderRoute: typeof AppCrmDealsRouteImport
-      parentRoute: typeof AppRoute
+      preLoaderRoute: typeof CrmDealsRouteImport
+      parentRoute: typeof appsWebSrcRoutesAppRoute
     }
     '/_app/crm/organizations': {
       id: '/_app/crm/organizations'
       path: '/crm/organizations'
       fullPath: '/crm/organizations'
-      preLoaderRoute: typeof AppCrmOrganizationsRouteImport
-      parentRoute: typeof AppRoute
+      preLoaderRoute: typeof CrmOrganizationsRouteImport
+      parentRoute: typeof appsWebSrcRoutesAppRoute
     }
     '/_app/settings/': {
       id: '/_app/settings/'
       path: '/'
       fullPath: '/settings/'
-      preLoaderRoute: typeof AppSettingsIndexRouteImport
-      parentRoute: typeof AppSettingsRoute
+      preLoaderRoute: typeof appsWebSrcRoutesAppSettingsDotindexRouteImport
+      parentRoute: typeof appsWebSrcRoutesAppSettingsRoute
     }
     '/_app/settings/account': {
       id: '/_app/settings/account'
       path: '/account'
       fullPath: '/settings/account'
-      preLoaderRoute: typeof AppSettingsAccountRouteImport
-      parentRoute: typeof AppSettingsRoute
+      preLoaderRoute: typeof appsWebSrcRoutesAppSettingsDotaccountRouteImport
+      parentRoute: typeof appsWebSrcRoutesAppSettingsRoute
     }
     '/_app/crm/contacts_/$contactId': {
       id: '/_app/crm/contacts_/$contactId'
       path: '/crm/contacts/$contactId'
       fullPath: '/crm/contacts/$contactId'
-      preLoaderRoute: typeof AppCrmContactsContactIdRouteImport
-      parentRoute: typeof AppRoute
+      preLoaderRoute: typeof CrmContacts_DotcontactIdRouteImport
+      parentRoute: typeof appsWebSrcRoutesAppRoute
     }
     '/_app/crm/deals_/$dealId': {
       id: '/_app/crm/deals_/$dealId'
       path: '/crm/deals/$dealId'
       fullPath: '/crm/deals/$dealId'
-      preLoaderRoute: typeof AppCrmDealsDealIdRouteImport
-      parentRoute: typeof AppRoute
+      preLoaderRoute: typeof CrmDeals_DotdealIdRouteImport
+      parentRoute: typeof appsWebSrcRoutesAppRoute
     }
     '/_app/crm/organizations_/$organizationId': {
       id: '/_app/crm/organizations_/$organizationId'
       path: '/crm/organizations/$organizationId'
       fullPath: '/crm/organizations/$organizationId'
-      preLoaderRoute: typeof AppCrmOrganizationsOrganizationIdRouteImport
-      parentRoute: typeof AppRoute
+      preLoaderRoute: typeof CrmOrganizations_DotorganizationIdRouteImport
+      parentRoute: typeof appsWebSrcRoutesAppRoute
     }
     '/_app/settings/crm/pipeline-stages': {
       id: '/_app/settings/crm/pipeline-stages'
       path: '/crm/pipeline-stages'
       fullPath: '/settings/crm/pipeline-stages'
-      preLoaderRoute: typeof AppSettingsCrmPipelineStagesRouteImport
-      parentRoute: typeof AppSettingsRoute
+      preLoaderRoute: typeof CrmPipelineStagesRouteImport
+      parentRoute: typeof appsWebSrcRoutesAppSettingsRoute
     }
   }
 }
 
-interface AppSettingsRouteChildren {
-  AppSettingsAccountRoute: typeof AppSettingsAccountRoute
-  AppSettingsIndexRoute: typeof AppSettingsIndexRoute
-  AppSettingsCrmPipelineStagesRoute: typeof AppSettingsCrmPipelineStagesRoute
+interface appsWebSrcRoutesAppSettingsRouteChildren {
+  appsWebSrcRoutesAppSettingsDotaccountRoute: typeof appsWebSrcRoutesAppSettingsDotaccountRoute
+  appsWebSrcRoutesAppSettingsDotindexRoute: typeof appsWebSrcRoutesAppSettingsDotindexRoute
+  CrmPipelineStagesRoute: typeof CrmPipelineStagesRoute
 }
 
-const AppSettingsRouteChildren: AppSettingsRouteChildren = {
-  AppSettingsAccountRoute: AppSettingsAccountRoute,
-  AppSettingsIndexRoute: AppSettingsIndexRoute,
-  AppSettingsCrmPipelineStagesRoute: AppSettingsCrmPipelineStagesRoute,
+const appsWebSrcRoutesAppSettingsRouteChildren: appsWebSrcRoutesAppSettingsRouteChildren =
+  {
+    appsWebSrcRoutesAppSettingsDotaccountRoute:
+      appsWebSrcRoutesAppSettingsDotaccountRoute,
+    appsWebSrcRoutesAppSettingsDotindexRoute:
+      appsWebSrcRoutesAppSettingsDotindexRoute,
+    CrmPipelineStagesRoute: CrmPipelineStagesRoute,
+  }
+
+const appsWebSrcRoutesAppSettingsRouteWithChildren =
+  appsWebSrcRoutesAppSettingsRoute._addFileChildren(
+    appsWebSrcRoutesAppSettingsRouteChildren,
+  )
+
+interface appsWebSrcRoutesAppRouteChildren {
+  appsWebSrcRoutesAppSettingsRoute: typeof appsWebSrcRoutesAppSettingsRouteWithChildren
+  appsWebSrcRoutesAppIndexRoute: typeof appsWebSrcRoutesAppIndexRoute
+  CrmActivityRoute: typeof CrmActivityRoute
+  CrmContactsRoute: typeof CrmContactsRoute
+  CrmDealsRoute: typeof CrmDealsRoute
+  CrmOrganizationsRoute: typeof CrmOrganizationsRoute
+  CrmIndexRoute: typeof CrmIndexRoute
+  CrmContacts_DotcontactIdRoute: typeof CrmContacts_DotcontactIdRoute
+  CrmDeals_DotdealIdRoute: typeof CrmDeals_DotdealIdRoute
+  CrmOrganizations_DotorganizationIdRoute: typeof CrmOrganizations_DotorganizationIdRoute
 }
 
-const AppSettingsRouteWithChildren = AppSettingsRoute._addFileChildren(
-  AppSettingsRouteChildren,
-)
-
-interface AppRouteChildren {
-  AppSettingsRoute: typeof AppSettingsRouteWithChildren
-  AppIndexRoute: typeof AppIndexRoute
-  AppCrmActivityRoute: typeof AppCrmActivityRoute
-  AppCrmContactsRoute: typeof AppCrmContactsRoute
-  AppCrmDealsRoute: typeof AppCrmDealsRoute
-  AppCrmOrganizationsRoute: typeof AppCrmOrganizationsRoute
-  AppCrmIndexRoute: typeof AppCrmIndexRoute
-  AppCrmContactsContactIdRoute: typeof AppCrmContactsContactIdRoute
-  AppCrmDealsDealIdRoute: typeof AppCrmDealsDealIdRoute
-  AppCrmOrganizationsOrganizationIdRoute: typeof AppCrmOrganizationsOrganizationIdRoute
+const appsWebSrcRoutesAppRouteChildren: appsWebSrcRoutesAppRouteChildren = {
+  appsWebSrcRoutesAppSettingsRoute:
+    appsWebSrcRoutesAppSettingsRouteWithChildren,
+  appsWebSrcRoutesAppIndexRoute: appsWebSrcRoutesAppIndexRoute,
+  CrmActivityRoute: CrmActivityRoute,
+  CrmContactsRoute: CrmContactsRoute,
+  CrmDealsRoute: CrmDealsRoute,
+  CrmOrganizationsRoute: CrmOrganizationsRoute,
+  CrmIndexRoute: CrmIndexRoute,
+  CrmContacts_DotcontactIdRoute: CrmContacts_DotcontactIdRoute,
+  CrmDeals_DotdealIdRoute: CrmDeals_DotdealIdRoute,
+  CrmOrganizations_DotorganizationIdRoute:
+    CrmOrganizations_DotorganizationIdRoute,
 }
 
-const AppRouteChildren: AppRouteChildren = {
-  AppSettingsRoute: AppSettingsRouteWithChildren,
-  AppIndexRoute: AppIndexRoute,
-  AppCrmActivityRoute: AppCrmActivityRoute,
-  AppCrmContactsRoute: AppCrmContactsRoute,
-  AppCrmDealsRoute: AppCrmDealsRoute,
-  AppCrmOrganizationsRoute: AppCrmOrganizationsRoute,
-  AppCrmIndexRoute: AppCrmIndexRoute,
-  AppCrmContactsContactIdRoute: AppCrmContactsContactIdRoute,
-  AppCrmDealsDealIdRoute: AppCrmDealsDealIdRoute,
-  AppCrmOrganizationsOrganizationIdRoute:
-    AppCrmOrganizationsOrganizationIdRoute,
-}
-
-const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
+const appsWebSrcRoutesAppRouteWithChildren =
+  appsWebSrcRoutesAppRoute._addFileChildren(appsWebSrcRoutesAppRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
-  AppRoute: AppRouteWithChildren,
-  LoginRoute: LoginRoute,
+  appsWebSrcRoutesAppRoute: appsWebSrcRoutesAppRouteWithChildren,
+  appsWebSrcRoutesLoginRoute: appsWebSrcRoutesLoginRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -6,6 +6,7 @@ import type { Uuid } from '@/generated/monospace'
 import { useIsMobile } from '@/hooks/use-mobile'
 import { appCopy } from '@/lib/app.copy'
 import { errorMessage } from '@/lib/errors'
+import type { RecordHistoryEntry } from '@/lib/modules/types'
 import { useCollectionAccess } from '@/lib/permissions'
 import { isOpen, sortByDue } from '@/modules/crm/activity'
 import { ActivityBulkActions } from '@/modules/crm/components/activity-bulk'
@@ -21,7 +22,6 @@ import { crmCopy } from '@/modules/crm/crm.copy'
 import { activityView } from '@/modules/crm/data'
 import type { ActivityRecord, ActivityView } from '@/modules/crm/data'
 import { useDeleteActivity } from '@/modules/crm/mutations'
-import type { RecordHistoryEntry } from '@/modules/types'
 
 const copy = crmCopy.activity
 

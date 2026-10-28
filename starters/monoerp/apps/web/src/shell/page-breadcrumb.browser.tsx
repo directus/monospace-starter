@@ -5,7 +5,7 @@ import { afterEach, expect, it, vi } from 'vitest'
 
 import { Breadcrumb, BreadcrumbItem, BreadcrumbList } from '@/components/ui/breadcrumb'
 import { appCopy } from '@/lib/app.copy'
-import type { PageMeta } from '@/modules/types'
+import type { PageMeta } from '@/lib/modules/types'
 import { PageBreadcrumb } from '@/shell/page-breadcrumb'
 
 const fetchRecord = vi.fn(async () => ({ name: 'Unexpected request' }))

@@ -6,7 +6,7 @@ Derived from dmmulroy/anti-slop at c44ef22, MIT. These rules are maintained here
 
 All of these are errors, so `pnpm check` fails on them. They come from `tools/oxlint/strict`.
 
-- **`require-safety-comment-for-type-assertion`:** every `as` cast (except `as const`) needs a `// SAFETY:` comment right above the cast or the statement holding it, saying why the cast is true. From `apps/web/src/modules/crm/components/activity-form.tsx`:
+- **`require-safety-comment-for-type-assertion`:** every `as` cast (except `as const`) needs a `// SAFETY:` comment right above the cast or the statement holding it, saying why the cast is true. From `modules/crm/components/activity-form.tsx`:
 
   ```ts
   // SAFETY: activities.type only holds ActivityType values, but Monospace types it as a plain

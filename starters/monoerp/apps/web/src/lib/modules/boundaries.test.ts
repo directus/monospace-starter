@@ -6,14 +6,18 @@ import ts from 'typescript'
 import { describe, expect, it } from 'vitest'
 import { z } from 'zod'
 
-const src = fileURLToPath(new URL('../', import.meta.url))
+// Every path below is repository-relative: apps/web/src/... for core, modules/<id>/... for a
+// module, connectors/<id>/frontend/<module>/... for a connector feature.
+const root = fileURLToPath(new URL('../../../../../', import.meta.url))
 
-const root = fileURLToPath(new URL('../../../../', import.meta.url))
+const src = join(root, 'apps/web/src')
+
+const modulesDirectory = join(root, 'modules')
 
 const connectors = join(root, 'connectors')
 
 const manifestReader = await import(
-  new URL('../../../../infra/manifests.mjs', import.meta.url).href
+  new URL('../../../../../infra/manifests.mjs', import.meta.url).href
 )
 
 const routeOwners = z
@@ -89,14 +93,23 @@ function importPaths(source: string) {
   return paths
 }
 
+// `@/modules/<id>/...` is aliased to `modules/<id>/...`; every other `@/` path is core source.
+function resolveAlias(specifier: string) {
+  const path = specifier.slice(2)
+
+  return path.startsWith('modules/')
+    ? posix.normalize(path)
+    : posix.normalize(`apps/web/src/${path}`)
+}
+
 function violations(path: string, source: string, owners: RouteOwner[] = routeOwners) {
   const feature = path.startsWith('connectors/')
-  const sourcePath = feature ? path : `apps/web/src/${path}`
 
-  if (!feature && ['modules/index.ts', 'routeTree.gen.ts'].includes(path)) return []
+  if (['apps/web/src/lib/modules/index.ts', 'apps/web/src/routeTree.gen.ts'].includes(path))
+    return []
 
   const ownerOf = (target: string) =>
-    moduleId(target.replace(/^apps\/web\/src\//, '')) ??
+    moduleId(target) ??
     owners.find((owner) =>
       owner.ownedPaths.some((owned) => target === owned || target.startsWith(`${owned}/`)),
     )?.id
@@ -104,9 +117,9 @@ function violations(path: string, source: string, owners: RouteOwner[] = routeOw
   return importPaths(source).flatMap((specifier) => {
     const target =
       specifier.startsWith('@/') || specifier.startsWith('#/')
-        ? posix.normalize(`apps/web/src/${specifier.slice(2)}`)
+        ? resolveAlias(specifier)
         : specifier.startsWith('.')
-          ? posix.normalize(posix.join(dirname(sourcePath), specifier))
+          ? posix.normalize(posix.join(dirname(path), specifier))
           : ''
 
     const importedModule = ownerOf(target)
@@ -116,11 +129,10 @@ function violations(path: string, source: string, owners: RouteOwner[] = routeOw
       ? target &&
         !(
           target.startsWith(localFeature) ||
-          target === `apps/web/src/modules/${path.split('/')[3]}/slots` ||
+          target === `modules/${path.split('/')[3]}/slots` ||
           (target.startsWith('apps/web/src/') && !importedModule)
         )
-      : (importedModule && importedModule !== ownerOf(sourcePath)) ||
-        target.startsWith('connectors/')
+      : (importedModule && importedModule !== ownerOf(path)) || target.startsWith('connectors/')
 
     return forbidden ? [`${path} imports ${specifier}`] : []
   })
@@ -135,13 +147,10 @@ describe('module boundaries', () => {
       : []
 
     const invalid = [
-      ...sourceFiles(src).flatMap((path) =>
-        violations(relative(src, path), readFileSync(path, 'utf8')),
-      ),
-      ...featureFiles.flatMap((path) =>
-        violations(relative(root, path), readFileSync(path, 'utf8')),
-      ),
-    ]
+      ...sourceFiles(src),
+      ...sourceFiles(modulesDirectory),
+      ...featureFiles,
+    ].flatMap((path) => violations(relative(root, path), readFileSync(path, 'utf8')))
 
     expect(invalid).toEqual([])
   })
@@ -171,7 +180,7 @@ describe('module boundaries', () => {
   it('rejects core imports of module code, including tests', () => {
     expect(
       violations(
-        'components/example.browser.tsx',
+        'apps/web/src/components/example.browser.tsx',
         "import '@/modules/crm/components/inline-owner'",
       ),
     ).toHaveLength(1)
@@ -183,15 +192,25 @@ describe('module boundaries', () => {
       violations('modules/inventory/data.ts', "import '@/modules/inventory/inventory.copy'"),
     ).toEqual([])
     expect(violations('modules/inventory/data.ts', "import './inventory.copy'")).toEqual([])
-    expect(violations('shell/app-shell.tsx', "import '@/modules/types'")).toEqual([])
-    expect(violations('modules/index.ts', "export * from './crm/module'")).toEqual([])
-    expect(violations('routeTree.gen.ts', "import './routes/_app/crm/index'")).toEqual([])
+    expect(violations('modules/inventory/routes/app/index.tsx', "import '../../data'")).toEqual([])
+    expect(violations('apps/web/src/shell/app-shell.tsx', "import '@/lib/modules/types'")).toEqual(
+      [],
+    )
+    expect(
+      violations(
+        'apps/web/src/lib/modules/index.ts',
+        "export * from '../../../../../modules/crm/module'",
+      ),
+    ).toEqual([])
+    expect(
+      violations('apps/web/src/routeTree.gen.ts', "import '../../../modules/crm/routes/app/index'"),
+    ).toEqual([])
   })
 
   it('ignores comments and strings that are not imports', () => {
     expect(
       violations(
-        'components/example.tsx',
+        'apps/web/src/components/example.tsx',
         "// import '@/modules/crm/data'\nconst example = \"import '@/modules/crm/data'\"",
       ),
     ).toEqual([])
@@ -201,7 +220,7 @@ describe('module boundaries', () => {
 it.each([
   "import { crmCopy } from '@/modules/crm/crm.copy'",
   "import type { Row } from '#/modules/inventory/data'",
-  "export * from '../../../../apps/web/src/modules/crm/data'",
+  "export * from '../../../../modules/crm/data'",
   "import '../../../demo/frontend/crm/data'",
 ])('keeps connector features independent of modules and other connectors: %s', (source) => {
   expect(violations('connectors/stripe/frontend/crm/feature.tsx', source)).toHaveLength(1)
@@ -209,28 +228,20 @@ it.each([
 
 it('allows connector-local files, core UI, contracts, and generated types', () => {
   const source =
-    "import './data'; import '@/components/panel'; import '@/modules/types'; import '@/generated/monospace'"
+    "import './data'; import '@/components/panel'; import '@/lib/modules/types'; import '@/generated/monospace'"
 
   expect(violations('connectors/stripe/frontend/crm/feature.tsx', source)).toEqual([])
 })
 
-it('checks module, settings, and public routes against manifest ownership', () => {
+it('checks routes a module owns outside its folder against manifest ownership', () => {
   const owners: RouteOwner[] = [
-    {
-      id: 'inventory',
-      ownedPaths: [
-        'apps/web/src/routes/_app/inventory',
-        'apps/web/src/routes/_app/settings.inventory.locations.tsx',
-        'apps/web/src/routes/catalog.tsx',
-      ],
-    },
-    { id: 'sales', ownedPaths: ['apps/web/src/routes/_app/sales'] },
+    { id: 'inventory', ownedPaths: ['modules/inventory', 'apps/web/src/routes/catalog.tsx'] },
+    { id: 'sales', ownedPaths: ['modules/sales'] },
   ]
 
   for (const path of [
-    'routes/_app/inventory/index.tsx',
-    'routes/_app/settings.inventory.locations.tsx',
-    'routes/catalog.tsx',
+    'modules/inventory/routes/app/index.tsx',
+    'apps/web/src/routes/catalog.tsx',
   ]) {
     expect(violations(path, "import '@/modules/inventory/data'", owners)).toEqual([])
     expect(violations(path, "import '@/modules/sales/data'", owners)).toHaveLength(1)
@@ -240,19 +251,17 @@ it('checks module, settings, and public routes against manifest ownership', () =
   }
 
   expect(
-    violations('routes/_app/index.tsx', "import '@/modules/inventory/data'", owners),
+    violations('apps/web/src/routes/_app/index.tsx', "import '@/modules/inventory/data'", owners),
   ).toHaveLength(1)
   expect(
-    violations('routes/_app/settings.tsx', "import '@/modules/inventory/settings'", owners),
-  ).toHaveLength(1)
-  expect(violations('routes/_app/index.tsx', "import '@/modules'", owners)).toEqual([])
-  expect(violations('routes/_app/settings.tsx', "import '@/modules/types'", owners)).toEqual([])
+    violations('apps/web/src/routes/_app/settings.tsx', "import '@/lib/modules'", owners),
+  ).toEqual([])
 })
 
 it.each([
-  ['modules/crm/data.ts', "import '../../../../../connectors/portal/frontend/crm/data'"],
+  ['modules/crm/data.ts', "import '../../connectors/portal/frontend/crm/data'"],
   [
-    'routes/_app/crm/organizations.tsx',
+    'modules/crm/routes/app/organizations.tsx',
     "import '@/../../../connectors/portal/frontend/crm/feature'",
   ],
 ])('rejects Portal imports from CRM: %s', (path, source) => {

@@ -1,6 +1,6 @@
 // Gives every unowned activity an owner so "Mine" on the activity page has something to
 // show. Uses the workspace users in round-robin; run after the seed and setup:all.
-import { authenticate, request, workspacePath } from '#setup'
+import { authenticate, request, workspacePath } from '../../../../../infra/monospace/setup/lib.mjs'
 
 await authenticate()
 

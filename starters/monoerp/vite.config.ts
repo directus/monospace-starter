@@ -11,9 +11,10 @@ export default defineConfig({
   defaultPackage: './apps/web',
   resolve: {
     tsconfigPaths: true,
-    alias: {
-      '@': fileURLToPath(new URL('./apps/web/src/', import.meta.url)),
-    },
+    alias: [
+      { find: '@/modules', replacement: fileURLToPath(new URL('./modules/', import.meta.url)) },
+      { find: '@', replacement: fileURLToPath(new URL('./apps/web/src/', import.meta.url)) },
+    ],
   },
   define: {
     __MODULE_FEATURE_PATHS__: JSON.stringify(moduleFeaturePaths),

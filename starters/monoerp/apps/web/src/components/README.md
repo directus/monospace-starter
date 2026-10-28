@@ -2,15 +2,15 @@
 
 Use the page wrappers. Grid and filter internals belong to those wrappers.
 
-| Group      | Components                                                                                          | Use for                                                  | Example                                              |
-| ---------- | --------------------------------------------------------------------------------------------------- | -------------------------------------------------------- | ---------------------------------------------------- |
-| Lists      | `ListWorkspace`, `ListControls`, `ListAddButton`, `ListTable`, `ListBulkActions`                    | Search, filters, server sorting, paging and bulk changes | `routes/_app/crm/organizations.tsx`                  |
-| Records    | `PageHeader`, `RecordTitle`, `RecordName`, `RecordDetails`, `RecordMenu`, `PropertyList`, `Inline*` | Detail pages and small field edits                       | `routes/_app/crm/organizations_.$organizationId.tsx` |
-| Forms      | `useAppForm`, `submitForm`, `FormDrawer`, `FormDialog`, `RelationField`, validators                 | Create and full edit forms                               | `modules/crm/components/organization-form.tsx`       |
-| Feedback   | `DataLoading`, `DataError`, `SectionBoundary`, `Empty`, `Unlinked`, toasts                          | Loading, failures and empty panels                       | `connectors/stripe/frontend/crm/billing-panel.tsx`   |
-| People     | `UserLabel`, `UserAvatar`, `InlineOwner`, `EntityAvatar`                                            | Owners and record images                                 | `modules/crm/components/entities.tsx`                |
-| Content    | `NotesEditor`, `PdfViewer`, `RelativeTime`                                                          | Notes, file previews and dates                           | `modules/crm/components/files/panel.tsx`             |
-| Primitives | `ui/*`                                                                                              | Buttons, inputs, menus and dialogs                       | shadcn CLI from `apps/web`                           |
+| Group      | Components                                                                                          | Use for                                                  | Example                                                     |
+| ---------- | --------------------------------------------------------------------------------------------------- | -------------------------------------------------------- | ----------------------------------------------------------- |
+| Lists      | `ListWorkspace`, `ListControls`, `ListAddButton`, `ListTable`, `ListBulkActions`                    | Search, filters, server sorting, paging and bulk changes | `modules/crm/routes/app/organizations.tsx`                  |
+| Records    | `PageHeader`, `RecordTitle`, `RecordName`, `RecordDetails`, `RecordMenu`, `PropertyList`, `Inline*` | Detail pages and small field edits                       | `modules/crm/routes/app/organizations_.$organizationId.tsx` |
+| Forms      | `useAppForm`, `submitForm`, `FormDrawer`, `FormDialog`, `RelationField`, validators                 | Create and full edit forms                               | `modules/crm/components/organization-form.tsx`              |
+| Feedback   | `DataLoading`, `DataError`, `SectionBoundary`, `Empty`, `Unlinked`, toasts                          | Loading, failures and empty panels                       | `connectors/stripe/frontend/crm/billing-panel.tsx`          |
+| People     | `UserLabel`, `UserAvatar`, `InlineOwner`, `EntityAvatar`                                            | Owners and record images                                 | `modules/crm/components/entities.tsx`                       |
+| Content    | `NotesEditor`, `PdfViewer`, `RelativeTime`                                                          | Notes, file previews and dates                           | `modules/crm/components/files/panel.tsx`                    |
+| Primitives | `ui/*`                                                                                              | Buttons, inputs, menus and dialogs                       | shadcn CLI from `apps/web`                                  |
 
 `data-table/` owns virtual rows, pinned columns, sizing, the header menu, and the display menu. Both header handles and the display list reorder columns with `@dnd-kit/react`. Sorting and paging stay on the server. Layout persists per table; selection resets when search changes.
 

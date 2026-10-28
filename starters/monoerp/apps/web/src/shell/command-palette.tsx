@@ -19,10 +19,10 @@ import {
 } from '@/components/ui/command'
 import { useDebouncedValue } from '@/hooks/use-debounced-value'
 import { appCopy } from '@/lib/app.copy'
+import { moduleById, modules } from '@/lib/modules'
+import type { SearchHit, SearchScope } from '@/lib/modules'
+import { usePages } from '@/lib/modules/pages'
 import { cn } from '@/lib/utils'
-import { moduleById, modules } from '@/modules'
-import type { SearchHit, SearchScope } from '@/modules'
-import { usePages } from '@/modules/pages'
 import { commandPaletteKey } from '@/shell/query-keys'
 
 const MIN_QUERY_LENGTH = 2

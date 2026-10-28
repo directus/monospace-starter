@@ -1,6 +1,6 @@
 import { createFileRoute, redirect } from '@tanstack/react-router'
 
-import { modules } from '@/modules'
+import { modules } from '@/lib/modules'
 
 export const Route = createFileRoute('/_app/settings/')({
   beforeLoad: () => {

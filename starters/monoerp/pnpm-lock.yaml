@@ -205,9 +205,66 @@ settings:
 
 catalogs:
   default:
+    '@base-ui/react':
+      specifier: 1.7.0
+      version: 1.7.0
+    '@dnd-kit/abstract':
+      specifier: 0.5.0
+      version: 0.5.0
+    '@dnd-kit/helpers':
+      specifier: 0.5.0
+      version: 0.5.0
+    '@dnd-kit/react':
+      specifier: 0.5.0
+      version: 0.5.0
+    '@tanstack/charts':
+      specifier: 0.16.0
+      version: 0.16.0
+    '@tanstack/react-form':
+      specifier: 1.33.5
+      version: 1.33.5
+    '@tanstack/react-query':
+      specifier: 5.102.8
+      version: 5.102.8
+    '@tanstack/react-router':
+      specifier: 1.170.32
+      version: 1.170.32
+    '@testing-library/jest-dom':
+      specifier: 7.0.1
+      version: 7.0.1
+    '@testing-library/react':
+      specifier: 16.3.3
+      version: 16.3.3
+    '@testing-library/user-event':
+      specifier: 14.6.7
+      version: 14.6.7
+    '@types/react':
+      specifier: 19.2.18
+      version: 19.2.18
+    '@types/react-dom':
+      specifier: 19.2.5
+      version: 19.2.5
+    lucide-react:
+      specifier: 1.38.0
+      version: 1.38.0
+    msw:
+      specifier: 2.15.0
+      version: 2.15.0
+    react:
+      specifier: 19.2.8
+      version: 19.2.8
+    react-dom:
+      specifier: 19.2.8
+      version: 19.2.8
+    sonner:
+      specifier: 2.0.8
+      version: 2.0.8
     vite-plus:
       specifier: 0.3.0
       version: 0.3.0
+    zod:
+      specifier: 4.5.4
+      version: 4.5.4
 
 overrides:
   vite: npm:@voidzero-dev/vite-plus-core@0.3.0
@@ -237,7 +294,7 @@ importers:
   apps/web:
     dependencies:
       '@base-ui/react':
-        specifier: 1.7.0
+        specifier: 'catalog:'
         version: 1.7.0(@date-fns/tz@1.5.0)(@types/react@19.2.18)(date-fns@4.4.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       '@blocknote/core':
         specifier: 0.54.0
@@ -249,13 +306,13 @@ importers:
         specifier: 0.54.0
         version: 0.54.0(@date-fns/tz@1.5.0)(@floating-ui/dom@1.8.0)(@types/hast@3.0.5)(@types/react-dom@19.2.5(@types/react@19.2.18))(@types/react@19.2.18)(date-fns@4.4.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(tailwindcss@4.3.3)
       '@dnd-kit/abstract':
-        specifier: 0.5.0
+        specifier: 'catalog:'
         version: 0.5.0
       '@dnd-kit/helpers':
-        specifier: 0.5.0
+        specifier: 'catalog:'
         version: 0.5.0
       '@dnd-kit/react':
-        specifier: 0.5.0
+        specifier: 'catalog:'
         version: 0.5.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       '@floating-ui/react':
         specifier: 0.27.20
@@ -270,19 +327,19 @@ importers:
         specifier: 4.3.3
         version: 4.3.3(@voidzero-dev/vite-plus-core@0.3.0(@types/node@24.10.13)(jiti@2.7.0)(typescript@6.0.3)(yaml@2.9.1))
       '@tanstack/charts':
-        specifier: 0.16.0
+        specifier: 'catalog:'
         version: 0.16.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(solid-js@1.9.15)
       '@tanstack/react-devtools':
         specifier: 0.10.12
         version: 0.10.12(@types/react-dom@19.2.5(@types/react@19.2.18))(@types/react@19.2.18)(csstype@3.2.3)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(solid-js@1.9.15)
       '@tanstack/react-form':
-        specifier: 1.33.5
+        specifier: 'catalog:'
         version: 1.33.5(@tanstack/react-start@1.168.49(@voidzero-dev/vite-plus-core@0.3.0(@types/node@24.10.13)(jiti@2.7.0)(typescript@6.0.3)(yaml@2.9.1))(crossws@0.4.12(srvx@0.11.22))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(rolldown@1.2.6)(supports-color@7.2.0))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       '@tanstack/react-query':
-        specifier: 5.102.8
+        specifier: 'catalog:'
         version: 5.102.8(react@19.2.8)
       '@tanstack/react-router':
-        specifier: 1.170.32
+        specifier: 'catalog:'
         version: 1.170.32(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       '@tanstack/react-router-devtools':
         specifier: 1.167.1
@@ -309,7 +366,7 @@ importers:
         specifier: 4.4.0
         version: 4.4.0
       lucide-react:
-        specifier: 1.38.0
+        specifier: 'catalog:'
         version: 1.38.0(react@19.2.8)
       nitro:
         specifier: 3.0.260610-beta
@@ -321,16 +378,16 @@ importers:
         specifier: 6.3.289
         version: 6.3.289
       react:
-        specifier: 19.2.8
+        specifier: 'catalog:'
         version: 19.2.8
       react-day-picker:
         specifier: 10.0.1
         version: 10.0.1(@types/react@19.2.18)(react@19.2.8)
       react-dom:
-        specifier: 19.2.8
+        specifier: 'catalog:'
         version: 19.2.8(react@19.2.8)
       sonner:
-        specifier: 2.0.8
+        specifier: 'catalog:'
         version: 2.0.8(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       tailwind-merge:
         specifier: 3.6.0
@@ -342,7 +399,7 @@ importers:
         specifier: 1.4.0
         version: 1.4.0
       zod:
-        specifier: 4.5.4
+        specifier: 'catalog:'
         version: 4.5.4
     devDependencies:
       '@monospace/cli':
@@ -354,23 +411,26 @@ importers:
       '@tanstack/router-cli':
         specifier: 1.167.33
         version: 1.167.33(supports-color@7.2.0)
+      '@tanstack/virtual-file-routes':
+        specifier: 1.162.0
+        version: 1.162.0
       '@testing-library/jest-dom':
-        specifier: 7.0.1
+        specifier: 'catalog:'
         version: 7.0.1(@testing-library/dom@10.4.1)(vitest@4.1.11)
       '@testing-library/react':
-        specifier: 16.3.3
+        specifier: 'catalog:'
         version: 16.3.3(@testing-library/dom@10.4.1)(@types/react-dom@19.2.5(@types/react@19.2.18))(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       '@testing-library/user-event':
-        specifier: 14.6.7
+        specifier: 'catalog:'
         version: 14.6.7(@testing-library/dom@10.4.1)
       '@types/node':
         specifier: 24.10.13
         version: 24.10.13
       '@types/react':
-        specifier: 19.2.18
+        specifier: 'catalog:'
         version: 19.2.18
       '@types/react-dom':
-        specifier: 19.2.5
+        specifier: 'catalog:'
         version: 19.2.5(@types/react@19.2.18)
       '@vitejs/plugin-react':
         specifier: 6.1.1
@@ -382,7 +442,7 @@ importers:
         specifier: 30.0.1
         version: 30.0.1
       msw:
-        specifier: 2.15.0
+        specifier: 'catalog:'
         version: 2.15.0(@types/node@24.10.13)(typescript@6.0.3)
       oxc-transform-react:
         specifier: 0.145.0
@@ -520,6 +580,73 @@ importers:
       typescript:
         specifier: 6.0.3
         version: 6.0.3
+
+  modules/crm:
+    dependencies:
+      '@base-ui/react':
+        specifier: 'catalog:'
+        version: 1.7.0(@date-fns/tz@1.5.0)(@types/react@19.2.18)(date-fns@4.4.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
+      '@dnd-kit/abstract':
+        specifier: 'catalog:'
+        version: 0.5.0
+      '@dnd-kit/helpers':
+        specifier: 'catalog:'
+        version: 0.5.0
+      '@dnd-kit/react':
+        specifier: 'catalog:'
+        version: 0.5.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
+      '@tanstack/charts':
+        specifier: 'catalog:'
+        version: 0.16.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(solid-js@1.9.15)
+      '@tanstack/react-form':
+        specifier: 'catalog:'
+        version: 1.33.5(@tanstack/react-start@1.168.49(@voidzero-dev/vite-plus-core@0.3.0(@types/node@24.10.13)(jiti@2.7.0)(typescript@6.0.3)(yaml@2.9.1))(crossws@0.4.12(srvx@0.11.22))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(rolldown@1.2.6)(supports-color@7.2.0))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
+      '@tanstack/react-query':
+        specifier: 'catalog:'
+        version: 5.102.8(react@19.2.8)
+      '@tanstack/react-router':
+        specifier: 'catalog:'
+        version: 1.170.32(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
+      lucide-react:
+        specifier: 'catalog:'
+        version: 1.38.0(react@19.2.8)
+      react:
+        specifier: 'catalog:'
+        version: 19.2.8
+      react-dom:
+        specifier: 'catalog:'
+        version: 19.2.8(react@19.2.8)
+      sonner:
+        specifier: 'catalog:'
+        version: 2.0.8(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
+      zod:
+        specifier: 'catalog:'
+        version: 4.5.4
+    devDependencies:
+      '@testing-library/jest-dom':
+        specifier: 'catalog:'
+        version: 7.0.1(@testing-library/dom@10.4.1)(vitest@4.1.11)
+      '@testing-library/react':
+        specifier: 'catalog:'
+        version: 16.3.3(@testing-library/dom@10.4.1)(@types/react-dom@19.2.5(@types/react@19.2.18))(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
+      '@testing-library/user-event':
+        specifier: 'catalog:'
+        version: 14.6.7(@testing-library/dom@10.4.1)
+      '@types/react':
+        specifier: 'catalog:'
+        version: 19.2.18
+      '@types/react-dom':
+        specifier: 'catalog:'
+        version: 19.2.5(@types/react@19.2.18)
+      msw:
+        specifier: 'catalog:'
+        version: 2.15.0(@types/node@24.10.13)(typescript@6.0.3)
+      vite:
+        specifier: npm:@voidzero-dev/vite-plus-core@0.3.0
+        version: '@voidzero-dev/vite-plus-core@0.3.0(@types/node@24.10.13)(jiti@2.7.0)(typescript@6.0.3)(yaml@2.9.1)'
+      vitest:
+        specifier: 4.1.11
+        version: 4.1.11(@types/node@24.10.13)(@vitest/browser-playwright@4.1.11)(@vitest/browser-preview@4.1.11)(@voidzero-dev/vite-plus-core@0.3.0(@types/node@24.10.13)(jiti@2.7.0)(typescript@6.0.3)(yaml@2.9.1))(jsdom@30.0.1)(msw@2.15.0(@types/node@24.10.13)(typescript@6.0.3))
 
 packages:
 

@@ -6,8 +6,8 @@ import { PageHeader } from '@/components/page-header'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { appCopy } from '@/lib/app.copy'
 import { sessionQuery } from '@/lib/auth'
-import { modules } from '@/modules'
-import { usePages } from '@/modules/pages'
+import { modules } from '@/lib/modules'
+import { usePages } from '@/lib/modules/pages'
 
 export const Route = createFileRoute('/_app/')({
   component: HomePage,

@@ -49,9 +49,9 @@ function OrganizationDetailPage() {
 
 - **Blocking reads** in a loader use `await queryClient.query({ ...options, staleTime: 'static' })` (`infiniteQuery` for pages). `'static'` returns cached data without waiting on a refetch, so going back to a page is instant; the page's own query refreshes stale data in the background. `ensureOrNotFound` (`lib/route-loaders.ts`) does the same and turns a missing record into `notFound()`.
 - **Everything else** starts in the loader without `await`: `void queryClient.query(options).catch(noop)`. Panels, tabs, and connector data show their own loading state.
-- **Same options, same params.** The page passes exactly what the loader used: `Route.useLoaderDeps()` for lists, `Route.useParams()` for records. Keep UI-only state (the deals `display` switch) out of the query params; `routes/_app/crm/deals.tsx` nests them as `{ display, params }`. `modules/crm/loader-keys.test.ts` checks this for each CRM list.
+- **Same options, same params.** The page passes exactly what the loader used: `Route.useLoaderDeps()` for lists, `Route.useParams()` for records. Keep UI-only state (the deals `display` switch) out of the query params; `modules/crm/routes/app/deals.tsx` nests them as `{ display, params }`. `modules/crm/loader-keys.test.ts` checks this for each CRM list.
 - **Pages read with `useSuspenseQuery`** when the loader awaited the data, so there's no loading branch to write. Secondary reads use `useQuery` and render `DataLoading` themselves.
-- **A loader that can fail for reasons the user can fix on the page** catches its error (`.catch(noop)` in `routes/_app/crm/organizations.tsx`, where a portal filter can fail), so the page's query shows the error under its filters instead of replacing the page.
+- **A loader that can fail for reasons the user can fix on the page** catches its error (`.catch(noop)` in `modules/crm/routes/app/organizations.tsx`, where a portal filter can fail), so the page's query shows the error under its filters instead of replacing the page.
 - **Connector panels** start their reads through the slot's `prefetch` (`modules/crm/slots.ts`), which record loaders call once the record is known.
 - **Per-user reads** (session, permissions, members) start once in `routes/_app.tsx` `beforeLoad`. Permissions are one query per user (`userPoliciesQuery`); `useCollectionAccess` picks a collection out of it with `select`.
 - Links preload on hover (`defaultPreload: 'intent'` in `router.tsx`), so most clicks find their data already loaded. While a loader runs, the current page stays and a thin bar under the header shows the click registered (`NavigationProgress` in `shell/app-shell.tsx`). Lists keep their old rows while a new search, filter, or sort loads, so don't give a list a `pendingComponent`.
@@ -60,7 +60,7 @@ function OrganizationDetailPage() {
 
 ## List pages
 
-Copy `routes/_app/crm/organizations.tsx`. A list page's route file defines everything specific to it:
+Copy `modules/crm/routes/app/organizations.tsx`. A list page's route file defines everything specific to it:
 
 - **Columns:** a `DataTableColumn<Row>[]` array. Each column sets its header from copy, a size, and a `cell`. Right-aligned numbers use `meta.cellClassName`.
 - **Filters:** a `ListFilterField[]` array. Plain fields map straight to Monospace filters. `relationField` and `dateField` build the common kinds. A field on another record (here, the portal plan) sets `toClause` to write the nested filter. `filtersToClause` in `lib/filters.tsx` turns the filter state into a Monospace filter.
@@ -82,11 +82,11 @@ TanStack row and column builders keep their identity when layout state changes. 
 
 `ListAddButton` keeps create actions consistent on desktop and phones. `ListBulkActions` accepts field permissions, plus `statusBulkField` and `ownerBulkField`.
 
-A list with a board view as well (`routes/_app/crm/deals.tsx`) switches on `search.display`.
+A list with a board view as well (`modules/crm/routes/app/deals.tsx`) switches on `search.display`.
 
 ## Detail pages
 
-Copy `routes/_app/crm/organizations_.$organizationId.tsx`. The route parses its id with `uuidParam` (`lib/uuid.ts`), and `ensureOrNotFound` (`lib/route-loaders.ts`) turns missing records into `notFound()`. Its loader starts the panels' reads (see "Loading a screen"). Detail fetchers return a non-null ID. The page uses `RecordTitle`/`RecordName` inside `PageHeader`, `RecordDetails` around the details fields, and `RecordTabs` for activity, notes, files, and connector tabs. `AffiliationsPanel` owns the shared role edit/end/remove flow; `DealsPanel` owns the organization's deals list.
+Copy `modules/crm/routes/app/organizations_.$organizationId.tsx`. The route parses its id with `uuidParam` (`lib/uuid.ts`), and `ensureOrNotFound` (`lib/route-loaders.ts`) turns missing records into `notFound()`. Its loader starts the panels' reads (see "Loading a screen"). Detail fetchers return a non-null ID. The page uses `RecordTitle`/`RecordName` inside `PageHeader`, `RecordDetails` around the details fields, and `RecordTabs` for activity, notes, files, and connector tabs. `AffiliationsPanel` owns the shared role edit/end/remove flow; `DealsPanel` owns the organization's deals list.
 
 ## Forms
 
@@ -129,7 +129,7 @@ Monospace enforces access on every request. The app only hides or disables contr
 
 - On record pages and lists, `useCollectionAccess('organizations')` gives `create`, `delete`, and `canUpdate(field)` (field API names). It allows everything while the rules load or if they can't be read.
 - `<Property readOnly={!access.canUpdate('industry')}>` turns the inline field inside it into plain text. For a field outside a `Property` (a page title), wrap it in `<InlineReadOnly value={...}>`.
-- Leave out `onDelete` on `RecordMenu`, `DealActions`, and `ListBulkActions` to hide Delete, and don't render Add buttons the user can't use. Copy `routes/_app/crm/organizations_.$organizationId.tsx`.
+- Leave out `onDelete` on `RecordMenu`, `DealActions`, and `ListBulkActions` to hide Delete, and don't render Add buttons the user can't use. Copy `modules/crm/routes/app/organizations_.$organizationId.tsx`.
 - Activity composers, completion controls, file uploads/deletes, affiliation menus, and deal stage moves check their own collection access. File UI lives in `modules/crm/components/files/`.
 - `modules/crm/settings/pipeline-stages.tsx` uses `collectionPermissionsQuery` directly, for finer control.
 

@@ -267,7 +267,7 @@ function ActivityPage() {
             </TabsList>
           </Tabs>
           {view === 'todo' ? (
-            <div className="flex [scrollbar-width:none] flex-wrap items-center gap-1 max-sm:-mx-3 max-sm:w-[calc(100%+1.5rem)] max-sm:flex-nowrap max-sm:overflow-x-auto max-sm:px-3">
+            <div className="flex flex-wrap items-center gap-1 [scrollbar-width:none] max-sm:-mx-3 max-sm:w-[calc(100%+1.5rem)] max-sm:flex-nowrap max-sm:overflow-x-auto max-sm:px-3">
               {upcomingBuckets
                 .filter((bucket) => bucket !== 'noDate' || counts.noDate > 0)
                 .map((bucket) => (

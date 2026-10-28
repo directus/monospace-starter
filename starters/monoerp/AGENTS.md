@@ -49,7 +49,7 @@ For component work, also run `pnpm --filter @monoerp/web test:browser`. If the p
 - **Permissions belong to Monospace.** The app only hides or disables UI. Don't add a role table or a proxy that goes around Monospace.
 - **Generated files are generated:** `apps/web/src/generated/` (from `pnpm generate`) and `routeTree.gen.ts`. Never edit them by hand.
 - **Every `as` cast needs a `// SAFETY:` comment** saying why it's true. Parse data where it enters the app instead.
-- **Ownership:** give every file under `apps/web/src/routes`, `apps/web/src/modules`, `infra/modules`, `connectors`, and `deploy` exactly one owner in `starter.json`, `module.json`, `connector.json`, or `deploy.json`, including settings routes. After adding or moving files under routes, modules, connectors, or deploy targets, run `pnpm app:doctor`.
+- **Ownership:** give every file under `apps/web/src/routes`, `modules/<id>`, `modules/<id>/infra`, `connectors`, and `deploy` exactly one owner in `starter.json`, `module.json`, `connector.json`, or `deploy.json`, including settings routes. After adding or moving files under routes, modules, connectors, or deploy targets, run `pnpm app:doctor`.
 - **Import boundaries:** modules use core and their own code; keep other modules and connector code behind the shared feature contracts (see `docs/modules.md`).
 - **Match what's there.** Search for an existing helper before writing one. Keep diffs small.
 - **Loading data:** loaders and pages share query options and params; follow [frontend conventions](docs/frontend.md#loading-a-screen).

@@ -15,7 +15,6 @@ RUN npm install --no-save --ignore-scripts zod@4.5.4
 COPY package.json package.json
 COPY tools/manifest-schema.mjs tools/manifest-schema.mjs
 COPY infra/postgres infra/postgres
-COPY infra/modules infra/modules
 COPY modules modules
 COPY starter.json app.config.json ./
 COPY infra/manifests.mjs infra/manifests.mjs

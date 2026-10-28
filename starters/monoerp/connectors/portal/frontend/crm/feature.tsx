@@ -2,6 +2,7 @@ import { noop, useQuery } from '@tanstack/react-query'
 
 import { Property, InlineText } from '@/components/inline/inline-field'
 import { isMissingFromWorkspace } from '@/lib/errors'
+import type { RecordHistoryEntry } from '@/lib/modules/types'
 import type {
   OrganizationPanelContribution,
   OrganizationPanelProps,
@@ -9,7 +10,6 @@ import type {
   ContactPanelProps,
   DealSummaryContribution,
 } from '@/modules/crm/slots'
-import type { RecordHistoryEntry } from '@/modules/types'
 
 import { PortalUserSummary } from './contact-summary'
 import { portalAccountQuery, portalUserQuery, portalSummaryQuery } from './data'

@@ -6,12 +6,12 @@ Add business areas next to CRM without editing the shell. Each module has four f
 
 Use CRM as the working example for a new `inventory` module:
 
-| Copy from                      | New location                    | Contains                                   |
-| ------------------------------ | ------------------------------- | ------------------------------------------ |
-| `modules/crm`                  | `modules/<id>`                  | Module manifest                            |
-| `apps/web/src/modules/crm`     | `apps/web/src/modules/<id>`     | UI entry, copy, reads, writes, and tests   |
-| `infra/modules/crm`            | `infra/modules/<id>`            | SQL, demo data, schema settings, and setup |
-| `apps/web/src/routes/_app/crm` | `apps/web/src/routes/_app/<id>` | Pages                                      |
+| Copy from                | New location                    | Contains                                   |
+| ------------------------ | ------------------------------- | ------------------------------------------ |
+| `modules/crm`            | `modules/<id>`                  | Module manifest                            |
+| `modules/crm`            | `apps/web/src/modules/<id>`     | UI entry, copy, reads, writes, and tests   |
+| `modules/crm/infra`      | `infra/modules/<id>`            | SQL, demo data, schema settings, and setup |
+| `modules/crm/routes/app` | `apps/web/src/routes/_app/<id>` | Pages                                      |
 
 1. Replace the copied CRM IDs, imports, tables, demo records, queries, and tests with your module's data. Put SQL in `infra/modules/<id>/postgres/{init,migrations}/` and schema settings in `monospace/schema/`. Use the existing app database; see [schema changes](data-model.md#changing-the-schema).
 2. Edit `modules/<id>/module.json`: change the ID, owned paths, `app`, `infra`, collections, write schemas, audit columns, and setup scripts. Remove optional connectors you do not use, and clear settings entries unless you copy those route files too. Include every route owned by your module, including settings routes outside its route folder.
@@ -58,7 +58,7 @@ For `OPTIONAL_SOURCES` and connector selection, see [Source selection](../connec
 
 ## The UI contract
 
-A module UI entry is a `ModuleEntry` (`apps/web/src/modules/types.ts`):
+A module UI entry is a `ModuleEntry` (`apps/web/src/lib/modules/types.ts`):
 
 | Field         | What it does                                                                 |
 | ------------- | ---------------------------------------------------------------------------- |
@@ -71,13 +71,13 @@ A module UI entry is a `ModuleEntry` (`apps/web/src/modules/types.ts`):
 | `search`      | Optional. Scopes and a search function for the command palette               |
 | `settings`    | Optional group title and page paths derived from the JSON settings-file list |
 
-`apps/web/src/modules/index.ts` discovers default exports from `./*/module.ts` with an eager Vite glob, sorted by `order`. It exports `modules` and `moduleById`. Each UI entry adds its own key to `ModuleRegistry` through TypeScript declaration merging; `ModuleId` is `keyof ModuleRegistry`. Deleting the module folder removes both its runtime registration and its ID type. The CRM's UI entry is `apps/web/src/modules/crm/module.ts`.
+`apps/web/src/lib/modules/index.ts` discovers default exports from `./*/module.ts` with an eager Vite glob, sorted by `order`. It exports `modules` and `moduleById`. Each UI entry adds its own key to `ModuleRegistry` through TypeScript declaration merging; `ModuleId` is `keyof ModuleRegistry`. Deleting the module folder removes both its runtime registration and its ID type. The CRM's UI entry is `modules/crm/module.ts`.
 
 The UI derives settings route paths from the JSON file list with `settingsPaths`; route `staticData.page` owns each title and icon. CRM owns only its PostgreSQL collections. Portal's optional feature owns its MySQL collections; Stripe's optional feature owns its Stripe collections.
 
 ## Page metadata
 
-Pages describe themselves in the route's `staticData.page` (`PageMeta` in `modules/types.ts`). `usePages()` (`modules/pages.ts`) collects every route that has one and no URL params, sorted by `nav`.
+Pages describe themselves in the route's `staticData.page` (`PageMeta` in `lib/modules/types.ts`). `usePages()` (`lib/modules/pages.ts`) collects every route that has one and no URL params, sorted by `nav`.
 
 | Field         | Used by                                                                                                                                                                                          |
 | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -91,7 +91,7 @@ Pages describe themselves in the route's `staticData.page` (`PageMeta` in `modul
 | `fullWidth`   | Drops the content max width (wide tables, boards)                                                                                                                                                |
 | `fill`        | Pins the content to the viewport height so the page's own scroller fills it                                                                                                                      |
 
-Examples: a list page is `routes/_app/crm/organizations.tsx` (`nav`, `fullWidth`, `fill`, `keywords`). A detail page is `routes/_app/crm/organizations_.$organizationId.tsx` (`module` and `parent`, no `nav`).
+Examples: a list page is `modules/crm/routes/app/organizations.tsx` (`nav`, `fullWidth`, `fill`, `keywords`). A detail page is `modules/crm/routes/app/organizations_.$organizationId.tsx` (`module` and `parent`, no `nav`).
 
 Where it's read:
 
@@ -105,7 +105,7 @@ Where it's read:
 
 `search` in the manifest is a `ModuleSearch`: a list of `scopes` (one per record type, each with a label, an icon, and a `list(q)` link to its list page filtered to the query) and `search(q, scopeId?)`, which returns groups of hits. The palette merges every module's results and offers a scope picker. Build links with `linkOptions` so the router checks them.
 
-Copy `apps/web/src/modules/crm/search.ts`: a small `readMany` per record type with a search filter from `modules/crm/data.ts`, mapped to `SearchHit`s.
+Copy `modules/crm/search.ts`: a small `readMany` per record type with a search filter from `modules/crm/data.ts`, mapped to `SearchHit`s.
 
 ## Copy
 
@@ -137,13 +137,13 @@ To add UI from a connector without importing it into CRM:
 
 Build and test configs define `__MODULE_FEATURE_PATHS__`, a map of module IDs to selected connector paths. Each module reads only its own entry.
 
-CRM owns its contribution types and registry in `modules/crm/slots.ts`; `modules/features.ts` selects the configured connector entries. Portal supplies all four contributions; Stripe supplies Billing as an organization panel and requires Portal. Remove Stripe before Portal while CRM is installed; removing Stripe hides Billing. CRM retains its stored Portal account link so restoring the connector can reconnect records. Follow the shared removal steps when retiring either source.
+CRM owns its contribution types and registry in `modules/crm/slots.ts`; `lib/modules/features.ts` selects the configured connector entries. Portal supplies all four contributions; Stripe supplies Billing as an organization panel and requires Portal. Remove Stripe before Portal while CRM is installed; removing Stripe hides Billing. CRM retains its stored Portal account link so restoring the connector can reconnect records. Follow the shared removal steps when retiring either source.
 
 ## How app:doctor works
 
 Setup-step requirements may name dependencies declared in `requiresWhenInstalled`, even after that optional connector is removed. Those steps are skipped when their dependencies are absent; undeclared requirement names still fail validation.
 
-`pnpm app:doctor` validates manifests, dependencies, referenced files, and exclusive ownership under `apps/web/src/routes`, `apps/web/src/modules`, `infra/modules`, `connectors`, and `deploy`. In Git it checks tracked and untracked source files while respecting ignores; without Git it walks source trees and skips dependencies/build output. Owned dotfolders may be absent, but referenced manifests, entry files, schemas, and scripts must exist. Ownership cannot overlap or traverse symlinks. Removal validates paths and dependencies before deleting anything. Package edits accept `.yaml` and `.yml`, preserve JSON indentation and newline style, and refuse to overwrite a file changed during removal. The implementation is in `tools/manifest-schema.mjs` and `tools/app.mjs`.
+`pnpm app:doctor` validates manifests, dependencies, referenced files, and exclusive ownership under `apps/web/src/routes`, `modules/<id>`, `modules/<id>/infra`, `connectors`, and `deploy`. In Git it checks tracked and untracked source files while respecting ignores; without Git it walks source trees and skips dependencies/build output. Owned dotfolders may be absent, but referenced manifests, entry files, schemas, and scripts must exist. Ownership cannot overlap or traverse symlinks. Removal validates paths and dependencies before deleting anything. Package edits accept `.yaml` and `.yml`, preserve JSON indentation and newline style, and refuse to overwrite a file changed during removal. The implementation is in `tools/manifest-schema.mjs` and `tools/app.mjs`.
 
 The import-boundary tests also reject imports between modules or from a module into connector code. Shared registries are the documented entry points. Feature-aware typecheck creates a temporary check config extending `apps/web/tsconfig.json`; lint and unit/browser tests exclude inactive features. Frontend discovery exposes only selected feature paths, never source credentials.
 

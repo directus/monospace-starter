@@ -3,18 +3,12 @@
   "id": "crm",
   "label": "CRM",
   "description": "Organizations, contacts, and deals.",
-  "ownedPaths": [
-    "modules/crm",
-    "apps/web/src/modules/crm",
-    "infra/modules/crm",
-    "apps/web/src/routes/_app/crm",
-    "apps/web/src/routes/_app/settings.crm.pipeline-stages.tsx"
-  ],
+  "ownedPaths": ["modules/crm"],
   "requires": [],
   "x-monoerp": {
-    "app": "apps/web/src/modules/crm",
-    "infra": "infra/modules/crm",
-    "settings": ["apps/web/src/routes/_app/settings.crm.pipeline-stages.tsx"],
+    "app": "modules/crm",
+    "infra": "modules/crm/infra",
+    "settings": ["modules/crm/routes/settings/pipeline-stages.tsx"],
     "order": 10,
     "collections": [
       "organizations",
@@ -44,6 +38,6 @@
         }
       ]
     },
-    "schemaFiles": ["infra/modules/crm/monospace/schema/app.json"]
+    "schemaFiles": ["modules/crm/infra/monospace/schema/app.json"]
   }
 }

@@ -201,7 +201,7 @@ export function DealBoard({
       <nav
         ref={stageNavRef}
         aria-label={crmCopy.deals.stage}
-        className="flex shrink-0 [scrollbar-width:none] gap-1.5 overflow-x-auto border-b px-2 py-2 md:hidden"
+        className="flex shrink-0 gap-1.5 overflow-x-auto border-b px-2 py-2 [scrollbar-width:none] md:hidden"
       >
         {stages.map((stage, stageIndex) => (
           <button

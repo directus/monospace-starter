@@ -2,8 +2,8 @@ import { createFileRoute, Link, Outlet } from '@tanstack/react-router'
 import { Settings, UserRound } from 'lucide-react'
 import { Fragment } from 'react'
 
-import { modules } from '@/modules'
-import { usePages } from '@/modules/pages'
+import { modules } from '@/lib/modules'
+import { usePages } from '@/lib/modules/pages'
 import { settingsCopy } from '@/settings/settings.copy'
 
 export const Route = createFileRoute('/_app/settings')({

@@ -119,7 +119,7 @@ A module is four folders, plus any settings routes: manifest, UI, infrastructure
 | Connectors     | `connectors/portal`                                                 | Read-only MySQL demo and Portal UI                   |
 | Connectors     | `connectors/stripe`                                                 | Stripe API extension, local emulator, and Billing UI |
 
-To change the CRM schema, add a migration in `infra/modules/crm/postgres/migrations`, make the same change in `infra/modules/crm/postgres/init/001_schema.sql`, then run `pnpm db:migrate`, `pnpm setup:introspect`, and `pnpm generate`. [`docs/data-model.md`](docs/data-model.md) has the details.
+To change the CRM schema, add a migration in `modules/crm/infra/postgres/migrations`, make the same change in `modules/crm/infra/postgres/init/001_schema.sql`, then run `pnpm db:migrate`, `pnpm setup:introspect`, and `pnpm generate`. [`docs/data-model.md`](docs/data-model.md) has the details.
 
 ## Docs
 
