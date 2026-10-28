@@ -51,7 +51,7 @@ import { RecordTabs } from '@/modules/crm/components/record-tabs'
 import { StatusBadge } from '@/modules/crm/components/status-badge'
 import { crmCopy } from '@/modules/crm/crm.copy'
 import { attachmentsQuery, contactDetailQuery } from '@/modules/crm/data'
-import { contactStatusOptions } from '@/modules/crm/entities'
+import { contactName, contactStatusOptions } from '@/modules/crm/entities'
 import {
   contactOption as toContactOption,
   organizationOption as toOrganizationOption,
@@ -63,7 +63,16 @@ import { contactPanels } from '@/modules/crm/slots'
 export const Route = createFileRoute('/_app/crm/contacts_/$contactId')({
   params: { parse: ({ contactId }) => ({ contactId: uuidParam(contactId) }) },
   staticData: {
-    page: { title: crmCopy.contacts.singular, module: 'crm', parent: '/crm/contacts' },
+    page: {
+      title: crmCopy.contacts.singular,
+      module: 'crm',
+      parent: '/crm/contacts',
+      recordTitle: (queryClient, { contactId }) => {
+        const record = queryClient.getQueryData(contactDetailQuery(uuidParam(contactId)).queryKey)
+
+        return record ? contactName(record) : undefined
+      },
+    },
   },
   loader: async ({ context: { queryClient }, params }) => {
     const contact = await ensureOrNotFound(queryClient, contactDetailQuery(params.contactId))

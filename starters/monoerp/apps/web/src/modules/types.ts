@@ -14,6 +14,8 @@ export type ModuleId = keyof ModuleRegistry
 
 export type PageMeta = {
   title: string
+  // Detail routes read the record already loaded in the query cache.
+  recordTitle?: (queryClient: QueryClient, params: Record<string, string>) => string | undefined
   icon?: LucideIcon
   module?: ModuleId
   // Present means the page shows in the sidebar. Value sets the order.

@@ -57,7 +57,16 @@ import { dealSummaries } from '@/modules/crm/slots'
 export const Route = createFileRoute('/_app/crm/deals_/$dealId')({
   params: { parse: ({ dealId }) => ({ dealId: uuidParam(dealId) }) },
   staticData: {
-    page: { title: crmCopy.deals.singular, module: 'crm', parent: '/crm/deals' },
+    page: {
+      title: crmCopy.deals.singular,
+      module: 'crm',
+      parent: '/crm/deals',
+      recordTitle: (queryClient, { dealId }) => {
+        const record = queryClient.getQueryData(dealDetailQuery(uuidParam(dealId)).queryKey)
+
+        return record ? (record.title ?? crmCopy.deals.restricted) : undefined
+      },
+    },
   },
   loader: async ({ context: { queryClient }, params: { dealId } }) => {
     const [deal] = await Promise.all([

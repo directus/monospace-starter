@@ -25,6 +25,7 @@ import { moduleById } from '@/modules'
 import { usePages } from '@/modules/pages'
 import { AppSidebar } from '@/shell/app-sidebar'
 import { CommandPalette } from '@/shell/command-palette'
+import { PageBreadcrumb } from '@/shell/page-breadcrumb'
 
 export function AppShell({ children }: { children: ReactNode }) {
   const navigate = useNavigate()
@@ -152,7 +153,6 @@ function AppHeader({ onOpenSearch }: { onOpenSearch: () => void }) {
   const sidebarOpen = isMobile ? openMobile : state === 'expanded'
   const currentMatch = matches.at(-1)
   const page = currentMatch?.staticData.page
-  const currentTitle = page?.title
   const module = page ? moduleById(page.module) : undefined
   const parent = page?.parent ? pages.find((item) => item.to === page.parent) : undefined
 
@@ -181,7 +181,7 @@ function AppHeader({ onOpenSearch }: { onOpenSearch: () => void }) {
         className="mx-2 h-6 bg-foreground/15 data-vertical:self-center"
       />
       <Breadcrumb className="min-w-0">
-        <BreadcrumbList className="max-sm:flex-nowrap">
+        <BreadcrumbList className="flex-nowrap">
           <BreadcrumbItem>
             {isHome ? (
               <BreadcrumbPage>
@@ -220,7 +220,7 @@ function AppHeader({ onOpenSearch }: { onOpenSearch: () => void }) {
             <>
               <BreadcrumbSeparator />
               <BreadcrumbItem className="min-w-0">
-                <BreadcrumbPage className="truncate">{currentTitle}</BreadcrumbPage>
+                <PageBreadcrumb page={page} params={currentMatch.params} />
               </BreadcrumbItem>
             </>
           ) : null}

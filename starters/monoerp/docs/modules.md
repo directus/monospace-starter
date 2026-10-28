@@ -79,23 +79,24 @@ The UI derives settings route paths from the JSON file list with `settingsPaths`
 
 Pages describe themselves in the route's `staticData.page` (`PageMeta` in `modules/types.ts`). `usePages()` (`modules/pages.ts`) collects every route that has one and no URL params, sorted by `nav`.
 
-| Field       | Used by                                                                          |
-| ----------- | -------------------------------------------------------------------------------- |
-| `title`     | Sidebar, breadcrumbs, command palette                                            |
-| `icon`      | Sidebar and command palette                                                      |
-| `module`    | Which sidebar group and home card the page belongs to, and the module breadcrumb |
-| `nav`       | Present means the page is in the sidebar. The number sets the order              |
-| `parent`    | For detail pages: the list page shown as the middle breadcrumb                   |
-| `keywords`  | Extra words the command palette matches on                                       |
-| `fullWidth` | Drops the content max width (wide tables, boards)                                |
-| `fill`      | Pins the content to the viewport height so the page's own scroller fills it      |
+| Field         | Used by                                                                                                                                                                                          |
+| ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `recordTitle` | Optional `(queryClient, params) => string \| undefined` for a cached detail name. Updates the breadcrumb and browser tab after record edits. Return `undefined` while the detail cache is empty. |
+| `title`       | Sidebar, breadcrumbs, command palette                                                                                                                                                            |
+| `icon`        | Sidebar and command palette                                                                                                                                                                      |
+| `module`      | Which sidebar group and home card the page belongs to, and the module breadcrumb                                                                                                                 |
+| `nav`         | Present means the page is in the sidebar. The number sets the order                                                                                                                              |
+| `parent`      | For detail pages: the list page shown as the middle breadcrumb                                                                                                                                   |
+| `keywords`    | Extra words the command palette matches on                                                                                                                                                       |
+| `fullWidth`   | Drops the content max width (wide tables, boards)                                                                                                                                                |
+| `fill`        | Pins the content to the viewport height so the page's own scroller fills it                                                                                                                      |
 
 Examples: a list page is `routes/_app/crm/organizations.tsx` (`nav`, `fullWidth`, `fill`, `keywords`). A detail page is `routes/_app/crm/organizations_.$organizationId.tsx` (`module` and `parent`, no `nav`).
 
 Where it's read:
 
 - **Sidebar** (`shell/app-sidebar.tsx`): one group per module, listing its pages that have `nav`. Clicking a group's label collapses it; closed groups are remembered in localStorage (`shell/use-nav-groups.ts`), going to a page in a closed group opens it, and the icon-only sidebar always shows every page.
-- **Breadcrumbs** (`AppHeader` in `shell/app-shell.tsx`): home, then the module (linking to `basePath`), then `parent` if set, then the page. On phones the middle crumbs hide.
+- **Breadcrumbs** (`AppHeader` in `shell/app-shell.tsx`): home, then the module (linking to `basePath`), then `parent` if set, then the page. On phones the middle crumbs hide. Detail routes supply `page.recordTitle` to read their existing detail query from the cache with `getQueryData(detailQuery(id).queryKey)`. This never fetches; the existing loader and detail component own loading. The shell subscribes to cache updates, shows a placeholder until the name is available, and truncates long names with the full name in a title attribute.
 - **Home page** (`routes/_app/index.tsx`): a card per module with its `nav` pages.
 - **Command palette** (`shell/command-palette.tsx`): pages match on `title` and `keywords`. Records come from each module's `search`.
 - **Layout** (`shell/app-shell.tsx`): `fullWidth` and `fill` on the current page change the content wrapper.

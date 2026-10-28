@@ -57,7 +57,18 @@ import { organizationPanels } from '@/modules/crm/slots'
 export const Route = createFileRoute('/_app/crm/organizations_/$organizationId')({
   params: { parse: ({ organizationId }) => ({ organizationId: uuidParam(organizationId) }) },
   staticData: {
-    page: { title: crmCopy.organizations.singular, module: 'crm', parent: '/crm/organizations' },
+    page: {
+      title: crmCopy.organizations.singular,
+      module: 'crm',
+      parent: '/crm/organizations',
+      recordTitle: (queryClient, { organizationId }) => {
+        const record = queryClient.getQueryData(
+          organizationDetailQuery(uuidParam(organizationId)).queryKey,
+        )
+
+        return record ? (record.name ?? crmCopy.organizations.restricted) : undefined
+      },
+    },
   },
   loader: async ({ context: { queryClient }, params: { organizationId } }) => {
     const organization = await ensureOrNotFound(
