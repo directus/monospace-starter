@@ -134,3 +134,35 @@ it('aligns selection and headers with compact 49px rows', async () => {
     .element(page.getByRole('checkbox', { name: 'Select row', exact: true }).first())
     .toBeChecked()
 })
+
+it('fits sort labels on one line and aligns header dividers with resize handles', async () => {
+  render(<ExampleTable />)
+  await page.getByRole('button', { name: 'Name column options' }).click()
+
+  for (const label of ['Sort ascending', 'Sort descending']) {
+    const item = page.getByRole('menuitem', { name: label }).element()
+    const text = Array.from(item.childNodes).find((node) => node.textContent === label)
+
+    if (!text) throw new Error(`Missing ${label} text`)
+    const range = document.createRange()
+    range.selectNodeContents(text)
+    expect(range.getClientRects()).toHaveLength(1)
+    expect(item.scrollWidth).toBeLessThanOrEqual(item.clientWidth)
+  }
+
+  for (const handle of document.querySelectorAll('[role="separator"][aria-valuenow]')) {
+    const header = handle.closest('th')
+
+    if (!header) throw new Error('Missing resize header')
+    expect(getComputedStyle(header).borderRightWidth).toBe('1px')
+    expect(header.getBoundingClientRect().right - handle.getBoundingClientRect().right).toBe(1)
+  }
+
+  const cell = document.querySelector('tbody td')
+
+  if (!cell) throw new Error('Missing body cell')
+  expect(getComputedStyle(cell).borderRightWidth).toBe('0px')
+  expect(getComputedStyle(page.getByRole('columnheader').first().element()).borderRightColor).toBe(
+    getComputedStyle(cell).borderBottomColor,
+  )
+})

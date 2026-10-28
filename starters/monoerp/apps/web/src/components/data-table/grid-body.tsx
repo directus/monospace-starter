@@ -55,7 +55,7 @@ function HeaderCell<TData extends object>({
       aria-sort={sort === 'asc' ? 'ascending' : sort === 'desc' ? 'descending' : undefined}
       style={pinStyle(column)}
       className={cn(
-        'group relative h-10 px-3 text-left align-middle font-medium data-pinned:bg-background',
+        'group relative h-10 border-r px-3 text-left align-middle font-medium data-pinned:bg-background',
         (index === 0 || column.getIsLastColumn()) && 'px-5 sm:px-6',
         isDragging && 'z-50 bg-popover shadow-md',
         column.columnDef.meta?.headerClassName,
