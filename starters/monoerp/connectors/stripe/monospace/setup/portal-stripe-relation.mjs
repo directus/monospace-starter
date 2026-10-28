@@ -1,4 +1,10 @@
-import { authenticate, sourceName, ensureRelation, migrate, readCollections } from '#setup'
+import {
+  authenticate,
+  sourceName,
+  ensureRelation,
+  migrate,
+  readCollections,
+} from '../../../../infra/monospace/setup/lib.mjs'
 
 await authenticate()
 

@@ -1,23 +1,29 @@
 # Modules
 
-Add business areas next to CRM without editing the shell. Each module has four folders, plus any settings routes, and uses the workspace and app database from the shared setup.
+Add business areas next to CRM without editing the shell. A module is one folder, `modules/<id>`, and uses the workspace and app database from the shared setup.
 
 ## Add a module
 
 Use CRM as the working example for a new `inventory` module:
 
-| Copy from                | New location                    | Contains                                   |
-| ------------------------ | ------------------------------- | ------------------------------------------ |
-| `modules/crm`            | `modules/<id>`                  | Module manifest                            |
-| `modules/crm`            | `apps/web/src/modules/<id>`     | UI entry, copy, reads, writes, and tests   |
-| `modules/crm/infra`      | `infra/modules/<id>`            | SQL, demo data, schema settings, and setup |
-| `modules/crm/routes/app` | `apps/web/src/routes/_app/<id>` | Pages                                      |
+Copy `modules/crm` to `modules/<id>`. Inside it:
 
-1. Replace the copied CRM IDs, imports, tables, demo records, queries, and tests with your module's data. Put SQL in `infra/modules/<id>/postgres/{init,migrations}/` and schema settings in `monospace/schema/`. Use the existing app database; see [schema changes](data-model.md#changing-the-schema).
-2. Edit `modules/<id>/module.json`: change the ID, owned paths, `app`, `infra`, collections, write schemas, audit columns, and setup scripts. Remove optional connectors you do not use, and clear settings entries unless you copy those route files too. Include every route owned by your module, including settings routes outside its route folder.
+| Path                                            | Contains                                                                              |
+| ----------------------------------------------- | ------------------------------------------------------------------------------------- |
+| `module.json`                                   | Module manifest                                                                       |
+| `package.json`                                  | The npm packages the module imports directly, with `catalog:` versions                |
+| `module.ts`, `*.ts`, `components/`, `settings/` | UI entry, copy, reads, writes, and tests                                              |
+| `modules/<id>/routes/app`                       | Pages, mounted at `/<id>`                                                             |
+| `modules/<id>/routes/settings`                  | Settings pages, mounted at `/settings/<id>` inside the settings layout                |
+| `modules/<id>/routes/public`                    | Optional pages outside the signed-in shell, mounted at the site root (a careers site) |
+| `modules/<id>/infra/postgres`                   | SQL schema, migrations, and demo data                                                 |
+| `modules/<id>/infra/monospace`                  | Schema settings (`schema/`) and setup scripts (`setup/`)                              |
+
+1. Replace the copied CRM IDs, imports, tables, demo records, queries, and tests with your module's data. Module code imports itself as `@/modules/<id>/...`; core as `@/...`. Put SQL in `infra/postgres/{init,migrations}/` and schema settings in `modules/<id>/infra/monospace/schema/`. Use the existing app database; see [schema changes](data-model.md#changing-the-schema).
+2. Edit `modules/<id>/module.json`: change the ID, owned paths, `app`, `infra`, collections, write schemas, audit columns, and setup scripts. Remove optional connectors you do not use, and clear settings entries unless you keep settings pages. Edit `package.json`: the package name and the dependencies your code imports.
 3. Rename `crm.copy.ts` to `inventory.copy.ts` and edit it with `module.ts`. Export a `ModuleEntry`, use `id: 'inventory'` and `basePath: '/inventory'`, and add `inventory: true` to `ModuleRegistry` through declaration merging. The registry discovers `modules/*/module.ts` automatically.
 4. Update each page's `createFileRoute` path and links, then set `staticData.page`: set `module`, `title`, and `icon`; add `nav` for sidebar pages and `parent` for detail pages. Use `index.tsx` for `/<id>` and `items_.$itemId.tsx` for a detail page outside the list layout. Follow [frontend conventions](frontend.md).
-5. Add search or settings only if needed. Copy `crm/search.ts` for search; settings routes use `routes/_app/settings.inventory.<page>.tsx` and the manifest's `settings` entries.
+5. Add search or settings only if needed. Copy `search.ts` for search; settings pages are `modules/<id>/routes/settings/<page>.tsx (URL `/settings/inventory/<page>`) and listed in the manifest's `settings` entries.
 6. Run `pnpm app:doctor`, `pnpm db:migrate`, `pnpm setup:all`, `pnpm generate:routes`, and `pnpm generate`.
 7. Run `pnpm verify` (plus browser tests for components). Open the module and check its sidebar group, home card, breadcrumbs, and command-palette entries.
 
@@ -71,9 +77,15 @@ A module UI entry is a `ModuleEntry` (`apps/web/src/lib/modules/types.ts`):
 | `search`      | Optional. Scopes and a search function for the command palette               |
 | `settings`    | Optional group title and page paths derived from the JSON settings-file list |
 
-`apps/web/src/lib/modules/index.ts` discovers default exports from `./*/module.ts` with an eager Vite glob, sorted by `order`. It exports `modules` and `moduleById`. Each UI entry adds its own key to `ModuleRegistry` through TypeScript declaration merging; `ModuleId` is `keyof ModuleRegistry`. Deleting the module folder removes both its runtime registration and its ID type. The CRM's UI entry is `modules/crm/module.ts`.
+`apps/web/src/lib/modules/index.ts` discovers default exports from `modules/*/module.ts` with an eager Vite glob, sorted by `order`. It exports `modules` and `moduleById`. Each UI entry adds its own key to `ModuleRegistry` through TypeScript declaration merging; `ModuleId` is `keyof ModuleRegistry`. Deleting the module folder removes both its runtime registration and its ID type. The CRM's UI entry is `modules/crm/module.ts`.
 
 The UI derives settings route paths from the JSON file list with `settingsPaths`; route `staticData.page` owns each title and icon. CRM owns only its PostgreSQL collections. Portal's optional feature owns its MySQL collections; Stripe's optional feature owns its Stripe collections.
+
+## Routes
+
+The app uses TanStack Router's file-based routing with a virtual root (`apps/web/routes.ts`): core pages are listed from `apps/web/src/routes`, and every module folder with a `module.json` is mounted from its own `routes/` folders. `modules/<id>/routes/app` mounts under the signed-in layout at `/<id>`, `modules/<id>/routes/settings` under the settings layout at `/settings/<id>`, and `modules/<id>/routes/public` at the site root with no prefix. File names inside each folder follow the usual conventions (`index.tsx`, `items.tsx`, `items_.$itemId.tsx`). The generator rewrites each file's `createFileRoute` path, so copied files fix themselves on the next `pnpm dev` or `pnpm generate:routes`. The routes directory is the repository root, set in `apps/web/vite.config.ts` for the dev server and build and in `apps/web/tsr.config.json` for `tsr generate`; keep the two in sync.
+
+Modules are pnpm workspace packages (`modules/*` in `pnpm-workspace.yaml`), so each lists the npm packages it imports directly in its own `package.json`, with versions from the root catalog. They are not dependencies of the web app: the app finds them by glob, and nothing may depend on a module with `workspace:`, so deleting a module folder leaves a consistent install. The `@/modules/*` import path maps to `modules/*` in `apps/web/tsconfig.json`, which Vite reads too.
 
 ## Page metadata
 
@@ -143,7 +155,7 @@ CRM owns its contribution types and registry in `modules/crm/slots.ts`; `lib/mod
 
 Setup-step requirements may name dependencies declared in `requiresWhenInstalled`, even after that optional connector is removed. Those steps are skipped when their dependencies are absent; undeclared requirement names still fail validation.
 
-`pnpm app:doctor` validates manifests, dependencies, referenced files, and exclusive ownership under `apps/web/src/routes`, `modules/<id>`, `modules/<id>/infra`, `connectors`, and `deploy`. In Git it checks tracked and untracked source files while respecting ignores; without Git it walks source trees and skips dependencies/build output. Owned dotfolders may be absent, but referenced manifests, entry files, schemas, and scripts must exist. Ownership cannot overlap or traverse symlinks. Removal validates paths and dependencies before deleting anything. Package edits accept `.yaml` and `.yml`, preserve JSON indentation and newline style, and refuse to overwrite a file changed during removal. The implementation is in `tools/manifest-schema.mjs` and `tools/app.mjs`.
+`pnpm app:doctor` validates manifests, dependencies, referenced files, and exclusive ownership under `apps/web/src/routes`, `modules`, `connectors`, and `deploy`. In Git it checks tracked and untracked source files while respecting ignores; without Git it walks source trees and skips dependencies/build output. Owned dotfolders may be absent, but referenced manifests, entry files, schemas, and scripts must exist. Ownership cannot overlap or traverse symlinks. Removal validates paths and dependencies before deleting anything. Package edits accept `.yaml` and `.yml`, preserve JSON indentation and newline style, and refuse to overwrite a file changed during removal. The implementation is in `tools/manifest-schema.mjs` and `tools/app.mjs`.
 
 The import-boundary tests also reject imports between modules or from a module into connector code. Shared registries are the documented entry points. Feature-aware typecheck creates a temporary check config extending `apps/web/tsconfig.json`; lint and unit/browser tests exclude inactive features. Frontend discovery exposes only selected feature paths, never source credentials.
 

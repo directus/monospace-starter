@@ -1,5 +1,3 @@
-import { fileURLToPath } from 'node:url'
-
 import tailwindcss from '@tailwindcss/vite'
 import react from '@vitejs/plugin-react'
 import { playwright } from '@vitest/browser-playwright'
@@ -11,10 +9,6 @@ export default defineConfig({
   resolve: {
     dedupe: ['react', 'react-dom', '@tanstack/react-query', '@tanstack/react-router'],
     tsconfigPaths: true,
-    alias: [
-      { find: '@/modules', replacement: fileURLToPath(new URL('../../modules/', import.meta.url)) },
-      { find: '@', replacement: fileURLToPath(new URL('./src/', import.meta.url)) },
-    ],
   },
   define: {
     __MODULE_FEATURE_PATHS__: JSON.stringify(moduleFeaturePaths),

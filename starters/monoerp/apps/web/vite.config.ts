@@ -25,13 +25,6 @@ export default defineConfig(({ mode }) => {
     resolve: {
       dedupe: ['react', 'react-dom', '@tanstack/react-query', '@tanstack/react-router'],
       tsconfigPaths: true,
-      alias: [
-        {
-          find: '@/modules',
-          replacement: fileURLToPath(new URL('../../modules/', import.meta.url)),
-        },
-        { find: '@', replacement: fileURLToPath(new URL('./src/', import.meta.url)) },
-      ],
     },
     define: {
       __MODULE_FEATURE_PATHS__: JSON.stringify(moduleFeaturePaths),

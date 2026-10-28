@@ -105,19 +105,18 @@ The browser only talks to the app's own address. The app's server proxies `/api/
 
 A module is four folders, plus any settings routes: manifest, UI, infrastructure, and routes. See [the module layout](docs/modules.md#add-a-module).
 
-| Area           | Path                                                                | Purpose                                              |
-| -------------- | ------------------------------------------------------------------- | ---------------------------------------------------- |
-| Core           | `starter.json`                                                      | Shared ownership manifest                            |
-| Core           | `apps/web/src/shell`, `apps/web/src/lib`, `apps/web/src/components` | Shell, authentication, and shared UI                 |
-| Core           | `infra/monospace`, `infra/postgres`                                 | Shared workspace setup and PostgreSQL service        |
-| Deploy targets | `deploy/<id>/deploy.json`                                           | Optional hosting setup                               |
-| Modules        | `modules/<id>`                                                      | Module manifest                                      |
-| Modules        | `apps/web/src/modules/<id>`                                         | UI entry, copy, reads, and writes                    |
-| Modules        | `infra/modules/<id>`                                                | SQL, demo data, schema settings, and setup           |
-| Modules        | `apps/web/src/routes/_app/<id>`                                     | Pages                                                |
-| Connectors     | `connectors/<id>`                                                   | Removable external sources and their local stand-ins |
-| Connectors     | `connectors/portal`                                                 | Read-only MySQL demo and Portal UI                   |
-| Connectors     | `connectors/stripe`                                                 | Stripe API extension, local emulator, and Billing UI |
+| Area           | Path                                                                | Purpose                                                               |
+| -------------- | ------------------------------------------------------------------- | --------------------------------------------------------------------- |
+| Core           | `starter.json`                                                      | Shared ownership manifest                                             |
+| Core           | `apps/web/src/shell`, `apps/web/src/lib`, `apps/web/src/components` | Shell, authentication, and shared UI                                  |
+| Core           | `infra/monospace`, `infra/postgres`                                 | Shared workspace setup and PostgreSQL service                         |
+| Deploy targets | `deploy/<id>/deploy.json`                                           | Optional hosting setup                                                |
+| Modules        | `modules/<id>`                                                      | One folder per module: manifest, UI entry, copy, reads, writes, tests |
+| Modules        | `modules/<id>/routes/{app,settings,public}`                         | Pages, mounted at `/<id>`, `/settings/<id>`, and the site root        |
+| Modules        | `modules/<id>/infra`                                                | SQL, demo data, schema settings, and setup                            |
+| Connectors     | `connectors/<id>`                                                   | Removable external sources and their local stand-ins                  |
+| Connectors     | `connectors/portal`                                                 | Read-only MySQL demo and Portal UI                                    |
+| Connectors     | `connectors/stripe`                                                 | Stripe API extension, local emulator, and Billing UI                  |
 
 To change the CRM schema, add a migration in `modules/crm/infra/postgres/migrations`, make the same change in `modules/crm/infra/postgres/init/001_schema.sql`, then run `pnpm db:migrate`, `pnpm setup:introspect`, and `pnpm generate`. [`docs/data-model.md`](docs/data-model.md) has the details.
 

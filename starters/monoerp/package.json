@@ -3,9 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "imports": {
-    "#setup": "./infra/monospace/setup/lib.mjs"
-  },
   "scripts": {
     "dev": "node infra/compose-sync.mjs && vp dev",
     "build": "vp build",

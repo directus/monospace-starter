@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict'
 
-import { authenticate, request, workspacePath } from '#setup'
+import { authenticate, request, workspacePath } from '../../../../infra/monospace/setup/lib.mjs'
 
 await authenticate()
 

@@ -1,5 +1,10 @@
-import { sourceName } from '#setup'
-import { authenticate, findCollection, migrate, readCollections } from '#setup'
+import { sourceName } from '../../../../infra/monospace/setup/lib.mjs'
+import {
+  authenticate,
+  findCollection,
+  migrate,
+  readCollections,
+} from '../../../../infra/monospace/setup/lib.mjs'
 
 const PORTAL = sourceName('portal')
 

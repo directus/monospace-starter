@@ -92,11 +92,10 @@ Where things live:
 
 | Path                         | What                                                                                                                            |
 | ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
-| `apps/web/src/routes`        | Pages. File names are URLs                                                                                                      |
-| `modules/<id>`               | Each module's reads (`data.ts`), writes (`mutations.ts`), and copy                                                              |
+| `apps/web/src/routes`        | Shared pages: sign-in, home, settings. File names are URLs                                                                      |
+| `modules/<id>`               | Each module: reads (`data.ts`), writes (`mutations.ts`), copy, components, and its pages in `routes/`                           |
 | `apps/web/src/generated`     | The typed Monospace client. Generated; don't edit                                                                               |
 | `starter.json`               | Shared ownership manifest                                                                                                       |
-| `modules/`                   | Module manifests                                                                                                                |
 | `modules/<id>/infra`         | The module schemas, migrations, demo data, and Monospace setup                                                                  |
 | `connectors/portal/emulator` | The portal stand-in's schema and demo data                                                                                      |
 | `infra/monospace`            | The `pnpm setup:*` scripts, and setup and installed connector extensions; labels live in each owner’s `monospace/schema/*.json` |

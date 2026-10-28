@@ -32,17 +32,17 @@ To restore a module, connector, or deploy target, copy its whole folder back, re
 
 ## Connector contract
 
-| Path or manifest field                       | Purpose                                                                                                                        |
-| -------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
-| `connector.json`                             | ID, label, ownership, dependencies, source configuration                                                                       |
-| `compose.yml` / `compose`, `composeProfiles` | Optional local services and overlays                                                                                           |
-| `source`                                     | Provider and connection settings, resolved only by backend setup                                                               |
-| `schemaFiles`                                | API names and Studio presentation settings in `monospace/schema/*.json`                                                        |
-| `setup.beforeSchema`, `setup.afterSchema`    | Ordered steps relative to `monospace/setup/`; a step's `requires` selects dependencies                                         |
-| `extension.directory`, `extension.installed` | Extension package and generated install directory                                                                              |
-| `migrate`, `provision`                       | Optional scripts relative to the connector folder; `provision` runs in the deployed setup task                                 |
-| `frontend`                                   | Optional module features, collections, and connector dependencies; see [UI contract](../docs/modules.md#optional-connector-ui) |
-| `packageEntries`                             | Root package scripts or dependencies removed with this connector                                                               |
+| Path or manifest field                       | Purpose                                                                                                                                                                         |
+| -------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `connector.json`                             | ID, label, ownership, dependencies, source configuration                                                                                                                        |
+| `compose.yml` / `compose`, `composeProfiles` | Optional local services and overlays                                                                                                                                            |
+| `source`                                     | Provider and connection settings, resolved only by backend setup                                                                                                                |
+| `schemaFiles`                                | API names and Studio presentation settings in `monospace/schema/*.json`                                                                                                         |
+| `setup.beforeSchema`, `setup.afterSchema`    | Ordered steps relative to `monospace/setup/`; a step's `requires` selects dependencies. Scripts import the shared helpers from `infra/monospace/setup/lib.mjs` by relative path |
+| `extension.directory`, `extension.installed` | Extension package and generated install directory                                                                                                                               |
+| `migrate`, `provision`                       | Optional scripts relative to the connector folder; `provision` runs in the deployed setup task                                                                                  |
+| `frontend`                                   | Optional module features, collections, and connector dependencies; see [UI contract](../docs/modules.md#optional-connector-ui)                                                  |
+| `packageEntries`                             | Root package scripts or dependencies removed with this connector                                                                                                                |
 
 Other manifest paths are repository-relative. `pnpm build:extensions` writes selected builds to `infra/monospace/extensions/` and removes stale builds for absent or disabled connectors. Copy extension source, not that generated folder.
 

@@ -3,11 +3,7 @@
   "id": "aws",
   "label": "AWS deploy",
   "description": "Optional deployment tools",
-  "ownedPaths": [
-    "deploy/aws",
-    ".github/workflows/deploy-aws.yml",
-    "patches/alchemy@2.0.0-beta.79.patch"
-  ],
+  "ownedPaths": ["deploy/aws", ".github/workflows/deploy-aws.yml"],
   "packageEntries": [
     {
       "path": "package.json",

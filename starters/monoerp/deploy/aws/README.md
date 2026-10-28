@@ -181,7 +181,7 @@ A destroy that fails partway is safe to rerun. Don't run `pnpm aws deploy` to "f
 - **`aws sso login` sessions expire.** The deploy scripts say so when they do. If a shell has old `AWS_ACCESS_KEY_ID` or `AWS_SESSION_TOKEN` variables exported, they override your profile; `unset` them.
 - **Docker socket:** Alchemy talks to Docker directly. `alchemy.sh` finds OrbStack or Colima through `docker context`.
 - **A new workspace can briefly be unknown to one Monospace task.** Tasks tell each other about changes through RabbitMQ; a task that missed the message (for example, still connecting during a first deploy) answers `Workspace ... not found` until it rechecks the database. The setup scripts wait and retry for up to a minute.
-- **Alchemy is patched** (`patches/alchemy@2.0.0-beta.79.patch`, applied by `pnpm install`): 2.0.0-beta.79 stops waiting for a new RDS instance after 10 minutes, too short for Multi-AZ, and a rerun then creates a second instance instead of adopting the first. The patch waits up to 30 minutes. Drop it when Alchemy fixes the wait.
+- **Alchemy is patched** (`deploy/aws/patches/alchemy@2.0.0-beta.79.patch`, applied by `pnpm install`): 2.0.0-beta.79 stops waiting for a new RDS instance after 10 minutes, too short for Multi-AZ, and a rerun then creates a second instance instead of adopting the first. The patch waits up to 30 minutes. Drop it when Alchemy fixes the wait.
 - **Staging's MySQL has backups off.** Backups turn on binary logging, which stops the demo data's helper functions loading for a non-SUPER admin. It's disposable demo data.
 
 ## Files

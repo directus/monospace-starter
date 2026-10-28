@@ -79,8 +79,8 @@ Portal's own relations are renamed to singular names (`tickets.account`, `subscr
 
 `init/` builds a fresh database. `migrations/` updates an existing one. Every change goes in both:
 
-1. Add a numbered file to `infra/modules/<id>/postgres/migrations/`.
-2. Make the same change in `infra/modules/<id>/postgres/init/001_schema.sql`, so fresh databases start current.
+1. Add a numbered file to `modules/<id>/infra/postgres/migrations/`.
+2. Make the same change in `modules/<id>/infra/postgres/init/001_schema.sql`, so fresh databases start current.
 3. Run `pnpm db:migrate`, then `pnpm setup:introspect` so Monospace sees it, then `pnpm generate` for the typed client.
 
 A migration must be safe to run against a database that already has the change, because a fresh database gets the change from `init/` and then the runner records the migration as applied. Use `IF NOT EXISTS` or an equivalent schema check before changing an object.

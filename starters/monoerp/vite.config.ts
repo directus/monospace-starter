@@ -1,5 +1,3 @@
-import { fileURLToPath } from 'node:url'
-
 import { defineConfig } from 'vite-plus'
 
 import { frontendFeatures, moduleFeaturePaths } from './apps/web/scripts/module-collections'
@@ -11,10 +9,6 @@ export default defineConfig({
   defaultPackage: './apps/web',
   resolve: {
     tsconfigPaths: true,
-    alias: [
-      { find: '@/modules', replacement: fileURLToPath(new URL('./modules/', import.meta.url)) },
-      { find: '@', replacement: fileURLToPath(new URL('./apps/web/src/', import.meta.url)) },
-    ],
   },
   define: {
     __MODULE_FEATURE_PATHS__: JSON.stringify(moduleFeaturePaths),

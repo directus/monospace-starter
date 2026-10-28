@@ -10,7 +10,7 @@ import {
   ensureRelation,
   migrate,
   readCollections,
-} from '#setup'
+} from '../../../../infra/monospace/setup/lib.mjs'
 
 const PORTAL = sourceName('portal')
 
