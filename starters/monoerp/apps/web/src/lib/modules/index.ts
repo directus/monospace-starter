@@ -2,7 +2,7 @@ import type { ModuleId, ModuleEntry } from '@/lib/modules/types'
 
 export type { ModuleId, ModuleEntry, SearchHit, SearchScope } from '@/lib/modules/types'
 
-const manifests = import.meta.glob<{ default: ModuleEntry }>('../../../../modules/*/module.ts', {
+const manifests = import.meta.glob<{ default: ModuleEntry }>('../../../../../modules/*/module.ts', {
   eager: true,
 })
 
