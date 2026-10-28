@@ -5,7 +5,7 @@ import { randomUUID } from 'node:crypto'
 import { loadEnvFile } from 'node:process'
 
 import appConfig from '../../../app.config.json' with { type: 'json' }
-import { readManifests, resolveSource } from '../../manifests.mjs'
+import { connectors } from './installed.mjs'
 
 try {
   loadEnvFile(new URL('../../../.env', import.meta.url))
@@ -234,13 +234,11 @@ export async function migrate(operations, summary) {
 }
 
 export function sourceName(id) {
-  const connector = readManifests().find(
-    (manifest) => manifest.kind === 'connector' && manifest.id === id,
-  )
+  const connector = connectors.find((candidate) => candidate.id === id)
 
-  if (!connector) throw new Error(`Connector is absent: ${id}`)
+  if (!connector) throw new Error(`Connector is absent or disabled: ${id}`)
 
-  return resolveSource(connector.source).apiName
+  return connector.source.apiName
 }
 
 export function ensureRelation(collections, { relationName, from, to, constrained = false }) {

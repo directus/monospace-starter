@@ -19,9 +19,7 @@ try {
 const manifests = readManifests()
 
 export const modules = manifests.flatMap((manifest) =>
-  manifest.kind === 'module'
-    ? [{ ...manifest, directory: new URL(`${manifest.infra}/`, repository) }]
-    : [],
+  manifest.kind === 'module' ? [manifest] : [],
 )
 
 const requested = requestedConnectors(manifests, process.env.OPTIONAL_SOURCES)
@@ -34,7 +32,7 @@ export const connectors = selectConnectors(manifests, process.env.OPTIONAL_SOURC
   }),
 )
 
-export const unavailableConnectors = [
+const unavailableConnectors = [
   ...new Set([
     ...requested,
     ...manifests.flatMap((manifest) => (manifest.kind === 'connector' ? [manifest.id] : [])),

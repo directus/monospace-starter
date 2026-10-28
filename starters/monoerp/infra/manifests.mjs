@@ -115,7 +115,7 @@ export function readManifest(root, { kind, id, folder, file }) {
     id,
     folder,
     file,
-    ownedPaths: kind === 'starter' ? [] : [folder, ...(envelope.alsoOwns ?? [])],
+    ownedPaths: kind === 'starter' ? [] : [folder, ...envelope.alsoOwns],
     ...conventions(root, kind, folder, runtime),
   }
 }
