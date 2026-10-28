@@ -1,10 +1,10 @@
-import { connectors, logMissingConnectors } from './installed.mjs'
-import { appSource } from './lib.mjs'
-// Makes sure the workspace and its data sources exist: the shared database and selected external sources
-// unless OPTIONAL_SOURCES leaves them out. Hosts default to the compose service names, which is
-// what Monospace sees from inside the stack.
+// Makes sure the workspace and its data sources exist: the shared database and selected external
+// sources unless OPTIONAL_SOURCES leaves them out. Hosts default to the compose service names,
+// which is what Monospace sees from inside the stack.
 // Creating a source introspects it, so on a fresh install the collections appear here.
+import { connectors, logMissingConnectors } from './installed.mjs'
 import {
+  appSource,
   authenticate,
   excludedNamespaces,
   readSources,

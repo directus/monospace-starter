@@ -1,15 +1,15 @@
-import { connectors } from './installed.mjs'
-import { readSources } from './lib.mjs'
-import { appSource } from './lib.mjs'
 // Re-introspects every non-system data source in the workspace. Run this after a SQL
 // migration, then regenerate the SDK. Introspection applies what it finds to Monospace's
 // model and never writes to the source.
 //
 // Excluded schemas (see lib.mjs) are filtered from the diff and stored on the source, so a
 // source created before the exclusion existed stops importing them too.
+import { connectors } from './installed.mjs'
 import {
+  appSource,
   authenticate,
   excludedNamespaces,
+  readSources,
   request,
   withoutExcluded,
   workspacePath,

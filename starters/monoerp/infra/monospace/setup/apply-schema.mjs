@@ -1,14 +1,13 @@
-import { modules, readSchemas } from './installed.mjs'
-import { connectorAvailable } from './installed.mjs'
 // Pushes module and connector monospace/schema/*.json into the workspace: API names, engine-managed
 // defaults, and Studio presentation meta (labels, icons, colors, select options, display
 // templates, field order, hidden flags). Files are keyed by source apiName + collection
 // dbName, relations by apiName, so the same file works on any install. Idempotent: renames
 // and defaults go through one schema migration, meta rows are created or patched only when
 // they differ. Run the relation scripts first; relations are matched by their apiName.
+import { connectorAvailable, modules, readSchemas } from './installed.mjs'
 import {
-  authenticate,
   appSource,
+  authenticate,
   META_FIELDS,
   canonicalJson,
   metaPaths,
