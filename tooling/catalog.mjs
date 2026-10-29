@@ -34,6 +34,20 @@ function describe(root, file) {
   return { label, description }
 }
 
+// Releases tag <name>@<version>, so the package name must match the folder.
+function version(root, path, id) {
+  const file = join(root, path, 'package.json')
+
+  if (!existsSync(file)) throw new Error(`${path}/package.json is missing`)
+  const { name, version } = JSON.parse(readFileSync(file, 'utf8'))
+
+  if (name !== id) throw new Error(`${path}/package.json: name must be "${id}"`)
+  if (typeof version !== 'string' || !version.trim())
+    throw new Error(`${path}/package.json: version must be a non-empty string`)
+
+  return version
+}
+
 export function buildCatalog(root) {
   return {
     $schema: schema,
@@ -43,6 +57,7 @@ export function buildCatalog(root) {
       return {
         id,
         path,
+        version: version(root, path, id),
         ...describe(root, join(root, path, 'starter.json')),
         ...Object.fromEntries(
           parts.map(({ kind, manifest }) => [
@@ -58,7 +73,7 @@ export function buildCatalog(root) {
   }
 }
 
-// Every starter README has these sections in this order (starters/README.md).
+// Every starter README has these sections, in any order (CONTRIBUTING.md).
 export const readmeHeadings = [
   "What's inside",
   'Quickstart',
@@ -79,13 +94,11 @@ export function checkReadme(root, path) {
     .split('\n')
     .flatMap((line) => (line.startsWith('## ') ? [line.slice(3).trim()] : []))
 
-  let next = 0
+  const missing = readmeHeadings.filter((heading) => !headings.includes(heading))
 
-  for (const heading of headings) if (heading === readmeHeadings[next]) next++
-
-  if (next < readmeHeadings.length)
+  if (missing.length)
     throw new Error(
-      `${path}/README.md: "## ${readmeHeadings[next]}" is missing or out of order; see starters/README.md`,
+      `${path}/README.md is missing ${missing.map((heading) => `"## ${heading}"`).join(', ')}; see CONTRIBUTING.md`,
     )
 }
 
