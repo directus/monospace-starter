@@ -1,7 +1,7 @@
 <p align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset=".github/assets/monospace-logo-on-dark.svg">
-    <img alt="Monospace" src=".github/assets/monospace-logo-on-light.svg" width="360">
+    <img alt="Monospace" src=".github/assets/monospace-logo-on-light.svg" width="240">
   </picture>
 </p>
 
@@ -12,35 +12,40 @@
 </p>
 
 <p align="center">
+  <a href="LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-2f6feb"></a>
+  <img alt="Node 24" src="https://img.shields.io/badge/node-24-2f6feb">
+  <img alt="TanStack Start" src="https://img.shields.io/badge/TanStack-Start-2f6feb">
+  <a href="https://monospace.io"><img alt="Built on Monospace" src="https://img.shields.io/badge/built%20on-Monospace-2f6feb"></a>
+</p>
+
+<p align="center">
   <a href="#quickstart">Quickstart</a> •
   <a href="docs/getting-started.md">Getting started guide</a> •
   <a href="#built-for-agents">Built for agents</a> •
   <a href="docs/deploy.md">Deploy</a> •
-  <a href="https://monospace.io">Monospace</a> •
+  <a href="https://github.com/directus/monospace-starter/releases?q=monoerp">Releases</a> •
   <a href="https://docs.monospace.io">Monospace docs</a>
 </p>
 
 <p align="center">
-  <img alt="An organization in monoERP: CRM details and contacts, Portal and Billing tabs from other sources, and an activity history that mixes CRM meetings with customer portal events from a separate database" src=".github/assets/organization.png" width="900">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset=".github/assets/tour-dark.gif">
+    <img alt="A short loop through monoERP: the organizations list, then McKesson's page with its Portal tab (plan, seats, and tickets from a separate MySQL database) and its Billing tab (payments from Stripe), then the deals list" src=".github/assets/tour-light.gif" width="900">
+  </picture>
 </p>
 
 ## What's inside
 
-Most business data doesn't live in one place. The sales team's records are in one database, and the product's customer data is in another, owned by another team. monoERP shows what building on top of that looks like, without copying data around. An organization's page shows its CRM record next to its plan, seats, support tickets, and payments, and it doesn't feel like three systems.
+Business data rarely lives in one place. Sales records sit in one database, the product's customer data in another, billing in Stripe. monoERP builds one app over all three without copying data around: an organization's page shows its CRM record next to its plan, seats, tickets, and payments.
 
-| Part                        | Kind          | What it adds                                            |
-| --------------------------- | ------------- | ------------------------------------------------------- |
-| [CRM](modules/crm)          | Module        | Organizations, contacts, and deals.                     |
-| [Portal](connectors/portal) | Connector     | Example customer database (a MySQL demo you can remove) |
-| [Stripe](connectors/stripe) | Connector     | Billing data from Stripe                                |
-| [AWS deploy](deploy/aws)    | Deploy target | Fargate, RDS and GitHub OIDC with Alchemy               |
+| Part                        | Kind          | What it adds                                            | Stored in                 |
+| --------------------------- | ------------- | ------------------------------------------------------- | ------------------------- |
+| [CRM](modules/crm)          | Module        | Organizations, contacts, and deals.                     | PostgreSQL                |
+| [Portal](connectors/portal) | Connector     | Example customer database (a MySQL demo you can remove) | MySQL, read-only          |
+| [Stripe](connectors/stripe) | Connector     | Billing data from Stripe                                | Stripe (emulated locally) |
+| [AWS deploy](deploy/aws)    | Deploy target | Fargate, RDS and GitHub OIDC with Alchemy               |                           |
 
-- **CRM** stores organizations, contacts, deals, and activity in PostgreSQL.
-- **Portal** is a read-only MySQL demo, installed by default to show joins across databases. Remove it and CRM still works; the Portal tab and the Billing tab that depends on it disappear.
-- **Stripe** is billing, read through a custom Monospace data connector. Locally it runs against a Stripe emulator, so no Stripe account is needed.
-- **Monospace** joins all three into one typed API with one set of permissions.
-
-More modules can plug in next to the CRM. The app is TanStack Start, React, Tailwind, and shadcn/ui.
+Monospace joins the three sources into one typed API with one set of permissions. Every part is optional: remove Portal and CRM still works, and the Billing tab that depends on it turns off. More modules can plug in next to the CRM. The app is TanStack Start, React, Tailwind, and shadcn/ui.
 
 > [!NOTE]
 > monoERP is an example and a starting point, not a supported product.

@@ -56,6 +56,8 @@ npx giget@latest gh:directus/monospace-starter/starters/monoerp monoerp
 
 Each starter runs its own Monospace on port 8100, so stop the root stack first.
 
+Each starter is versioned on its own: releases are tagged `<starter>@<version>` (for example `monoerp@0.1.0`) with a `CHANGELOG.md` in its folder. See [releases](https://github.com/directus/monospace-starter/releases) and [`CONTRIBUTING.md`](CONTRIBUTING.md).
+
 ## Extensions
 
 Data connector extensions let you add APIs and other systems as data sources. They're in preview, so the config format may change.
