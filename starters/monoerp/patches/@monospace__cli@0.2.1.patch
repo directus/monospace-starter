@@ -1,0 +1,12 @@
+diff --git a/dist/generate-B8xS8M2P.js b/dist/generate-B8xS8M2P.js
+index bfdd4d8f4817e04776aa56a6053c105e6edfbc21..b6617e4ff66aba20254833d6631f9fb5d6c091b1 100644
+--- a/dist/generate-B8xS8M2P.js
++++ b/dist/generate-B8xS8M2P.js
+@@ -741,6 +741,7 @@ ${JSON_VALUE_DECLARATIONS}
+ 	const mappings = document["x-monospace-mappings"] || {};
+ 	const collectionNames = Object.keys(mappings).map((name) => assertIdentifier(name, "A collection mapping"));
+ 	if (collectionNames.length === 0) {
++		output[output.indexOf("namespace _Types {")] = "export namespace _Types {";
+ 		output.push("// =============================================================================", "// SCHEMA", "// =============================================================================", "", emitSchema([]), "", "/* eslint-enable */", "");
+ 		return output.join("\n");
+ 	}

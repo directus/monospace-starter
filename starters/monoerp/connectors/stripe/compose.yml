@@ -1,0 +1,13 @@
+services:
+  stripe:
+    build: ./emulator
+    restart: unless-stopped
+    ports:
+      - '127.0.0.1:${STRIPE_PORT:-4010}:4010'
+    healthcheck:
+      test: ['CMD', 'wget', '-qO-', 'http://127.0.0.1:4010/v1/products?limit=1']
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    networks:
+      - monospace

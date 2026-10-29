@@ -1,0 +1,9 @@
+.git
+.env*
+**/.output
+**/.tanstack
+**/node_modules
+*.log
+docs
+deploy
+.pnpm-store

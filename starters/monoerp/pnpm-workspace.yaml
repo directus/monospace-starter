@@ -1,0 +1,59 @@
+packages:
+  - apps/*
+  - deploy/*
+  - connectors/*/extension
+  - connectors/*/frontend
+  - modules/*
+
+catalog:
+  '@base-ui/react': 1.7.0
+  '@dnd-kit/abstract': 0.5.0
+  '@dnd-kit/helpers': 0.5.0
+  '@dnd-kit/react': 0.5.0
+  '@tanstack/charts': 0.16.0
+  '@tanstack/react-form': 1.33.5
+  '@tanstack/react-query': 5.102.8
+  '@tanstack/react-router': 1.170.32
+  '@testing-library/jest-dom': 7.0.1
+  '@testing-library/react': 16.3.3
+  '@testing-library/user-event': 14.6.7
+  '@types/react': 19.2.18
+  '@types/react-dom': 19.2.5
+  lucide-react: 1.38.0
+  msw: 2.15.0
+  react: 19.2.8
+  react-dom: 19.2.8
+  sonner: 2.0.8
+  zod: 4.5.4
+  vite: npm:@voidzero-dev/vite-plus-core@0.3.0
+  vitest: 4.1.11
+  vite-plus: 0.3.0
+
+overrides:
+  vite: 'catalog:'
+  vitest: 'catalog:'
+
+peerDependencyRules:
+  allowAny:
+    - vite
+    - vitest
+  allowedVersions:
+    vite: '*'
+    vitest: '*'
+
+allowBuilds:
+  esbuild: true
+  lightningcss: true
+  unrs-resolver: true
+  msw: false
+  workerd: false
+
+minimumReleaseAgeExclude:
+  - '@monospace/sdk@1.0.0'
+  - '@monospace/sdk@0.8.0' # @monospace/cli 0.2.1 depends on it
+  - '@monospace/cli@0.2.1'
+  - '@monospace/extension-kit@0.3.0'
+
+patchedDependencies:
+  '@monospace/cli@0.2.1': patches/@monospace__cli@0.2.1.patch
+  'alchemy@2.0.0-beta.79': deploy/aws/patches/alchemy@2.0.0-beta.79.patch

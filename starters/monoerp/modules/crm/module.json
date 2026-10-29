@@ -1,0 +1,28 @@
+{
+  "$schema": "https://monospace.io/schemas/starter/v1/module.json",
+  "label": "CRM",
+  "description": "Organizations, contacts, and deals.",
+  "x-monoerp": {
+    "collections": [
+      "organizations",
+      "contacts",
+      "affiliations",
+      "deals",
+      "pipelineStages",
+      "activities",
+      "attachments"
+    ],
+    "writes": ["attachments", "affiliations", "contacts", "activities", "deals", "organizations"],
+    "auditColumns": {
+      "organizations": ["owner_user_id", "created_by", "updated_by"],
+      "contacts": ["owner_user_id", "created_by", "updated_by"],
+      "affiliations": ["created_by", "updated_by"],
+      "deals": ["owner_user_id", "created_by", "updated_by"],
+      "activities": ["owner_user_id", "created_by", "updated_by"],
+      "attachments": ["created_by"]
+    },
+    "setup": {
+      "afterSchema": [{ "title": "Activity owners", "script": "backfill-owners.mjs" }]
+    }
+  }
+}

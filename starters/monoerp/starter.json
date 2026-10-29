@@ -1,0 +1,67 @@
+{
+  "$schema": "https://monospace.io/schemas/starter/v1/starter.json",
+  "label": "monoERP starter",
+  "description": "Shared app shell, authentication, database, and setup",
+  "ignorePaths": [
+    "dist",
+    ".output",
+    ".cache",
+    "apps/web/dist",
+    "apps/web/.output",
+    "apps/web/.nitro",
+    "apps/web/.tanstack"
+  ],
+  "nextSteps": {
+    "create": [
+      {
+        "command": ["cp", "-n", ".env.example", ".env"]
+      },
+      {
+        "command": ["docker", "compose", "up", "-d", "--wait", "--wait-timeout", "180"]
+      },
+      {
+        "script": "setup:all"
+      },
+      {
+        "script": "generate:routes",
+        "when": "choices-changed"
+      },
+      {
+        "script": "generate",
+        "when": "choices-changed"
+      },
+      {
+        "script": "dev"
+      }
+    ],
+    "remove": [
+      {
+        "command": ["pnpm", "install"]
+      },
+      {
+        "script": "app:doctor"
+      },
+      {
+        "command": [
+          "docker",
+          "compose",
+          "up",
+          "-d",
+          "--wait",
+          "--wait-timeout",
+          "180",
+          "--remove-orphans"
+        ]
+      },
+      {
+        "script": "setup:all"
+      },
+      {
+        "script": "generate:routes"
+      },
+      {
+        "script": "generate"
+      }
+    ]
+  }
+}

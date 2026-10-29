@@ -1,0 +1,170 @@
+import { z } from 'zod'
+
+import type { JsonValue, Uuid } from '@/generated/monospace'
+import { authenticatedHttp } from '@/lib/monospace-http'
+import { uuidSchema } from '@/lib/uuid'
+import { workspace } from '@/lib/workspace'
+
+// Monospace's own tables (members, roles, policies) aren't collections in the generated client:
+// each has its own endpoint. They're read here, and every answer is parsed on the way in.
+const http = authenticatedHttp({
+  url: '',
+  workspace,
+  credentials: 'include',
+})
+
+type Query = Record<string, string | number>
+
+const listOf = <T extends z.ZodType>(item: T) => z.object({ data: z.array(item) })
+
+const MEMBER_FIELDS = ['id', 'fullName', 'email', 'avatarId']
+
+const member = z.object({
+  id: uuidSchema,
+  fullName: z.string().nullable(),
+  email: z.string().nullable(),
+  avatarId: z.string().nullable(),
+})
+
+export type Member = z.infer<typeof member>
+
+async function get<T extends z.ZodType>(schema: T, path: string, query: Query = {}) {
+  return schema.parse(
+    await http.request<JsonValue>({ method: 'GET', path, query, headers: new Headers() }),
+  )
+}
+
+const fields = (names: ReadonlyArray<string>): Query =>
+  Object.fromEntries(names.map((name, index) => [`fields[${index}]`, name]))
+
+/** The workspace members with these ids. */
+export async function readMembers(ids: ReadonlyArray<Uuid>) {
+  const filter = Object.fromEntries(ids.map((id, index) => [`filter[id][_in][${index}]`, id]))
+
+  const { data } = await get(listOf(member), '/members', {
+    ...fields(MEMBER_FIELDS),
+    ...filter,
+    limit: ids.length,
+  })
+
+  return data
+}
+
+const USERS_TTL = 5 * 60_000
+
+// A workspace has few members, so one read covers every owner on every page.
+const MEMBERS_LIMIT = 500
+
+let knownUsers = new Map<Uuid, Member>()
+
+let knownUsersAt = 0
+
+let loadingMembers: Promise<void> | undefined
+
+async function readAllMembers() {
+  const { data } = await get(listOf(member), '/members', {
+    ...fields(MEMBER_FIELDS),
+    limit: MEMBERS_LIMIT,
+  })
+
+  knownUsers = new Map(data.map((user) => [user.id, user]))
+  knownUsersAt = Date.now()
+}
+
+/** Starts reading every workspace member, at most once per TTL. The app layout calls this. */
+export function loadMembers() {
+  if (Date.now() - knownUsersAt > USERS_TTL && !loadingMembers) {
+    loadingMembers = readAllMembers()
+      .catch(() => {})
+      .finally(() => {
+        loadingMembers = undefined
+      })
+  }
+
+  return loadingMembers ?? Promise.resolve()
+}
+
+// Owners and uploaders are looked up here and kept for a few minutes, instead of coming from an
+// `owner` or `createdBy` include. Monospace never caches a query that includes a system user
+// (docs/monospace.md, known issues), so one such include makes every list and record read skip
+// its cache. The member list loads alongside the first page (`loadMembers`), so record reads
+// usually find their users here without a second request.
+export async function usersById(ids: ReadonlyArray<Uuid | null | undefined>) {
+  if (ids.some(Boolean)) await loadMembers()
+
+  const missing = [...new Set(ids)].flatMap((id) => (id && !knownUsers.has(id) ? [id] : []))
+
+  if (missing.length) {
+    for (const user of await readMembers(missing)) knownUsers.set(user.id, user)
+  }
+
+  return knownUsers
+}
+
+/** A member already read this session, for filling in an owner before the server answers. */
+export function knownMember(id: Uuid | null) {
+  return id ? (knownUsers.get(id) ?? null) : null
+}
+
+/** Members whose name or email contains `q`, by name. */
+export async function searchMembers(q: string, limit: number) {
+  const filter: Query = q
+    ? { 'filter[_or][0][fullName][_icontains]': q, 'filter[_or][1][email][_icontains]': q }
+    : {}
+
+  const { data } = await get(listOf(member), '/members', {
+    ...fields(MEMBER_FIELDS),
+    ...filter,
+    'sort[0][fullName][direction]': 'asc',
+    limit,
+  })
+
+  return data
+}
+
+const ROLE_LIMIT = 1000
+
+/** The content of every policy on the user's roles in this workspace. */
+export async function readUserPolicies(userId: Uuid): Promise<Array<JsonValue | undefined>> {
+  const { data: roles } = await get(listOf(z.object({ roleId: z.string() })), '/system/user-role', {
+    ...fields(['roleId']),
+    'filter[userId][_eq]': userId,
+    limit: ROLE_LIMIT,
+  })
+
+  if (roles.length === ROLE_LIMIT) throw new Error('Could not load all roles.')
+
+  const policies = await Promise.all(
+    roles.map(({ roleId }) =>
+      get(
+        listOf(z.object({ content: z.json().optional() })),
+        `/roles/${encodeURIComponent(roleId)}/policies`,
+      ),
+    ),
+  )
+
+  return policies.flatMap(({ data }) => data.map((policy) => policy.content))
+}
+
+// Users come from the cached lookup, never an include, so record reads stay cacheable.
+export async function withUsers<
+  K extends string,
+  const N extends string,
+  T extends { [P in K]?: Uuid | null },
+>(rows: ReadonlyArray<T>, names: Record<K, N>): Promise<Array<T & Record<N, Member | null>>> {
+  // SAFETY: the map's keys are the id columns declared by the caller.
+  const keys = Object.keys(names) as Array<K>
+  const users = await usersById(rows.flatMap((row) => keys.map((key) => row[key])))
+
+  return rows.map((row) => {
+    const filled: Record<string, Member | null> = {}
+
+    for (const key of keys) {
+      const id = row[key]
+      filled[names[key]] = id ? (users.get(id) ?? null) : null
+    }
+
+    // SAFETY: the loop fills exactly the output names passed by the caller.
+    return { ...row, ...filled } as T & Record<N, Member | null>
+  })
+}

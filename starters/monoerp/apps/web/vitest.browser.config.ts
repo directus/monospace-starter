@@ -1,0 +1,37 @@
+import tailwindcss from '@tailwindcss/vite'
+import react from '@vitejs/plugin-react'
+import { playwright } from '@vitest/browser-playwright'
+import { defineConfig } from 'vite-plus'
+
+import { frontendFeatures, moduleFeaturePaths } from './scripts/module-collections'
+
+const browserTests = [
+  'src/**/*.browser.tsx',
+  '../../modules/*/**/*.browser.tsx',
+  ...frontendFeatures.active.map((feature) => `../../${feature.path}/**/*.browser.tsx`),
+]
+
+export default defineConfig({
+  resolve: {
+    dedupe: ['react', 'react-dom', '@tanstack/react-query', '@tanstack/react-router'],
+    tsconfigPaths: true,
+  },
+  define: {
+    __MODULE_FEATURE_PATHS__: JSON.stringify(moduleFeaturePaths),
+  },
+  optimizeDeps: { entries: browserTests },
+  plugins: [react({ compiler: true }), tailwindcss()],
+  // Serves MSW's service worker (test/public/mockServiceWorker.js) to browser tests only.
+  publicDir: 'test/public',
+  test: {
+    include: browserTests,
+    browser: {
+      enabled: true,
+      headless: true,
+      screenshotDirectory: './node_modules/.cache/browser-screenshots',
+      provider: playwright(),
+      instances: [{ browser: 'chromium' }],
+      viewport: { width: 1100, height: 900 },
+    },
+  },
+})

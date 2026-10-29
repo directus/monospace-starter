@@ -1,0 +1,27 @@
+{
+  "$schema": "https://monospace.io/schemas/starter/v1/connector.json",
+  "label": "Stripe",
+  "description": "Billing data from Stripe",
+  "x-monoerp": {
+    "source": {
+      "apiName": "Stripe",
+      "provider": "monoerp/stripe-data-connector",
+      "config": {
+        "apiKey": { "env": "STRIPE_API_KEY", "default": "sk_test_monoerp" },
+        "apiBase": { "env": "STRIPE_API_BASE", "default": "http://stripe:4010" }
+      }
+    },
+    "setup": {
+      "beforeSchema": [
+        {
+          "title": "Portal to Stripe relation",
+          "script": "portal-stripe-relation.mjs",
+          "requires": ["portal"]
+        }
+      ]
+    },
+    "contributes": {
+      "crm": { "requires": ["portal"], "collections": ["stripeCustomers", "stripeCharges"] }
+    }
+  }
+}

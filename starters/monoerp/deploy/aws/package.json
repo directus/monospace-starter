@@ -1,0 +1,30 @@
+{
+  "name": "@monoerp/aws",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "plan": "sh ./alchemy.sh plan",
+    "deploy": "sh ./alchemy.sh deploy",
+    "destroy": "sh ./alchemy.sh destroy",
+    "keys": "node keys.mjs",
+    "license": "node license.mjs",
+    "db-init": "node db-init.mjs",
+    "setup": "node setup.mjs",
+    "probe": "node probe.mjs",
+    "mail": "node mail.mjs",
+    "restore-test": "node restore-test.mjs",
+    "github-oidc": "node github-oidc.mjs",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@effect/platform-node": "4.0.0-rc.117",
+    "alchemy": "2.0.0-beta.79",
+    "effect": "4.0.0-rc.117"
+  },
+  "devDependencies": {
+    "@oxlint/plugins": "1.79.0",
+    "@types/node": "24.10.13",
+    "typescript": "6.0.3"
+  }
+}

@@ -1,0 +1,283 @@
+{
+  "collections": {
+    "charges": {
+      "apiName": "stripeCharges",
+      "meta": {
+        "displayTemplate": "{description}",
+        "displayName": "Stripe Charges",
+        "description": "Money Stripe charged, one per paid or failed invoice period.",
+        "icon": "lucide:receipt",
+        "isHidden": false,
+        "color": "#635BFF"
+      },
+      "order": [
+        "description",
+        "amount",
+        "currency",
+        "status",
+        "created",
+        "customer",
+        "payment_intent",
+        "id",
+        "metadata",
+        "livemode"
+      ],
+      "fields": {
+        "amount": {
+          "displayName": "Amount",
+          "isHidden": false
+        },
+        "created": {
+          "displayName": "Created",
+          "isHidden": false
+        },
+        "currency": {
+          "displayName": "Currency",
+          "isHidden": false
+        },
+        "customer": {
+          "displayName": "Customer ID",
+          "isHidden": false
+        },
+        "description": {
+          "displayName": "Description",
+          "isHidden": false
+        },
+        "id": {
+          "displayName": "Stripe ID",
+          "isHidden": false
+        },
+        "livemode": {
+          "displayName": "Live mode",
+          "isHidden": true
+        },
+        "metadata": {
+          "displayName": "Metadata",
+          "isHidden": false
+        },
+        "payment_intent": {
+          "displayName": "Payment intent ID",
+          "isHidden": false
+        },
+        "status": {
+          "displayName": "Status",
+          "isHidden": false
+        }
+      }
+    },
+    "customers": {
+      "apiName": "stripeCustomers",
+      "meta": {
+        "displayTemplate": "{name}",
+        "displayName": "Stripe Customers",
+        "description": "Customers in Stripe, which bills portal accounts. Read through the Stripe connector.",
+        "icon": "simple-icons:stripe",
+        "isHidden": false,
+        "color": "#635BFF"
+      },
+      "order": ["name", "email", "description", "id", "created", "metadata", "livemode"],
+      "fields": {
+        "created": {
+          "displayName": "Created",
+          "isHidden": false
+        },
+        "description": {
+          "displayName": "Description",
+          "isHidden": false
+        },
+        "email": {
+          "displayName": "Email",
+          "isHidden": false
+        },
+        "id": {
+          "displayName": "Stripe ID",
+          "isHidden": false
+        },
+        "livemode": {
+          "displayName": "Live mode",
+          "isHidden": true
+        },
+        "metadata": {
+          "displayName": "Metadata",
+          "isHidden": false
+        },
+        "name": {
+          "displayName": "Name",
+          "isHidden": false
+        }
+      }
+    },
+    "payment_intents": {
+      "apiName": "stripePaymentIntents",
+      "meta": {
+        "displayTemplate": "{description}",
+        "displayName": "Stripe Payment Intents",
+        "description": "Payment attempts in Stripe.",
+        "icon": "lucide:credit-card",
+        "isHidden": false,
+        "color": "#635BFF"
+      },
+      "order": [
+        "description",
+        "amount",
+        "currency",
+        "status",
+        "customer",
+        "id",
+        "created",
+        "metadata",
+        "livemode"
+      ],
+      "fields": {
+        "amount": {
+          "displayName": "Amount",
+          "isHidden": false
+        },
+        "created": {
+          "displayName": "Created",
+          "isHidden": false
+        },
+        "currency": {
+          "displayName": "Currency",
+          "isHidden": false
+        },
+        "customer": {
+          "displayName": "Customer ID",
+          "isHidden": false
+        },
+        "description": {
+          "displayName": "Description",
+          "isHidden": false
+        },
+        "id": {
+          "displayName": "Stripe ID",
+          "isHidden": false
+        },
+        "livemode": {
+          "displayName": "Live mode",
+          "isHidden": true
+        },
+        "metadata": {
+          "displayName": "Metadata",
+          "isHidden": false
+        },
+        "status": {
+          "displayName": "Status",
+          "isHidden": false
+        }
+      }
+    },
+    "prices": {
+      "apiName": "stripePrices",
+      "meta": {
+        "displayTemplate": "{nickname}",
+        "displayName": "Stripe Prices",
+        "description": "Prices for Stripe products, in the currency's smallest unit.",
+        "icon": "lucide:tag",
+        "isHidden": false,
+        "color": "#635BFF"
+      },
+      "order": [
+        "unit_amount",
+        "currency",
+        "recurring_interval",
+        "type",
+        "nickname",
+        "active",
+        "product",
+        "id",
+        "created",
+        "metadata",
+        "livemode"
+      ],
+      "fields": {
+        "active": {
+          "displayName": "Active",
+          "isHidden": false
+        },
+        "created": {
+          "displayName": "Created",
+          "isHidden": false
+        },
+        "currency": {
+          "displayName": "Currency",
+          "isHidden": false
+        },
+        "id": {
+          "displayName": "Stripe ID",
+          "isHidden": false
+        },
+        "livemode": {
+          "displayName": "Live mode",
+          "isHidden": true
+        },
+        "metadata": {
+          "displayName": "Metadata",
+          "isHidden": false
+        },
+        "nickname": {
+          "displayName": "Nickname",
+          "isHidden": false
+        },
+        "product": {
+          "displayName": "Product ID",
+          "isHidden": false
+        },
+        "recurring_interval": {
+          "displayName": "Interval",
+          "isHidden": false
+        },
+        "type": {
+          "displayName": "Type",
+          "isHidden": false
+        },
+        "unit_amount": {
+          "displayName": "Unit amount",
+          "isHidden": false
+        }
+      }
+    },
+    "products": {
+      "apiName": "stripeProducts",
+      "meta": {
+        "displayTemplate": "{name}",
+        "displayName": "Stripe Products",
+        "description": "What Stripe sells: one product per portal plan.",
+        "icon": "lucide:package",
+        "isHidden": false,
+        "color": "#635BFF"
+      },
+      "order": ["name", "description", "active", "id", "created", "metadata", "livemode"],
+      "fields": {
+        "active": {
+          "displayName": "Active",
+          "isHidden": false
+        },
+        "created": {
+          "displayName": "Created",
+          "isHidden": false
+        },
+        "description": {
+          "displayName": "Description",
+          "isHidden": false
+        },
+        "id": {
+          "displayName": "Stripe ID",
+          "isHidden": false
+        },
+        "livemode": {
+          "displayName": "Live mode",
+          "isHidden": true
+        },
+        "metadata": {
+          "displayName": "Metadata",
+          "isHidden": false
+        },
+        "name": {
+          "displayName": "Name",
+          "isHidden": false
+        }
+      }
+    }
+  }
+}

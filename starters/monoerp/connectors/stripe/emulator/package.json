@@ -1,0 +1,9 @@
+{
+  "name": "monoerp-stripe-emulator",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@emulators/core": "0.12.0",
+    "@emulators/stripe": "0.12.0"
+  }
+}

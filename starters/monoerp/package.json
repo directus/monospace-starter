@@ -1,0 +1,51 @@
+{
+  "name": "monoerp",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node infra/compose-sync.mjs && vp dev",
+    "build": "vp build",
+    "build:extensions": "node infra/monospace/setup/build-extensions.mjs",
+    "start": "vp run --filter @monoerp/web start",
+    "setup:all": "node infra/monospace/setup/setup.mjs",
+    "setup:sources": "node infra/monospace/setup/sources.mjs",
+    "setup:introspect": "node infra/monospace/setup/introspect-sources.mjs",
+    "setup:audit-relations": "node infra/monospace/setup/audit-user-relations.mjs",
+    "db:migrate": "docker compose run --rm --no-deps --entrypoint sh app-postgres /infra/postgres/migrate.sh && node infra/monospace/setup/connector-hook.mjs migrate",
+    "schema:apply": "node infra/monospace/setup/apply-schema.mjs",
+    "schema:export": "node infra/monospace/setup/export-schema.mjs",
+    "generate": "vp run --filter @monoerp/web generate",
+    "generate:routes": "vp run --filter @monoerp/web generate:routes",
+    "generate:schemas": "vp run --filter @monoerp/web generate:schemas",
+    "check": "node tools/app.mjs check && vp check",
+    "verify": "pnpm check && pnpm typecheck && pnpm test && pnpm build",
+    "typecheck": "vp run -r typecheck",
+    "lint": "vp lint",
+    "format": "vp fmt",
+    "format:check": "vp fmt --check",
+    "test": "vp test",
+    "app:doctor": "node tools/app.mjs check",
+    "app:remove": "node tools/app.mjs remove",
+    "compose:sync": "node infra/compose-sync.mjs",
+    "prepare": "node tools/prepare.mjs",
+    "aws": "vp run --filter @monoerp/aws"
+  },
+  "devDependencies": {
+    "@oxlint/plugins": "1.79.0",
+    "vite-plus": "catalog:",
+    "yaml": "2.9.1",
+    "zod": "4.5.4"
+  },
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "version": "11.20.0",
+      "onFail": "download"
+    }
+  },
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "packageManager": "pnpm@11.20.0"
+}

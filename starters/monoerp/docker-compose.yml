@@ -1,0 +1,227 @@
+include:
+  - compose.app.yml
+
+services:
+  system-postgres:
+    image: postgres:17
+    restart: unless-stopped
+    command: postgres -c 'max_connections=200'
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${MONOSPACE_SYSTEM_DB_PASSWORD:-monospace}
+      POSTGRES_DB: monospace
+    ports:
+      - '127.0.0.1:${MONOSPACE_SYSTEM_POSTGRES_PORT:-5434}:5432'
+    volumes:
+      - system_postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -h 127.0.0.1 -U postgres -d monospace']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+      - monospace
+
+  app-postgres:
+    image: pgvector/pgvector:0.8.1-pg17-bookworm
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: app
+      POSTGRES_PASSWORD: ${APP_DB_PASSWORD:-monospace}
+      POSTGRES_DB: app
+    ports:
+      - '127.0.0.1:${APP_POSTGRES_PORT:-5433}:5432'
+    volumes:
+      - app_postgres_data:/var/lib/postgresql/data
+      - ./infra/postgres/entrypoint:/docker-entrypoint-initdb.d:ro
+      - ./infra/postgres:/infra/postgres:ro
+      - ./modules:/modules:ro
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -h 127.0.0.1 -U app -d app']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+      - monospace
+
+  rabbitmq:
+    image: rabbitmq:3.13-management
+    restart: unless-stopped
+    environment:
+      RABBITMQ_DEFAULT_USER: monospace
+      RABBITMQ_DEFAULT_PASS: monospace
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    healthcheck:
+      test: ['CMD', 'rabbitmq-diagnostics', '-q', 'ping']
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    networks:
+      - monospace
+
+  mailpit:
+    image: axllent/mailpit:v1.27
+    restart: unless-stopped
+    ports:
+      - '127.0.0.1:${MAILPIT_PORT:-8025}:8025'
+    environment:
+      MP_SMTP_AUTH_ACCEPT_ANY: '1'
+      MP_SMTP_AUTH_ALLOW_INSECURE: '1'
+    networks:
+      - monospace
+
+  keygen:
+    image: alpine:3.21
+    command:
+      - sh
+      - -c
+      - |
+        set -eu
+        mkdir -p /keys
+        if ! [ -f /keys/jwt_private.pem ] || ! [ -f /keys/jwt_public.pem ] || ! [ -f /keys/kms_master.key ]; then
+          apk add --no-cache openssl > /dev/null
+          openssl genpkey -algorithm ED25519 -out /keys/jwt_private.pem
+          openssl pkey -in /keys/jwt_private.pem -pubout -out /keys/jwt_public.pem
+          openssl rand -base64 32 | tr -d '\n' > /keys/kms_master.key
+          echo "Keys generated."
+        else
+          echo "Keys already exist, skipping generation."
+        fi
+        chown 65532:65532 /keys/jwt_private.pem /keys/jwt_public.pem /keys/kms_master.key
+        chmod 600 /keys/jwt_private.pem /keys/jwt_public.pem /keys/kms_master.key
+    volumes:
+      - keys_data:/keys
+    networks:
+      - monospace
+
+  monospace:
+    # Pinned by digest so every clone runs the same build.
+    image: monospace/monospace:v1.0.0@sha256:bb82b12e61510699d241c08a3f7c74120cac692031272a9f70460ebb56fa34b7
+    restart: unless-stopped
+    depends_on:
+      system-postgres:
+        condition: service_healthy
+      app-postgres:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+      keygen:
+        condition: service_completed_successfully
+      mailpit:
+        condition: service_started
+    ports:
+      - '127.0.0.1:${MONOSPACE_PORT:-8100}:8100'
+    volumes:
+      - keys_data:/keys:ro
+      - uploads_data:/uploads
+      - ./infra/monospace/extensions:/monospace/extensions:ro
+    environment:
+      MONOSPACE_HOST: '0.0.0.0'
+      # Loads connector builds as `pnpm build:extensions` writes them, without a restart.
+      MONOSPACE_EXTENSIONS__AUTO_RELOAD: 'true'
+      # Clustered mode rejects local file storage; this stack runs one node.
+      MONOSPACE_CLUSTER__ENABLED: 'false'
+      MONOSPACE_PORT: '8100'
+      # Studio serves the invite and password reset pages; monoERP has no auth routes yet.
+      MONOSPACE_BASE_URL: 'http://localhost:${MONOSPACE_PORT:-8100}'
+
+      MONOSPACE_SYSTEM_DATABASE__PROVIDER: 'postgres'
+      MONOSPACE_SYSTEM_DATABASE__HOST: 'system-postgres'
+      MONOSPACE_SYSTEM_DATABASE__PORT: '5432'
+      MONOSPACE_SYSTEM_DATABASE__USER: 'postgres'
+      MONOSPACE_SYSTEM_DATABASE__PASSWORD: ${MONOSPACE_SYSTEM_DB_PASSWORD:-monospace}
+      MONOSPACE_SYSTEM_DATABASE__DBNAME: 'monospace'
+
+      MONOSPACE_SYSTEM_FILE_STORAGE__PROVIDER: 'local'
+      MONOSPACE_SYSTEM_FILE_STORAGE__ROOT_PATH: '/uploads'
+      # Attachments: PDFs routinely pass the 5 MB default.
+      MONOSPACE_MAX_FILE_PAYLOAD_SIZE: '25m'
+
+      MONOSPACE_RABBITMQ__HOST: 'rabbitmq'
+      MONOSPACE_RABBITMQ__PORT: '5672'
+      MONOSPACE_RABBITMQ__USER: 'monospace'
+      MONOSPACE_RABBITMQ__PASSWORD: 'monospace'
+      MONOSPACE_RABBITMQ__VHOST: '/'
+
+      MONOSPACE_JWT_PRIVATE_KEY__FILE: '/keys/jwt_private.pem'
+      MONOSPACE_JWT_PUBLIC_KEY__FILE: '/keys/jwt_public.pem'
+      MONOSPACE_KMS__TYPE: 'monospace'
+      MONOSPACE_KMS__MASTER_KEY__FILE: '/keys/kms_master.key'
+
+      # Local mail catcher. Read invites at http://localhost:${MAILPIT_PORT:-8025}
+      MONOSPACE_SYSTEM_EMAILER__PROVIDER: 'smtp'
+      MONOSPACE_SYSTEM_EMAILER__HOST: 'mailpit'
+      MONOSPACE_SYSTEM_EMAILER__PORT: '1025'
+      # v1.0.0 reads TLS, not the documented TLS_OFF.
+      MONOSPACE_SYSTEM_EMAILER__TLS: 'false'
+      # Required fields; Mailpit accepts any credentials.
+      MONOSPACE_SYSTEM_EMAILER__USERNAME: 'mailpit'
+      MONOSPACE_SYSTEM_EMAILER__PASSWORD: 'mailpit'
+      MONOSPACE_SYSTEM_EMAILER__FROM_ADDRESS: 'monoerp@example.com'
+      MONOSPACE_SYSTEM_EMAILER__FROM_NAME: 'monoERP'
+
+      MONOSPACE_ACCESS_TOKEN_TTL: '15m'
+      MONOSPACE_REFRESH_TOKEN_TTL: '7days'
+      MONOSPACE_COOKIE_SECURE: 'false'
+      # Show edits immediately during local development; production can cache reads.
+      MONOSPACE_CACHE__ENABLED: 'false'
+      MONOSPACE_ADMIN_EMAIL: ${MONOSPACE_ADMIN_EMAIL:-admin@example.com}
+      MONOSPACE_ADMIN_PASSWORD: ${MONOSPACE_ADMIN_PASSWORD:-monospace}
+      # Passed only when set: Monospace rejects an empty key. Without one it runs on the free tier (see docs/monospace.md).
+      MONOSPACE_LICENSE__KEY:
+    networks:
+      - monospace
+
+  app:
+    profiles: ['full']
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+    restart: unless-stopped
+    environment:
+      PORT: '3000'
+      HOST: '0.0.0.0'
+      LOGO_DEV_TOKEN: ${LOGO_DEV_TOKEN:-}
+    depends_on:
+      monospace:
+        condition: service_started
+    healthcheck:
+      test:
+        [
+          'CMD',
+          'node',
+          '-e',
+          "fetch('http://127.0.0.1:3000').then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    networks:
+      - monospace
+
+  gateway:
+    profiles: ['full']
+    image: caddy:2.10.2-alpine
+    restart: unless-stopped
+    depends_on:
+      app:
+        condition: service_healthy
+      monospace:
+        condition: service_started
+    ports:
+      - '127.0.0.1:${APP_PORT:-3000}:80'
+    volumes:
+      - ./infra/caddy/Caddyfile:/etc/caddy/Caddyfile:ro
+    networks:
+      - monospace
+
+volumes:
+  system_postgres_data:
+  app_postgres_data:
+  rabbitmq_data:
+  keys_data:
+  uploads_data:
+
+networks:
+  monospace:

@@ -1,0 +1,383 @@
+{
+  "now": "2026-08-21T12:00:00Z",
+  "catalogCreatedAt": "2024-01-01T09:00:00Z",
+  "plans": [
+    {
+      "code": "starter",
+      "name": "Starter",
+      "monthlyPrice": 4900
+    },
+    {
+      "code": "team",
+      "name": "Team",
+      "monthlyPrice": 29900
+    },
+    {
+      "code": "business",
+      "name": "Business",
+      "monthlyPrice": 99900
+    },
+    {
+      "code": "enterprise",
+      "name": "Enterprise",
+      "monthlyPrice": 399900
+    }
+  ],
+  "customers": [
+    {
+      "id": "cus_MonoErp0001",
+      "portalAccountId": "acct-0001",
+      "name": "Apple",
+      "email": "maya.chen@example.com",
+      "plan": "team",
+      "status": "active",
+      "startedAt": "2024-03-18"
+    },
+    {
+      "id": "cus_MonoErp0002",
+      "portalAccountId": "acct-0002",
+      "name": "Microsoft",
+      "email": "ethan.chen@example.com",
+      "plan": "business",
+      "status": "active",
+      "startedAt": "2024-04-04"
+    },
+    {
+      "id": "cus_MonoErp0003",
+      "portalAccountId": "acct-0003",
+      "name": "Amazon",
+      "email": "priya.chen@example.com",
+      "plan": "enterprise",
+      "status": "active",
+      "startedAt": "2024-04-21"
+    },
+    {
+      "id": "cus_MonoErp0004",
+      "portalAccountId": "acct-0004",
+      "name": "Alphabet",
+      "email": "marcus.chen@example.com",
+      "plan": "team",
+      "status": "trialing",
+      "startedAt": "2026-08-14"
+    },
+    {
+      "id": "cus_MonoErp0005",
+      "portalAccountId": "acct-0005",
+      "name": "Walmart",
+      "email": "sofia.chen@example.com",
+      "plan": "business",
+      "status": "active",
+      "startedAt": "2024-05-25"
+    },
+    {
+      "id": "cus_MonoErp0006",
+      "portalAccountId": "acct-0006",
+      "name": "Berkshire Hathaway",
+      "email": "daniel.chen@example.com",
+      "plan": "enterprise",
+      "status": "active",
+      "startedAt": "2024-06-11"
+    },
+    {
+      "id": "cus_MonoErp0007",
+      "portalAccountId": "acct-0007",
+      "name": "JPMorgan Chase",
+      "email": "aisha.chen@example.com",
+      "plan": "team",
+      "status": "active",
+      "startedAt": "2024-06-28"
+    },
+    {
+      "id": "cus_MonoErp0008",
+      "portalAccountId": "acct-0008",
+      "name": "UnitedHealth Group",
+      "email": "noah.chen@example.com",
+      "plan": "team",
+      "status": "trialing",
+      "startedAt": "2026-08-10"
+    },
+    {
+      "id": "cus_MonoErp0009",
+      "portalAccountId": "acct-0009",
+      "name": "Exxon Mobil",
+      "email": "elena.chen@example.com",
+      "plan": "starter",
+      "status": "canceled",
+      "startedAt": "2024-08-01",
+      "canceledAt": "2026-07-16"
+    },
+    {
+      "id": "cus_MonoErp0010",
+      "portalAccountId": "acct-0010",
+      "name": "CVS Health",
+      "email": "james.chen@example.com",
+      "plan": "team",
+      "status": "active",
+      "startedAt": "2024-08-18"
+    },
+    {
+      "id": "cus_MonoErp0011",
+      "portalAccountId": "acct-0011",
+      "name": "McKesson",
+      "email": "grace.chen@example.com",
+      "plan": "business",
+      "status": "past_due",
+      "startedAt": "2024-09-04"
+    },
+    {
+      "id": "cus_MonoErp0012",
+      "portalAccountId": "acct-0012",
+      "name": "Cencora",
+      "email": "leo.chen@example.com",
+      "plan": "team",
+      "status": "trialing",
+      "startedAt": "2026-08-06"
+    },
+    {
+      "id": "cus_MonoErp0013",
+      "portalAccountId": "acct-0013",
+      "name": "Costco Wholesale",
+      "email": "maya.williams@example.com",
+      "plan": "team",
+      "status": "active",
+      "startedAt": "2024-10-08"
+    },
+    {
+      "id": "cus_MonoErp0014",
+      "portalAccountId": "acct-0014",
+      "name": "The Cigna Group",
+      "email": "ethan.williams@example.com",
+      "plan": "business",
+      "status": "active",
+      "startedAt": "2024-10-25"
+    },
+    {
+      "id": "cus_MonoErp0015",
+      "portalAccountId": "acct-0015",
+      "name": "Ford Motor Company",
+      "email": "priya.williams@example.com",
+      "plan": "enterprise",
+      "status": "active",
+      "startedAt": "2024-11-11"
+    },
+    {
+      "id": "cus_MonoErp0016",
+      "portalAccountId": "acct-0016",
+      "name": "General Motors",
+      "email": "marcus.williams@example.com",
+      "plan": "team",
+      "status": "trialing",
+      "startedAt": "2026-08-02"
+    },
+    {
+      "id": "cus_MonoErp0017",
+      "portalAccountId": "acct-0017",
+      "name": "Chevron",
+      "email": "sofia.williams@example.com",
+      "plan": "business",
+      "status": "active",
+      "startedAt": "2024-12-15"
+    },
+    {
+      "id": "cus_MonoErp0018",
+      "portalAccountId": "acct-0018",
+      "name": "Bank of America",
+      "email": "daniel.williams@example.com",
+      "plan": "starter",
+      "status": "canceled",
+      "startedAt": "2025-01-01",
+      "canceledAt": "2026-06-10"
+    },
+    {
+      "id": "cus_MonoErp0019",
+      "portalAccountId": "acct-0019",
+      "name": "Citigroup",
+      "email": "aisha.williams@example.com",
+      "plan": "team",
+      "status": "active",
+      "startedAt": "2025-01-18"
+    },
+    {
+      "id": "cus_MonoErp0020",
+      "portalAccountId": "acct-0020",
+      "name": "Meta",
+      "email": "noah.williams@example.com",
+      "plan": "team",
+      "status": "trialing",
+      "startedAt": "2026-07-29"
+    },
+    {
+      "id": "cus_MonoErp0021",
+      "portalAccountId": "acct-0021",
+      "name": "The Home Depot",
+      "email": "elena.williams@example.com",
+      "plan": "enterprise",
+      "status": "active",
+      "startedAt": "2025-02-21"
+    },
+    {
+      "id": "cus_MonoErp0022",
+      "portalAccountId": "acct-0022",
+      "name": "Kroger",
+      "email": "james.williams@example.com",
+      "plan": "team",
+      "status": "active",
+      "startedAt": "2025-03-10"
+    },
+    {
+      "id": "cus_MonoErp0023",
+      "portalAccountId": "acct-0023",
+      "name": "Phillips 66",
+      "email": "grace.williams@example.com",
+      "plan": "business",
+      "status": "past_due",
+      "startedAt": "2025-03-27"
+    },
+    {
+      "id": "cus_MonoErp0024",
+      "portalAccountId": "acct-0024",
+      "name": "Marathon Petroleum",
+      "email": "leo.williams@example.com",
+      "plan": "team",
+      "status": "trialing",
+      "startedAt": "2026-07-25"
+    },
+    {
+      "id": "cus_MonoErp0025",
+      "portalAccountId": "acct-0025",
+      "name": "Verizon",
+      "email": "maya.patel@example.com",
+      "plan": "team",
+      "status": "active",
+      "startedAt": "2025-04-30"
+    },
+    {
+      "id": "cus_MonoErp0026",
+      "portalAccountId": "acct-0026",
+      "name": "AT&T",
+      "email": "ethan.patel@example.com",
+      "plan": "business",
+      "status": "active",
+      "startedAt": "2025-05-17"
+    },
+    {
+      "id": "cus_MonoErp0027",
+      "portalAccountId": "acct-0027",
+      "name": "Comcast",
+      "email": "priya.patel@example.com",
+      "plan": "starter",
+      "status": "canceled",
+      "startedAt": "2025-06-03",
+      "canceledAt": "2026-05-05"
+    },
+    {
+      "id": "cus_MonoErp0028",
+      "portalAccountId": "acct-0028",
+      "name": "Dell Technologies",
+      "email": "marcus.patel@example.com",
+      "plan": "team",
+      "status": "trialing",
+      "startedAt": "2026-07-21"
+    },
+    {
+      "id": "cus_MonoErp0029",
+      "portalAccountId": "acct-0029",
+      "name": "Target",
+      "email": "sofia.patel@example.com",
+      "plan": "business",
+      "status": "active",
+      "startedAt": "2025-07-07"
+    },
+    {
+      "id": "cus_MonoErp0030",
+      "portalAccountId": "acct-0030",
+      "name": "UPS",
+      "email": "daniel.patel@example.com",
+      "plan": "enterprise",
+      "status": "active",
+      "startedAt": "2025-07-24"
+    },
+    {
+      "id": "cus_MonoErp0031",
+      "portalAccountId": "acct-0031",
+      "name": "FedEx",
+      "email": "aisha.patel@example.com",
+      "plan": "team",
+      "status": "active",
+      "startedAt": "2025-08-10"
+    },
+    {
+      "id": "cus_MonoErp0032",
+      "portalAccountId": "acct-0032",
+      "name": "PepsiCo",
+      "email": "noah.patel@example.com",
+      "plan": "team",
+      "status": "trialing",
+      "startedAt": "2026-07-17"
+    },
+    {
+      "id": "cus_MonoErp0033",
+      "portalAccountId": "acct-0033",
+      "name": "The Coca-Cola Company",
+      "email": "elena.patel@example.com",
+      "plan": "enterprise",
+      "status": "active",
+      "startedAt": "2025-09-13"
+    },
+    {
+      "id": "cus_MonoErp0034",
+      "portalAccountId": "acct-0034",
+      "name": "Nike",
+      "email": "james.patel@example.com",
+      "plan": "team",
+      "status": "active",
+      "startedAt": "2025-09-30"
+    },
+    {
+      "id": "cus_MonoErp0035",
+      "portalAccountId": "acct-0035",
+      "name": "Salesforce",
+      "email": "grace.patel@example.com",
+      "plan": "business",
+      "status": "active",
+      "startedAt": "2025-10-17"
+    },
+    {
+      "id": "cus_MonoErp0036",
+      "portalAccountId": "acct-0036",
+      "name": "Oracle",
+      "email": "leo.patel@example.com",
+      "plan": "starter",
+      "status": "canceled",
+      "startedAt": "2025-11-03",
+      "canceledAt": "2026-03-30"
+    },
+    {
+      "id": "cus_MonoErp0037",
+      "portalAccountId": "acct-0037",
+      "name": "Tesla",
+      "email": "maya.johnson@example.com",
+      "plan": "team",
+      "status": "active",
+      "startedAt": "2025-11-20"
+    },
+    {
+      "id": "cus_MonoErp0038",
+      "portalAccountId": "acct-0038",
+      "name": "NVIDIA",
+      "email": "ethan.johnson@example.com",
+      "plan": "business",
+      "status": "active",
+      "startedAt": "2025-12-07"
+    },
+    {
+      "id": "cus_MonoErp0039",
+      "portalAccountId": "acct-0039",
+      "name": "The Walt Disney Company",
+      "email": "priya.johnson@example.com",
+      "plan": "enterprise",
+      "status": "active",
+      "startedAt": "2025-12-24"
+    }
+  ]
+}

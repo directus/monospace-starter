@@ -1,0 +1,26 @@
+{
+  "$schema": "https://monospace.io/schemas/starter/v1/connector.json",
+  "label": "Portal",
+  "description": "Example customer database (a MySQL demo you can remove)",
+  "x-monoerp": {
+    "source": {
+      "apiName": "Portal",
+      "provider": "mysql",
+      "host": { "env": "CUSTOMER_MYSQL_HOST", "default": "customer-mysql" },
+      "port": { "env": "CUSTOMER_MYSQL_INTERNAL_PORT", "default": 3306 },
+      "user": "monospace_reader",
+      "password": { "env": "PORTAL_READER_PASSWORD", "default": "monospace" },
+      "dbname": "customer_portal",
+      "ssl": { "when": "DB_SSL_MODE", "value": { "mode": { "env": "DB_SSL_MODE" } } }
+    },
+    "setup": {
+      "beforeSchema": [
+        { "title": "Portal relation names", "script": "portal-source-relations.mjs" },
+        { "title": "CRM Portal relations", "script": "portal-relations.mjs", "requires": ["crm"] }
+      ]
+    },
+    "contributes": {
+      "crm": { "collections": ["accounts", "users", "plans", "subscriptions", "tickets", "events"] }
+    }
+  }
+}

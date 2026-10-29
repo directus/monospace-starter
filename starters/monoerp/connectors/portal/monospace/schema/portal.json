@@ -1,0 +1,696 @@
+{
+  "collections": {
+    "accounts": {
+      "meta": {
+        "displayTemplate": "{name}",
+        "displayName": "Portal Accounts",
+        "description": "Accounts in the customer portal. Read-only, lives in the portal's MySQL.",
+        "icon": "lucide:building",
+        "isHidden": false,
+        "color": "#0ea5e9"
+      },
+      "order": [
+        "name",
+        "slug",
+        "status",
+        "organization",
+        "stripeCustomer",
+        "subscriptions",
+        "users",
+        "tickets",
+        "events",
+        "id",
+        "stripe_customer_id",
+        "created_at",
+        "updated_at"
+      ],
+      "fields": {
+        "created_at": {
+          "displayName": "Created",
+          "isHidden": true
+        },
+        "id": {
+          "displayName": "Account ID",
+          "isHidden": true
+        },
+        "name": {
+          "displayName": "Name",
+          "isHidden": false
+        },
+        "slug": {
+          "displayName": "Slug",
+          "isHidden": false
+        },
+        "status": {
+          "displayName": "Status",
+          "typeTemplateId": "select",
+          "typeOptions": {
+            "multiple": false,
+            "options": [
+              {
+                "color": "#f59e0b",
+                "icon": "lucide:flask-conical",
+                "label": "Trial",
+                "value": "trial"
+              },
+              {
+                "color": "#10b981",
+                "icon": "lucide:circle-check",
+                "label": "Active",
+                "value": "active"
+              },
+              {
+                "color": "#64748b",
+                "icon": "lucide:circle-slash",
+                "label": "Churned",
+                "value": "churned"
+              }
+            ]
+          },
+          "inputId": "$builtin:InputSelect",
+          "displayId": "$builtin:DisplayLabels",
+          "isHidden": false
+        },
+        "updated_at": {
+          "displayName": "Updated",
+          "isHidden": true
+        },
+        "stripe_customer_id": {
+          "displayName": "Stripe customer ID",
+          "isHidden": true
+        }
+      },
+      "relations": {
+        "events": {
+          "displayName": "Events",
+          "isHidden": false
+        },
+        "organization": {
+          "displayName": "CRM organization",
+          "isHidden": false
+        },
+        "stripeCustomer": {
+          "displayName": "Stripe customer",
+          "isHidden": false
+        },
+        "subscriptions": {
+          "displayName": "Subscriptions",
+          "isHidden": false
+        },
+        "tickets": {
+          "displayName": "Tickets",
+          "isHidden": false
+        },
+        "users": {
+          "displayName": "Users",
+          "isHidden": false
+        }
+      },
+      "optionalRelations": {
+        "organization": {
+          "collection": "organizations",
+          "owner": "crm"
+        },
+        "stripeCustomer": {
+          "source": "Stripe",
+          "collection": "customers",
+          "owner": "stripe"
+        }
+      }
+    },
+    "events": {
+      "meta": {
+        "displayTemplate": "{type} \u00b7 {detail}",
+        "displayName": "Portal Events",
+        "description": "What customers did in the portal: logins, invites, exports, tickets.",
+        "icon": "lucide:activity",
+        "isHidden": false,
+        "color": "#ec4899"
+      },
+      "order": ["type", "detail", "occurred_at", "account", "user", "account_id", "user_id", "id"],
+      "fields": {
+        "account_id": {
+          "displayName": "Account ID",
+          "isHidden": true
+        },
+        "detail": {
+          "displayName": "Detail",
+          "isHidden": false
+        },
+        "id": {
+          "displayName": "Event ID",
+          "isHidden": true
+        },
+        "occurred_at": {
+          "displayName": "Occurred",
+          "typeTemplateId": "datetime",
+          "typeOptions": {},
+          "inputId": "$builtin:InputDate",
+          "isHidden": false
+        },
+        "type": {
+          "displayName": "Type",
+          "typeTemplateId": "select",
+          "typeOptions": {
+            "multiple": false,
+            "options": [
+              {
+                "color": "#0ea5e9",
+                "icon": "lucide:log-in",
+                "label": "Signed in",
+                "value": "login"
+              },
+              {
+                "color": "#8b5cf6",
+                "icon": "lucide:user-plus",
+                "label": "User invited",
+                "value": "user_invited"
+              },
+              {
+                "color": "#14b8a6",
+                "icon": "lucide:circle-plus",
+                "label": "Seat added",
+                "value": "seat_added"
+              },
+              {
+                "color": "#f59e0b",
+                "icon": "lucide:download",
+                "label": "Export run",
+                "value": "export_run"
+              },
+              {
+                "color": "#64748b",
+                "icon": "lucide:eye",
+                "label": "Plan viewed",
+                "value": "plan_viewed"
+              },
+              {
+                "color": "#ef4444",
+                "icon": "lucide:life-buoy",
+                "label": "Ticket opened",
+                "value": "ticket_opened"
+              }
+            ]
+          },
+          "inputId": "$builtin:InputSelect",
+          "displayId": "$builtin:DisplayLabels",
+          "isHidden": false
+        },
+        "user_id": {
+          "displayName": "User ID",
+          "isHidden": true
+        }
+      },
+      "relations": {
+        "account": {
+          "displayName": "Account",
+          "isHidden": false
+        },
+        "user": {
+          "displayName": "User",
+          "isHidden": false
+        }
+      }
+    },
+    "plans": {
+      "meta": {
+        "displayTemplate": "{name}",
+        "displayName": "Plans",
+        "description": "Pricing plans in the customer portal.",
+        "icon": "lucide:layers",
+        "isHidden": false,
+        "color": "#14b8a6"
+      },
+      "order": [
+        "name",
+        "code",
+        "seats_included",
+        "monthly_price",
+        "subscriptions",
+        "id",
+        "created_at",
+        "updated_at"
+      ],
+      "fields": {
+        "code": {
+          "displayName": "Code",
+          "isHidden": false
+        },
+        "created_at": {
+          "displayName": "Created",
+          "isHidden": true
+        },
+        "id": {
+          "displayName": "Plan ID",
+          "isHidden": true
+        },
+        "monthly_price": {
+          "displayName": "Monthly price",
+          "displayId": "$builtin:DisplayFormattedValue",
+          "displayOptions": {
+            "icon": "lucide:dollar-sign",
+            "weight": "medium"
+          },
+          "isHidden": false
+        },
+        "name": {
+          "displayName": "Name",
+          "isHidden": false
+        },
+        "seats_included": {
+          "displayName": "Seats included",
+          "typeTemplateId": "number",
+          "typeOptions": {
+            "stepSnapping": false
+          },
+          "inputId": "$builtin:InputNumber",
+          "isHidden": false
+        },
+        "updated_at": {
+          "displayName": "Updated",
+          "isHidden": true
+        }
+      },
+      "relations": {
+        "subscriptions": {
+          "displayName": "Subscriptions",
+          "isHidden": false
+        }
+      }
+    },
+    "subscriptions": {
+      "meta": {
+        "displayTemplate": "{account.name} \u00b7 {plan.name}",
+        "displayName": "Subscriptions",
+        "description": "What each portal account pays for, and when it renews.",
+        "icon": "lucide:credit-card",
+        "isHidden": false,
+        "color": "#6366f1"
+      },
+      "order": [
+        "account",
+        "plan",
+        "status",
+        "seats",
+        "started_at",
+        "renews_at",
+        "canceled_at",
+        "account_id",
+        "plan_id",
+        "id",
+        "created_at",
+        "updated_at"
+      ],
+      "fields": {
+        "account_id": {
+          "displayName": "Account ID",
+          "isHidden": true
+        },
+        "canceled_at": {
+          "displayName": "Canceled",
+          "typeTemplateId": "datetime",
+          "typeOptions": {},
+          "inputId": "$builtin:InputDate",
+          "isHidden": false
+        },
+        "created_at": {
+          "displayName": "Created",
+          "isHidden": true
+        },
+        "id": {
+          "displayName": "Subscription ID",
+          "isHidden": true
+        },
+        "plan_id": {
+          "displayName": "Plan ID",
+          "isHidden": true
+        },
+        "renews_at": {
+          "displayName": "Renews",
+          "typeTemplateId": "datetime",
+          "typeOptions": {},
+          "inputId": "$builtin:InputDate",
+          "isHidden": false
+        },
+        "seats": {
+          "displayName": "Seats",
+          "typeTemplateId": "number",
+          "typeOptions": {
+            "stepSnapping": false
+          },
+          "inputId": "$builtin:InputNumber",
+          "isHidden": false
+        },
+        "started_at": {
+          "displayName": "Started",
+          "typeTemplateId": "datetime",
+          "typeOptions": {},
+          "inputId": "$builtin:InputDate",
+          "isHidden": false
+        },
+        "status": {
+          "displayName": "Status",
+          "typeTemplateId": "select",
+          "typeOptions": {
+            "multiple": false,
+            "options": [
+              {
+                "color": "#f59e0b",
+                "icon": "lucide:flask-conical",
+                "label": "Trialing",
+                "value": "trialing"
+              },
+              {
+                "color": "#10b981",
+                "icon": "lucide:circle-check",
+                "label": "Active",
+                "value": "active"
+              },
+              {
+                "color": "#ef4444",
+                "icon": "lucide:circle-alert",
+                "label": "Past due",
+                "value": "past_due"
+              },
+              {
+                "color": "#64748b",
+                "icon": "lucide:circle-slash",
+                "label": "Canceled",
+                "value": "canceled"
+              }
+            ]
+          },
+          "inputId": "$builtin:InputSelect",
+          "displayId": "$builtin:DisplayLabels",
+          "isHidden": false
+        },
+        "updated_at": {
+          "displayName": "Updated",
+          "isHidden": true
+        }
+      },
+      "relations": {
+        "account": {
+          "displayName": "Account",
+          "isHidden": false
+        },
+        "plan": {
+          "displayName": "Plan",
+          "isHidden": false
+        }
+      }
+    },
+    "tickets": {
+      "meta": {
+        "displayTemplate": "{subject}",
+        "displayName": "Tickets",
+        "description": "Support tickets opened from the customer portal.",
+        "icon": "lucide:life-buoy",
+        "isHidden": false,
+        "color": "#f59e0b"
+      },
+      "order": [
+        "subject",
+        "body",
+        "status",
+        "priority",
+        "account",
+        "user",
+        "opened_at",
+        "resolved_at",
+        "account_id",
+        "user_id",
+        "id",
+        "created_at",
+        "updated_at"
+      ],
+      "fields": {
+        "account_id": {
+          "displayName": "Account ID",
+          "isHidden": true
+        },
+        "body": {
+          "displayName": "Body",
+          "typeTemplateId": "text",
+          "inputId": "$builtin:InputTextarea",
+          "inputOptions": {
+            "autoresize": true
+          },
+          "isHidden": false
+        },
+        "created_at": {
+          "displayName": "Created",
+          "isHidden": true
+        },
+        "id": {
+          "displayName": "Ticket ID",
+          "isHidden": true
+        },
+        "opened_at": {
+          "displayName": "Opened",
+          "typeTemplateId": "datetime",
+          "typeOptions": {},
+          "inputId": "$builtin:InputDate",
+          "isHidden": false
+        },
+        "priority": {
+          "displayName": "Priority",
+          "typeTemplateId": "select",
+          "typeOptions": {
+            "multiple": false,
+            "options": [
+              {
+                "color": "#64748b",
+                "icon": "lucide:arrow-down",
+                "label": "Low",
+                "value": "low"
+              },
+              {
+                "color": "#0ea5e9",
+                "icon": "lucide:minus",
+                "label": "Normal",
+                "value": "normal"
+              },
+              {
+                "color": "#f59e0b",
+                "icon": "lucide:arrow-up",
+                "label": "High",
+                "value": "high"
+              },
+              {
+                "color": "#ef4444",
+                "icon": "lucide:triangle-alert",
+                "label": "Urgent",
+                "value": "urgent"
+              }
+            ]
+          },
+          "inputId": "$builtin:InputSelect",
+          "displayId": "$builtin:DisplayLabels",
+          "isHidden": false
+        },
+        "resolved_at": {
+          "displayName": "Resolved",
+          "typeTemplateId": "datetime",
+          "typeOptions": {},
+          "inputId": "$builtin:InputDate",
+          "isHidden": false
+        },
+        "status": {
+          "displayName": "Status",
+          "typeTemplateId": "select",
+          "typeOptions": {
+            "multiple": false,
+            "options": [
+              {
+                "color": "#ef4444",
+                "icon": "lucide:circle-dot",
+                "label": "Open",
+                "value": "open"
+              },
+              {
+                "color": "#f59e0b",
+                "icon": "lucide:clock",
+                "label": "Pending",
+                "value": "pending"
+              },
+              {
+                "color": "#10b981",
+                "icon": "lucide:circle-check",
+                "label": "Resolved",
+                "value": "resolved"
+              }
+            ]
+          },
+          "inputId": "$builtin:InputSelect",
+          "displayId": "$builtin:DisplayLabels",
+          "isHidden": false
+        },
+        "subject": {
+          "displayName": "Subject",
+          "isHidden": false
+        },
+        "updated_at": {
+          "displayName": "Updated",
+          "isHidden": true
+        },
+        "user_id": {
+          "displayName": "User ID",
+          "isHidden": true
+        }
+      },
+      "relations": {
+        "account": {
+          "displayName": "Account",
+          "isHidden": false
+        },
+        "user": {
+          "displayName": "Opened by",
+          "isHidden": false
+        }
+      }
+    },
+    "users": {
+      "meta": {
+        "displayTemplate": "{name}",
+        "displayName": "Portal Users",
+        "description": "People who sign in to the customer portal. Joined to CRM contacts by email.",
+        "icon": "lucide:users",
+        "isHidden": false,
+        "color": "#8b5cf6"
+      },
+      "order": [
+        "name",
+        "email",
+        "role",
+        "status",
+        "last_login_at",
+        "account",
+        "contacts",
+        "tickets",
+        "events",
+        "account_id",
+        "id",
+        "created_at",
+        "updated_at"
+      ],
+      "fields": {
+        "account_id": {
+          "displayName": "Account ID",
+          "isHidden": true
+        },
+        "created_at": {
+          "displayName": "Created",
+          "isHidden": true
+        },
+        "email": {
+          "displayName": "Email",
+          "isHidden": false
+        },
+        "id": {
+          "displayName": "User ID",
+          "isHidden": true
+        },
+        "last_login_at": {
+          "displayName": "Last login",
+          "typeTemplateId": "datetime",
+          "typeOptions": {},
+          "inputId": "$builtin:InputDate",
+          "isHidden": false
+        },
+        "name": {
+          "displayName": "Name",
+          "isHidden": false
+        },
+        "role": {
+          "displayName": "Role",
+          "typeTemplateId": "select",
+          "typeOptions": {
+            "multiple": false,
+            "options": [
+              {
+                "color": "#f59e0b",
+                "icon": "lucide:crown",
+                "label": "Owner",
+                "value": "owner"
+              },
+              {
+                "color": "#0ea5e9",
+                "icon": "lucide:shield",
+                "label": "Admin",
+                "value": "admin"
+              },
+              {
+                "color": "#64748b",
+                "icon": "lucide:user",
+                "label": "Member",
+                "value": "member"
+              }
+            ]
+          },
+          "inputId": "$builtin:InputSelect",
+          "displayId": "$builtin:DisplayLabels",
+          "isHidden": false
+        },
+        "status": {
+          "displayName": "Status",
+          "typeTemplateId": "select",
+          "typeOptions": {
+            "multiple": false,
+            "options": [
+              {
+                "color": "#0ea5e9",
+                "icon": "lucide:circle-dashed",
+                "label": "Invited",
+                "value": "invited"
+              },
+              {
+                "color": "#10b981",
+                "icon": "lucide:circle-check",
+                "label": "Active",
+                "value": "active"
+              },
+              {
+                "color": "#64748b",
+                "icon": "lucide:circle-slash",
+                "label": "Deactivated",
+                "value": "deactivated"
+              }
+            ]
+          },
+          "inputId": "$builtin:InputSelect",
+          "displayId": "$builtin:DisplayLabels",
+          "isHidden": false
+        },
+        "updated_at": {
+          "displayName": "Updated",
+          "isHidden": true
+        }
+      },
+      "relations": {
+        "account": {
+          "displayName": "Account",
+          "isHidden": false
+        },
+        "contacts": {
+          "displayName": "CRM contact",
+          "isHidden": false
+        },
+        "events": {
+          "displayName": "Events",
+          "isHidden": false
+        },
+        "tickets": {
+          "displayName": "Tickets",
+          "isHidden": false
+        }
+      },
+      "optionalRelations": {
+        "contacts": {
+          "collection": "contacts",
+          "owner": "crm"
+        }
+      }
+    }
+  }
+}

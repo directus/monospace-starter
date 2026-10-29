@@ -1,0 +1,18 @@
+{
+  "$schema": "https://monospace.io/schemas/starter/v1/deploy.json",
+  "label": "AWS deploy",
+  "description": "Fargate, RDS and GitHub OIDC with Alchemy",
+  "alsoOwns": [".github/workflows/deploy-aws.yml"],
+  "packageEntries": [
+    {
+      "file": "package.json",
+      "section": "scripts",
+      "entries": { "aws": "vp run --filter @monoerp/aws" }
+    },
+    {
+      "file": "pnpm-workspace.yaml",
+      "section": "patchedDependencies",
+      "entries": { "alchemy@2.0.0-beta.79": "deploy/aws/patches/alchemy@2.0.0-beta.79.patch" }
+    }
+  ]
+}

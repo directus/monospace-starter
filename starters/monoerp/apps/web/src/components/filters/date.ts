@@ -1,0 +1,185 @@
+import {
+  addDays,
+  addMonths,
+  addWeeks,
+  addYears,
+  format,
+  isValid,
+  parse,
+  startOfDay,
+} from 'date-fns'
+
+import { appCopy } from '@/lib/app.copy'
+
+export interface FilterDateValue {
+  date?: string
+
+  relative?: FilterRelativeDate
+
+  time?: string
+}
+
+interface FilterRelativeDate {
+  unit: 'day' | 'week' | 'month' | 'year'
+  offset: number
+}
+
+const FILTER_DATE_FORMAT = 'yyyy-MM-dd'
+
+const RELATIVE_TODAY: FilterRelativeDate = { unit: 'day', offset: 0 }
+
+const RELATIVE_TOMORROW: FilterRelativeDate = { unit: 'day', offset: 1 }
+
+const RELATIVE_YESTERDAY: FilterRelativeDate = { unit: 'day', offset: -1 }
+
+const RELATIVE_UNITS: ReadonlyArray<FilterRelativeDate['unit']> = ['day', 'week', 'month', 'year']
+
+function applyFilterRelative(relative: FilterRelativeDate, now: Date): Date {
+  const base = startOfDay(now)
+
+  if (relative.unit === 'day') return addDays(base, relative.offset)
+
+  if (relative.unit === 'week') return addWeeks(base, relative.offset)
+
+  if (relative.unit === 'month') return addMonths(base, relative.offset)
+
+  return addYears(base, relative.offset)
+}
+
+export function resolveFilterDate(
+  value: FilterDateValue | undefined,
+  now: Date = new Date(),
+): Date | null {
+  if (!value) return null
+
+  if (value.relative) return applyFilterRelative(value.relative, now)
+
+  if (value.date) {
+    const parsed = parse(value.date, FILTER_DATE_FORMAT, now)
+
+    return isValid(parsed) ? parsed : null
+  }
+
+  return null
+}
+
+export function toFilterDateValue(date: Date, time?: string): FilterDateValue {
+  const value: FilterDateValue = { date: format(date, FILTER_DATE_FORMAT) }
+
+  if (time) value.time = time
+
+  return value
+}
+
+const WEEKDAYS = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']
+
+const EXPLICIT_FORMATS = [
+  'yyyy-MM-dd',
+  'MM/dd/yyyy',
+  'M/d/yyyy',
+  'dd/MM/yyyy',
+  'MMMM d, yyyy',
+  'MMM d, yyyy',
+  'MMMM d',
+  'MMM d',
+  'd MMMM yyyy',
+  'd MMM yyyy',
+]
+
+export function parseFilterDate(text: string, now: Date = new Date()): FilterDateValue | null {
+  const input = text.trim().toLowerCase().replace(/\s+/g, ' ')
+
+  if (!input) return null
+
+  if (input === 'today' || input === 'now') return { relative: RELATIVE_TODAY }
+
+  if (input === 'tomorrow') return { relative: RELATIVE_TOMORROW }
+
+  if (input === 'yesterday') return { relative: RELATIVE_YESTERDAY }
+
+  const nextLast = input.match(/^(next|last|this) (day|week|month|year)$/)
+  const nextLastUnit = RELATIVE_UNITS.find((unit) => unit === nextLast?.[2])
+
+  if (nextLast && nextLastUnit) {
+    const direction = nextLast[1] === 'next' ? 1 : nextLast[1] === 'last' ? -1 : 0
+
+    return {
+      relative: {
+        unit: nextLastUnit,
+        offset: direction,
+      },
+    }
+  }
+
+  // "in 3 days" / "3 days ago" / "in 2 weeks"
+  const counted = input.match(/^(?:in )?(\d+) (day|week|month|year)s?(?: ago)?$/)
+  const countedUnit = RELATIVE_UNITS.find((unit) => unit === counted?.[2])
+
+  if (counted && countedUnit) {
+    const magnitude = Number.parseInt(counted[1], 10)
+    const past = input.endsWith('ago')
+
+    return {
+      relative: {
+        unit: countedUnit,
+        offset: past ? -magnitude : magnitude,
+      },
+    }
+  }
+
+  // "next tuesday" / "last friday" / bare "tuesday"
+  const weekday = input.match(/^(?:(next|last|this) )?([a-z]+)$/)
+
+  if (weekday) {
+    const index = WEEKDAYS.indexOf(weekday[2])
+
+    if (index !== -1) {
+      const today = startOfDay(now)
+      const current = today.getDay()
+      let delta = index - current
+      const qualifier = weekday[1]
+
+      if (qualifier === 'last') {
+        // Always strictly in the past.
+        if (delta >= 0) delta -= 7
+      } else {
+        // "next"/"this" and a bare weekday all mean the NEXT one, not today.
+        if (delta <= 0) delta += 7
+      }
+
+      return { relative: { unit: 'day', offset: delta } }
+    }
+  }
+
+  for (const pattern of EXPLICIT_FORMATS) {
+    const parsed = parse(input, pattern, now)
+
+    if (isValid(parsed)) {
+      // "Aug 14" has no year, so it takes the reference year.
+      return toFilterDateValue(parsed)
+    }
+  }
+
+  return null
+}
+
+export function formatFilterDate(
+  value: FilterDateValue | undefined,
+  now: Date = new Date(),
+  pattern = 'MMM d, yyyy',
+): string {
+  if (!value) return ''
+
+  if (value.relative) {
+    const { unit, offset } = value.relative
+
+    return appCopy.filters.relativeDate(unit, offset)
+  }
+
+  const resolved = resolveFilterDate(value, now)
+
+  if (!resolved) return ''
+  const day = format(resolved, pattern)
+
+  return value.time ? `${day} ${value.time}` : day
+}
