@@ -12,6 +12,7 @@
 </p>
 
 <p align="center">
+  <a href="https://github.com/directus/monospace-starter/releases?q=monoerp"><img alt="Latest monoERP release" src="https://img.shields.io/github/v/tag/directus/monospace-starter?filter=monoerp%40*&label=version&color=2f6feb"></a>
   <a href="LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-2f6feb"></a>
   <img alt="Node 24" src="https://img.shields.io/badge/node-24-2f6feb">
   <img alt="TanStack Start" src="https://img.shields.io/badge/TanStack-Start-2f6feb">
