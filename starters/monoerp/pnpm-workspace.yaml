@@ -24,7 +24,7 @@ catalog:
   react: 19.2.8
   react-dom: 19.2.8
   sonner: 2.0.8
-  zod: 4.5.4
+  zod: 4.6.6
   vite: npm:@voidzero-dev/vite-plus-core@0.3.0
   vitest: 4.1.11
   vite-plus: 0.3.0
