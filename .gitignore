@@ -1,3 +1,4 @@
 .DS_Store
 /tooling/monoerp/bench/results/
 /tooling/monoerp/bench/.tokio.env
+/node_modules/

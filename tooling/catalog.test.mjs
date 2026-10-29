@@ -16,6 +16,7 @@ function write(root, path, value) {
 function fixture() {
   const root = realpathSync(mkdtempSync(join(tmpdir(), 'catalog-')))
   // Fields beyond label and description are ignored.
+  write(root, 'starters/sales/package.json', { name: 'sales', version: '1.2.0', private: true })
   write(root, 'starters/sales/starter.json', {
     label: 'Sales',
     description: 'Sales app',
@@ -35,6 +36,7 @@ function fixture() {
     description: 'Invoices',
   })
   write(root, 'starters/sales/connectors/README.md', '# Connectors')
+  write(root, 'starters/blank/package.json', { name: 'blank', version: '0.0.0' })
   write(root, 'starters/blank/starter.json', { label: 'Blank', description: 'Nothing else' })
   const readme = `# Name\n\n${readmeHeadings.map((heading) => `## ${heading}\n\ntext\n`).join('\n')}`
   write(root, 'starters/sales/README.md', readme)
@@ -43,13 +45,14 @@ function fixture() {
   return root
 }
 
-it('lists starters and their parts by folder, sorted, with label and description only', () => {
+it('lists starters with their version, and their parts by folder, sorted, with label and description only', () => {
   assert.deepEqual(buildCatalog(fixture()), {
     $schema: schema,
     starters: [
       {
         id: 'blank',
         path: 'starters/blank',
+        version: '0.0.0',
         label: 'Blank',
         description: 'Nothing else',
         modules: [],
@@ -59,6 +62,7 @@ it('lists starters and their parts by folder, sorted, with label and description
       {
         id: 'sales',
         path: 'starters/sales',
+        version: '1.2.0',
         label: 'Sales',
         description: 'Sales app',
         modules: [
@@ -85,16 +89,28 @@ it('fails on a starter or part folder without a usable manifest', () => {
   )
 })
 
-it('requires every README section, in order, allowing extra sections', () => {
+it('fails on a starter whose package name does not match its folder, or has no version', () => {
+  const root = fixture()
+  write(root, 'starters/sales/package.json', { name: '@acme/sales', version: '1.0.0' })
+  assert.throws(() => buildCatalog(root), /starters\/sales\/package\.json: name must be "sales"/)
+
+  write(root, 'starters/sales/package.json', { name: 'sales' })
+  assert.throws(() => buildCatalog(root), /starters\/sales\/package\.json: version must be/)
+})
+
+it('requires every README section, in any order, allowing extra sections', () => {
   const root = fixture()
   checkReadme(root, 'starters/sales')
   checkReadme(root, 'starters/blank')
 
+  write(root, 'starters/blank/README.md', `# Blank\n\n${readmeHeadings.toReversed().map((heading) => `## ${heading}\n`).join('\n')}`)
+  checkReadme(root, 'starters/blank')
+
   write(root, 'starters/blank/README.md', '# Blank\n\n## Quickstart\n\n## Docs\n')
-  assert.throws(() => checkReadme(root, 'starters/blank'), /"## What's inside" is missing or out of order/)
+  assert.throws(() => checkReadme(root, 'starters/blank'), /missing "## What's inside", "## Everyday commands"/)
 
   write(root, 'starters/blank/README.md', readFileSync(join(root, 'starters/sales/README.md'), 'utf8').replace('## Deploy', '## Deployment'))
-  assert.throws(() => checkReadme(root, 'starters/blank'), /"## Deploy" is missing/)
+  assert.throws(() => checkReadme(root, 'starters/blank'), /missing "## Deploy"/)
 })
 
 it('matches the committed catalog.json', () => {

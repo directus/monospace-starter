@@ -1,0 +1,13 @@
+{
+  "name": "monospace-starter",
+  "private": true,
+  "scripts": {
+    "changeset": "changeset",
+    "version": "changeset version && node tooling/catalog.mjs",
+    "release": "changeset publish"
+  },
+  "devDependencies": {
+    "@changesets/changelog-github": "^1.0.1",
+    "@changesets/cli": "^3.0.3"
+  }
+}
