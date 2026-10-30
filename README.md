@@ -9,7 +9,7 @@
   <a href="https://monospace.io">Website</a> • <a href="https://docs.monospace.io">Documentation</a> • <a href="https://monospace.productlane.com/roadmap">Roadmap</a>
 </p>
 
-Monospace connects the databases and APIs your organization already runs and puts one API in front of them. Each data source you register gets a REST API, a typed TypeScript SDK, an MCP server, and an admin app called the Studio, all reading and writing live data under the same permissions.
+Monospace connects the databases and APIs your organization already runs and puts one governed API in front of them. Each data source you register gets a REST API, a typed TypeScript SDK, an MCP server, and an admin app called the Studio, all reading and writing live data under the same permissions.
 
 <img width="3810" height="2280" alt="Monospace Studio" src="monospace-hero.png" />
 
