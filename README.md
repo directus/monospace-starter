@@ -9,36 +9,27 @@
   <a href="https://monospace.io">Website</a> • <a href="https://docs.monospace.io">Documentation</a> • <a href="https://monospace.productlane.com/roadmap">Roadmap</a>
 </p>
 
-Monospace connects the systems your organization already runs and serves them through one governed API layer. Register a data source and Monospace exposes it four ways — a REST API, a typed TypeScript SDK, an MCP server, and the Studio. All four read and write live data under one permissions model.
-
-Teams build internal tools and customer-facing applications on it, inside one set of guardrails. Agents work the same way, acting on live systems rather than reading from a copy.
+Monospace connects the databases, services, and SaaS apps your organization already runs and puts one API in front of them. Each data source you register gets a REST API, a typed TypeScript SDK, an MCP server, and an admin app called the Studio, all reading and writing live data under the same permissions.
 
 <img width="3810" height="2280" alt="Monospace Studio" src="monospace-hero.png" />
 
-## Overview
+## Quickstart
 
-Monospace sits between your data sources and the agents, applications, and teams that use them. Data stays in the source systems, and every caller goes through the same permissions.
+You need [Docker Compose](https://docs.docker.com/compose/install/).
 
-<img width="3810" height="2280" alt="Monospace architecture: agents, applications, and teams connect through the Build, Secure, Govern, and Federate layers to databases, services, internal APIs, and SaaS applications" src="monospace-overview.png" />
+```bash
+curl -fL https://docs.monospace.io/quick-start | docker compose -f - up
+```
 
-## Repository Contents
+Or clone this repo and run `docker compose up -d`.
 
-This repository holds the public resources for building with Monospace. It does not contain the Monospace source code.
+Open the Studio at <http://localhost:8100>. The first start takes a minute or two. Then follow the [Quickstart guide](https://docs.monospace.io/en/getting-started/installation) to create a workspace and connect a data source.
 
-| Path | Contents |
-|---|---|
-| [`docker-compose.yml`](docker-compose.yml) | Reference compose file for running Monospace locally |
-| [`starters/`](starters) | Templates, starters, and reference projects |
-| [`catalog.json`](catalog.json) | Generated list of starters and their modules, connectors, and deploy targets |
-| [`tooling/`](tooling) | Maintainer tools for the starters. Not part of any starter |
+Without a license key, the instance runs on the Starter plan. To add one, set `MONOSPACE_LICENSE__KEY` in `docker-compose.yml`. See [Licensing](https://docs.monospace.io/en/reference/licensing).
 
-### Related Repositories
+## Agent Skills
 
-| Repository | Contents |
-|---|---|
-| [`directus/monospace-agent-skills`](https://github.com/directus/monospace-agent-skills) | Official [Agent Skills](https://agentskills.io) package — teaches your agent the REST API, the typed SDK, codegen, and the MCP tools |
-
-Install it into Claude Code, or into any agent that supports the open standard:
+[`monospace-agent-skills`](https://github.com/directus/monospace-agent-skills) teaches your coding agent the Monospace API, SDK, and MCP tools.
 
 ```bash
 # Claude Code
@@ -49,90 +40,39 @@ claude plugin install monospace@monospace-agent-skills
 npx skills add directus/monospace-agent-skills
 ```
 
-## Quickstart
-
-Start Monospace with a single command. The only prerequisite is [Docker Compose](https://docs.docker.com/compose/install/).
-
-```bash
-curl -fL https://docs.monospace.io/quick-start | docker compose -f - up
-```
-
-Alternatively, clone this repository and start the services from the included compose file:
-
-```bash
-git clone https://github.com/directus/monospace-starter.git
-cd monospace-starter
-docker compose up -d
-```
-
-Both start the same stack:
-
-- **Monospace** — the application
-- **PostgreSQL** — system database
-- **RabbitMQ** — event bus for email delivery and webhooks
-- **Redis** — query result cache
-
-Open the Studio at <http://localhost:8100> once the containers are healthy. The first run takes 1–2 minutes.
-
-Without a license, the instance runs on the Starter plan. To apply a license, set `MONOSPACE_LICENSE__KEY` in `docker-compose.yml` to your Monospace license key and run `docker compose up -d`. The instance validates the key with the Monospace licensing service on every startup and does not start if validation fails. See [Licensing](https://docs.monospace.io/en/reference/licensing).
-
-See the [Quickstart guide](https://docs.monospace.io/en/getting-started/installation) to create your first workspace, connect a data source, and add collections.
-
 ## Starters
 
-Starters are complete projects built on Monospace. Each one includes its data model and a working application, so you can run it locally and adapt it to your own data.
+Complete projects you can run locally and adapt to your own data.
 
-The root [starter workflow](.github/workflows/starters.yml) installs and runs `pnpm verify`, plus any `test:browser` scripts, for each starter listed in [`catalog.json`](catalog.json) on pull requests and pushes to `main` that change starter files. The workflow fails when the catalog is stale; after adding a starter or one of its parts, or changing a label or description, run `node tooling/catalog.mjs` and commit the result (see [`tooling/README.md`](tooling/README.md#catalog)). Every starter README follows the format in [`starters/README.md`](starters/README.md); the same check enforces its sections. Maintainer tools and notes for a starter live in `tooling/<starter>`, for example [`tooling/monoerp`](tooling/monoerp).
-
-| Starter | Contents |
+| Starter | Description |
 |---|---|
-| [`monoerp`](starters/monoerp) | A modular CRM app built with TanStack Start. Monospace joins PostgreSQL, an optional read-only MySQL demo, and Stripe through one API. Includes part manifests, setup scripts, tests, and an AWS deploy |
+| [`monoerp`](starters/monoerp) | A modular CRM built with TanStack Start, joining PostgreSQL, MySQL, and Stripe through one API |
 
-Download one starter on its own, without the rest of this repository:
+Grab a single starter without cloning the whole repo:
 
 ```bash
 npx giget@latest gh:directus/monospace-starter/starters/monoerp monoerp
 ```
 
-Each starter runs its own Monospace. Stop the stack from this repository's `docker-compose.yml` before starting one, since both use port 8100. Starters carry their own license; monoERP is MIT.
+Each starter runs its own Monospace on port 8100, so stop the root stack first.
 
 ## Extensions
 
-Extensions add capabilities to a Monospace instance. Data connector extensions connect APIs and other systems as data sources.
-
-> [!NOTE]
-> Data connector extensions are in preview. Their configuration format and APIs may change between releases.
-
-Scaffold a data connector with the Monospace CLI:
+Data connector extensions let you add APIs and other systems as data sources. They're in preview, so the config format may change.
 
 ```bash
 npx @monospace/cli extension create ./acme-store --id acme/store --name "Acme Store"
 ```
 
-To run an extension against the local stack, create an `extensions` directory in this repository. In `docker-compose.yml`, swap the `extensions_data` volume for the `./extensions` bind mount and restart the services. Then build into it from your extension project:
-
-```bash
-npm run build -- --install-to ../monospace-starter/extensions
-```
-
-See the [CLI reference](https://docs.monospace.io/en/reference/cli#scaffold-a-data-connector) for the extension config and build options.
+See the [CLI reference](https://docs.monospace.io/en/reference/cli#scaffold-a-data-connector) for building and loading an extension into your local instance.
 
 ## Support
 
-This repository does not accept issues. Report problems and requests through Productlane instead.
+This repo doesn't take issues.
 
-- [Report an issue](https://monospace.productlane.com/support) — a bug or problem with Monospace or the documentation
-- [Request a feature](https://monospace.productlane.com/request) — submit an idea or vote on existing ones
-- [Roadmap](https://monospace.productlane.com/roadmap) — see what's planned and in progress
-
-## Next Steps
-
-- [Introduction](https://docs.monospace.io/en/getting-started/introduction) — what Monospace is and how it fits together
-- [Organization Hierarchy](https://docs.monospace.io/en/concepts/organization) — organizations, workspaces, and data sources
-- [SDK](https://docs.monospace.io/en/guides/sdk) — generate a typed client for your workspace
-- [MCP](https://docs.monospace.io/en/guides/mcp) — connect an agent to a workspace
-- [Environment Variables](https://docs.monospace.io/en/reference/environment-variables) — configure an instance
+- [Report a bug](https://monospace.productlane.com/support)
+- [Request a feature](https://monospace.productlane.com/request)
 
 ## License
 
-© Monospace, Inc. All rights reserved. Use is subject to the [Monospace Terms](https://monospace.io/terms).
+© Monospace, Inc. All rights reserved. Use is subject to the [Monospace Terms](https://monospace.io/terms). Starters carry their own licenses.
