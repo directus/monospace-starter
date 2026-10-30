@@ -3,9 +3,9 @@ name: Check starters
 on:
   push:
     branches: [main]
-    paths: ['starters/**', 'catalog.json', 'tooling/catalog*.mjs', '.github/workflows/starters.yml']
+    paths: ['starters/**', '.changeset/**', 'catalog.json', 'tooling/catalog*.mjs', '.github/workflows/starters.yml']
   pull_request:
-    paths: ['starters/**', 'catalog.json', 'tooling/catalog*.mjs', '.github/workflows/starters.yml']
+    paths: ['starters/**', '.changeset/**', 'catalog.json', 'tooling/catalog*.mjs', '.github/workflows/starters.yml']
 
 permissions:
   contents: read
@@ -21,6 +21,22 @@ jobs:
       - run: node tooling/catalog.mjs --check
       - id: starters
         run: echo "names=$(node -p 'JSON.stringify(require("./catalog.json").starters.map((starter) => starter.id))')" >> "$GITHUB_OUTPUT"
+
+  changeset:
+    # The version PR consumes the changesets, so it has none of its own.
+    if: github.event_name == 'pull_request' && !startsWith(github.head_ref, 'changeset-release/')
+    runs-on: ubuntu-24.04-arm
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      # Fails when a starter changed and no changeset covers it.
+      - run: npx changeset status --since=origin/${{ github.base_ref }}
 
   check:
     needs: discover
