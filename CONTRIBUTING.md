@@ -6,7 +6,7 @@ A starter is a folder in [`starters/`](starters) with its own pnpm workspace, lo
 
 Before opening a PR:
 
-1. **Add a changeset.** From the repository root, run `npm ci` once, then `npx changeset`. Pick the starter, the bump, and write a line for its changelog. See [`.changeset/README.md`](.changeset/README.md) for which bump to pick.
+1. **Add a changeset.** From the repository root, run `npm ci` once, then `npx changeset`. Pick the starter, the bump, and write a line for its changelog. See [`.changeset/README.md`](.changeset/README.md) for which bump to pick. CI fails a PR that changes a starter without one. If the change shouldn't show up in the changelog (a typo, CI only), add an empty one: `npx changeset --empty`.
 2. **Rebuild the catalog** if you added, removed, or renamed a starter or part, or changed a label or description: `node tooling/catalog.mjs`, then commit `catalog.json`.
 3. **Run the check:** `node tooling/catalog.mjs --check`. It fails when `catalog.json` is stale or a starter README is missing a required section. CI runs it too, then `pnpm verify` in each starter.
 
