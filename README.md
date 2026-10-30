@@ -11,6 +11,8 @@
 
 Monospace connects the systems your organization already runs and serves them through one governed API layer. Register a data source and Monospace exposes it four ways — a REST API, a typed TypeScript SDK, an MCP server, and the Studio. All four read and write live data under one permissions model.
 
+Teams build internal tools and customer-facing applications on it, inside one set of guardrails. Agents work the same way, acting on live systems rather than reading from a copy.
+
 <img width="3810" height="2280" alt="Monospace Studio" src="monospace-hero.png" />
 
 ## Overview
