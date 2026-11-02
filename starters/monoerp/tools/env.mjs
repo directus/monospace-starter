@@ -1,9 +1,10 @@
 // Writes .env from .env.example on the first `pnpm install`: its own Compose project name, so a
 // fresh copy never shares Docker data with another copy, and free host ports.
+import { execFileSync } from 'node:child_process'
 import { randomBytes } from 'node:crypto'
-import { existsSync, readFileSync, writeFileSync } from 'node:fs'
+import { existsSync, readFileSync, realpathSync, writeFileSync } from 'node:fs'
 import { connect } from 'node:net'
-import { basename } from 'node:path'
+import { basename, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const portLine = /^(\w+_PORT)=(\d+)$/gm
@@ -22,16 +23,46 @@ export function projectName(folder, suffix) {
   return `${slug || 'app'}-${suffix}`
 }
 
-// Each default if it's free, else the next free port. No two picks are the same.
+// The name Compose itself uses when COMPOSE_PROJECT_NAME isn't set.
+export function folderProjectName(folder) {
+  return folder
+    .toLowerCase()
+    .replace(/[^a-z0-9_-]/g, '')
+    .replace(/^[_-]+/, '')
+}
+
+// A checkout that ran before .env was written has its stack under the folder name. Keep using it
+// when it's this folder's: its containers were started here, or only its volumes are left.
+export function keepsFolderProject({ folders, volumes, here }) {
+  if (folders.length > 0) return folders.some((folder) => samePath(folder, here))
+
+  return volumes > 0
+}
+
+export function samePath(a, b) {
+  const real = (path) => {
+    try {
+      return realpathSync(path)
+    } catch {
+      return resolve(path)
+    }
+  }
+
+  return real(a) === real(b)
+}
+
+// Each default if it's free, else the next free port within searchRange (all of which were
+// checked), else null. No two picks are the same.
 export function pickPorts(defaults, taken) {
   const used = new Set(taken)
 
   return defaults.map(({ name, port }) => {
-    let picked = port
+    const picked =
+      Array.from({ length: searchRange }, (_, step) => port + step).find(
+        (candidate) => !used.has(candidate),
+      ) ?? null
 
-    while (used.has(picked)) picked++
-
-    used.add(picked)
+    if (picked !== null) used.add(picked)
 
     return { name, port: picked, changed: picked !== port }
   })
@@ -51,9 +82,46 @@ export function envFromExample(example, { project, ports }) {
     : `${withPorts.trimEnd()}\n${projectLine}\n`
 }
 
-function listening(port) {
+// Lines of `docker` output, or none when Docker isn't there or fails.
+function docker(args) {
+  try {
+    return execFileSync('docker', args, {
+      encoding: 'utf8',
+      stdio: ['ignore', 'pipe', 'ignore'],
+      timeout: 10_000,
+    })
+      .split('\n')
+      .map((line) => line.trim())
+      .filter(Boolean)
+  } catch {
+    return []
+  }
+}
+
+// The folders Compose started these containers from.
+export function containerFolders(ids) {
+  if (ids.length === 0) return []
+
+  const format = '{{index .Config.Labels "com.docker.compose.project.working_dir"}}'
+
+  return [...new Set(docker(['inspect', '--format', format, ...ids]))]
+}
+
+function folderProject(here) {
+  const name = folderProjectName(basename(here))
+
+  if (!name) return null
+
+  const filter = ['--filter', `label=com.docker.compose.project=${name}`]
+  const folders = containerFolders(docker(['ps', '--all', '--quiet', ...filter]))
+  const volumes = docker(['volume', 'ls', '--quiet', ...filter]).length
+
+  return keepsFolderProject({ folders, volumes, here }) ? name : null
+}
+
+function accepts(host, port) {
   return new Promise((resolve) => {
-    const socket = connect({ host: '127.0.0.1', port, timeout: 300 })
+    const socket = connect({ host, port, timeout: 300 })
 
     const done = (open) => {
       socket.destroy()
@@ -66,6 +134,13 @@ function listening(port) {
   })
 }
 
+// Dev servers on `localhost` often listen on ::1 only, so check both loopbacks.
+async function listening(port) {
+  const answers = await Promise.all([accepts('127.0.0.1', port), accepts('::1', port)])
+
+  return answers.some(Boolean)
+}
+
 export async function writeEnv(directory) {
   const envFile = new URL('.env', directory)
   const exampleFile = new URL('.env.example', directory)
@@ -73,11 +148,23 @@ export async function writeEnv(directory) {
   if (process.env.CI || existsSync(envFile) || !existsSync(exampleFile)) return
 
   const example = readFileSync(exampleFile, 'utf8')
+  const here = fileURLToPath(directory)
 
   const defaults = [...example.matchAll(portLine)].map(([, name, port]) => ({
     name,
     port: Number(port),
   }))
+
+  const kept = folderProject(here)
+
+  if (kept) {
+    writeFileSync(envFile, envFromExample(example, { project: kept, ports: defaults }))
+    console.log(
+      `Wrote .env with Compose project ${kept}, the one this folder already uses, and its default ports.`,
+    )
+
+    return
+  }
 
   const candidates = [
     ...new Set(
@@ -88,7 +175,24 @@ export async function writeEnv(directory) {
   const open = await Promise.all(candidates.map(listening))
   const taken = candidates.filter((_, index) => open[index])
   const ports = pickPorts(defaults, taken)
-  const project = projectName(basename(fileURLToPath(directory)), randomBytes(2).toString('hex'))
+  const stuck = ports.filter((entry) => entry.port === null)
+
+  if (stuck.length > 0) {
+    console.error(
+      [
+        `Couldn't write .env: no free port for ${stuck.map(({ name }) => name).join(', ')}.`,
+        ...stuck.map(({ name }) => {
+          const from = defaults.find((entry) => entry.name === name).port
+
+          return `  ${name}: ${from} to ${from + searchRange - 1} are all taken`
+        }),
+        'Free some up and rerun pnpm install, or copy .env.example to .env and pick ports yourself.',
+      ].join('\n'),
+    )
+    process.exit(1)
+  }
+
+  const project = projectName(basename(here), randomBytes(2).toString('hex'))
 
   writeFileSync(envFile, envFromExample(example, { project, ports }))
 

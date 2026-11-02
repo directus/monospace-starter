@@ -1,6 +1,12 @@
 import { describe, expect, it } from 'vitest'
 
-import { envFromExample, pickPorts, projectName } from './env.mjs'
+import {
+  envFromExample,
+  folderProjectName,
+  keepsFolderProject,
+  pickPorts,
+  projectName,
+} from './env.mjs'
 
 describe('first .env', () => {
   it('names the Compose project after the folder plus a suffix', () => {
@@ -22,6 +28,32 @@ describe('first .env', () => {
       { name: 'MONOSPACE_PORT', port: 8101, changed: true },
       { name: 'OTHER_PORT', port: 8103, changed: true },
     ])
+  })
+
+  it('never picks a port past the checked range', () => {
+    const taken = Array.from({ length: 20 }, (_, step) => 3000 + step)
+
+    expect(pickPorts([{ name: 'APP_PORT', port: 3000 }], taken)).toEqual([
+      { name: 'APP_PORT', port: null, changed: true },
+    ])
+    expect(pickPorts([{ name: 'APP_PORT', port: 3000 }], taken.slice(0, 19))).toEqual([
+      { name: 'APP_PORT', port: 3019, changed: true },
+    ])
+  })
+
+  it('matches the project name Compose gives a folder', () => {
+    expect(folderProjectName('monoerp')).toBe('monoerp')
+    expect(folderProjectName('My ERP.copy')).toBe('myerpcopy')
+    expect(folderProjectName('_tmp')).toBe('tmp')
+  })
+
+  it("keeps the folder's old project only when it's this folder's", () => {
+    const here = '/work/monoerp'
+
+    expect(keepsFolderProject({ folders: ['/work/monoerp/'], volumes: 2, here })).toBe(true)
+    expect(keepsFolderProject({ folders: ['/other/monoerp'], volumes: 2, here })).toBe(false)
+    expect(keepsFolderProject({ folders: [], volumes: 2, here })).toBe(true)
+    expect(keepsFolderProject({ folders: [], volumes: 0, here })).toBe(false)
   })
 
   it('rewrites ports and the project name, leaving commented ports alone', () => {
