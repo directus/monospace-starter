@@ -289,3 +289,47 @@ export const META_FIELDS = {
   field:
     'displayName,description,typeTemplateId,typeOptions,inputId,inputOptions,displayId,displayOptions,isHidden,sort',
 }
+
+const portHelp = (port) =>
+  [
+    `See what's using it: docker ps --filter publish=${port}, or lsof -i :${port}`,
+    'Fix: stop that, or change MONOSPACE_PORT (and the other *_PORT values) in .env.',
+  ].join('\n')
+
+// Why setup can't talk to this folder's compose Monospace, or '' when it can. `container` is the
+// compose `monospace` service ({ state, publishedPort }) or null, `answer` what replies on `port`
+// ('none', 'monospace', or 'other'), `logs` the container's latest log lines. Docker Desktop
+// publishes the port even when a host app already listens on it, so compose alone can't tell.
+export function monospaceProblem({ port, container, answer, logs = '' }) {
+  if (container?.state === 'restarting') {
+    const lines = logs.trim().split('\n')
+    const errors = lines.filter((line) => /error|fail|fatal/i.test(line))
+    const tail = (errors.length > 0 ? errors : lines).slice(-5).join('\n')
+
+    const license = /License entitlement check failed/.test(logs)
+      ? [
+          '',
+          'Monospace refused to start without a license. This Docker project already has data',
+          'from a licensed setup or another copy of this starter (same folder name, same data).',
+          'Fix: set COMPOSE_PROJECT_NAME in .env to start clean, or add a license key.',
+        ]
+      : []
+
+    return [`This project's Monospace keeps restarting. Last log lines:`, tail, ...license].join(
+      '\n',
+    )
+  }
+
+  const ours = container?.state === 'running' && container.publishedPort === port
+
+  if (ours && answer !== 'other') return ''
+
+  if (answer !== 'none' || container?.state === 'running')
+    return [`Port ${port} isn't this project's Monospace.`, portHelp(port)].join('\n')
+
+  return [
+    `This project's Monospace isn't running. Start it with: docker compose up -d`,
+    `If that fails on port ${port}, something else has it.`,
+    portHelp(port),
+  ].join('\n')
+}

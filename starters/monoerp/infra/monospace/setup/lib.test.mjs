@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
 
-import { ensureRelation, request, runSetupStep } from './lib.mjs'
+import { ensureRelation, monospaceProblem, request, runSetupStep } from './lib.mjs'
 
 const seats = { meta: { violations: [{ entitlement: 'seats', hard_limit: 3 }] } }
 
@@ -123,4 +123,63 @@ it('creates a constrained cross-source join once and refuses a wrong existing ta
   expect(ensureRelation(collections, relation)).toEqual([])
   collections[0].relationFields[0].oppositeCollectionId = 'wrong'
   expect(() => ensureRelation(collections, relation)).toThrow('points at the wrong collection')
+})
+
+describe('monospaceProblem', () => {
+  const ours = { state: 'running', publishedPort: '8100' }
+
+  it('passes when this project publishes Monospace on the port', () => {
+    expect(monospaceProblem({ port: '8100', container: ours, answer: 'monospace' })).toBe('')
+    expect(monospaceProblem({ port: '8100', container: ours, answer: 'none' })).toBe('')
+  })
+
+  it.each([
+    ['another app has the port', null, 'monospace'],
+    ['our container never bound it', { state: 'created', publishedPort: '' }, 'monospace'],
+    ['our container runs on another port', { state: 'running', publishedPort: '8200' }, 'none'],
+    ['a host app shadows our published port', ours, 'other'],
+  ])('blames the port when %s', (_, container, answer) => {
+    const problem = monospaceProblem({ port: '8100', container, answer })
+
+    expect(problem).toContain("Port 8100 isn't this project's Monospace.")
+    expect(problem).toContain('docker ps --filter publish=8100')
+    expect(problem).toContain('lsof -i :8100')
+  })
+
+  it('asks to start the stack when nothing answers', () => {
+    expect(monospaceProblem({ port: '8100', container: null, answer: 'none' })).toContain(
+      'docker compose up -d',
+    )
+  })
+
+  it('explains a license refusal from a crash loop', () => {
+    const logs = [
+      'Starting Monospace',
+      'ERROR License entitlement check failed: usage exceeds hard limit',
+    ].join('\n')
+
+    const problem = monospaceProblem({
+      port: '8100',
+      container: { state: 'restarting', publishedPort: '' },
+      answer: 'none',
+      logs,
+    })
+
+    expect(problem).toContain('keeps restarting')
+    expect(problem).toContain('ERROR License entitlement check failed')
+    expect(problem).not.toContain('Starting Monospace')
+    expect(problem).toContain('COMPOSE_PROJECT_NAME')
+  })
+
+  it('shows the last lines of any other crash loop', () => {
+    const problem = monospaceProblem({
+      port: '8100',
+      container: { state: 'restarting', publishedPort: '' },
+      answer: 'none',
+      logs: 'boot\nconnection refused',
+    })
+
+    expect(problem).toContain('boot\nconnection refused')
+    expect(problem).not.toContain('COMPOSE_PROJECT_NAME')
+  })
 })

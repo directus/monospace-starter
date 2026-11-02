@@ -6,19 +6,24 @@ import { fileURLToPath } from 'node:url'
 
 import { buildExtensions, connectors } from './build-extensions.mjs'
 import { setupSteps } from './installed.mjs'
-import { apiUrl, runSetupStep } from './lib.mjs'
+import { apiUrl, monospaceProblem, runSetupStep } from './lib.mjs'
 
 const root = fileURLToPath(new URL('../../../', import.meta.url))
 
 // Right after `docker compose up`, Monospace is still starting (it has no compose healthcheck).
+// Unless MONOSPACE_URL points elsewhere, it must be this folder's compose Monospace: stop early
+// when the port belongs to something else or the container keeps restarting.
 async function waitForMonospace() {
   for (let attempt = 0; ; attempt++) {
-    const ready = await fetch(`${apiUrl}/system/ready`).then(
-      (response) => response.ok,
-      () => false,
-    )
+    const response = await fetch(`${apiUrl}/system/ready`).catch(() => null)
+    const problem = process.env.MONOSPACE_URL ? '' : localProblem(answerKind(response))
 
-    if (ready) return
+    if (problem) {
+      console.error(`\n${problem}`)
+      process.exit(1)
+    }
+
+    if (response?.ok) return
 
     if (attempt === 60) throw new Error(`Monospace isn't ready at ${apiUrl} after 2 minutes`)
 
@@ -26,6 +31,26 @@ async function waitForMonospace() {
 
     await new Promise((resolve) => setTimeout(resolve, 2_000))
   }
+}
+
+// Monospace answers JSON, even while it starts; anything else on the port is another app.
+function answerKind(response) {
+  if (!response) return 'none'
+
+  return response.headers.get('content-type')?.startsWith('application/json')
+    ? 'monospace'
+    : 'other'
+}
+
+function localProblem(answer) {
+  const container = composeMonospace()
+
+  const logs =
+    container?.state === 'restarting'
+      ? compose(['logs', '--tail', '40', '--no-log-prefix', 'monospace'])
+      : ''
+
+  return monospaceProblem({ port: new URL(apiUrl).port, container, answer, logs })
 }
 
 await waitForMonospace()
@@ -46,7 +71,13 @@ if (connectors.some((connector) => connector.extension)) {
 
   // Only the compose Monospace that answers at this setup's address, so a second copy's setup
   // never restarts someone else's stack.
-  if (firstBuild && composePort() === new URL(apiUrl).port) {
+  const monospace = composeMonospace()
+
+  if (
+    firstBuild &&
+    monospace?.state === 'running' &&
+    monospace.publishedPort === new URL(apiUrl).port
+  ) {
     console.log('First build: restarting Monospace so it loads the connector')
     execFileSync('docker', ['compose', 'restart', 'monospace'], { stdio: 'inherit', cwd: root })
     await waitForMonospace()
@@ -55,17 +86,25 @@ if (connectors.some((connector) => connector.extension)) {
   buildExtensions()
 }
 
-// The host port this folder's compose Monospace publishes, or '' when it isn't running here.
-function composePort() {
+// This folder's compose `monospace` service, or null when it was never created.
+function composeMonospace() {
+  const line = compose(['ps', '--all', '--format', 'json', 'monospace']).split('\n')[0]
+
+  if (!line) return null
+
+  const { State, Publishers = [] } = JSON.parse(line)
+  const published = Publishers.find((publisher) => publisher.TargetPort === 8100)
+
+  return { state: State, publishedPort: String(published?.PublishedPort ?? '') }
+}
+
+function compose(args) {
   try {
-    return execFileSync('docker', ['compose', 'port', 'monospace', '8100'], {
+    return execFileSync('docker', ['compose', ...args], {
       cwd: root,
       encoding: 'utf8',
       stdio: ['ignore', 'pipe', 'ignore'],
-    })
-      .trim()
-      .split(':')
-      .at(-1)
+    }).trim()
   } catch {
     return ''
   }
