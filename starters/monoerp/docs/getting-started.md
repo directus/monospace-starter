@@ -165,7 +165,7 @@ STRIPE_API_KEY=sk_test_...              # a test-mode key
 STRIPE_API_BASE=https://api.stripe.com
 ```
 
-Then delete the `Stripe` source in Studio (Data Model > Sources) and run `pnpm setup:all` to create it again. Delete the portal's "Stripe customer" relation first: Monospace won't delete a source while a relation points at it.
+Then run `pnpm setup:remove-source Stripe` and `pnpm setup:all` to create the source again. (In Studio, that's deleting the portal's "Stripe customer" relation, then the `Stripe` source under Data Model > Sources: Monospace won't delete a source while a relation points at it.)
 
 Portal accounts link to Stripe customers by `stripe_customer_id`, so those IDs need to be real customer IDs in your Stripe account. With a test-mode key, the connector can also create and edit customers, products, and prices; with a live key it's read-only unless you turn writes on. The connector's [README](../connectors/stripe/README.md) has every setting and what it can and can't answer.
 

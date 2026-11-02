@@ -1,8 +1,10 @@
 // Shared bits for the setup scripts: env loading, an authenticated fetch against the
 // Monospace API, and workspace schema reads keyed by dbName (ids differ per install).
 
+import { execFileSync } from 'node:child_process'
 import { randomUUID } from 'node:crypto'
 import { loadEnvFile } from 'node:process'
+import { fileURLToPath } from 'node:url'
 
 import appConfig from '../../../app.config.json' with { type: 'json' }
 import { connectors } from './installed.mjs'
@@ -190,6 +192,7 @@ export async function readCollections() {
       apiName: text(field.apiName),
       isList: field.isList ?? false,
       oppositeCollectionId: collections[field.oppositeCollection].id,
+      oppositeFieldId: collections[field.oppositeCollection].relationFields[field.oppositeField].id,
       constraintId: field.constraint?.id ?? null,
     })),
   }))
@@ -288,6 +291,51 @@ export const META_FIELDS = {
   collection: 'displayTemplate,displayName,description,icon,isHidden,color',
   field:
     'displayName,description,typeTemplateId,typeOptions,inputId,inputOptions,displayId,displayOptions,isHidden,sort',
+}
+
+const root = fileURLToPath(new URL('../../../', import.meta.url))
+
+export function compose(args) {
+  try {
+    return execFileSync('docker', ['compose', ...args], {
+      cwd: root,
+      encoding: 'utf8',
+      stdio: ['ignore', 'pipe', 'ignore'],
+    }).trim()
+  } catch {
+    return ''
+  }
+}
+
+// This folder's compose `monospace` service, or null when it was never created. Compose before
+// 2.21 prints a JSON array instead of one object per line.
+export function composeMonospace() {
+  const line = compose(['ps', '--all', '--format', 'json', 'monospace']).split('\n')[0]
+  let entry
+
+  try {
+    const parsed = JSON.parse(line)
+
+    entry = Array.isArray(parsed) ? parsed[0] : parsed
+  } catch {
+    return null
+  }
+
+  if (!entry) return null
+
+  const { State, Publishers = [] } = entry
+  const published = Publishers.find((publisher) => publisher.TargetPort === 8100)
+
+  return { state: State, publishedPort: String(published?.PublishedPort ?? '') }
+}
+
+// Monospace answers JSON, even while it starts; anything else on the port is another app.
+export function answerKind(response) {
+  if (!response) return 'none'
+
+  return response.headers.get('content-type')?.startsWith('application/json')
+    ? 'monospace'
+    : 'other'
 }
 
 const portHelp = (port) =>

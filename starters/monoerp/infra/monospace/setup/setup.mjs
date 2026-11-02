@@ -7,7 +7,14 @@ import { fileURLToPath } from 'node:url'
 import { containerFolders, samePath } from '../../../tools/env.mjs'
 import { buildExtensions, connectors } from './build-extensions.mjs'
 import { setupSteps } from './installed.mjs'
-import { apiUrl, monospaceProblem, runSetupStep } from './lib.mjs'
+import {
+  answerKind,
+  apiUrl,
+  compose,
+  composeMonospace,
+  monospaceProblem,
+  runSetupStep,
+} from './lib.mjs'
 
 const root = fileURLToPath(new URL('../../../', import.meta.url))
 
@@ -42,15 +49,6 @@ async function waitForMonospace() {
 
     await new Promise((resolve) => setTimeout(resolve, 2_000))
   }
-}
-
-// Monospace answers JSON, even while it starts; anything else on the port is another app.
-function answerKind(response) {
-  if (!response) return 'none'
-
-  return response.headers.get('content-type')?.startsWith('application/json')
-    ? 'monospace'
-    : 'other'
 }
 
 function localProblem(container, answer) {
@@ -107,40 +105,6 @@ if (connectors.some((connector) => connector.extension)) {
   }
 } else {
   buildExtensions()
-}
-
-// This folder's compose `monospace` service, or null when it was never created. Compose before
-// 2.21 prints a JSON array instead of one object per line.
-function composeMonospace() {
-  const line = compose(['ps', '--all', '--format', 'json', 'monospace']).split('\n')[0]
-  let entry
-
-  try {
-    const parsed = JSON.parse(line)
-
-    entry = Array.isArray(parsed) ? parsed[0] : parsed
-  } catch {
-    return null
-  }
-
-  if (!entry) return null
-
-  const { State, Publishers = [] } = entry
-  const published = Publishers.find((publisher) => publisher.TargetPort === 8100)
-
-  return { state: State, publishedPort: String(published?.PublishedPort ?? '') }
-}
-
-function compose(args) {
-  try {
-    return execFileSync('docker', ['compose', ...args], {
-      cwd: root,
-      encoding: 'utf8',
-      stdio: ['ignore', 'pipe', 'ignore'],
-    }).trim()
-  } catch {
-    return ''
-  }
 }
 
 const coreStep = (title, name) => ({ title, url: new URL(name, import.meta.url) })

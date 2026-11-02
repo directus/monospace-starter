@@ -36,6 +36,7 @@ Setup (`infra/monospace/setup/setup.mjs`) runs these stages in order:
 | ------------------------------------------------------------ | ---------------------------------------------------------------------------------- |
 | `pnpm build:extensions`                                      | Build selected connector packages into `infra/monospace/extensions/`               |
 | `pnpm setup:sources`                                         | Create workspace and data sources; approve extension hosts                         |
+| `pnpm setup:remove-source <source>`                          | Delete a data source and its relations to other sources (`app:remove` runs it)     |
 | `pnpm setup:introspect`                                      | Reread connected sources after migrations, without writing to their databases      |
 | `pnpm setup:audit-relations`                                 | Configure owner and audit-user relations                                           |
 | `pnpm schema:apply`                                          | Apply module and connector `monospace/schema/*.json`                               |
@@ -76,7 +77,7 @@ Monospace can read APIs as well as databases through data connector extensions: 
 - Compose mounts `infra/monospace/extensions/` into Monospace, with automatic reloading on. `pnpm build:extensions` writes builds there, and Monospace loads them in a second or two, no restart. The exception is a change to the connector's declared capabilities (`engine.capabilities` in `extension.config.json`), which needs `docker compose restart monospace`.
 - A connector reaches only the hosts its data source was granted. Creating the source without them answers 422 with the list; `sources.mjs` approves them and retries.
 - Monospace won't change an extension source's data model. Renaming its collections and fields (API names, what `stripe.json` does) works; anything that would add to it doesn't.
-- A changed schema in the connector reaches Monospace only when the data source is created. Delete the `Stripe` source in Studio and rerun `pnpm setup:all`.
+- A changed schema in the connector reaches Monospace only when the data source is created. Run `pnpm setup:remove-source Stripe` (it deletes the relations to it first) and rerun `pnpm setup:all`.
 
 ## Studio
 

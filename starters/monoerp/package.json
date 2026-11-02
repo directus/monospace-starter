@@ -10,6 +10,7 @@
     "start": "vp run --filter @monoerp/web start",
     "setup:all": "node infra/monospace/setup/setup.mjs",
     "setup:sources": "node infra/monospace/setup/sources.mjs",
+    "setup:remove-source": "node infra/monospace/setup/remove-source.mjs",
     "setup:introspect": "node infra/monospace/setup/introspect-sources.mjs",
     "setup:audit-relations": "node infra/monospace/setup/audit-user-relations.mjs",
     "db:migrate": "docker compose run --rm --no-deps --entrypoint sh app-postgres /infra/postgres/migrate.sh && node infra/monospace/setup/connector-hook.mjs migrate",

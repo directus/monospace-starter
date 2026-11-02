@@ -22,8 +22,8 @@ Install and dev regenerate `compose.app.yml` automatically. If you edit module o
 
 ## Remove a module, connector, or deploy target
 
-1. Preview with `pnpm app:remove <id> --dry-run`. If the source is already connected, remove its cross-source relations and data source in Studio first. For Stripe, delete Portal's `stripeCustomer` relation before deleting the Stripe source.
-2. Run `pnpm app:remove <id>`. Required dependencies prevent removal. Features of other connectors that need the removed one turn off, and the command says which. For modules and connectors, update `README.md`, `AGENTS.md`, and `docs/` to drop descriptions of the removed feature; shared prose is not rewritten automatically.
+1. Preview with `pnpm app:remove <id> --dry-run`.
+2. Run `pnpm app:remove <id>`. For a connector, it first deletes its data source in Monospace and the relations between it and other sources. If Monospace isn't running, it says so and keeps going; run `pnpm setup:remove-source <source>` (for example `Portal`) once it is, or delete the relations and then the source in Studio. Required dependencies prevent removal. Features of other connectors that need the removed one turn off, and the command says which. For modules and connectors, update `README.md`, `AGENTS.md`, and `docs/` to drop descriptions of the removed feature; shared prose is not rewritten automatically.
 3. For modules and connectors, run the same follow-up commands above. `--remove-orphans` retires the removed local service. Source-file removal does not erase existing Docker volumes or external data.
 
 For a deploy target, run `pnpm install`, `pnpm app:doctor`, and `pnpm verify` after removal.

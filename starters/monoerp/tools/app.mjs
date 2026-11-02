@@ -247,7 +247,8 @@ export function checkApp(root = repository) {
   return { manifests, report: manifests.map((manifest) => describe(root, manifest, ids)) }
 }
 
-export function removeInstalled(id, { root = repository, dryRun = false } = {}) {
+// The part's manifest, after checking it exists and nothing else needs it.
+export function removable(id, root = repository) {
   const manifests = validateManifests(root)
   const manifest = manifests.find((candidate) => candidate.id === id)
 
@@ -262,6 +263,12 @@ export function removeInstalled(id, { root = repository, dryRun = false } = {}) 
     throw new Error(
       `${id} is required by ${dependents.map((candidate) => candidate.id).join(', ')}`,
     )
+
+  return { manifests, manifest }
+}
+
+export function removeInstalled(id, { root = repository, dryRun = false } = {}) {
+  const { manifests, manifest } = removable(id, root)
 
   const edits = new Map()
 
@@ -314,7 +321,6 @@ export function removeInstalled(id, { root = repository, dryRun = false } = {}) 
     }
   }
 
-  console.log('For a connected source, remove its relations and source in Studio first.')
   console.log('Update README.md, AGENTS.md, and docs/ for the removed feature.')
   console.log('Next commands:')
 
@@ -322,6 +328,30 @@ export function removeInstalled(id, { root = repository, dryRun = false } = {}) 
     console.log(`  ${step.script ? `pnpm ${step.script}` : step.command.join(' ')}`)
 
   return manifest.ownedPaths
+}
+
+// Before the files go, while the source is still connected. Monospace may not be running (or
+// was never set up); then the source stays and we say how to remove it later.
+async function removeMonospaceSource(apiName, dryRun) {
+  if (dryRun) {
+    console.log(`Would remove Monospace data source ${apiName} and its relations to other sources`)
+
+    return
+  }
+
+  const { removeSource } = await import('../infra/monospace/setup/remove-source.mjs')
+
+  try {
+    await removeSource(apiName)
+  } catch (error) {
+    console.log(
+      [
+        `Couldn't remove Monospace data source ${apiName}: ${error.message.split('\n')[0]}`,
+        `If it was ever set up, remove it later with: pnpm setup:remove-source ${apiName}`,
+        '(or in Studio: delete its relations to other sources, then the source).',
+      ].join('\n'),
+    )
+  }
 }
 
 function encodePackage(value, previous) {
@@ -341,9 +371,14 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
       console.log(`Installed: ${manifests.map((manifest) => manifest.id).join(', ')}`)
 
       for (const line of report) console.log(`  ${line}`)
-    } else if (command === 'remove' && id && flags.every((flag) => flag === '--dry-run'))
-      removeInstalled(id, { dryRun: flags.includes('--dry-run') })
-    else throw new Error('Usage: pnpm app:doctor | pnpm app:remove <id> [--dry-run]')
+    } else if (command === 'remove' && id && flags.every((flag) => flag === '--dry-run')) {
+      const dryRun = flags.includes('--dry-run')
+      const source = removable(id).manifest.source?.apiName
+
+      if (source) await removeMonospaceSource(source, dryRun)
+
+      removeInstalled(id, { dryRun })
+    } else throw new Error('Usage: pnpm app:doctor | pnpm app:remove <id> [--dry-run]')
   } catch (error) {
     console.error(error.message)
     process.exitCode = 1
