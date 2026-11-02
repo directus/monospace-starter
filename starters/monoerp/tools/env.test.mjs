@@ -1,11 +1,17 @@
+import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs'
+import { tmpdir } from 'node:os'
+import { join } from 'node:path'
+
 import { describe, expect, it } from 'vitest'
 
 import {
+  boundPorts,
   envFromExample,
   folderProjectName,
   keepsFolderProject,
   pickPorts,
   projectName,
+  siblingPorts,
 } from './env.mjs'
 
 describe('first .env', () => {
@@ -83,5 +89,36 @@ describe('first .env', () => {
     expect(envFromExample('APP_PORT=3000\n', { project: 'x-a1b2', ports: [] })).toBe(
       'APP_PORT=3000\nCOMPOSE_PROJECT_NAME=x-a1b2\n',
     )
+  })
+})
+
+describe('ports held elsewhere', () => {
+  it("reads host ports from a container's port bindings", () => {
+    const bindings = {
+      '5432/tcp': [{ HostIp: '127.0.0.1', HostPort: '5433' }],
+      '80/tcp': [
+        { HostIp: '127.0.0.1', HostPort: '3080' },
+        { HostIp: '::1', HostPort: '3080' },
+      ],
+      '5672/tcp': null,
+    }
+
+    expect(boundPorts(JSON.stringify(bindings))).toEqual([5433, 3080, 3080])
+    expect(boundPorts('null')).toEqual([])
+    expect(boundPorts('not json')).toEqual([])
+  })
+
+  it("reads the ports in sibling folders' .env, not this folder's", () => {
+    const parent = mkdtempSync(join(tmpdir(), 'env-siblings-'))
+
+    try {
+      for (const name of ['here', 'other', 'empty']) mkdirSync(join(parent, name))
+      writeFileSync(join(parent, 'here', '.env'), 'APP_PORT=3000\n')
+      writeFileSync(join(parent, 'other', '.env'), 'APP_PORT=3001\nMAILPIT_PORT=8026\nNAME=x\n')
+
+      expect(siblingPorts(join(parent, 'here'))).toEqual([3001, 8026])
+    } finally {
+      rmSync(parent, { recursive: true })
+    }
   })
 })

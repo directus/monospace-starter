@@ -2,9 +2,9 @@
 // fresh copy never shares Docker data with another copy, and free host ports.
 import { execFileSync } from 'node:child_process'
 import { randomBytes } from 'node:crypto'
-import { existsSync, readFileSync, realpathSync, writeFileSync } from 'node:fs'
+import { existsSync, readdirSync, readFileSync, realpathSync, writeFileSync } from 'node:fs'
 import { connect } from 'node:net'
-import { basename, resolve } from 'node:path'
+import { basename, dirname, join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const portLine = /^(\w+_PORT)=(\d+)$/gm
@@ -119,6 +119,51 @@ function folderProject(here) {
   return keepsFolderProject({ folders, volumes, here }) ? name : null
 }
 
+// Host ports in `docker inspect`'s HostConfig.PortBindings JSON.
+export function boundPorts(json) {
+  try {
+    return Object.values(JSON.parse(json) ?? {})
+      .flat()
+      .map((binding) => Number(binding?.HostPort))
+      .filter(Boolean)
+  } catch {
+    return []
+  }
+}
+
+// Ports any Compose container publishes, running or stopped, so a stack that's down right now
+// keeps its ports. Empty when Docker isn't there.
+function composePorts() {
+  const ids = docker(['ps', '--all', '--quiet', '--filter', 'label=com.docker.compose.project'])
+
+  if (ids.length === 0) return []
+
+  return docker(['inspect', '--format', '{{json .HostConfig.PortBindings}}', ...ids]).flatMap(
+    boundPorts,
+  )
+}
+
+// Ports in the .env of folders next to this one: other copies, even if never started.
+export function siblingPorts(here) {
+  const parent = dirname(here)
+
+  try {
+    return readdirSync(parent, { withFileTypes: true })
+      .filter((entry) => entry.isDirectory() && !samePath(join(parent, entry.name), here))
+      .flatMap((entry) => {
+        try {
+          const env = readFileSync(join(parent, entry.name, '.env'), 'utf8')
+
+          return [...env.matchAll(portLine)].map(([, , port]) => Number(port))
+        } catch {
+          return []
+        }
+      })
+  } catch {
+    return []
+  }
+}
+
 function accepts(host, port) {
   return new Promise((resolve) => {
     const socket = connect({ host, port, timeout: 300 })
@@ -173,7 +218,8 @@ export async function writeEnv(directory) {
   ]
 
   const open = await Promise.all(candidates.map(listening))
-  const taken = candidates.filter((_, index) => open[index])
+  const reserved = new Set([...composePorts(), ...siblingPorts(here)])
+  const taken = candidates.filter((port, index) => open[index] || reserved.has(port))
   const ports = pickPorts(defaults, taken)
   const stuck = ports.filter((entry) => entry.port === null)
 
