@@ -4,6 +4,7 @@ import { execFileSync } from 'node:child_process'
 import { existsSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 
+import { containerFolders, samePath } from '../../../tools/env.mjs'
 import { buildExtensions, connectors } from './build-extensions.mjs'
 import { setupSteps } from './installed.mjs'
 import { apiUrl, monospaceProblem, runSetupStep } from './lib.mjs'
@@ -12,11 +13,21 @@ const root = fileURLToPath(new URL('../../../', import.meta.url))
 
 // Right after `docker compose up`, Monospace is still starting (it has no compose healthcheck).
 // Unless MONOSPACE_URL points elsewhere, it must be this folder's compose Monospace: stop early
-// when the port belongs to something else or the container keeps restarting.
+// when the port belongs to something else or the container keeps restarting (two polls in a row,
+// so one crash that Docker restarts from isn't enough).
 async function waitForMonospace() {
+  let restarting = 0
+
   for (let attempt = 0; ; attempt++) {
     const response = await fetch(`${apiUrl}/system/ready`).catch(() => null)
-    const problem = process.env.MONOSPACE_URL ? '' : localProblem(answerKind(response))
+    const container = process.env.MONOSPACE_URL ? null : composeMonospace()
+
+    restarting = container?.state === 'restarting' ? restarting + 1 : 0
+
+    const problem =
+      process.env.MONOSPACE_URL || restarting === 1
+        ? ''
+        : localProblem(container, answerKind(response))
 
     if (problem) {
       console.error(`\n${problem}`)
@@ -42,15 +53,27 @@ function answerKind(response) {
     : 'other'
 }
 
-function localProblem(answer) {
-  const container = composeMonospace()
-
+function localProblem(container, answer) {
   const logs =
     container?.state === 'restarting'
       ? compose(['logs', '--tail', '40', '--no-log-prefix', 'monospace'])
       : ''
 
   return monospaceProblem({ port: new URL(apiUrl).port, container, answer, logs })
+}
+
+// A folder copied with its .env shares the other copy's Compose project, containers and data.
+const elsewhere = containerFolders(
+  compose(['ps', '--all', '--quiet']).split('\n').filter(Boolean),
+).filter((folder) => !samePath(folder, root))
+
+if (elsewhere.length > 0) {
+  console.warn(
+    [
+      `Warning: this folder's Compose project also has containers from ${elsewhere.join(', ')}.`,
+      'Both folders share one stack. To split them, delete .env here and rerun pnpm install.',
+    ].join('\n'),
+  )
 }
 
 await waitForMonospace()
@@ -86,13 +109,23 @@ if (connectors.some((connector) => connector.extension)) {
   buildExtensions()
 }
 
-// This folder's compose `monospace` service, or null when it was never created.
+// This folder's compose `monospace` service, or null when it was never created. Compose before
+// 2.21 prints a JSON array instead of one object per line.
 function composeMonospace() {
   const line = compose(['ps', '--all', '--format', 'json', 'monospace']).split('\n')[0]
+  let entry
 
-  if (!line) return null
+  try {
+    const parsed = JSON.parse(line)
 
-  const { State, Publishers = [] } = JSON.parse(line)
+    entry = Array.isArray(parsed) ? parsed[0] : parsed
+  } catch {
+    return null
+  }
+
+  if (!entry) return null
+
+  const { State, Publishers = [] } = entry
   const published = Publishers.find((publisher) => publisher.TargetPort === 8100)
 
   return { state: State, publishedPort: String(published?.PublishedPort ?? '') }

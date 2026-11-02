@@ -30,7 +30,7 @@ services:
     entrypoint:
       - sh
       - -c
-      - cp /init-src/* /docker-entrypoint-initdb.d/ && chmod 644 /docker-entrypoint-initdb.d/* && exec docker-entrypoint.sh "$$@"
+      - cp -r /init-src/* /docker-entrypoint-initdb.d/ && chmod 644 /docker-entrypoint-initdb.d/* && exec docker-entrypoint.sh "$$@"
       - sh
     command: ['postgres']
     environment:

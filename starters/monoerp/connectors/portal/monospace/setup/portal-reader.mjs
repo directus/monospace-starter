@@ -13,7 +13,7 @@ const host = process.env.CUSTOMER_MYSQL_HOST || 'customer-mysql'
 if (host !== 'customer-mysql') {
   console.log(`Skipped: Portal uses ${host}, which manages its own login`)
 } else if (!composeMysql()) {
-  console.log('Skipped: no customer-mysql container in this folder')
+  console.log("Skipped: customer-mysql isn't running (docker compose up -d)")
 } else {
   const { user } = connectors.find((connector) => connector.id === 'portal').source
   const password = sqlString(process.env.PORTAL_READER_PASSWORD || 'monospace')

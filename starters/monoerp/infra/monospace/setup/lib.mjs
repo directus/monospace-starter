@@ -292,8 +292,11 @@ export const META_FIELDS = {
 
 const portHelp = (port) =>
   [
-    `See what's using it: docker ps --filter publish=${port}, or lsof -i :${port}`,
+    `See what's using it: docker ps --filter publish=${port}, or ${
+      process.platform === 'win32' ? `netstat -ano | findstr :${port}` : `lsof -i :${port}`
+    }`,
     'Fix: stop that, or change MONOSPACE_PORT (and the other *_PORT values) in .env.',
+    'To use a Monospace you run yourself, set MONOSPACE_URL in .env.',
   ].join('\n')
 
 // Why setup can't talk to this folder's compose Monospace, or '' when it can. `container` is the

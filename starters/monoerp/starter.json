@@ -3,6 +3,7 @@
   "label": "monoERP starter",
   "description": "Shared app shell, authentication, database, and setup",
   "ignorePaths": [
+    ".env",
     "dist",
     ".output",
     ".cache",

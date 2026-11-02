@@ -79,9 +79,9 @@ pnpm dev
 
 **If setup gets stuck:**
 
-- **Port taken.** Another app on port 8100 (or any port in `.env`) blocks this copy's Monospace. `pnpm setup:all` says so and stops. Stop that app, or change the ports in `.env`.
+- **Port taken.** Another app on the Monospace port (8100 by default) blocks this copy's Monospace. `pnpm setup:all` says so and stops. Stop that app, or change the port in `.env`. For the other ports, `docker compose up` or `pnpm dev` reports it; change it in `.env`.
 - **Monospace keeps restarting.** `pnpm setup:all` prints its last log lines. A license refusal means this Docker project has old data, often from another copy in a folder with the same name and no `COMPOSE_PROJECT_NAME` in `.env`. Set a new `COMPOSE_PROJECT_NAME` in `.env` to start clean.
-- **Access denied for user 'monospace_reader'.** Rerun `pnpm setup:all`. It creates the Portal read-only login, or fixes its password, before it connects Portal.
+- **Access denied for user 'root' at "Portal reader login".** `CUSTOMER_MYSQL_ROOT_PASSWORD` in `.env` changed after the Portal database was created. Set it back to the old value.
 
 Open http://localhost:3000 (or the address `pnpm install` printed) and sign in with `admin@example.com` / `monospace`. It comes with demo data: well-known companies, with fictional contacts, deals, and activity.
 
@@ -97,7 +97,7 @@ New here? [The getting started guide](docs/getting-started.md) shows you around 
 
 - The first `docker compose up` loads the demo data, which takes a minute or two. The `keygen` container generates Monospace's keys and exits; that's expected. `pnpm setup:all` waits for Monospace.
 - The first time you open Studio, it asks you to accept its terms and then to create a workspace, even though `monoerp` already exists. Open Studio in a new tab to skip that.
-- **Ports** are in `.env`, and everything follows them, including `pnpm dev`. The first `pnpm install` picks free ones and a unique `COMPOSE_PROJECT_NAME`, so a second copy runs next to the first as is.
+- **Ports** are in `.env`, and everything follows them, including `pnpm dev`. The first `pnpm install` picks free ones and a unique `COMPOSE_PROJECT_NAME`, so a fresh download runs next to another copy as is. If you copy a folder that already has a `.env`, delete it in the copy before `pnpm install`, or both copies share one Docker stack.
 - **License key:** optional locally. See [the free tier and license setup](docs/monospace.md#license-key-and-the-free-tier).
 
 </details>
