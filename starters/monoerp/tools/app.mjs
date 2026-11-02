@@ -1,8 +1,10 @@
 import { existsSync, lstatSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { createRequire } from 'node:module'
+import { basename } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 import { partFolders, partKinds, readManifest, repository } from '../infra/manifests.mjs'
+import { folderProjectName } from './env.mjs'
 
 function contains(parent, child) {
   return child === parent || child.startsWith(`${parent}/`)
@@ -247,6 +249,27 @@ export function checkApp(root = repository) {
   return { manifests, report: manifests.map((manifest) => describe(root, manifest, ids)) }
 }
 
+// Docker volume names a part's compose file declares, under this folder's Compose project.
+// Removing the part leaves them (and their data) behind; Compose no longer knows them.
+export function partVolumes(root, manifest) {
+  if (!manifest.compose) return []
+
+  const compose = createRequire(import.meta.url)('yaml').parse(
+    readFileSync(new URL(manifest.compose, root), 'utf8'),
+  )
+
+  const env = existsSync(new URL('.env', root)) ? readFileSync(new URL('.env', root), 'utf8') : ''
+
+  const project =
+    /^COMPOSE_PROJECT_NAME=(.+)$/m.exec(env)?.[1].trim() ||
+    process.env.COMPOSE_PROJECT_NAME ||
+    folderProjectName(basename(fileURLToPath(root)))
+
+  return Object.entries(compose?.volumes ?? {}).flatMap(([key, volume]) =>
+    volume?.external ? [] : [volume?.name ?? `${project}_${key}`],
+  )
+}
+
 // The part's manifest, after checking it exists and nothing else needs it.
 export function removable(id, root = repository) {
   const manifests = validateManifests(root)
@@ -270,6 +293,7 @@ export function removable(id, root = repository) {
 export function removeInstalled(id, { root = repository, dryRun = false } = {}) {
   const { manifests, manifest } = removable(id, root)
 
+  const volumes = partVolumes(root, manifest)
   const edits = new Map()
 
   for (const entry of manifest.packageEntries) {
@@ -320,6 +344,11 @@ export function removeInstalled(id, { root = repository, dryRun = false } = {}) 
         )
     }
   }
+
+  if (volumes.length)
+    console.log(
+      `Its Docker data is kept. To delete it, after the commands below: docker volume rm ${volumes.join(' ')}`,
+    )
 
   console.log('Update README.md, AGENTS.md, and docs/ for the removed feature.')
   console.log('Next commands:')
