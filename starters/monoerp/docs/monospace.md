@@ -1,6 +1,6 @@
 # Working with Monospace
 
-Monospace is the backend. It holds users, roles, and permissions, connects to both databases and Stripe, and serves the API the app calls. `docker-compose.yml` pins Monospace v1.0.0 by image digest; deployment reads that same pin.
+Monospace is the backend. It holds users, roles, and permissions, connects to both databases and Stripe, and serves the API the app calls. `docker-compose.yml` pins Monospace v1.1.0 by image digest; deployment reads that same pin.
 
 ## The workspace
 

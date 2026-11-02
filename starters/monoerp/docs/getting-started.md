@@ -9,7 +9,7 @@ By the end you'll have:
 - A sense of where each kind of change goes.
 
 > [!NOTE]
-> monoERP is pinned to Monospace v1.0.0. Treat it as an example and a starting point, not a supported product.
+> monoERP is pinned to Monospace v1.1.0. Treat it as an example and a starting point, not a supported product.
 
 ## 1. Run it
 

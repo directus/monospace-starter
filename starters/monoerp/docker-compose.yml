@@ -97,7 +97,7 @@ services:
 
   monospace:
     # Pinned by digest so every clone runs the same build.
-    image: monospace/monospace:v1.0.0@sha256:bb82b12e61510699d241c08a3f7c74120cac692031272a9f70460ebb56fa34b7
+    image: monospace/monospace:v1.1.0@sha256:903bf1e6cea2faca2c968eb57121eae4751124452485110619bdb94ec6545353
     restart: unless-stopped
     depends_on:
       system-postgres:
@@ -153,7 +153,7 @@ services:
       MONOSPACE_SYSTEM_EMAILER__PROVIDER: 'smtp'
       MONOSPACE_SYSTEM_EMAILER__HOST: 'mailpit'
       MONOSPACE_SYSTEM_EMAILER__PORT: '1025'
-      # v1.0.0 reads TLS, not the documented TLS_OFF.
+      # v1.1.0 still reads TLS, not the documented TLS_OFF.
       MONOSPACE_SYSTEM_EMAILER__TLS: 'false'
       # Required fields; Mailpit accepts any credentials.
       MONOSPACE_SYSTEM_EMAILER__USERNAME: 'mailpit'

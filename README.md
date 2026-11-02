@@ -52,7 +52,10 @@ Grab a single starter without cloning the whole repo:
 
 ```bash
 npx giget@latest gh:directus/monospace-starter/starters/monoerp monoerp
+cd monoerp
 ```
+
+Then follow its [Quickstart](starters/monoerp#quickstart) to install dependencies, start the stack, and sign in. You'll need Node 24, pnpm, and Docker.
 
 Each starter runs its own Monospace on port 8100, so stop the root stack first.
 
