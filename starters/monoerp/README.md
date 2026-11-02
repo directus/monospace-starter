@@ -79,7 +79,7 @@ pnpm dev
 
 **If setup gets stuck:**
 
-- **Port taken.** Another app on the Monospace port (8100 by default) blocks this copy's Monospace. `pnpm setup:all` says so and stops. Stop that app, or change the port in `.env`. For the other ports, `docker compose up` or `pnpm dev` reports it; change it in `.env`.
+- **Port taken.** Docker can publish a port another app already holds, and then that app answers. `pnpm setup:all` stops if that happens on the Monospace port (8100 by default). At the end it checks the other published ports (the databases, Mailpit, the `--profile full` gateway) and names any that another app answers, or where nothing answers, with the fix. `pnpm dev` stops if `APP_PORT` is taken. Change ports in `.env`.
 - **Monospace keeps restarting.** `pnpm setup:all` prints its last log lines. A license refusal means this Docker project has old data, often from another copy in a folder with the same name and no `COMPOSE_PROJECT_NAME` in `.env`. Set a new `COMPOSE_PROJECT_NAME` in `.env` to start clean.
 - **Docker is out of networks.** `docker compose up` fails with "all predefined address pools have been fully subnetted". Each stack on this machine takes one, so many stacks use them up. Run `docker network prune` to free the unused ones, then `docker compose up` again.
 - **Access denied for user 'root' at "Portal reader login".** `CUSTOMER_MYSQL_ROOT_PASSWORD` in `.env` changed after the Portal database was created. Set it back to the old value.
@@ -129,7 +129,7 @@ This repo is set up for working with AI coding agents like Claude Code, Codex, a
 | `pnpm generate`                               | Rebuild the typed Monospace client after a schema change              |
 | `pnpm db:migrate`                             | Apply new app database migrations                                     |
 | `pnpm schema:export`                          | Save Studio changes (labels, field order, and so on) back to the repo |
-| `docker compose --profile full up -d --build` | Run the app in a container too, behind Caddy                          |
+| `docker compose --profile full up -d --build` | Run the app in a container too, behind Caddy, on `GATEWAY_PORT`       |
 
 ## Project layout
 

@@ -218,7 +218,8 @@ services:
       monospace:
         condition: service_started
     ports:
-      - '127.0.0.1:${APP_PORT:-3000}:80'
+      # Its own port, so it never sits on top of a running pnpm dev.
+      - '127.0.0.1:${GATEWAY_PORT:-3080}:80'
     volumes:
       - ./infra/caddy/Caddyfile:/etc/caddy/Caddyfile:ro
     networks:

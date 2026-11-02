@@ -15,6 +15,7 @@ import {
   monospaceProblem,
   runSetupStep,
 } from './lib.mjs'
+import { portProblems } from './ports.mjs'
 
 const root = fileURLToPath(new URL('../../../', import.meta.url))
 
@@ -125,4 +126,12 @@ for (const { title, url } of steps) {
   await runSetupStep(title, () => import(url))
 }
 
-console.log('\nMonospace is set up.')
+const problems = await portProblems()
+
+if (problems.length > 0) {
+  console.warn(
+    `\nMonospace is set up, but ${problems.length === 1 ? 'a port needs' : 'ports need'} a look:`,
+  )
+
+  for (const problem of problems) console.warn(`- ${problem}`)
+} else console.log('\nMonospace is set up.')
