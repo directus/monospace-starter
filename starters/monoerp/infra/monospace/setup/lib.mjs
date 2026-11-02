@@ -378,6 +378,14 @@ export function monospaceProblem({ port, container, answer, logs = '' }) {
   if (answer !== 'none' || container?.state === 'running')
     return [`Port ${port} isn't this project's Monospace.`, portHelp(port)].join('\n')
 
+  // No container at all: compose never got as far as ports, so don't point at one.
+  if (!container)
+    return [
+      `This project's Monospace isn't running. Start it with: docker compose up -d`,
+      "If that fails, its error says why. 'all predefined address pools have been fully subnetted'",
+      'means Docker is out of networks: docker network prune frees the unused ones.',
+    ].join('\n')
+
   return [
     `This project's Monospace isn't running. Start it with: docker compose up -d`,
     `If that fails on port ${port}, something else has it.`,

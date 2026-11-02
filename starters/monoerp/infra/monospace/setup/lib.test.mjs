@@ -146,10 +146,22 @@ describe('monospaceProblem', () => {
     expect(problem).toContain('lsof -i :8100')
   })
 
-  it('asks to start the stack when nothing answers', () => {
-    expect(monospaceProblem({ port: '8100', container: null, answer: 'none' })).toContain(
-      'docker compose up -d',
-    )
+  it('asks to start the stack when nothing answers, without blaming a port', () => {
+    const problem = monospaceProblem({ port: '8100', container: null, answer: 'none' })
+
+    expect(problem).toContain('docker compose up -d')
+    expect(problem).toContain('docker network prune')
+    expect(problem).not.toContain('8100')
+  })
+
+  it('mentions the port when our container exists but stopped', () => {
+    const problem = monospaceProblem({
+      port: '8100',
+      container: { state: 'exited', publishedPort: '' },
+      answer: 'none',
+    })
+
+    expect(problem).toContain('If that fails on port 8100, something else has it.')
   })
 
   it('explains a license refusal from a crash loop', () => {

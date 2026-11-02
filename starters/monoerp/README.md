@@ -81,6 +81,7 @@ pnpm dev
 
 - **Port taken.** Another app on the Monospace port (8100 by default) blocks this copy's Monospace. `pnpm setup:all` says so and stops. Stop that app, or change the port in `.env`. For the other ports, `docker compose up` or `pnpm dev` reports it; change it in `.env`.
 - **Monospace keeps restarting.** `pnpm setup:all` prints its last log lines. A license refusal means this Docker project has old data, often from another copy in a folder with the same name and no `COMPOSE_PROJECT_NAME` in `.env`. Set a new `COMPOSE_PROJECT_NAME` in `.env` to start clean.
+- **Docker is out of networks.** `docker compose up` fails with "all predefined address pools have been fully subnetted". Each stack on this machine takes one, so many stacks use them up. Run `docker network prune` to free the unused ones, then `docker compose up` again.
 - **Access denied for user 'root' at "Portal reader login".** `CUSTOMER_MYSQL_ROOT_PASSWORD` in `.env` changed after the Portal database was created. Set it back to the old value.
 
 Open http://localhost:3000 (or the address `pnpm install` printed) and sign in with `admin@example.com` / `monospace`. It comes with demo data: well-known companies, with fictional contacts, deals, and activity.
