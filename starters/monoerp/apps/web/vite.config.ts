@@ -1,3 +1,4 @@
+import { relative, sep } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 import tailwindcss from '@tailwindcss/vite'
@@ -35,9 +36,30 @@ export default defineConfig(({ mode }) => {
       {
         // Module route folders sit outside this package, so Vite doesn't watch them for new
         // files. Watching them keeps the route tree generator informed about added routes.
+        // The selected feature list above is read once per config load, so restart when a part
+        // folder or manifest comes, goes, or changes (pnpm app:remove while pnpm dev runs), and
+        // when pnpm install links an added part's packages.
         name: 'monoerp:watch-modules',
         configureServer(server) {
-          server.watcher.add(fileURLToPath(new URL('../../modules/', import.meta.url)))
+          const root = fileURLToPath(new URL('../../', import.meta.url))
+          const part = /^((modules|connectors)\/[^/]+(\/(module|connector)\.json)?|pnpm-lock\.yaml)$/
+          let timer: ReturnType<typeof setTimeout> | undefined
+
+          server.watcher.add([`${root}modules/`, `${root}connectors/`, `${root}pnpm-lock.yaml`])
+
+          const onPartChange = (_event: string, file: string) => {
+            const path = relative(root, file).split(sep).join('/')
+
+            if (!part.test(path)) return
+
+            clearTimeout(timer)
+            timer = setTimeout(() => {
+              server.config.logger.info(`${path} changed, restarting to pick up parts`)
+              void server.restart()
+            }, 300)
+          }
+
+          server.watcher.on('all', onPartChange)
         },
       },
       devtools(),
