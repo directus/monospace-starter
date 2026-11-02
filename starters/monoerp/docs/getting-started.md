@@ -43,7 +43,7 @@ A few things to know on the first run:
 
 - The first `docker compose up` loads the demo data, which takes a minute or two. The `keygen` container creates Monospace's keys and exits; that's expected. `pnpm setup:all` waits for Monospace to be ready.
 - `pnpm setup:all` is safe to rerun. Run it again whenever you pull changes.
-- The first time you open Studio, it asks you to accept its terms and then to create a workspace, even though `monoerp` already exists. Open Studio in a new tab to get past that.
+- The first time you open Studio, you have to accept its terms; there's no way around that screen. After that it asks you to create a workspace, even though `monoerp` already exists. Open Studio in a new tab to skip that step.
 - No license key is needed locally. See [the free tier and license setup](monospace.md#license-key-and-the-free-tier).
 - Every port is in `.env`. The first `pnpm install` writes it with free ports and a unique `COMPOSE_PROJECT_NAME`, so a fresh download runs next to another copy as is. If you copy a folder that already has a `.env`, delete it in the copy before `pnpm install`, or both copies share one Docker stack.
 

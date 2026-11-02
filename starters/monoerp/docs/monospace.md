@@ -83,7 +83,7 @@ Monospace can read APIs as well as databases through data connector extensions: 
 
 Studio is Monospace's admin UI, at http://localhost:8100 locally. Use it to look at data, roles, and users, and to try schema changes before putting them in code.
 
-- The first time, it asks you to accept its terms and then insists on creating a workspace, even though `monoerp` exists. Open Studio in a new tab to get past it; the wizard only tracks its progress per tab.
+- The first time, you have to accept its terms; nothing skips that. Then it insists on creating a workspace, even though `monoerp` exists. Open Studio in a new tab to skip that step; the wizard only tracks its progress per tab.
 - Changes made in Studio only live in that install. Export them (above) to keep them.
 
 ## License key and the free tier
