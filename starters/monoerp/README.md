@@ -93,6 +93,8 @@ New here? [The getting started guide](docs/getting-started.md) shows you around 
 | Monospace Studio (Monospace's admin UI) | http://localhost:8100 |
 | Mailpit (catches invite and reset mail) | http://localhost:8025 |
 
+These are the default ports. Yours may differ: `pnpm install` printed the ones it picked, and they're in `.env` (`MONOSPACE_PORT`, `MAILPIT_PORT`).
+
 <details>
 <summary>First-run notes, other ports, and the license key</summary>
 
@@ -130,6 +132,8 @@ This repo is set up for working with AI coding agents like Claude Code, Codex, a
 | `pnpm db:migrate`                             | Apply new app database migrations                                     |
 | `pnpm schema:export`                          | Save Studio changes (labels, field order, and so on) back to the repo |
 | `docker compose --profile full up -d --build` | Run the app in a container too, behind Caddy, on `GATEWAY_PORT`       |
+
+The container app's sign-in form starts empty. Sign in with `admin@example.com` / `monospace`, as in dev.
 
 ## Project layout
 

@@ -254,6 +254,7 @@ export async function writeEnv(directory) {
       ),
       `  App: http://localhost:${port('APP_PORT')}`,
       `  Studio: http://localhost:${port('MONOSPACE_PORT')}`,
+      `  Mailpit: http://localhost:${port('MAILPIT_PORT')}`,
     ].join('\n'),
   )
 }

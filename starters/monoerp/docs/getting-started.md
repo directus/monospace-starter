@@ -39,6 +39,8 @@ What's running:
 | `stripe`         | port 4010             | A local Stripe ([`@emulators/stripe`](https://www.npmjs.com/package/@emulators/stripe)) with billing history for each account |
 | Mailpit          | http://localhost:8025 | Catches invite and password reset mail                                                                                        |
 
+These are the default ports. Yours may differ: `pnpm install` printed the ones it picked, and every one is in `.env`.
+
 A few things to know on the first run:
 
 - The first `docker compose up` loads the demo data, which takes a minute or two. The `keygen` container creates Monospace's keys and exits; that's expected. `pnpm setup:all` waits for Monospace to be ready.

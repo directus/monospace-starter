@@ -13,6 +13,6 @@ Any host can run the same app and setup task used locally.
 - If using connector extensions, build and install their bundles before setup and enable their allowed hosts.
 - Back up both PostgreSQL databases and uploaded assets, and test restores.
 
-The Compose `full` profile is a local example of the app, Monospace, and a Caddy reverse proxy running together.
+The Compose `full` profile is a local example of the app, Monospace, and a Caddy reverse proxy running together: `docker compose --profile full up -d --build`, then open `http://localhost:<GATEWAY_PORT>` and sign in with `admin@example.com` / `monospace` (the form isn't prefilled there).
 
 Deploy targets live in `deploy/<id>/` with a `deploy.json` (see the [contract](modules.md#deploy-targets)). Installed targets are listed under `deploy/`. Add a new host as a sibling folder; remove one with `pnpm app:remove <id>`.
