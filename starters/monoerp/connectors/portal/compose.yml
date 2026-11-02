@@ -2,6 +2,13 @@ services:
   customer-mysql:
     image: mysql:8.4
     restart: unless-stopped
+    # Same init file copy as app-postgres in docker-compose.yml.
+    entrypoint:
+      - sh
+      - -c
+      - cp /init-src/* /docker-entrypoint-initdb.d/ && chmod 644 /docker-entrypoint-initdb.d/* && exec docker-entrypoint.sh "$$@"
+      - sh
+    command: ['mysqld']
     environment:
       MYSQL_ROOT_PASSWORD: ${CUSTOMER_MYSQL_ROOT_PASSWORD:-monospace}
       MYSQL_DATABASE: customer_portal
@@ -10,7 +17,7 @@ services:
       - '127.0.0.1:${CUSTOMER_MYSQL_PORT:-3307}:3306'
     volumes:
       - customer_mysql_data:/var/lib/mysql
-      - ./emulator/init:/docker-entrypoint-initdb.d:ro
+      - ./emulator/init:/init-src:ro
     healthcheck:
       test: ['CMD-SHELL', 'mysqladmin ping -h 127.0.0.1 -uroot -p$$MYSQL_ROOT_PASSWORD --silent']
       interval: 5s

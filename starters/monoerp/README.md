@@ -81,6 +81,7 @@ pnpm dev
 
 - **Port taken.** Another app on port 8100 (or any port in `.env`) blocks this copy's Monospace. `pnpm setup:all` says so and stops. Stop that app, or change the ports in `.env`.
 - **Monospace keeps restarting.** `pnpm setup:all` prints its last log lines. A license refusal means this Docker project has old data, often from another copy in a folder with the same name and no `COMPOSE_PROJECT_NAME` in `.env`. Set a new `COMPOSE_PROJECT_NAME` in `.env` to start clean.
+- **Access denied for user 'monospace_reader'.** The database was created before a fix or by a failed first run. Reset this copy's data with `docker compose down --volumes` (run it in this folder only) and start again.
 
 Open http://localhost:3000 (or the address `pnpm install` printed) and sign in with `admin@example.com` / `monospace`. It comes with demo data: well-known companies, with fictional contacts, deals, and activity.
 
