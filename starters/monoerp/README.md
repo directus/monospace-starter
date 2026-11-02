@@ -68,10 +68,9 @@ npx giget@latest gh:directus/monospace-starter/starters/monoerp monoerp
 cd monoerp
 ```
 
-Then run it. `pnpm install` goes before Docker; it generates the Compose include file.
+Then run it. `pnpm install` goes before Docker; it writes `.env` (free ports, its own Docker project name) and the Compose include file.
 
 ```bash
-cp .env.example .env    # local defaults; change nothing to start
 pnpm install
 docker compose up -d --wait --wait-timeout 180 # Monospace, both databases, a local Stripe, RabbitMQ, Mailpit
 pnpm setup:all          # creates and configures the Monospace workspace
@@ -81,10 +80,9 @@ pnpm dev
 **If setup gets stuck:**
 
 - **Port taken.** Another app on port 8100 (or any port in `.env`) blocks this copy's Monospace. `pnpm setup:all` says so and stops. Stop that app, or change the ports in `.env`.
-- **Same folder name, same data.** Compose names containers and volumes after the folder, so a new download in a folder with an old copy's name boots on the old data. Set `COMPOSE_PROJECT_NAME` in `.env` to start clean.
-- **Monospace keeps restarting.** `pnpm setup:all` prints its last log lines and, for a license refusal, how to start clean.
+- **Monospace keeps restarting.** `pnpm setup:all` prints its last log lines. A license refusal means this Docker project has old data, often from another copy in a folder with the same name and no `COMPOSE_PROJECT_NAME` in `.env`. Set a new `COMPOSE_PROJECT_NAME` in `.env` to start clean.
 
-Open http://localhost:3000 and sign in with `admin@example.com` / `monospace`. It comes with demo data: well-known companies, with fictional contacts, deals, and activity.
+Open http://localhost:3000 (or the address `pnpm install` printed) and sign in with `admin@example.com` / `monospace`. It comes with demo data: well-known companies, with fictional contacts, deals, and activity.
 
 New here? [The getting started guide](docs/getting-started.md) shows you around and walks through the first changes you'll want to make.
 
@@ -98,7 +96,7 @@ New here? [The getting started guide](docs/getting-started.md) shows you around 
 
 - The first `docker compose up` loads the demo data, which takes a minute or two. The `keygen` container generates Monospace's keys and exits; that's expected. `pnpm setup:all` waits for Monospace.
 - The first time you open Studio, it asks you to accept its terms and then to create a workspace, even though `monoerp` already exists. Open Studio in a new tab to skip that.
-- **Ports** are in `.env`, and everything follows them, including `pnpm dev`. To run a second copy next to the first, give it its own `COMPOSE_PROJECT_NAME` (or folder name) and change all its ports.
+- **Ports** are in `.env`, and everything follows them, including `pnpm dev`. The first `pnpm install` picks free ones and a unique `COMPOSE_PROJECT_NAME`, so a second copy runs next to the first as is.
 - **License key:** optional locally. See [the free tier and license setup](docs/monospace.md#license-key-and-the-free-tier).
 
 </details>

@@ -45,7 +45,7 @@ Manifests declare only what cannot be found on disk. Two layers:
 | `alsoOwns`                       | Root files outside the folder that go with the part (a workflow, a patch); cannot overlap a part |
 | `packageEntries`                 | `{ file, section, entries }`: exact values in a root package or workspace file, removed with it  |
 
-`starter.json` has `$schema`, `label`, `description`, `ignorePaths` (not copied when creating an app), and `nextSteps.create` / `nextSteps.remove`: the commands the CLI prints afterwards, as package scripts (`{ "script": "setup:all" }`) or argument lists (`{ "command": ["cp", "-n", ".env.example", ".env"] }`). `"when": "choices-changed"` marks steps needed only when parts were left out.
+`starter.json` has `$schema`, `label`, `description`, `ignorePaths` (not copied when creating an app), and `nextSteps.create` / `nextSteps.remove`: the commands the CLI prints afterwards, as package scripts (`{ "script": "setup:all" }`) or argument lists (`{ "command": ["docker", "compose", "up", "-d"] }`). `"when": "choices-changed"` marks steps needed only when parts were left out.
 
 ### `x-monoerp` runtime settings
 

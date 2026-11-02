@@ -1,6 +1,10 @@
 import { execFileSync } from 'node:child_process'
 
 import { syncCompose } from '../infra/compose-sync.mjs'
+import { repository } from '../infra/manifests.mjs'
+import { writeEnv } from './env.mjs'
+
+await writeEnv(repository)
 
 await syncCompose()
 

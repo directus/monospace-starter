@@ -18,7 +18,6 @@ You need Node 24, pnpm, and Docker.
 ```bash
 npx giget@latest gh:directus/monospace-starter/starters/monoerp monoerp
 cd monoerp
-cp .env.example .env    # local defaults; change nothing to start
 pnpm install
 docker compose up -d --wait --wait-timeout 180 # Monospace, both databases, a local Stripe, RabbitMQ, Mailpit
 pnpm setup:all          # creates and configures the Monospace workspace
@@ -46,8 +45,7 @@ A few things to know on the first run:
 - `pnpm setup:all` is safe to rerun. Run it again whenever you pull changes.
 - The first time you open Studio, it asks you to accept its terms and then to create a workspace, even though `monoerp` already exists. Open Studio in a new tab to get past that.
 - No license key is needed locally. See [the free tier and license setup](monospace.md#license-key-and-the-free-tier).
-- monoERP runs its own Monospace. If another app uses port 8100, choose different ports as described below.
-- Every port is in `.env`. To run a second copy next to the first, use a different folder name and change all its ports. Compose uses the folder name to separate containers and volumes.
+- Every port is in `.env`. The first `pnpm install` writes it with free ports and a unique `COMPOSE_PROJECT_NAME`, so a second copy runs next to the first as is.
 
 ## 2. Look around
 
