@@ -27,7 +27,7 @@ export function crossSourceRelations(collections, sourceId) {
     for (const field of collection.relationFields) {
       if (inside.has(collection.id) === inside.has(field.oppositeCollectionId)) continue
 
-      const key = [field.id, field.oppositeFieldId].sort().join()
+      const key = [field.id, field.oppositeFieldId].sort((a, b) => a.localeCompare(b)).join()
 
       if (!pairs.has(key))
         pairs.set(key, {

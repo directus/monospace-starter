@@ -42,8 +42,10 @@ export default defineConfig(({ mode }) => {
         name: 'monoerp:watch-modules',
         configureServer(server) {
           const root = fileURLToPath(new URL('../../', import.meta.url))
+
           const part =
             /^((modules|connectors)\/[^/]+(\/(module|connector)\.json)?|pnpm-lock\.yaml)$/
+
           let timer: ReturnType<typeof setTimeout> | undefined
 
           server.watcher.add([`${root}modules/`, `${root}connectors/`, `${root}pnpm-lock.yaml`])
