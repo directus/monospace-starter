@@ -1,5 +1,6 @@
-// Gives every unowned activity an owner so "Mine" on the activity page has something to
-// show. Uses the workspace users in round-robin; run after the seed and setup:all.
+// Gives every unowned organization, deal, and activity an owner, so the Owner columns and "Mine"
+// have something to show. Uses the workspace users in round-robin; run after the seed and
+// setup:all. Rows that already have an owner are left alone, so rerunning is safe.
 import { authenticate, request, workspacePath } from '../../../../../infra/monospace/setup/lib.mjs'
 
 await authenticate()
@@ -10,20 +11,32 @@ const { data: users } = await request(`${workspacePath}/members?fields=id,email&
 
 if (!users.length) throw new Error('No users in the workspace')
 
-const { data: unowned } = await request(
-  `${items('activities')}?fields=id&filter[ownerUserId][_null]=true&limit=5000`,
-)
+const collections = [
+  ['organizations', 'organization', 'organizations'],
+  ['deals', 'deal', 'deals'],
+  ['activities', 'activity', 'activities'],
+]
 
-let index = 0
+const counts = []
 
-for (const row of unowned) {
-  const owner = users[index++ % users.length]
-  await request(`${items('activities')}/${row.id}?fields=id`, {
-    method: 'PATCH',
-    body: JSON.stringify({ ownerUserId: owner.id }),
-  })
+for (const [collection, one, many] of collections) {
+  const { data: unowned } = await request(
+    `${items(collection)}?fields=id&filter[ownerUserId][_null]=true&limit=5000`,
+  )
+
+  let index = 0
+
+  for (const row of unowned) {
+    const owner = users[index++ % users.length]
+    await request(`${items(collection)}/${row.id}?fields=id`, {
+      method: 'PATCH',
+      body: JSON.stringify({ ownerUserId: owner.id }),
+    })
+  }
+
+  counts.push(`${unowned.length} ${unowned.length === 1 ? one : many}`)
 }
 
 console.log(
-  `Assigned ${unowned.length} ${unowned.length === 1 ? 'activity' : 'activities'} across ${users.length} user${users.length === 1 ? '' : 's'}.`,
+  `Assigned ${counts.join(', ')} across ${users.length} user${users.length === 1 ? '' : 's'}.`,
 )
