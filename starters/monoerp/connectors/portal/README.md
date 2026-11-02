@@ -18,10 +18,11 @@ Preview with `pnpm app:remove portal --dry-run`, then follow the [shared removal
 | Path or setting                                       | Purpose                                                                                |
 | ----------------------------------------------------- | -------------------------------------------------------------------------------------- |
 | `connector.json`                                      | Built-in MySQL provider, connection settings, source schema, and frontend declarations |
-| `emulator/init/`                                      | Demo schema, seed, and `SELECT`-only `monospace_reader` login                          |
+| `emulator/init/`                                      | Demo schema and seed                                                                   |
 | `emulator/migrations/`                                | Changes to the demo stand-in, run by `pnpm db:migrate`                                 |
 | `emulator/provision.sh`                               | AWS demo setup, enabled only with `PORTAL_DEMO_DATABASE=1`                             |
 | `monospace/schema/portal.json`                        | API names, presentation, and optional cross-source relations                           |
+| `monospace/setup/portal-reader.mjs`                   | Creates the local `SELECT`-only `monospace_reader` login before Portal is connected    |
 | `monospace/setup/portal-source-relations.mjs`         | Native relation names, usable independently of CRM                                     |
 | `frontend/crm/`                                       | Portal tab, list columns/filters, contact panel, deal summary, and read-only history   |
 | `CUSTOMER_MYSQL_PORT`, `CUSTOMER_MYSQL_ROOT_PASSWORD` | Local demo server settings                                                             |

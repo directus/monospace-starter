@@ -39,7 +39,7 @@ Setup (`infra/monospace/setup/setup.mjs`) runs these stages in order:
 | `pnpm setup:introspect`                                      | Reread connected sources after migrations, without writing to their databases      |
 | `pnpm setup:audit-relations`                                 | Configure owner and audit-user relations                                           |
 | `pnpm schema:apply`                                          | Apply module and connector `monospace/schema/*.json`                               |
-| `setup.beforeSchema`, `setup.afterSchema`                    | Module and connector steps run only for installed owners and selected dependencies |
+| `setup.beforeSources`, `beforeSchema`, `afterSchema`         | Module and connector steps run only for installed owners and selected dependencies |
 | `node modules/crm/infra/monospace/setup/backfill-owners.mjs` | Rerun one module or connector step on its own                                      |
 | `connector-hook.mjs migrate` / `provision`                   | Dispatch installed connectors' migration or provisioning scripts                   |
 

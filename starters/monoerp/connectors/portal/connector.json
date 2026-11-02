@@ -14,6 +14,7 @@
       "ssl": { "when": "DB_SSL_MODE", "value": { "mode": { "env": "DB_SSL_MODE" } } }
     },
     "setup": {
+      "beforeSources": [{ "title": "Portal reader login", "script": "portal-reader.mjs" }],
       "beforeSchema": [
         { "title": "Portal relation names", "script": "portal-source-relations.mjs" },
         { "title": "CRM Portal relations", "script": "portal-relations.mjs", "requires": ["crm"] }

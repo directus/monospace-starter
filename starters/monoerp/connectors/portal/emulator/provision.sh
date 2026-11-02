@@ -23,7 +23,7 @@ for file in connectors/portal/emulator/migrations/*.sql; do
   [ -f "$file" ] || continue
   portal customer_portal < "$file"
 done
-# Same user as connectors/portal/emulator/init/003_reader.sh, with the password kept in sync.
+# Same user as connectors/portal/monospace/setup/portal-reader.mjs, with the password kept in sync.
 portal <<SQL
 CREATE USER IF NOT EXISTS 'monospace_reader'@'%' IDENTIFIED BY '$PORTAL_READER_PASSWORD';
 ALTER USER 'monospace_reader'@'%' IDENTIFIED BY '$PORTAL_READER_PASSWORD';

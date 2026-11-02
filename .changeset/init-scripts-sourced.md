@@ -1,5 +1,5 @@
 ---
-'monoerp': patch
+"monoerp": patch
 ---
 
-Database init scripts are copied into the container and sourced, so Docker Desktop file sharing can no longer block the Portal reader login.
+`pnpm setup:all` creates the Portal `monospace_reader` login (or resets its password) before it connects Portal, so a MySQL database created without it no longer fails with "Access denied". The app database copies its init scripts into the container, so Docker Desktop file sharing can't block them.

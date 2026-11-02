@@ -34,15 +34,15 @@ To restore a module, connector, or deploy target, copy its whole folder and `als
 
 The manifest fields are in [docs/modules.md](../docs/modules.md#starter-module-connector-and-deploy-manifests). Everything else is found by path inside the connector folder:
 
-| Path                                           | Purpose                                                                                                                     |
-| ---------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
-| `connector.json`                               | Label, description, dependencies, `x-monoerp.source`, `setup`, and `contributes`                                            |
-| `compose.yml`                                  | Optional local services                                                                                                     |
-| `monospace/schema/*.json`                      | API names and Studio presentation settings                                                                                  |
-| `monospace/setup/<script>`                     | Scripts named by `setup.beforeSchema` and `setup.afterSchema`; they import `infra/monospace/setup/lib.mjs` by relative path |
-| `extension/extension.config.json`              | Extension package; installed to `infra/monospace/extensions/<id with / as __>`                                              |
-| `emulator/migrate.sh`, `emulator/provision.sh` | Optional scripts; `provision` runs in the deployed setup task                                                               |
-| `frontend/<module>/feature.tsx`                | The feature declared in `contributes.<module>`; see [UI contract](../docs/modules.md#optional-connector-ui)                 |
+| Path                                           | Purpose                                                                                                                                 |
+| ---------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| `connector.json`                               | Label, description, dependencies, `x-monoerp.source`, `setup`, and `contributes`                                                        |
+| `compose.yml`                                  | Optional local services                                                                                                                 |
+| `monospace/schema/*.json`                      | API names and Studio presentation settings                                                                                              |
+| `monospace/setup/<script>`                     | Scripts named by `setup.beforeSources`, `beforeSchema`, and `afterSchema`; they import `infra/monospace/setup/lib.mjs` by relative path |
+| `extension/extension.config.json`              | Extension package; installed to `infra/monospace/extensions/<id with / as __>`                                                          |
+| `emulator/migrate.sh`, `emulator/provision.sh` | Optional scripts; `provision` runs in the deployed setup task                                                                           |
+| `frontend/<module>/feature.tsx`                | The feature declared in `contributes.<module>`; see [UI contract](../docs/modules.md#optional-connector-ui)                             |
 
 `pnpm build:extensions` writes selected builds to `infra/monospace/extensions/` and removes stale builds for absent or disabled connectors. Copy extension source, not that generated folder.
 

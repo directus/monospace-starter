@@ -55,6 +55,7 @@ The CLI never reads `x-monoerp`; `tools/manifest-schema.mjs` validates it.
 | ----------------------------------------- | -------------------------------------------------------------------------------------------------------- |
 | `collections`, `writes`                   | Module API collections, and the ones that need write schemas                                             |
 | `auditColumns`                            | SQL columns per table linked to Monospace users                                                          |
+| `setup.beforeSources`                     | Ordered steps run before data sources are connected                                                      |
 | `setup.beforeSchema`, `setup.afterSchema` | Ordered steps; each has a title and a script file name in the part's `monospace/setup/` folder           |
 | Setup step `requires`                     | Skip unless each named module is installed or connector is selected                                      |
 | `demoUserCredential`                      | Module only: environment variable for deployed demo users                                                |

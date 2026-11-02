@@ -72,9 +72,7 @@ function describe(root, manifest, ids) {
 
   if (manifest.kind === 'module' || manifest.kind === 'connector') {
     details.push(plural(manifest.schemaFiles.length, 'schema file'))
-    details.push(
-      plural(manifest.setup.beforeSchema.length + manifest.setup.afterSchema.length, 'setup step'),
-    )
+    details.push(plural(Object.values(manifest.setup).flat().length, 'setup step'))
   }
 
   if (manifest.migrate) details.push('migrate')
@@ -176,7 +174,7 @@ function validateManifests(root = repository) {
 
     if (manifest.kind !== 'module' && manifest.kind !== 'connector') continue
 
-    const steps = [...manifest.setup.beforeSchema, ...manifest.setup.afterSchema]
+    const steps = Object.values(manifest.setup).flat()
     const scripts = steps.map((step) => step.script)
 
     if (new Set(scripts).size !== scripts.length)

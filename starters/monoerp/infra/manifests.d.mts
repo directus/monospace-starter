@@ -30,7 +30,7 @@ export interface FrontendFeature {
 }
 
 interface Runtime {
-  setup: { beforeSchema: SetupStep[]; afterSchema: SetupStep[] }
+  setup: { beforeSources: SetupStep[]; beforeSchema: SetupStep[]; afterSchema: SetupStep[] }
   setupDirectory: string
   schemaFiles: string[]
   compose?: string

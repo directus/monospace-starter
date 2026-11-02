@@ -114,6 +114,7 @@ const coreStep = (title, name) => ({ title, url: new URL(name, import.meta.url) 
 
 // Each step is a self-contained script; importing it runs it against the shared session.
 const steps = [
+  ...setupSteps('beforeSources'),
   coreStep('Workspace and data sources', 'sources.mjs'),
   coreStep('Introspect sources', 'introspect-sources.mjs'),
   coreStep('Owner and audit user relations', 'audit-user-relations.mjs'),

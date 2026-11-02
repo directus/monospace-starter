@@ -51,7 +51,7 @@ Core, modules, and connectors own separate folders. The [module guide](modules.m
 The workspace has three data sources:
 
 - **App** (PostgreSQL): organizations, contacts, deals, activity, attachments. The app reads and writes it. Schema in `modules/crm/infra/postgres`.
-- **Portal** (MySQL): a stand-in for a product another team owns (accounts, users, plans, subscriptions, tickets, events). Monospace connects as a user with `SELECT` only (`connectors/portal/emulator/init/003_reader.sh`). Schema in `connectors/portal/emulator`.
+- **Portal** (MySQL): a stand-in for a product another team owns (accounts, users, plans, subscriptions, tickets, events). Monospace connects as a user with `SELECT` only (`connectors/portal/monospace/setup/portal-reader.mjs`). Schema in `connectors/portal/emulator`.
 - **Stripe** (an API): customers, products, prices, payment intents, and charges, through the data connector extension in `connectors/stripe`. Locally it points at a Stripe emulator (`connectors/stripe/emulator`).
 
 `pnpm setup:all` draws two CRM-to-Portal relations in `connectors/portal/monospace/setup/portal-relations.mjs` and the Portal-to-Stripe relation in `connectors/stripe/monospace/setup/portal-stripe-relation.mjs`:
