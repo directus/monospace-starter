@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "changeset": "changeset",
-    "version": "changeset version && node tooling/catalog.mjs",
+    "version": "changeset version && node tooling/changelogs.mjs && node tooling/catalog.mjs",
     "release": "changeset publish"
   },
   "devDependencies": {
