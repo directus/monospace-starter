@@ -5,7 +5,6 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: ${CUSTOMER_MYSQL_ROOT_PASSWORD:-monospace}
       MYSQL_DATABASE: customer_portal
-      PORTAL_READER_PASSWORD: ${PORTAL_READER_PASSWORD:-monospace}
     ports:
       - '127.0.0.1:${CUSTOMER_MYSQL_PORT:-3307}:3306'
     volumes:

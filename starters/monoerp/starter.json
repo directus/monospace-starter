@@ -3,6 +3,7 @@
   "label": "monoERP starter",
   "description": "Shared app shell, authentication, database, and setup",
   "ignorePaths": [
+    ".env",
     "dist",
     ".output",
     ".cache",
@@ -13,9 +14,6 @@
   ],
   "nextSteps": {
     "create": [
-      {
-        "command": ["cp", "-n", ".env.example", ".env"]
-      },
       {
         "command": ["docker", "compose", "up", "-d", "--wait", "--wait-timeout", "180"]
       },

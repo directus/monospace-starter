@@ -4,21 +4,45 @@ import { execFileSync } from 'node:child_process'
 import { existsSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 
+import { containerFolders, samePath } from '../../../tools/env.mjs'
 import { buildExtensions, connectors } from './build-extensions.mjs'
 import { setupSteps } from './installed.mjs'
-import { apiUrl, runSetupStep } from './lib.mjs'
+import {
+  answerKind,
+  apiUrl,
+  compose,
+  composeMonospace,
+  monospaceProblem,
+  runSetupStep,
+} from './lib.mjs'
+import { portProblems } from './ports.mjs'
 
 const root = fileURLToPath(new URL('../../../', import.meta.url))
 
 // Right after `docker compose up`, Monospace is still starting (it has no compose healthcheck).
+// Unless MONOSPACE_URL points elsewhere, it must be this folder's compose Monospace: stop early
+// when the port belongs to something else or the container keeps restarting (two polls in a row,
+// so one crash that Docker restarts from isn't enough).
 async function waitForMonospace() {
-  for (let attempt = 0; ; attempt++) {
-    const ready = await fetch(`${apiUrl}/system/ready`).then(
-      (response) => response.ok,
-      () => false,
-    )
+  let restarting = 0
 
-    if (ready) return
+  for (let attempt = 0; ; attempt++) {
+    const response = await fetch(`${apiUrl}/system/ready`).catch(() => null)
+    const container = process.env.MONOSPACE_URL ? null : composeMonospace()
+
+    restarting = container?.state === 'restarting' ? restarting + 1 : 0
+
+    const problem =
+      process.env.MONOSPACE_URL || restarting === 1
+        ? ''
+        : localProblem(container, answerKind(response))
+
+    if (problem) {
+      console.error(`\n${problem}`)
+      process.exit(1)
+    }
+
+    if (response?.ok) return
 
     if (attempt === 60) throw new Error(`Monospace isn't ready at ${apiUrl} after 2 minutes`)
 
@@ -26,6 +50,29 @@ async function waitForMonospace() {
 
     await new Promise((resolve) => setTimeout(resolve, 2_000))
   }
+}
+
+function localProblem(container, answer) {
+  const logs =
+    container?.state === 'restarting'
+      ? compose(['logs', '--tail', '40', '--no-log-prefix', 'monospace'])
+      : ''
+
+  return monospaceProblem({ port: new URL(apiUrl).port, container, answer, logs })
+}
+
+// A folder copied with its .env shares the other copy's Compose project, containers and data.
+const elsewhere = containerFolders(
+  compose(['ps', '--all', '--quiet']).split('\n').filter(Boolean),
+).filter((folder) => !samePath(folder, root))
+
+if (elsewhere.length > 0) {
+  console.warn(
+    [
+      `Warning: this folder's Compose project also has containers from ${elsewhere.join(', ')}.`,
+      'Both folders share one stack. To split them, delete .env here and rerun pnpm install.',
+    ].join('\n'),
+  )
 }
 
 await waitForMonospace()
@@ -46,7 +93,13 @@ if (connectors.some((connector) => connector.extension)) {
 
   // Only the compose Monospace that answers at this setup's address, so a second copy's setup
   // never restarts someone else's stack.
-  if (firstBuild && composePort() === new URL(apiUrl).port) {
+  const monospace = composeMonospace()
+
+  if (
+    firstBuild &&
+    monospace?.state === 'running' &&
+    monospace.publishedPort === new URL(apiUrl).port
+  ) {
     console.log('First build: restarting Monospace so it loads the connector')
     execFileSync('docker', ['compose', 'restart', 'monospace'], { stdio: 'inherit', cwd: root })
     await waitForMonospace()
@@ -55,26 +108,11 @@ if (connectors.some((connector) => connector.extension)) {
   buildExtensions()
 }
 
-// The host port this folder's compose Monospace publishes, or '' when it isn't running here.
-function composePort() {
-  try {
-    return execFileSync('docker', ['compose', 'port', 'monospace', '8100'], {
-      cwd: root,
-      encoding: 'utf8',
-      stdio: ['ignore', 'pipe', 'ignore'],
-    })
-      .trim()
-      .split(':')
-      .at(-1)
-  } catch {
-    return ''
-  }
-}
-
 const coreStep = (title, name) => ({ title, url: new URL(name, import.meta.url) })
 
 // Each step is a self-contained script; importing it runs it against the shared session.
 const steps = [
+  ...setupSteps('beforeSources'),
   coreStep('Workspace and data sources', 'sources.mjs'),
   coreStep('Introspect sources', 'introspect-sources.mjs'),
   coreStep('Owner and audit user relations', 'audit-user-relations.mjs'),
@@ -88,4 +126,12 @@ for (const { title, url } of steps) {
   await runSetupStep(title, () => import(url))
 }
 
-console.log('\nMonospace is set up.')
+const problems = await portProblems()
+
+if (problems.length > 0) {
+  console.warn(
+    `\nMonospace is set up, but ${problems.length === 1 ? 'a port needs' : 'ports need'} a look:`,
+  )
+
+  for (const problem of problems) console.warn(`- ${problem}`)
+} else console.log('\nMonospace is set up.')

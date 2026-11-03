@@ -32,7 +32,7 @@ Users live in Monospace, not in the app database. There's no CRM user or role ta
 
 ## Customer portal (MySQL)
 
-Schema: `connectors/portal/emulator/init/001_schema.sql`. It stands in for the product another team runs. Monospace connects as `monospace_reader`, which only has `SELECT` (`connectors/portal/emulator/init/003_reader.sh`). Don't add writes or tables here.
+Schema: `connectors/portal/emulator/init/001_schema.sql`. It stands in for the product another team runs. Monospace connects as `monospace_reader`, which only has `SELECT` (`connectors/portal/monospace/setup/portal-reader.mjs`). Don't add writes or tables here.
 
 | Table           | What a row is                                                                              |
 | --------------- | ------------------------------------------------------------------------------------------ |

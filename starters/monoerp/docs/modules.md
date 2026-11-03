@@ -45,7 +45,7 @@ Manifests declare only what cannot be found on disk. Two layers:
 | `alsoOwns`                       | Root files outside the folder that go with the part (a workflow, a patch); cannot overlap a part |
 | `packageEntries`                 | `{ file, section, entries }`: exact values in a root package or workspace file, removed with it  |
 
-`starter.json` has `$schema`, `label`, `description`, `ignorePaths` (not copied when creating an app), and `nextSteps.create` / `nextSteps.remove`: the commands the CLI prints afterwards, as package scripts (`{ "script": "setup:all" }`) or argument lists (`{ "command": ["cp", "-n", ".env.example", ".env"] }`). `"when": "choices-changed"` marks steps needed only when parts were left out.
+`starter.json` has `$schema`, `label`, `description`, `ignorePaths` (not copied when creating an app), and `nextSteps.create` / `nextSteps.remove`: the commands the CLI prints afterwards, as package scripts (`{ "script": "setup:all" }`) or argument lists (`{ "command": ["docker", "compose", "up", "-d"] }`). `"when": "choices-changed"` marks steps needed only when parts were left out.
 
 ### `x-monoerp` runtime settings
 
@@ -55,6 +55,7 @@ The CLI never reads `x-monoerp`; `tools/manifest-schema.mjs` validates it.
 | ----------------------------------------- | -------------------------------------------------------------------------------------------------------- |
 | `collections`, `writes`                   | Module API collections, and the ones that need write schemas                                             |
 | `auditColumns`                            | SQL columns per table linked to Monospace users                                                          |
+| `setup.beforeSources`                     | Ordered steps run before data sources are connected                                                      |
 | `setup.beforeSchema`, `setup.afterSchema` | Ordered steps; each has a title and a script file name in the part's `monospace/setup/` folder           |
 | Setup step `requires`                     | Skip unless each named module is installed or connector is selected                                      |
 | `demoUserCredential`                      | Module only: environment variable for deployed demo users                                                |

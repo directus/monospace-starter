@@ -1,6 +1,6 @@
 # Changesets
 
-Every PR that changes a starter adds a changeset: run `npx changeset` from the repository root, pick the starter and the bump, and write one or two sentences for its changelog. CI fails the PR without one. For a change that doesn't belong in the changelog, use `npx changeset --empty`.
+Every PR that changes a starter adds a changeset, one per change a reader would notice, not one per commit. Group related work so the changelog reads well. To add one: run `npx changeset` from the repository root, pick the starter and the bump, and write one or two sentences for its changelog. CI fails the PR without one. For a change that doesn't belong in the changelog, use `npx changeset --empty`.
 
 | Bump    | When                                                                            |
 | ------- | ------------------------------------------------------------------------------- |

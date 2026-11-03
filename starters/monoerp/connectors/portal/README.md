@@ -5,7 +5,7 @@ Portal is the optional read-only MySQL demo. It adds account, plan, seat, ticket
 ## Use Portal
 
 1. Keep or copy the whole `connectors/portal` folder. An installed connector is selected unless `OPTIONAL_SOURCES` leaves it out.
-2. For the bundled demo, keep the local defaults. Its MySQL host port is 3307. For an existing server, set `CUSTOMER_MYSQL_HOST`, `CUSTOMER_MYSQL_INTERNAL_PORT`, and `PORTAL_READER_PASSWORD` in `.env`. Set `source.user` and `source.dbname` in `connector.json` to your read-only login and database.
+2. For the bundled demo, keep the local defaults. Its MySQL host port is 3307 unless `pnpm install` picked another; see `CUSTOMER_MYSQL_PORT` in `.env`. For an existing server, set `CUSTOMER_MYSQL_HOST`, `CUSTOMER_MYSQL_INTERNAL_PORT`, and `PORTAL_READER_PASSWORD` in `.env`. Set `source.user` and `source.dbname` in `connector.json` to your read-only login and database.
 3. Adapt `monospace/schema/portal.json`, `connectors/portal/monospace/setup/portal-relations.mjs`, and the feature's queries if your tables differ.
 4. Run the [shared setup commands](../README.md#add-a-connector), then `pnpm verify` and browser tests for any UI changes.
 
@@ -18,10 +18,11 @@ Preview with `pnpm app:remove portal --dry-run`, then follow the [shared removal
 | Path or setting                                       | Purpose                                                                                |
 | ----------------------------------------------------- | -------------------------------------------------------------------------------------- |
 | `connector.json`                                      | Built-in MySQL provider, connection settings, source schema, and frontend declarations |
-| `emulator/init/`                                      | Demo schema, seed, and `SELECT`-only `monospace_reader` login                          |
+| `emulator/init/`                                      | Demo schema and seed                                                                   |
 | `emulator/migrations/`                                | Changes to the demo stand-in, run by `pnpm db:migrate`                                 |
 | `emulator/provision.sh`                               | AWS demo setup, enabled only with `PORTAL_DEMO_DATABASE=1`                             |
 | `monospace/schema/portal.json`                        | API names, presentation, and optional cross-source relations                           |
+| `monospace/setup/portal-reader.mjs`                   | Creates the local `SELECT`-only `monospace_reader` login before Portal is connected    |
 | `monospace/setup/portal-source-relations.mjs`         | Native relation names, usable independently of CRM                                     |
 | `frontend/crm/`                                       | Portal tab, list columns/filters, contact panel, deal summary, and read-only history   |
 | `CUSTOMER_MYSQL_PORT`, `CUSTOMER_MYSQL_ROOT_PASSWORD` | Local demo server settings                                                             |

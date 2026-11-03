@@ -6,4 +6,6 @@
 *.log
 docs
 deploy
+# pnpm install needs the deploy package's patch, even though the image doesn't deploy.
+!deploy/aws/patches
 .pnpm-store

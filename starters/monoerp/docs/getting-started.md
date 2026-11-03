@@ -18,7 +18,6 @@ You need Node 24, pnpm, and Docker.
 ```bash
 npx giget@latest gh:directus/monospace-starter/starters/monoerp monoerp
 cd monoerp
-cp .env.example .env    # local defaults; change nothing to start
 pnpm install
 docker compose up -d --wait --wait-timeout 180 # Monospace, both databases, a local Stripe, RabbitMQ, Mailpit
 pnpm setup:all          # creates and configures the Monospace workspace
@@ -40,14 +39,16 @@ What's running:
 | `stripe`         | port 4010             | A local Stripe ([`@emulators/stripe`](https://www.npmjs.com/package/@emulators/stripe)) with billing history for each account |
 | Mailpit          | http://localhost:8025 | Catches invite and password reset mail                                                                                        |
 
+These are the default ports. Yours may differ: `pnpm install` printed the ones it picked, and every one is in `.env`.
+
 A few things to know on the first run:
 
 - The first `docker compose up` loads the demo data, which takes a minute or two. The `keygen` container creates Monospace's keys and exits; that's expected. `pnpm setup:all` waits for Monospace to be ready.
 - `pnpm setup:all` is safe to rerun. Run it again whenever you pull changes.
-- The first time you open Studio, it asks you to accept its terms and then to create a workspace, even though `monoerp` already exists. Open Studio in a new tab to get past that.
+- The first time you open Studio, you have to accept its terms; there's no way around that screen. After that it asks you to create a workspace, even though `monoerp` already exists. Open Studio in a new tab to skip that step.
 - No license key is needed locally. See [the free tier and license setup](monospace.md#license-key-and-the-free-tier).
-- monoERP runs its own Monospace. If another app uses port 8100, choose different ports as described below.
-- Every port is in `.env`. To run a second copy next to the first, use a different folder name and change all its ports. Compose uses the folder name to separate containers and volumes.
+- Every port is in `.env`. The first `pnpm install` writes it with free ports (skipping ports in use, ports any Docker container publishes even when stopped, and ports in a neighboring folder's `.env`) and a unique `COMPOSE_PROJECT_NAME`, so a fresh download runs next to another copy as is. If you copy a folder that already has a `.env`, delete it in the copy before `pnpm install`, or both copies share one Docker stack.
+- Two copies open in one browser sign each other out, because cookies on `localhost` are shared across ports and Monospace names its session cookie itself. Open the second copy at `http://second.localhost:<port>` (works in Chrome), or use another browser profile.
 
 ## 2. Look around
 
@@ -56,7 +57,7 @@ A few things to know on the first run:
 - **Home** lists the modules. There's one so far, the CRM, and more can sit next to it.
 - **Organizations** is a list over the app database. The Plan, Seats, Renews, and Open tickets columns come from the portal's MySQL, joined in by Monospace. Try filtering by plan: the filter crosses from one database into the other.
 - **An organization's page** shows the CRM record (details, contacts, deals, activity, notes, files) next to what the other systems know. The Portal tab shows the account, plan, seats, users, and tickets from MySQL. The Billing tab shows lifetime value and payments from Stripe. McKesson is a good one to open: its last payment failed.
-- **Deals** is a table or a board. Drag a deal to another stage on the board.
+- **Deals** is a table or a board (switch with **Display** > **Board**). Drag a deal to another stage on the board.
 - **Activity** is everyone's to-dos and history in one place.
 - **Settings > Pipeline stages** edits the deal stages.
 - **⌘K** searches records and pages from anywhere.
@@ -167,7 +168,7 @@ STRIPE_API_KEY=sk_test_...              # a test-mode key
 STRIPE_API_BASE=https://api.stripe.com
 ```
 
-Then delete the `Stripe` source in Studio (Data Model > Sources) and run `pnpm setup:all` to create it again. Delete the portal's "Stripe customer" relation first: Monospace won't delete a source while a relation points at it.
+Then run `pnpm setup:remove-source Stripe` and `pnpm setup:all` to create the source again. (In Studio, that's deleting the portal's "Stripe customer" relation, then the `Stripe` source under Data Model > Sources: Monospace won't delete a source while a relation points at it.)
 
 Portal accounts link to Stripe customers by `stripe_customer_id`, so those IDs need to be real customer IDs in your Stripe account. With a test-mode key, the connector can also create and edit customers, products, and prices; with a live key it's read-only unless you turn writes on. The connector's [README](../connectors/stripe/README.md) has every setting and what it can and can't answer.
 

@@ -1,8 +1,10 @@
 // Shared bits for the setup scripts: env loading, an authenticated fetch against the
 // Monospace API, and workspace schema reads keyed by dbName (ids differ per install).
 
+import { execFileSync } from 'node:child_process'
 import { randomUUID } from 'node:crypto'
 import { loadEnvFile } from 'node:process'
+import { fileURLToPath } from 'node:url'
 
 import appConfig from '../../../app.config.json' with { type: 'json' }
 import { connectors } from './installed.mjs'
@@ -190,6 +192,7 @@ export async function readCollections() {
       apiName: text(field.apiName),
       isList: field.isList ?? false,
       oppositeCollectionId: collections[field.oppositeCollection].id,
+      oppositeFieldId: collections[field.oppositeCollection].relationFields[field.oppositeField].id,
       constraintId: field.constraint?.id ?? null,
     })),
   }))
@@ -288,4 +291,110 @@ export const META_FIELDS = {
   collection: 'displayTemplate,displayName,description,icon,isHidden,color',
   field:
     'displayName,description,typeTemplateId,typeOptions,inputId,inputOptions,displayId,displayOptions,isHidden,sort',
+}
+
+const root = fileURLToPath(new URL('../../../', import.meta.url))
+
+export function compose(args) {
+  try {
+    return execFileSync('docker', ['compose', ...args], {
+      cwd: root,
+      encoding: 'utf8',
+      stdio: ['ignore', 'pipe', 'ignore'],
+    }).trim()
+  } catch {
+    return ''
+  }
+}
+
+// This folder's compose `monospace` service, or null when it was never created. Compose before
+// 2.21 prints a JSON array instead of one object per line.
+export function composeMonospace() {
+  const line = compose(['ps', '--all', '--format', 'json', 'monospace']).split('\n')[0]
+  let entry
+
+  try {
+    const parsed = JSON.parse(line)
+
+    entry = Array.isArray(parsed) ? parsed[0] : parsed
+  } catch {
+    return null
+  }
+
+  if (!entry) return null
+
+  const { State, Publishers = [] } = entry
+  const published = Publishers.find((publisher) => publisher.TargetPort === 8100)
+
+  return { state: State, publishedPort: String(published?.PublishedPort ?? '') }
+}
+
+// Monospace answers JSON, even while it starts; anything else on the port is another app.
+export function answerKind(response) {
+  if (!response) return 'none'
+
+  return response.headers.get('content-type')?.startsWith('application/json')
+    ? 'monospace'
+    : 'other'
+}
+
+const portHelp = (port) =>
+  [
+    `See what's using it: docker ps --filter publish=${port}, or ${
+      process.platform === 'win32' ? `netstat -ano | findstr :${port}` : `lsof -i :${port}`
+    }`,
+    'Fix: stop that, or change MONOSPACE_PORT in .env, then run docker compose up -d.',
+    'To use a Monospace you run yourself, set MONOSPACE_URL in .env.',
+  ].join('\n')
+
+// Why setup can't talk to this folder's compose Monospace, or '' when it can. `container` is the
+// compose `monospace` service ({ state, publishedPort }) or null, `answer` what replies on `port`
+// ('none', 'monospace', or 'other'), `logs` the container's latest log lines. Docker Desktop
+// publishes the port even when a host app already listens on it, so compose alone can't tell.
+export function monospaceProblem({ port, container, answer, logs = '' }) {
+  if (container?.state === 'restarting') {
+    const lines = logs.trim().split('\n')
+    const errors = lines.filter((line) => /error|fail|fatal/i.test(line))
+    const tail = (errors.length > 0 ? errors : lines).slice(-5).join('\n')
+
+    const license = /License entitlement check failed/.test(logs)
+      ? [
+          '',
+          'Monospace refused to start without a license. This Docker project already has data',
+          'from a licensed setup or another copy of this starter (same folder name, same data).',
+          'Fix: set COMPOSE_PROJECT_NAME in .env to start clean, or add a license key.',
+        ]
+      : []
+
+    return [`This project's Monospace keeps restarting. Last log lines:`, tail, ...license].join(
+      '\n',
+    )
+  }
+
+  const ours = container?.state === 'running' && container.publishedPort === port
+
+  if (ours && answer !== 'other') return ''
+
+  if (answer !== 'none')
+    return [`Port ${port} isn't this project's Monospace.`, portHelp(port)].join('\n')
+
+  // Usually MONOSPACE_PORT changed in .env and the container still has the old one.
+  if (container?.state === 'running')
+    return `This project's Monospace isn't published on port ${port} (MONOSPACE_PORT in .env). Run: docker compose up -d`
+
+  // No container at all: compose never got as far as ports, so don't point at one.
+  if (!container)
+    return [
+      `This project's Monospace isn't running. Start it with: docker compose up -d`,
+      "If that fails, its error says why. 'all predefined address pools have been fully subnetted'",
+      'means Docker is out of networks. Run docker compose down in old copies of this starter you',
+      "don't need. Or docker network prune, which deletes every network no container uses, other",
+      "projects' included.",
+    ].join('\n')
+
+  return [
+    `This project's Monospace isn't running. Start it with: docker compose up -d`,
+    `If that fails on port ${port}, something else has it.`,
+    portHelp(port),
+  ].join('\n')
 }

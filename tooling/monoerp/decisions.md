@@ -30,7 +30,7 @@ Paths are relative to `starters/monoerp`. How the modules and connectors fit is 
 
 ## The customer platform database is read-only, enforced by the database
 
-**Why:** the MySQL database stands in for another team's product. Since 1.1.0, Monospace can [lock a source's schema](https://docs.monospace.io/en/concepts/introspection#lock-the-schema) so it refuses schema changes, but a locked source still accepts item writes. So read-only access is enforced in MySQL itself: Monospace connects as `monospace_reader`, which only has `SELECT` (`connectors/portal/emulator/init/003_reader.sh`, and `infra/setup/run.sh` on AWS). Schema edits and writes fail at the database, whatever anyone clicks.
+**Why:** the MySQL database stands in for another team's product. Since 1.1.0, Monospace can [lock a source's schema](https://docs.monospace.io/en/concepts/introspection#lock-the-schema) so it refuses schema changes, but a locked source still accepts item writes. So read-only access is enforced in MySQL itself: Monospace connects as `monospace_reader`, which only has `SELECT` (`connectors/portal/monospace/setup/portal-reader.mjs`, and `infra/setup/run.sh` on AWS). Schema edits and writes fail at the database, whatever anyone clicks.
 
 **Rules out:** writes to portal data from the app, and giving Monospace an admin login for MySQL. `connectors/portal/emulator/migrations` changes the stand-in's schema with an admin login, outside Monospace. Treat each one as a request to the other team: in a real rollout, the app works with the schema the portal already has.
 

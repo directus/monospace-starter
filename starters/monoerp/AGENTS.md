@@ -22,14 +22,13 @@ If a doc is wrong or missing something you had to find in the code, fix the doc 
 ## Get a working stack
 
 ```bash
-cp -n .env.example .env   # never overwrite an existing .env
-pnpm install
+pnpm install              # writes .env on first run (free ports, own project name)
 docker compose up -d --wait --wait-timeout 180
 pnpm setup:all            # never `pnpm setup`: that's pnpm's own command and edits shell profiles
 pnpm dev                  # http://localhost:3000, admin@example.com / monospace
 ```
 
-Compose uses the folder name for its containers and volumes. If ports are taken, change the `*_PORT` settings in `.env`.
+`.env` sets `COMPOSE_PROJECT_NAME`, which names the containers and volumes. To change ports later, edit the `*_PORT` settings in `.env`.
 
 ## Check your work
 

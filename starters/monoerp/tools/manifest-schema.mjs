@@ -29,8 +29,12 @@ const step = z.strictObject({
 })
 
 const setup = z
-  .strictObject({ beforeSchema: z.array(step).default([]), afterSchema: z.array(step).default([]) })
-  .default({ beforeSchema: [], afterSchema: [] })
+  .strictObject({
+    beforeSources: z.array(step).default([]),
+    beforeSchema: z.array(step).default([]),
+    afterSchema: z.array(step).default([]),
+  })
+  .default({ beforeSources: [], beforeSchema: [], afterSchema: [] })
 
 const env = z.string().regex(/^[A-Z][A-Z0-9_]*$/)
 

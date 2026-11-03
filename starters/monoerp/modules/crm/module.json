@@ -22,7 +22,7 @@
       "attachments": ["created_by"]
     },
     "setup": {
-      "afterSchema": [{ "title": "Activity owners", "script": "backfill-owners.mjs" }]
+      "afterSchema": [{ "title": "Demo data owners", "script": "backfill-owners.mjs" }]
     }
   }
 }

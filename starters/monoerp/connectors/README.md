@@ -22,9 +22,20 @@ Install and dev regenerate `compose.app.yml` automatically. If you edit module o
 
 ## Remove a module, connector, or deploy target
 
-1. Preview with `pnpm app:remove <id> --dry-run`. If the source is already connected, remove its cross-source relations and data source in Studio first. For Stripe, delete Portal's `stripeCustomer` relation before deleting the Stripe source.
-2. Run `pnpm app:remove <id>`. Required dependencies prevent removal. Features of other connectors that need the removed one turn off, and the command says which. For modules and connectors, update `README.md`, `AGENTS.md`, and `docs/` to drop descriptions of the removed feature; shared prose is not rewritten automatically.
-3. For modules and connectors, run the same follow-up commands above. `--remove-orphans` retires the removed local service. Source-file removal does not erase existing Docker volumes or external data.
+1. Preview with `pnpm app:remove <id> --dry-run`.
+2. Run `pnpm app:remove <id>`. For a connector, it first deletes its data source in Monospace and the relations between it and other sources. If Monospace isn't running, it says so and keeps going; run `pnpm setup:remove-source <source>` (for example `Portal`) once it is, or delete the relations and then the source in Studio. Required dependencies prevent removal. Features of other connectors that need the removed one turn off, and the command says which. For modules and connectors, update `README.md`, `AGENTS.md`, and `docs/` to drop descriptions of the removed feature; shared prose is not rewritten automatically.
+3. For modules and connectors, run the commands `pnpm app:remove` prints:
+
+   ```sh
+   pnpm install
+   pnpm app:doctor
+   docker compose up -d --wait --wait-timeout 180 --remove-orphans
+   pnpm setup:all
+   pnpm generate:routes
+   pnpm generate
+   ```
+
+   `--remove-orphans` retires the removed local service. Removal keeps the part's Docker volumes and external data. `pnpm app:remove` prints the `docker volume rm` command for those volumes; run it after `--remove-orphans` if you want the data gone.
 
 For a deploy target, run `pnpm install`, `pnpm app:doctor`, and `pnpm verify` after removal.
 
@@ -34,15 +45,15 @@ To restore a module, connector, or deploy target, copy its whole folder and `als
 
 The manifest fields are in [docs/modules.md](../docs/modules.md#starter-module-connector-and-deploy-manifests). Everything else is found by path inside the connector folder:
 
-| Path                                           | Purpose                                                                                                                     |
-| ---------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
-| `connector.json`                               | Label, description, dependencies, `x-monoerp.source`, `setup`, and `contributes`                                            |
-| `compose.yml`                                  | Optional local services                                                                                                     |
-| `monospace/schema/*.json`                      | API names and Studio presentation settings                                                                                  |
-| `monospace/setup/<script>`                     | Scripts named by `setup.beforeSchema` and `setup.afterSchema`; they import `infra/monospace/setup/lib.mjs` by relative path |
-| `extension/extension.config.json`              | Extension package; installed to `infra/monospace/extensions/<id with / as __>`                                              |
-| `emulator/migrate.sh`, `emulator/provision.sh` | Optional scripts; `provision` runs in the deployed setup task                                                               |
-| `frontend/<module>/feature.tsx`                | The feature declared in `contributes.<module>`; see [UI contract](../docs/modules.md#optional-connector-ui)                 |
+| Path                                           | Purpose                                                                                                                                 |
+| ---------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| `connector.json`                               | Label, description, dependencies, `x-monoerp.source`, `setup`, and `contributes`                                                        |
+| `compose.yml`                                  | Optional local services                                                                                                                 |
+| `monospace/schema/*.json`                      | API names and Studio presentation settings                                                                                              |
+| `monospace/setup/<script>`                     | Scripts named by `setup.beforeSources`, `beforeSchema`, and `afterSchema`; they import `infra/monospace/setup/lib.mjs` by relative path |
+| `extension/extension.config.json`              | Extension package; installed to `infra/monospace/extensions/<id with / as __>`                                                          |
+| `emulator/migrate.sh`, `emulator/provision.sh` | Optional scripts; `provision` runs in the deployed setup task                                                                           |
+| `frontend/<module>/feature.tsx`                | The feature declared in `contributes.<module>`; see [UI contract](../docs/modules.md#optional-connector-ui)                             |
 
 `pnpm build:extensions` writes selected builds to `infra/monospace/extensions/` and removes stale builds for absent or disabled connectors. Copy extension source, not that generated folder.
 

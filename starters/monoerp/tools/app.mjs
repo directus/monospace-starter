@@ -1,8 +1,10 @@
 import { existsSync, lstatSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { createRequire } from 'node:module'
+import { basename } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 import { partFolders, partKinds, readManifest, repository } from '../infra/manifests.mjs'
+import { folderProjectName } from './env.mjs'
 
 function contains(parent, child) {
   return child === parent || child.startsWith(`${parent}/`)
@@ -72,9 +74,7 @@ function describe(root, manifest, ids) {
 
   if (manifest.kind === 'module' || manifest.kind === 'connector') {
     details.push(plural(manifest.schemaFiles.length, 'schema file'))
-    details.push(
-      plural(manifest.setup.beforeSchema.length + manifest.setup.afterSchema.length, 'setup step'),
-    )
+    details.push(plural(Object.values(manifest.setup).flat().length, 'setup step'))
   }
 
   if (manifest.migrate) details.push('migrate')
@@ -176,7 +176,7 @@ function validateManifests(root = repository) {
 
     if (manifest.kind !== 'module' && manifest.kind !== 'connector') continue
 
-    const steps = [...manifest.setup.beforeSchema, ...manifest.setup.afterSchema]
+    const steps = Object.values(manifest.setup).flat()
     const scripts = steps.map((step) => step.script)
 
     if (new Set(scripts).size !== scripts.length)
@@ -249,7 +249,29 @@ export function checkApp(root = repository) {
   return { manifests, report: manifests.map((manifest) => describe(root, manifest, ids)) }
 }
 
-export function removeInstalled(id, { root = repository, dryRun = false } = {}) {
+// Docker volume names a part's compose file declares, under this folder's Compose project.
+// Removing the part leaves them (and their data) behind; Compose no longer knows them.
+export function partVolumes(root, manifest) {
+  if (!manifest.compose) return []
+
+  const compose = createRequire(import.meta.url)('yaml').parse(
+    readFileSync(new URL(manifest.compose, root), 'utf8'),
+  )
+
+  const env = existsSync(new URL('.env', root)) ? readFileSync(new URL('.env', root), 'utf8') : ''
+
+  const project =
+    /^COMPOSE_PROJECT_NAME=(.+)$/m.exec(env)?.[1].trim() ||
+    process.env.COMPOSE_PROJECT_NAME ||
+    folderProjectName(basename(fileURLToPath(root)))
+
+  return Object.entries(compose?.volumes ?? {}).flatMap(([key, volume]) =>
+    volume?.external ? [] : [volume?.name ?? `${project}_${key}`],
+  )
+}
+
+// The part's manifest, after checking it exists and nothing else needs it.
+export function removable(id, root = repository) {
   const manifests = validateManifests(root)
   const manifest = manifests.find((candidate) => candidate.id === id)
 
@@ -265,6 +287,13 @@ export function removeInstalled(id, { root = repository, dryRun = false } = {}) 
       `${id} is required by ${dependents.map((candidate) => candidate.id).join(', ')}`,
     )
 
+  return { manifests, manifest }
+}
+
+export function removeInstalled(id, { root = repository, dryRun = false } = {}) {
+  const { manifests, manifest } = removable(id, root)
+
+  const volumes = partVolumes(root, manifest)
   const edits = new Map()
 
   for (const entry of manifest.packageEntries) {
@@ -316,7 +345,11 @@ export function removeInstalled(id, { root = repository, dryRun = false } = {}) 
     }
   }
 
-  console.log('For a connected source, remove its relations and source in Studio first.')
+  if (volumes.length)
+    console.log(
+      `Its Docker data is kept. To delete it, after the commands below: docker volume rm ${volumes.join(' ')}`,
+    )
+
   console.log('Update README.md, AGENTS.md, and docs/ for the removed feature.')
   console.log('Next commands:')
 
@@ -324,6 +357,30 @@ export function removeInstalled(id, { root = repository, dryRun = false } = {}) 
     console.log(`  ${step.script ? `pnpm ${step.script}` : step.command.join(' ')}`)
 
   return manifest.ownedPaths
+}
+
+// Before the files go, while the source is still connected. Monospace may not be running (or
+// was never set up); then the source stays and we say how to remove it later.
+async function removeMonospaceSource(apiName, dryRun) {
+  if (dryRun) {
+    console.log(`Would remove Monospace data source ${apiName} and its relations to other sources`)
+
+    return
+  }
+
+  const { removeSource } = await import('../infra/monospace/setup/remove-source.mjs')
+
+  try {
+    await removeSource(apiName)
+  } catch (error) {
+    console.log(
+      [
+        `Couldn't remove Monospace data source ${apiName}: ${error.message.split('\n')[0]}`,
+        `If it was ever set up, remove it later with: pnpm setup:remove-source ${apiName}`,
+        '(or in Studio: delete its relations to other sources, then the source).',
+      ].join('\n'),
+    )
+  }
 }
 
 function encodePackage(value, previous) {
@@ -343,9 +400,14 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
       console.log(`Installed: ${manifests.map((manifest) => manifest.id).join(', ')}`)
 
       for (const line of report) console.log(`  ${line}`)
-    } else if (command === 'remove' && id && flags.every((flag) => flag === '--dry-run'))
-      removeInstalled(id, { dryRun: flags.includes('--dry-run') })
-    else throw new Error('Usage: pnpm app:doctor | pnpm app:remove <id> [--dry-run]')
+    } else if (command === 'remove' && id && flags.every((flag) => flag === '--dry-run')) {
+      const dryRun = flags.includes('--dry-run')
+      const source = removable(id).manifest.source?.apiName
+
+      if (source) await removeMonospaceSource(source, dryRun)
+
+      removeInstalled(id, { dryRun })
+    } else throw new Error('Usage: pnpm app:doctor | pnpm app:remove <id> [--dry-run]')
   } catch (error) {
     console.error(error.message)
     process.exitCode = 1

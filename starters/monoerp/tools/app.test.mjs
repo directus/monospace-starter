@@ -477,3 +477,31 @@ it('refuses to overwrite a package file changed after it was read', () => {
   expect(readFileSync(new URL('package.json', root), 'utf8')).toBe(concurrent)
   expect(existsSync(new URL('modules/sales/module.json', root))).toBe(true)
 })
+
+it("prints how to delete a removed part's Docker volumes, under this project's name", () => {
+  const { root } = fixture()
+  save(root, { kind: 'connector', id: 'billing' })
+  write(root, '.env', 'APP_PORT=3000\nCOMPOSE_PROJECT_NAME=shop-a1b2\n')
+  write(
+    root,
+    'connectors/billing/compose.yml',
+    [
+      'services:',
+      '  billing-db:',
+      '    image: mysql:8.4',
+      'volumes:',
+      '  billing_data:',
+      '  named:',
+      '    name: billing-shared',
+      '  outside:',
+      '    external: true',
+    ].join('\n'),
+  )
+
+  const log = vi.spyOn(console, 'log').mockImplementation(() => {})
+  removeInstalled('billing', { root })
+
+  expect(log).toHaveBeenCalledWith(
+    'Its Docker data is kept. To delete it, after the commands below: docker volume rm shop-a1b2_billing_data billing-shared',
+  )
+})

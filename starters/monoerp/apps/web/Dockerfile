@@ -8,6 +8,8 @@ RUN npm install --global pnpm@11.20.0
 WORKDIR /app
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml .npmrc ./
 COPY patches patches
+# The AWS deploy target's patch, if it's installed (the glob matches nothing once it's removed).
+COPY deploy/aws/patche[s] deploy/aws/patches/
 COPY apps/web/package.json apps/web/package.json
 # Optional frontend packages need their workspace dependency links before the app builds.
 COPY connectors connectors
@@ -15,7 +17,7 @@ COPY connectors connectors
 COPY starter.json app.config.json ./
 COPY modules modules
 COPY infra infra
-COPY tools/prepare.mjs tools/manifest-schema.mjs tools/
+COPY tools/prepare.mjs tools/env.mjs tools/manifest-schema.mjs tools/
 RUN pnpm install --frozen-lockfile
 
 FROM dependencies AS build

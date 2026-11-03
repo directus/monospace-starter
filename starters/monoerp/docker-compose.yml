@@ -25,6 +25,14 @@ services:
   app-postgres:
     image: pgvector/pgvector:0.8.1-pg17-bookworm
     restart: unless-stopped
+    # Docker Desktop's file share can report mounted init scripts as executable and then refuse to
+    # run them. Copy them in and make them 644 so the image's entrypoint sources them instead.
+    entrypoint:
+      - sh
+      - -c
+      - cp -r /init-src/* /docker-entrypoint-initdb.d/ && chmod 644 /docker-entrypoint-initdb.d/* && exec docker-entrypoint.sh "$$@"
+      - sh
+    command: ['postgres']
     environment:
       POSTGRES_USER: app
       POSTGRES_PASSWORD: ${APP_DB_PASSWORD:-monospace}
@@ -33,7 +41,7 @@ services:
       - '127.0.0.1:${APP_POSTGRES_PORT:-5433}:5432'
     volumes:
       - app_postgres_data:/var/lib/postgresql/data
-      - ./infra/postgres/entrypoint:/docker-entrypoint-initdb.d:ro
+      - ./infra/postgres/entrypoint:/init-src:ro
       - ./infra/postgres:/infra/postgres:ro
       - ./modules:/modules:ro
     healthcheck:
@@ -210,7 +218,8 @@ services:
       monospace:
         condition: service_started
     ports:
-      - '127.0.0.1:${APP_PORT:-3000}:80'
+      # Its own port, so it never sits on top of a running pnpm dev.
+      - '127.0.0.1:${GATEWAY_PORT:-3080}:80'
     volumes:
       - ./infra/caddy/Caddyfile:/etc/caddy/Caddyfile:ro
     networks:
