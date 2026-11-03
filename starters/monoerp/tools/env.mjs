@@ -180,7 +180,7 @@ function accepts(host, port) {
 }
 
 // Dev servers on `localhost` often listen on ::1 only, so check both loopbacks.
-async function listening(port) {
+export async function listening(port) {
   const answers = await Promise.all([accepts('127.0.0.1', port), accepts('::1', port)])
 
   return answers.some(Boolean)

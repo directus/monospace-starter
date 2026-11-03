@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "node infra/compose-sync.mjs && vp dev",
+    "dev": "node infra/compose-sync.mjs && node tools/dev-port.mjs && vp dev",
     "build": "vp build",
     "build:extensions": "node infra/monospace/setup/build-extensions.mjs",
     "start": "vp run --filter @monoerp/web start",
