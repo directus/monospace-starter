@@ -4,7 +4,7 @@
     {
       "id": "monoerp",
       "path": "starters/monoerp",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "label": "monoERP starter",
       "description": "Shared app shell, authentication, database, and setup",
       "modules": [
