@@ -136,7 +136,6 @@ describe('monospaceProblem', () => {
   it.each([
     ['another app has the port', null, 'monospace'],
     ['our container never bound it', { state: 'created', publishedPort: '' }, 'monospace'],
-    ['our container runs on another port', { state: 'running', publishedPort: '8200' }, 'none'],
     ['a host app shadows our published port', ours, 'other'],
   ])('blames the port when %s', (_, container, answer) => {
     const problem = monospaceProblem({ port: '8100', container, answer })
@@ -144,12 +143,26 @@ describe('monospaceProblem', () => {
     expect(problem).toContain("Port 8100 isn't this project's Monospace.")
     expect(problem).toContain('docker ps --filter publish=8100')
     expect(problem).toContain('lsof -i :8100')
+    expect(problem).toContain('change MONOSPACE_PORT in .env, then run docker compose up -d')
+  })
+
+  it('asks to republish when our container runs on another port and nothing answers', () => {
+    const problem = monospaceProblem({
+      port: '8100',
+      container: { state: 'running', publishedPort: '8200' },
+      answer: 'none',
+    })
+
+    expect(problem).toContain("isn't published on port 8100")
+    expect(problem).toContain('docker compose up -d')
+    expect(problem).not.toContain("isn't this project's Monospace")
   })
 
   it('asks to start the stack when nothing answers, without blaming a port', () => {
     const problem = monospaceProblem({ port: '8100', container: null, answer: 'none' })
 
     expect(problem).toContain('docker compose up -d')
+    expect(problem).toContain('docker compose down in old copies')
     expect(problem).toContain('docker network prune')
     expect(problem).not.toContain('8100')
   })

@@ -343,7 +343,7 @@ const portHelp = (port) =>
     `See what's using it: docker ps --filter publish=${port}, or ${
       process.platform === 'win32' ? `netstat -ano | findstr :${port}` : `lsof -i :${port}`
     }`,
-    'Fix: stop that, or change MONOSPACE_PORT (and the other *_PORT values) in .env.',
+    'Fix: stop that, or change MONOSPACE_PORT in .env, then run docker compose up -d.',
     'To use a Monospace you run yourself, set MONOSPACE_URL in .env.',
   ].join('\n')
 
@@ -375,15 +375,21 @@ export function monospaceProblem({ port, container, answer, logs = '' }) {
 
   if (ours && answer !== 'other') return ''
 
-  if (answer !== 'none' || container?.state === 'running')
+  if (answer !== 'none')
     return [`Port ${port} isn't this project's Monospace.`, portHelp(port)].join('\n')
+
+  // Usually MONOSPACE_PORT changed in .env and the container still has the old one.
+  if (container?.state === 'running')
+    return `This project's Monospace isn't published on port ${port} (MONOSPACE_PORT in .env). Run: docker compose up -d`
 
   // No container at all: compose never got as far as ports, so don't point at one.
   if (!container)
     return [
       `This project's Monospace isn't running. Start it with: docker compose up -d`,
       "If that fails, its error says why. 'all predefined address pools have been fully subnetted'",
-      'means Docker is out of networks: docker network prune frees the unused ones.',
+      'means Docker is out of networks. Run docker compose down in old copies of this starter you',
+      "don't need. Or docker network prune, which deletes every network no container uses, other",
+      "projects' included.",
     ].join('\n')
 
   return [
