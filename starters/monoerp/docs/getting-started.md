@@ -57,7 +57,7 @@ A few things to know on the first run:
 - **Home** lists the modules. There's one so far, the CRM, and more can sit next to it.
 - **Organizations** is a list over the app database. The Plan, Seats, Renews, and Open tickets columns come from the portal's MySQL, joined in by Monospace. Try filtering by plan: the filter crosses from one database into the other.
 - **An organization's page** shows the CRM record (details, contacts, deals, activity, notes, files) next to what the other systems know. The Portal tab shows the account, plan, seats, users, and tickets from MySQL. The Billing tab shows lifetime value and payments from Stripe. McKesson is a good one to open: its last payment failed.
-- **Deals** is a table or a board. Drag a deal to another stage on the board.
+- **Deals** is a table or a board (switch with **Display** > **Board**). Drag a deal to another stage on the board.
 - **Activity** is everyone's to-dos and history in one place.
 - **Settings > Pipeline stages** edits the deal stages.
 - **⌘K** searches records and pages from anywhere.

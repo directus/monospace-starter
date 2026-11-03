@@ -24,7 +24,18 @@ Install and dev regenerate `compose.app.yml` automatically. If you edit module o
 
 1. Preview with `pnpm app:remove <id> --dry-run`.
 2. Run `pnpm app:remove <id>`. For a connector, it first deletes its data source in Monospace and the relations between it and other sources. If Monospace isn't running, it says so and keeps going; run `pnpm setup:remove-source <source>` (for example `Portal`) once it is, or delete the relations and then the source in Studio. Required dependencies prevent removal. Features of other connectors that need the removed one turn off, and the command says which. For modules and connectors, update `README.md`, `AGENTS.md`, and `docs/` to drop descriptions of the removed feature; shared prose is not rewritten automatically.
-3. For modules and connectors, run the same follow-up commands above. `--remove-orphans` retires the removed local service. Removal keeps the part's Docker volumes and external data. `pnpm app:remove` prints the `docker volume rm` command for those volumes; run it after `--remove-orphans` if you want the data gone.
+3. For modules and connectors, run the commands `pnpm app:remove` prints:
+
+   ```sh
+   pnpm install
+   pnpm app:doctor
+   docker compose up -d --wait --wait-timeout 180 --remove-orphans
+   pnpm setup:all
+   pnpm generate:routes
+   pnpm generate
+   ```
+
+   `--remove-orphans` retires the removed local service. Removal keeps the part's Docker volumes and external data. `pnpm app:remove` prints the `docker volume rm` command for those volumes; run it after `--remove-orphans` if you want the data gone.
 
 For a deploy target, run `pnpm install`, `pnpm app:doctor`, and `pnpm verify` after removal.
 

@@ -79,9 +79,9 @@ pnpm dev
 
 **If setup gets stuck:**
 
-- **Port taken.** Docker can publish a port another app already holds, and then that app answers. `pnpm setup:all` stops if that happens on the Monospace port (8100 by default). At the end it checks the other published ports (the databases, Mailpit, the `--profile full` gateway) and names any that another app answers, or where nothing answers, with the fix. `pnpm dev` stops if `APP_PORT` is taken. Change ports in `.env`.
+- **Port taken.** Docker can publish a port another app already holds, and then that app answers. `pnpm setup:all` stops if that happens on the Monospace port (8100 by default). At the end it checks the other published ports (the databases, Mailpit, the `--profile full` gateway) and names any that another app answers, or where nothing answers, with the fix. Docker doesn't retry a port once it's free, so after you free one or change it in `.env`, recreate that container (the message says how). `pnpm dev` stops if `APP_PORT` is taken.
 - **Monospace keeps restarting.** `pnpm setup:all` prints its last log lines. A license refusal means this Docker project has old data, often from another copy in a folder with the same name and no `COMPOSE_PROJECT_NAME` in `.env`. Set a new `COMPOSE_PROJECT_NAME` in `.env` to start clean.
-- **Docker is out of networks.** `docker compose up` fails with "all predefined address pools have been fully subnetted". Each stack on this machine takes one, so many stacks use them up. Run `docker network prune` to free the unused ones, then `docker compose up` again.
+- **Docker is out of networks.** `docker compose up` fails with "all predefined address pools have been fully subnetted". Each stack on this machine takes one, so many stacks use them up. Run `docker compose down` in old copies of this starter you don't need, then `docker compose up` again. Or run `docker network prune`, which deletes every network no container uses, other projects' included.
 - **Access denied for user 'root' at "Portal reader login".** `CUSTOMER_MYSQL_ROOT_PASSWORD` in `.env` changed after the Portal database was created. Set it back to the old value.
 
 Open http://localhost:3000 (or the address `pnpm install` printed) and sign in with `admin@example.com` / `monospace`. It comes with demo data: well-known companies, with fictional contacts, deals, and activity.
@@ -99,7 +99,7 @@ These are the default ports. Yours may differ: `pnpm install` printed the ones i
 <summary>First-run notes, other ports, and the license key</summary>
 
 - The first `docker compose up` loads the demo data, which takes a minute or two. The `keygen` container generates Monospace's keys and exits; that's expected. `pnpm setup:all` waits for Monospace.
-- The first time you open Studio, you have to accept its terms; there's no way around that screen. After that it asks you to create a workspace, even though `monoerp` already exists. Open Studio in a new tab to skip that step.
+- The first time you open Studio, you have to accept its terms; there's no way around that screen. After that it asks you to create a workspace, even though `monoerp` already exists. Open Studio in a new tab to skip that step. If you're signed in to the app, Studio uses that session.
 - **Ports** are in `.env`, and everything follows them, including `pnpm dev`. The first `pnpm install` picks free ones (skipping ports in use, ports any Docker container publishes even when stopped, and ports in a neighboring folder's `.env`) and a unique `COMPOSE_PROJECT_NAME`, so a fresh download runs next to another copy as is. If you copy a folder that already has a `.env`, delete it in the copy before `pnpm install`, or both copies share one Docker stack. Two copies open in one browser sign each other out, because cookies on `localhost` are shared across ports and Monospace names its session cookie itself. Open the second copy at `http://second.localhost:<port>` (works in Chrome), or use another browser profile.
 - **License key:** optional locally. See [the free tier and license setup](docs/monospace.md#license-key-and-the-free-tier).
 
@@ -162,7 +162,7 @@ Preview with `pnpm app:remove <id> --dry-run`, then run `pnpm app:remove <id>`. 
 - Removing **CRM** leaves the shell, sign-in, and settings; connectors stay installed until removed separately.
 - Removing **AWS** also drops its workflow, package script, and patch.
 
-After a module or connector removal, follow the [shared removal steps](connectors/README.md#remove-a-module-connector-or-deploy-target) to retire its source and regenerate the app. The guides in `docs/` describe the full selection; drop what no longer applies.
+`pnpm app:remove` prints the commands to run next; run them. The [shared removal steps](connectors/README.md#remove-a-module-connector-or-deploy-target) have the details. If `pnpm dev` is running, it restarts on its own, but an open page can go blank; reload it. The guides in `docs/` describe the full selection; drop what no longer applies.
 
 ## Deploy
 
