@@ -5,6 +5,7 @@ Tools for maintaining the starters in this repository. Nothing here ships with a
 | Path                              | Contents                                               |
 | --------------------------------- | ------------------------------------------------------ |
 | `catalog.mjs`, `catalog.test.mjs` | Builds the root [`catalog.json`](../catalog.json)      |
+| `changelogs.mjs`                  | Trims trailing spaces `changeset version` leaves       |
 | [`monoerp/`](monoerp)             | monoERP's combination runner, decisions, and benchmark |
 
 ## Catalog
@@ -19,7 +20,7 @@ After adding, removing, or renaming a starter or part, or changing a label or de
 node tooling/catalog.mjs
 ```
 
-The release workflow runs it after `changeset version`, so the version PR updates each starter's `version` too.
+The release workflow runs it after `changeset version`, so the version PR updates each starter's `version` too. Before that it runs `node tooling/changelogs.mjs`, because `changeset version` leaves trailing spaces in multi-line entries and each starter's `vp check` rejects them.
 
 `node tooling/catalog.mjs --check` exits 1 when the committed file is stale, or when a starter's `README.md` lacks one of the sections listed in [`CONTRIBUTING.md`](../CONTRIBUTING.md#the-starter-readme). Both root workflows run it first:
 
