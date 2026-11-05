@@ -47,7 +47,15 @@ if (!workspaces.some((candidate) => candidate.apiName === workspace)) {
 const existing = await readSources()
 
 for (const source of sources) {
-  if (existing.some((candidate) => candidate.apiName === source.apiName)) {
+  const connected = existing.find((candidate) => candidate.apiName === source.apiName)
+
+  if (connected) {
+    // Sources connected before their manifest declared `access` pick it up here.
+    if (source.access)
+      await request(`${workspacePath}/sources/data/${connected.id}`, {
+        method: 'PATCH',
+        body: JSON.stringify({ access: source.access }),
+      })
     console.log(`${source.apiName}: already connected`)
     continue
   }
@@ -104,7 +112,7 @@ async function introspection(source) {
   const excluded = excludedNamespaces[source.apiName] ?? []
 
   if (!excluded.length) return undefined
-  const { apiName: _, ...config } = source
+  const { apiName: _, access: __, ...config } = source
 
   const { data: preview } = await request(`${workspacePath}/sources/data/introspect`, {
     method: 'POST',
