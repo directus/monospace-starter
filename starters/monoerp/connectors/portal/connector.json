@@ -11,6 +11,12 @@
       "user": "monospace_reader",
       "password": { "env": "PORTAL_READER_PASSWORD", "default": "monospace" },
       "dbname": "customer_portal",
+      "access": {
+        "allowMigrations": false,
+        "allowCreate": false,
+        "allowUpdate": false,
+        "allowDelete": false
+      },
       "ssl": { "when": "DB_SSL_MODE", "value": { "mode": { "env": "DB_SSL_MODE" } } }
     },
     "setup": {

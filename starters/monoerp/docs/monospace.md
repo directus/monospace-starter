@@ -12,6 +12,8 @@ Everything lives in one workspace, `monoerp`, with three data sources:
 | `Portal` | MySQL `customer_portal`             | read-only                                           |
 | `Stripe` | Stripe, through `connectors/stripe` | read, and writes to customers, products, and prices |
 
+Portal and Stripe are schema locked: Monospace refuses changes to their database schema, such as adding a column, a foreign key, or a relation inside the source. Names, presentation, and relations to other sources still work, since they live in Monospace. Portal also refuses creates, updates, and deletes. Stripe's writes follow its own `enableWrites` setting. App stays open, so you can change it in Studio. Each connector sets this in `access` in its `connector.json` source, and `pnpm setup:all` applies it to new and existing sources. Studio shows a "Schema locked" badge; unlock a source in its settings to change it there.
+
 New installations can use different names; follow [Rename it](getting-started.md#rename-it) to update the app, schema settings, and setup together. Monospace's own tables live in a separate Postgres (`system-postgres`), which the app never touches.
 
 ### Running without the portal or Stripe

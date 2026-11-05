@@ -6,7 +6,7 @@ A connector is a removable external source. Portal uses Monospace's built-in MyS
 
 1. Copy `connectors/portal` for a database provider, or `connectors/stripe` for an API extension, to `connectors/<id>`. Keep only the demo services and frontend features you need.
 2. Edit `connector.json`: label, description, source configuration, setup steps, and `contributes` for module features. The folder name is the ID. Rename local services and host ports in `compose.yml`. For extensions, update the package name, extension ID, and provider ID together.
-3. An installed connector is selected. Add its ID to a module's envelope `requires` only if the module cannot run without it. Give real external databases a read-only login.
+3. An installed connector is selected. Add its ID to a module's envelope `requires` only if the module cannot run without it. Give real external databases a read-only login. If Monospace shouldn't change the source's schema, set `"access": { "allowMigrations": false }` in its `source`; add `allowCreate`, `allowUpdate`, and `allowDelete` set to `false` to make it read-only.
 4. Run the commands below, then `pnpm verify` and browser tests for any frontend components. Setup builds selected extensions automatically.
 
 ```sh

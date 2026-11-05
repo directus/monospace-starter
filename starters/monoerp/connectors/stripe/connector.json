@@ -6,6 +6,7 @@
     "source": {
       "apiName": "Stripe",
       "provider": "monoerp/stripe-data-connector",
+      "access": { "allowMigrations": false },
       "config": {
         "apiKey": { "env": "STRIPE_API_KEY", "default": "sk_test_monoerp" },
         "apiBase": { "env": "STRIPE_API_BASE", "default": "http://stripe:4010" }
