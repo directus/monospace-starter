@@ -1140,6 +1140,7 @@ export type MonospaceCollectionsourceCreateRelatedInput = {
 }
 
 export type MonospaceCollectionsourceCreateRelatedWithoutTypeInput = {
+	accessRestrictionsMask?: number;
 	apiName: string;
 	credentials?: string | null;
 	id: Uuid;
@@ -1195,6 +1196,7 @@ export type MonospaceCollectionstorageValuesUpdateManyRelatedOperationsInput = {
 }
 
 export type MonospaceDataSourceCollectionOutput = {
+	accessRestrictionsMask?: number;
 	apiName?: string;
 	collections?: { data: MonospaceCollectionCollectionOutput[] };
 	credentials?: string | null;
@@ -1205,7 +1207,7 @@ export type MonospaceDataSourceCollectionOutput = {
 	provider?: string;
 }
 
-export type MonospaceDataSourceCollectionOutputFieldsInput = readonly ("apiName" | "credentials" | "id" | "introspectionExclusions" | "preset" | "provider" | "*" | `${string}:${"apiName" | "credentials" | "id" | "introspectionExclusions" | "preset" | "provider"}`)[];
+export type MonospaceDataSourceCollectionOutputFieldsInput = readonly ("accessRestrictionsMask" | "apiName" | "credentials" | "id" | "introspectionExclusions" | "preset" | "provider" | "*" | `${string}:${"accessRestrictionsMask" | "apiName" | "credentials" | "id" | "introspectionExclusions" | "preset" | "provider"}`)[];
 
 export type MonospaceDataSourceCollectionOutputIncludeInput = {
 	"collections"?: (MonospaceDataSourcecollectionsRelationFieldArguments & { "fields"?: MonospaceCollectionCollectionOutputFieldsInput; "include"?: MonospaceCollectionCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (MonospaceDataSourcecollectionsRelationFieldArguments & { "fields"?: MonospaceCollectionCollectionOutputFieldsInput; "include"?: MonospaceCollectionCollectionOutputIncludeInput })>]?: never };
@@ -1217,6 +1219,7 @@ export type MonospaceDataSourceCreateArguments = {
 }
 
 export type MonospaceDataSourceCreateInput = {
+	accessRestrictionsMask?: number;
 	apiName: string;
 	collections?: readonly MonospaceDataSourcecollectionsCreateRelatedInput[];
 	credentials?: string | null;
@@ -1240,6 +1243,7 @@ export type MonospaceDataSourceFilterInput = {
 	_and?: readonly MonospaceDataSourceFilterInput[];
 	_not?: MonospaceDataSourceFilterInput;
 	_or?: readonly MonospaceDataSourceFilterInput[];
+	accessRestrictionsMask?: IntegerFilterPrimitiveInput | number;
 	apiName?: StringFilterPrimitiveInput | string;
 	collections?: MonospaceCollectionFilterQuantifierInput | MonospaceCollectionFilterInput;
 	credentials?: StringFilterNullablePrimitiveInput | string | null;
@@ -1264,6 +1268,7 @@ export type MonospaceDataSourceReadArguments = {
 }
 
 export type MonospaceDataSourceSortSpecifier = {
+	accessRestrictionsMask?: SortFieldOptions;
 	apiName?: SortFieldOptions;
 	credentials?: SortFieldOptions;
 	id?: SortFieldOptions;
@@ -1278,6 +1283,7 @@ export type MonospaceDataSourceUpdateArguments = {
 }
 
 export type MonospaceDataSourceUpdateDataInput = {
+	accessRestrictionsMask?: number;
 	apiName?: string;
 	collections?: readonly MonospaceDataSourcecollectionsUpdateManyRelatedOperationsInput[];
 	credentials?: string | null;
@@ -2216,6 +2222,7 @@ export type MonospaceNamespacesourceCreateRelatedInput = {
 }
 
 export type MonospaceNamespacesourceCreateRelatedWithoutTypeInput = {
+	accessRestrictionsMask?: number;
 	apiName: string;
 	collections?: readonly MonospaceDataSourcecollectionsCreateRelatedInput[];
 	credentials?: string | null;
@@ -5848,7 +5855,6 @@ export type MonospaceSystemUsercontactsCreatedByCreateRelatedWithoutTypeInput = 
 	notes?: string | null;
 	owner?: contactsownerCreateRelatedInput;
 	phone?: string | null;
-	portalUser?: contactsportalUserCreateRelatedInput;
 	status?: string;
 	updatedAt?: string;
 	updatedBy?: contactsupdatedByCreateRelatedInput;
@@ -5899,7 +5905,6 @@ export type MonospaceSystemUsercontactsOwnerCreateRelatedWithoutTypeInput = {
 	lastName: string;
 	notes?: string | null;
 	phone?: string | null;
-	portalUser?: contactsportalUserCreateRelatedInput;
 	status?: string;
 	updatedAt?: string;
 	updatedBy?: contactsupdatedByCreateRelatedInput;
@@ -5951,7 +5956,6 @@ export type MonospaceSystemUsercontactsUpdatedByCreateRelatedWithoutTypeInput = 
 	notes?: string | null;
 	owner?: contactsownerCreateRelatedInput;
 	phone?: string | null;
-	portalUser?: contactsportalUserCreateRelatedInput;
 	status?: string;
 	updatedAt?: string;
 }
@@ -6154,7 +6158,6 @@ export type MonospaceSystemUserorganizationsCreatedByCreateRelatedWithoutTypeInp
 	name: string;
 	notes?: string | null;
 	owner?: organizationsownerCreateRelatedInput;
-	portalAccount?: organizationsportalAccountCreateRelatedInput;
 	portalAccountId?: string | null;
 	status?: string;
 	updatedAt?: string;
@@ -6206,7 +6209,6 @@ export type MonospaceSystemUserorganizationsOwnerCreateRelatedWithoutTypeInput =
 	industry?: string | null;
 	name: string;
 	notes?: string | null;
-	portalAccount?: organizationsportalAccountCreateRelatedInput;
 	portalAccountId?: string | null;
 	status?: string;
 	updatedAt?: string;
@@ -6259,7 +6261,6 @@ export type MonospaceSystemUserorganizationsUpdatedByCreateRelatedWithoutTypeInp
 	name: string;
 	notes?: string | null;
 	owner?: organizationsownerCreateRelatedInput;
-	portalAccount?: organizationsportalAccountCreateRelatedInput;
 	portalAccountId?: string | null;
 	status?: string;
 	updatedAt?: string;
@@ -6591,35 +6592,6 @@ export type accountsCollectionOutputIncludeInput = {
 	"users"?: (accountsusersRelationFieldArguments & { "fields"?: usersCollectionOutputFieldsInput; "include"?: usersCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (accountsusersRelationFieldArguments & { "fields"?: usersCollectionOutputFieldsInput; "include"?: usersCollectionOutputIncludeInput })>]?: never };
 } & { [K in `${string}:${"events"}`]?: accountsCollectionOutputIncludeInput["events"] } & { [K in `${string}:${"organization"}`]?: accountsCollectionOutputIncludeInput["organization"] } & { [K in `${string}:${"stripeCustomer"}`]?: accountsCollectionOutputIncludeInput["stripeCustomer"] } & { [K in `${string}:${"subscriptions"}`]?: accountsCollectionOutputIncludeInput["subscriptions"] } & { [K in `${string}:${"tickets"}`]?: accountsCollectionOutputIncludeInput["tickets"] } & { [K in `${string}:${"users"}`]?: accountsCollectionOutputIncludeInput["users"] };
 
-export type accountsCreateArguments = {
-	data: readonly accountsCreateInput[];
-}
-
-export type accountsCreateInput = {
-	createdAt?: string;
-	events?: readonly accountseventsCreateRelatedInput[];
-	name: string;
-	organization: accountsorganizationCreateRelatedInput;
-	slug: string;
-	status?: string;
-	stripeCustomer?: accountsstripeCustomerCreateRelatedInput;
-	subscriptions?: readonly accountssubscriptionsCreateRelatedInput[];
-	tickets?: readonly accountsticketsCreateRelatedInput[];
-	updatedAt?: string;
-	users?: readonly accountsusersCreateRelatedInput[];
-}
-
-export type accountsDeleteArguments = {
-	filter?: accountsFilterInput;
-}
-
-export type accountsDeleteOneArguments = {
-	filter?: accountsFilterInput;
-	key: string;
-}
-
-export type accountsDisconnectOneInput = {}
-
 export type accountsFilterInput = {
 	_and?: readonly accountsFilterInput[];
 	_not?: accountsFilterInput;
@@ -6661,62 +6633,6 @@ export type accountsSortSpecifier = {
 	updatedAt?: SortFieldOptions;
 }
 
-export type accountsUpdateArguments = {
-	data: accountsUpdateDataInput;
-	filter?: accountsFilterInput;
-}
-
-export type accountsUpdateDataInput = {
-	createdAt?: string;
-	events?: readonly accountseventsUpdateManyRelatedOperationsInput[];
-	name?: string;
-	organization?: readonly accountsorganizationUpdateOneRelatedOperationsInput[];
-	slug?: string;
-	status?: string;
-	stripeCustomer?: readonly accountsstripeCustomerUpdateOneRelatedOperationsInput[];
-	stripeCustomerId?: string | null;
-	subscriptions?: readonly accountssubscriptionsUpdateManyRelatedOperationsInput[];
-	tickets?: readonly accountsticketsUpdateManyRelatedOperationsInput[];
-	updatedAt?: string;
-	users?: readonly accountsusersUpdateManyRelatedOperationsInput[];
-}
-
-export type accountsUpdateInput = {
-	data: accountsUpdateDataInput;
-	filter?: accountsFilterInput;
-}
-
-export type accountsUpdateOneArguments = {
-	data: accountsUpdateDataInput;
-	filter?: accountsFilterInput;
-	key: string;
-}
-
-export type accountseventsConnectBackwardKeysInput = {
-	id?: string;
-}
-
-export type accountseventsConnectInput = {
-	keys: readonly accountseventsConnectBackwardKeysInput[];
-}
-
-export type accountseventsCreateArguments = {
-	data: readonly accountseventsCreateRelatedWithoutTypeInput[];
-}
-
-export type accountseventsCreateRelatedInput = {
-	_connect?: accountseventsConnectInput;
-	_create?: accountseventsCreateArguments;
-}
-
-export type accountseventsCreateRelatedWithoutTypeInput = {
-	detail?: string | null;
-	id: string;
-	occurredAt: string;
-	type: string;
-	user?: eventsuserCreateRelatedInput;
-}
-
 export type accountseventsRelationFieldArguments = {
 	filter?: eventsFilterInput;
 	limit?: Int64Input;
@@ -6724,115 +6640,8 @@ export type accountseventsRelationFieldArguments = {
 	sort?: readonly eventsSortSpecifier[];
 }
 
-export type accountseventsUpdateManyRelatedOperationsInput = {
-	_connect?: accountseventsConnectInput;
-	_create?: accountseventsCreateArguments;
-	_delete?: eventsDeleteArguments;
-	_update?: eventsUpdateInput;
-}
-
-export type accountsorganizationConnectForwardKeyInput = {
-	portalAccountId: string;
-}
-
-export type accountsorganizationConnectInput = {
-	key: accountsorganizationConnectForwardKeyInput;
-}
-
-export type accountsorganizationCreateArguments = {
-	data: accountsorganizationCreateRelatedWithoutTypeInput;
-}
-
-export type accountsorganizationCreateRelatedInput = {
-	_connect?: accountsorganizationConnectInput;
-	_create?: accountsorganizationCreateArguments;
-}
-
-export type accountsorganizationCreateRelatedWithoutTypeInput = {
-	activities?: readonly organizationsactivitiesCreateRelatedInput[];
-	affiliations?: readonly organizationsaffiliationsCreateRelatedInput[];
-	attachments?: readonly organizationsattachmentsCreateRelatedInput[];
-	createdAt?: string;
-	createdBy?: organizationscreatedByCreateRelatedInput;
-	deals?: readonly organizationsdealsCreateRelatedInput[];
-	domain?: string | null;
-	id?: Uuid;
-	industry?: string | null;
-	name: string;
-	notes?: string | null;
-	owner?: organizationsownerCreateRelatedInput;
-	portalAccountId?: string | null;
-	status?: string;
-	updatedAt?: string;
-	updatedBy?: organizationsupdatedByCreateRelatedInput;
-}
-
-export type accountsorganizationUpdateOneRelatedOperationsInput = {
-	_update?: organizationsUpdateInput;
-}
-
-export type accountsstripeCustomerConnectForwardKeyInput = {
-	id: string | null;
-}
-
-export type accountsstripeCustomerConnectInput = {
-	key: accountsstripeCustomerConnectForwardKeyInput;
-}
-
-export type accountsstripeCustomerCreateArguments = {
-	data: accountsstripeCustomerCreateRelatedWithoutTypeInput;
-}
-
-export type accountsstripeCustomerCreateRelatedInput = {
-	_connect?: accountsstripeCustomerConnectInput;
-	_create?: accountsstripeCustomerCreateArguments;
-}
-
-export type accountsstripeCustomerCreateRelatedWithoutTypeInput = {
-	description?: string | null;
-	email?: string | null;
-	name?: string | null;
-}
-
 export type accountsstripeCustomerRelationFieldArguments = {
 	filter?: stripeCustomersFilterInput;
-}
-
-export type accountsstripeCustomerUpdateOneRelatedOperationsInput = {
-	_connect?: accountsstripeCustomerConnectInput;
-	_create?: accountsstripeCustomerCreateArguments;
-	_delete?: stripeCustomersDeleteArguments;
-	_disconnect?: stripeCustomersDisconnectOneInput;
-	_update?: stripeCustomersUpdateInput;
-}
-
-export type accountssubscriptionsConnectBackwardKeysInput = {
-	id?: string;
-}
-
-export type accountssubscriptionsConnectInput = {
-	keys: readonly accountssubscriptionsConnectBackwardKeysInput[];
-}
-
-export type accountssubscriptionsCreateArguments = {
-	data: readonly accountssubscriptionsCreateRelatedWithoutTypeInput[];
-}
-
-export type accountssubscriptionsCreateRelatedInput = {
-	_connect?: accountssubscriptionsConnectInput;
-	_create?: accountssubscriptionsCreateArguments;
-}
-
-export type accountssubscriptionsCreateRelatedWithoutTypeInput = {
-	canceledAt?: string | null;
-	createdAt?: string;
-	id: string;
-	plan: subscriptionsplanCreateRelatedInput;
-	renewsAt?: string | null;
-	seats: number;
-	startedAt: string;
-	status: string;
-	updatedAt?: string;
 }
 
 export type accountssubscriptionsRelationFieldArguments = {
@@ -6842,43 +6651,6 @@ export type accountssubscriptionsRelationFieldArguments = {
 	sort?: readonly subscriptionsSortSpecifier[];
 }
 
-export type accountssubscriptionsUpdateManyRelatedOperationsInput = {
-	_connect?: accountssubscriptionsConnectInput;
-	_create?: accountssubscriptionsCreateArguments;
-	_delete?: subscriptionsDeleteArguments;
-	_update?: subscriptionsUpdateInput;
-}
-
-export type accountsticketsConnectBackwardKeysInput = {
-	id?: string;
-}
-
-export type accountsticketsConnectInput = {
-	keys: readonly accountsticketsConnectBackwardKeysInput[];
-}
-
-export type accountsticketsCreateArguments = {
-	data: readonly accountsticketsCreateRelatedWithoutTypeInput[];
-}
-
-export type accountsticketsCreateRelatedInput = {
-	_connect?: accountsticketsConnectInput;
-	_create?: accountsticketsCreateArguments;
-}
-
-export type accountsticketsCreateRelatedWithoutTypeInput = {
-	body?: string | null;
-	createdAt?: string;
-	id: string;
-	openedAt: string;
-	priority?: string;
-	resolvedAt?: string | null;
-	status?: string;
-	subject: string;
-	updatedAt?: string;
-	user?: ticketsuserCreateRelatedInput;
-}
-
 export type accountsticketsRelationFieldArguments = {
 	filter?: ticketsFilterInput;
 	limit?: Int64Input;
@@ -6886,56 +6658,11 @@ export type accountsticketsRelationFieldArguments = {
 	sort?: readonly ticketsSortSpecifier[];
 }
 
-export type accountsticketsUpdateManyRelatedOperationsInput = {
-	_connect?: accountsticketsConnectInput;
-	_create?: accountsticketsCreateArguments;
-	_delete?: ticketsDeleteArguments;
-	_update?: ticketsUpdateInput;
-}
-
-export type accountsusersConnectBackwardKeysInput = {
-	email?: string;
-	id?: string;
-}
-
-export type accountsusersConnectInput = {
-	keys: readonly accountsusersConnectBackwardKeysInput[];
-}
-
-export type accountsusersCreateArguments = {
-	data: readonly accountsusersCreateRelatedWithoutTypeInput[];
-}
-
-export type accountsusersCreateRelatedInput = {
-	_connect?: accountsusersConnectInput;
-	_create?: accountsusersCreateArguments;
-}
-
-export type accountsusersCreateRelatedWithoutTypeInput = {
-	contacts: userscontactsCreateRelatedInput;
-	createdAt?: string;
-	events?: readonly userseventsCreateRelatedInput[];
-	id: string;
-	lastLoginAt?: string | null;
-	name: string;
-	role?: string;
-	status?: string;
-	tickets?: readonly usersticketsCreateRelatedInput[];
-	updatedAt?: string;
-}
-
 export type accountsusersRelationFieldArguments = {
 	filter?: usersFilterInput;
 	limit?: Int64Input;
 	offset?: UInt64Input;
 	sort?: readonly usersSortSpecifier[];
-}
-
-export type accountsusersUpdateManyRelatedOperationsInput = {
-	_connect?: accountsusersConnectInput;
-	_create?: accountsusersCreateArguments;
-	_delete?: usersDeleteArguments;
-	_update?: usersUpdateInput;
 }
 
 export type activitiesCollectionOutput = {
@@ -7206,7 +6933,6 @@ export type activitiescontactCreateRelatedWithoutTypeInput = {
 	notes?: string | null;
 	owner?: contactsownerCreateRelatedInput;
 	phone?: string | null;
-	portalUser?: contactsportalUserCreateRelatedInput;
 	status?: string;
 	updatedAt?: string;
 	updatedBy?: contactsupdatedByCreateRelatedInput;
@@ -7232,41 +6958,8 @@ export type activitiescreatedByConnectInput = {
 	key: activitiescreatedByConnectForwardKeyInput;
 }
 
-export type activitiescreatedByCreateArguments = {
-	data: activitiescreatedByCreateRelatedWithoutTypeInput;
-}
-
 export type activitiescreatedByCreateRelatedInput = {
 	_connect?: activitiescreatedByConnectInput;
-	_create?: activitiescreatedByCreateArguments;
-}
-
-export type activitiescreatedByCreateRelatedWithoutTypeInput = {
-	activitiesOwner?: readonly MonospaceSystemUseractivitiesOwnerCreateRelatedInput[];
-	activitiesUpdatedBy?: readonly MonospaceSystemUseractivitiesUpdatedByCreateRelatedInput[];
-	affiliationsCreatedBy?: readonly MonospaceSystemUseraffiliationsCreatedByCreateRelatedInput[];
-	affiliationsUpdatedBy?: readonly MonospaceSystemUseraffiliationsUpdatedByCreateRelatedInput[];
-	appearance?: string | null;
-	attachmentsCreatedBy?: readonly MonospaceSystemUserattachmentsCreatedByCreateRelatedInput[];
-	avatarId?: Uuid | null;
-	contactsCreatedBy?: readonly MonospaceSystemUsercontactsCreatedByCreateRelatedInput[];
-	contactsOwner?: readonly MonospaceSystemUsercontactsOwnerCreateRelatedInput[];
-	contactsUpdatedBy?: readonly MonospaceSystemUsercontactsUpdatedByCreateRelatedInput[];
-	dealsCreatedBy?: readonly MonospaceSystemUserdealsCreatedByCreateRelatedInput[];
-	dealsOwner?: readonly MonospaceSystemUserdealsOwnerCreateRelatedInput[];
-	dealsUpdatedBy?: readonly MonospaceSystemUserdealsUpdatedByCreateRelatedInput[];
-	email?: string | null;
-	fullName?: string | null;
-	id: Uuid;
-	isService: boolean;
-	lastActivityAt?: string | null;
-	organizationsCreatedBy?: readonly MonospaceSystemUserorganizationsCreatedByCreateRelatedInput[];
-	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
-	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
-	roles?: readonly MonospaceSystemUserrolesCreateRelatedInput[];
-	serviceOwnerId?: Uuid | null;
-	status?: string;
-	storageValues?: readonly MonospaceSystemUserstorageValuesCreateRelatedInput[];
 }
 
 export type activitiescreatedByRelationFieldArguments = {
@@ -7275,10 +6968,7 @@ export type activitiescreatedByRelationFieldArguments = {
 
 export type activitiescreatedByUpdateOneRelatedOperationsInput = {
 	_connect?: activitiescreatedByConnectInput;
-	_create?: activitiescreatedByCreateArguments;
-	_delete?: MonospaceSystemUserDeleteArguments;
 	_disconnect?: MonospaceSystemUserDisconnectOneInput;
-	_update?: MonospaceSystemUserUpdateInput;
 }
 
 export type activitiesdealConnectForwardKeyInput = {
@@ -7358,7 +7048,6 @@ export type activitiesorganizationCreateRelatedWithoutTypeInput = {
 	name: string;
 	notes?: string | null;
 	owner?: organizationsownerCreateRelatedInput;
-	portalAccount?: organizationsportalAccountCreateRelatedInput;
 	portalAccountId?: string | null;
 	status?: string;
 	updatedAt?: string;
@@ -7379,41 +7068,8 @@ export type activitiesownerConnectInput = {
 	key: activitiesownerConnectForwardKeyInput;
 }
 
-export type activitiesownerCreateArguments = {
-	data: activitiesownerCreateRelatedWithoutTypeInput;
-}
-
 export type activitiesownerCreateRelatedInput = {
 	_connect?: activitiesownerConnectInput;
-	_create?: activitiesownerCreateArguments;
-}
-
-export type activitiesownerCreateRelatedWithoutTypeInput = {
-	activitiesCreatedBy?: readonly MonospaceSystemUseractivitiesCreatedByCreateRelatedInput[];
-	activitiesUpdatedBy?: readonly MonospaceSystemUseractivitiesUpdatedByCreateRelatedInput[];
-	affiliationsCreatedBy?: readonly MonospaceSystemUseraffiliationsCreatedByCreateRelatedInput[];
-	affiliationsUpdatedBy?: readonly MonospaceSystemUseraffiliationsUpdatedByCreateRelatedInput[];
-	appearance?: string | null;
-	attachmentsCreatedBy?: readonly MonospaceSystemUserattachmentsCreatedByCreateRelatedInput[];
-	avatarId?: Uuid | null;
-	contactsCreatedBy?: readonly MonospaceSystemUsercontactsCreatedByCreateRelatedInput[];
-	contactsOwner?: readonly MonospaceSystemUsercontactsOwnerCreateRelatedInput[];
-	contactsUpdatedBy?: readonly MonospaceSystemUsercontactsUpdatedByCreateRelatedInput[];
-	dealsCreatedBy?: readonly MonospaceSystemUserdealsCreatedByCreateRelatedInput[];
-	dealsOwner?: readonly MonospaceSystemUserdealsOwnerCreateRelatedInput[];
-	dealsUpdatedBy?: readonly MonospaceSystemUserdealsUpdatedByCreateRelatedInput[];
-	email?: string | null;
-	fullName?: string | null;
-	id: Uuid;
-	isService: boolean;
-	lastActivityAt?: string | null;
-	organizationsCreatedBy?: readonly MonospaceSystemUserorganizationsCreatedByCreateRelatedInput[];
-	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
-	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
-	roles?: readonly MonospaceSystemUserrolesCreateRelatedInput[];
-	serviceOwnerId?: Uuid | null;
-	status?: string;
-	storageValues?: readonly MonospaceSystemUserstorageValuesCreateRelatedInput[];
 }
 
 export type activitiesownerRelationFieldArguments = {
@@ -7422,10 +7078,7 @@ export type activitiesownerRelationFieldArguments = {
 
 export type activitiesownerUpdateOneRelatedOperationsInput = {
 	_connect?: activitiesownerConnectInput;
-	_create?: activitiesownerCreateArguments;
-	_delete?: MonospaceSystemUserDeleteArguments;
 	_disconnect?: MonospaceSystemUserDisconnectOneInput;
-	_update?: MonospaceSystemUserUpdateInput;
 }
 
 export type activitiesupdatedByConnectForwardKeyInput = {
@@ -7436,41 +7089,8 @@ export type activitiesupdatedByConnectInput = {
 	key: activitiesupdatedByConnectForwardKeyInput;
 }
 
-export type activitiesupdatedByCreateArguments = {
-	data: activitiesupdatedByCreateRelatedWithoutTypeInput;
-}
-
 export type activitiesupdatedByCreateRelatedInput = {
 	_connect?: activitiesupdatedByConnectInput;
-	_create?: activitiesupdatedByCreateArguments;
-}
-
-export type activitiesupdatedByCreateRelatedWithoutTypeInput = {
-	activitiesCreatedBy?: readonly MonospaceSystemUseractivitiesCreatedByCreateRelatedInput[];
-	activitiesOwner?: readonly MonospaceSystemUseractivitiesOwnerCreateRelatedInput[];
-	affiliationsCreatedBy?: readonly MonospaceSystemUseraffiliationsCreatedByCreateRelatedInput[];
-	affiliationsUpdatedBy?: readonly MonospaceSystemUseraffiliationsUpdatedByCreateRelatedInput[];
-	appearance?: string | null;
-	attachmentsCreatedBy?: readonly MonospaceSystemUserattachmentsCreatedByCreateRelatedInput[];
-	avatarId?: Uuid | null;
-	contactsCreatedBy?: readonly MonospaceSystemUsercontactsCreatedByCreateRelatedInput[];
-	contactsOwner?: readonly MonospaceSystemUsercontactsOwnerCreateRelatedInput[];
-	contactsUpdatedBy?: readonly MonospaceSystemUsercontactsUpdatedByCreateRelatedInput[];
-	dealsCreatedBy?: readonly MonospaceSystemUserdealsCreatedByCreateRelatedInput[];
-	dealsOwner?: readonly MonospaceSystemUserdealsOwnerCreateRelatedInput[];
-	dealsUpdatedBy?: readonly MonospaceSystemUserdealsUpdatedByCreateRelatedInput[];
-	email?: string | null;
-	fullName?: string | null;
-	id: Uuid;
-	isService: boolean;
-	lastActivityAt?: string | null;
-	organizationsCreatedBy?: readonly MonospaceSystemUserorganizationsCreatedByCreateRelatedInput[];
-	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
-	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
-	roles?: readonly MonospaceSystemUserrolesCreateRelatedInput[];
-	serviceOwnerId?: Uuid | null;
-	status?: string;
-	storageValues?: readonly MonospaceSystemUserstorageValuesCreateRelatedInput[];
 }
 
 export type activitiesupdatedByRelationFieldArguments = {
@@ -7479,10 +7099,7 @@ export type activitiesupdatedByRelationFieldArguments = {
 
 export type activitiesupdatedByUpdateOneRelatedOperationsInput = {
 	_connect?: activitiesupdatedByConnectInput;
-	_create?: activitiesupdatedByCreateArguments;
-	_delete?: MonospaceSystemUserDeleteArguments;
 	_disconnect?: MonospaceSystemUserDisconnectOneInput;
-	_update?: MonospaceSystemUserUpdateInput;
 }
 
 export type affiliationsCollectionOutput = {
@@ -7666,7 +7283,6 @@ export type affiliationscontactCreateRelatedWithoutTypeInput = {
 	notes?: string | null;
 	owner?: contactsownerCreateRelatedInput;
 	phone?: string | null;
-	portalUser?: contactsportalUserCreateRelatedInput;
 	status?: string;
 	updatedAt?: string;
 	updatedBy?: contactsupdatedByCreateRelatedInput;
@@ -7686,41 +7302,8 @@ export type affiliationscreatedByConnectInput = {
 	key: affiliationscreatedByConnectForwardKeyInput;
 }
 
-export type affiliationscreatedByCreateArguments = {
-	data: affiliationscreatedByCreateRelatedWithoutTypeInput;
-}
-
 export type affiliationscreatedByCreateRelatedInput = {
 	_connect?: affiliationscreatedByConnectInput;
-	_create?: affiliationscreatedByCreateArguments;
-}
-
-export type affiliationscreatedByCreateRelatedWithoutTypeInput = {
-	activitiesCreatedBy?: readonly MonospaceSystemUseractivitiesCreatedByCreateRelatedInput[];
-	activitiesOwner?: readonly MonospaceSystemUseractivitiesOwnerCreateRelatedInput[];
-	activitiesUpdatedBy?: readonly MonospaceSystemUseractivitiesUpdatedByCreateRelatedInput[];
-	affiliationsUpdatedBy?: readonly MonospaceSystemUseraffiliationsUpdatedByCreateRelatedInput[];
-	appearance?: string | null;
-	attachmentsCreatedBy?: readonly MonospaceSystemUserattachmentsCreatedByCreateRelatedInput[];
-	avatarId?: Uuid | null;
-	contactsCreatedBy?: readonly MonospaceSystemUsercontactsCreatedByCreateRelatedInput[];
-	contactsOwner?: readonly MonospaceSystemUsercontactsOwnerCreateRelatedInput[];
-	contactsUpdatedBy?: readonly MonospaceSystemUsercontactsUpdatedByCreateRelatedInput[];
-	dealsCreatedBy?: readonly MonospaceSystemUserdealsCreatedByCreateRelatedInput[];
-	dealsOwner?: readonly MonospaceSystemUserdealsOwnerCreateRelatedInput[];
-	dealsUpdatedBy?: readonly MonospaceSystemUserdealsUpdatedByCreateRelatedInput[];
-	email?: string | null;
-	fullName?: string | null;
-	id: Uuid;
-	isService: boolean;
-	lastActivityAt?: string | null;
-	organizationsCreatedBy?: readonly MonospaceSystemUserorganizationsCreatedByCreateRelatedInput[];
-	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
-	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
-	roles?: readonly MonospaceSystemUserrolesCreateRelatedInput[];
-	serviceOwnerId?: Uuid | null;
-	status?: string;
-	storageValues?: readonly MonospaceSystemUserstorageValuesCreateRelatedInput[];
 }
 
 export type affiliationscreatedByRelationFieldArguments = {
@@ -7729,10 +7312,7 @@ export type affiliationscreatedByRelationFieldArguments = {
 
 export type affiliationscreatedByUpdateOneRelatedOperationsInput = {
 	_connect?: affiliationscreatedByConnectInput;
-	_create?: affiliationscreatedByCreateArguments;
-	_delete?: MonospaceSystemUserDeleteArguments;
 	_disconnect?: MonospaceSystemUserDisconnectOneInput;
-	_update?: MonospaceSystemUserUpdateInput;
 }
 
 export type affiliationsorganizationConnectForwardKeyInput = {
@@ -7764,7 +7344,6 @@ export type affiliationsorganizationCreateRelatedWithoutTypeInput = {
 	name: string;
 	notes?: string | null;
 	owner?: organizationsownerCreateRelatedInput;
-	portalAccount?: organizationsportalAccountCreateRelatedInput;
 	portalAccountId?: string | null;
 	status?: string;
 	updatedAt?: string;
@@ -7785,41 +7364,8 @@ export type affiliationsupdatedByConnectInput = {
 	key: affiliationsupdatedByConnectForwardKeyInput;
 }
 
-export type affiliationsupdatedByCreateArguments = {
-	data: affiliationsupdatedByCreateRelatedWithoutTypeInput;
-}
-
 export type affiliationsupdatedByCreateRelatedInput = {
 	_connect?: affiliationsupdatedByConnectInput;
-	_create?: affiliationsupdatedByCreateArguments;
-}
-
-export type affiliationsupdatedByCreateRelatedWithoutTypeInput = {
-	activitiesCreatedBy?: readonly MonospaceSystemUseractivitiesCreatedByCreateRelatedInput[];
-	activitiesOwner?: readonly MonospaceSystemUseractivitiesOwnerCreateRelatedInput[];
-	activitiesUpdatedBy?: readonly MonospaceSystemUseractivitiesUpdatedByCreateRelatedInput[];
-	affiliationsCreatedBy?: readonly MonospaceSystemUseraffiliationsCreatedByCreateRelatedInput[];
-	appearance?: string | null;
-	attachmentsCreatedBy?: readonly MonospaceSystemUserattachmentsCreatedByCreateRelatedInput[];
-	avatarId?: Uuid | null;
-	contactsCreatedBy?: readonly MonospaceSystemUsercontactsCreatedByCreateRelatedInput[];
-	contactsOwner?: readonly MonospaceSystemUsercontactsOwnerCreateRelatedInput[];
-	contactsUpdatedBy?: readonly MonospaceSystemUsercontactsUpdatedByCreateRelatedInput[];
-	dealsCreatedBy?: readonly MonospaceSystemUserdealsCreatedByCreateRelatedInput[];
-	dealsOwner?: readonly MonospaceSystemUserdealsOwnerCreateRelatedInput[];
-	dealsUpdatedBy?: readonly MonospaceSystemUserdealsUpdatedByCreateRelatedInput[];
-	email?: string | null;
-	fullName?: string | null;
-	id: Uuid;
-	isService: boolean;
-	lastActivityAt?: string | null;
-	organizationsCreatedBy?: readonly MonospaceSystemUserorganizationsCreatedByCreateRelatedInput[];
-	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
-	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
-	roles?: readonly MonospaceSystemUserrolesCreateRelatedInput[];
-	serviceOwnerId?: Uuid | null;
-	status?: string;
-	storageValues?: readonly MonospaceSystemUserstorageValuesCreateRelatedInput[];
 }
 
 export type affiliationsupdatedByRelationFieldArguments = {
@@ -7828,10 +7374,7 @@ export type affiliationsupdatedByRelationFieldArguments = {
 
 export type affiliationsupdatedByUpdateOneRelatedOperationsInput = {
 	_connect?: affiliationsupdatedByConnectInput;
-	_create?: affiliationsupdatedByCreateArguments;
-	_delete?: MonospaceSystemUserDeleteArguments;
 	_disconnect?: MonospaceSystemUserDisconnectOneInput;
-	_update?: MonospaceSystemUserUpdateInput;
 }
 
 export type attachmentsCollectionOutput = {
@@ -8068,7 +7611,6 @@ export type attachmentscontactCreateRelatedWithoutTypeInput = {
 	notes?: string | null;
 	owner?: contactsownerCreateRelatedInput;
 	phone?: string | null;
-	portalUser?: contactsportalUserCreateRelatedInput;
 	status?: string;
 	updatedAt?: string;
 	updatedBy?: contactsupdatedByCreateRelatedInput;
@@ -8094,41 +7636,8 @@ export type attachmentscreatedByConnectInput = {
 	key: attachmentscreatedByConnectForwardKeyInput;
 }
 
-export type attachmentscreatedByCreateArguments = {
-	data: attachmentscreatedByCreateRelatedWithoutTypeInput;
-}
-
 export type attachmentscreatedByCreateRelatedInput = {
 	_connect?: attachmentscreatedByConnectInput;
-	_create?: attachmentscreatedByCreateArguments;
-}
-
-export type attachmentscreatedByCreateRelatedWithoutTypeInput = {
-	activitiesCreatedBy?: readonly MonospaceSystemUseractivitiesCreatedByCreateRelatedInput[];
-	activitiesOwner?: readonly MonospaceSystemUseractivitiesOwnerCreateRelatedInput[];
-	activitiesUpdatedBy?: readonly MonospaceSystemUseractivitiesUpdatedByCreateRelatedInput[];
-	affiliationsCreatedBy?: readonly MonospaceSystemUseraffiliationsCreatedByCreateRelatedInput[];
-	affiliationsUpdatedBy?: readonly MonospaceSystemUseraffiliationsUpdatedByCreateRelatedInput[];
-	appearance?: string | null;
-	avatarId?: Uuid | null;
-	contactsCreatedBy?: readonly MonospaceSystemUsercontactsCreatedByCreateRelatedInput[];
-	contactsOwner?: readonly MonospaceSystemUsercontactsOwnerCreateRelatedInput[];
-	contactsUpdatedBy?: readonly MonospaceSystemUsercontactsUpdatedByCreateRelatedInput[];
-	dealsCreatedBy?: readonly MonospaceSystemUserdealsCreatedByCreateRelatedInput[];
-	dealsOwner?: readonly MonospaceSystemUserdealsOwnerCreateRelatedInput[];
-	dealsUpdatedBy?: readonly MonospaceSystemUserdealsUpdatedByCreateRelatedInput[];
-	email?: string | null;
-	fullName?: string | null;
-	id: Uuid;
-	isService: boolean;
-	lastActivityAt?: string | null;
-	organizationsCreatedBy?: readonly MonospaceSystemUserorganizationsCreatedByCreateRelatedInput[];
-	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
-	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
-	roles?: readonly MonospaceSystemUserrolesCreateRelatedInput[];
-	serviceOwnerId?: Uuid | null;
-	status?: string;
-	storageValues?: readonly MonospaceSystemUserstorageValuesCreateRelatedInput[];
 }
 
 export type attachmentscreatedByRelationFieldArguments = {
@@ -8137,10 +7646,7 @@ export type attachmentscreatedByRelationFieldArguments = {
 
 export type attachmentscreatedByUpdateOneRelatedOperationsInput = {
 	_connect?: attachmentscreatedByConnectInput;
-	_create?: attachmentscreatedByCreateArguments;
-	_delete?: MonospaceSystemUserDeleteArguments;
 	_disconnect?: MonospaceSystemUserDisconnectOneInput;
-	_update?: MonospaceSystemUserUpdateInput;
 }
 
 export type attachmentsdealConnectForwardKeyInput = {
@@ -8220,7 +7726,6 @@ export type attachmentsorganizationCreateRelatedWithoutTypeInput = {
 	name: string;
 	notes?: string | null;
 	owner?: organizationsownerCreateRelatedInput;
-	portalAccount?: organizationsportalAccountCreateRelatedInput;
 	portalAccountId?: string | null;
 	status?: string;
 	updatedAt?: string;
@@ -8287,7 +7792,6 @@ export type contactsCreateInput = {
 	notes?: string | null;
 	owner?: contactsownerCreateRelatedInput;
 	phone?: string | null;
-	portalUser?: contactsportalUserCreateRelatedInput;
 	status?: string;
 	updatedAt?: string;
 	updatedBy?: contactsupdatedByCreateRelatedInput;
@@ -8389,7 +7893,6 @@ export type contactsUpdateDataInput = {
 	owner?: readonly contactsownerUpdateOneRelatedOperationsInput[];
 	ownerUserId?: Uuid | null;
 	phone?: string | null;
-	portalUser?: readonly contactsportalUserUpdateOneRelatedOperationsInput[];
 	status?: string;
 	updatedAt?: string;
 	updatedBy?: readonly contactsupdatedByUpdateOneRelatedOperationsInput[];
@@ -8559,41 +8062,8 @@ export type contactscreatedByConnectInput = {
 	key: contactscreatedByConnectForwardKeyInput;
 }
 
-export type contactscreatedByCreateArguments = {
-	data: contactscreatedByCreateRelatedWithoutTypeInput;
-}
-
 export type contactscreatedByCreateRelatedInput = {
 	_connect?: contactscreatedByConnectInput;
-	_create?: contactscreatedByCreateArguments;
-}
-
-export type contactscreatedByCreateRelatedWithoutTypeInput = {
-	activitiesCreatedBy?: readonly MonospaceSystemUseractivitiesCreatedByCreateRelatedInput[];
-	activitiesOwner?: readonly MonospaceSystemUseractivitiesOwnerCreateRelatedInput[];
-	activitiesUpdatedBy?: readonly MonospaceSystemUseractivitiesUpdatedByCreateRelatedInput[];
-	affiliationsCreatedBy?: readonly MonospaceSystemUseraffiliationsCreatedByCreateRelatedInput[];
-	affiliationsUpdatedBy?: readonly MonospaceSystemUseraffiliationsUpdatedByCreateRelatedInput[];
-	appearance?: string | null;
-	attachmentsCreatedBy?: readonly MonospaceSystemUserattachmentsCreatedByCreateRelatedInput[];
-	avatarId?: Uuid | null;
-	contactsOwner?: readonly MonospaceSystemUsercontactsOwnerCreateRelatedInput[];
-	contactsUpdatedBy?: readonly MonospaceSystemUsercontactsUpdatedByCreateRelatedInput[];
-	dealsCreatedBy?: readonly MonospaceSystemUserdealsCreatedByCreateRelatedInput[];
-	dealsOwner?: readonly MonospaceSystemUserdealsOwnerCreateRelatedInput[];
-	dealsUpdatedBy?: readonly MonospaceSystemUserdealsUpdatedByCreateRelatedInput[];
-	email?: string | null;
-	fullName?: string | null;
-	id: Uuid;
-	isService: boolean;
-	lastActivityAt?: string | null;
-	organizationsCreatedBy?: readonly MonospaceSystemUserorganizationsCreatedByCreateRelatedInput[];
-	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
-	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
-	roles?: readonly MonospaceSystemUserrolesCreateRelatedInput[];
-	serviceOwnerId?: Uuid | null;
-	status?: string;
-	storageValues?: readonly MonospaceSystemUserstorageValuesCreateRelatedInput[];
 }
 
 export type contactscreatedByRelationFieldArguments = {
@@ -8602,10 +8072,7 @@ export type contactscreatedByRelationFieldArguments = {
 
 export type contactscreatedByUpdateOneRelatedOperationsInput = {
 	_connect?: contactscreatedByConnectInput;
-	_create?: contactscreatedByCreateArguments;
-	_delete?: MonospaceSystemUserDeleteArguments;
 	_disconnect?: MonospaceSystemUserDisconnectOneInput;
-	_update?: MonospaceSystemUserUpdateInput;
 }
 
 export type contactsdealsConnectBackwardKeysInput = {
@@ -8667,41 +8134,8 @@ export type contactsownerConnectInput = {
 	key: contactsownerConnectForwardKeyInput;
 }
 
-export type contactsownerCreateArguments = {
-	data: contactsownerCreateRelatedWithoutTypeInput;
-}
-
 export type contactsownerCreateRelatedInput = {
 	_connect?: contactsownerConnectInput;
-	_create?: contactsownerCreateArguments;
-}
-
-export type contactsownerCreateRelatedWithoutTypeInput = {
-	activitiesCreatedBy?: readonly MonospaceSystemUseractivitiesCreatedByCreateRelatedInput[];
-	activitiesOwner?: readonly MonospaceSystemUseractivitiesOwnerCreateRelatedInput[];
-	activitiesUpdatedBy?: readonly MonospaceSystemUseractivitiesUpdatedByCreateRelatedInput[];
-	affiliationsCreatedBy?: readonly MonospaceSystemUseraffiliationsCreatedByCreateRelatedInput[];
-	affiliationsUpdatedBy?: readonly MonospaceSystemUseraffiliationsUpdatedByCreateRelatedInput[];
-	appearance?: string | null;
-	attachmentsCreatedBy?: readonly MonospaceSystemUserattachmentsCreatedByCreateRelatedInput[];
-	avatarId?: Uuid | null;
-	contactsCreatedBy?: readonly MonospaceSystemUsercontactsCreatedByCreateRelatedInput[];
-	contactsUpdatedBy?: readonly MonospaceSystemUsercontactsUpdatedByCreateRelatedInput[];
-	dealsCreatedBy?: readonly MonospaceSystemUserdealsCreatedByCreateRelatedInput[];
-	dealsOwner?: readonly MonospaceSystemUserdealsOwnerCreateRelatedInput[];
-	dealsUpdatedBy?: readonly MonospaceSystemUserdealsUpdatedByCreateRelatedInput[];
-	email?: string | null;
-	fullName?: string | null;
-	id: Uuid;
-	isService: boolean;
-	lastActivityAt?: string | null;
-	organizationsCreatedBy?: readonly MonospaceSystemUserorganizationsCreatedByCreateRelatedInput[];
-	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
-	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
-	roles?: readonly MonospaceSystemUserrolesCreateRelatedInput[];
-	serviceOwnerId?: Uuid | null;
-	status?: string;
-	storageValues?: readonly MonospaceSystemUserstorageValuesCreateRelatedInput[];
 }
 
 export type contactsownerRelationFieldArguments = {
@@ -8710,50 +8144,11 @@ export type contactsownerRelationFieldArguments = {
 
 export type contactsownerUpdateOneRelatedOperationsInput = {
 	_connect?: contactsownerConnectInput;
-	_create?: contactsownerCreateArguments;
-	_delete?: MonospaceSystemUserDeleteArguments;
 	_disconnect?: MonospaceSystemUserDisconnectOneInput;
-	_update?: MonospaceSystemUserUpdateInput;
-}
-
-export type contactsportalUserConnectBackwardKeysInput = {
-	email?: string;
-	id?: string;
-}
-
-export type contactsportalUserConnectInput = {
-	key: contactsportalUserConnectBackwardKeysInput;
-}
-
-export type contactsportalUserCreateArguments = {
-	data: contactsportalUserCreateRelatedWithoutTypeInput;
-}
-
-export type contactsportalUserCreateRelatedInput = {
-	_connect?: contactsportalUserConnectInput;
-	_create?: contactsportalUserCreateArguments;
-}
-
-export type contactsportalUserCreateRelatedWithoutTypeInput = {
-	account: usersaccountCreateRelatedInput;
-	createdAt?: string;
-	events?: readonly userseventsCreateRelatedInput[];
-	id: string;
-	lastLoginAt?: string | null;
-	name: string;
-	role?: string;
-	status?: string;
-	tickets?: readonly usersticketsCreateRelatedInput[];
-	updatedAt?: string;
 }
 
 export type contactsportalUserRelationFieldArguments = {
 	filter?: usersFilterInput;
-}
-
-export type contactsportalUserUpdateOneRelatedOperationsInput = {
-	_delete?: usersDeleteArguments;
-	_update?: usersUpdateInput;
 }
 
 export type contactsupdatedByConnectForwardKeyInput = {
@@ -8764,41 +8159,8 @@ export type contactsupdatedByConnectInput = {
 	key: contactsupdatedByConnectForwardKeyInput;
 }
 
-export type contactsupdatedByCreateArguments = {
-	data: contactsupdatedByCreateRelatedWithoutTypeInput;
-}
-
 export type contactsupdatedByCreateRelatedInput = {
 	_connect?: contactsupdatedByConnectInput;
-	_create?: contactsupdatedByCreateArguments;
-}
-
-export type contactsupdatedByCreateRelatedWithoutTypeInput = {
-	activitiesCreatedBy?: readonly MonospaceSystemUseractivitiesCreatedByCreateRelatedInput[];
-	activitiesOwner?: readonly MonospaceSystemUseractivitiesOwnerCreateRelatedInput[];
-	activitiesUpdatedBy?: readonly MonospaceSystemUseractivitiesUpdatedByCreateRelatedInput[];
-	affiliationsCreatedBy?: readonly MonospaceSystemUseraffiliationsCreatedByCreateRelatedInput[];
-	affiliationsUpdatedBy?: readonly MonospaceSystemUseraffiliationsUpdatedByCreateRelatedInput[];
-	appearance?: string | null;
-	attachmentsCreatedBy?: readonly MonospaceSystemUserattachmentsCreatedByCreateRelatedInput[];
-	avatarId?: Uuid | null;
-	contactsCreatedBy?: readonly MonospaceSystemUsercontactsCreatedByCreateRelatedInput[];
-	contactsOwner?: readonly MonospaceSystemUsercontactsOwnerCreateRelatedInput[];
-	dealsCreatedBy?: readonly MonospaceSystemUserdealsCreatedByCreateRelatedInput[];
-	dealsOwner?: readonly MonospaceSystemUserdealsOwnerCreateRelatedInput[];
-	dealsUpdatedBy?: readonly MonospaceSystemUserdealsUpdatedByCreateRelatedInput[];
-	email?: string | null;
-	fullName?: string | null;
-	id: Uuid;
-	isService: boolean;
-	lastActivityAt?: string | null;
-	organizationsCreatedBy?: readonly MonospaceSystemUserorganizationsCreatedByCreateRelatedInput[];
-	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
-	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
-	roles?: readonly MonospaceSystemUserrolesCreateRelatedInput[];
-	serviceOwnerId?: Uuid | null;
-	status?: string;
-	storageValues?: readonly MonospaceSystemUserstorageValuesCreateRelatedInput[];
 }
 
 export type contactsupdatedByRelationFieldArguments = {
@@ -8807,10 +8169,7 @@ export type contactsupdatedByRelationFieldArguments = {
 
 export type contactsupdatedByUpdateOneRelatedOperationsInput = {
 	_connect?: contactsupdatedByConnectInput;
-	_create?: contactsupdatedByCreateArguments;
-	_delete?: MonospaceSystemUserDeleteArguments;
 	_disconnect?: MonospaceSystemUserDisconnectOneInput;
-	_update?: MonospaceSystemUserUpdateInput;
 }
 
 export type dealsCollectionOutput = {
@@ -9128,7 +8487,6 @@ export type dealscontactCreateRelatedWithoutTypeInput = {
 	notes?: string | null;
 	owner?: contactsownerCreateRelatedInput;
 	phone?: string | null;
-	portalUser?: contactsportalUserCreateRelatedInput;
 	status?: string;
 	updatedAt?: string;
 	updatedBy?: contactsupdatedByCreateRelatedInput;
@@ -9154,41 +8512,8 @@ export type dealscreatedByConnectInput = {
 	key: dealscreatedByConnectForwardKeyInput;
 }
 
-export type dealscreatedByCreateArguments = {
-	data: dealscreatedByCreateRelatedWithoutTypeInput;
-}
-
 export type dealscreatedByCreateRelatedInput = {
 	_connect?: dealscreatedByConnectInput;
-	_create?: dealscreatedByCreateArguments;
-}
-
-export type dealscreatedByCreateRelatedWithoutTypeInput = {
-	activitiesCreatedBy?: readonly MonospaceSystemUseractivitiesCreatedByCreateRelatedInput[];
-	activitiesOwner?: readonly MonospaceSystemUseractivitiesOwnerCreateRelatedInput[];
-	activitiesUpdatedBy?: readonly MonospaceSystemUseractivitiesUpdatedByCreateRelatedInput[];
-	affiliationsCreatedBy?: readonly MonospaceSystemUseraffiliationsCreatedByCreateRelatedInput[];
-	affiliationsUpdatedBy?: readonly MonospaceSystemUseraffiliationsUpdatedByCreateRelatedInput[];
-	appearance?: string | null;
-	attachmentsCreatedBy?: readonly MonospaceSystemUserattachmentsCreatedByCreateRelatedInput[];
-	avatarId?: Uuid | null;
-	contactsCreatedBy?: readonly MonospaceSystemUsercontactsCreatedByCreateRelatedInput[];
-	contactsOwner?: readonly MonospaceSystemUsercontactsOwnerCreateRelatedInput[];
-	contactsUpdatedBy?: readonly MonospaceSystemUsercontactsUpdatedByCreateRelatedInput[];
-	dealsOwner?: readonly MonospaceSystemUserdealsOwnerCreateRelatedInput[];
-	dealsUpdatedBy?: readonly MonospaceSystemUserdealsUpdatedByCreateRelatedInput[];
-	email?: string | null;
-	fullName?: string | null;
-	id: Uuid;
-	isService: boolean;
-	lastActivityAt?: string | null;
-	organizationsCreatedBy?: readonly MonospaceSystemUserorganizationsCreatedByCreateRelatedInput[];
-	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
-	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
-	roles?: readonly MonospaceSystemUserrolesCreateRelatedInput[];
-	serviceOwnerId?: Uuid | null;
-	status?: string;
-	storageValues?: readonly MonospaceSystemUserstorageValuesCreateRelatedInput[];
 }
 
 export type dealscreatedByRelationFieldArguments = {
@@ -9197,10 +8522,7 @@ export type dealscreatedByRelationFieldArguments = {
 
 export type dealscreatedByUpdateOneRelatedOperationsInput = {
 	_connect?: dealscreatedByConnectInput;
-	_create?: dealscreatedByCreateArguments;
-	_delete?: MonospaceSystemUserDeleteArguments;
 	_disconnect?: MonospaceSystemUserDisconnectOneInput;
-	_update?: MonospaceSystemUserUpdateInput;
 }
 
 export type dealsorganizationConnectForwardKeyInput = {
@@ -9232,7 +8554,6 @@ export type dealsorganizationCreateRelatedWithoutTypeInput = {
 	name: string;
 	notes?: string | null;
 	owner?: organizationsownerCreateRelatedInput;
-	portalAccount?: organizationsportalAccountCreateRelatedInput;
 	portalAccountId?: string | null;
 	status?: string;
 	updatedAt?: string;
@@ -9253,41 +8574,8 @@ export type dealsownerConnectInput = {
 	key: dealsownerConnectForwardKeyInput;
 }
 
-export type dealsownerCreateArguments = {
-	data: dealsownerCreateRelatedWithoutTypeInput;
-}
-
 export type dealsownerCreateRelatedInput = {
 	_connect?: dealsownerConnectInput;
-	_create?: dealsownerCreateArguments;
-}
-
-export type dealsownerCreateRelatedWithoutTypeInput = {
-	activitiesCreatedBy?: readonly MonospaceSystemUseractivitiesCreatedByCreateRelatedInput[];
-	activitiesOwner?: readonly MonospaceSystemUseractivitiesOwnerCreateRelatedInput[];
-	activitiesUpdatedBy?: readonly MonospaceSystemUseractivitiesUpdatedByCreateRelatedInput[];
-	affiliationsCreatedBy?: readonly MonospaceSystemUseraffiliationsCreatedByCreateRelatedInput[];
-	affiliationsUpdatedBy?: readonly MonospaceSystemUseraffiliationsUpdatedByCreateRelatedInput[];
-	appearance?: string | null;
-	attachmentsCreatedBy?: readonly MonospaceSystemUserattachmentsCreatedByCreateRelatedInput[];
-	avatarId?: Uuid | null;
-	contactsCreatedBy?: readonly MonospaceSystemUsercontactsCreatedByCreateRelatedInput[];
-	contactsOwner?: readonly MonospaceSystemUsercontactsOwnerCreateRelatedInput[];
-	contactsUpdatedBy?: readonly MonospaceSystemUsercontactsUpdatedByCreateRelatedInput[];
-	dealsCreatedBy?: readonly MonospaceSystemUserdealsCreatedByCreateRelatedInput[];
-	dealsUpdatedBy?: readonly MonospaceSystemUserdealsUpdatedByCreateRelatedInput[];
-	email?: string | null;
-	fullName?: string | null;
-	id: Uuid;
-	isService: boolean;
-	lastActivityAt?: string | null;
-	organizationsCreatedBy?: readonly MonospaceSystemUserorganizationsCreatedByCreateRelatedInput[];
-	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
-	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
-	roles?: readonly MonospaceSystemUserrolesCreateRelatedInput[];
-	serviceOwnerId?: Uuid | null;
-	status?: string;
-	storageValues?: readonly MonospaceSystemUserstorageValuesCreateRelatedInput[];
 }
 
 export type dealsownerRelationFieldArguments = {
@@ -9296,10 +8584,7 @@ export type dealsownerRelationFieldArguments = {
 
 export type dealsownerUpdateOneRelatedOperationsInput = {
 	_connect?: dealsownerConnectInput;
-	_create?: dealsownerCreateArguments;
-	_delete?: MonospaceSystemUserDeleteArguments;
 	_disconnect?: MonospaceSystemUserDisconnectOneInput;
-	_update?: MonospaceSystemUserUpdateInput;
 }
 
 export type dealsstageConnectForwardKeyInput = {
@@ -9342,41 +8627,8 @@ export type dealsupdatedByConnectInput = {
 	key: dealsupdatedByConnectForwardKeyInput;
 }
 
-export type dealsupdatedByCreateArguments = {
-	data: dealsupdatedByCreateRelatedWithoutTypeInput;
-}
-
 export type dealsupdatedByCreateRelatedInput = {
 	_connect?: dealsupdatedByConnectInput;
-	_create?: dealsupdatedByCreateArguments;
-}
-
-export type dealsupdatedByCreateRelatedWithoutTypeInput = {
-	activitiesCreatedBy?: readonly MonospaceSystemUseractivitiesCreatedByCreateRelatedInput[];
-	activitiesOwner?: readonly MonospaceSystemUseractivitiesOwnerCreateRelatedInput[];
-	activitiesUpdatedBy?: readonly MonospaceSystemUseractivitiesUpdatedByCreateRelatedInput[];
-	affiliationsCreatedBy?: readonly MonospaceSystemUseraffiliationsCreatedByCreateRelatedInput[];
-	affiliationsUpdatedBy?: readonly MonospaceSystemUseraffiliationsUpdatedByCreateRelatedInput[];
-	appearance?: string | null;
-	attachmentsCreatedBy?: readonly MonospaceSystemUserattachmentsCreatedByCreateRelatedInput[];
-	avatarId?: Uuid | null;
-	contactsCreatedBy?: readonly MonospaceSystemUsercontactsCreatedByCreateRelatedInput[];
-	contactsOwner?: readonly MonospaceSystemUsercontactsOwnerCreateRelatedInput[];
-	contactsUpdatedBy?: readonly MonospaceSystemUsercontactsUpdatedByCreateRelatedInput[];
-	dealsCreatedBy?: readonly MonospaceSystemUserdealsCreatedByCreateRelatedInput[];
-	dealsOwner?: readonly MonospaceSystemUserdealsOwnerCreateRelatedInput[];
-	email?: string | null;
-	fullName?: string | null;
-	id: Uuid;
-	isService: boolean;
-	lastActivityAt?: string | null;
-	organizationsCreatedBy?: readonly MonospaceSystemUserorganizationsCreatedByCreateRelatedInput[];
-	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
-	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
-	roles?: readonly MonospaceSystemUserrolesCreateRelatedInput[];
-	serviceOwnerId?: Uuid | null;
-	status?: string;
-	storageValues?: readonly MonospaceSystemUserstorageValuesCreateRelatedInput[];
 }
 
 export type dealsupdatedByRelationFieldArguments = {
@@ -9385,10 +8637,7 @@ export type dealsupdatedByRelationFieldArguments = {
 
 export type dealsupdatedByUpdateOneRelatedOperationsInput = {
 	_connect?: dealsupdatedByConnectInput;
-	_create?: dealsupdatedByCreateArguments;
-	_delete?: MonospaceSystemUserDeleteArguments;
 	_disconnect?: MonospaceSystemUserDisconnectOneInput;
-	_update?: MonospaceSystemUserUpdateInput;
 }
 
 export type eventsCollectionOutput = {
@@ -9408,32 +8657,6 @@ export type eventsCollectionOutputIncludeInput = {
 	"account"?: ({ "fields"?: accountsCollectionOutputFieldsInput; "include"?: accountsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof ({ "fields"?: accountsCollectionOutputFieldsInput; "include"?: accountsCollectionOutputIncludeInput })>]?: never };
 	"user"?: (eventsuserRelationFieldArguments & { "fields"?: usersCollectionOutputFieldsInput; "include"?: usersCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (eventsuserRelationFieldArguments & { "fields"?: usersCollectionOutputFieldsInput; "include"?: usersCollectionOutputIncludeInput })>]?: never };
 } & { [K in `${string}:${"account"}`]?: eventsCollectionOutputIncludeInput["account"] } & { [K in `${string}:${"user"}`]?: eventsCollectionOutputIncludeInput["user"] };
-
-export type eventsCreateArguments = {
-	data: readonly eventsCreateInput[];
-}
-
-export type eventsCreateInput = {
-	account: eventsaccountCreateRelatedInput;
-	detail?: string | null;
-	id: string;
-	occurredAt: string;
-	type: string;
-	user?: eventsuserCreateRelatedInput;
-}
-
-export type eventsDeleteArguments = {
-	filter?: eventsFilterInput;
-}
-
-export type eventsDeleteOneArguments = {
-	filter?: eventsFilterInput;
-	key: string;
-}
-
-export type eventsDisconnectManyInput = {
-	filter?: eventsFilterInput;
-}
 
 export type eventsFilterInput = {
 	_and?: readonly eventsFilterInput[];
@@ -9477,108 +8700,8 @@ export type eventsSortSpecifier = {
 	userId?: SortFieldOptions;
 }
 
-export type eventsUpdateArguments = {
-	data: eventsUpdateDataInput;
-	filter?: eventsFilterInput;
-}
-
-export type eventsUpdateDataInput = {
-	account?: readonly eventsaccountUpdateOneRelatedOperationsInput[];
-	accountId?: string;
-	detail?: string | null;
-	occurredAt?: string;
-	type?: string;
-	user?: readonly eventsuserUpdateOneRelatedOperationsInput[];
-	userId?: string | null;
-}
-
-export type eventsUpdateInput = {
-	data: eventsUpdateDataInput;
-	filter?: eventsFilterInput;
-}
-
-export type eventsUpdateOneArguments = {
-	data: eventsUpdateDataInput;
-	filter?: eventsFilterInput;
-	key: string;
-}
-
-export type eventsaccountConnectForwardKeyInput = {
-	id: string;
-}
-
-export type eventsaccountConnectInput = {
-	key: eventsaccountConnectForwardKeyInput;
-}
-
-export type eventsaccountCreateArguments = {
-	data: eventsaccountCreateRelatedWithoutTypeInput;
-}
-
-export type eventsaccountCreateRelatedInput = {
-	_connect?: eventsaccountConnectInput;
-	_create?: eventsaccountCreateArguments;
-}
-
-export type eventsaccountCreateRelatedWithoutTypeInput = {
-	createdAt?: string;
-	name: string;
-	organization: accountsorganizationCreateRelatedInput;
-	slug: string;
-	status?: string;
-	stripeCustomer?: accountsstripeCustomerCreateRelatedInput;
-	subscriptions?: readonly accountssubscriptionsCreateRelatedInput[];
-	tickets?: readonly accountsticketsCreateRelatedInput[];
-	updatedAt?: string;
-	users?: readonly accountsusersCreateRelatedInput[];
-}
-
-export type eventsaccountUpdateOneRelatedOperationsInput = {
-	_connect?: eventsaccountConnectInput;
-	_create?: eventsaccountCreateArguments;
-	_update?: accountsUpdateInput;
-}
-
-export type eventsuserConnectForwardKeyInput = {
-	id: string | null;
-}
-
-export type eventsuserConnectInput = {
-	key: eventsuserConnectForwardKeyInput;
-}
-
-export type eventsuserCreateArguments = {
-	data: eventsuserCreateRelatedWithoutTypeInput;
-}
-
-export type eventsuserCreateRelatedInput = {
-	_connect?: eventsuserConnectInput;
-	_create?: eventsuserCreateArguments;
-}
-
-export type eventsuserCreateRelatedWithoutTypeInput = {
-	account: usersaccountCreateRelatedInput;
-	contacts: userscontactsCreateRelatedInput;
-	createdAt?: string;
-	id: string;
-	lastLoginAt?: string | null;
-	name: string;
-	role?: string;
-	status?: string;
-	tickets?: readonly usersticketsCreateRelatedInput[];
-	updatedAt?: string;
-}
-
 export type eventsuserRelationFieldArguments = {
 	filter?: usersFilterInput;
-}
-
-export type eventsuserUpdateOneRelatedOperationsInput = {
-	_connect?: eventsuserConnectInput;
-	_create?: eventsuserCreateArguments;
-	_delete?: usersDeleteArguments;
-	_disconnect?: usersDisconnectOneInput;
-	_update?: usersUpdateInput;
 }
 
 export type organizationsCollectionOutput = {
@@ -9634,7 +8757,6 @@ export type organizationsCreateInput = {
 	name: string;
 	notes?: string | null;
 	owner?: organizationsownerCreateRelatedInput;
-	portalAccount?: organizationsportalAccountCreateRelatedInput;
 	portalAccountId?: string | null;
 	status?: string;
 	updatedAt?: string;
@@ -9734,7 +8856,6 @@ export type organizationsUpdateDataInput = {
 	notes?: string | null;
 	owner?: readonly organizationsownerUpdateOneRelatedOperationsInput[];
 	ownerUserId?: Uuid | null;
-	portalAccount?: readonly organizationsportalAccountUpdateOneRelatedOperationsInput[];
 	portalAccountId?: string | null;
 	status?: string;
 	updatedAt?: string;
@@ -9903,41 +9024,8 @@ export type organizationscreatedByConnectInput = {
 	key: organizationscreatedByConnectForwardKeyInput;
 }
 
-export type organizationscreatedByCreateArguments = {
-	data: organizationscreatedByCreateRelatedWithoutTypeInput;
-}
-
 export type organizationscreatedByCreateRelatedInput = {
 	_connect?: organizationscreatedByConnectInput;
-	_create?: organizationscreatedByCreateArguments;
-}
-
-export type organizationscreatedByCreateRelatedWithoutTypeInput = {
-	activitiesCreatedBy?: readonly MonospaceSystemUseractivitiesCreatedByCreateRelatedInput[];
-	activitiesOwner?: readonly MonospaceSystemUseractivitiesOwnerCreateRelatedInput[];
-	activitiesUpdatedBy?: readonly MonospaceSystemUseractivitiesUpdatedByCreateRelatedInput[];
-	affiliationsCreatedBy?: readonly MonospaceSystemUseraffiliationsCreatedByCreateRelatedInput[];
-	affiliationsUpdatedBy?: readonly MonospaceSystemUseraffiliationsUpdatedByCreateRelatedInput[];
-	appearance?: string | null;
-	attachmentsCreatedBy?: readonly MonospaceSystemUserattachmentsCreatedByCreateRelatedInput[];
-	avatarId?: Uuid | null;
-	contactsCreatedBy?: readonly MonospaceSystemUsercontactsCreatedByCreateRelatedInput[];
-	contactsOwner?: readonly MonospaceSystemUsercontactsOwnerCreateRelatedInput[];
-	contactsUpdatedBy?: readonly MonospaceSystemUsercontactsUpdatedByCreateRelatedInput[];
-	dealsCreatedBy?: readonly MonospaceSystemUserdealsCreatedByCreateRelatedInput[];
-	dealsOwner?: readonly MonospaceSystemUserdealsOwnerCreateRelatedInput[];
-	dealsUpdatedBy?: readonly MonospaceSystemUserdealsUpdatedByCreateRelatedInput[];
-	email?: string | null;
-	fullName?: string | null;
-	id: Uuid;
-	isService: boolean;
-	lastActivityAt?: string | null;
-	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
-	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
-	roles?: readonly MonospaceSystemUserrolesCreateRelatedInput[];
-	serviceOwnerId?: Uuid | null;
-	status?: string;
-	storageValues?: readonly MonospaceSystemUserstorageValuesCreateRelatedInput[];
 }
 
 export type organizationscreatedByRelationFieldArguments = {
@@ -9946,10 +9034,7 @@ export type organizationscreatedByRelationFieldArguments = {
 
 export type organizationscreatedByUpdateOneRelatedOperationsInput = {
 	_connect?: organizationscreatedByConnectInput;
-	_create?: organizationscreatedByCreateArguments;
-	_delete?: MonospaceSystemUserDeleteArguments;
 	_disconnect?: MonospaceSystemUserDisconnectOneInput;
-	_update?: MonospaceSystemUserUpdateInput;
 }
 
 export type organizationsdealsConnectBackwardKeysInput = {
@@ -10010,41 +9095,8 @@ export type organizationsownerConnectInput = {
 	key: organizationsownerConnectForwardKeyInput;
 }
 
-export type organizationsownerCreateArguments = {
-	data: organizationsownerCreateRelatedWithoutTypeInput;
-}
-
 export type organizationsownerCreateRelatedInput = {
 	_connect?: organizationsownerConnectInput;
-	_create?: organizationsownerCreateArguments;
-}
-
-export type organizationsownerCreateRelatedWithoutTypeInput = {
-	activitiesCreatedBy?: readonly MonospaceSystemUseractivitiesCreatedByCreateRelatedInput[];
-	activitiesOwner?: readonly MonospaceSystemUseractivitiesOwnerCreateRelatedInput[];
-	activitiesUpdatedBy?: readonly MonospaceSystemUseractivitiesUpdatedByCreateRelatedInput[];
-	affiliationsCreatedBy?: readonly MonospaceSystemUseraffiliationsCreatedByCreateRelatedInput[];
-	affiliationsUpdatedBy?: readonly MonospaceSystemUseraffiliationsUpdatedByCreateRelatedInput[];
-	appearance?: string | null;
-	attachmentsCreatedBy?: readonly MonospaceSystemUserattachmentsCreatedByCreateRelatedInput[];
-	avatarId?: Uuid | null;
-	contactsCreatedBy?: readonly MonospaceSystemUsercontactsCreatedByCreateRelatedInput[];
-	contactsOwner?: readonly MonospaceSystemUsercontactsOwnerCreateRelatedInput[];
-	contactsUpdatedBy?: readonly MonospaceSystemUsercontactsUpdatedByCreateRelatedInput[];
-	dealsCreatedBy?: readonly MonospaceSystemUserdealsCreatedByCreateRelatedInput[];
-	dealsOwner?: readonly MonospaceSystemUserdealsOwnerCreateRelatedInput[];
-	dealsUpdatedBy?: readonly MonospaceSystemUserdealsUpdatedByCreateRelatedInput[];
-	email?: string | null;
-	fullName?: string | null;
-	id: Uuid;
-	isService: boolean;
-	lastActivityAt?: string | null;
-	organizationsCreatedBy?: readonly MonospaceSystemUserorganizationsCreatedByCreateRelatedInput[];
-	organizationsUpdatedBy?: readonly MonospaceSystemUserorganizationsUpdatedByCreateRelatedInput[];
-	roles?: readonly MonospaceSystemUserrolesCreateRelatedInput[];
-	serviceOwnerId?: Uuid | null;
-	status?: string;
-	storageValues?: readonly MonospaceSystemUserstorageValuesCreateRelatedInput[];
 }
 
 export type organizationsownerRelationFieldArguments = {
@@ -10053,40 +9105,11 @@ export type organizationsownerRelationFieldArguments = {
 
 export type organizationsownerUpdateOneRelatedOperationsInput = {
 	_connect?: organizationsownerConnectInput;
-	_create?: organizationsownerCreateArguments;
-	_delete?: MonospaceSystemUserDeleteArguments;
 	_disconnect?: MonospaceSystemUserDisconnectOneInput;
-	_update?: MonospaceSystemUserUpdateInput;
-}
-
-export type organizationsportalAccountCreateArguments = {
-	data: organizationsportalAccountCreateRelatedWithoutTypeInput;
-}
-
-export type organizationsportalAccountCreateRelatedInput = {
-	_create?: organizationsportalAccountCreateArguments;
-}
-
-export type organizationsportalAccountCreateRelatedWithoutTypeInput = {
-	createdAt?: string;
-	events?: readonly accountseventsCreateRelatedInput[];
-	name: string;
-	slug: string;
-	status?: string;
-	stripeCustomer?: accountsstripeCustomerCreateRelatedInput;
-	subscriptions?: readonly accountssubscriptionsCreateRelatedInput[];
-	tickets?: readonly accountsticketsCreateRelatedInput[];
-	updatedAt?: string;
-	users?: readonly accountsusersCreateRelatedInput[];
 }
 
 export type organizationsportalAccountRelationFieldArguments = {
 	filter?: accountsFilterInput;
-}
-
-export type organizationsportalAccountUpdateOneRelatedOperationsInput = {
-	_delete?: accountsDeleteArguments;
-	_update?: accountsUpdateInput;
 }
 
 export type organizationsupdatedByConnectForwardKeyInput = {
@@ -10097,41 +9120,8 @@ export type organizationsupdatedByConnectInput = {
 	key: organizationsupdatedByConnectForwardKeyInput;
 }
 
-export type organizationsupdatedByCreateArguments = {
-	data: organizationsupdatedByCreateRelatedWithoutTypeInput;
-}
-
 export type organizationsupdatedByCreateRelatedInput = {
 	_connect?: organizationsupdatedByConnectInput;
-	_create?: organizationsupdatedByCreateArguments;
-}
-
-export type organizationsupdatedByCreateRelatedWithoutTypeInput = {
-	activitiesCreatedBy?: readonly MonospaceSystemUseractivitiesCreatedByCreateRelatedInput[];
-	activitiesOwner?: readonly MonospaceSystemUseractivitiesOwnerCreateRelatedInput[];
-	activitiesUpdatedBy?: readonly MonospaceSystemUseractivitiesUpdatedByCreateRelatedInput[];
-	affiliationsCreatedBy?: readonly MonospaceSystemUseraffiliationsCreatedByCreateRelatedInput[];
-	affiliationsUpdatedBy?: readonly MonospaceSystemUseraffiliationsUpdatedByCreateRelatedInput[];
-	appearance?: string | null;
-	attachmentsCreatedBy?: readonly MonospaceSystemUserattachmentsCreatedByCreateRelatedInput[];
-	avatarId?: Uuid | null;
-	contactsCreatedBy?: readonly MonospaceSystemUsercontactsCreatedByCreateRelatedInput[];
-	contactsOwner?: readonly MonospaceSystemUsercontactsOwnerCreateRelatedInput[];
-	contactsUpdatedBy?: readonly MonospaceSystemUsercontactsUpdatedByCreateRelatedInput[];
-	dealsCreatedBy?: readonly MonospaceSystemUserdealsCreatedByCreateRelatedInput[];
-	dealsOwner?: readonly MonospaceSystemUserdealsOwnerCreateRelatedInput[];
-	dealsUpdatedBy?: readonly MonospaceSystemUserdealsUpdatedByCreateRelatedInput[];
-	email?: string | null;
-	fullName?: string | null;
-	id: Uuid;
-	isService: boolean;
-	lastActivityAt?: string | null;
-	organizationsCreatedBy?: readonly MonospaceSystemUserorganizationsCreatedByCreateRelatedInput[];
-	organizationsOwner?: readonly MonospaceSystemUserorganizationsOwnerCreateRelatedInput[];
-	roles?: readonly MonospaceSystemUserrolesCreateRelatedInput[];
-	serviceOwnerId?: Uuid | null;
-	status?: string;
-	storageValues?: readonly MonospaceSystemUserstorageValuesCreateRelatedInput[];
 }
 
 export type organizationsupdatedByRelationFieldArguments = {
@@ -10140,10 +9130,7 @@ export type organizationsupdatedByRelationFieldArguments = {
 
 export type organizationsupdatedByUpdateOneRelatedOperationsInput = {
 	_connect?: organizationsupdatedByConnectInput;
-	_create?: organizationsupdatedByCreateArguments;
-	_delete?: MonospaceSystemUserDeleteArguments;
 	_disconnect?: MonospaceSystemUserDisconnectOneInput;
-	_update?: MonospaceSystemUserUpdateInput;
 }
 
 export type pipelineStagesCollectionOutput = {
@@ -10316,30 +9303,6 @@ export type plansCollectionOutputIncludeInput = {
 	"subscriptions"?: (planssubscriptionsRelationFieldArguments & { "fields"?: subscriptionsCollectionOutputFieldsInput; "include"?: subscriptionsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (planssubscriptionsRelationFieldArguments & { "fields"?: subscriptionsCollectionOutputFieldsInput; "include"?: subscriptionsCollectionOutputIncludeInput })>]?: never };
 } & { [K in `${string}:${"subscriptions"}`]?: plansCollectionOutputIncludeInput["subscriptions"] };
 
-export type plansCreateArguments = {
-	data: readonly plansCreateInput[];
-}
-
-export type plansCreateInput = {
-	code: string;
-	createdAt?: string;
-	id: string;
-	monthlyPrice: string;
-	name: string;
-	seatsIncluded: number;
-	subscriptions?: readonly planssubscriptionsCreateRelatedInput[];
-	updatedAt?: string;
-}
-
-export type plansDeleteArguments = {
-	filter?: plansFilterInput;
-}
-
-export type plansDeleteOneArguments = {
-	filter?: plansFilterInput;
-	key: string;
-}
-
 export type plansFilterInput = {
 	_and?: readonly plansFilterInput[];
 	_not?: plansFilterInput;
@@ -10377,73 +9340,11 @@ export type plansSortSpecifier = {
 	updatedAt?: SortFieldOptions;
 }
 
-export type plansUpdateArguments = {
-	data: plansUpdateDataInput;
-	filter?: plansFilterInput;
-}
-
-export type plansUpdateDataInput = {
-	code?: string;
-	createdAt?: string;
-	monthlyPrice?: string;
-	name?: string;
-	seatsIncluded?: number;
-	subscriptions?: readonly planssubscriptionsUpdateManyRelatedOperationsInput[];
-	updatedAt?: string;
-}
-
-export type plansUpdateInput = {
-	data: plansUpdateDataInput;
-	filter?: plansFilterInput;
-}
-
-export type plansUpdateOneArguments = {
-	data: plansUpdateDataInput;
-	filter?: plansFilterInput;
-	key: string;
-}
-
-export type planssubscriptionsConnectBackwardKeysInput = {
-	id?: string;
-}
-
-export type planssubscriptionsConnectInput = {
-	keys: readonly planssubscriptionsConnectBackwardKeysInput[];
-}
-
-export type planssubscriptionsCreateArguments = {
-	data: readonly planssubscriptionsCreateRelatedWithoutTypeInput[];
-}
-
-export type planssubscriptionsCreateRelatedInput = {
-	_connect?: planssubscriptionsConnectInput;
-	_create?: planssubscriptionsCreateArguments;
-}
-
-export type planssubscriptionsCreateRelatedWithoutTypeInput = {
-	account: subscriptionsaccountCreateRelatedInput;
-	canceledAt?: string | null;
-	createdAt?: string;
-	id: string;
-	renewsAt?: string | null;
-	seats: number;
-	startedAt: string;
-	status: string;
-	updatedAt?: string;
-}
-
 export type planssubscriptionsRelationFieldArguments = {
 	filter?: subscriptionsFilterInput;
 	limit?: Int64Input;
 	offset?: UInt64Input;
 	sort?: readonly subscriptionsSortSpecifier[];
-}
-
-export type planssubscriptionsUpdateManyRelatedOperationsInput = {
-	_connect?: planssubscriptionsConnectInput;
-	_create?: planssubscriptionsCreateArguments;
-	_delete?: subscriptionsDeleteArguments;
-	_update?: subscriptionsUpdateInput;
 }
 
 export type stripeChargesCollectionOutput = {
@@ -10556,7 +9457,6 @@ export type stripeCustomersCreateInput = {
 	description?: string | null;
 	email?: string | null;
 	name?: string | null;
-	portalAccount?: stripeCustomersportalAccountCreateRelatedInput;
 }
 
 export type stripeCustomersDeleteArguments = {
@@ -10567,8 +9467,6 @@ export type stripeCustomersDeleteOneArguments = {
 	filter?: stripeCustomersFilterInput;
 	key: string;
 }
-
-export type stripeCustomersDisconnectOneInput = {}
 
 export type stripeCustomersFilterInput = {
 	_and?: readonly stripeCustomersFilterInput[];
@@ -10608,12 +9506,6 @@ export type stripeCustomersUpdateDataInput = {
 	description?: string | null;
 	email?: string | null;
 	name?: string | null;
-	portalAccount?: readonly stripeCustomersportalAccountUpdateOneRelatedOperationsInput[];
-}
-
-export type stripeCustomersUpdateInput = {
-	data: stripeCustomersUpdateDataInput;
-	filter?: stripeCustomersFilterInput;
 }
 
 export type stripeCustomersUpdateOneArguments = {
@@ -10653,48 +9545,8 @@ export type stripeCustomerspaymentIntentsRelationFieldArguments = {
 	offset?: UInt64Input;
 }
 
-export type stripeCustomersportalAccountConnectBackwardKeysInput = {
-	id?: string;
-	slug?: string;
-	stripeCustomerId?: string;
-}
-
-export type stripeCustomersportalAccountConnectInput = {
-	key: stripeCustomersportalAccountConnectBackwardKeysInput;
-}
-
-export type stripeCustomersportalAccountCreateArguments = {
-	data: stripeCustomersportalAccountCreateRelatedWithoutTypeInput;
-}
-
-export type stripeCustomersportalAccountCreateRelatedInput = {
-	_connect?: stripeCustomersportalAccountConnectInput;
-	_create?: stripeCustomersportalAccountCreateArguments;
-}
-
-export type stripeCustomersportalAccountCreateRelatedWithoutTypeInput = {
-	createdAt?: string;
-	events?: readonly accountseventsCreateRelatedInput[];
-	name: string;
-	organization: accountsorganizationCreateRelatedInput;
-	slug: string;
-	status?: string;
-	subscriptions?: readonly accountssubscriptionsCreateRelatedInput[];
-	tickets?: readonly accountsticketsCreateRelatedInput[];
-	updatedAt?: string;
-	users?: readonly accountsusersCreateRelatedInput[];
-}
-
 export type stripeCustomersportalAccountRelationFieldArguments = {
 	filter?: accountsFilterInput;
-}
-
-export type stripeCustomersportalAccountUpdateOneRelatedOperationsInput = {
-	_connect?: stripeCustomersportalAccountConnectInput;
-	_create?: stripeCustomersportalAccountCreateArguments;
-	_delete?: accountsDeleteArguments;
-	_disconnect?: accountsDisconnectOneInput;
-	_update?: accountsUpdateInput;
 }
 
 export type subscriptionsCollectionOutput = {
@@ -10718,32 +9570,6 @@ export type subscriptionsCollectionOutputIncludeInput = {
 	"account"?: ({ "fields"?: accountsCollectionOutputFieldsInput; "include"?: accountsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof ({ "fields"?: accountsCollectionOutputFieldsInput; "include"?: accountsCollectionOutputIncludeInput })>]?: never };
 	"plan"?: ({ "fields"?: plansCollectionOutputFieldsInput; "include"?: plansCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof ({ "fields"?: plansCollectionOutputFieldsInput; "include"?: plansCollectionOutputIncludeInput })>]?: never };
 } & { [K in `${string}:${"account"}`]?: subscriptionsCollectionOutputIncludeInput["account"] } & { [K in `${string}:${"plan"}`]?: subscriptionsCollectionOutputIncludeInput["plan"] };
-
-export type subscriptionsCreateArguments = {
-	data: readonly subscriptionsCreateInput[];
-}
-
-export type subscriptionsCreateInput = {
-	account: subscriptionsaccountCreateRelatedInput;
-	canceledAt?: string | null;
-	createdAt?: string;
-	id: string;
-	plan: subscriptionsplanCreateRelatedInput;
-	renewsAt?: string | null;
-	seats: number;
-	startedAt: string;
-	status: string;
-	updatedAt?: string;
-}
-
-export type subscriptionsDeleteArguments = {
-	filter?: subscriptionsFilterInput;
-}
-
-export type subscriptionsDeleteOneArguments = {
-	filter?: subscriptionsFilterInput;
-	key: string;
-}
 
 export type subscriptionsFilterInput = {
 	_and?: readonly subscriptionsFilterInput[];
@@ -10795,105 +9621,6 @@ export type subscriptionsSortSpecifier = {
 	updatedAt?: SortFieldOptions;
 }
 
-export type subscriptionsUpdateArguments = {
-	data: subscriptionsUpdateDataInput;
-	filter?: subscriptionsFilterInput;
-}
-
-export type subscriptionsUpdateDataInput = {
-	account?: readonly subscriptionsaccountUpdateOneRelatedOperationsInput[];
-	accountId?: string;
-	canceledAt?: string | null;
-	createdAt?: string;
-	plan?: readonly subscriptionsplanUpdateOneRelatedOperationsInput[];
-	planId?: string;
-	renewsAt?: string | null;
-	seats?: number;
-	startedAt?: string;
-	status?: string;
-	updatedAt?: string;
-}
-
-export type subscriptionsUpdateInput = {
-	data: subscriptionsUpdateDataInput;
-	filter?: subscriptionsFilterInput;
-}
-
-export type subscriptionsUpdateOneArguments = {
-	data: subscriptionsUpdateDataInput;
-	filter?: subscriptionsFilterInput;
-	key: string;
-}
-
-export type subscriptionsaccountConnectForwardKeyInput = {
-	id: string;
-}
-
-export type subscriptionsaccountConnectInput = {
-	key: subscriptionsaccountConnectForwardKeyInput;
-}
-
-export type subscriptionsaccountCreateArguments = {
-	data: subscriptionsaccountCreateRelatedWithoutTypeInput;
-}
-
-export type subscriptionsaccountCreateRelatedInput = {
-	_connect?: subscriptionsaccountConnectInput;
-	_create?: subscriptionsaccountCreateArguments;
-}
-
-export type subscriptionsaccountCreateRelatedWithoutTypeInput = {
-	createdAt?: string;
-	events?: readonly accountseventsCreateRelatedInput[];
-	name: string;
-	organization: accountsorganizationCreateRelatedInput;
-	slug: string;
-	status?: string;
-	stripeCustomer?: accountsstripeCustomerCreateRelatedInput;
-	tickets?: readonly accountsticketsCreateRelatedInput[];
-	updatedAt?: string;
-	users?: readonly accountsusersCreateRelatedInput[];
-}
-
-export type subscriptionsaccountUpdateOneRelatedOperationsInput = {
-	_connect?: subscriptionsaccountConnectInput;
-	_create?: subscriptionsaccountCreateArguments;
-	_update?: accountsUpdateInput;
-}
-
-export type subscriptionsplanConnectForwardKeyInput = {
-	id: string;
-}
-
-export type subscriptionsplanConnectInput = {
-	key: subscriptionsplanConnectForwardKeyInput;
-}
-
-export type subscriptionsplanCreateArguments = {
-	data: subscriptionsplanCreateRelatedWithoutTypeInput;
-}
-
-export type subscriptionsplanCreateRelatedInput = {
-	_connect?: subscriptionsplanConnectInput;
-	_create?: subscriptionsplanCreateArguments;
-}
-
-export type subscriptionsplanCreateRelatedWithoutTypeInput = {
-	code: string;
-	createdAt?: string;
-	id: string;
-	monthlyPrice: string;
-	name: string;
-	seatsIncluded: number;
-	updatedAt?: string;
-}
-
-export type subscriptionsplanUpdateOneRelatedOperationsInput = {
-	_connect?: subscriptionsplanConnectInput;
-	_create?: subscriptionsplanCreateArguments;
-	_update?: plansUpdateInput;
-}
-
 export type ticketsCollectionOutput = {
 	account?: accountsCollectionOutput;
 	accountId?: string;
@@ -10916,37 +9643,6 @@ export type ticketsCollectionOutputIncludeInput = {
 	"account"?: ({ "fields"?: accountsCollectionOutputFieldsInput; "include"?: accountsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof ({ "fields"?: accountsCollectionOutputFieldsInput; "include"?: accountsCollectionOutputIncludeInput })>]?: never };
 	"user"?: (ticketsuserRelationFieldArguments & { "fields"?: usersCollectionOutputFieldsInput; "include"?: usersCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (ticketsuserRelationFieldArguments & { "fields"?: usersCollectionOutputFieldsInput; "include"?: usersCollectionOutputIncludeInput })>]?: never };
 } & { [K in `${string}:${"account"}`]?: ticketsCollectionOutputIncludeInput["account"] } & { [K in `${string}:${"user"}`]?: ticketsCollectionOutputIncludeInput["user"] };
-
-export type ticketsCreateArguments = {
-	data: readonly ticketsCreateInput[];
-}
-
-export type ticketsCreateInput = {
-	account: ticketsaccountCreateRelatedInput;
-	body?: string | null;
-	createdAt?: string;
-	id: string;
-	openedAt: string;
-	priority?: string;
-	resolvedAt?: string | null;
-	status?: string;
-	subject: string;
-	updatedAt?: string;
-	user?: ticketsuserCreateRelatedInput;
-}
-
-export type ticketsDeleteArguments = {
-	filter?: ticketsFilterInput;
-}
-
-export type ticketsDeleteOneArguments = {
-	filter?: ticketsFilterInput;
-	key: string;
-}
-
-export type ticketsDisconnectManyInput = {
-	filter?: ticketsFilterInput;
-}
 
 export type ticketsFilterInput = {
 	_and?: readonly ticketsFilterInput[];
@@ -11000,113 +9696,8 @@ export type ticketsSortSpecifier = {
 	userId?: SortFieldOptions;
 }
 
-export type ticketsUpdateArguments = {
-	data: ticketsUpdateDataInput;
-	filter?: ticketsFilterInput;
-}
-
-export type ticketsUpdateDataInput = {
-	account?: readonly ticketsaccountUpdateOneRelatedOperationsInput[];
-	accountId?: string;
-	body?: string | null;
-	createdAt?: string;
-	openedAt?: string;
-	priority?: string;
-	resolvedAt?: string | null;
-	status?: string;
-	subject?: string;
-	updatedAt?: string;
-	user?: readonly ticketsuserUpdateOneRelatedOperationsInput[];
-	userId?: string | null;
-}
-
-export type ticketsUpdateInput = {
-	data: ticketsUpdateDataInput;
-	filter?: ticketsFilterInput;
-}
-
-export type ticketsUpdateOneArguments = {
-	data: ticketsUpdateDataInput;
-	filter?: ticketsFilterInput;
-	key: string;
-}
-
-export type ticketsaccountConnectForwardKeyInput = {
-	id: string;
-}
-
-export type ticketsaccountConnectInput = {
-	key: ticketsaccountConnectForwardKeyInput;
-}
-
-export type ticketsaccountCreateArguments = {
-	data: ticketsaccountCreateRelatedWithoutTypeInput;
-}
-
-export type ticketsaccountCreateRelatedInput = {
-	_connect?: ticketsaccountConnectInput;
-	_create?: ticketsaccountCreateArguments;
-}
-
-export type ticketsaccountCreateRelatedWithoutTypeInput = {
-	createdAt?: string;
-	events?: readonly accountseventsCreateRelatedInput[];
-	name: string;
-	organization: accountsorganizationCreateRelatedInput;
-	slug: string;
-	status?: string;
-	stripeCustomer?: accountsstripeCustomerCreateRelatedInput;
-	subscriptions?: readonly accountssubscriptionsCreateRelatedInput[];
-	updatedAt?: string;
-	users?: readonly accountsusersCreateRelatedInput[];
-}
-
-export type ticketsaccountUpdateOneRelatedOperationsInput = {
-	_connect?: ticketsaccountConnectInput;
-	_create?: ticketsaccountCreateArguments;
-	_update?: accountsUpdateInput;
-}
-
-export type ticketsuserConnectForwardKeyInput = {
-	id: string | null;
-}
-
-export type ticketsuserConnectInput = {
-	key: ticketsuserConnectForwardKeyInput;
-}
-
-export type ticketsuserCreateArguments = {
-	data: ticketsuserCreateRelatedWithoutTypeInput;
-}
-
-export type ticketsuserCreateRelatedInput = {
-	_connect?: ticketsuserConnectInput;
-	_create?: ticketsuserCreateArguments;
-}
-
-export type ticketsuserCreateRelatedWithoutTypeInput = {
-	account: usersaccountCreateRelatedInput;
-	contacts: userscontactsCreateRelatedInput;
-	createdAt?: string;
-	events?: readonly userseventsCreateRelatedInput[];
-	id: string;
-	lastLoginAt?: string | null;
-	name: string;
-	role?: string;
-	status?: string;
-	updatedAt?: string;
-}
-
 export type ticketsuserRelationFieldArguments = {
 	filter?: usersFilterInput;
-}
-
-export type ticketsuserUpdateOneRelatedOperationsInput = {
-	_connect?: ticketsuserConnectInput;
-	_create?: ticketsuserCreateArguments;
-	_delete?: usersDeleteArguments;
-	_disconnect?: usersDisconnectOneInput;
-	_update?: usersUpdateInput;
 }
 
 export type usersCollectionOutput = {
@@ -11133,35 +9724,6 @@ export type usersCollectionOutputIncludeInput = {
 	"events"?: (userseventsRelationFieldArguments & { "fields"?: eventsCollectionOutputFieldsInput; "include"?: eventsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (userseventsRelationFieldArguments & { "fields"?: eventsCollectionOutputFieldsInput; "include"?: eventsCollectionOutputIncludeInput })>]?: never };
 	"tickets"?: (usersticketsRelationFieldArguments & { "fields"?: ticketsCollectionOutputFieldsInput; "include"?: ticketsCollectionOutputIncludeInput }) & { [K in Exclude<'filter' | 'sort' | 'limit' | 'offset', keyof (usersticketsRelationFieldArguments & { "fields"?: ticketsCollectionOutputFieldsInput; "include"?: ticketsCollectionOutputIncludeInput })>]?: never };
 } & { [K in `${string}:${"account"}`]?: usersCollectionOutputIncludeInput["account"] } & { [K in `${string}:${"contacts"}`]?: usersCollectionOutputIncludeInput["contacts"] } & { [K in `${string}:${"events"}`]?: usersCollectionOutputIncludeInput["events"] } & { [K in `${string}:${"tickets"}`]?: usersCollectionOutputIncludeInput["tickets"] };
-
-export type usersCreateArguments = {
-	data: readonly usersCreateInput[];
-}
-
-export type usersCreateInput = {
-	account: usersaccountCreateRelatedInput;
-	contacts: userscontactsCreateRelatedInput;
-	createdAt?: string;
-	events?: readonly userseventsCreateRelatedInput[];
-	id: string;
-	lastLoginAt?: string | null;
-	name: string;
-	role?: string;
-	status?: string;
-	tickets?: readonly usersticketsCreateRelatedInput[];
-	updatedAt?: string;
-}
-
-export type usersDeleteArguments = {
-	filter?: usersFilterInput;
-}
-
-export type usersDeleteOneArguments = {
-	filter?: usersFilterInput;
-	key: string;
-}
-
-export type usersDisconnectOneInput = {}
 
 export type usersFilterInput = {
 	_and?: readonly usersFilterInput[];
@@ -11213,138 +9775,6 @@ export type usersSortSpecifier = {
 	updatedAt?: SortFieldOptions;
 }
 
-export type usersUpdateArguments = {
-	data: usersUpdateDataInput;
-	filter?: usersFilterInput;
-}
-
-export type usersUpdateDataInput = {
-	account?: readonly usersaccountUpdateOneRelatedOperationsInput[];
-	accountId?: string;
-	contacts?: readonly userscontactsUpdateOneRelatedOperationsInput[];
-	createdAt?: string;
-	email?: string;
-	events?: readonly userseventsUpdateManyRelatedOperationsInput[];
-	lastLoginAt?: string | null;
-	name?: string;
-	role?: string;
-	status?: string;
-	tickets?: readonly usersticketsUpdateManyRelatedOperationsInput[];
-	updatedAt?: string;
-}
-
-export type usersUpdateInput = {
-	data: usersUpdateDataInput;
-	filter?: usersFilterInput;
-}
-
-export type usersUpdateOneArguments = {
-	data: usersUpdateDataInput;
-	filter?: usersFilterInput;
-	key: string;
-}
-
-export type usersaccountConnectForwardKeyInput = {
-	id: string;
-}
-
-export type usersaccountConnectInput = {
-	key: usersaccountConnectForwardKeyInput;
-}
-
-export type usersaccountCreateArguments = {
-	data: usersaccountCreateRelatedWithoutTypeInput;
-}
-
-export type usersaccountCreateRelatedInput = {
-	_connect?: usersaccountConnectInput;
-	_create?: usersaccountCreateArguments;
-}
-
-export type usersaccountCreateRelatedWithoutTypeInput = {
-	createdAt?: string;
-	events?: readonly accountseventsCreateRelatedInput[];
-	name: string;
-	organization: accountsorganizationCreateRelatedInput;
-	slug: string;
-	status?: string;
-	stripeCustomer?: accountsstripeCustomerCreateRelatedInput;
-	subscriptions?: readonly accountssubscriptionsCreateRelatedInput[];
-	tickets?: readonly accountsticketsCreateRelatedInput[];
-	updatedAt?: string;
-}
-
-export type usersaccountUpdateOneRelatedOperationsInput = {
-	_connect?: usersaccountConnectInput;
-	_create?: usersaccountCreateArguments;
-	_update?: accountsUpdateInput;
-}
-
-export type userscontactsConnectForwardKeyInput = {
-	email: string;
-}
-
-export type userscontactsConnectInput = {
-	key: userscontactsConnectForwardKeyInput;
-}
-
-export type userscontactsCreateArguments = {
-	data: userscontactsCreateRelatedWithoutTypeInput;
-}
-
-export type userscontactsCreateRelatedInput = {
-	_connect?: userscontactsConnectInput;
-	_create?: userscontactsCreateArguments;
-}
-
-export type userscontactsCreateRelatedWithoutTypeInput = {
-	activities?: readonly contactsactivitiesCreateRelatedInput[];
-	affiliations?: readonly contactsaffiliationsCreateRelatedInput[];
-	attachments?: readonly contactsattachmentsCreateRelatedInput[];
-	createdAt?: string;
-	createdBy?: contactscreatedByCreateRelatedInput;
-	deals?: readonly contactsdealsCreateRelatedInput[];
-	email?: string | null;
-	firstName: string;
-	id?: Uuid;
-	lastName: string;
-	notes?: string | null;
-	owner?: contactsownerCreateRelatedInput;
-	phone?: string | null;
-	status?: string;
-	updatedAt?: string;
-	updatedBy?: contactsupdatedByCreateRelatedInput;
-}
-
-export type userscontactsUpdateOneRelatedOperationsInput = {
-	_update?: contactsUpdateInput;
-}
-
-export type userseventsConnectBackwardKeysInput = {
-	id?: string;
-}
-
-export type userseventsConnectInput = {
-	keys: readonly userseventsConnectBackwardKeysInput[];
-}
-
-export type userseventsCreateArguments = {
-	data: readonly userseventsCreateRelatedWithoutTypeInput[];
-}
-
-export type userseventsCreateRelatedInput = {
-	_connect?: userseventsConnectInput;
-	_create?: userseventsCreateArguments;
-}
-
-export type userseventsCreateRelatedWithoutTypeInput = {
-	account: eventsaccountCreateRelatedInput;
-	detail?: string | null;
-	id: string;
-	occurredAt: string;
-	type: string;
-}
-
 export type userseventsRelationFieldArguments = {
 	filter?: eventsFilterInput;
 	limit?: Int64Input;
@@ -11352,57 +9782,11 @@ export type userseventsRelationFieldArguments = {
 	sort?: readonly eventsSortSpecifier[];
 }
 
-export type userseventsUpdateManyRelatedOperationsInput = {
-	_connect?: userseventsConnectInput;
-	_create?: userseventsCreateArguments;
-	_delete?: eventsDeleteArguments;
-	_disconnect?: eventsDisconnectManyInput;
-	_update?: eventsUpdateInput;
-}
-
-export type usersticketsConnectBackwardKeysInput = {
-	id?: string;
-}
-
-export type usersticketsConnectInput = {
-	keys: readonly usersticketsConnectBackwardKeysInput[];
-}
-
-export type usersticketsCreateArguments = {
-	data: readonly usersticketsCreateRelatedWithoutTypeInput[];
-}
-
-export type usersticketsCreateRelatedInput = {
-	_connect?: usersticketsConnectInput;
-	_create?: usersticketsCreateArguments;
-}
-
-export type usersticketsCreateRelatedWithoutTypeInput = {
-	account: ticketsaccountCreateRelatedInput;
-	body?: string | null;
-	createdAt?: string;
-	id: string;
-	openedAt: string;
-	priority?: string;
-	resolvedAt?: string | null;
-	status?: string;
-	subject: string;
-	updatedAt?: string;
-}
-
 export type usersticketsRelationFieldArguments = {
 	filter?: ticketsFilterInput;
 	limit?: Int64Input;
 	offset?: UInt64Input;
 	sort?: readonly ticketsSortSpecifier[];
-}
-
-export type usersticketsUpdateManyRelatedOperationsInput = {
-	_connect?: usersticketsConnectInput;
-	_create?: usersticketsCreateArguments;
-	_delete?: ticketsDeleteArguments;
-	_disconnect?: ticketsDisconnectManyInput;
-	_update?: ticketsUpdateInput;
 }
 
 }
@@ -11447,55 +9831,6 @@ export type accountsCollection = {
       meta?: _Types.MetaArguments;
       limit?: number;
       offset?: number;
-    };
-  }
-
-  '~create': {
-    '~input': _Types.accountsCreateInput;
-    '~output': _Types.accountsCollectionOutput;
-    '~parameters': {
-      fields?: _Types.accountsCollectionOutputFieldsInput;
-      include?: _Types.accountsCollectionOutputIncludeInput;
-    };
-  }
-
-  '~updateOne': {
-    '~key': string;
-    '~input': _Types.accountsUpdateDataInput;
-    '~output': _Types.accountsCollectionOutput;
-    '~parameters': {
-      filter?: _Types.accountsFilterInput;
-      fields?: _Types.accountsCollectionOutputFieldsInput;
-      include?: _Types.accountsCollectionOutputIncludeInput;
-    };
-  }
-
-  '~updateMany': {
-    '~input': _Types.accountsUpdateDataInput;
-    '~output': _Types.accountsCollectionOutput;
-    '~parameters': {
-      filter?: _Types.accountsFilterInput;
-      fields?: _Types.accountsCollectionOutputFieldsInput;
-      include?: _Types.accountsCollectionOutputIncludeInput;
-    };
-  }
-
-  '~deleteOne': {
-    '~key': string;
-    '~output': _Types.accountsCollectionOutput;
-    '~parameters': {
-      filter?: _Types.accountsFilterInput;
-      fields?: _Types.accountsCollectionOutputFieldsInput;
-      include?: _Types.accountsCollectionOutputIncludeInput;
-    };
-  }
-
-  '~deleteMany': {
-    '~output': _Types.accountsCollectionOutput;
-    '~parameters': {
-      filter?: _Types.accountsFilterInput;
-      fields?: _Types.accountsCollectionOutputFieldsInput;
-      include?: _Types.accountsCollectionOutputIncludeInput;
     };
   }
 }
@@ -11945,55 +10280,6 @@ export type eventsCollection = {
       offset?: number;
     };
   }
-
-  '~create': {
-    '~input': _Types.eventsCreateInput;
-    '~output': _Types.eventsCollectionOutput;
-    '~parameters': {
-      fields?: _Types.eventsCollectionOutputFieldsInput;
-      include?: _Types.eventsCollectionOutputIncludeInput;
-    };
-  }
-
-  '~updateOne': {
-    '~key': string;
-    '~input': _Types.eventsUpdateDataInput;
-    '~output': _Types.eventsCollectionOutput;
-    '~parameters': {
-      filter?: _Types.eventsFilterInput;
-      fields?: _Types.eventsCollectionOutputFieldsInput;
-      include?: _Types.eventsCollectionOutputIncludeInput;
-    };
-  }
-
-  '~updateMany': {
-    '~input': _Types.eventsUpdateDataInput;
-    '~output': _Types.eventsCollectionOutput;
-    '~parameters': {
-      filter?: _Types.eventsFilterInput;
-      fields?: _Types.eventsCollectionOutputFieldsInput;
-      include?: _Types.eventsCollectionOutputIncludeInput;
-    };
-  }
-
-  '~deleteOne': {
-    '~key': string;
-    '~output': _Types.eventsCollectionOutput;
-    '~parameters': {
-      filter?: _Types.eventsFilterInput;
-      fields?: _Types.eventsCollectionOutputFieldsInput;
-      include?: _Types.eventsCollectionOutputIncludeInput;
-    };
-  }
-
-  '~deleteMany': {
-    '~output': _Types.eventsCollectionOutput;
-    '~parameters': {
-      filter?: _Types.eventsFilterInput;
-      fields?: _Types.eventsCollectionOutputFieldsInput;
-      include?: _Types.eventsCollectionOutputIncludeInput;
-    };
-  }
 }
 
 export type organizationsCollection = {
@@ -12189,55 +10475,6 @@ export type plansCollection = {
       offset?: number;
     };
   }
-
-  '~create': {
-    '~input': _Types.plansCreateInput;
-    '~output': _Types.plansCollectionOutput;
-    '~parameters': {
-      fields?: _Types.plansCollectionOutputFieldsInput;
-      include?: _Types.plansCollectionOutputIncludeInput;
-    };
-  }
-
-  '~updateOne': {
-    '~key': string;
-    '~input': _Types.plansUpdateDataInput;
-    '~output': _Types.plansCollectionOutput;
-    '~parameters': {
-      filter?: _Types.plansFilterInput;
-      fields?: _Types.plansCollectionOutputFieldsInput;
-      include?: _Types.plansCollectionOutputIncludeInput;
-    };
-  }
-
-  '~updateMany': {
-    '~input': _Types.plansUpdateDataInput;
-    '~output': _Types.plansCollectionOutput;
-    '~parameters': {
-      filter?: _Types.plansFilterInput;
-      fields?: _Types.plansCollectionOutputFieldsInput;
-      include?: _Types.plansCollectionOutputIncludeInput;
-    };
-  }
-
-  '~deleteOne': {
-    '~key': string;
-    '~output': _Types.plansCollectionOutput;
-    '~parameters': {
-      filter?: _Types.plansFilterInput;
-      fields?: _Types.plansCollectionOutputFieldsInput;
-      include?: _Types.plansCollectionOutputIncludeInput;
-    };
-  }
-
-  '~deleteMany': {
-    '~output': _Types.plansCollectionOutput;
-    '~parameters': {
-      filter?: _Types.plansFilterInput;
-      fields?: _Types.plansCollectionOutputFieldsInput;
-      include?: _Types.plansCollectionOutputIncludeInput;
-    };
-  }
 }
 
 export type stripeChargesCollection = {
@@ -12378,55 +10615,6 @@ export type subscriptionsCollection = {
       offset?: number;
     };
   }
-
-  '~create': {
-    '~input': _Types.subscriptionsCreateInput;
-    '~output': _Types.subscriptionsCollectionOutput;
-    '~parameters': {
-      fields?: _Types.subscriptionsCollectionOutputFieldsInput;
-      include?: _Types.subscriptionsCollectionOutputIncludeInput;
-    };
-  }
-
-  '~updateOne': {
-    '~key': string;
-    '~input': _Types.subscriptionsUpdateDataInput;
-    '~output': _Types.subscriptionsCollectionOutput;
-    '~parameters': {
-      filter?: _Types.subscriptionsFilterInput;
-      fields?: _Types.subscriptionsCollectionOutputFieldsInput;
-      include?: _Types.subscriptionsCollectionOutputIncludeInput;
-    };
-  }
-
-  '~updateMany': {
-    '~input': _Types.subscriptionsUpdateDataInput;
-    '~output': _Types.subscriptionsCollectionOutput;
-    '~parameters': {
-      filter?: _Types.subscriptionsFilterInput;
-      fields?: _Types.subscriptionsCollectionOutputFieldsInput;
-      include?: _Types.subscriptionsCollectionOutputIncludeInput;
-    };
-  }
-
-  '~deleteOne': {
-    '~key': string;
-    '~output': _Types.subscriptionsCollectionOutput;
-    '~parameters': {
-      filter?: _Types.subscriptionsFilterInput;
-      fields?: _Types.subscriptionsCollectionOutputFieldsInput;
-      include?: _Types.subscriptionsCollectionOutputIncludeInput;
-    };
-  }
-
-  '~deleteMany': {
-    '~output': _Types.subscriptionsCollectionOutput;
-    '~parameters': {
-      filter?: _Types.subscriptionsFilterInput;
-      fields?: _Types.subscriptionsCollectionOutputFieldsInput;
-      include?: _Types.subscriptionsCollectionOutputIncludeInput;
-    };
-  }
 }
 
 export type ticketsCollection = {
@@ -12457,55 +10645,6 @@ export type ticketsCollection = {
       meta?: _Types.MetaArguments;
       limit?: number;
       offset?: number;
-    };
-  }
-
-  '~create': {
-    '~input': _Types.ticketsCreateInput;
-    '~output': _Types.ticketsCollectionOutput;
-    '~parameters': {
-      fields?: _Types.ticketsCollectionOutputFieldsInput;
-      include?: _Types.ticketsCollectionOutputIncludeInput;
-    };
-  }
-
-  '~updateOne': {
-    '~key': string;
-    '~input': _Types.ticketsUpdateDataInput;
-    '~output': _Types.ticketsCollectionOutput;
-    '~parameters': {
-      filter?: _Types.ticketsFilterInput;
-      fields?: _Types.ticketsCollectionOutputFieldsInput;
-      include?: _Types.ticketsCollectionOutputIncludeInput;
-    };
-  }
-
-  '~updateMany': {
-    '~input': _Types.ticketsUpdateDataInput;
-    '~output': _Types.ticketsCollectionOutput;
-    '~parameters': {
-      filter?: _Types.ticketsFilterInput;
-      fields?: _Types.ticketsCollectionOutputFieldsInput;
-      include?: _Types.ticketsCollectionOutputIncludeInput;
-    };
-  }
-
-  '~deleteOne': {
-    '~key': string;
-    '~output': _Types.ticketsCollectionOutput;
-    '~parameters': {
-      filter?: _Types.ticketsFilterInput;
-      fields?: _Types.ticketsCollectionOutputFieldsInput;
-      include?: _Types.ticketsCollectionOutputIncludeInput;
-    };
-  }
-
-  '~deleteMany': {
-    '~output': _Types.ticketsCollectionOutput;
-    '~parameters': {
-      filter?: _Types.ticketsFilterInput;
-      fields?: _Types.ticketsCollectionOutputFieldsInput;
-      include?: _Types.ticketsCollectionOutputIncludeInput;
     };
   }
 }
@@ -12542,55 +10681,6 @@ export type usersCollection = {
       offset?: number;
     };
   }
-
-  '~create': {
-    '~input': _Types.usersCreateInput;
-    '~output': _Types.usersCollectionOutput;
-    '~parameters': {
-      fields?: _Types.usersCollectionOutputFieldsInput;
-      include?: _Types.usersCollectionOutputIncludeInput;
-    };
-  }
-
-  '~updateOne': {
-    '~key': string;
-    '~input': _Types.usersUpdateDataInput;
-    '~output': _Types.usersCollectionOutput;
-    '~parameters': {
-      filter?: _Types.usersFilterInput;
-      fields?: _Types.usersCollectionOutputFieldsInput;
-      include?: _Types.usersCollectionOutputIncludeInput;
-    };
-  }
-
-  '~updateMany': {
-    '~input': _Types.usersUpdateDataInput;
-    '~output': _Types.usersCollectionOutput;
-    '~parameters': {
-      filter?: _Types.usersFilterInput;
-      fields?: _Types.usersCollectionOutputFieldsInput;
-      include?: _Types.usersCollectionOutputIncludeInput;
-    };
-  }
-
-  '~deleteOne': {
-    '~key': string;
-    '~output': _Types.usersCollectionOutput;
-    '~parameters': {
-      filter?: _Types.usersFilterInput;
-      fields?: _Types.usersCollectionOutputFieldsInput;
-      include?: _Types.usersCollectionOutputIncludeInput;
-    };
-  }
-
-  '~deleteMany': {
-    '~output': _Types.usersCollectionOutput;
-    '~parameters': {
-      filter?: _Types.usersFilterInput;
-      fields?: _Types.usersCollectionOutputFieldsInput;
-      include?: _Types.usersCollectionOutputIncludeInput;
-    };
-  }
 }
 
 // =============================================================================
@@ -12600,55 +10690,21 @@ export type usersCollection = {
 // --- accounts: Per-Collection Type Aliases ---
 
 export type accountsKey = ReadOneKey<accountsCollection>;
-export type accountsUpdateOneInput = UpdateOneInput<accountsCollection>;
-export type accountsUpdateManyInput = UpdateManyInput<accountsCollection>;
-export type accountsCreateOneInput = CreateOneInput<accountsCollection>;
-export type accountsCreateManyInput = CreateManyInput<accountsCollection>;
 export type accountsReadOneFields = OperationFields<accountsCollection, 'readOne'>;
 export type accountsReadManyFields = OperationFields<accountsCollection, 'readMany'>;
 export type accountsReadFirstFields = OperationFields<accountsCollection, 'readMany'>;
-export type accountsCreateOneFields = OperationFields<accountsCollection, 'createOne'>;
-export type accountsCreateManyFields = OperationFields<accountsCollection, 'createMany'>;
-export type accountsUpdateOneFields = OperationFields<accountsCollection, 'updateOne'>;
-export type accountsUpdateManyFields = OperationFields<accountsCollection, 'updateMany'>;
-export type accountsDeleteOneFields = OperationFields<accountsCollection, 'deleteOne'>;
-export type accountsDeleteManyFields = OperationFields<accountsCollection, 'deleteMany'>;
 export type accountsReadOneArgs = ReadOneOptions<accountsCollection>;
 export type accountsReadManyArgs = ReadManyParameters<accountsCollection>;
 export type accountsReadFirstArgs = ReadManyParameters<accountsCollection>;
-export type accountsCreateOneArgs = CreateOneOptions<accountsCollection>;
-export type accountsCreateManyArgs = CreateManyOptions<accountsCollection>;
-export type accountsUpdateOneArgs = UpdateOneOptions<accountsCollection>;
-export type accountsUpdateManyArgs = UpdateManyOptions<accountsCollection>;
-export type accountsDeleteOneArgs = DeleteOneOptions<accountsCollection>;
-export type accountsDeleteManyArgs = DeleteManyParameters<accountsCollection>;
 export type accountsReadOneParameters = ReadOneParameters<accountsCollection>;
 export type accountsReadManyParameters = ReadManyParameters<accountsCollection>;
 export type accountsReadFirstParameters = ReadManyParameters<accountsCollection>;
-export type accountsCreateOneParameters = CreateOneParameters<accountsCollection>;
-export type accountsCreateManyParameters = CreateManyParameters<accountsCollection>;
-export type accountsUpdateOneParameters = UpdateOneParameters<accountsCollection>;
-export type accountsUpdateManyParameters = UpdateManyParameters<accountsCollection>;
-export type accountsDeleteOneParameters = DeleteOneParameters<accountsCollection>;
-export type accountsDeleteManyParameters = DeleteManyParameters<accountsCollection>;
 export type accountsReadOneResultItem<T extends accountsReadOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<accountsCollection, T, 'readOne', Opts>;
 export type accountsReadManyResultItem<T extends accountsReadManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<accountsCollection, T, 'readMany', Opts>;
 export type accountsReadFirstResultItem<T extends accountsReadFirstParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<accountsCollection, T, 'readMany', Opts>;
-export type accountsCreateOneResultItem<T extends accountsCreateOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<accountsCollection, T, 'createOne', Opts>;
-export type accountsCreateManyResultItem<T extends accountsCreateManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<accountsCollection, T, 'createMany', Opts>;
-export type accountsUpdateOneResultItem<T extends accountsUpdateOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<accountsCollection, T, 'updateOne', Opts>;
-export type accountsUpdateManyResultItem<T extends accountsUpdateManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<accountsCollection, T, 'updateMany', Opts>;
-export type accountsDeleteOneResultItem<T extends accountsDeleteOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<accountsCollection, T, 'deleteOne', Opts>;
-export type accountsDeleteManyResultItem<T extends accountsDeleteManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<accountsCollection, T, 'deleteMany', Opts>;
 export type accountsReadOneResult<T extends accountsReadOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<accountsCollection, T, 'readOne', Opts>;
 export type accountsReadManyResult<T extends accountsReadManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<accountsCollection, T, 'readMany', Opts>;
 export type accountsReadFirstResult<T extends accountsReadFirstParameters, Opts extends Partial<TypeOptions> = {}> = ReadFirstResult<accountsCollection, T, Opts>;
-export type accountsCreateOneResult<T extends accountsCreateOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<accountsCollection, T, 'createOne', Opts>;
-export type accountsCreateManyResult<T extends accountsCreateManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<accountsCollection, T, 'createMany', Opts>;
-export type accountsUpdateOneResult<T extends accountsUpdateOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<accountsCollection, T, 'updateOne', Opts>;
-export type accountsUpdateManyResult<T extends accountsUpdateManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<accountsCollection, T, 'updateMany', Opts>;
-export type accountsDeleteOneResult<T extends accountsDeleteOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<accountsCollection, T, 'deleteOne', Opts>;
-export type accountsDeleteManyResult<T extends accountsDeleteManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<accountsCollection, T, 'deleteMany', Opts>;
 
 // --- activities: Per-Collection Type Aliases ---
 
@@ -12918,55 +10974,21 @@ export type dealsDeleteManyResult<T extends dealsDeleteManyParameters, Opts exte
 // --- events: Per-Collection Type Aliases ---
 
 export type eventsKey = ReadOneKey<eventsCollection>;
-export type eventsUpdateOneInput = UpdateOneInput<eventsCollection>;
-export type eventsUpdateManyInput = UpdateManyInput<eventsCollection>;
-export type eventsCreateOneInput = CreateOneInput<eventsCollection>;
-export type eventsCreateManyInput = CreateManyInput<eventsCollection>;
 export type eventsReadOneFields = OperationFields<eventsCollection, 'readOne'>;
 export type eventsReadManyFields = OperationFields<eventsCollection, 'readMany'>;
 export type eventsReadFirstFields = OperationFields<eventsCollection, 'readMany'>;
-export type eventsCreateOneFields = OperationFields<eventsCollection, 'createOne'>;
-export type eventsCreateManyFields = OperationFields<eventsCollection, 'createMany'>;
-export type eventsUpdateOneFields = OperationFields<eventsCollection, 'updateOne'>;
-export type eventsUpdateManyFields = OperationFields<eventsCollection, 'updateMany'>;
-export type eventsDeleteOneFields = OperationFields<eventsCollection, 'deleteOne'>;
-export type eventsDeleteManyFields = OperationFields<eventsCollection, 'deleteMany'>;
 export type eventsReadOneArgs = ReadOneOptions<eventsCollection>;
 export type eventsReadManyArgs = ReadManyParameters<eventsCollection>;
 export type eventsReadFirstArgs = ReadManyParameters<eventsCollection>;
-export type eventsCreateOneArgs = CreateOneOptions<eventsCollection>;
-export type eventsCreateManyArgs = CreateManyOptions<eventsCollection>;
-export type eventsUpdateOneArgs = UpdateOneOptions<eventsCollection>;
-export type eventsUpdateManyArgs = UpdateManyOptions<eventsCollection>;
-export type eventsDeleteOneArgs = DeleteOneOptions<eventsCollection>;
-export type eventsDeleteManyArgs = DeleteManyParameters<eventsCollection>;
 export type eventsReadOneParameters = ReadOneParameters<eventsCollection>;
 export type eventsReadManyParameters = ReadManyParameters<eventsCollection>;
 export type eventsReadFirstParameters = ReadManyParameters<eventsCollection>;
-export type eventsCreateOneParameters = CreateOneParameters<eventsCollection>;
-export type eventsCreateManyParameters = CreateManyParameters<eventsCollection>;
-export type eventsUpdateOneParameters = UpdateOneParameters<eventsCollection>;
-export type eventsUpdateManyParameters = UpdateManyParameters<eventsCollection>;
-export type eventsDeleteOneParameters = DeleteOneParameters<eventsCollection>;
-export type eventsDeleteManyParameters = DeleteManyParameters<eventsCollection>;
 export type eventsReadOneResultItem<T extends eventsReadOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<eventsCollection, T, 'readOne', Opts>;
 export type eventsReadManyResultItem<T extends eventsReadManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<eventsCollection, T, 'readMany', Opts>;
 export type eventsReadFirstResultItem<T extends eventsReadFirstParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<eventsCollection, T, 'readMany', Opts>;
-export type eventsCreateOneResultItem<T extends eventsCreateOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<eventsCollection, T, 'createOne', Opts>;
-export type eventsCreateManyResultItem<T extends eventsCreateManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<eventsCollection, T, 'createMany', Opts>;
-export type eventsUpdateOneResultItem<T extends eventsUpdateOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<eventsCollection, T, 'updateOne', Opts>;
-export type eventsUpdateManyResultItem<T extends eventsUpdateManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<eventsCollection, T, 'updateMany', Opts>;
-export type eventsDeleteOneResultItem<T extends eventsDeleteOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<eventsCollection, T, 'deleteOne', Opts>;
-export type eventsDeleteManyResultItem<T extends eventsDeleteManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<eventsCollection, T, 'deleteMany', Opts>;
 export type eventsReadOneResult<T extends eventsReadOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<eventsCollection, T, 'readOne', Opts>;
 export type eventsReadManyResult<T extends eventsReadManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<eventsCollection, T, 'readMany', Opts>;
 export type eventsReadFirstResult<T extends eventsReadFirstParameters, Opts extends Partial<TypeOptions> = {}> = ReadFirstResult<eventsCollection, T, Opts>;
-export type eventsCreateOneResult<T extends eventsCreateOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<eventsCollection, T, 'createOne', Opts>;
-export type eventsCreateManyResult<T extends eventsCreateManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<eventsCollection, T, 'createMany', Opts>;
-export type eventsUpdateOneResult<T extends eventsUpdateOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<eventsCollection, T, 'updateOne', Opts>;
-export type eventsUpdateManyResult<T extends eventsUpdateManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<eventsCollection, T, 'updateMany', Opts>;
-export type eventsDeleteOneResult<T extends eventsDeleteOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<eventsCollection, T, 'deleteOne', Opts>;
-export type eventsDeleteManyResult<T extends eventsDeleteManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<eventsCollection, T, 'deleteMany', Opts>;
 
 // --- organizations: Per-Collection Type Aliases ---
 
@@ -13077,55 +11099,21 @@ export type pipelineStagesDeleteManyResult<T extends pipelineStagesDeleteManyPar
 // --- plans: Per-Collection Type Aliases ---
 
 export type plansKey = ReadOneKey<plansCollection>;
-export type plansUpdateOneInput = UpdateOneInput<plansCollection>;
-export type plansUpdateManyInput = UpdateManyInput<plansCollection>;
-export type plansCreateOneInput = CreateOneInput<plansCollection>;
-export type plansCreateManyInput = CreateManyInput<plansCollection>;
 export type plansReadOneFields = OperationFields<plansCollection, 'readOne'>;
 export type plansReadManyFields = OperationFields<plansCollection, 'readMany'>;
 export type plansReadFirstFields = OperationFields<plansCollection, 'readMany'>;
-export type plansCreateOneFields = OperationFields<plansCollection, 'createOne'>;
-export type plansCreateManyFields = OperationFields<plansCollection, 'createMany'>;
-export type plansUpdateOneFields = OperationFields<plansCollection, 'updateOne'>;
-export type plansUpdateManyFields = OperationFields<plansCollection, 'updateMany'>;
-export type plansDeleteOneFields = OperationFields<plansCollection, 'deleteOne'>;
-export type plansDeleteManyFields = OperationFields<plansCollection, 'deleteMany'>;
 export type plansReadOneArgs = ReadOneOptions<plansCollection>;
 export type plansReadManyArgs = ReadManyParameters<plansCollection>;
 export type plansReadFirstArgs = ReadManyParameters<plansCollection>;
-export type plansCreateOneArgs = CreateOneOptions<plansCollection>;
-export type plansCreateManyArgs = CreateManyOptions<plansCollection>;
-export type plansUpdateOneArgs = UpdateOneOptions<plansCollection>;
-export type plansUpdateManyArgs = UpdateManyOptions<plansCollection>;
-export type plansDeleteOneArgs = DeleteOneOptions<plansCollection>;
-export type plansDeleteManyArgs = DeleteManyParameters<plansCollection>;
 export type plansReadOneParameters = ReadOneParameters<plansCollection>;
 export type plansReadManyParameters = ReadManyParameters<plansCollection>;
 export type plansReadFirstParameters = ReadManyParameters<plansCollection>;
-export type plansCreateOneParameters = CreateOneParameters<plansCollection>;
-export type plansCreateManyParameters = CreateManyParameters<plansCollection>;
-export type plansUpdateOneParameters = UpdateOneParameters<plansCollection>;
-export type plansUpdateManyParameters = UpdateManyParameters<plansCollection>;
-export type plansDeleteOneParameters = DeleteOneParameters<plansCollection>;
-export type plansDeleteManyParameters = DeleteManyParameters<plansCollection>;
 export type plansReadOneResultItem<T extends plansReadOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<plansCollection, T, 'readOne', Opts>;
 export type plansReadManyResultItem<T extends plansReadManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<plansCollection, T, 'readMany', Opts>;
 export type plansReadFirstResultItem<T extends plansReadFirstParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<plansCollection, T, 'readMany', Opts>;
-export type plansCreateOneResultItem<T extends plansCreateOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<plansCollection, T, 'createOne', Opts>;
-export type plansCreateManyResultItem<T extends plansCreateManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<plansCollection, T, 'createMany', Opts>;
-export type plansUpdateOneResultItem<T extends plansUpdateOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<plansCollection, T, 'updateOne', Opts>;
-export type plansUpdateManyResultItem<T extends plansUpdateManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<plansCollection, T, 'updateMany', Opts>;
-export type plansDeleteOneResultItem<T extends plansDeleteOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<plansCollection, T, 'deleteOne', Opts>;
-export type plansDeleteManyResultItem<T extends plansDeleteManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<plansCollection, T, 'deleteMany', Opts>;
 export type plansReadOneResult<T extends plansReadOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<plansCollection, T, 'readOne', Opts>;
 export type plansReadManyResult<T extends plansReadManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<plansCollection, T, 'readMany', Opts>;
 export type plansReadFirstResult<T extends plansReadFirstParameters, Opts extends Partial<TypeOptions> = {}> = ReadFirstResult<plansCollection, T, Opts>;
-export type plansCreateOneResult<T extends plansCreateOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<plansCollection, T, 'createOne', Opts>;
-export type plansCreateManyResult<T extends plansCreateManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<plansCollection, T, 'createMany', Opts>;
-export type plansUpdateOneResult<T extends plansUpdateOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<plansCollection, T, 'updateOne', Opts>;
-export type plansUpdateManyResult<T extends plansUpdateManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<plansCollection, T, 'updateMany', Opts>;
-export type plansDeleteOneResult<T extends plansDeleteOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<plansCollection, T, 'deleteOne', Opts>;
-export type plansDeleteManyResult<T extends plansDeleteManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<plansCollection, T, 'deleteMany', Opts>;
 
 // --- stripeCharges: Per-Collection Type Aliases ---
 
@@ -13202,161 +11190,59 @@ export type stripeCustomersDeleteManyResult<T extends stripeCustomersDeleteManyP
 // --- subscriptions: Per-Collection Type Aliases ---
 
 export type subscriptionsKey = ReadOneKey<subscriptionsCollection>;
-export type subscriptionsUpdateOneInput = UpdateOneInput<subscriptionsCollection>;
-export type subscriptionsUpdateManyInput = UpdateManyInput<subscriptionsCollection>;
-export type subscriptionsCreateOneInput = CreateOneInput<subscriptionsCollection>;
-export type subscriptionsCreateManyInput = CreateManyInput<subscriptionsCollection>;
 export type subscriptionsReadOneFields = OperationFields<subscriptionsCollection, 'readOne'>;
 export type subscriptionsReadManyFields = OperationFields<subscriptionsCollection, 'readMany'>;
 export type subscriptionsReadFirstFields = OperationFields<subscriptionsCollection, 'readMany'>;
-export type subscriptionsCreateOneFields = OperationFields<subscriptionsCollection, 'createOne'>;
-export type subscriptionsCreateManyFields = OperationFields<subscriptionsCollection, 'createMany'>;
-export type subscriptionsUpdateOneFields = OperationFields<subscriptionsCollection, 'updateOne'>;
-export type subscriptionsUpdateManyFields = OperationFields<subscriptionsCollection, 'updateMany'>;
-export type subscriptionsDeleteOneFields = OperationFields<subscriptionsCollection, 'deleteOne'>;
-export type subscriptionsDeleteManyFields = OperationFields<subscriptionsCollection, 'deleteMany'>;
 export type subscriptionsReadOneArgs = ReadOneOptions<subscriptionsCollection>;
 export type subscriptionsReadManyArgs = ReadManyParameters<subscriptionsCollection>;
 export type subscriptionsReadFirstArgs = ReadManyParameters<subscriptionsCollection>;
-export type subscriptionsCreateOneArgs = CreateOneOptions<subscriptionsCollection>;
-export type subscriptionsCreateManyArgs = CreateManyOptions<subscriptionsCollection>;
-export type subscriptionsUpdateOneArgs = UpdateOneOptions<subscriptionsCollection>;
-export type subscriptionsUpdateManyArgs = UpdateManyOptions<subscriptionsCollection>;
-export type subscriptionsDeleteOneArgs = DeleteOneOptions<subscriptionsCollection>;
-export type subscriptionsDeleteManyArgs = DeleteManyParameters<subscriptionsCollection>;
 export type subscriptionsReadOneParameters = ReadOneParameters<subscriptionsCollection>;
 export type subscriptionsReadManyParameters = ReadManyParameters<subscriptionsCollection>;
 export type subscriptionsReadFirstParameters = ReadManyParameters<subscriptionsCollection>;
-export type subscriptionsCreateOneParameters = CreateOneParameters<subscriptionsCollection>;
-export type subscriptionsCreateManyParameters = CreateManyParameters<subscriptionsCollection>;
-export type subscriptionsUpdateOneParameters = UpdateOneParameters<subscriptionsCollection>;
-export type subscriptionsUpdateManyParameters = UpdateManyParameters<subscriptionsCollection>;
-export type subscriptionsDeleteOneParameters = DeleteOneParameters<subscriptionsCollection>;
-export type subscriptionsDeleteManyParameters = DeleteManyParameters<subscriptionsCollection>;
 export type subscriptionsReadOneResultItem<T extends subscriptionsReadOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<subscriptionsCollection, T, 'readOne', Opts>;
 export type subscriptionsReadManyResultItem<T extends subscriptionsReadManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<subscriptionsCollection, T, 'readMany', Opts>;
 export type subscriptionsReadFirstResultItem<T extends subscriptionsReadFirstParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<subscriptionsCollection, T, 'readMany', Opts>;
-export type subscriptionsCreateOneResultItem<T extends subscriptionsCreateOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<subscriptionsCollection, T, 'createOne', Opts>;
-export type subscriptionsCreateManyResultItem<T extends subscriptionsCreateManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<subscriptionsCollection, T, 'createMany', Opts>;
-export type subscriptionsUpdateOneResultItem<T extends subscriptionsUpdateOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<subscriptionsCollection, T, 'updateOne', Opts>;
-export type subscriptionsUpdateManyResultItem<T extends subscriptionsUpdateManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<subscriptionsCollection, T, 'updateMany', Opts>;
-export type subscriptionsDeleteOneResultItem<T extends subscriptionsDeleteOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<subscriptionsCollection, T, 'deleteOne', Opts>;
-export type subscriptionsDeleteManyResultItem<T extends subscriptionsDeleteManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<subscriptionsCollection, T, 'deleteMany', Opts>;
 export type subscriptionsReadOneResult<T extends subscriptionsReadOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<subscriptionsCollection, T, 'readOne', Opts>;
 export type subscriptionsReadManyResult<T extends subscriptionsReadManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<subscriptionsCollection, T, 'readMany', Opts>;
 export type subscriptionsReadFirstResult<T extends subscriptionsReadFirstParameters, Opts extends Partial<TypeOptions> = {}> = ReadFirstResult<subscriptionsCollection, T, Opts>;
-export type subscriptionsCreateOneResult<T extends subscriptionsCreateOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<subscriptionsCollection, T, 'createOne', Opts>;
-export type subscriptionsCreateManyResult<T extends subscriptionsCreateManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<subscriptionsCollection, T, 'createMany', Opts>;
-export type subscriptionsUpdateOneResult<T extends subscriptionsUpdateOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<subscriptionsCollection, T, 'updateOne', Opts>;
-export type subscriptionsUpdateManyResult<T extends subscriptionsUpdateManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<subscriptionsCollection, T, 'updateMany', Opts>;
-export type subscriptionsDeleteOneResult<T extends subscriptionsDeleteOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<subscriptionsCollection, T, 'deleteOne', Opts>;
-export type subscriptionsDeleteManyResult<T extends subscriptionsDeleteManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<subscriptionsCollection, T, 'deleteMany', Opts>;
 
 // --- tickets: Per-Collection Type Aliases ---
 
 export type ticketsKey = ReadOneKey<ticketsCollection>;
-export type ticketsUpdateOneInput = UpdateOneInput<ticketsCollection>;
-export type ticketsUpdateManyInput = UpdateManyInput<ticketsCollection>;
-export type ticketsCreateOneInput = CreateOneInput<ticketsCollection>;
-export type ticketsCreateManyInput = CreateManyInput<ticketsCollection>;
 export type ticketsReadOneFields = OperationFields<ticketsCollection, 'readOne'>;
 export type ticketsReadManyFields = OperationFields<ticketsCollection, 'readMany'>;
 export type ticketsReadFirstFields = OperationFields<ticketsCollection, 'readMany'>;
-export type ticketsCreateOneFields = OperationFields<ticketsCollection, 'createOne'>;
-export type ticketsCreateManyFields = OperationFields<ticketsCollection, 'createMany'>;
-export type ticketsUpdateOneFields = OperationFields<ticketsCollection, 'updateOne'>;
-export type ticketsUpdateManyFields = OperationFields<ticketsCollection, 'updateMany'>;
-export type ticketsDeleteOneFields = OperationFields<ticketsCollection, 'deleteOne'>;
-export type ticketsDeleteManyFields = OperationFields<ticketsCollection, 'deleteMany'>;
 export type ticketsReadOneArgs = ReadOneOptions<ticketsCollection>;
 export type ticketsReadManyArgs = ReadManyParameters<ticketsCollection>;
 export type ticketsReadFirstArgs = ReadManyParameters<ticketsCollection>;
-export type ticketsCreateOneArgs = CreateOneOptions<ticketsCollection>;
-export type ticketsCreateManyArgs = CreateManyOptions<ticketsCollection>;
-export type ticketsUpdateOneArgs = UpdateOneOptions<ticketsCollection>;
-export type ticketsUpdateManyArgs = UpdateManyOptions<ticketsCollection>;
-export type ticketsDeleteOneArgs = DeleteOneOptions<ticketsCollection>;
-export type ticketsDeleteManyArgs = DeleteManyParameters<ticketsCollection>;
 export type ticketsReadOneParameters = ReadOneParameters<ticketsCollection>;
 export type ticketsReadManyParameters = ReadManyParameters<ticketsCollection>;
 export type ticketsReadFirstParameters = ReadManyParameters<ticketsCollection>;
-export type ticketsCreateOneParameters = CreateOneParameters<ticketsCollection>;
-export type ticketsCreateManyParameters = CreateManyParameters<ticketsCollection>;
-export type ticketsUpdateOneParameters = UpdateOneParameters<ticketsCollection>;
-export type ticketsUpdateManyParameters = UpdateManyParameters<ticketsCollection>;
-export type ticketsDeleteOneParameters = DeleteOneParameters<ticketsCollection>;
-export type ticketsDeleteManyParameters = DeleteManyParameters<ticketsCollection>;
 export type ticketsReadOneResultItem<T extends ticketsReadOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<ticketsCollection, T, 'readOne', Opts>;
 export type ticketsReadManyResultItem<T extends ticketsReadManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<ticketsCollection, T, 'readMany', Opts>;
 export type ticketsReadFirstResultItem<T extends ticketsReadFirstParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<ticketsCollection, T, 'readMany', Opts>;
-export type ticketsCreateOneResultItem<T extends ticketsCreateOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<ticketsCollection, T, 'createOne', Opts>;
-export type ticketsCreateManyResultItem<T extends ticketsCreateManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<ticketsCollection, T, 'createMany', Opts>;
-export type ticketsUpdateOneResultItem<T extends ticketsUpdateOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<ticketsCollection, T, 'updateOne', Opts>;
-export type ticketsUpdateManyResultItem<T extends ticketsUpdateManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<ticketsCollection, T, 'updateMany', Opts>;
-export type ticketsDeleteOneResultItem<T extends ticketsDeleteOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<ticketsCollection, T, 'deleteOne', Opts>;
-export type ticketsDeleteManyResultItem<T extends ticketsDeleteManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<ticketsCollection, T, 'deleteMany', Opts>;
 export type ticketsReadOneResult<T extends ticketsReadOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<ticketsCollection, T, 'readOne', Opts>;
 export type ticketsReadManyResult<T extends ticketsReadManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<ticketsCollection, T, 'readMany', Opts>;
 export type ticketsReadFirstResult<T extends ticketsReadFirstParameters, Opts extends Partial<TypeOptions> = {}> = ReadFirstResult<ticketsCollection, T, Opts>;
-export type ticketsCreateOneResult<T extends ticketsCreateOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<ticketsCollection, T, 'createOne', Opts>;
-export type ticketsCreateManyResult<T extends ticketsCreateManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<ticketsCollection, T, 'createMany', Opts>;
-export type ticketsUpdateOneResult<T extends ticketsUpdateOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<ticketsCollection, T, 'updateOne', Opts>;
-export type ticketsUpdateManyResult<T extends ticketsUpdateManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<ticketsCollection, T, 'updateMany', Opts>;
-export type ticketsDeleteOneResult<T extends ticketsDeleteOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<ticketsCollection, T, 'deleteOne', Opts>;
-export type ticketsDeleteManyResult<T extends ticketsDeleteManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<ticketsCollection, T, 'deleteMany', Opts>;
 
 // --- users: Per-Collection Type Aliases ---
 
 export type usersKey = ReadOneKey<usersCollection>;
-export type usersUpdateOneInput = UpdateOneInput<usersCollection>;
-export type usersUpdateManyInput = UpdateManyInput<usersCollection>;
-export type usersCreateOneInput = CreateOneInput<usersCollection>;
-export type usersCreateManyInput = CreateManyInput<usersCollection>;
 export type usersReadOneFields = OperationFields<usersCollection, 'readOne'>;
 export type usersReadManyFields = OperationFields<usersCollection, 'readMany'>;
 export type usersReadFirstFields = OperationFields<usersCollection, 'readMany'>;
-export type usersCreateOneFields = OperationFields<usersCollection, 'createOne'>;
-export type usersCreateManyFields = OperationFields<usersCollection, 'createMany'>;
-export type usersUpdateOneFields = OperationFields<usersCollection, 'updateOne'>;
-export type usersUpdateManyFields = OperationFields<usersCollection, 'updateMany'>;
-export type usersDeleteOneFields = OperationFields<usersCollection, 'deleteOne'>;
-export type usersDeleteManyFields = OperationFields<usersCollection, 'deleteMany'>;
 export type usersReadOneArgs = ReadOneOptions<usersCollection>;
 export type usersReadManyArgs = ReadManyParameters<usersCollection>;
 export type usersReadFirstArgs = ReadManyParameters<usersCollection>;
-export type usersCreateOneArgs = CreateOneOptions<usersCollection>;
-export type usersCreateManyArgs = CreateManyOptions<usersCollection>;
-export type usersUpdateOneArgs = UpdateOneOptions<usersCollection>;
-export type usersUpdateManyArgs = UpdateManyOptions<usersCollection>;
-export type usersDeleteOneArgs = DeleteOneOptions<usersCollection>;
-export type usersDeleteManyArgs = DeleteManyParameters<usersCollection>;
 export type usersReadOneParameters = ReadOneParameters<usersCollection>;
 export type usersReadManyParameters = ReadManyParameters<usersCollection>;
 export type usersReadFirstParameters = ReadManyParameters<usersCollection>;
-export type usersCreateOneParameters = CreateOneParameters<usersCollection>;
-export type usersCreateManyParameters = CreateManyParameters<usersCollection>;
-export type usersUpdateOneParameters = UpdateOneParameters<usersCollection>;
-export type usersUpdateManyParameters = UpdateManyParameters<usersCollection>;
-export type usersDeleteOneParameters = DeleteOneParameters<usersCollection>;
-export type usersDeleteManyParameters = DeleteManyParameters<usersCollection>;
 export type usersReadOneResultItem<T extends usersReadOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<usersCollection, T, 'readOne', Opts>;
 export type usersReadManyResultItem<T extends usersReadManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<usersCollection, T, 'readMany', Opts>;
 export type usersReadFirstResultItem<T extends usersReadFirstParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<usersCollection, T, 'readMany', Opts>;
-export type usersCreateOneResultItem<T extends usersCreateOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<usersCollection, T, 'createOne', Opts>;
-export type usersCreateManyResultItem<T extends usersCreateManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<usersCollection, T, 'createMany', Opts>;
-export type usersUpdateOneResultItem<T extends usersUpdateOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<usersCollection, T, 'updateOne', Opts>;
-export type usersUpdateManyResultItem<T extends usersUpdateManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<usersCollection, T, 'updateMany', Opts>;
-export type usersDeleteOneResultItem<T extends usersDeleteOneParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<usersCollection, T, 'deleteOne', Opts>;
-export type usersDeleteManyResultItem<T extends usersDeleteManyParameters, Opts extends Partial<TypeOptions> = {}> = ResultItem<usersCollection, T, 'deleteMany', Opts>;
 export type usersReadOneResult<T extends usersReadOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<usersCollection, T, 'readOne', Opts>;
 export type usersReadManyResult<T extends usersReadManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<usersCollection, T, 'readMany', Opts>;
 export type usersReadFirstResult<T extends usersReadFirstParameters, Opts extends Partial<TypeOptions> = {}> = ReadFirstResult<usersCollection, T, Opts>;
-export type usersCreateOneResult<T extends usersCreateOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<usersCollection, T, 'createOne', Opts>;
-export type usersCreateManyResult<T extends usersCreateManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<usersCollection, T, 'createMany', Opts>;
-export type usersUpdateOneResult<T extends usersUpdateOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<usersCollection, T, 'updateOne', Opts>;
-export type usersUpdateManyResult<T extends usersUpdateManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<usersCollection, T, 'updateMany', Opts>;
-export type usersDeleteOneResult<T extends usersDeleteOneParameters, Opts extends Partial<TypeOptions> = {}> = Result<usersCollection, T, 'deleteOne', Opts>;
-export type usersDeleteManyResult<T extends usersDeleteManyParameters, Opts extends Partial<TypeOptions> = {}> = Result<usersCollection, T, 'deleteMany', Opts>;
 
 // =============================================================================
 // SCHEMA
