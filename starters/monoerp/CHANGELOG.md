@@ -1,5 +1,11 @@
 # monoerp
 
+## 0.2.0
+
+### Minor Changes
+
+- [#11](https://github.com/directus/monospace-starter/pull/11) [`bef93b5`](https://github.com/directus/monospace-starter/commit/bef93b538825e80831b66c0376f29bebe570b508) Thanks [@bryantgillespie](https://github.com/bryantgillespie)! - Portal and Stripe are schema locked in Monospace, so Studio can't change their database schema. Portal is also read-only. App stays open. Connectors set this with `access` in `connector.json`, and `pnpm setup:all` applies it to existing installs too.
+
 ## 0.1.1
 
 ### Patch Changes
