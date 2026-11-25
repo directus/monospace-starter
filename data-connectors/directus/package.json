@@ -1,0 +1,24 @@
+{
+	"name": "directus-data-connector",
+	"version": "0.1.0",
+	"private": true,
+	"description": "Monospace data connector for Directus",
+	"license": "MIT",
+	"type": "module",
+	"scripts": {
+		"build": "monospace extension build",
+		"typecheck": "tsc --noEmit"
+	},
+	"dependencies": {
+		"@monospace/extension-kit": "0.3.0"
+	},
+	"devDependencies": {
+		"@monospace/cli": "0.2.1",
+		"rolldown": "1.2.9",
+		"typescript": "6.0.3"
+	},
+	"engines": {
+		"node": ">=24.0.0"
+	},
+	"packageManager": "pnpm@11.20.0"
+}

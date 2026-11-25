@@ -71,6 +71,12 @@ npx @monospace/cli extension create ./acme-store --id acme/store --name "Acme St
 
 See the [CLI reference](https://docs.monospace.io/en/reference/cli#scaffold-a-data-connector) for building and loading an extension into your local instance.
 
+Ready-made connectors live in [`data-connectors/`](data-connectors):
+
+| Connector | Description |
+|---|---|
+| [`directus`](data-connectors/directus) | Reads and, optionally, writes a Directus project's collections |
+
 ## Support
 
 This repo doesn't take issues.

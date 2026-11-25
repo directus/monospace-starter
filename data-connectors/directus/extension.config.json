@@ -1,0 +1,27 @@
+{
+	"$schema": "./node_modules/@monospace/cli/schemas/extension.config.schema.json",
+	"entries": [
+		{
+			"engine": {
+				"capabilities": {
+					"query": [
+						"insertReturning",
+						"updateReturning",
+						"deleteReturning"
+					]
+				},
+				"entrypoint": "./src/data-connectors/directus/index.ts"
+			},
+			"icon": "thesvg-color:directus",
+			"id": "monospace/directus-data-connector",
+			"name": "Directus",
+			"type": "dataConnector",
+			"version": "0.1.0",
+			"description": "Reads and, optionally, writes the collections of a Directus project."
+		}
+	],
+	"icon": "thesvg-color:directus",
+	"id": "monospace/directus-bundle",
+	"name": "Directus",
+	"version": "0.1.0"
+}
